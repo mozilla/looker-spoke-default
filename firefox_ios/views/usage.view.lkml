@@ -3,6 +3,28 @@ include: "//looker-hub/firefox_ios/*.view.lkml"
 view: usage {
   extends: [baseline_clients_last_seen]
 
+  dimension: days_since_seen {
+    hidden: yes
+  }
+
+  dimension: days_since_seen_session_end {
+    hidden: yes
+  }
+
+  dimension: days_since_seen_session_start {
+    hidden: yes
+  }
+
+  dimension_group: first_run {
+    type: time
+    timeframes: [
+      date,
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.first_run_date ;;
+  }
+
   dimension: active_this_day {
     type: yesno
     sql: ${days_since_seen} < 1 ;;
