@@ -6,12 +6,12 @@
   - title: Weekly Active Users
     name: Weekly Active Users
     model: firefox_ios
-    explore: growth
+    explore: usage
     type: looker_line
-    fields: [growth.submission_date, growth.user_count_active_7_days]
-    fill_fields: [growth.submission_date]
+    fields: [usage.submission_date, usage.user_count_active_7_days]
+    fill_fields: [usage.submission_date]
     filters: {}
-    sorts: [growth.submission_date desc]
+    sorts: [usage.submission_date desc]
     limit: 500
     query_timezone: America/Los_Angeles
     x_axis_gridlines: false
@@ -40,10 +40,10 @@
     interpolation: linear
     defaults_version: 1
     listen:
-      Language: growth.locale
-      Country: growth.country
-      Channel: growth.normalized_channel
-      Time Period: growth.submission_date
+      Language: usage.locale
+      Country: usage.country
+      Channel: usage.normalized_channel
+      Time Period: usage.submission_date
     row: 0
     col: 8
     width: 8
@@ -51,12 +51,12 @@
   - title: Monthly Active Users
     name: Monthly Active Users
     model: firefox_ios
-    explore: growth
+    explore: usage
     type: looker_line
-    fields: [growth.submission_date, growth.user_count_active_28_days]
-    fill_fields: [growth.submission_date]
+    fields: [usage.submission_date, usage.user_count_active_28_days]
+    fill_fields: [usage.submission_date]
     filters: {}
-    sorts: [growth.submission_date desc]
+    sorts: [usage.submission_date desc]
     limit: 500
     query_timezone: America/Los_Angeles
     x_axis_gridlines: false
@@ -85,10 +85,10 @@
     interpolation: linear
     defaults_version: 1
     listen:
-      Language: growth.locale
-      Country: growth.country
-      Channel: growth.normalized_channel
-      Time Period: growth.submission_date
+      Language: usage.locale
+      Country: usage.country
+      Channel: usage.normalized_channel
+      Time Period: usage.submission_date
     row: 0
     col: 16
     width: 8
@@ -96,12 +96,12 @@
   - title: 1-Week New Profile Retention
     name: 1-Week New Profile Retention
     model: firefox_ios
-    explore: growth
+    explore: usage
     type: looker_line
-    fields: [growth.submission_date, growth.wow_retention]
+    fields: [usage.submission_date, usage.wow_retention]
     filters:
-      growth.days_since_created_profile: "[7, 13]"
-    sorts: [growth.submission_date desc]
+      usage.days_since_created_profile: "[7, 13]"
+    sorts: [usage.submission_date desc]
     limit: 500
     query_timezone: America/Los_Angeles
     x_axis_gridlines: false
@@ -130,10 +130,10 @@
     interpolation: linear
     defaults_version: 1
     listen:
-      Language: growth.locale
-      Country: growth.country
-      Channel: growth.normalized_channel
-      Time Period: growth.submission_date
+      Language: usage.locale
+      Country: usage.country
+      Channel: usage.normalized_channel
+      Time Period: usage.submission_date
     row: 6
     col: 8
     width: 8
@@ -141,11 +141,11 @@
   - title: 1-Week Retention
     name: 1-Week Retention
     model: firefox_ios
-    explore: growth
+    explore: usage
     type: looker_line
-    fields: [growth.submission_date, growth.wow_retention]
+    fields: [usage.submission_date, usage.wow_retention]
     filters: {}
-    sorts: [growth.submission_date desc]
+    sorts: [usage.submission_date desc]
     limit: 500
     query_timezone: America/Los_Angeles
     x_axis_gridlines: false
@@ -174,10 +174,10 @@
     interpolation: linear
     defaults_version: 1
     listen:
-      Language: growth.locale
-      Country: growth.country
-      Channel: growth.normalized_channel
-      Time Period: growth.submission_date
+      Language: usage.locale
+      Country: usage.country
+      Channel: usage.normalized_channel
+      Time Period: usage.submission_date
     row: 6
     col: 16
     width: 8
@@ -185,12 +185,12 @@
   - title: Daily Active Users
     name: Daily Active Users
     model: firefox_ios
-    explore: growth
+    explore: usage
     type: looker_line
-    fields: [growth.user_count_active_this_day, growth.submission_date]
-    fill_fields: [growth.submission_date]
+    fields: [usage.user_count_active_this_day, usage.submission_date]
+    fill_fields: [usage.submission_date]
     filters: {}
-    sorts: [growth.submission_date desc]
+    sorts: [usage.submission_date desc]
     limit: 500
     query_timezone: America/Los_Angeles
     x_axis_gridlines: false
@@ -219,10 +219,10 @@
     interpolation: linear
     defaults_version: 1
     listen:
-      Language: growth.locale
-      Country: growth.country
-      Channel: growth.normalized_channel
-      Time Period: growth.submission_date
+      Language: usage.locale
+      Country: usage.country
+      Channel: usage.normalized_channel
+      Time Period: usage.submission_date
     row: 0
     col: 0
     width: 8
@@ -230,12 +230,12 @@
   - title: Intensity
     name: Intensity
     model: firefox_ios
-    explore: growth
+    explore: usage
     type: looker_line
-    fields: [growth.submission_date, growth.average_intensity]
-    fill_fields: [growth.submission_date]
+    fields: [usage.submission_date, usage.average_intensity]
+    fill_fields: [usage.submission_date]
     filters: {}
-    sorts: [growth.submission_date desc]
+    sorts: [usage.submission_date desc]
     limit: 500
     query_timezone: America/Los_Angeles
     x_axis_gridlines: false
@@ -264,10 +264,10 @@
     interpolation: linear
     defaults_version: 1
     listen:
-      Language: growth.locale
-      Country: growth.country
-      Channel: growth.normalized_channel
-      Time Period: growth.submission_date
+      Language: usage.locale
+      Country: usage.country
+      Channel: usage.normalized_channel
+      Time Period: usage.submission_date
     row: 6
     col: 0
     width: 8
@@ -280,9 +280,9 @@
     allow_multiple_values: true
     required: false
     model: firefox_ios
-    explore: growth
+    explore: usage
     listens_to_filters: []
-    field: growth.locale
+    field: usage.locale
   - name: Country
     title: Country
     type: field_filter
@@ -290,9 +290,9 @@
     allow_multiple_values: true
     required: false
     model: firefox_ios
-    explore: growth
+    explore: usage
     listens_to_filters: []
-    field: growth.country
+    field: usage.country
   - name: Channel
     title: Channel
     type: field_filter
@@ -300,12 +300,12 @@
     allow_multiple_values: true
     required: false
     model: firefox_ios
-    explore: growth
+    explore: usage
     listens_to_filters: []
-    field: growth.normalized_channel
+    field: usage.normalized_channel
   - name: Time Period
     title: Time Period
     type: date_filter
-    default_value: 1 years
+    default_value: 52 weeks
     allow_multiple_values: true
     required: true

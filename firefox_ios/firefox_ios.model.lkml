@@ -3,6 +3,7 @@ label: "Firefox for iOS"
 
 include: "//looker-hub/firefox_ios/*.view.lkml"
 include: "views/*.view.lkml"
+include: "dashboards/*.dashboard"
 
 explore: usage {
   always_filter: {

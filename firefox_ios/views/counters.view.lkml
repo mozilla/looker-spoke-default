@@ -29,7 +29,8 @@ view: counters {
     FROM
         `moz-fx-data-shared-prod`.org_mozilla_ios_firefox.metrics m
         CROSS JOIN UNNEST(IF(STARTS_WITH("{% parameter metric %}", "labeled_counter"),
-                             metrics.{% parameter metric %}, STRUCT(NULL as key, metrics.{% parameter metric %} AS value)))
+                             metrics.{% parameter metric %},
+                             STRUCT(NULL as key, metrics.{% parameter metric %} AS value)))
     WHERE
         DATE(submission_timestamp) >= '2019-01-01'
     GROUP BY
