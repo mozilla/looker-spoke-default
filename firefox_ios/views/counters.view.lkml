@@ -42,7 +42,7 @@ view: counters {
   }
 
   parameter: metric {
-    default_value: ""
+    default_value: "counter.qr_code_scanned"
     type: unquoted
     suggest_explore: metrics_counters
     suggest_dimension: metrics_counters.metric_name
