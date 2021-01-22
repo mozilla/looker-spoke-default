@@ -55,11 +55,9 @@ view: counters {
     sql: ${TABLE}.submission_date ;;
   }
 
-  dimension: key {
+  dimension: label {
     type: string
     sql: ${TABLE}.key ;;
-    suggest_explore: labeled_counter_keys
-    suggest_dimension: labeled_counter_keys.key
   }
 
   dimension: client_aggregate {
