@@ -23,6 +23,7 @@ view: metrics_counters {
 
   dimension: metric_name {
     type: string
+    bypass_suggest_restrictions: yes
   }
 
 }
