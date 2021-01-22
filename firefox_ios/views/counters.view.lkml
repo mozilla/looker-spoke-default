@@ -5,7 +5,13 @@ view: counters {
         client_info.client_id,
         CAST(DATE(submission_timestamp) AS TIMESTAMP) AS submission_date,
         key,
-        SUM(value) AS client_aggregate,
+        SUM(
+          {% if metric._parameter_value contains "labeled_counter" %}
+            mozfun.map.get_key(metrics.{% parameter metric %}, key)
+          {% else %}
+            metrics.{% parameter metric %}
+          {% endif %}
+        ) AS client_aggregate,
         mozfun.stats.mode_last(ARRAY_AGG(normalized_app_name)) AS normalized_app_name,
         mozfun.stats.mode_last(ARRAY_AGG(normalized_channel)) AS normalized_channel,
         mozfun.stats.mode_last(ARRAY_AGG(normalized_country_code)) AS normalized_country_code,
@@ -29,16 +35,20 @@ view: counters {
     FROM
         `moz-fx-data-shared-prod`.org_mozilla_ios_firefox.metrics m
         CROSS JOIN UNNEST({% if metric._parameter_value contains "labeled_counter" %}
-                            metrics.{% parameter metric %}
+                            ARRAY(
+                               SELECT DISTINCT AS STRUCT key
+                               FROM `moz-fx-data-shared-prod`.org_mozilla_ios_firefox.metrics m
+                               CROSS JOIN UNNEST(metrics.{% parameter metric %})
+                               WHERE DATE(submission_timestamp) >= DATE_SUB(current_date, INTERVAL 3 DAY))
                           {% else %}
-                            [STRUCT(NULL as key, metrics.{% parameter metric %} AS value)]
+                            [STRUCT(NULL as key)]
                           {% endif %})
     WHERE
         DATE(submission_timestamp) >= '2019-01-01'
     GROUP BY
         client_id,
         key,
-        submission_date ;;
+        submission_date;;
   }
 
   parameter: metric {
@@ -47,6 +57,7 @@ view: counters {
     suggest_explore: metrics_counters
     suggest_dimension: metrics_counters.metric_name
   }
+
 
   dimension: submission_date {
     type: date
