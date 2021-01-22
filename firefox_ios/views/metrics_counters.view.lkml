@@ -27,4 +27,8 @@ view: metrics_counters {
     suggest_persist_for: "1 second"
   }
 
+  measure: count {
+    type: count
+  }
+
 }
