@@ -11,6 +11,7 @@ explore: usage {
       submission_date: "26 weeks",
     ]
   }
+  sql_always_where: submission_date >= "2020-01-01" ;;
 }
 explore: growth {
   always_filter: {
@@ -18,6 +19,7 @@ explore: growth {
       submission_date: "26 weeks",
     ]
   }
+  sql_always_where: submission_date >= "2020-01-01" ;;
 }
 
 # Counters
