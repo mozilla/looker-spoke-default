@@ -25,7 +25,7 @@ explore: growth {
 # Counters
 explore: metrics_sample {
   from: metrics
-  sql_always_where: DATE(submission_timestamp) = DATE_SUB(CURRENT_DATE, INTERVAL 2 DAYS)
+  sql_always_where: DATE(submission_timestamp) = DATE_SUB(CURRENT_DATE, INTERVAL 2 DAY)
     AND sample_id = 0;;
   hidden: yes
 }
