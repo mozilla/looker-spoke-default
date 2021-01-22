@@ -8,14 +8,14 @@ include: "dashboards/*.dashboard"
 explore: usage {
   always_filter: {
     filters: [
-      submission_date: "1 year",
+      submission_date: "26 weeks",
     ]
   }
 }
 explore: growth {
   always_filter: {
     filters: [
-      submission_date: "1 year",
+      submission_date: "26 weeks",
     ]
   }
 }
@@ -39,7 +39,7 @@ explore: metrics_counters {
 explore: counters {
   always_filter: {
     filters: [
-      submission_date: "1 year",
+      submission_date: "26 weeks",
       metric: "",
     ]
   }
