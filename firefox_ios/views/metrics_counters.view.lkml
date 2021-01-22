@@ -1,4 +1,4 @@
-include: "//looker-hub/firefox_ios/*.view.lkml"
+include: "//looker-hub/firefox_ios/*"
 include: "../firefox_ios.model"
 
 view: metrics_counters {
@@ -9,7 +9,6 @@ view: metrics_counters {
       }
 
       column: field_path {}
-
 
       filters: [
         column_field_paths.table_schema: "org_mozilla_ios_firefox",
@@ -24,15 +23,5 @@ view: metrics_counters {
   dimension: metric_name {
     type: string
     bypass_suggest_restrictions: yes
-    suggest_persist_for: "1 second"
   }
-
-  dimension: field_path {
-    type: string
-  }
-
-  measure: count {
-    type: count
-  }
-
 }

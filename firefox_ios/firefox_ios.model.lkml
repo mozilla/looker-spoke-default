@@ -35,7 +35,7 @@ explore: column_field_paths {
 }
 
 explore: metrics_counters {
-  hidden: no
+  hidden: yes
 }
 
 explore: counters {

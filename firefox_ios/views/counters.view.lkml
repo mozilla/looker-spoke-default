@@ -42,11 +42,10 @@ view: counters {
   }
 
   parameter: metric {
-    #default_value: "counter.qr_code_scanned"
+    default_value: ""
     type: unquoted
     suggest_explore: metrics_counters
     suggest_dimension: metrics_counters.metric_name
-    suggest_persist_for: "1 second"
   }
 
   dimension: submission_date {
