@@ -28,9 +28,13 @@ view: counters {
         mozfun.stats.mode_last(ARRAY_AGG(metadata.geo.subdivision2)) AS subdivision2,
     FROM
         `moz-fx-data-shared-prod`.org_mozilla_ios_firefox.metrics m
-        CROSS JOIN UNNEST(IF(STARTS_WITH("{% parameter metric %}", "labeled_counter"),
-                             metrics.{% parameter metric %},
-                             STRUCT(NULL as key, metrics.{% parameter metric %} AS value)))
+                -- {% if metric._parameter_name == "labeled_counter.search_counts" %} IS_PN {% endif %}
+                -- {% if metric._parameter_value == "labeled_counter.search_counts" %} IS_PV {% endif %}
+        CROSS JOIN UNNEST({% if metric._parameter_value contains "labeled_counter" %}
+                            metrics.{% parameter metric %}
+                          {% else %}
+                            [STRUCT(NULL as key, metrics.{% parameter metric %} AS value)]
+                          {% endif %})
     WHERE
         DATE(submission_timestamp) >= '2019-01-01'
     GROUP BY
@@ -54,6 +58,8 @@ view: counters {
   dimension: key {
     type: string
     sql: ${TABLE}.key ;;
+    suggest_explore: labeled_counter_keys
+    suggest_dimension: labeled_counter_keys.key
   }
 
   dimension: client_aggregate {

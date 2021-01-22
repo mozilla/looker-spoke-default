@@ -10,9 +10,6 @@ view: metrics_counters {
 
       column: field_path {}
 
-      derived_column: metric_type {
-        sql:  REGEXP_EXTRACT(field_path, 'metrics\.(.*counter).*');;
-      }
 
       filters: [
         column_field_paths.table_schema: "org_mozilla_ios_firefox",
@@ -27,8 +24,5 @@ view: metrics_counters {
   dimension: metric_name {
     type: string
   }
-
-  dimension: field_path {}
-  dimension: metric_type {}
 
 }
