@@ -24,6 +24,7 @@ view: metrics_counters {
   dimension: metric_name {
     type: string
     bypass_suggest_restrictions: yes
+    suggest_persist_for: "1 second"
   }
 
 }
