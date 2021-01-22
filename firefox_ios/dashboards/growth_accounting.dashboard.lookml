@@ -1,5 +1,5 @@
 - dashboard: growth
-  title: Fenix Release Growth Accounting
+  title: Firefox iOS Release Growth Accounting
   layout: newspaper
   preferred_viewer: dashboards-next
   elements:
@@ -56,7 +56,7 @@
     defaults_version: 1
     note_state: collapsed
     note_display: hover
-    note_text: 'Lifecycle Statistics for Fenix Users
+    note_text: 'Lifecycle Statistics for Firefox iOS Users
 
       '
     listen:
