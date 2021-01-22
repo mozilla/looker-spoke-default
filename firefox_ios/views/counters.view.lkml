@@ -28,8 +28,6 @@ view: counters {
         mozfun.stats.mode_last(ARRAY_AGG(metadata.geo.subdivision2)) AS subdivision2,
     FROM
         `moz-fx-data-shared-prod`.org_mozilla_ios_firefox.metrics m
-                -- {% if metric._parameter_name == "labeled_counter.search_counts" %} IS_PN {% endif %}
-                -- {% if metric._parameter_value == "labeled_counter.search_counts" %} IS_PV {% endif %}
         CROSS JOIN UNNEST({% if metric._parameter_value contains "labeled_counter" %}
                             metrics.{% parameter metric %}
                           {% else %}
