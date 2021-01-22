@@ -27,6 +27,10 @@ view: metrics_counters {
     suggest_persist_for: "1 second"
   }
 
+  dimension: field_path {
+    type: string
+  }
+
   measure: count {
     type: count
   }
