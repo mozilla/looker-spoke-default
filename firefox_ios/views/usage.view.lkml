@@ -77,17 +77,21 @@ view: usage {
     label: "WoW Retention"
     type: number
     sql: SAFE_DIVIDE(COUNTIF(${active_last_week_and_two_weeks_ago}), COUNTIF(${active_two_weeks_ago})) ;;
+    drill_fields: [country, wow_retention]
   }
 
   measure: dod_retention {
     label: "DoD Retention"
     type: number
     sql: SAFE_DIVIDE(COUNTIF(${active_today_and_yesterday}), COUNTIF(${active_yesterday})) ;;
+    drill_fields: [country, dod_retention]
   }
 
   measure: user_count_active_28_days {
     label: "Monthly Active Users"
     type: count
+
+    drill_fields: [country, user_count_active_28_days]
   }
 
   measure: user_count_active_this_day {
@@ -98,6 +102,8 @@ view: usage {
       field: active_this_day
       value: "yes"
     }
+
+    drill_fields: [country, user_count_active_this_day]
   }
 
   measure: user_count_active_7_days {
@@ -108,6 +114,8 @@ view: usage {
       field: active_last_7_days
       value: "yes"
     }
+
+    drill_fields: [country, user_count_active_7_days]
   }
 
   dimension: intensity {
@@ -119,5 +127,6 @@ view: usage {
     label: "Average Intensity"
     type: average
     sql: ${intensity} ;;
+    drill_fields: [country, average_intensity]
   }
 }
