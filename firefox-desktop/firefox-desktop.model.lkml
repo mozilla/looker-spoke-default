@@ -10,6 +10,49 @@ explore: client_counts {
     ]
   }
 }
+
+explore: event_names {
+  from: event_types_legacy
+  hidden: yes
+}
+
+explore: funnel_analysis {
+  from: events
+  join: event_1 {
+    view_label: "Funnel Event 1"
+    from: event_types_legacy
+    relationship: many_to_one
+    type: cross
+  }
+  join: event_2 {
+    view_label: "Funnel Event 2"
+    from: event_types_legacy
+    relationship: many_to_one
+    type: cross
+  }
+  join: event_3 {
+    view_label: "Funnel Event 3"
+    from: event_types_legacy
+    relationship: many_to_one
+    type: cross
+  }
+  join: event_4 {
+    view_label: "Funnel Event 4"
+    from: event_types_legacy
+    relationship: many_to_one
+    type: cross
+  }
+  always_filter: {
+    filters: [
+      submission_date: "1 year",
+      event_1.name: "",
+      event_2.name: "",
+      event_3.name: "",
+      event_4.name: ""
+    ]
+  }
+  sql_always_where: funnel_analysis.submission_date > "2010-01-01" ;;
+}
 # include: "/**/*.view.lkml"                 # include all views in this project
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
 

@@ -1,4 +1,4 @@
-include: "//looker-hub/firefox-desktop/*.view.lkml"
+include: "//looker-hub/firefox_desktop/views/*.view.lkml"
 
 view: client_counts {
   extends: [clients_last_seen]

@@ -1,5 +1,4 @@
 include: "//looker-hub/firefox_ios/*"
-include: "../firefox_ios.model"
 
 view: metrics_counters {
   derived_table: {
