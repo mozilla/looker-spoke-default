@@ -229,4 +229,9 @@ view: counters {
     sql: SAFE_DIVIDE(COUNTIF(${client_aggregate} > 0), COUNT(*)) ;;
     type: number
   }
+
+  measure: total_users_overall {
+    sql: COUNT(*) ;;
+    type: number
+  }
 }
