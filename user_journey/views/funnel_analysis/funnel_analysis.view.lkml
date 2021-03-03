@@ -11,7 +11,7 @@ view: funnel_analysis {
   dimension: completed_event_1 {
     type: yesno
     sql:  REGEXP_CONTAINS(${TABLE}.events, mozfun.event_analysis.create_funnel_regex([
-            ${event_1.match_string}],
+            ${event_type_1.match_string}],
             True)) ;;
   }
 
@@ -19,8 +19,8 @@ view: funnel_analysis {
     type: yesno
     sql:  REGEXP_CONTAINS(${TABLE}.events,
             mozfun.event_analysis.create_funnel_regex([
-              ${event_1.match_string},
-              ${event_2.match_string}],
+              ${event_type_1.match_string},
+              ${event_type_2.match_string}],
             True)) ;;
   }
 
@@ -28,9 +28,9 @@ view: funnel_analysis {
     type: yesno
     sql:  REGEXP_CONTAINS(${TABLE}.events,
             mozfun.event_analysis.create_funnel_regex([
-              ${event_1.match_string},
-              ${event_2.match_string},
-              ${event_3.match_string}],
+              ${event_type_1.match_string},
+              ${event_type_2.match_string},
+              ${event_type_3.match_string}],
             True)) ;;
   }
 
@@ -38,10 +38,10 @@ view: funnel_analysis {
     type: yesno
     sql:  REGEXP_CONTAINS(${TABLE}.events,
             mozfun.event_analysis.create_funnel_regex([
-              ${event_1.match_string},
-              ${event_2.match_string},
-              ${event_3.match_string},
-              ${event_4.match_string}],
+              ${event_type_1.match_string},
+              ${event_type_2.match_string},
+              ${event_type_3.match_string},
+              ${event_type_4.match_string}],
             True)) ;;
   }
 

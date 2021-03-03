@@ -6,6 +6,12 @@ view: days_of_use {
       FROM
         `moz-fx-data-shared-prod`.search.search_clients_last_seen AS clients_last_seen
       WHERE
+        -- We add a filter here based on the dates selected using the date filter
+        -- Technically we shouldn't need this, since the JOIN with `funnel_analysis` should predicate which partitions
+        -- we want to include.
+        -- However, because we're looking to join with the date that is:
+        --   MIN(56 days from funnel_analysis.submission_date, 2 days before current_date)
+        -- BQ doesn't know how to properly push that predicate, and includes all data greater than the submission_date.
         {% condition funnel_analysis.date %} CAST(DATE_SUB(clients_last_seen.submission_date, INTERVAL 56 DAY) AS TIMESTAMP) {% endcondition %}
         OR clients_last_seen.submission_date = DATE_SUB(current_date, INTERVAL 2 DAY);;
   }

@@ -16,19 +16,19 @@ explore: funnel_analysis {
               OR (${days_of_use.submission_date} = DATE_SUB(current_date, INTERVAL 2 DAY)
                   AND DATE_ADD(${funnel_analysis.submission_date}, INTERVAL 56 DAY) >  DATE_SUB(current_date, INTERVAL 2 DAY)));;
   }
-  join: event_1 {
+  join: event_type_1 {
     relationship: many_to_one
     type: cross
   }
-  join: event_2 {
+  join: event_type_2 {
     relationship: many_to_one
     type: cross
   }
-  join: event_3 {
+  join: event_type_3 {
     relationship: many_to_one
     type: cross
   }
-  join: event_4 {
+  join: event_type_4 {
     relationship: many_to_one
     type: cross
   }
@@ -36,18 +36,18 @@ explore: funnel_analysis {
     filters: [
       date: "14 days",
       # Caret tells Looker to use "Is Equal To" matching rather than "Matches (advanced)"
-      event_1.message_id: "ABOUT^_WELCOME",
-      event_1.event_type: "IMPRESSION",
+      event_type_1.message_id: "ABOUT^_WELCOME",
+      event_type_1.event_type: "IMPRESSION",
     ]
   }
 
   query: about_welcome_click {
     filters: [
       funnel_analysis.submission_date: "14 days",
-      event_1.event_type: "IMPRESSION",
-      event_1.message_id: "ABOUT^_WELCOME",
-      event_2.event_type: "CLICK^_BUTTON",
-      event_2.message_id: "ABOUT^_WELCOME",
+      event_type_1.event_type: "IMPRESSION",
+      event_type_1.message_id: "ABOUT^_WELCOME",
+      event_type_2.event_type: "CLICK^_BUTTON",
+      event_type_2.message_id: "ABOUT^_WELCOME",
     ]
     pivots: []
     dimensions: [funnel_analysis.submission_date]
@@ -58,10 +58,10 @@ explore: funnel_analysis {
   query: about_welcome_click_dou {
     filters: [
       funnel_analysis.submission_date: "14 days",
-      event_1.event_type: "IMPRESSION",
-      event_1.message_id: "ABOUT^_WELCOME",
-      event_2.event_type: "CLICK^_BUTTON",
-      event_2.message_id: "ABOUT^_WELCOME",
+      event_type_1.event_type: "IMPRESSION",
+      event_type_1.message_id: "ABOUT^_WELCOME",
+      event_type_2.event_type: "CLICK^_BUTTON",
+      event_type_2.message_id: "ABOUT^_WELCOME",
       funnel_analysis.completed_event_1: "yes",
       days_of_use.7_day_avg_days_of_use: ">0"
     ]
