@@ -164,3 +164,33 @@ explore: events_daily_sample {
     events_daily_sample.submission_date >= DATE_SUB(current_date, INTERVAL 7 DAY)
     AND events_daily_sample.sample_id = 42;;
 }
+
+explore: event_property_page {
+  from: raw_event_types
+  hidden: yes
+  sql_always_where: property_name = 'page';;
+}
+
+explore: event_property_source {
+  hidden: yes
+  from: raw_event_types
+  sql_always_where: property_name = 'source';;
+}
+
+explore: event_property_domState {
+  hidden: yes
+  from: raw_event_types
+  sql_always_where: property_name = 'domState';;
+}
+
+explore: event_property_reason {
+  hidden: yes
+  from: raw_event_types
+  sql_always_where: property_name = 'reason';;
+}
+
+explore: event_property_display {
+  hidden: yes
+  from: raw_event_types
+  sql_always_where: property_name = 'display';;
+}
