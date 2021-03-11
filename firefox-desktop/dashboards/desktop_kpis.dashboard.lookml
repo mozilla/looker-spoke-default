@@ -1,5 +1,5 @@
-- dashboard: desktop_kpi_dashboard__editable
-  title: Desktop KPI Dashboard - Editable
+- dashboard: desktop_kpi_dashboard__editable2
+  title: Desktop KPI Dashboard - Editable2
   layout: newspaper
   preferred_viewer: dashboards-next
   load_configuration: wait
@@ -8,13 +8,12 @@
   - title: Desktop DAU
     name: Desktop DAU
     model: firefox-desktop
-    explore: firefox_desktop_usage_2021
+    explore: desktop_kpis
     type: looker_line
-    fields: [firefox_desktop_usage_2021.dau, firefox_desktop_usage_2021.submission_date,
-      loines_desktop_dau_forecast_20210119.dau_forecast, loines_desktop_dau_forecast_20210119.dau_forecast_lower,
-      loines_desktop_dau_forecast_20210119.dau_forecast_upper]
-    fill_fields: [firefox_desktop_usage_2021.submission_date]
-    sorts: [firefox_desktop_usage_2021.submission_date desc]
+    fields: [desktop_kpis.dau, desktop_kpis.date, loines_desktop_dau_forecast_20210119.dau_forecast,
+      loines_desktop_dau_forecast_20210119.dau_forecast_lower, loines_desktop_dau_forecast_20210119.dau_forecast_upper]
+    fill_fields: [desktop_kpis.date]
+    sorts: [desktop_kpis.date desc]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -62,12 +61,12 @@
   - title: Cumulative Days of Use
     name: Cumulative Days of Use
     model: firefox-desktop
-    explore: firefox_desktop_usage_2021
+    explore: desktop_kpis
     type: looker_line
-    fields: [firefox_desktop_usage_2021.submission_date, firefox_desktop_usage_2021.cdou_computed,
-      loines_desktop_dau_forecast_20210119.yhat_cumulative, loines_desktop_dau_forecast_20210119.cumulative_forecast_plus5]
-    fill_fields: [firefox_desktop_usage_2021.submission_date]
-    sorts: [firefox_desktop_usage_2021.submission_date]
+    fields: [desktop_kpis.date, desktop_kpis.cdou, loines_desktop_dau_forecast_20210119.yhat_cumulative,
+      loines_desktop_dau_forecast_20210119.cumulative_forecast_plus5]
+    fill_fields: [desktop_kpis.date]
+    sorts: [desktop_kpis.date]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -95,7 +94,7 @@
     interpolation: linear
     hidden_series: []
     series_labels:
-      firefox_desktop_usage_2021.cdou_computed: Cumulative Days of Use
+      desktop_kpis.cdou: Cumulative Days of Use
       loines_desktop_dau_forecast_20210119.yhat_cumulative: Forecast
       loines_desktop_dau_forecast_20210119.cumulative_forecast_plus5: CDOU Target
         Pace
@@ -109,9 +108,9 @@
   - title: Cumulative Desktop Days of Use (CDOU) in 2021
     name: Cumulative Desktop Days of Use (CDOU) in 2021
     model: firefox-desktop
-    explore: firefox_desktop_usage_2021
+    explore: desktop_kpis
     type: single_value
-    fields: [firefox_desktop_usage_2021.dau, loines_desktop_dau_forecast_20210119.yhat_cumulative]
+    fields: [desktop_kpis.recent_cdou, loines_desktop_dau_forecast_20210119.recent_yhat_cumulative]
     limit: 500
     custom_color_enabled: true
     show_single_value_title: true
@@ -138,9 +137,9 @@
   - title: CDOU Difference From Forecast
     name: CDOU Difference From Forecast
     model: firefox-desktop
-    explore: firefox_desktop_usage_2021
+    explore: desktop_kpis
     type: single_value
-    fields: [firefox_desktop_usage_2021.delta_from_forecast, loines_desktop_dau_forecast_20210119.yhat_cumulative]
+    fields: [desktop_kpis.delta_from_forecast, loines_desktop_dau_forecast_20210119.recent_yhat_cumulative]
     limit: 500
     custom_color_enabled: true
     show_single_value_title: true
@@ -169,9 +168,9 @@
   - title: Current Delta From CDOU Target Pace
     name: Current Delta From CDOU Target Pace
     model: firefox-desktop
-    explore: firefox_desktop_usage_2021
+    explore: desktop_kpis
     type: single_value
-    fields: [firefox_desktop_usage_2021.delta_from_target, loines_desktop_dau_forecast_20210119.dau_forecast_plus5]
+    fields: [desktop_kpis.delta_from_target, loines_desktop_dau_forecast_20210119.recent_cumulative_forecast_plus5]
     limit: 500
     custom_color_enabled: true
     show_single_value_title: true
@@ -236,10 +235,11 @@
   - title: Number of Desktop New Profiles in 2021
     name: Number of Desktop New Profiles in 2021
     model: firefox-desktop
-    explore: firefox_desktop_usage_2021
+    explore: desktop_kpis
     type: single_value
-    fields: [firefox_desktop_usage_2021.new_profiles]
+    fields: [desktop_kpis.recent_new_profiles_cumulative, loines_desktop_new_profiles_forecast_20210119.recent_yhat_cumulative]
     limit: 500
+    filter_expression: "${desktop_kpis.date} >= date(2021,1,1)"
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -249,6 +249,7 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
+    comparison_label: New Profiles Expected Today From Forecast
     defaults_version: 1
     listen: {}
     row: 7
@@ -258,10 +259,9 @@
   - title: Difference in New Profiles From Forecast
     name: Difference in New Profiles From Forecast
     model: firefox-desktop
-    explore: firefox_desktop_usage_2021
+    explore: desktop_kpis
     type: single_value
-    fields: [firefox_desktop_usage_2021.delta_from_forecast_new_profiles, loines_desktop_new_profiles_forecast_20210119.yhat_cumulative]
-    sorts: [firefox_desktop_usage_2021.delta_from_forecast_new_profiles desc]
+    fields: [desktop_kpis.delta_from_forecast_new_profiles, loines_desktop_new_profiles_forecast_20210119.recent_yhat_cumulative]
     limit: 500
     custom_color_enabled: true
     show_single_value_title: true
@@ -317,9 +317,9 @@
   - title: Delta From New Profile Target Pace
     name: Delta From New Profile Target Pace
     model: firefox-desktop
-    explore: firefox_desktop_usage_2021
+    explore: desktop_kpis
     type: single_value
-    fields: [firefox_desktop_usage_2021.delta_from_target_new_profiles, loines_desktop_new_profiles_forecast_20210119.forecast_plus5]
+    fields: [desktop_kpis.delta_from_target_new_profiles, loines_desktop_new_profiles_forecast_20210119.recent_cumulative_forecast_plus5]
     limit: 500
     custom_color_enabled: true
     show_single_value_title: true
@@ -393,11 +393,11 @@
   - title: Cumulative Difference from CDOU Forecast
     name: Cumulative Difference from CDOU Forecast
     model: firefox-desktop
-    explore: firefox_desktop_usage_2021
+    explore: desktop_kpis
     type: looker_line
-    fields: [firefox_desktop_usage_2021.submission_date, firefox_desktop_usage_2021.delta_from_forecast_count_running]
-    fill_fields: [firefox_desktop_usage_2021.submission_date]
-    sorts: [firefox_desktop_usage_2021.submission_date]
+    fields: [desktop_kpis.date, desktop_kpis.delta_from_forecast_count]
+    fill_fields: [desktop_kpis.date]
+    sorts: [desktop_kpis.date]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -423,9 +423,9 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
-    y_axes: [{label: Difference From Forecast, orientation: left, series: [{axisId: firefox_desktop_usage_2021.delta_from_forecast_count_running,
-            id: firefox_desktop_usage_2021.delta_from_forecast_count_running, name: Delta
-              From Forecast Count Running}], showLabels: true, showValues: true, unpinAxis: false,
+    y_axes: [{label: Difference From Forecast, orientation: left, series: [{axisId: desktop_kpis.delta_from_forecast_count_running,
+            id: desktop_kpis.delta_from_forecast_count_running, name: Delta From Forecast
+              Count Running}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
         margin_value: mean, margin_bottom: deviation, label_position: right, color: "#000000",
@@ -439,12 +439,12 @@
   - title: Cumulative Desktop New Profiles
     name: Cumulative Desktop New Profiles
     model: firefox-desktop
-    explore: firefox_desktop_usage_2021
+    explore: desktop_kpis
     type: looker_line
-    fields: [firefox_desktop_usage_2021.submission_date, firefox_desktop_usage_2021.new_profiles_cumulative,
-      loines_desktop_new_profiles_forecast_20210119.yhat_cumulative, loines_desktop_new_profiles_forecast_20210119.cumulative_new_profiles_forecast_plus5]
-    fill_fields: [firefox_desktop_usage_2021.submission_date]
-    sorts: [firefox_desktop_usage_2021.submission_date]
+    fields: [desktop_kpis.date, desktop_kpis.new_profiles_cumulative, loines_desktop_new_profiles_forecast_20210119.yhat_cumulative,
+      loines_desktop_new_profiles_forecast_20210119.cumulative_new_profiles_forecast_plus5]
+    fill_fields: [desktop_kpis.date]
+    sorts: [desktop_kpis.date]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -474,23 +474,22 @@
       loines_desktop_new_profiles_forecast_20210119.yhat_cumulative: Forecast
       loines_desktop_new_profiles_forecast_20210119.cumulative_new_profiles_forecast_plus5: Target
         Pace
-      firefox_desktop_usage_2021.new_profiles_cumulative: Cumulative New Profiles
+      desktop_kpis.new_profiles_cumulative: Cumulative New Profiles
     defaults_version: 1
     listen: {}
     row: 34
-    col: 0
+    col: 12
     width: 12
     height: 9
   - title: Daily Desktop New Profiles
     name: Daily Desktop New Profiles
     model: firefox-desktop
-    explore: firefox_desktop_usage_2021
+    explore: desktop_kpis
     type: looker_line
-    fields: [firefox_desktop_usage_2021.new_profiles, firefox_desktop_usage_2021.submission_date,
-      loines_desktop_new_profiles_forecast_20210119.yhat, loines_desktop_new_profiles_forecast_20210119.yhat_lower,
-      loines_desktop_new_profiles_forecast_20210119.yhat_upper]
-    fill_fields: [firefox_desktop_usage_2021.submission_date]
-    sorts: [firefox_desktop_usage_2021.submission_date desc]
+    fields: [desktop_kpis.new_profiles, desktop_kpis.date, loines_desktop_new_profiles_forecast_20210119.yhat,
+      loines_desktop_new_profiles_forecast_20210119.yhat_lower, loines_desktop_new_profiles_forecast_20210119.yhat_upper]
+    fill_fields: [desktop_kpis.date]
+    sorts: [desktop_kpis.date desc]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -540,11 +539,10 @@
   - title: Cumulative Difference from New Profile Forecast
     name: Cumulative Difference from New Profile Forecast
     model: firefox-desktop
-    explore: firefox_desktop_usage_2021
+    explore: desktop_kpis
     type: looker_line
-    fields: [firefox_desktop_usage_2021.submission_date, firefox_desktop_usage_2021.delta_from_forecast_new_profiles_count_running]
-    fill_fields: [firefox_desktop_usage_2021.submission_date]
-    sorts: [firefox_desktop_usage_2021.submission_date]
+    fields: [desktop_kpis.date, desktop_kpis.delta_from_forecast_new_profiles_count]
+    fill_fields: [desktop_kpis.date]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -570,14 +568,13 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
-    y_axes: [{label: Difference From Forecast, orientation: left, series: [{axisId: firefox_desktop_usage_2021.delta_from_forecast_new_profiles_count_running,
-            id: firefox_desktop_usage_2021.delta_from_forecast_new_profiles_count_running,
-            name: Delta From Forecast New Profiles Count Running}], showLabels: true,
-        showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
-        type: linear}]
+    y_axes: [{label: Difference From Forecast, orientation: left, series: [{axisId: desktop_kpis.delta_from_forecast_new_profiles_count_running,
+            id: desktop_kpis.delta_from_forecast_new_profiles_count_running, name: Delta
+              From Forecast New Profiles Count Running}], showLabels: true, showValues: true,
+        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     defaults_version: 1
     listen: {}
     row: 34
-    col: 12
+    col: 0
     width: 12
     height: 9

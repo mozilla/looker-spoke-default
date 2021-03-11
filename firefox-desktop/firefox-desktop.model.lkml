@@ -55,23 +55,27 @@ explore: funnel_analysis {
   sql_always_where: funnel_analysis.submission_date > "2010-01-01" ;;
 }
 
-explore: mobile_usage_2021 {
-  group_label: "KPIs"
-  sql_always_where: submission_date >= '2021-01-01' ;;
+explore: firefox_desktop_usage_2021 {
+  label: "Firefox Desktop Usage"
+  group_label: "Firefox-desktop"
+  from: firefox_desktop_usage_2021
 }
 
-explore: firefox_desktop_usage_2021 {
+explore: desktop_kpis {
   group_label: "KPIs"
-  sql_always_where: ${submission_date} >= '2021-01-01' ;;
+  sql_always_where: ${date} >= '2021-01-01' ;;
+  label: "Desktop KPIs"
   join: loines_desktop_dau_forecast_20210119  {
+    view_label: "DAU Forecast"
     type: left_outer
-    relationship: many_to_one
-    sql_on: ${loines_desktop_dau_forecast_20210119.ds_date} = ${firefox_desktop_usage_2021.submission_date} ;;
+    relationship: one_to_one
+    sql_on: ${loines_desktop_dau_forecast_20210119.date} = ${desktop_kpis.date} ;;
   }
-  join:  loines_desktop_new_profiles_forecast_20210119 {
+    join:  loines_desktop_new_profiles_forecast_20210119 {
+    view_label: "New Profiles Forecast"
     type: left_outer
-    relationship: many_to_one
-    sql_on: ${loines_desktop_new_profiles_forecast_20210119.date_date} = ${firefox_desktop_usage_2021.submission_date} ;;
+    relationship: one_to_one
+    sql_on: ${loines_desktop_new_profiles_forecast_20210119.date} = ${desktop_kpis.date} ;;
   }
 }
 
