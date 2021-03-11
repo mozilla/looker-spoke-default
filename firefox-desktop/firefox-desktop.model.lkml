@@ -71,7 +71,7 @@ explore: desktop_kpis {
     relationship: one_to_one
     sql_on: ${loines_desktop_dau_forecast_20210119.date} = ${desktop_kpis.date} ;;
   }
-    join:  loines_desktop_new_profiles_forecast_20210119 {
+  join:  loines_desktop_new_profiles_forecast_20210119 {
     view_label: "New Profiles Forecast"
     type: left_outer
     relationship: one_to_one
