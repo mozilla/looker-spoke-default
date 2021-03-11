@@ -8,11 +8,24 @@ view: cohort {
     sql: {% condition date %} CAST(cohort_analysis.submission_date AS TIMESTAMP) {% endcondition %} ;;
   }
 
-  dimension: completed_message_id_event {
+  dimension: completed_event_1 {
     type: yesno
-    sql:  REGEXP_CONTAINS(${TABLE}.events, mozfun.event_analysis.create_funnel_regex([
-            ${message_ids.match_string}],
-            True)) ;;
+    sql:  REGEXP_CONTAINS(${TABLE}.events, ${cohort_event_type_1.match_string}) ;;
+  }
+
+  dimension: completed_event_2 {
+    type: yesno
+    sql:  REGEXP_CONTAINS(${TABLE}.events, ${cohort_event_type_2.match_string}) ;;
+  }
+
+  dimension: completed_event_3 {
+    type: yesno
+    sql:  REGEXP_CONTAINS(${TABLE}.events, ${cohort_event_type_3.match_string}) ;;
+  }
+
+  dimension: completed_event_4 {
+    type: yesno
+    sql:  REGEXP_CONTAINS(${TABLE}.events, ${cohort_event_type_4.match_string}) ;;
   }
 
   measure: total_user_days {
@@ -20,13 +33,5 @@ view: cohort {
     hidden: yes
   }
 
-  measure: count_user_days_completed_message_id_event {
-    label: "Count of User-Days"
-    type: count
 
-    filters: {
-      field: completed_message_id_event
-      value: "yes"
-    }
-  }
 }
