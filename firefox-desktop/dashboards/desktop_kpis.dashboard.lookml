@@ -53,7 +53,8 @@
         series_index: 1, show_label: true}]
     defaults_version: 1
     hidden_fields:
-    listen: {}
+    listen:
+      Date: desktop_kpis.date
     row: 23
     col: 0
     width: 24
@@ -100,7 +101,8 @@
         Pace
     defaults_version: 1
     hidden_fields: []
-    listen: {}
+    listen:
+      Date: desktop_kpis.date
     row: 14
     col: 12
     width: 12
@@ -431,7 +433,8 @@
         margin_value: mean, margin_bottom: deviation, label_position: right, color: "#000000",
         line_value: '0', label: At Forecast}]
     defaults_version: 1
-    listen: {}
+    listen:
+      Date: desktop_kpis.date
     row: 14
     col: 0
     width: 12
@@ -476,7 +479,8 @@
         Pace
       desktop_kpis.new_profiles_cumulative: Cumulative New Profiles
     defaults_version: 1
-    listen: {}
+    listen:
+      Date: desktop_kpis.date
     row: 34
     col: 12
     width: 12
@@ -531,7 +535,8 @@
       loines_desktop_new_profiles_forecast_20210119.yhat_lower: triangle
       loines_desktop_new_profiles_forecast_20210119.yhat_upper: triangle-down
     defaults_version: 1
-    listen: {}
+    listen:
+      Date: desktop_kpis.date
     row: 43
     col: 0
     width: 24
@@ -573,8 +578,24 @@
               From Forecast New Profiles Count Running}], showLabels: true, showValues: true,
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     defaults_version: 1
-    listen: {}
+    listen:
+      Date: desktop_kpis.date
     row: 34
     col: 0
     width: 12
     height: 9
+  filters:
+  - name: Date
+    title: Date
+    type: field_filter
+    default_value: after 2021/01/01
+    allow_multiple_values: true
+    required: true
+    ui_config:
+      type: advanced
+      display: popover
+      options: []
+    model: firefox-desktop
+    explore: desktop_kpis
+    listens_to_filters: []
+    field: desktop_kpis.date
