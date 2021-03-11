@@ -7,7 +7,15 @@ view: clients_last_seen {
         `moz-fx-data-shared-prod`.search.search_clients_last_seen AS clients_last_seen
       WHERE
         {% condition cohort_analysis.date %} CAST(DATE_SUB(clients_last_seen.submission_date, INTERVAL 56 DAY) AS TIMESTAMP) {% endcondition %}
-        OR clients_last_seen.submission_date = DATE_SUB(current_date, INTERVAL 2 DAY);;
+        OR clients_last_seen.submission_date = DATE_SUB(current_date, INTERVAL 2 DAY)
+        AND {% if days_since_message.days_since_message._is_selected %}
+          TRUE
+        {% else %}
+          ERROR("""
+            Must use the days_since_mesage.days_since_message dimension in this explore.
+            This explore CROSS JOINS with all possible days. Unless we GROUP BY each of those days,
+            we'll get incorrect results for the outputted measures.""")
+        {% endif %};;
   }
 
   dimension: submission_date {
@@ -51,21 +59,5 @@ view: clients_last_seen {
     type: number
     sql: BIT_COUNT(${days_seen_bits}) ;;
     hidden: yes
-  }
-
-  measure: total_days_of_use {
-    type: sum
-    sql: ${days_of_use} ;;
-    filters: [
-      cohort_analysis.completed_message_id_event: "yes"
-    ]
-  }
-
-  measure: average_days_of_use {
-    type: average
-    sql: ${days_of_use} ;;
-    filters: [
-      cohort_analysis.completed_message_id_event: "yes"
-    ]
   }
 }
