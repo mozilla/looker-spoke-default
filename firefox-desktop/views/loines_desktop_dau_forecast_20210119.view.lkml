@@ -1,6 +1,13 @@
 view: loines_desktop_dau_forecast_20210119 {
-  sql_table_name: `mozdata.analysis.loines_desktop_dau_forecast_2021-01-19`
-    ;;
+  derived_table: {
+    sql:
+      SELECT
+        *
+        , SUM(dau_forecast_plus5) OVER (PARTITION BY EXTRACT(YEAR FROM ds) ORDER BY ds) AS cumulative_forecast_plus5
+      FROM `mozdata.analysis.loines_desktop_dau_forecast_2021-01-19`
+      ORDER BY 1
+      ;;
+  }
 
   dimension: date {
     type: date
@@ -22,13 +29,13 @@ view: loines_desktop_dau_forecast_20210119 {
   measure: dau_forecast_plus5 {
     type: sum
     value_format: "#,##0"
-    sql: ${TABLE}.dau_forecast_plus5 ;;
+    sql: ${TABLE}. ;;
   }
 
   measure: cumulative_forecast_plus5 {
-    type: running_total
+    type: sum
     value_format: "#,##0"
-    sql: ${dau_forecast_plus5} ;;
+    sql: ${TABLE}.cumulative_forecast_plus5 ;;
   }
 
   measure: recent_cumulative_forecast_plus5 {
@@ -41,12 +48,6 @@ view: loines_desktop_dau_forecast_20210119 {
     type: sum
     value_format: "#,##0"
     sql: ${TABLE}.dau_forecast_upper ;;
-  }
-
-  measure: dau_new_profiles_actual {
-    type: sum
-    value_format: "#,##0"
-    sql: ${TABLE}.dau_new_profiles_actual ;;
   }
 
   measure: yhat_cumulative {

@@ -2,7 +2,7 @@ view: desktop_kpis {
   derived_table: {
     sql: WITH base AS (
           SELECT
-            submission_date as date
+            TIMESTAMP(submission_date) as date
             , SUM(cdou) as cdou
             , SUM(dau) as dau
             , SUM(new_profiles) as new_profiles

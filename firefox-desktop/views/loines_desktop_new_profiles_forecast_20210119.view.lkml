@@ -1,7 +1,13 @@
 view: loines_desktop_new_profiles_forecast_20210119 {
-  sql_table_name: `mozdata.analysis.loines_desktop_new_profiles_forecast_2021-01-19`
-    ;;
-
+  derived_table: {
+    sql:
+      SELECT
+        *
+        , SUM(forecast_plus5) OVER (PARTITION BY EXTRACT(YEAR FROM date) ORDER BY date) AS cumulative_new_profiles_forecast_plus5
+      FROM `mozdata.analysis.loines_desktop_new_profiles_forecast_2021-01-19`
+      ORDER BY 1
+      ;;
+  }
   dimension: date {
     type: date
     sql: ${TABLE}.date ;;
@@ -26,9 +32,9 @@ view: loines_desktop_new_profiles_forecast_20210119 {
   }
 
   measure: cumulative_new_profiles_forecast_plus5 {
-    type: running_total
+    type: sum
     value_format: "#,##0"
-    sql: ${forecast_plus5} ;;
+    sql: ${TABLE}.cumulative_new_profiles_forecast_plus5 ;;
   }
 
   measure: yhat {
