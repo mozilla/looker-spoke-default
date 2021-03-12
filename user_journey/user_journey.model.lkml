@@ -75,10 +75,26 @@ explore: funnel_analysis {
 }
 
 explore: cohort_analysis {
-  view_label: " User-Days"
+  view_label: " User Properties"
   from: cohort
-  join: message_ids {
-    relationship: many_to_one
+  join: cohort_event_type_1 {
+    view_label: "Cohort 1"
+    relationship: one_to_one
+    type: cross
+  }
+  join: cohort_event_type_2 {
+    view_label: "Cohort 2"
+    relationship: one_to_one
+    type: cross
+  }
+  join: cohort_event_type_3 {
+    view_label: "Cohort 3"
+    relationship: one_to_one
+    type: cross
+  }
+  join: cohort_event_type_4 {
+    view_label: "Cohort 4"
+    relationship: one_to_one
     type: cross
   }
   join: days_since_message {
@@ -86,7 +102,7 @@ explore: cohort_analysis {
     type: cross
   }
   join: clients_last_seen {
-    view_label: "Days of Use"
+    fields: []
     relationship: one_to_one
     type: left_outer
     sql_on: ${cohort_analysis.sample_id} = ${clients_last_seen.sample_id}
@@ -100,19 +116,28 @@ explore: cohort_analysis {
     filters: [
       date: "14 days",
       days_since_message.time_period: "7",
-      message_ids.message_event: "ABOUT^_WELCOME - IMPRESSION",
+      cohort_event_type_1.event_type: "IMPRESSION",
+      cohort_event_type_1.message_id: "ABOUT^_WELCOME",
     ]
   }
   query: about_welcome_cohorts {
-    pivots: [message_ids.message_event]
-    dimensions: [days_since_message.days_since_message, message_ids.message_event]
-    measures: [clients_last_seen.average_days_of_use]
+    dimensions: [days_since_message.days_since_message]
+    measures: [
+      cohort_event_type_1.average_days_of_use,
+      cohort_event_type_2.average_days_of_use,
+      cohort_event_type_3.average_days_of_use,
+    ]
     label: "About Welcome - Cohorts"
     description: "Average days of use for two weeks"
     filters: [
       date: "21 days",
       days_since_message.time_period: "14",
-      message_ids.message_event: "ABOUT^_WELCOME - IMPRESSION,ABOUT^_WELCOME - CLICK^_BUTTON,ABOUT^_WELCOME - SESSION^_END"
+      cohort_event_type_1.event_type: "IMPRESSION",
+      cohort_event_type_1.message_id: "ABOUT^_WELCOME",
+      cohort_event_type_2.event_type: "CLICK^_BUTTON",
+      cohort_event_type_2.message_id: "ABOUT^_WELCOME",
+      cohort_event_type_3.event_type: "SESSION^_END",
+      cohort_event_type_3.message_id: "ABOUT^_WELCOME",
     ]
     limit: 100
   }

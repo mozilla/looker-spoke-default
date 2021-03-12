@@ -139,5 +139,6 @@ view: event_type {
   dimension: match_string {
     hidden: yes
     sql: ${TABLE}.match_string ;;
+    primary_key: yes
   }
 }
