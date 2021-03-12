@@ -1,25 +1,13 @@
-# Mapping of forecast `product` column to mobile_usage_2021 `canonical_app_name`` (for join)
-# Focus Android == Firefox Focus for Android
-# Focus iOS == Firefox Focus for iOS
-# Firefox Android == Firefox for Android (Fenix)
-# Firefox Android == Firefox for Android (Fennec)
-# Firefox iOS == Firefox for iOS
-
 view: mobile_kpis {
   derived_table: {
     sql: SELECT
-            TIMESTAMP(submission_date) as date
-            , CASE WHEN canonical_app_name = "Firefox Focus for Android" THEN "Focus Android"
-                WHEN canonical_app_name = "Firefox Focus for iOS" THEN "Focus iOS"
-                WHEN canonical_app_name IN ("Firefox for Android (Fenix)", "Firefox for Android (Fennec)") THEN "Firefox Android"
-                WHEN canonical_app_name = "Firefox for iOS" THEN "Firefox iOS"
-                ELSE "UhOh" END AS product
-            , SUM(cdou) as cdou
-            , SUM(dau) as dau
+            TIMESTAMP(submission_date) as date,
+            CASE WHEN canonical_app_name IN ("Firefox for Android (Fenix)", "Firefox for Android (Fennec)") THEN for "Firefox for Android" ELSE canonical_app_name END AS canonical_app_name,
+            SUM(cdou) as cdou,
+            SUM(dau) as dau
         FROM `mozdata.telemetry.mobile_usage_2021`
         WHERE canonical_app_name IN ("Firefox Focus for Android", "Firefox Focus for iOS", "Firefox for Android (Fenix)", "Firefox for Android (Fennec)", "Firefox for iOS")
         GROUP BY 1, 2
-        ORDER BY 1, 2
       ;;
   }
 

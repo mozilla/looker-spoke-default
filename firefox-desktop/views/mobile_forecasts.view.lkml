@@ -1,35 +1,46 @@
-# note that to get the union to work I had to re-order the columns of the fx_ios forecast table, for some reason they are in a different order.
+# note that to get the union to work I had to re-order the columns of the fx_ios forecast tablefor some reason they are in a different order.
+# Mapping of forecast `product` column to mobile_usage_2021 `canonical_app_name`` (for join)
+# Focus Android == Firefox Focus for Android
+# Focus iOS == Firefox Focus for iOS
+# Firefox Android == Firefox for Android (Fenix)
+# Firefox Android == Firefox for Android (Fennec)
+# Firefox iOS == Firefox for iOS
+
 view: mobile_forecasts {
   derived_table: {
     sql: WITH base as (
           SELECT
-            * EXCEPT(change_description)
-            , .1 AS target_lift
+            * EXCEPT(change_description),
+            .1 AS target_lift
           FROM `mozdata.analysis.final_focus_android_2021_forecast`
           UNION ALL
           SELECT
-            *
-            , .029 AS target_lift
+            *,
+            .029 AS target_lift
           FROM  `mozdata.analysis.final_focus_ios_2021_forecast`
           UNION ALL
           SELECT
-            *
-            , .004 AS target_lift
+            *,
+            .004 AS target_lift
           FROM  `mozdata.analysis.final_fx_android_2021_forecast`
           UNION ALL
           SELECT
-            date
-            , yhat
-            , yhat_p0
-            , * EXCEPT(date, yhat, yhat_p0)
-            , .028 AS target_lift
+            date,
+            yhat,
+            yhat_p0,
+            * EXCEPT(dateyhatyhat_p0),
+            .028 AS target_lift
           FROM  `mozdata.analysis.final_fx_ios_2021_forecast`
         )
 
         SELECT
-          *
-          , SUM(yhat) OVER (PARTITION BY product, EXTRACT(year FROM DATE(date)) ORDER BY date) AS yhat_cumulative
-          , SUM(yhat) OVER (PARTITION BY product, EXTRACT(year FROM DATE(date)) ORDER BY date) * (1 + target_lift) AS target_pace
+          *,
+          CASE WHEN product = "Focus Android" THEN "Firefox Focus for Android"
+              WHEN product = "Focus iOS" THEN "Firefox Focus for iOS"
+              WHEN product = "Firefox Android" THEN "Firefox for Android"
+              WHEN product = "Firefox iOS" THEN "Firefox for iOS" END AS product,
+          SUM(yhat) OVER (PARTITION BY product EXTRACT(year FROM DATE(date)) ORDER BY date) AS yhat_cumulative,
+          SUM(yhat) OVER (PARTITION BY product EXTRACT(year FROM DATE(date)) ORDER BY date) * (1 + target_lift) AS target_pace
         FROM base
       ;;
   }
