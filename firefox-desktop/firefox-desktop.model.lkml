@@ -4,6 +4,7 @@ include: "views/*.view.lkml"                # include all views in the views/ fo
 include: "dashboards/*.dashboard"
 
 explore: client_counts {
+  group_label: "Firefox Desktop"
   always_filter: {
     filters: [
       sample_id: "42",
@@ -18,6 +19,7 @@ explore: event_names {
 }
 
 explore: funnel_analysis {
+  group_label: "Firefox Desktop"
   from: events
   join: event_1 {
     view_label: "Funnel Event 1"
@@ -57,8 +59,14 @@ explore: funnel_analysis {
 
 explore: firefox_desktop_usage_2021 {
   label: "Firefox Desktop Usage"
-  group_label: "Firefox-desktop"
+  group_label: "Firefox Desktop"
   from: firefox_desktop_usage_2021
+}
+
+explore: mobile_usage_2021 {
+  label: "Firefox Mobile Usage"
+  group_label: "Firefox Mobile"
+  from: mobile_usage_2021
 }
 
 explore: desktop_kpis {
@@ -76,6 +84,18 @@ explore: desktop_kpis {
     type: left_outer
     relationship: one_to_one
     sql_on: ${loines_desktop_new_profiles_forecast_20210119.date} = ${desktop_kpis.date} ;;
+  }
+}
+
+explore: mobile_kpis {
+  group_label: "KPIs"
+  sql_always_where: ${date} >= '2021-01-01' ;;
+  label: "Mobile KPIs"
+  join: mobile_forecasts {
+    view_label: "Mobile Forecasts"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${mobile_forecasts.date} = ${mobile_kpis.date} AND ${mobile_forecasts.product} = ${mobile_kpis.product} ;;
   }
 }
 
