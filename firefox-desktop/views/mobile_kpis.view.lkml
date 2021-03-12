@@ -2,7 +2,7 @@ view: mobile_kpis {
   derived_table: {
     sql: SELECT
             TIMESTAMP(submission_date) as date,
-            CASE WHEN canonical_app_name IN ("Firefox for Android (Fenix)", "Firefox for Android (Fennec)") THEN for "Firefox for Android" ELSE canonical_app_name END AS canonical_app_name,
+            CASE WHEN canonical_app_name IN ("Firefox for Android (Fenix)", "Firefox for Android (Fennec)") THEN "Firefox for Android" ELSE canonical_app_name END AS canonical_app_name,
             SUM(cdou) as cdou,
             SUM(dau) as dau
         FROM `mozdata.telemetry.mobile_usage_2021`
@@ -18,7 +18,7 @@ view: mobile_kpis {
 
   dimension: product {
     type: string
-    sql: ${TABLE}.product ;;
+    sql: ${TABLE}.canonical_app_name ;;
   }
 
   measure: cdou {
