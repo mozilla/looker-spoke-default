@@ -35,10 +35,10 @@ view: mobile_forecasts {
 
         SELECT
           *,
-          CASE WHEN product = "Focus Android" THEN "Firefox Focus for Android"
-              WHEN product = "Focus iOS" THEN "Firefox Focus for iOS"
-              WHEN product = "Firefox Android" THEN "Firefox for Android"
-              WHEN product = "Firefox iOS" THEN "Firefox for iOS" END AS product,
+          CASE WHEN product = "Focus Android" THEN "focus_android"
+              WHEN product = "Focus iOS" THEN "focus_ios"
+              WHEN product = "Firefox Android" THEN "fennec_fenix"
+              WHEN product = "Firefox iOS" THEN "focus_ios" END AS app_name,
           SUM(yhat) OVER (PARTITION BY product EXTRACT(year FROM DATE(date)) ORDER BY date) AS yhat_cumulative,
           SUM(yhat) OVER (PARTITION BY product EXTRACT(year FROM DATE(date)) ORDER BY date) * (1 + target_lift) AS target_pace
         FROM base
@@ -50,9 +50,10 @@ view: mobile_forecasts {
     sql: ${TABLE}.date ;;
   }
 
-  dimension: product {
+  dimension: app_name {
     type: string
-    sql: ${TABLE}.product ;;
+    hidden: yes
+    sql: ${TABLE}.app_name ;;
   }
 
   measure: yhat {

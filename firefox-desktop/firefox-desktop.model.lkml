@@ -95,7 +95,7 @@ explore: mobile_kpis {
     view_label: "Mobile Forecasts"
     type: left_outer
     relationship: one_to_one
-    sql_on: ${mobile_forecasts.date} = ${mobile_kpis.date} AND ${mobile_forecasts.product} = ${mobile_kpis.product} ;;
+    sql_on: ${mobile_forecasts.date} = ${mobile_kpis.date} AND ${mobile_forecasts.app_name} = ${mobile_kpis.app_name} ;;
   }
 }
 
