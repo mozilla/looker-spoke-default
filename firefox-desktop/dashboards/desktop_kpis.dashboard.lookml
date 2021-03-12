@@ -1,5 +1,5 @@
 - dashboard: desktop_kpi_dashboard__editable2
-  title: Desktop KPI Dashboard - Editable2
+  title: Desktop KPI Dashboard
   layout: newspaper
   preferred_viewer: dashboards-next
   load_configuration: wait
