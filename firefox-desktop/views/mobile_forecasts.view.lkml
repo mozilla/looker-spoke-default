@@ -3,19 +3,19 @@ view: mobile_forecasts {
   derived_table: {
     sql: WITH base as (
           SELECT
-            *
+            * EXCEPT(change_description)
             , .1 AS target_lift
-          FROM ${final_focus_android_2021_forecast.SQL_TABLE_NAME}
+          FROM `mozdata.analysis.final_focus_android_2021_forecast`
           UNION ALL
           SELECT
             *
             , .029 AS target_lift
-          FROM  ${final_focus_ios_2021_forecast.SQL_TABLE_NAME}
+          FROM  `mozdata.analysis.final_focus_ios_2021_forecast`
           UNION ALL
           SELECT
             *
             , .004 AS target_lift
-          FROM  ${final_fx_android_2021_forecast.SQL_TABLE_NAME}
+          FROM  `mozdata.analysis.final_fx_android_2021_forecast`
           UNION ALL
           SELECT
             date
@@ -23,7 +23,7 @@ view: mobile_forecasts {
             , yhat_p0
             , * EXCEPT(date, yhat, yhat_p0)
             , .028 AS target_lift
-          FROM  ${final_fx_ios_2021_forecast.SQL_TABLE_NAME}
+          FROM  `mozdata.analysis.final_fx_ios_2021_forecast`
         )
 
         SELECT
