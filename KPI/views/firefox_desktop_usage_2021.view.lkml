@@ -17,6 +17,7 @@ derived_table: {
         AND {% condition firefox_desktop_usage_2021.channel %} channel {% endcondition %}
         AND {% condition firefox_desktop_usage_2021.content %} content {% endcondition %}
         AND {% condition firefox_desktop_usage_2021.country %} country {% endcondition %}
+        AND {% condition firefox_desktop_usage_2021.country_name %} country_name {% endcondition %}
         AND {% condition firefox_desktop_usage_2021.distribution_id %} distribution_id {% endcondition %}
         AND {% condition firefox_desktop_usage_2021.id_bucket %} id_bucket {% endcondition %}
         AND {% condition firefox_desktop_usage_2021.medium %} medium {% endcondition %}
@@ -53,6 +54,12 @@ derived_table: {
   filter: country {
     suggest_explore: firefox_desktop_usage_fields
     suggest_dimension: firefox_desktop_usage_fields.country
+    type: string
+  }
+
+  filter: country_name {
+    suggest_explore: firefox_desktop_usage_fields
+    suggest_dimension: firefox_desktop_usage_fields.country_name
     type: string
   }
 

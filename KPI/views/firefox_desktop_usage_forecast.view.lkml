@@ -8,6 +8,7 @@ view: dau_model {
       {% condition firefox_desktop_usage_2021.channel %} channel {% endcondition %}
       {% condition firefox_desktop_usage_2021.content %} content {% endcondition %}
       {% condition firefox_desktop_usage_2021.country %} country {% endcondition %}
+      {% condition firefox_desktop_usage_2021.country_name %} country_name {% endcondition %}
       {% condition firefox_desktop_usage_2021.distribution_id %} distribution_id {% endcondition %}
       {% condition firefox_desktop_usage_2021.id_bucket %} id_bucket {% endcondition %}
       {% condition firefox_desktop_usage_2021.medium %} medium {% endcondition %}
@@ -54,6 +55,7 @@ view: new_profiles_model {
       {% condition firefox_desktop_usage_2021.channel %} channel {% endcondition %}
       {% condition firefox_desktop_usage_2021.content %} content {% endcondition %}
       {% condition firefox_desktop_usage_2021.country %} country {% endcondition %}
+      {% condition firefox_desktop_usage_2021.country_name %} country_name {% endcondition %}
       {% condition firefox_desktop_usage_2021.distribution_id %} distribution_id {% endcondition %}
       {% condition firefox_desktop_usage_2021.id_bucket %} id_bucket {% endcondition %}
       {% condition firefox_desktop_usage_2021.medium %} medium {% endcondition %}
@@ -97,6 +99,7 @@ view: insert_stmnt {
       {% condition firefox_desktop_usage_2021.channel %} channel {% endcondition %}
       {% condition firefox_desktop_usage_2021.content %} content {% endcondition %}
       {% condition firefox_desktop_usage_2021.country %} country {% endcondition %}
+      {% condition firefox_desktop_usage_2021.country_name %} country_name {% endcondition %}
       {% condition firefox_desktop_usage_2021.distribution_id %} distribution_id {% endcondition %}
       {% condition firefox_desktop_usage_2021.id_bucket %} id_bucket {% endcondition %}
       {% condition firefox_desktop_usage_2021.medium %} medium {% endcondition %}
@@ -193,6 +196,7 @@ view: prediction {
       {% condition firefox_desktop_usage_2021.channel %} channel {% endcondition %}
       {% condition firefox_desktop_usage_2021.content %} content {% endcondition %}
       {% condition firefox_desktop_usage_2021.country %} country {% endcondition %}
+      {% condition firefox_desktop_usage_2021.country_name %} country_name {% endcondition %}
       {% condition firefox_desktop_usage_2021.distribution_id %} distribution_id {% endcondition %}
       {% condition firefox_desktop_usage_2021.id_bucket %} id_bucket {% endcondition %}
       {% condition firefox_desktop_usage_2021.medium %} medium {% endcondition %}
