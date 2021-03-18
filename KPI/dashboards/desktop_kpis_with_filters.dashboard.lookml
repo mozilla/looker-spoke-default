@@ -1,12 +1,11 @@
-- dashboard: desktop_kpi_dashboard_with_filters__editable
-  title: Desktop KPI Dashboard with Filters - editable
+- dashboard: desktop_kpi_dashboard_with_filters
+  title: Desktop KPI Dashboard with Filters
   layout: newspaper
   preferred_viewer: dashboards-next
-  load_configuration: wait
-  refresh: 2147484 seconds
+  refresh: 1 day
   elements:
-  - title: Desktop DAU
-    name: Desktop DAU
+  - title: Desktop Daily Active Users (DAU)
+    name: Desktop Daily Active Users (DAU)
     model: kpi
     explore: firefox_desktop_usage_2021
     type: looker_line
@@ -53,6 +52,14 @@
         series_index: 1, show_label: true}]
     defaults_version: 1
     hidden_fields:
+    note_state: collapsed
+    note_display: hover
+    note_text: 'An Fx profile counts to DAU on days that we receive a main ping from
+      them. The upper and lower bounds of the forecast (triangles) show the 10th and
+      90th percentiles of forecasted DAU values for that day. Note that we should
+      expect some days to fall outside of this range due to chance - generally we
+      should be looking for multiple *consecutive* days outside of the range when
+      determining if the actuals are truly starting to differ from the forecast. '
     listen:
       Date: firefox_desktop_usage_2021.date
       Channel: firefox_desktop_usage_2021.channel
@@ -60,12 +67,12 @@
       Country: firefox_desktop_usage_2021.country
       OS: firefox_desktop_usage_2021.os
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
-    row: 23
+    row: 25
     col: 0
     width: 24
     height: 9
-  - title: Cumulative Days of Use
-    name: Cumulative Days of Use
+  - title: Cumulative Days of Use (CDOU)
+    name: Cumulative Days of Use (CDOU)
     model: kpi
     explore: firefox_desktop_usage_2021
     type: looker_line
@@ -105,6 +112,10 @@
       prediction.cdou_target: CDOU Target Pace
     defaults_version: 1
     hidden_fields: []
+    note_state: collapsed
+    note_display: hover
+    note_text: This shows the growth in CDOU since Jan 1, in comparison to forecast
+      and the +5% Target Pace.
     listen:
       Date: firefox_desktop_usage_2021.date
       Channel: firefox_desktop_usage_2021.channel
@@ -112,7 +123,7 @@
       Country: firefox_desktop_usage_2021.country
       OS: firefox_desktop_usage_2021.os
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
-    row: 14
+    row: 16
     col: 12
     width: 12
     height: 9
@@ -140,6 +151,11 @@
         strikethrough: false, fields: !!null ''}]
     series_types: {}
     defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: CDOU is the sum of DAU (Daily Active Users) for the year to-date. The
+      target for CDOU is +5% over forecast. An Fx profile counts to DAU on days that
+      we receive a main ping from them.
     listen:
       Date: firefox_desktop_usage_2021.date
       Channel: firefox_desktop_usage_2021.channel
@@ -147,7 +163,7 @@
       Country: firefox_desktop_usage_2021.country
       OS: firefox_desktop_usage_2021.os
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
-    row: 2
+    row: 4
     col: 0
     width: 5
     height: 5
@@ -177,6 +193,10 @@
           palette_id: 85de97da-2ded-4dec-9dbd-e6a7d36d5825}, bold: false, italic: false,
         strikethrough: false, fields: !!null ''}]
     defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: 'Forecasts are derived using the prophet method. Official forecasts
+      are fixed as of Jan 19th and are NOT updated. '
     listen:
       Date: firefox_desktop_usage_2021.date
       Channel: firefox_desktop_usage_2021.channel
@@ -184,7 +204,7 @@
       Country: firefox_desktop_usage_2021.country
       OS: firefox_desktop_usage_2021.os
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
-    row: 2
+    row: 4
     col: 5
     width: 5
     height: 5
@@ -241,6 +261,9 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
+    note_state: collapsed
+    note_display: hover
+    note_text: 'The target pace is set by adding 5% to the forecast. '
     listen:
       Date: firefox_desktop_usage_2021.date
       Channel: firefox_desktop_usage_2021.channel
@@ -248,7 +271,7 @@
       Country: firefox_desktop_usage_2021.country
       OS: firefox_desktop_usage_2021.os
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
-    row: 2
+    row: 4
     col: 10
     width: 5
     height: 5
@@ -256,13 +279,17 @@
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: "# Top Line Numbers"
+    body_text: "# Top Line Numbers\nHover on the info icons for more…. info on each\
+      \ chart.\n\nAbout the filters:\n\nSee [this documentation](https://docs.telemetry.mozilla.org/concepts/segments.html#activity-segments-informal)\
+      \ for information about how the activity segments are defined.\n\n\"Attributed\"\
+      \ profiles are those tagged as having originated via a download from mozilla.org.\
+      \ (Previously known as the \"light funnel\"). "
     row: 0
     col: 0
     width: 24
-    height: 2
-  - title: Number of Desktop New Profiles in 2021
-    name: Number of Desktop New Profiles in 2021
+    height: 4
+  - title: Cumulative Desktop New Profiles in 2021
+    name: Cumulative Desktop New Profiles in 2021
     model: kpi
     explore: firefox_desktop_usage_2021
     type: single_value
@@ -280,6 +307,11 @@
     conditional_formatting_include_nulls: false
     comparison_label: New Profiles Expected Today From Forecast
     defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: 'For the KPI we count a profile as new on the date we receive their
+      first main ping. Note not all new clients send us a main ping - some churn before
+      this point. They are not counted. '
     listen:
       Date: firefox_desktop_usage_2021.date
       Channel: firefox_desktop_usage_2021.channel
@@ -287,12 +319,12 @@
       Country: firefox_desktop_usage_2021.country
       OS: firefox_desktop_usage_2021.os
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
-    row: 7
+    row: 9
     col: 0
     width: 5
     height: 5
-  - title: Difference in New Profiles From Forecast
-    name: Difference in New Profiles From Forecast
+  - title: Cumulative Desktop New Profiles in 2021
+    name: Cumulative Desktop New Profiles in 2021 (2)
     model: kpi
     explore: firefox_desktop_usage_2021
     type: single_value
@@ -344,6 +376,10 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
+    note_state: collapsed
+    note_display: hover
+    note_text: 'Forecasts are derived using the prophet method. Official forecasts
+      are fixed as of Jan 19th and are NOT updated. '
     listen:
       Date: firefox_desktop_usage_2021.date
       Channel: firefox_desktop_usage_2021.channel
@@ -351,7 +387,7 @@
       Country: firefox_desktop_usage_2021.country
       OS: firefox_desktop_usage_2021.os
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
-    row: 7
+    row: 9
     col: 5
     width: 5
     height: 5
@@ -371,7 +407,7 @@
     enable_conditional_formatting: true
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    comparison_label: Expected New Profiles Today if We Were on Track
+    comparison_label: Expected New Profiles to Date if We Were on Track
     conditional_formatting: [{type: less than, value: 0, background_color: "#B32F37",
         font_color: !!null '', color_application: {collection_id: b43731d5-dc87-4a8e-b807-635bef3948e7,
           palette_id: 85de97da-2ded-4dec-9dbd-e6a7d36d5825}, bold: false, italic: false,
@@ -415,7 +451,7 @@
       Country: firefox_desktop_usage_2021.country
       OS: firefox_desktop_usage_2021.os
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
-    row: 7
+    row: 9
     col: 10
     width: 5
     height: 5
@@ -424,7 +460,7 @@
     title_text: ''
     subtitle_text: ''
     body_text: "# Desktop Days of Use and DAU"
-    row: 12
+    row: 14
     col: 0
     width: 24
     height: 2
@@ -433,16 +469,17 @@
     title_text: ''
     subtitle_text: ''
     body_text: "# Desktop New Profiles"
-    row: 32
+    row: 34
     col: 0
     width: 24
     height: 2
-  - title: Cumulative Difference from CDOU Forecast
-    name: Cumulative Difference from CDOU Forecast
+  - title: Difference from CDOU Forecast
+    name: Difference from CDOU Forecast
     model: kpi
     explore: firefox_desktop_usage_2021
     type: looker_line
-    fields: [firefox_desktop_usage_2021.date, firefox_desktop_usage_2021.delta_from_forecast_count]
+    fields: [firefox_desktop_usage_2021.date, firefox_desktop_usage_2021.delta_from_forecast_count,
+      firefox_desktop_usage_2021.delta_from_target_count]
     fill_fields: [firefox_desktop_usage_2021.date]
     sorts: [firefox_desktop_usage_2021.date]
     limit: 500
@@ -470,14 +507,24 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
-    y_axes: [{label: Difference From Forecast, orientation: left, series: [{axisId: firefox_desktop_usage_2021.delta_from_forecast_count_running,
-            id: firefox_desktop_usage_2021.delta_from_forecast_count_running, name: Delta
-              From Forecast Count Running}], showLabels: true, showValues: true, unpinAxis: false,
+    y_axes: [{label: Difference From Forecast, orientation: left, series: [{axisId: firefox_desktop_usage_2021.delta_from_forecast_count,
+            id: firefox_desktop_usage_2021.delta_from_forecast_count, name: Delta
+              From Forecast Count}], showLabels: true, showValues: true, unpinAxis: false,
+        tickDensity: default, tickDensityCustom: 5, type: linear}, {label: !!null '',
+        orientation: right, series: [{axisId: firefox_desktop_usage_2021.delta_from_target_count,
+            id: firefox_desktop_usage_2021.delta_from_target_count, name: Delta From
+              Target Count}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
-        margin_value: mean, margin_bottom: deviation, label_position: right, color: "#000000",
+        margin_value: mean, margin_bottom: deviation, label_position: right, color: "#1A73E8",
         line_value: '0', label: At Forecast}]
     defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: This shows the difference between CDOU and (1) the forecast (Dark Blue)
+      and (2) the Target (Light Blue). Positive numbers indicate that we are above
+      forecast/target, negative numbers indicate we are below. Positive numbers indicate
+      that we are above forecast/target, negative numbers indicate we are below.
     listen:
       Date: firefox_desktop_usage_2021.date
       Channel: firefox_desktop_usage_2021.channel
@@ -485,7 +532,7 @@
       Country: firefox_desktop_usage_2021.country
       OS: firefox_desktop_usage_2021.os
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
-    row: 14
+    row: 16
     col: 0
     width: 12
     height: 9
@@ -528,6 +575,10 @@
       prediction.cum_new_profiles_target: Target Pace
       firefox_desktop_usage_2021.new_profiles_cumulative: Cumulative New Profiles
     defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: This shows the growth in cumulative new profiles since Jan 1, in comparison
+      to forecast and the +5% Target Pace.
     listen:
       Date: firefox_desktop_usage_2021.date
       Channel: firefox_desktop_usage_2021.channel
@@ -535,7 +586,7 @@
       Country: firefox_desktop_usage_2021.country
       OS: firefox_desktop_usage_2021.os
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
-    row: 34
+    row: 36
     col: 12
     width: 12
     height: 9
@@ -589,6 +640,11 @@
       prediction.new_profiles_forecast_lower: triangle
       prediction.new_profiles_forecast_upper: triangle-down
     defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: 'An Fx profile counts as new on the day that we receive their first
+      main ping. The upper and lower bounds of the forecast (triangles) show the 10th
+      and 90th percentiles of forecasted new profiles for that day. '
     listen:
       Date: firefox_desktop_usage_2021.date
       Channel: firefox_desktop_usage_2021.channel
@@ -596,17 +652,19 @@
       Country: firefox_desktop_usage_2021.country
       OS: firefox_desktop_usage_2021.os
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
-    row: 43
+    row: 45
     col: 0
     width: 24
     height: 10
-  - title: Cumulative Difference from New Profile Forecast
-    name: Cumulative Difference from New Profile Forecast
+  - title: Difference from Cumulative New Profile Forecast
+    name: Difference from Cumulative New Profile Forecast
     model: kpi
     explore: firefox_desktop_usage_2021
     type: looker_line
-    fields: [firefox_desktop_usage_2021.date, firefox_desktop_usage_2021.delta_from_forecast_new_profiles_count]
+    fields: [firefox_desktop_usage_2021.date, firefox_desktop_usage_2021.delta_from_forecast_new_profiles_count,
+      firefox_desktop_usage_2021.delta_from_target_new_profiles_count]
     fill_fields: [firefox_desktop_usage_2021.date]
+    sorts: [firefox_desktop_usage_2021.date desc]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -632,12 +690,24 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
-    y_axes: [{label: Difference From Forecast, orientation: left, series: [{axisId: firefox_desktop_usage_2021.delta_from_forecast_new_profiles_count_running,
-            id: firefox_desktop_usage_2021.delta_from_forecast_new_profiles_count_running,
-            name: Delta From Forecast New Profiles Count Running}], showLabels: true,
-        showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
-        type: linear}]
+    y_axes: [{label: Difference From Forecast, orientation: left, series: [{axisId: firefox_desktop_usage_2021.delta_from_forecast_new_profiles_count,
+            id: firefox_desktop_usage_2021.delta_from_forecast_new_profiles_count,
+            name: Delta From Forecast New Profiles Count}], showLabels: true, showValues: true,
+        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear},
+      {label: Difference From Target, orientation: right, series: [{axisId: firefox_desktop_usage_2021.delta_from_target_new_profiles_count,
+            id: firefox_desktop_usage_2021.delta_from_target_new_profiles_count, name: Delta
+              From Target New Profiles Count}], showLabels: true, showValues: true,
+        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
+    reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
+        margin_value: mean, margin_bottom: deviation, label_position: left, color: "#1A73E8",
+        line_value: '0', label: At Forecast}]
     defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: This shows the difference between the cumulative number of new profiles
+      and (1) the forecast (Dark Blue) and (2) the Target (Light Blue). Positive numbers
+      indicate that we are above forecast/target, negative numbers indicate we are
+      below.
     listen:
       Date: firefox_desktop_usage_2021.date
       Channel: firefox_desktop_usage_2021.channel
@@ -645,7 +715,7 @@
       Country: firefox_desktop_usage_2021.country
       OS: firefox_desktop_usage_2021.os
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
-    row: 34
+    row: 36
     col: 0
     width: 12
     height: 9

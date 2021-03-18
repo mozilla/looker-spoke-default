@@ -209,66 +209,79 @@ view: prediction {
 
   measure: cdou_forecast {
     type: number
+    value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.cdou_forecast) ;;
   }
 
   measure: cdou_target {
     type: number
+    value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.cdou_target) ;;
   }
 
   measure: cum_new_profiles_forecast {
     type: number
+    value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.cum_new_profiles_forecast) ;;
   }
 
   measure: cum_new_profiles_target {
     type: number
+    value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.cum_new_profiles_target) ;;
   }
 
   measure: dau_forecast {
     type: number
+    value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.dau_forecast) ;;
   }
 
   measure: dau_forecast_lower {
     type: number
+    value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.dau_forecast_lower) ;;
   }
 
   measure: dau_forecast_upper {
     type: number
+    value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.dau_forecast_upper) ;;
   }
 
   measure: dau_target {
     type: number
+    value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.dau_target) ;;
   }
 
   measure: new_profiles_forecast {
     type: number
+    value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.new_profiles_forecast) ;;
   }
 
   measure: new_profiles_forecast_lower {
     type: number
+    value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.new_profiles_forecast_lower) ;;
   }
 
   measure: new_profiles_forecast_upper {
     type: number
+    value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.new_profiles_forecast_upper) ;;
   }
 
   measure: new_profiles_target {
     type: number
+    value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.new_profiles_target) ;;
   }
 
   measure: recent_cum_new_profiles_forecast {
     type: max
+    value_format: "#,##0"
     sql: ${TABLE}.cum_new_profiles_forecast ;;
     filters: [
       date: "after 2021-01-01"
@@ -277,6 +290,7 @@ view: prediction {
 
   measure: recent_cum_new_profiles_target {
     type: max
+    value_format: "#,##0"
     sql: ${TABLE}.cum_new_profiles_target ;;
     filters: [
       date: "after 2021-01-01"
@@ -285,6 +299,7 @@ view: prediction {
 
   measure: recent_cdou_forecast {
     type: max
+    value_format: "#,##0"
     sql: ${TABLE}.cdou_forecast ;;
     filters: [
       date: "after 2021-01-01"
@@ -293,6 +308,7 @@ view: prediction {
 
   measure: recent_cdou_target {
     type: max
+    value_format: "#,##0"
     sql: ${TABLE}.cdou_target ;;
     filters: [
       date: "after 2021-01-01"

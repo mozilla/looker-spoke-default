@@ -10,7 +10,7 @@ derived_table: {
         sum(new_profiles) as new_profiles,
         sum(cumulative_new_profiles) as cumulative_new_profiles,
     from
-        `mozdata.telemetry.firefox_desktop_usage_2021`
+        ${firefox_desktop_usage_fields.SQL_TABLE_NAME} AS firefox_desktop_usage_fields
     where
         {% condition firefox_desktop_usage_2021.activity_segment %} activity_segment {% endcondition %}
         AND {% condition firefox_desktop_usage_2021.campaign %} campaign {% endcondition %}
@@ -100,26 +100,31 @@ derived_table: {
 
   measure: dau {
     type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.dau ;;
   }
 
   measure: mau {
     type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.mau ;;
   }
 
   measure: new_profiles {
     type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.new_profiles ;;
   }
 
   measure: new_profiles_cumulative {
     type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.cumulative_new_profiles ;;
   }
 
   measure: cdou {
     type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.cdou ;;
   }
 
@@ -133,16 +138,19 @@ derived_table: {
 
   measure: recent_new_profiles_cumulative {
     type: max
+    value_format: "#,##0"
     sql: ${TABLE}.cumulative_new_profiles ;;
   }
 
   measure: recent_cdou {
     type: max
+    value_format: "#,##0"
     sql: ${TABLE}.cdou ;;
   }
 
   measure: wau {
     type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.wau ;;
   }
 
@@ -160,13 +168,13 @@ derived_table: {
 
   measure: delta_from_target_count {
     type: number
-    value_format: "0"
+    value_format: "#,##0"
     sql: ${cdou} - ${prediction.cdou_target} ;;
   }
 
   measure: delta_from_forecast_count {
     type: number
-    value_format: "0"
+    value_format: "#,##0"
     sql: ${cdou} - ${prediction.cdou_forecast}  ;;
   }
 
@@ -184,13 +192,14 @@ derived_table: {
 
   measure: delta_from_forecast_new_profiles_count {
     type: number
-    value_format: "0"
+    value_format: "#,##0"
     sql: ${new_profiles_cumulative} - ${prediction.cum_new_profiles_forecast}  ;;
   }
 
   measure: delta_from_target_new_profiles_count {
     type: number
-    value_format: "0"
+    value_format: "#,##0"
     sql: ${new_profiles_cumulative} - ${prediction.cum_new_profiles_target} ;;
   }
+
 }
