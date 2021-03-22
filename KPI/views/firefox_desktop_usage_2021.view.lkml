@@ -155,6 +155,11 @@ derived_table: {
     sql: ${TABLE}.cdou ;;
   }
 
+  measure: recent_date {
+    type: date
+    sql: MAX(CAST(${TABLE}.submission_date AS TIMESTAMP)) ;;
+  }
+
   measure: wau {
     type: sum
     value_format: "#,##0"
@@ -207,6 +212,46 @@ derived_table: {
     type: number
     value_format: "#,##0"
     sql: ${new_profiles_cumulative} - ${prediction.cum_new_profiles_target} ;;
+  }
+
+  measure: delta_from_forecast_format{
+    type: number
+    sql: ${delta_from_forecast_new_profiles} ;;
+    html:
+    {% assign target_delta = firefox_desktop_usage_2021.delta_from_target_new_profiles._value | times: 100 %}
+    {% assign forecast_delta = firefox_desktop_usage_2021.delta_from_forecast_new_profiles._value | times: 100 %}
+    <div class="topline" style="font-size: 30px; background-color: #d7d7db; color:#000000; padding: 12px; margin: 12px;">
+      <center>
+      <h1><b><u><font color="#ff9400">Progress in Desktop Cumulative New Profiles As Of {{ firefox_desktop_usage_2021.recent_date._rendered_value }}</font></u></b></h1>
+      <img src="https://d33wubrfki0l68.cloudfront.net/06185f059f69055733688518b798a0feb4c7f160/9f07a/images/product-identity-assets/firefox.png" alt="Firefox Logo" style="width:300px;height:300px;float:right">
+      <img src="https://d33wubrfki0l68.cloudfront.net/06185f059f69055733688518b798a0feb4c7f160/9f07a/images/product-identity-assets/firefox.png" alt="Firefox Logo" style="width:300px;height:300px;float:left">
+      <h2><b><font color= "#45a1ff">Current Cumulative New Profiles: {{ firefox_desktop_usage_2021.recent_new_profiles_cumulative._rendered_value }} </font></b></h2>
+      <p><em>{% if target_delta > 0 %} <font color="#30e60b">▲ {{ firefox_desktop_usage_2021.delta_from_target_new_profiles._rendered_value }}</font> {% else %} <font color="#ff0039">▼ {{ firefox_desktop_usage_2021.delta_from_target_new_profiles._rendered_value }}</font> {% endif %}  from +5% Target Pace ({{ prediction.recent_cum_new_profiles_target._rendered_value }})</em></p>
+      <p>{% if forecast_delta > 0 %} <font color="#30e60b">▲ {{ firefox_desktop_usage_2021.delta_from_forecast_new_profiles._rendered_value }}</font> {% else %} <font color="#ff0039">▼ {{ firefox_desktop_usage_2021.delta_from_forecast_new_profiles._rendered_value }}</font> {% endif %} from Forecast ({{ prediction.recent_cum_new_profiles_forecast._rendered_value }})</p>
+      <a href="#explainer" style="color: #0000EE"><u>Explainer</u></a>
+      </center>
+    </div>
+   ;;
+  }
+
+  measure: delta_from_forecast_format2{
+    type: number
+    sql: ${delta_from_forecast} ;;
+    html:
+    {% assign target_delta = firefox_desktop_usage_2021.delta_from_target._value | times: 100 %}
+    {% assign forecast_delta = firefox_desktop_usage_2021.delta_from_forecast._value | times: 100 %}
+    <div class="topline" style="font-size: 30px; background-color: #d7d7db; color:#000000; padding: 12px; margin: 12px;">
+      <center>
+      <h1><b><u><font color="#ff9400">Progress in Desktop Cumulative Days of Use (CDOU) As Of {{ firefox_desktop_usage_2021.recent_date._rendered_value }}</font></u></b></h1>
+      <img src="https://d33wubrfki0l68.cloudfront.net/06185f059f69055733688518b798a0feb4c7f160/9f07a/images/product-identity-assets/firefox.png" alt="Firefox Logo" style="width:300px;height:300px;float:right">
+      <img src="https://d33wubrfki0l68.cloudfront.net/06185f059f69055733688518b798a0feb4c7f160/9f07a/images/product-identity-assets/firefox.png" alt="Firefox Logo" style="width:300px;height:300px;float:left">
+      <h2><b><font color= "#45a1ff">Current CDOU: {{ firefox_desktop_usage_2021.recent_cdou._rendered_value }}</font></b></h2>
+      <p><em>{% if target_delta > 0 %} <font color="#30e60b">▲ {{ firefox_desktop_usage_2021.delta_from_target._rendered_value }}</font> {% else %} <font color="#ff0039">▼ {{ firefox_desktop_usage_2021.delta_from_target._rendered_value }}</font> {% endif %}  from +5% Target Pace ({{ prediction.recent_cdou_target._rendered_value }})</em></p>
+      <p>{% if forecast_delta > 0 %} <font color="#30e60b">▲ {{ firefox_desktop_usage_2021.delta_from_forecast._rendered_value }}</font> {% else %} <font color="#ff0039">▼ {{ firefox_desktop_usage_2021.delta_from_forecast._rendered_value }}</font> {% endif %} from Forecast ({{ prediction.recent_cdou_forecast._rendered_value }})</p>
+      <a href="#explainer" style="color: #0000EE"><u>Explainer</u></a>
+      </center>
+    </div>
+   ;;
   }
 
 }

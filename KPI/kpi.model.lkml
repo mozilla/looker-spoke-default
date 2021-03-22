@@ -13,7 +13,7 @@ explore: firefox_desktop_usage_2021 {
     sql_on: ${firefox_desktop_usage_2021.date} = ${prediction.date} ;;
     relationship: one_to_one
   }
-  hidden: yes
+  hidden: no
 }
 
 # For suggestions
