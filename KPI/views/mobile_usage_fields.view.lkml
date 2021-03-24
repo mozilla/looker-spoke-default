@@ -8,11 +8,6 @@ view: mobile_usage_fields {
       FROM `mozdata.telemetry.mobile_usage_2021` ;;
   }
 
-  dimension: app_name {
-    type: string
-    sql: ${TABLE}.app_name ;;
-  }
-
   dimension: campaign {
     type: string
     sql: ${TABLE}.campaign ;;

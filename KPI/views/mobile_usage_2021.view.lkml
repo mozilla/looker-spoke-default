@@ -28,12 +28,6 @@ view: mobile_usage_2021 {
     type: string
   }
 
-  filter: canonical_app_name {
-    suggest_explore: mobile_usage_fields
-    suggest_dimension: mobile_usage_fields.canonical_app_name
-    type: string
-  }
-
   filter: channel {
     suggest_explore: mobile_usage_fields
     suggest_dimension: mobile_usage_fields.channel
@@ -70,17 +64,23 @@ view: mobile_usage_2021 {
     type: string
   }
 
-  dimension: date {
-    type: date
-    convert_tz: no
-    sql: CAST(${TABLE}.submission_date AS TIMESTAMP) ;;
-  }
-
   dimension: app_name {
     type: string
     suggest_explore: mobile_usage_fields
     suggest_dimension: mobile_usage_fields.app_name
     sql: ${TABLE}.app_name ;;
+  }
+
+  dimension: canonical_app_name {
+    suggest_explore: mobile_usage_fields
+    suggest_dimension: mobile_usage_fields.canonical_app_name
+    type: string
+  }
+
+  dimension: date {
+    type: date
+    convert_tz: no
+    sql: CAST(${TABLE}.submission_date AS TIMESTAMP) ;;
   }
 
   measure: cdou {
