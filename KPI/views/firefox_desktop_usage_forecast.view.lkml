@@ -23,7 +23,7 @@ view: dau_model {
 
     SET row_count = (
       SELECT COUNT(*)
-      FROM moz-fx-data-shared-prod.telemetry.looker_forecasts_cache
+      FROM mozdata.analysis.dou_forecasts
       WHERE key = current_key);
 
     IF row_count = 0 THEN
@@ -68,7 +68,7 @@ view: new_profiles_model {
 
     SET row_count = (
       SELECT COUNT(*)
-      FROM moz-fx-data-shared-prod.telemetry.looker_forecasts_cache
+      FROM mozdata.analysis.dou_forecasts
       WHERE key = current_key);
 
     IF row_count = 0 THEN
@@ -112,12 +112,12 @@ view: insert_stmnt {
 
       SET row_count = (
         SELECT COUNT(*)
-        FROM moz-fx-data-shared-prod.telemetry.looker_forecasts_cache
+        FROM mozdata.analysis.dou_forecasts
         WHERE key = current_key);
 
       IF row_count = 0 THEN
 
-      INSERT INTO moz-fx-data-shared-prod.telemetry.looker_forecasts_cache
+      INSERT INTO mozdata.analysis.dou_forecasts_cache
       WITH historic_data AS (
         SELECT
           CAST(submission_date AS TIMESTAMP) AS submission_date,
@@ -188,7 +188,7 @@ view: prediction {
     SELECT
       *
     FROM
-      moz-fx-data-shared-prod.telemetry.looker_forecasts_cache
+      mozdata.analysis.dou_forecasts
     WHERE -- Also requires ${insert_stmnt.SQL_TABLE_NAME}
       key = ARRAY_TO_STRING(REGEXP_EXTRACT_ALL("""
       {% condition firefox_desktop_usage_2021.activity_segment %} activity_segment {% endcondition %}
