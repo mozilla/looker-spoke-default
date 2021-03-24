@@ -72,30 +72,40 @@ view: mobile_insert_stmnt {
           CAST(submission_date AS TIMESTAMP) AS submission_date,
           CAST(app_name AS STRING) AS app_name,
           CAST(dau AS FLOAT64) AS dau_forecast,
+          CAST(NULL AS FLOAT64) AS dau_target,
           CAST(NULL AS FLOAT64) AS dau_forecast_lower,
           CAST(NULL AS FLOAT64) AS dau_forecast_upper
         FROM
           ${mobile_usage_2021.SQL_TABLE_NAME}
         WHERE
           submission_date BETWEEN '2021-01-01' AND '2021-01-18'
+      ), target_lifts AS (
+        SELECT
+            DISTINCT app_name, target_lift
+        FROM `moz-fx-data-shared-prod.static.mobile_forecasts_official_2021`
       ), predicted_data AS (
         SELECT
           forecast_timestamp AS submission_date,
           dau.app_name,
           dau.forecast_value AS dau_forecast,
+          dau.forecast_value * (1 + COALESCE(target_lifts.target_lift, 0.0)) AS dau_target,
           dau.prediction_interval_lower_bound AS dau_forecast_lower,
           dau.prediction_interval_upper_bound AS dau_forecast_upper
         FROM
           ML.FORECAST(MODEL ${mobile_dau_model.SQL_TABLE_NAME},
             STRUCT(365 AS horizon,
             0.8 AS confidence_level)) AS dau
+        LEFT JOIN target_lifts
+        ON dau.app_name = target_lifts.app_name
       )
       SELECT
         current_key AS key,
         submission_date,
         app_name,
         dau_forecast,
+        dau_target,
         SUM(dau_forecast) OVER (ORDER BY submission_date ASC) AS cdou_forecast,
+        SUM(dau_target) OVER (ORDER BY submission_date ASC) AS cdou_target,
         dau_forecast_lower,
         dau_forecast_upper
       FROM
@@ -140,10 +150,22 @@ view: mobile_prediction {
     sql: ANY_VALUE(${TABLE}.cdou_forecast) ;;
   }
 
+  measure: cdou_target {
+    type: number
+    value_format: "#,##0"
+    sql: ANY_VALUE(${TABLE}.cdou_target) ;;
+  }
+
   measure: dau_forecast {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.dau_forecast) ;;
+  }
+
+  measure: dau_target {
+    type: number
+    value_format: "#,##0"
+    sql: ANY_VALUE(${TABLE}.daut_target) ;;
   }
 
   measure: dau_forecast_lower {
@@ -162,6 +184,15 @@ view: mobile_prediction {
     type: max
     value_format: "#,##0"
     sql: ${TABLE}.cdou_forecast ;;
+    filters: [
+      date: "after 2021-01-01"
+    ]
+  }
+
+  measure: recent_cdou_target {
+    type: max
+    value_format: "#,##0"
+    sql: ${TABLE}.cdou_target ;;
     filters: [
       date: "after 2021-01-01"
     ]

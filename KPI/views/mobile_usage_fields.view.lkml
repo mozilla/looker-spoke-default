@@ -1,6 +1,12 @@
 view: mobile_usage_fields {
-  sql_table_name: `mozdata.telemetry.mobile_usage_2021`
-    ;;
+  derived_table: {
+    sql:
+      SELECT
+        * EXCEPT(app_name, canonical_app_name),
+        CASE WHEN app_name IN ('fennec', 'fenix') THEN 'fennec_fenix' ELSE app_name END AS app_name,
+        CASE WHEN canonical_app_name IN ('Firefox for Android (Fennec)', 'Firefox for Android (Fenix)') THEN 'Firefox for Android (Fennec + Fenix)' ELSE canonical_app_name END AS canonical_app_name
+      FROM `mozdata.telemetry.mobile_usage_2021` ;;
+  }
 
   dimension: app_name {
     type: string

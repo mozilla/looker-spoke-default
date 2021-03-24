@@ -124,10 +124,22 @@ view: mobile_usage_2021 {
     sql: (${recent_cdou} / ${mobile_prediction.recent_cdou_forecast} ) - 1 ;;
   }
 
+  measure: delta_from_target {
+    type: number
+    value_format: "0.000%"
+    sql: (${recent_cdou} / ${mobile_prediction.recent_cdou_target} ) - 1 ;;
+  }
+
   measure: delta_from_forecast_count {
     type: number
     value_format: "#,##0"
     sql: ${cdou} - ${mobile_prediction.cdou_forecast}  ;;
+  }
+
+  measure: delta_from_target_count {
+    type: number
+    value_format: "#,##0"
+    sql: ${cdou} - ${mobile_prediction.cdou_target}  ;;
   }
 
 }
