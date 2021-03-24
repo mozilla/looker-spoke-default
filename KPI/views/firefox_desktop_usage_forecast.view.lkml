@@ -117,7 +117,7 @@ view: insert_stmnt {
 
       IF row_count = 0 THEN
 
-      INSERT INTO moz-fx-data-shared-prod.telemetry.looker_forecasts_cache
+      INSERT INTO moz-fx-data-shared-prod.telemetry_derived.looker_forecasts_cache_v1
       WITH historic_data AS (
         SELECT
           CAST(submission_date AS TIMESTAMP) AS submission_date,
