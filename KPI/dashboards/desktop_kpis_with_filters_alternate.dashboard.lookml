@@ -2,7 +2,7 @@
   title: Desktop KPI Dashboard with Filters Alternate
   layout: newspaper
   preferred_viewer: dashboards-next
-  refresh: 1 day
+  refresh: 2147484 seconds
   elements:
   - title: Desktop Daily Active Users (DAU)
     name: Desktop Daily Active Users (DAU)
@@ -67,7 +67,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 22
+    row: 23
     col: 0
     width: 24
     height: 9
@@ -123,7 +123,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 13
+    row: 14
     col: 12
     width: 12
     height: 9
@@ -145,7 +145,7 @@
     body_text: "<h1 style=\"margin-top:20px; padding: 5px; border-bottom: solid 1px\
       \ #412399; height: 60px; color: #412399; text-align: center;\" id=\"new_profiles\"\
       >Desktop New Profiles</h1>\n\n"
-    row: 31
+    row: 32
     col: 0
     width: 24
     height: 3
@@ -208,7 +208,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 13
+    row: 14
     col: 0
     width: 12
     height: 9
@@ -262,7 +262,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 43
+    row: 46
     col: 12
     width: 12
     height: 9
@@ -328,7 +328,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 52
+    row: 55
     col: 0
     width: 24
     height: 10
@@ -391,7 +391,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 43
+    row: 46
     col: 0
     width: 12
     height: 9
@@ -454,7 +454,7 @@
     row: 4
     col: 0
     width: 24
-    height: 9
+    height: 10
   - title: Top Line Numbers for New Profiles
     name: Top Line Numbers for New Profiles
     model: kpi
@@ -513,10 +513,10 @@
     title_hidden: true
     listen:
       Date: firefox_desktop_usage_2021.date
-    row: 34
+    row: 35
     col: 0
     width: 24
-    height: 9
+    height: 11
   - name: " (3)"
     type: text
     title_text: ''
@@ -538,7 +538,7 @@
       <p>This is the count of new desktop client_ids (profiles) that are created over the course of the year. A new Firefox profile counts to  this metric on the day we receive its first main ping.</p>
       <p>The 2021 target for cumulative new profiles is +5% over forecast. </p>
       </div>
-    row: 62
+    row: 65
     col: 0
     width: 15
     height: 9
