@@ -67,7 +67,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 21
+    row: 22
     col: 0
     width: 24
     height: 9
@@ -123,7 +123,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 12
+    row: 13
     col: 12
     width: 12
     height: 9
@@ -145,10 +145,10 @@
     body_text: "<h1 style=\"margin-top:20px; padding: 5px; border-bottom: solid 1px\
       \ #412399; height: 60px; color: #412399; text-align: center;\" id=\"new_profiles\"\
       >Desktop New Profiles</h1>\n\n"
-    row: 30
+    row: 31
     col: 0
     width: 24
-    height: 2
+    height: 3
   - title: Difference from CDOU Forecast
     name: Difference from CDOU Forecast
     model: kpi
@@ -208,7 +208,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 12
+    row: 13
     col: 0
     width: 12
     height: 9
@@ -262,7 +262,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 40
+    row: 43
     col: 12
     width: 12
     height: 9
@@ -328,7 +328,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 49
+    row: 52
     col: 0
     width: 24
     height: 10
@@ -391,7 +391,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 40
+    row: 43
     col: 0
     width: 12
     height: 9
@@ -423,7 +423,7 @@
     series_labels:
       firefox_desktop_usage_2021.delta_from_forecast_format2: "."
     series_column_widths:
-      firefox_desktop_usage_2021.delta_from_forecast_format2: 2445
+      firefox_desktop_usage_2021.delta_from_forecast_format2: 1541
     series_cell_visualizations:
       firefox_desktop_usage_2021.delta_from_forecast_format:
         is_active: true
@@ -454,7 +454,7 @@
     row: 4
     col: 0
     width: 24
-    height: 8
+    height: 9
   - title: Top Line Numbers for New Profiles
     name: Top Line Numbers for New Profiles
     model: kpi
@@ -468,7 +468,7 @@
     truncate_text: false
     hide_totals: false
     hide_row_totals: false
-    size_to_fit: false
+    size_to_fit: true
     table_theme: unstyled
     limit_displayed_rows: false
     enable_conditional_formatting: false
@@ -485,7 +485,7 @@
       firefox_desktop_usage_2021.delta_from_forecast_format: "."
     series_column_widths:
       firefox_desktop_usage_2021.delta_from_forecast_format2: 2445
-      firefox_desktop_usage_2021.delta_from_forecast_format: 2417
+      firefox_desktop_usage_2021.delta_from_forecast_format: 1537
     series_cell_visualizations:
       firefox_desktop_usage_2021.delta_from_forecast_format:
         is_active: false
@@ -513,10 +513,10 @@
     title_hidden: true
     listen:
       Date: firefox_desktop_usage_2021.date
-    row: 32
+    row: 34
     col: 0
     width: 24
-    height: 8
+    height: 9
   - name: " (3)"
     type: text
     title_text: ''
@@ -538,7 +538,7 @@
       <p>This is the count of new desktop client_ids (profiles) that are created over the course of the year. A new Firefox profile counts to  this metric on the day we receive its first main ping.</p>
       <p>The 2021 target for cumulative new profiles is +5% over forecast. </p>
       </div>
-    row: 59
+    row: 62
     col: 0
     width: 15
     height: 9
