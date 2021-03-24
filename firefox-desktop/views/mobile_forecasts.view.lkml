@@ -28,7 +28,7 @@ view: mobile_forecasts {
             date,
             yhat,
             yhat_p0,
-            * EXCEPT(dateyhatyhat_p0),
+            * EXCEPT(date, yhat, yhat_p0),
             .028 AS target_lift
           FROM  `mozdata.analysis.final_fx_ios_2021_forecast`
         )
@@ -39,8 +39,8 @@ view: mobile_forecasts {
               WHEN product = "Focus iOS" THEN "focus_ios"
               WHEN product = "Firefox Android" THEN "fennec_fenix"
               WHEN product = "Firefox iOS" THEN "focus_ios" END AS app_name,
-          SUM(yhat) OVER (PARTITION BY product EXTRACT(year FROM DATE(date)) ORDER BY date) AS yhat_cumulative,
-          SUM(yhat) OVER (PARTITION BY product EXTRACT(year FROM DATE(date)) ORDER BY date) * (1 + target_lift) AS target_pace
+          SUM(yhat) OVER (PARTITION BY product, EXTRACT(year FROM DATE(date)) ORDER BY date) AS yhat_cumulative,
+          SUM(yhat) OVER (PARTITION BY product, EXTRACT(year FROM DATE(date)) ORDER BY date) * (1 + target_lift) AS target_pace
         FROM base
       ;;
   }

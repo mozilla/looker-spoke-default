@@ -27,6 +27,12 @@ view: firefox_desktop_usage_fields {
     sql: ${TABLE}.country ;;
   }
 
+  dimension: country_name {
+    type: string
+    map_layer_name: countries
+    sql: ${TABLE}.country_name ;;
+  }
+
   dimension: distribution_id {
     type: string
     sql: ${TABLE}.distribution_id ;;
