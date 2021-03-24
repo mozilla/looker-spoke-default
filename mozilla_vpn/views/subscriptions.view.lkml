@@ -29,6 +29,7 @@ view: subscriptions {
   dimension: user_id {
     sql: ${TABLE}.user_id ;;
     type: number
+    hidden: yes
   }
 
   dimension_group: created_at {
@@ -78,4 +79,36 @@ view: subscriptions {
   }
 
   sql_table_name: `mozdata.mozilla_vpn.subscriptions` ;;
+}
+
+view: subscriptions__apple_receipt__active_periods {
+  dimension_group: end {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.end_date ;;
+  }
+
+  dimension_group: start {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.start_date ;;
+  }
 }

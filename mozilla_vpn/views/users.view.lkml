@@ -17,11 +17,14 @@ view: users {
   dimension: fxa_uid {
     sql: ${TABLE}.fxa_uid ;;
     type: string
+    hidden: yes
   }
 
   dimension: id {
     sql: ${TABLE}.id ;;
     type: number
+    primary_key: yes
+    hidden: yes
   }
 
   dimension_group: created_at {

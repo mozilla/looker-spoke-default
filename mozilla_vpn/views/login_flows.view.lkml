@@ -2,6 +2,8 @@ view: login_flows {
   dimension: flow_id {
     sql: ${TABLE}.flow_id ;;
     type: string
+    primary_key: yes
+    hidden: yes
   }
 
   dimension: fxa_uids {
@@ -47,4 +49,11 @@ view: login_flows {
   }
 
   sql_table_name: `mozdata.mozilla_vpn.login_flows` ;;
+}
+
+view: login_flows__fxa_uids {
+  dimension: login_flows__fxa_uids {
+    type: string
+    sql: login_flows__fxa_uids ;;
+  }
 }

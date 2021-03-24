@@ -32,6 +32,8 @@ view: stripe_plans {
   dimension: id {
     sql: ${TABLE}.id ;;
     type: string
+    primary_key: yes
+    hidden: yes
   }
 
   dimension: interval {

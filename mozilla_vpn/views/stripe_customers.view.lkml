@@ -2,6 +2,8 @@ view: stripe_customers {
   dimension: id {
     sql: ${TABLE}.id ;;
     type: string
+    primary_key: yes
+    hidden: yes
   }
 
   dimension: metadata {

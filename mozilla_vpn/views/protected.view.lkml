@@ -2,6 +2,8 @@ view: protected {
   dimension: fxa_uid {
     sql: ${TABLE}.fxa_uid ;;
     type: string
+    primary_key: yes
+    hidden: yes
   }
 
   dimension_group: first_protected {

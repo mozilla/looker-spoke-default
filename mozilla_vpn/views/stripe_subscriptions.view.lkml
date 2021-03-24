@@ -7,11 +7,14 @@ view: stripe_subscriptions {
   dimension: customer {
     sql: ${TABLE}.customer ;;
     type: string
+
   }
 
   dimension: id {
     sql: ${TABLE}.id ;;
     type: string
+    primary_key: yes
+    hidden: yes
   }
 
   dimension: metadata {

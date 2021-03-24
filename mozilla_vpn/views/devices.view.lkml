@@ -7,6 +7,7 @@ view: devices {
   dimension: user_id {
     sql: ${TABLE}.user_id ;;
     type: number
+    hidden: yes
   }
 
   dimension: useragent {
