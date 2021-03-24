@@ -220,7 +220,7 @@ derived_table: {
     html:
     {% assign target_delta = firefox_desktop_usage_2021.delta_from_target_new_profiles._value | times: 100 %}
     {% assign forecast_delta = firefox_desktop_usage_2021.delta_from_forecast_new_profiles._value | times: 100 %}
-    <div class="topline" style="font-size: 30px; background-color: #d7d7db; color:#000000; padding: 12px; margin: 12px;">
+    <div class="topline" style="font-size: 30px; background-color: #d7d7db; color:#000000;">
       <center>
       <h1><b><u><font color="#ff9400">Progress in Desktop Cumulative New Profiles As Of {{ firefox_desktop_usage_2021.recent_date._rendered_value }}</font></u></b></h1>
       <img src="https://d33wubrfki0l68.cloudfront.net/06185f059f69055733688518b798a0feb4c7f160/9f07a/images/product-identity-assets/firefox.png" alt="Firefox Logo" style="width:300px;height:300px;float:right">
