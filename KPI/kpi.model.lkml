@@ -13,6 +13,19 @@ explore: firefox_desktop_usage_2021 {
     sql_on: ${firefox_desktop_usage_2021.date} = ${prediction.date} ;;
     relationship: one_to_one
   }
+  join: firefox_desktop_usage_2020 {
+    from: firefox_desktop_usage_2021
+    fields: []
+    view_label: "Firefox Desktop Usage 2020"
+    type: left_outer
+    sql_on: DATE_SUB(${firefox_desktop_usage_2021.date}, INTERVAL 1 YEAR) = ${firefox_desktop_usage_2020.date} ;;
+    relationship: one_to_one
+  }
+  always_filter: {
+    filters: [
+      show_2020: "Yes",
+    ]
+  }
   hidden: no
 }
 
