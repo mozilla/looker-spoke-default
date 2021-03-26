@@ -79,8 +79,6 @@
     fields: [firefox_desktop_usage_2021.date, firefox_desktop_usage_2021.cdou, prediction.cdou_forecast,
       prediction.cdou_target]
     fill_fields: [firefox_desktop_usage_2021.date]
-    filters:
-      firefox_desktop_usage_2021.show_2020: 'Yes'
     sorts: [firefox_desktop_usage_2021.date]
     limit: 500
     x_axis_gridlines: false
@@ -156,8 +154,6 @@
     fields: [firefox_desktop_usage_2021.date, firefox_desktop_usage_2021.delta_from_forecast_count,
       firefox_desktop_usage_2021.delta_from_target_count]
     fill_fields: [firefox_desktop_usage_2021.date]
-    filters:
-      firefox_desktop_usage_2021.show_2020: 'Yes'
     sorts: [firefox_desktop_usage_2021.date]
     limit: 500
     x_axis_gridlines: false
@@ -221,8 +217,6 @@
     fields: [firefox_desktop_usage_2021.date, firefox_desktop_usage_2021.new_profiles_cumulative,
       prediction.cum_new_profiles_forecast, prediction.cum_new_profiles_target]
     fill_fields: [firefox_desktop_usage_2021.date]
-    filters:
-      firefox_desktop_usage_2021.show_2020: 'Yes'
     sorts: [firefox_desktop_usage_2021.date]
     limit: 500
     x_axis_gridlines: false
@@ -277,8 +271,6 @@
     fields: [firefox_desktop_usage_2021.new_profiles, firefox_desktop_usage_2021.date,
       prediction.new_profiles_forecast, prediction.new_profiles_forecast_lower, prediction.new_profiles_forecast_upper]
     fill_fields: [firefox_desktop_usage_2021.date]
-    filters:
-      firefox_desktop_usage_2021.show_2020: 'Yes'
     sorts: [firefox_desktop_usage_2021.date desc]
     limit: 500
     x_axis_gridlines: false
@@ -347,8 +339,6 @@
     fields: [firefox_desktop_usage_2021.date, firefox_desktop_usage_2021.delta_from_forecast_new_profiles_count,
       firefox_desktop_usage_2021.delta_from_target_new_profiles_count]
     fill_fields: [firefox_desktop_usage_2021.date]
-    filters:
-      firefox_desktop_usage_2021.show_2020: 'Yes'
     sorts: [firefox_desktop_usage_2021.date desc]
     limit: 500
     x_axis_gridlines: false

@@ -99,10 +99,6 @@ derived_table: {
     type: yesno
   }
 
-  parameter: show_2020 {
-    type: yesno
-  }
-
   dimension: date {
     type: date
     convert_tz: no
@@ -296,7 +292,7 @@ derived_table: {
     label: "2020 Cdou"
     type: number
     sql:
-      {% if show_2020._parameter_value == 'Yes' %} ${firefox_desktop_usage_2020.cdou} {% else %} NULL {% endif %} ;;
+      ${firefox_desktop_usage_2020.cdou} ;;
   }
 
   measure: year_over_year_cdou_delta_count {

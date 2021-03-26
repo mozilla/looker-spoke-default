@@ -21,11 +21,6 @@ explore: firefox_desktop_usage_2021 {
     sql_on: DATE_SUB(${firefox_desktop_usage_2021.date}, INTERVAL 1 YEAR) = ${firefox_desktop_usage_2020.date} ;;
     relationship: one_to_one
   }
-  always_filter: {
-    filters: [
-      show_2020: "Yes",
-    ]
-  }
   hidden: no
 }
 
