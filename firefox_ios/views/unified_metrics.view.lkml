@@ -280,154 +280,6 @@ view: unified_metrics {
     group_item_label: "Version"
   }
 
-  dimension: metrics__counter__glean_validation_foreground_count {
-    type: number
-    sql: ${TABLE}.metrics.counter.glean_validation_foreground_count ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Glean Validation Foreground Count"
-  }
-
-  dimension: metrics__counter__qr_code_scanned {
-    type: number
-    sql: ${TABLE}.metrics.counter.qr_code_scanned ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Qr Code Scanned"
-  }
-
-  dimension: metrics__counter__reader_mode_close {
-    type: number
-    sql: ${TABLE}.metrics.counter.reader_mode_close ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Reader Mode Close"
-  }
-
-  dimension: metrics__counter__reader_mode_open {
-    type: number
-    sql: ${TABLE}.metrics.counter.reader_mode_open ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Reader Mode Open"
-  }
-
-  measure: reader_mode_open_count {
-    type:  sum
-    sql:  ${metrics__counter__reader_mode_open} ;;
-  }
-
-  dimension: metrics__counter__reading_list_mark_read {
-    type: number
-    sql: ${TABLE}.metrics.counter.reading_list_mark_read ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Reading List Mark Read"
-  }
-
-  dimension: metrics__counter__reading_list_mark_unread {
-    type: number
-    sql: ${TABLE}.metrics.counter.reading_list_mark_unread ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Reading List Mark Unread"
-  }
-
-  dimension: metrics__counter__reading_list_open {
-    type: number
-    sql: ${TABLE}.metrics.counter.reading_list_open ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Reading List Open"
-  }
-
-
-  dimension: metrics__counter__tabs_cumulative_count {
-    type: number
-    sql: ${TABLE}.metrics.counter.tabs_cumulative_count ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Tabs Cumulative Count"
-  }
-
-  dimension: metrics__labeled_counter__bookmarks_add {
-    hidden: yes
-    sql: ${TABLE}.metrics.labeled_counter.bookmarks_add ;;
-    group_label: "Metrics Labeled Counter"
-    group_item_label: "Bookmarks Add"
-  }
-
-  dimension: metrics__labeled_counter__bookmarks_delete {
-    hidden: yes
-    sql: ${TABLE}.metrics.labeled_counter.bookmarks_delete ;;
-    group_label: "Metrics Labeled Counter"
-    group_item_label: "Bookmarks Delete"
-  }
-
-  dimension: metrics__labeled_counter__bookmarks_open {
-    hidden: yes
-    sql: ${TABLE}.metrics.labeled_counter.bookmarks_open ;;
-    group_label: "Metrics Labeled Counter"
-    group_item_label: "Bookmarks Open"
-  }
-
-  dimension: metrics__labeled_counter__bookmarks_view_list {
-    hidden: yes
-    sql: ${TABLE}.metrics.labeled_counter.bookmarks_view_list ;;
-    group_label: "Metrics Labeled Counter"
-    group_item_label: "Bookmarks View List"
-  }
-
-
-  dimension: metrics__labeled_counter__reading_list_add {
-    hidden: yes
-    sql: ${TABLE}.metrics.labeled_counter.reading_list_add ;;
-    group_label: "Metrics Labeled Counter"
-    group_item_label: "Reading List Add"
-  }
-
-  dimension: metrics__labeled_counter__reading_list_delete {
-    hidden: yes
-    sql: ${TABLE}.metrics.labeled_counter.reading_list_delete ;;
-    group_label: "Metrics Labeled Counter"
-    group_item_label: "Reading List Delete"
-  }
-
-  dimension: metrics__labeled_counter__search_counts {
-    hidden: yes
-    sql: ${TABLE}.metrics.labeled_counter.search_counts ;;
-    group_label: "Metrics Labeled Counter"
-    group_item_label: "Search Counts"
-  }
-
-
-  dimension: metrics__labeled_counter__tabs_close {
-    hidden: yes
-    sql: ${TABLE}.metrics.labeled_counter.tabs_close ;;
-    group_label: "Metrics Labeled Counter"
-    group_item_label: "Tabs Close"
-  }
-
-  dimension: metrics__labeled_counter__tabs_open {
-    hidden: yes
-    sql: ${TABLE}.metrics.labeled_counter.tabs_open ;;
-    group_label: "Metrics Labeled Counter"
-    group_item_label: "Tabs Open"
-  }
-
-  dimension: metrics__string__preferences_mail_client {
-    type: string
-    sql: ${TABLE}.metrics.string.preferences_mail_client ;;
-    group_label: "Metrics String"
-    group_item_label: "Preferences Mail Client"
-  }
-
-  dimension: metrics__string__preferences_new_tab_experience {
-    type: string
-    sql: ${TABLE}.metrics.string.preferences_new_tab_experience ;;
-    group_label: "Metrics String"
-    group_item_label: "Preferences New Tab Experience"
-  }
-
-  dimension: metrics__string__search_default_engine {
-    type: string
-    sql: ${TABLE}.metrics.string.search_default_engine ;;
-    group_label: "Metrics String"
-    group_item_label: "Search Default Engine"
-  }
-
 
   dimension: normalized_app_name {
     type: string
@@ -515,10 +367,201 @@ view: unified_metrics {
     sql: ${TABLE}.submission_timestamp ;;
   }
 
+  # This is required, otherwise there will be duplicate data
   dimension: telemetry_system {
     type: string
     sql: ${TABLE}.telemetry_system ;;
   }
+
+  dimension: metrics__counter__glean_validation_foreground_count {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.metrics.counter.glean_validation_foreground_count ;;
+    group_label: "Metrics Counter"
+    group_item_label: "Glean Validation Foreground Count"
+  }
+
+  measure: glean_validation_foreground_count {
+    type:  sum
+    sql:  ${metrics__counter__glean_validation_foreground_count} ;;
+  }
+
+
+  dimension: metrics__counter__qr_code_scanned {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.metrics.counter.qr_code_scanned ;;
+    group_label: "Metrics Counter"
+    group_item_label: "Qr Code Scanned"
+  }
+
+  measure: qr_code_scanned {
+    type:  sum
+    sql:  ${metrics__counter__qr_code_scanned} ;;
+  }
+
+  dimension: metrics__counter__reader_mode_close {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.metrics.counter.reader_mode_close ;;
+    group_label: "Metrics Counter"
+    group_item_label: "Reader Mode Close"
+  }
+
+  measure: reader_mode_close {
+    type:  sum
+    sql:  ${metrics__counter__reader_mode_close} ;;
+  }
+
+  dimension: metrics__counter__reader_mode_open {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.metrics.counter.reader_mode_open ;;
+    group_label: "Metrics Counter"
+    group_item_label: "Reader Mode Open"
+  }
+
+  measure: reader_mode_open_count {
+    type:  sum
+    sql:  ${metrics__counter__reader_mode_open} ;;
+  }
+
+  dimension: metrics__counter__reading_list_mark_read {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.metrics.counter.reading_list_mark_read ;;
+    group_label: "Metrics Counter"
+    group_item_label: "Reading List Mark Read"
+  }
+
+  measure: reading_list_mark_read {
+    type:  sum
+    sql:  ${metrics__counter__reading_list_mark_read} ;;
+  }
+
+  dimension: metrics__counter__reading_list_mark_unread {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.metrics.counter.reading_list_mark_unread ;;
+    group_label: "Metrics Counter"
+    group_item_label: "Reading List Mark Unread"
+  }
+
+  measure: reading_list_mark_unread {
+    type:  sum
+    sql:  ${metrics__counter__reading_list_mark_unread} ;;
+  }
+
+  dimension: metrics__counter__reading_list_open {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.metrics.counter.reading_list_open ;;
+    group_label: "Metrics Counter"
+    group_item_label: "Reading List Open"
+  }
+
+  measure: reading_list_open {
+    type:  sum
+    sql:  ${metrics__counter__reading_list_open} ;;
+  }
+
+  dimension: metrics__counter__tabs_cumulative_count {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.metrics.counter.tabs_cumulative_count ;;
+    group_label: "Metrics Counter"
+    group_item_label: "Tabs Cumulative Count"
+  }
+
+  measure: tabs_cumulative_count {
+    type:  sum
+    sql:  ${metrics__counter__tabs_cumulative_count} ;;
+  }
+
+  dimension: metrics__labeled_counter__bookmarks_add {
+    hidden: yes
+    sql: ${TABLE}.metrics.labeled_counter.bookmarks_add ;;
+    group_label: "Metrics Labeled Counter"
+    group_item_label: "Bookmarks Add"
+  }
+
+  dimension: metrics__labeled_counter__bookmarks_delete {
+    hidden: yes
+    sql: ${TABLE}.metrics.labeled_counter.bookmarks_delete ;;
+    group_label: "Metrics Labeled Counter"
+    group_item_label: "Bookmarks Delete"
+  }
+
+  dimension: metrics__labeled_counter__bookmarks_open {
+    hidden: yes
+    sql: ${TABLE}.metrics.labeled_counter.bookmarks_open ;;
+    group_label: "Metrics Labeled Counter"
+    group_item_label: "Bookmarks Open"
+  }
+
+  dimension: metrics__labeled_counter__bookmarks_view_list {
+    hidden: yes
+    sql: ${TABLE}.metrics.labeled_counter.bookmarks_view_list ;;
+    group_label: "Metrics Labeled Counter"
+    group_item_label: "Bookmarks View List"
+  }
+
+  dimension: metrics__labeled_counter__reading_list_add {
+    hidden: yes
+    sql: ${TABLE}.metrics.labeled_counter.reading_list_add ;;
+    group_label: "Metrics Labeled Counter"
+    group_item_label: "Reading List Add"
+  }
+
+  dimension: metrics__labeled_counter__reading_list_delete {
+    hidden: yes
+    sql: ${TABLE}.metrics.labeled_counter.reading_list_delete ;;
+    group_label: "Metrics Labeled Counter"
+    group_item_label: "Reading List Delete"
+  }
+
+  dimension: metrics__labeled_counter__search_counts {
+    hidden: yes
+    sql: ${TABLE}.metrics.labeled_counter.search_counts ;;
+    group_label: "Metrics Labeled Counter"
+    group_item_label: "Search Counts"
+  }
+
+  dimension: metrics__labeled_counter__tabs_close {
+    hidden: yes
+    sql: ${TABLE}.metrics.labeled_counter.tabs_close ;;
+    group_label: "Metrics Labeled Counter"
+    group_item_label: "Tabs Close"
+  }
+
+  dimension: metrics__labeled_counter__tabs_open {
+    hidden: yes
+    sql: ${TABLE}.metrics.labeled_counter.tabs_open ;;
+    group_label: "Metrics Labeled Counter"
+    group_item_label: "Tabs Open"
+  }
+
+  dimension: metrics__string__preferences_mail_client {
+    type: string
+    sql: ${TABLE}.metrics.string.preferences_mail_client ;;
+    group_label: "Metrics String"
+    group_item_label: "Preferences Mail Client"
+  }
+
+  dimension: metrics__string__preferences_new_tab_experience {
+    type: string
+    sql: ${TABLE}.metrics.string.preferences_new_tab_experience ;;
+    group_label: "Metrics String"
+    group_item_label: "Preferences New Tab Experience"
+  }
+
+  dimension: metrics__string__search_default_engine {
+    type: string
+    sql: ${TABLE}.metrics.string.search_default_engine ;;
+    group_label: "Metrics String"
+    group_item_label: "Search Default Engine"
+  }
+
 }
 
 view: unified_metrics__ping_info__experiments {
