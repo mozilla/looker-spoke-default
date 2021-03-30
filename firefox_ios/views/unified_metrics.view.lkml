@@ -38,12 +38,6 @@ explore: unified_metrics {
     relationship: one_to_many
   }
 
-  join: unified_metrics__metrics__labeled_counter__tabs_close_all {
-    view_label: "Labeled Counter Tabs Close All"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__tabs_close_all}) as unified_metrics__metrics__labeled_counter__tabs_close_all ;;
-    relationship: one_to_many
-  }
-
   join: unified_metrics__metrics__labeled_counter__bookmarks_delete {
     view_label: "Labeled Counter Bookmarks Delete"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__bookmarks_delete}) as unified_metrics__metrics__labeled_counter__bookmarks_delete ;;
@@ -56,18 +50,6 @@ explore: unified_metrics {
     relationship: one_to_many
   }
 
-  join: unified_metrics__metrics__labeled_counter__search_in_content {
-    view_label: "Labeled Counter Search In Content"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__search_in_content}) as unified_metrics__metrics__labeled_counter__search_in_content ;;
-    relationship: one_to_many
-  }
-
-  join: unified_metrics__metrics__string__glean_database_size__values {
-    view_label: "String Glean Database Size Values"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__string__glean_database_size__values}) as unified_metrics__metrics__string__glean_database_size__values ;;
-    relationship: one_to_many
-  }
-
   join: unified_metrics__metrics__labeled_counter__bookmarks_view_list {
     view_label: "Labeled Counter Bookmarks View List"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__bookmarks_view_list}) as unified_metrics__metrics__labeled_counter__bookmarks_view_list ;;
@@ -77,60 +59,6 @@ explore: unified_metrics {
   join: unified_metrics__metrics__labeled_counter__reading_list_delete {
     view_label: "Labeled Counter Reading List Delete"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__reading_list_delete}) as unified_metrics__metrics__labeled_counter__reading_list_delete ;;
-    relationship: one_to_many
-  }
-
-  join: unified_metrics__metrics__labeled_counter__glean_error_invalid_label {
-    view_label: "Labeled Counter Glean Error Invalid Label"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__glean_error_invalid_label}) as unified_metrics__metrics__labeled_counter__glean_error_invalid_label ;;
-    relationship: one_to_many
-  }
-
-  join: unified_metrics__metrics__labeled_counter__glean_error_invalid_state {
-    view_label: "Labeled Counter Glean Error Invalid State"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__glean_error_invalid_state}) as unified_metrics__metrics__labeled_counter__glean_error_invalid_state ;;
-    relationship: one_to_many
-  }
-
-  join: unified_metrics__metrics__labeled_counter__glean_error_invalid_value {
-    view_label: "Labeled Counter Glean Error Invalid Value"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__glean_error_invalid_value}) as unified_metrics__metrics__labeled_counter__glean_error_invalid_value ;;
-    relationship: one_to_many
-  }
-
-  join: unified_metrics__metrics__labeled_counter__glean_error_invalid_overflow {
-    view_label: "Labeled Counter Glean Error Invalid Overflow"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__glean_error_invalid_overflow}) as unified_metrics__metrics__labeled_counter__glean_error_invalid_overflow ;;
-    relationship: one_to_many
-  }
-
-  join: unified_metrics__metrics__labeled_counter__search_google_topsite_pressed {
-    view_label: "Labeled Counter Search Google Topsite Pressed"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__search_google_topsite_pressed}) as unified_metrics__metrics__labeled_counter__search_google_topsite_pressed ;;
-    relationship: one_to_many
-  }
-
-  join: unified_metrics__metrics__labeled_counter__glean_validation_pings_submitted {
-    view_label: "Labeled Counter Glean Validation Pings Submitted"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__glean_validation_pings_submitted}) as unified_metrics__metrics__labeled_counter__glean_validation_pings_submitted ;;
-    relationship: one_to_many
-  }
-
-  join: unified_metrics__metrics__labeled_counter__glean_upload_ping_upload_failure {
-    view_label: "Labeled Counter Glean Upload Ping Upload Failure"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__glean_upload_ping_upload_failure}) as unified_metrics__metrics__labeled_counter__glean_upload_ping_upload_failure ;;
-    relationship: one_to_many
-  }
-
-  join: unified_metrics__metrics__string__glean_upload_pending_pings_directory_size__values {
-    view_label: "String Glean Upload Pending Pings Directory Size Values"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__string__glean_upload_pending_pings_directory_size__values}) as unified_metrics__metrics__string__glean_upload_pending_pings_directory_size__values ;;
-    relationship: one_to_many
-  }
-
-  join: unified_metrics__metrics__string__glean_upload_discarded_exceeding_pings_size__values {
-    view_label: "String Glean Upload Discarded Exceeding Pings Size Values"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__string__glean_upload_discarded_exceeding_pings_size__values}) as unified_metrics__metrics__string__glean_upload_discarded_exceeding_pings_size__values ;;
     relationship: one_to_many
   }
 }
@@ -352,179 +280,11 @@ view: unified_metrics {
     group_item_label: "Version"
   }
 
-  dimension: metrics__boolean__application_services_bookmark_highlights_visible {
-    type: yesno
-    sql: ${TABLE}.metrics.boolean.application_services_bookmark_highlights_visible ;;
-    group_label: "Metrics Boolean"
-    group_item_label: "Application Services Bookmark Highlights Visible"
-  }
-
-  dimension: metrics__boolean__application_services_pocket_stories_visible {
-    type: yesno
-    sql: ${TABLE}.metrics.boolean.application_services_pocket_stories_visible ;;
-    group_label: "Metrics Boolean"
-    group_item_label: "Application Services Pocket Stories Visible"
-  }
-
-  dimension: metrics__boolean__application_services_recent_highlights_visible {
-    type: yesno
-    sql: ${TABLE}.metrics.boolean.application_services_recent_highlights_visible ;;
-    group_label: "Metrics Boolean"
-    group_item_label: "Application Services Recent Highlights Visible"
-  }
-
-  dimension: metrics__boolean__glean_core_migration_successful {
-    type: yesno
-    sql: ${TABLE}.metrics.boolean.glean_core_migration_successful ;;
-    group_label: "Metrics Boolean"
-    group_item_label: "Glean Core Migration Successful"
-  }
-
-  dimension: metrics__boolean__glean_error_preinit_tasks_timeout {
-    type: yesno
-    sql: ${TABLE}.metrics.boolean.glean_error_preinit_tasks_timeout ;;
-    group_label: "Metrics Boolean"
-    group_item_label: "Glean Error Preinit Tasks Timeout"
-  }
-
-  dimension: metrics__boolean__preferences_block_popups {
-    type: yesno
-    sql: ${TABLE}.metrics.boolean.preferences_block_popups ;;
-    group_label: "Metrics Boolean"
-    group_item_label: "Preferences Block Popups"
-  }
-
-  dimension: metrics__boolean__preferences_close_private_tabs {
-    type: yesno
-    sql: ${TABLE}.metrics.boolean.preferences_close_private_tabs ;;
-    group_label: "Metrics Boolean"
-    group_item_label: "Preferences Close Private Tabs"
-  }
-
-  dimension: metrics__boolean__preferences_save_logins {
-    type: yesno
-    sql: ${TABLE}.metrics.boolean.preferences_save_logins ;;
-    group_label: "Metrics Boolean"
-    group_item_label: "Preferences Save Logins"
-  }
-
-  dimension: metrics__boolean__preferences_show_clipboard_bar {
-    type: yesno
-    sql: ${TABLE}.metrics.boolean.preferences_show_clipboard_bar ;;
-    group_label: "Metrics Boolean"
-    group_item_label: "Preferences Show Clipboard Bar"
-  }
-
-  dimension: metrics__boolean__theme_automatic_mode {
-    type: yesno
-    sql: ${TABLE}.metrics.boolean.theme_automatic_mode ;;
-    group_label: "Metrics Boolean"
-    group_item_label: "Theme Automatic Mode"
-  }
-
-  dimension: metrics__boolean__theme_use_system_theme {
-    type: yesno
-    sql: ${TABLE}.metrics.boolean.theme_use_system_theme ;;
-    group_label: "Metrics Boolean"
-    group_item_label: "Theme Use System Theme"
-  }
-
-  dimension: metrics__boolean__tracking_protection_enabled {
-    type: yesno
-    sql: ${TABLE}.metrics.boolean.tracking_protection_enabled ;;
-    group_label: "Metrics Boolean"
-    group_item_label: "Tracking Protection Enabled"
-  }
-
-  dimension: metrics__counter__app_opened_as_default_browser {
-    type: number
-    sql: ${TABLE}.metrics.counter.app_opened_as_default_browser ;;
-    group_label: "Metrics Counter"
-    group_item_label: "App Opened As Default Browser"
-  }
-
-  dimension: metrics__counter__default_browser_card_dismiss_pressed {
-    type: number
-    sql: ${TABLE}.metrics.counter.default_browser_card_dismiss_pressed ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Default Browser Card Dismiss Pressed"
-  }
-
-  dimension: metrics__counter__default_browser_card_go_to_settings_pressed {
-    type: number
-    sql: ${TABLE}.metrics.counter.default_browser_card_go_to_settings_pressed ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Default Browser Card Go to Settings Pressed"
-  }
-
-  dimension: metrics__counter__default_browser_onboarding_dismiss_pressed {
-    type: number
-    sql: ${TABLE}.metrics.counter.default_browser_onboarding_dismiss_pressed ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Default Browser Onboarding Dismiss Pressed"
-  }
-
-  dimension: metrics__counter__default_browser_onboarding_go_to_settings_pressed {
-    type: number
-    sql: ${TABLE}.metrics.counter.default_browser_onboarding_go_to_settings_pressed ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Default Browser Onboarding Go to Settings Pressed"
-  }
-
-  dimension: metrics__counter__glean_error_io {
-    type: number
-    sql: ${TABLE}.metrics.counter.glean_error_io ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Glean Error Io"
-  }
-
-  dimension: metrics__counter__glean_error_preinit_tasks_overflow {
-    type: number
-    sql: ${TABLE}.metrics.counter.glean_error_preinit_tasks_overflow ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Glean Error Preinit Tasks Overflow"
-  }
-
-  dimension: metrics__counter__glean_upload_deleted_pings_after_quota_hit {
-    type: number
-    sql: ${TABLE}.metrics.counter.glean_upload_deleted_pings_after_quota_hit ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Glean Upload Deleted Pings After Quota Hit"
-  }
-
-  dimension: metrics__counter__glean_upload_pending_pings {
-    type: number
-    sql: ${TABLE}.metrics.counter.glean_upload_pending_pings ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Glean Upload Pending Pings"
-  }
-
-  dimension: metrics__counter__glean_validation_app_forceclosed_count {
-    type: number
-    sql: ${TABLE}.metrics.counter.glean_validation_app_forceclosed_count ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Glean Validation App Forceclosed Count"
-  }
-
-  dimension: metrics__counter__glean_validation_baseline_ping_count {
-    type: number
-    sql: ${TABLE}.metrics.counter.glean_validation_baseline_ping_count ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Glean Validation Baseline Ping Count"
-  }
-
   dimension: metrics__counter__glean_validation_foreground_count {
     type: number
     sql: ${TABLE}.metrics.counter.glean_validation_foreground_count ;;
     group_label: "Metrics Counter"
     group_item_label: "Glean Validation Foreground Count"
-  }
-
-  dimension: metrics__counter__pocket_open_story {
-    type: number
-    sql: ${TABLE}.metrics.counter.pocket_open_story ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Pocket Open Story"
   }
 
   dimension: metrics__counter__qr_code_scanned {
@@ -574,95 +334,12 @@ view: unified_metrics {
     group_item_label: "Reading List Open"
   }
 
-  dimension: metrics__counter__search_start_search_pressed {
-    type: number
-    sql: ${TABLE}.metrics.counter.search_start_search_pressed ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Search Start Search Pressed"
-  }
-
-  dimension: metrics__counter__settings_menu_set_as_default_browser_pressed {
-    type: number
-    sql: ${TABLE}.metrics.counter.settings_menu_set_as_default_browser_pressed ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Settings Menu Set As Default Browser Pressed"
-  }
 
   dimension: metrics__counter__tabs_cumulative_count {
     type: number
     sql: ${TABLE}.metrics.counter.tabs_cumulative_count ;;
     group_label: "Metrics Counter"
     group_item_label: "Tabs Cumulative Count"
-  }
-
-  dimension: metrics__counter__tabs_new_tab_pressed {
-    type: number
-    sql: ${TABLE}.metrics.counter.tabs_new_tab_pressed ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Tabs New Tab Pressed"
-  }
-
-  dimension: metrics__counter__widget_l_tabs_open_url {
-    type: number
-    sql: ${TABLE}.metrics.counter.widget_l_tabs_open_url ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Widget L Tabs Open URL"
-  }
-
-  dimension: metrics__counter__widget_m_quick_action_close_private {
-    type: number
-    sql: ${TABLE}.metrics.counter.widget_m_quick_action_close_private ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Widget M Quick Action Close Private"
-  }
-
-  dimension: metrics__counter__widget_m_quick_action_copied_link {
-    type: number
-    sql: ${TABLE}.metrics.counter.widget_m_quick_action_copied_link ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Widget M Quick Action Copied Link"
-  }
-
-  dimension: metrics__counter__widget_m_quick_action_private_search {
-    type: number
-    sql: ${TABLE}.metrics.counter.widget_m_quick_action_private_search ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Widget M Quick Action Private Search"
-  }
-
-  dimension: metrics__counter__widget_m_quick_action_search {
-    type: number
-    sql: ${TABLE}.metrics.counter.widget_m_quick_action_search ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Widget M Quick Action Search"
-  }
-
-  dimension: metrics__counter__widget_m_tabs_open_url {
-    type: number
-    sql: ${TABLE}.metrics.counter.widget_m_tabs_open_url ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Widget M Tabs Open URL"
-  }
-
-  dimension: metrics__counter__widget_m_top_sites_widget {
-    type: number
-    sql: ${TABLE}.metrics.counter.widget_m_top_sites_widget ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Widget M Top Sites Widget"
-  }
-
-  dimension: metrics__counter__widget_s_quick_action_search {
-    type: number
-    sql: ${TABLE}.metrics.counter.widget_s_quick_action_search ;;
-    group_label: "Metrics Counter"
-    group_item_label: "Widget S Quick Action Search"
-  }
-
-  dimension: metrics__datetime__glean_validation_first_run_hour {
-    type: string
-    sql: ${TABLE}.metrics.datetime.glean_validation_first_run_hour ;;
-    group_label: "Metrics Datetime"
-    group_item_label: "Glean Validation First Run Hour"
   }
 
   dimension: metrics__labeled_counter__bookmarks_add {
@@ -693,47 +370,6 @@ view: unified_metrics {
     group_item_label: "Bookmarks View List"
   }
 
-  dimension: metrics__labeled_counter__glean_error_invalid_label {
-    hidden: yes
-    sql: ${TABLE}.metrics.labeled_counter.glean_error_invalid_label ;;
-    group_label: "Metrics Labeled Counter"
-    group_item_label: "Glean Error Invalid Label"
-  }
-
-  dimension: metrics__labeled_counter__glean_error_invalid_overflow {
-    hidden: yes
-    sql: ${TABLE}.metrics.labeled_counter.glean_error_invalid_overflow ;;
-    group_label: "Metrics Labeled Counter"
-    group_item_label: "Glean Error Invalid Overflow"
-  }
-
-  dimension: metrics__labeled_counter__glean_error_invalid_state {
-    hidden: yes
-    sql: ${TABLE}.metrics.labeled_counter.glean_error_invalid_state ;;
-    group_label: "Metrics Labeled Counter"
-    group_item_label: "Glean Error Invalid State"
-  }
-
-  dimension: metrics__labeled_counter__glean_error_invalid_value {
-    hidden: yes
-    sql: ${TABLE}.metrics.labeled_counter.glean_error_invalid_value ;;
-    group_label: "Metrics Labeled Counter"
-    group_item_label: "Glean Error Invalid Value"
-  }
-
-  dimension: metrics__labeled_counter__glean_upload_ping_upload_failure {
-    hidden: yes
-    sql: ${TABLE}.metrics.labeled_counter.glean_upload_ping_upload_failure ;;
-    group_label: "Metrics Labeled Counter"
-    group_item_label: "Glean Upload Ping Upload Failure"
-  }
-
-  dimension: metrics__labeled_counter__glean_validation_pings_submitted {
-    hidden: yes
-    sql: ${TABLE}.metrics.labeled_counter.glean_validation_pings_submitted ;;
-    group_label: "Metrics Labeled Counter"
-    group_item_label: "Glean Validation Pings Submitted"
-  }
 
   dimension: metrics__labeled_counter__reading_list_add {
     hidden: yes
@@ -757,20 +393,6 @@ view: unified_metrics {
   }
 
 
-  dimension: metrics__labeled_counter__search_google_topsite_pressed {
-    hidden: yes
-    sql: ${TABLE}.metrics.labeled_counter.search_google_topsite_pressed ;;
-    group_label: "Metrics Labeled Counter"
-    group_item_label: "Search Google Topsite Pressed"
-  }
-
-  dimension: metrics__labeled_counter__search_in_content {
-    hidden: yes
-    sql: ${TABLE}.metrics.labeled_counter.search_in_content ;;
-    group_label: "Metrics Labeled Counter"
-    group_item_label: "Search In Content"
-  }
-
   dimension: metrics__labeled_counter__tabs_close {
     hidden: yes
     sql: ${TABLE}.metrics.labeled_counter.tabs_close ;;
@@ -778,67 +400,11 @@ view: unified_metrics {
     group_item_label: "Tabs Close"
   }
 
-  dimension: metrics__labeled_counter__tabs_close_all {
-    hidden: yes
-    sql: ${TABLE}.metrics.labeled_counter.tabs_close_all ;;
-    group_label: "Metrics Labeled Counter"
-    group_item_label: "Tabs Close All"
-  }
-
   dimension: metrics__labeled_counter__tabs_open {
     hidden: yes
     sql: ${TABLE}.metrics.labeled_counter.tabs_open ;;
     group_label: "Metrics Labeled Counter"
     group_item_label: "Tabs Open"
-  }
-
-  dimension: metrics__string__glean_database_size__sum {
-    type: number
-    sql: ${TABLE}.metrics.string.glean_database_size.sum ;;
-    group_label: "Metrics String Glean Database Size"
-    group_item_label: "Sum"
-  }
-
-  dimension: metrics__string__glean_database_size__values {
-    hidden: yes
-    sql: ${TABLE}.metrics.string.glean_database_size.values ;;
-    group_label: "Metrics String Glean Database Size"
-    group_item_label: "Values"
-  }
-
-  dimension: metrics__string__glean_upload_discarded_exceeding_pings_size__sum {
-    type: number
-    sql: ${TABLE}.metrics.string.glean_upload_discarded_exceeding_pings_size.sum ;;
-    group_label: "Metrics String Glean Upload Discarded Exceeding Pings Size"
-    group_item_label: "Sum"
-  }
-
-  dimension: metrics__string__glean_upload_discarded_exceeding_pings_size__values {
-    hidden: yes
-    sql: ${TABLE}.metrics.string.glean_upload_discarded_exceeding_pings_size.values ;;
-    group_label: "Metrics String Glean Upload Discarded Exceeding Pings Size"
-    group_item_label: "Values"
-  }
-
-  dimension: metrics__string__glean_upload_pending_pings_directory_size__sum {
-    type: number
-    sql: ${TABLE}.metrics.string.glean_upload_pending_pings_directory_size.sum ;;
-    group_label: "Metrics String Glean Upload Pending Pings Directory Size"
-    group_item_label: "Sum"
-  }
-
-  dimension: metrics__string__glean_upload_pending_pings_directory_size__values {
-    hidden: yes
-    sql: ${TABLE}.metrics.string.glean_upload_pending_pings_directory_size.values ;;
-    group_label: "Metrics String Glean Upload Pending Pings Directory Size"
-    group_item_label: "Values"
-  }
-
-  dimension: metrics__string__ping_reason {
-    type: string
-    sql: ${TABLE}.metrics.string.ping_reason ;;
-    group_label: "Metrics String"
-    group_item_label: "Ping Reason"
   }
 
   dimension: metrics__string__preferences_mail_client {
@@ -862,26 +428,6 @@ view: unified_metrics {
     group_item_label: "Search Default Engine"
   }
 
-  dimension: metrics__string__theme_automatic_slider_value {
-    type: string
-    sql: ${TABLE}.metrics.string.theme_automatic_slider_value ;;
-    group_label: "Metrics String"
-    group_item_label: "Theme Automatic Slider Value"
-  }
-
-  dimension: metrics__string__theme_name {
-    type: string
-    sql: ${TABLE}.metrics.string.theme_name ;;
-    group_label: "Metrics String"
-    group_item_label: "Theme Name"
-  }
-
-  dimension: metrics__string__tracking_protection_strength {
-    type: string
-    sql: ${TABLE}.metrics.string.tracking_protection_strength ;;
-    group_label: "Metrics String"
-    group_item_label: "Tracking Protection Strength"
-  }
 
   dimension: normalized_app_name {
     type: string
@@ -1081,22 +627,6 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_open {
   }
 }
 
-view: unified_metrics__metrics__labeled_counter__tabs_close_all {
-  dimension: key {
-    type: string
-    sql: ${TABLE}.key ;;
-  }
-
-  dimension: value {
-    type: number
-    sql: ${TABLE}.value ;;
-  }
-
-  measure: counts {
-    type:  sum
-    sql:  ${value} ;;
-  }
-}
 
 view: unified_metrics__metrics__labeled_counter__bookmarks_delete {
   dimension: key {
@@ -1132,39 +662,6 @@ view: unified_metrics__metrics__labeled_counter__reading_list_add {
   }
 }
 
-view: unified_metrics__metrics__labeled_counter__search_in_content {
-  dimension: key {
-    type: string
-    sql: ${TABLE}.key ;;
-  }
-
-  dimension: value {
-    type: number
-    sql: ${TABLE}.value ;;
-  }
-
-  measure: counts {
-    type:  sum
-    sql:  ${value} ;;
-  }
-}
-
-view: unified_metrics__metrics__string__glean_database_size__values {
-  dimension: key {
-    type: string
-    sql: ${TABLE}.key ;;
-  }
-
-  dimension: value {
-    type: number
-    sql: ${TABLE}.value ;;
-  }
-
-  measure: counts {
-    type:  sum
-    sql:  ${value} ;;
-  }
-}
 
 view: unified_metrics__metrics__labeled_counter__bookmarks_view_list {
   dimension: key {
@@ -1184,159 +681,6 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_view_list {
 }
 
 view: unified_metrics__metrics__labeled_counter__reading_list_delete {
-  dimension: key {
-    type: string
-    sql: ${TABLE}.key ;;
-  }
-
-  dimension: value {
-    type: number
-    sql: ${TABLE}.value ;;
-  }
-
-  measure: counts {
-    type:  sum
-    sql:  ${value} ;;
-  }
-}
-
-view: unified_metrics__metrics__labeled_counter__glean_error_invalid_label {
-  dimension: key {
-    type: string
-    sql: ${TABLE}.key ;;
-  }
-
-  dimension: value {
-    type: number
-    sql: ${TABLE}.value ;;
-  }
-
-  measure: counts {
-    type:  sum
-    sql:  ${value} ;;
-  }
-}
-
-view: unified_metrics__metrics__labeled_counter__glean_error_invalid_state {
-  dimension: key {
-    type: string
-    sql: ${TABLE}.key ;;
-  }
-
-  dimension: value {
-    type: number
-    sql: ${TABLE}.value ;;
-  }
-
-  measure: counts {
-    type:  sum
-    sql:  ${value} ;;
-  }
-}
-
-view: unified_metrics__metrics__labeled_counter__glean_error_invalid_value {
-  dimension: key {
-    type: string
-    sql: ${TABLE}.key ;;
-  }
-
-  dimension: value {
-    type: number
-    sql: ${TABLE}.value ;;
-  }
-
-  measure: counts {
-    type:  sum
-    sql:  ${value} ;;
-  }
-}
-
-view: unified_metrics__metrics__labeled_counter__glean_error_invalid_overflow {
-  dimension: key {
-    type: string
-    sql: ${TABLE}.key ;;
-  }
-
-  dimension: value {
-    type: number
-    sql: ${TABLE}.value ;;
-  }
-
-  measure: counts {
-    type:  sum
-    sql:  ${value} ;;
-  }
-}
-
-view: unified_metrics__metrics__labeled_counter__search_google_topsite_pressed {
-  dimension: key {
-    type: string
-    sql: ${TABLE}.key ;;
-  }
-
-  dimension: value {
-    type: number
-    sql: ${TABLE}.value ;;
-  }
-
-  measure: counts {
-    type:  sum
-    sql:  ${value} ;;
-  }
-}
-
-view: unified_metrics__metrics__labeled_counter__glean_validation_pings_submitted {
-  dimension: key {
-    type: string
-    sql: ${TABLE}.key ;;
-  }
-
-  dimension: value {
-    type: number
-    sql: ${TABLE}.value ;;
-  }
-
-  measure: counts {
-    type:  sum
-    sql:  ${value} ;;
-  }
-}
-
-view: unified_metrics__metrics__labeled_counter__glean_upload_ping_upload_failure {
-  dimension: key {
-    type: string
-    sql: ${TABLE}.key ;;
-  }
-
-  dimension: value {
-    type: number
-    sql: ${TABLE}.value ;;
-  }
-
-  measure: counts {
-    type:  sum
-    sql:  ${value} ;;
-  }
-}
-
-view: unified_metrics__metrics__string__glean_upload_pending_pings_directory_size__values {
-  dimension: key {
-    type: string
-    sql: ${TABLE}.key ;;
-  }
-
-  dimension: value {
-    type: number
-    sql: ${TABLE}.value ;;
-  }
-
-  measure: counts {
-    type:  sum
-    sql:  ${value} ;;
-  }
-}
-
-view: unified_metrics__metrics__string__glean_upload_discarded_exceeding_pings_size__values {
   dimension: key {
     type: string
     sql: ${TABLE}.key ;;
