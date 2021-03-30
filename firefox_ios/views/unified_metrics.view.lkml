@@ -2,164 +2,134 @@
 explore: unified_metrics {
   hidden: no
 
-  join: unified_metrics__events {
-    view_label: "Unified Metrics: Events"
-    sql: LEFT JOIN UNNEST(${unified_metrics.events}) as unified_metrics__events ;;
-    relationship: one_to_many
-  }
-
-  join: unified_metrics__metrics__jwe {
-    view_label: "Unified Metrics: Metrics Jwe"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__jwe}) as unified_metrics__metrics__jwe ;;
-    relationship: one_to_many
-  }
-
-  join: unified_metrics__events__extra {
-    view_label: "Unified Metrics: Events Extra"
-    sql: LEFT JOIN UNNEST(${unified_metrics__events.extra}) as unified_metrics__events__extra ;;
-    relationship: one_to_many
-  }
-
-  join: unified_metrics__metrics__labeled_rate {
-    view_label: "Unified Metrics: Metrics Labeled Rate"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_rate}) as unified_metrics__metrics__labeled_rate ;;
-    relationship: one_to_many
-  }
-
   join: unified_metrics__ping_info__experiments {
     view_label: "Unified Metrics: Ping Info Experiments"
     sql: LEFT JOIN UNNEST(${unified_metrics.ping_info__experiments}) as unified_metrics__ping_info__experiments ;;
     relationship: one_to_many
   }
 
-  join: unified_metrics__metrics__labeled_rate__value {
-    view_label: "Unified Metrics: Metrics Labeled Rate Value"
-    sql: LEFT JOIN UNNEST(${unified_metrics__metrics__labeled_rate.value}) as unified_metrics__metrics__labeled_rate__value ;;
-    relationship: one_to_many
-  }
-
   join: unified_metrics__metrics__labeled_counter__tabs_open {
-    view_label: "Unified Metrics: Metrics Labeled Counter Tabs Open"
+    view_label: "Labeled Counter Tabs Open"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__tabs_open}) as unified_metrics__metrics__labeled_counter__tabs_open ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__tabs_close {
-    view_label: "Unified Metrics: Metrics Labeled Counter Tabs Close"
+    view_label: "Labeled Counter Tabs Close"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__tabs_close}) as unified_metrics__metrics__labeled_counter__tabs_close ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__bookmarks_add {
-    view_label: "Unified Metrics: Metrics Labeled Counter Bookmarks Add"
+    view_label: "Labeled Counter Bookmarks Add"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__bookmarks_add}) as unified_metrics__metrics__labeled_counter__bookmarks_add ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__search_counts {
-    view_label: "Unified Metrics: Metrics Labeled Counter Search Counts"
+    view_label: "Labeled Counter Search Counts"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__search_counts}) as unified_metrics__metrics__labeled_counter__search_counts ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__bookmarks_open {
-    view_label: "Unified Metrics: Metrics Labeled Counter Bookmarks Open"
+    view_label: "Labeled Counter Bookmarks Open"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__bookmarks_open}) as unified_metrics__metrics__labeled_counter__bookmarks_open ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__tabs_close_all {
-    view_label: "Unified Metrics: Metrics Labeled Counter Tabs Close All"
+    view_label: "Labeled Counter Tabs Close All"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__tabs_close_all}) as unified_metrics__metrics__labeled_counter__tabs_close_all ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__bookmarks_delete {
-    view_label: "Unified Metrics: Metrics Labeled Counter Bookmarks Delete"
+    view_label: "Labeled Counter Bookmarks Delete"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__bookmarks_delete}) as unified_metrics__metrics__labeled_counter__bookmarks_delete ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__reading_list_add {
-    view_label: "Unified Metrics: Metrics Labeled Counter Reading List Add"
+    view_label: "Labeled Counter Reading List Add"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__reading_list_add}) as unified_metrics__metrics__labeled_counter__reading_list_add ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__search_in_content {
-    view_label: "Unified Metrics: Metrics Labeled Counter Search In Content"
+    view_label: "Labeled Counter Search In Content"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__search_in_content}) as unified_metrics__metrics__labeled_counter__search_in_content ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__string__glean_database_size__values {
-    view_label: "Unified Metrics: Metrics String Glean Database Size Values"
+    view_label: "String Glean Database Size Values"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__string__glean_database_size__values}) as unified_metrics__metrics__string__glean_database_size__values ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__bookmarks_view_list {
-    view_label: "Unified Metrics: Metrics Labeled Counter Bookmarks View List"
+    view_label: "Labeled Counter Bookmarks View List"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__bookmarks_view_list}) as unified_metrics__metrics__labeled_counter__bookmarks_view_list ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__reading_list_delete {
-    view_label: "Unified Metrics: Metrics Labeled Counter Reading List Delete"
+    view_label: "Labeled Counter Reading List Delete"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__reading_list_delete}) as unified_metrics__metrics__labeled_counter__reading_list_delete ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__glean_error_invalid_label {
-    view_label: "Unified Metrics: Metrics Labeled Counter Glean Error Invalid Label"
+    view_label: "Labeled Counter Glean Error Invalid Label"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__glean_error_invalid_label}) as unified_metrics__metrics__labeled_counter__glean_error_invalid_label ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__glean_error_invalid_state {
-    view_label: "Unified Metrics: Metrics Labeled Counter Glean Error Invalid State"
+    view_label: "Labeled Counter Glean Error Invalid State"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__glean_error_invalid_state}) as unified_metrics__metrics__labeled_counter__glean_error_invalid_state ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__glean_error_invalid_value {
-    view_label: "Unified Metrics: Metrics Labeled Counter Glean Error Invalid Value"
+    view_label: "Labeled Counter Glean Error Invalid Value"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__glean_error_invalid_value}) as unified_metrics__metrics__labeled_counter__glean_error_invalid_value ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__glean_error_invalid_overflow {
-    view_label: "Unified Metrics: Metrics Labeled Counter Glean Error Invalid Overflow"
+    view_label: "Labeled Counter Glean Error Invalid Overflow"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__glean_error_invalid_overflow}) as unified_metrics__metrics__labeled_counter__glean_error_invalid_overflow ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__search_google_topsite_pressed {
-    view_label: "Unified Metrics: Metrics Labeled Counter Search Google Topsite Pressed"
+    view_label: "Labeled Counter Search Google Topsite Pressed"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__search_google_topsite_pressed}) as unified_metrics__metrics__labeled_counter__search_google_topsite_pressed ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__glean_validation_pings_submitted {
-    view_label: "Unified Metrics: Metrics Labeled Counter Glean Validation Pings Submitted"
+    view_label: "Labeled Counter Glean Validation Pings Submitted"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__glean_validation_pings_submitted}) as unified_metrics__metrics__labeled_counter__glean_validation_pings_submitted ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__glean_upload_ping_upload_failure {
-    view_label: "Unified Metrics: Metrics Labeled Counter Glean Upload Ping Upload Failure"
+    view_label: "Labeled Counter Glean Upload Ping Upload Failure"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__glean_upload_ping_upload_failure}) as unified_metrics__metrics__labeled_counter__glean_upload_ping_upload_failure ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__string__glean_upload_pending_pings_directory_size__values {
-    view_label: "Unified Metrics: Metrics String Glean Upload Pending Pings Directory Size Values"
+    view_label: "String Glean Upload Pending Pings Directory Size Values"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__string__glean_upload_pending_pings_directory_size__values}) as unified_metrics__metrics__string__glean_upload_pending_pings_directory_size__values ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__string__glean_upload_discarded_exceeding_pings_size__values {
-    view_label: "Unified Metrics: Metrics String Glean Upload Discarded Exceeding Pings Size Values"
+    view_label: "String Glean Upload Discarded Exceeding Pings Size Values"
     sql: LEFT JOIN UNNEST(${unified_metrics.metrics__string__glean_upload_discarded_exceeding_pings_size__values}) as unified_metrics__metrics__string__glean_upload_discarded_exceeding_pings_size__values ;;
     relationship: one_to_many
   }
@@ -268,11 +238,6 @@ view: unified_metrics {
   dimension: document_id {
     type: string
     sql: ${TABLE}.document_id ;;
-  }
-
-  dimension: events {
-    hidden: yes
-    sql: ${TABLE}.events ;;
   }
 
   dimension: metadata__geo__city {
@@ -700,13 +665,6 @@ view: unified_metrics {
     group_item_label: "Glean Validation First Run Hour"
   }
 
-  dimension: metrics__jwe {
-    hidden: yes
-    sql: ${TABLE}.metrics.jwe ;;
-    group_label: "Metrics"
-    group_item_label: "Jwe"
-  }
-
   dimension: metrics__labeled_counter__bookmarks_add {
     hidden: yes
     sql: ${TABLE}.metrics.labeled_counter.bookmarks_add ;;
@@ -832,13 +790,6 @@ view: unified_metrics {
     sql: ${TABLE}.metrics.labeled_counter.tabs_open ;;
     group_label: "Metrics Labeled Counter"
     group_item_label: "Tabs Open"
-  }
-
-  dimension: metrics__labeled_rate {
-    hidden: yes
-    sql: ${TABLE}.metrics.labeled_rate ;;
-    group_label: "Metrics"
-    group_item_label: "Labeled Rate"
   }
 
   dimension: metrics__string__glean_database_size__sum {
@@ -1022,69 +973,6 @@ view: unified_metrics {
     type: string
     sql: ${TABLE}.telemetry_system ;;
   }
-
-  measure: count {
-    type: count
-    drill_fields: [normalized_app_name, metadata__isp__name, metrics__string__theme_name]
-  }
-}
-
-view: unified_metrics__events {
-  dimension: category {
-    type: string
-    sql: ${TABLE}.category ;;
-  }
-
-  dimension: extra {
-    hidden: yes
-    sql: ${TABLE}.extra ;;
-  }
-
-  dimension: name {
-    type: string
-    sql: ${TABLE}.name ;;
-  }
-
-  dimension: timestamp {
-    type: number
-    sql: ${TABLE}.timestamp ;;
-  }
-}
-
-view: unified_metrics__metrics__jwe {
-  dimension: key {
-    type: string
-    sql: ${TABLE}.key ;;
-  }
-
-  dimension: value {
-    type: string
-    sql: ${TABLE}.value ;;
-  }
-}
-
-view: unified_metrics__events__extra {
-  dimension: key {
-    type: string
-    sql: ${TABLE}.key ;;
-  }
-
-  dimension: value {
-    type: string
-    sql: ${TABLE}.value ;;
-  }
-}
-
-view: unified_metrics__metrics__labeled_rate {
-  dimension: key {
-    type: string
-    sql: ${TABLE}.key ;;
-  }
-
-  dimension: value {
-    hidden: yes
-    sql: ${TABLE}.value ;;
-  }
 }
 
 view: unified_metrics__ping_info__experiments {
@@ -1108,27 +996,6 @@ view: unified_metrics__ping_info__experiments {
   }
 }
 
-view: unified_metrics__metrics__labeled_rate__value {
-  dimension: key {
-    type: string
-    sql: ${TABLE}.key ;;
-  }
-
-  dimension: value__denominator {
-    type: number
-    sql: ${TABLE}.value.denominator ;;
-    group_label: "Value"
-    group_item_label: "Denominator"
-  }
-
-  dimension: value__numerator {
-    type: number
-    sql: ${TABLE}.value.numerator ;;
-    group_label: "Value"
-    group_item_label: "Numerator"
-  }
-}
-
 view: unified_metrics__metrics__labeled_counter__tabs_open {
   dimension: key {
     type: string
@@ -1138,6 +1005,11 @@ view: unified_metrics__metrics__labeled_counter__tabs_open {
   dimension: value {
     type: number
     sql: ${TABLE}.value ;;
+  }
+
+  measure: counts {
+    type:  sum
+    sql:  ${value} ;;
   }
 }
 
@@ -1151,6 +1023,11 @@ view: unified_metrics__metrics__labeled_counter__tabs_close {
     type: number
     sql: ${TABLE}.value ;;
   }
+
+  measure: counts {
+    type:  sum
+    sql:  ${value} ;;
+  }
 }
 
 view: unified_metrics__metrics__labeled_counter__bookmarks_add {
@@ -1162,6 +1039,11 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_add {
   dimension: value {
     type: number
     sql: ${TABLE}.value ;;
+  }
+
+  measure: counts {
+    type:  sum
+    sql:  ${value} ;;
   }
 }
 
@@ -1192,6 +1074,11 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_open {
     type: number
     sql: ${TABLE}.value ;;
   }
+
+  measure: counts {
+    type:  sum
+    sql:  ${value} ;;
+  }
 }
 
 view: unified_metrics__metrics__labeled_counter__tabs_close_all {
@@ -1203,6 +1090,11 @@ view: unified_metrics__metrics__labeled_counter__tabs_close_all {
   dimension: value {
     type: number
     sql: ${TABLE}.value ;;
+  }
+
+  measure: counts {
+    type:  sum
+    sql:  ${value} ;;
   }
 }
 
@@ -1216,6 +1108,11 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_delete {
     type: number
     sql: ${TABLE}.value ;;
   }
+
+  measure: counts {
+    type:  sum
+    sql:  ${value} ;;
+  }
 }
 
 view: unified_metrics__metrics__labeled_counter__reading_list_add {
@@ -1227,6 +1124,11 @@ view: unified_metrics__metrics__labeled_counter__reading_list_add {
   dimension: value {
     type: number
     sql: ${TABLE}.value ;;
+  }
+
+  measure: counts {
+    type:  sum
+    sql:  ${value} ;;
   }
 }
 
@@ -1240,6 +1142,11 @@ view: unified_metrics__metrics__labeled_counter__search_in_content {
     type: number
     sql: ${TABLE}.value ;;
   }
+
+  measure: counts {
+    type:  sum
+    sql:  ${value} ;;
+  }
 }
 
 view: unified_metrics__metrics__string__glean_database_size__values {
@@ -1251,6 +1158,11 @@ view: unified_metrics__metrics__string__glean_database_size__values {
   dimension: value {
     type: number
     sql: ${TABLE}.value ;;
+  }
+
+  measure: counts {
+    type:  sum
+    sql:  ${value} ;;
   }
 }
 
@@ -1264,6 +1176,11 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_view_list {
     type: number
     sql: ${TABLE}.value ;;
   }
+
+  measure: counts {
+    type:  sum
+    sql:  ${value} ;;
+  }
 }
 
 view: unified_metrics__metrics__labeled_counter__reading_list_delete {
@@ -1275,6 +1192,11 @@ view: unified_metrics__metrics__labeled_counter__reading_list_delete {
   dimension: value {
     type: number
     sql: ${TABLE}.value ;;
+  }
+
+  measure: counts {
+    type:  sum
+    sql:  ${value} ;;
   }
 }
 
@@ -1288,6 +1210,11 @@ view: unified_metrics__metrics__labeled_counter__glean_error_invalid_label {
     type: number
     sql: ${TABLE}.value ;;
   }
+
+  measure: counts {
+    type:  sum
+    sql:  ${value} ;;
+  }
 }
 
 view: unified_metrics__metrics__labeled_counter__glean_error_invalid_state {
@@ -1299,6 +1226,11 @@ view: unified_metrics__metrics__labeled_counter__glean_error_invalid_state {
   dimension: value {
     type: number
     sql: ${TABLE}.value ;;
+  }
+
+  measure: counts {
+    type:  sum
+    sql:  ${value} ;;
   }
 }
 
@@ -1312,6 +1244,11 @@ view: unified_metrics__metrics__labeled_counter__glean_error_invalid_value {
     type: number
     sql: ${TABLE}.value ;;
   }
+
+  measure: counts {
+    type:  sum
+    sql:  ${value} ;;
+  }
 }
 
 view: unified_metrics__metrics__labeled_counter__glean_error_invalid_overflow {
@@ -1323,6 +1260,11 @@ view: unified_metrics__metrics__labeled_counter__glean_error_invalid_overflow {
   dimension: value {
     type: number
     sql: ${TABLE}.value ;;
+  }
+
+  measure: counts {
+    type:  sum
+    sql:  ${value} ;;
   }
 }
 
@@ -1336,6 +1278,11 @@ view: unified_metrics__metrics__labeled_counter__search_google_topsite_pressed {
     type: number
     sql: ${TABLE}.value ;;
   }
+
+  measure: counts {
+    type:  sum
+    sql:  ${value} ;;
+  }
 }
 
 view: unified_metrics__metrics__labeled_counter__glean_validation_pings_submitted {
@@ -1347,6 +1294,11 @@ view: unified_metrics__metrics__labeled_counter__glean_validation_pings_submitte
   dimension: value {
     type: number
     sql: ${TABLE}.value ;;
+  }
+
+  measure: counts {
+    type:  sum
+    sql:  ${value} ;;
   }
 }
 
@@ -1360,6 +1312,11 @@ view: unified_metrics__metrics__labeled_counter__glean_upload_ping_upload_failur
     type: number
     sql: ${TABLE}.value ;;
   }
+
+  measure: counts {
+    type:  sum
+    sql:  ${value} ;;
+  }
 }
 
 view: unified_metrics__metrics__string__glean_upload_pending_pings_directory_size__values {
@@ -1372,6 +1329,11 @@ view: unified_metrics__metrics__string__glean_upload_pending_pings_directory_siz
     type: number
     sql: ${TABLE}.value ;;
   }
+
+  measure: counts {
+    type:  sum
+    sql:  ${value} ;;
+  }
 }
 
 view: unified_metrics__metrics__string__glean_upload_discarded_exceeding_pings_size__values {
@@ -1383,5 +1345,10 @@ view: unified_metrics__metrics__string__glean_upload_discarded_exceeding_pings_s
   dimension: value {
     type: number
     sql: ${TABLE}.value ;;
+  }
+
+  measure: counts {
+    type:  sum
+    sql:  ${value} ;;
   }
 }
