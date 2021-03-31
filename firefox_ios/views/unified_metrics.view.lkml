@@ -64,19 +64,16 @@ explore: unified_metrics {
 }
 
 view: unified_metrics {
-  sql_table_name: `moz-fx-data-shared-prod.org_mozilla_ios_firefox.unified_metrics`
-    ;;
-
-  dimension: additional_properties {
-    type: string
-    sql: ${TABLE}.additional_properties ;;
-  }
-
-  dimension: client_info__android_sdk_version {
-    type: string
-    sql: ${TABLE}.client_info.android_sdk_version ;;
-    group_label: "Client Info"
-    group_item_label: "Android Sdk Version"
+  derived_table: {
+    sql:
+    SELECT
+      *
+    FROM
+      `moz-fx-data-shared-prod.org_mozilla_ios_firefox.unified_metrics`
+    WHERE
+      (DATE(submission_timestamp) < "2020-11-01" AND telemetry_system="legacy")
+      OR
+      (DATE(submission_timestamp) >= "2020-11-01" AND telemetry_system<>"legacy");;
   }
 
   dimension: client_info__app_build {
