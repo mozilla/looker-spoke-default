@@ -296,6 +296,12 @@ derived_table: {
     sql: ${firefox_desktop_usage_2020.dau} ;;
   }
 
+  measure: year_over_year_dau_7day_ma {
+    label: "2020 Dau MA"
+    type: number
+    sql: ${firefox_desktop_usage_2020.dau_7day_ma} ;;
+  }
+
   measure: year_over_year_wau {
     label: "2020 Wau"
     type: number
@@ -325,6 +331,12 @@ derived_table: {
     label: "2020 New Profiles"
     type: number
     sql: ${firefox_desktop_usage_2020.new_profiles} ;;
+  }
+
+  measure: year_over_year_new_profiles_7day_ma {
+    label: "2020 New Profiles MA"
+    type: number
+    sql: ${firefox_desktop_usage_2020.new_profiles_7day_ma} ;;
   }
 
   measure: year_over_year_new_profiles_cumulative {
