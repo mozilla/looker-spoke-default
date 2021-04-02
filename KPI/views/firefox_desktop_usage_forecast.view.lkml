@@ -187,7 +187,7 @@ view: prediction {
     sql:
     SELECT
       *,
-      avg(dau_forecast) over (order by submission_date rows between 6 preceding and current row) as dau_forecast_7day_ma,
+      AVG(dau_forecast) OVER window_7day AS dau_forecast_7day_ma,
       avg(dau_target) over (order by submission_date rows between 6 preceding and current row) as dau_target_7day_ma,
       avg(dau_forecast_lower) over (order by submission_date rows between 6 preceding and current row) as dau_forecast_lower_7day_ma,
       avg(dau_forecast_upper) over (order by submission_date rows between 6 preceding and current row) as dau_forecast_upper_7day_ma,
