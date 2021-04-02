@@ -188,13 +188,13 @@ view: prediction {
     SELECT
       *,
       AVG(dau_forecast) OVER window_7day AS dau_forecast_7day_ma,
-      avg(dau_target) over (order by submission_date rows between 6 preceding and current row) as dau_target_7day_ma,
-      avg(dau_forecast_lower) over (order by submission_date rows between 6 preceding and current row) as dau_forecast_lower_7day_ma,
-      avg(dau_forecast_upper) over (order by submission_date rows between 6 preceding and current row) as dau_forecast_upper_7day_ma,
-      avg(new_profiles_forecast) over (order by submission_date rows between 6 preceding and current row) as new_profiles_forecast_7day_ma,
-      avg(new_profiles_target) over (order by submission_date rows between 6 preceding and current row) as new_profiles_target_7day_ma,
-      avg(new_profiles_forecast_lower) over (order by submission_date rows between 6 preceding and current row) as new_profiles_forecast_lower_7day_ma,
-      avg(new_profiles_forecast_upper) over (order by submission_date rows between 6 preceding and current row) as new_profiles_forecast_upper_7day_ma
+      avg(dau_target) over window_7day as dau_target_7day_ma,
+      avg(dau_forecast_lower) over window_7day as dau_forecast_lower_7day_ma,
+      avg(dau_forecast_upper) over window_7day as dau_forecast_upper_7day_ma,
+      avg(new_profiles_forecast) over window_7day as new_profiles_forecast_7day_ma,
+      avg(new_profiles_target) over window_7day as new_profiles_target_7day_ma,
+      avg(new_profiles_forecast_lower) over window_7day as new_profiles_forecast_lower_7day_ma,
+      avg(new_profiles_forecast_upper) over window_7day as new_profiles_forecast_upper_7day_ma
     FROM
       mozdata.analysis.dou_forecasts
     WHERE -- Also requires ${insert_stmnt.SQL_TABLE_NAME}
@@ -211,7 +211,8 @@ view: prediction {
       {% condition firefox_desktop_usage_2021.os %} os {% endcondition %}
       {% condition firefox_desktop_usage_2021.source %} source {% endcondition %}
       {% condition firefox_desktop_usage_2021.attributed %} (attributed) {% endcondition %}
-      """, r"(\(.*\))"), '');;
+      """, r"(\(.*\))"), '')
+    WINDOW window_7day AS (order by submission_date rows between 6 preceding and current row);;
   }
 
   dimension: date {

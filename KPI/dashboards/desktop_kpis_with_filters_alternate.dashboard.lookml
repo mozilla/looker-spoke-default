@@ -10,7 +10,8 @@
     explore: firefox_desktop_usage_2021
     type: looker_line
     fields: [firefox_desktop_usage_2021.date, firefox_desktop_usage_2021.dau_7day_ma,
-      prediction.dau_forecast_7day_ma, prediction.dau_forecast_lower_7day_ma, prediction.dau_forecast_upper_7day_ma]
+      prediction.dau_forecast_7day_ma, prediction.dau_forecast_lower_7day_ma, prediction.dau_forecast_upper_7day_ma,
+      firefox_desktop_usage_2021.year_over_year_dau_7day_ma]
     fill_fields: [firefox_desktop_usage_2021.date]
     sorts: [firefox_desktop_usage_2021.date desc]
     limit: 500
