@@ -1,30 +1,38 @@
 view: firefox_desktop_usage_2021 {
 derived_table: {
   sql:
+    with base as (
+      select
+          submission_date,
+          sum(dau) as dau,
+          sum(wau) as wau,
+          sum(mau) as mau,
+          sum(cdou) as cdou,
+          sum(new_profiles) as new_profiles,
+          sum(cumulative_new_profiles) as cumulative_new_profiles,
+      from
+          ${firefox_desktop_usage_fields.SQL_TABLE_NAME} AS firefox_desktop_usage_fields
+      where
+          {% condition firefox_desktop_usage_2021.activity_segment %} activity_segment {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.campaign %} campaign {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.channel %} channel {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.content %} content {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.country %} country {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.country_name %} country_name {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.distribution_id %} distribution_id {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.id_bucket %} id_bucket {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.medium %} medium {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.os %} os {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.source %} source {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.attributed %} attributed {% endcondition %}
+      group by 1
+    )
+
     select
-        submission_date,
-        sum(dau) as dau,
-        sum(wau) as wau,
-        sum(mau) as mau,
-        sum(cdou) as cdou,
-        sum(new_profiles) as new_profiles,
-        sum(cumulative_new_profiles) as cumulative_new_profiles,
-    from
-        ${firefox_desktop_usage_fields.SQL_TABLE_NAME} AS firefox_desktop_usage_fields
-    where
-        {% condition firefox_desktop_usage_2021.activity_segment %} activity_segment {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.campaign %} campaign {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.channel %} channel {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.content %} content {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.country %} country {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.country_name %} country_name {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.distribution_id %} distribution_id {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.id_bucket %} id_bucket {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.medium %} medium {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.os %} os {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.source %} source {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.attributed %} attributed {% endcondition %}
-    group by 1 ;;
+      *,
+      avg(dau) over (order by submission_date rows between 6 preceding and current row) as dau_7day_ma,
+      avg(new_profiles) over (order by submission_date rows between 6 preceding and current row) as new_profiles_7day_ma
+    from base;;
 }
 
   filter: activity_segment {
@@ -111,6 +119,12 @@ derived_table: {
     sql: ${TABLE}.dau ;;
   }
 
+  measure: dau_7day_ma {
+    type: sum
+    value_format: "#,##0"
+    sql: ${TABLE}.dau_7day_ma ;;
+  }
+
   measure: mau {
     type: sum
     value_format: "#,##0"
@@ -121,6 +135,12 @@ derived_table: {
     type: sum
     value_format: "#,##0"
     sql: ${TABLE}.new_profiles ;;
+  }
+
+  measure: new_profiles_7day_ma {
+    type: sum
+    value_format: "#,##0"
+    sql: ${TABLE}.new_profiles_7day_ma ;;
   }
 
   measure: new_profiles_cumulative {
@@ -291,8 +311,7 @@ derived_table: {
   measure: year_over_year_cdou {
     label: "2020 Cdou"
     type: number
-    sql:
-      ${firefox_desktop_usage_2020.cdou} ;;
+    sql: ${firefox_desktop_usage_2020.cdou} ;;
   }
 
   measure: year_over_year_cdou_delta_count {
