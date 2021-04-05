@@ -571,8 +571,7 @@ view: unified_metrics__ping_info__experiments {
   dimension: value__branch {
     type: string
     sql: ${TABLE}.value.branch ;;
-    group_label: "Value"
-    group_item_label: "Branch"
+    label: "Branch"
   }
 
   dimension: value__extra__type {
