@@ -3,7 +3,7 @@ explore: unified_metrics {
   hidden: no
 
   join: unified_metrics__ping_info__experiments {
-    view_label: "Unified Metrics: Ping Info Experiments"
+    view_label: "Experiments"
     sql: LEFT JOIN UNNEST(${unified_metrics.ping_info__experiments}) as unified_metrics__ping_info__experiments ;;
     relationship: one_to_many
   }
