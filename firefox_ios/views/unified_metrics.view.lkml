@@ -577,8 +577,7 @@ view: unified_metrics__ping_info__experiments {
   dimension: value__extra__type {
     type: string
     sql: ${TABLE}.value.extra.type ;;
-    group_label: "Value Extra"
-    group_item_label: "Type"
+    label: "Experiment Type"
   }
 }
 
