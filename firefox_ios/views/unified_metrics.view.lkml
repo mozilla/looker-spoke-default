@@ -418,7 +418,7 @@ view: unified_metrics {
     group_item_label: "Reader Mode Open"
   }
 
-  measure: reader_mode_open_count {
+  measure: reader_mode_open {
     type:  sum
     sql:  ${metrics__counter__reader_mode_open} ;;
   }
