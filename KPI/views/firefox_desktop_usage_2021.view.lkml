@@ -1,30 +1,38 @@
 view: firefox_desktop_usage_2021 {
 derived_table: {
   sql:
+    with base as (
+      select
+          submission_date,
+          sum(dau) as dau,
+          sum(wau) as wau,
+          sum(mau) as mau,
+          sum(cdou) as cdou,
+          sum(new_profiles) as new_profiles,
+          sum(cumulative_new_profiles) as cumulative_new_profiles,
+      from
+          ${firefox_desktop_usage_fields.SQL_TABLE_NAME} AS firefox_desktop_usage_fields
+      where
+          {% condition firefox_desktop_usage_2021.activity_segment %} activity_segment {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.campaign %} campaign {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.channel %} channel {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.content %} content {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.country %} country {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.country_name %} country_name {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.distribution_id %} distribution_id {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.id_bucket %} id_bucket {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.medium %} medium {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.os %} os {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.source %} source {% endcondition %}
+          AND {% condition firefox_desktop_usage_2021.attributed %} attributed {% endcondition %}
+      group by 1
+    )
+
     select
-        submission_date,
-        sum(dau) as dau,
-        sum(wau) as wau,
-        sum(mau) as mau,
-        sum(cdou) as cdou,
-        sum(new_profiles) as new_profiles,
-        sum(cumulative_new_profiles) as cumulative_new_profiles,
-    from
-        ${firefox_desktop_usage_fields.SQL_TABLE_NAME} AS firefox_desktop_usage_fields
-    where
-        {% condition firefox_desktop_usage_2021.activity_segment %} activity_segment {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.campaign %} campaign {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.channel %} channel {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.content %} content {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.country %} country {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.country_name %} country_name {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.distribution_id %} distribution_id {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.id_bucket %} id_bucket {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.medium %} medium {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.os %} os {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.source %} source {% endcondition %}
-        AND {% condition firefox_desktop_usage_2021.attributed %} attributed {% endcondition %}
-    group by 1 ;;
+      *,
+      avg(dau) over (order by submission_date rows between 6 preceding and current row) as dau_7day_ma,
+      avg(new_profiles) over (order by submission_date rows between 6 preceding and current row) as new_profiles_7day_ma
+    from base;;
 }
 
   filter: activity_segment {
@@ -111,6 +119,12 @@ derived_table: {
     sql: ${TABLE}.dau ;;
   }
 
+  measure: dau_7day_ma {
+    type: sum
+    value_format: "#,##0"
+    sql: ${TABLE}.dau_7day_ma ;;
+  }
+
   measure: mau {
     type: sum
     value_format: "#,##0"
@@ -121,6 +135,12 @@ derived_table: {
     type: sum
     value_format: "#,##0"
     sql: ${TABLE}.new_profiles ;;
+  }
+
+  measure: new_profiles_7day_ma {
+    type: sum
+    value_format: "#,##0"
+    sql: ${TABLE}.new_profiles_7day_ma ;;
   }
 
   measure: new_profiles_cumulative {
@@ -136,6 +156,7 @@ derived_table: {
   }
 
   measure: new_profiles_cumulative_2021 {
+    hidden: yes
     type: sum
     sql: ${TABLE}.cumulative_new_profiles ;;
     filters: [
@@ -144,18 +165,21 @@ derived_table: {
   }
 
   measure: recent_new_profiles_cumulative {
+    hidden: yes
     type: max
     value_format: "#,##0"
     sql: ${TABLE}.cumulative_new_profiles ;;
   }
 
   measure: recent_cdou {
+    hidden: yes
     type: max
     value_format: "#,##0"
     sql: ${TABLE}.cdou ;;
   }
 
   measure: recent_date {
+    hidden: yes
     type: date
     sql: MAX(CAST(${TABLE}.submission_date AS TIMESTAMP)) ;;
   }
@@ -167,48 +191,56 @@ derived_table: {
   }
 
   measure: delta_from_forecast {
+    label: "Cdou: Relative Delta from Forecast"
     type: number
     value_format: "0.000%"
     sql: (${recent_cdou} / ${prediction.recent_cdou_forecast} ) - 1 ;;
   }
 
   measure: delta_from_target {
+    label: "Cdou: Relative Delta from Target"
     type: number
     value_format: "0.000%"
     sql: (${recent_cdou} / (${prediction.recent_cdou_target}) ) - 1 ;;
   }
 
   measure: delta_from_target_count {
+    label: "Cdou: Absolute Delta from Target"
     type: number
     value_format: "#,##0"
     sql: ${cdou} - ${prediction.cdou_target} ;;
   }
 
   measure: delta_from_forecast_count {
+    label: "Cdou: Absolute Delta from Forecast"
     type: number
     value_format: "#,##0"
     sql: ${cdou} - ${prediction.cdou_forecast}  ;;
   }
 
   measure: delta_from_forecast_new_profiles {
+    hidden: yes
     type: number
     value_format: "0.000%"
     sql: (${recent_new_profiles_cumulative} / ${prediction.recent_cum_new_profiles_forecast} ) - 1 ;;
   }
 
   measure: delta_from_target_new_profiles {
+    hidden: yes
     type: number
     value_format: "0.000%"
     sql: (${recent_new_profiles_cumulative} / (${prediction.recent_cum_new_profiles_target}) ) - 1 ;;
   }
 
   measure: delta_from_forecast_new_profiles_count {
+    label: "New Profiles: Absolute Delta from Forecast"
     type: number
     value_format: "#,##0"
     sql: ${new_profiles_cumulative} - ${prediction.cum_new_profiles_forecast}  ;;
   }
 
   measure: delta_from_target_new_profiles_count {
+    label: "New Profiles: Absolute Delta from Target"
     type: number
     value_format: "#,##0"
     sql: ${new_profiles_cumulative} - ${prediction.cum_new_profiles_target} ;;
@@ -216,6 +248,7 @@ derived_table: {
 
   measure: delta_from_forecast_format{
     type: number
+    hidden: yes
     sql: ${delta_from_forecast_new_profiles} ;;
     html:
     {% assign target_delta = firefox_desktop_usage_2021.delta_from_target_new_profiles._value | times: 100 %}
@@ -236,6 +269,7 @@ derived_table: {
 
   measure: delta_from_forecast_format2{
     type: number
+    hidden: yes
     sql: ${delta_from_forecast} ;;
     html:
     {% assign target_delta = firefox_desktop_usage_2021.delta_from_target._value | times: 100 %}
@@ -252,6 +286,70 @@ derived_table: {
       </center>
     </div>
    ;;
+  }
+
+  # YoY Measures
+
+  measure: year_over_year_dau {
+    label: "2020 Dau"
+    type: number
+    sql: ${firefox_desktop_usage_2020.dau} ;;
+  }
+
+  measure: year_over_year_dau_7day_ma {
+    label: "2020 Dau MA"
+    type: number
+    sql: ${firefox_desktop_usage_2020.dau_7day_ma} ;;
+  }
+
+  measure: year_over_year_wau {
+    label: "2020 Wau"
+    type: number
+    sql: ${firefox_desktop_usage_2020.wau} ;;
+  }
+
+  measure: year_over_year_mau {
+    label: "2020 Mau"
+    type: number
+    sql: ${firefox_desktop_usage_2020.mau} ;;
+  }
+
+  measure: year_over_year_cdou {
+    label: "2020 Cdou"
+    type: number
+    sql: ${firefox_desktop_usage_2020.cdou} ;;
+  }
+
+  measure: year_over_year_cdou_delta_count {
+    label: "Cdou: Absolute Delta from 2020"
+    type: number
+    value_format: "#,##0"
+    sql: ${cdou} - ${year_over_year_cdou} ;;
+  }
+
+  measure: year_over_year_new_profiles {
+    label: "2020 New Profiles"
+    type: number
+    sql: ${firefox_desktop_usage_2020.new_profiles} ;;
+  }
+
+  measure: year_over_year_new_profiles_7day_ma {
+    label: "2020 New Profiles MA"
+    type: number
+    sql: ${firefox_desktop_usage_2020.new_profiles_7day_ma} ;;
+  }
+
+  measure: year_over_year_new_profiles_cumulative {
+    label: "2020 Cumulative New Profiles"
+    type: number
+    sql: ${firefox_desktop_usage_2020.new_profiles_cumulative} ;;
+  }
+
+  measure: year_over_year_new_profile_delta_count {
+    label: "New Profiles: Absolute Delta from 2020"
+    type: number
+    value_format: "#,##0"
+    sql: ${new_profiles_cumulative} - ${year_over_year_new_profiles_cumulative} ;;
   }
 
 }

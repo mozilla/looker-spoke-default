@@ -186,7 +186,15 @@ view: prediction {
   derived_table: {
     sql:
     SELECT
-      *
+      *,
+      AVG(dau_forecast) OVER window_7day AS dau_forecast_7day_ma,
+      avg(dau_target) over window_7day as dau_target_7day_ma,
+      avg(dau_forecast_lower) over window_7day as dau_forecast_lower_7day_ma,
+      avg(dau_forecast_upper) over window_7day as dau_forecast_upper_7day_ma,
+      avg(new_profiles_forecast) over window_7day as new_profiles_forecast_7day_ma,
+      avg(new_profiles_target) over window_7day as new_profiles_target_7day_ma,
+      avg(new_profiles_forecast_lower) over window_7day as new_profiles_forecast_lower_7day_ma,
+      avg(new_profiles_forecast_upper) over window_7day as new_profiles_forecast_upper_7day_ma
     FROM
       mozdata.analysis.dou_forecasts
     WHERE -- Also requires ${insert_stmnt.SQL_TABLE_NAME}
@@ -203,7 +211,8 @@ view: prediction {
       {% condition firefox_desktop_usage_2021.os %} os {% endcondition %}
       {% condition firefox_desktop_usage_2021.source %} source {% endcondition %}
       {% condition firefox_desktop_usage_2021.attributed %} (attributed) {% endcondition %}
-      """, r"(\(.*\))"), '');;
+      """, r"(\(.*\))"), '')
+    WINDOW window_7day AS (order by submission_date rows between 6 preceding and current row);;
   }
 
   dimension: date {
@@ -241,10 +250,22 @@ view: prediction {
     sql: ANY_VALUE(${TABLE}.dau_forecast) ;;
   }
 
+  measure: dau_forecast_7day_ma {
+    type: number
+    value_format: "#,##0"
+    sql: ANY_VALUE(${TABLE}.dau_forecast_7day_ma) ;;
+  }
+
   measure: dau_forecast_lower {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.dau_forecast_lower) ;;
+  }
+
+  measure: dau_forecast_lower_7day_ma {
+    type: number
+    value_format: "#,##0"
+    sql: ANY_VALUE(${TABLE}.dau_forecast_lower_7day_ma) ;;
   }
 
   measure: dau_forecast_upper {
@@ -253,10 +274,22 @@ view: prediction {
     sql: ANY_VALUE(${TABLE}.dau_forecast_upper) ;;
   }
 
+  measure: dau_forecast_upper_7day_ma {
+    type: number
+    value_format: "#,##0"
+    sql: ANY_VALUE(${TABLE}.dau_forecast_upper_7day_ma) ;;
+  }
+
   measure: dau_target {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.dau_target) ;;
+  }
+
+  measure: dau_target_7day_ma {
+    type: number
+    value_format: "#,##0"
+    sql: ANY_VALUE(${TABLE}.dau_target_7day_ma) ;;
   }
 
   measure: new_profiles_forecast {
@@ -265,10 +298,22 @@ view: prediction {
     sql: ANY_VALUE(${TABLE}.new_profiles_forecast) ;;
   }
 
+  measure: new_profiles_forecast_7day_ma {
+    type: number
+    value_format: "#,##0"
+    sql: ANY_VALUE(${TABLE}.new_profiles_forecast_7day_ma) ;;
+  }
+
   measure: new_profiles_forecast_lower {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.new_profiles_forecast_lower) ;;
+  }
+
+  measure: new_profiles_forecast_lower_7day_ma {
+    type: number
+    value_format: "#,##0"
+    sql: ANY_VALUE(${TABLE}.new_profiles_forecast_lower_7day_ma) ;;
   }
 
   measure: new_profiles_forecast_upper {
@@ -277,10 +322,22 @@ view: prediction {
     sql: ANY_VALUE(${TABLE}.new_profiles_forecast_upper) ;;
   }
 
+  measure: new_profiles_forecast_upper_7day_ma {
+    type: number
+    value_format: "#,##0"
+    sql: ANY_VALUE(${TABLE}.new_profiles_forecast_upper_7day_ma) ;;
+  }
+
   measure: new_profiles_target {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.new_profiles_target) ;;
+  }
+
+  measure: new_profiles_target_7day_ma {
+    type: number
+    value_format: "#,##0"
+    sql: ANY_VALUE(${TABLE}.new_profiles_target_7day_ma) ;;
   }
 
   measure: recent_cum_new_profiles_forecast {
