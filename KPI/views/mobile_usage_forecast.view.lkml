@@ -11,7 +11,7 @@ view: mobile_dau_model {
       {% condition mobile_usage_2021.id_bucket %} id_bucket {% endcondition %}
       {% condition mobile_usage_2021.os %} os {% endcondition %}
       -- add source or campaign not null as attributed
-      -- country tier: FR, GB, US, CA, DE, CA
+      -- country tier: FR, GB, US, CA, DE
       """, r"(\(.*\))"), '');
 
     DECLARE row_count INT64;
