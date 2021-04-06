@@ -39,72 +39,84 @@ derived_table: {
     suggest_explore: firefox_desktop_usage_fields
     suggest_dimension: firefox_desktop_usage_fields.activity_segment
     type: string
+    description: "The classification of clients based on days of use with at least one URI browsed."
   }
 
   filter: campaign {
     suggest_explore: firefox_desktop_usage_fields
     suggest_dimension: firefox_desktop_usage_fields.campaign
     type: string
+    description: "The (UTM) campaign that profiles are attributed to."
   }
 
   filter: channel {
     suggest_explore: firefox_desktop_usage_fields
     suggest_dimension: firefox_desktop_usage_fields.channel
     type: string
+    description: "Firefox release channel."
   }
 
   filter: content {
     suggest_explore: firefox_desktop_usage_fields
     suggest_dimension: firefox_desktop_usage_fields.content
     type: string
+    description: "The UTM content that profiles are attributed to."
   }
 
   filter: country {
     suggest_explore: firefox_desktop_usage_fields
     suggest_dimension: firefox_desktop_usage_fields.country
     type: string
+    description: "Country codes derived from the client's IP address."
   }
 
   filter: country_name {
     suggest_explore: firefox_desktop_usage_fields
     suggest_dimension: firefox_desktop_usage_fields.country_name
     type: string
+    description: "Full country names derived from the client's IP address."
   }
 
   filter: distribution_id {
     suggest_explore: firefox_desktop_usage_fields
     suggest_dimension: firefox_desktop_usage_fields.distribution_id
     type: string
+    description: "The distribution ID, through a partner or a repack."
   }
 
   filter: id_bucket {
     suggest_explore: firefox_desktop_usage_fields
     suggest_dimension: firefox_desktop_usage_fields.id_bucket
     type: number
+    description: "For sampling: each client_id is mapped to one of twenty id_buckets."
   }
 
   filter: medium {
     suggest_explore: firefox_desktop_usage_fields
     suggest_dimension: firefox_desktop_usage_fields.medium
     type: string
+    description: "The UTM medium that profiles are attributed to."
   }
 
   filter: os {
     suggest_explore: firefox_desktop_usage_fields
     suggest_dimension: firefox_desktop_usage_fields.os
     type: string
+    description: "Profile's Operating System."
   }
 
   filter: source {
     suggest_explore: firefox_desktop_usage_fields
     suggest_dimension: firefox_desktop_usage_fields.source
     type: string
+    description: "The UTM source that the profile is attributed to."
   }
 
   filter: attributed {
     suggest_explore: firefox_desktop_usage_fields
     suggest_dimension: firefox_desktop_usage_fields.attributed
     type: yesno
+    description: "Attributed installs have a non-null UTM source or UTM campaign."
   }
 
   dimension: date {
@@ -117,42 +129,56 @@ derived_table: {
     type: sum
     value_format: "#,##0"
     sql: ${TABLE}.dau ;;
+    description: "Daily Active Users."
   }
 
   measure: dau_7day_ma {
     type: sum
     value_format: "#,##0"
     sql: ${TABLE}.dau_7day_ma ;;
+    hidden: yes
+  }
+
+  measure: wau {
+    type: sum
+    value_format: "#,##0"
+    sql: ${TABLE}.wau ;;
+    description: "Weekly Active Users."
   }
 
   measure: mau {
     type: sum
     value_format: "#,##0"
     sql: ${TABLE}.mau ;;
+    description: "Monthly Active Users."
   }
 
   measure: new_profiles {
     type: sum
     value_format: "#,##0"
     sql: ${TABLE}.new_profiles ;;
+    description: "Number of New Profiles."
   }
 
   measure: new_profiles_7day_ma {
     type: sum
     value_format: "#,##0"
     sql: ${TABLE}.new_profiles_7day_ma ;;
+    hidden: yes
   }
 
   measure: new_profiles_cumulative {
     type: sum
     value_format: "#,##0"
     sql: ${TABLE}.cumulative_new_profiles ;;
+    description: "Cumulative New Profiles in that calendar year."
   }
 
   measure: cdou {
     type: sum
     value_format: "#,##0"
     sql: ${TABLE}.cdou ;;
+    description: "Cumulative Days of Use, in that calendar year."
   }
 
   measure: new_profiles_cumulative_2021 {
@@ -184,17 +210,12 @@ derived_table: {
     sql: MAX(CAST(${TABLE}.submission_date AS TIMESTAMP)) ;;
   }
 
-  measure: wau {
-    type: sum
-    value_format: "#,##0"
-    sql: ${TABLE}.wau ;;
-  }
-
   measure: delta_from_forecast {
     label: "Cdou: Relative Delta from Forecast"
     type: number
     value_format: "0.000%"
     sql: (${recent_cdou} / ${prediction.recent_cdou_forecast} ) - 1 ;;
+    description: "Relative (given as a fraction) difference between actual CDOU and forecasted CDOU."
   }
 
   measure: delta_from_target {
@@ -202,6 +223,7 @@ derived_table: {
     type: number
     value_format: "0.000%"
     sql: (${recent_cdou} / (${prediction.recent_cdou_target}) ) - 1 ;;
+    description: "Relative (given as a fraction) difference between actual CDOU and targeted CDOU."
   }
 
   measure: delta_from_target_count {
@@ -209,6 +231,7 @@ derived_table: {
     type: number
     value_format: "#,##0"
     sql: ${cdou} - ${prediction.cdou_target} ;;
+    description: "Absolute (given as a whole number) difference between actual CDOU and targeted CDOU."
   }
 
   measure: delta_from_forecast_count {
@@ -216,6 +239,7 @@ derived_table: {
     type: number
     value_format: "#,##0"
     sql: ${cdou} - ${prediction.cdou_forecast}  ;;
+    description: "Absolute (given as a whole number) difference between actual CDOU and targeted CDOU."
   }
 
   measure: delta_from_forecast_new_profiles {
@@ -237,6 +261,7 @@ derived_table: {
     type: number
     value_format: "#,##0"
     sql: ${new_profiles_cumulative} - ${prediction.cum_new_profiles_forecast}  ;;
+    description: "Absolute (given as a whole number) difference between actual New Profiles and forecasted New Profiles."
   }
 
   measure: delta_from_target_new_profiles_count {
@@ -244,6 +269,7 @@ derived_table: {
     type: number
     value_format: "#,##0"
     sql: ${new_profiles_cumulative} - ${prediction.cum_new_profiles_target} ;;
+    description: "Absolute (given as a whole number) difference between actual New Profiles and targeted New Profiles."
   }
 
   measure: delta_from_forecast_format{
@@ -294,30 +320,35 @@ derived_table: {
     label: "2020 Dau"
     type: number
     sql: ${firefox_desktop_usage_2020.dau} ;;
+    description: "Daily Active Users on this day in 2020."
   }
 
   measure: year_over_year_dau_7day_ma {
     label: "2020 Dau MA"
     type: number
     sql: ${firefox_desktop_usage_2020.dau_7day_ma} ;;
+    hidden: yes
   }
 
   measure: year_over_year_wau {
     label: "2020 Wau"
     type: number
     sql: ${firefox_desktop_usage_2020.wau} ;;
+    description: "Weekly Active Users on this day in 2020."
   }
 
   measure: year_over_year_mau {
     label: "2020 Mau"
     type: number
     sql: ${firefox_desktop_usage_2020.mau} ;;
+    description: "Monthly Active Users on this day in 2020."
   }
 
   measure: year_over_year_cdou {
     label: "2020 Cdou"
     type: number
     sql: ${firefox_desktop_usage_2020.cdou} ;;
+    description: "Cumulative Days of Use on this day in 2020."
   }
 
   measure: year_over_year_cdou_delta_count {
@@ -325,24 +356,28 @@ derived_table: {
     type: number
     value_format: "#,##0"
     sql: ${cdou} - ${year_over_year_cdou} ;;
+    description: "Absolute (given as a whole number) difference between 2020's CDOU and 2021's CDOU."
   }
 
   measure: year_over_year_new_profiles {
     label: "2020 New Profiles"
     type: number
     sql: ${firefox_desktop_usage_2020.new_profiles} ;;
+    description: "Number of New Profiles on this day in 2020."
   }
 
   measure: year_over_year_new_profiles_7day_ma {
     label: "2020 New Profiles MA"
     type: number
     sql: ${firefox_desktop_usage_2020.new_profiles_7day_ma} ;;
+    hidden: yes
   }
 
   measure: year_over_year_new_profiles_cumulative {
     label: "2020 Cumulative New Profiles"
     type: number
     sql: ${firefox_desktop_usage_2020.new_profiles_cumulative} ;;
+    description: "Number of Cumulative New Profiles on this day in 2020."
   }
 
   measure: year_over_year_new_profile_delta_count {
@@ -350,6 +385,7 @@ derived_table: {
     type: number
     value_format: "#,##0"
     sql: ${new_profiles_cumulative} - ${year_over_year_new_profiles_cumulative} ;;
+    description: "Absolute (given as a whole number) difference between 2020's Cumulative New Profiles and 2021's Cumulative New Profiles."
   }
 
 }
