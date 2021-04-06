@@ -34,42 +34,49 @@ view: mobile_usage_2021 {
     suggest_explore: mobile_usage_fields
     suggest_dimension: mobile_usage_fields.campaign
     type: string
+    description: "The (UTM) campaign that profiles are attributed to."
   }
 
   filter: channel {
     suggest_explore: mobile_usage_fields
     suggest_dimension: mobile_usage_fields.channel
     type: string
+    description: "Mobile Firefox release channel."
   }
 
   filter: country {
     suggest_explore: mobile_usage_fields
     suggest_dimension: mobile_usage_fields.country
     type: string
+    description: "Country codes derived from the client's IP address."
   }
 
   filter: country_name {
     suggest_explore: mobile_usage_fields
     suggest_dimension: mobile_usage_fields.country_name
     type: string
+    description: "Full country names derived from the client's IP address."
   }
 
   filter: distribution_id {
     suggest_explore: mobile_usage_fields
     suggest_dimension: mobile_usage_fields.distribution_id
     type: string
+    description: "The distribution ID, through a partner or a repack."
   }
 
   filter: id_bucket {
     suggest_explore: mobile_usage_fields
     suggest_dimension: mobile_usage_fields.id_bucket
     type: number
+    description: "For sampling: each client_id is mapped to one of twenty id_buckets."
   }
 
   filter: os {
     suggest_explore: mobile_usage_fields
     suggest_dimension: mobile_usage_fields.os
     type: string
+    description: "Profile's Operating System."
   }
 
   dimension: app_name {
@@ -77,6 +84,7 @@ view: mobile_usage_2021 {
     suggest_explore: mobile_usage_fields
     suggest_dimension: mobile_usage_fields.app_name
     sql: ${TABLE}.app_name ;;
+    description: "Snake-cased mobile application name."
   }
 
   dimension: canonical_app_name {
@@ -84,6 +92,7 @@ view: mobile_usage_2021 {
     suggest_explore: mobile_usage_fields
     suggest_dimension: mobile_usage_fields.canonical_app_name
     sql: ${TABLE}.canonical_app_name ;;
+    description: "Human readable mobile application name."
   }
 
   dimension: date {
@@ -96,47 +105,55 @@ view: mobile_usage_2021 {
     type: sum
     value_format: "#,##0"
     sql: ${TABLE}.cdou ;;
+    description: "Cumulative Days of Use, in that calendar year."
   }
 
   measure: dau {
     type: sum
     value_format: "#,##0"
     sql: ${TABLE}.dau ;;
+    description: "Daily Active Users."
   }
 
   measure: dau_7day_ma {
     type: sum
     value_format: "#,##0"
     sql: ${TABLE}.dau_7day_ma ;;
+    hidden: yes
   }
 
   measure: mau {
     type: sum
     value_format: "#,##0"
     sql: ${TABLE}.mau ;;
+    description: "Monthly Active Users."
   }
 
   measure: recent_cdou {
     type: max
     value_format: "#,##0"
     sql: ${TABLE}.cdou ;;
+    hidden: yes
   }
 
   measure: recent_date {
     type: date
     sql: MAX(CAST(${TABLE}.submission_date AS TIMESTAMP)) ;;
+    hidden: yes
   }
 
   measure: wau {
     type: sum
     value_format: "#,##0"
     sql: ${TABLE}.wau ;;
+    description: "Weekly Active Users."
   }
 
   measure: delta_from_forecast {
     type: number
     value_format: "0.000%"
     sql: (${recent_cdou} / ${mobile_prediction.recent_cdou_forecast} ) - 1 ;;
+    description: "Relative (given as a fraction) difference between actual CDOU and forecasted CDOU."
   }
 
   measure: delta_from_forecast_format{
@@ -165,24 +182,30 @@ view: mobile_usage_2021 {
     type: number
     value_format: "0.000%"
     sql: (${recent_cdou} / ${mobile_prediction.recent_cdou_target} ) - 1 ;;
+    description: "Relative (given as a fraction) difference between actual CDOU and targeted CDOU."
   }
 
   measure: delta_from_forecast_count {
     type: number
     value_format: "#,##0"
     sql: ${cdou} - ${mobile_prediction.cdou_forecast}  ;;
+    description: "Absolute (given as a whole number) difference between actual CDOU and forecasted CDOU."
+
   }
 
   measure: delta_from_target_count {
     type: number
     value_format: "#,##0"
     sql: ${cdou} - ${mobile_prediction.cdou_target}  ;;
+    description: "Absolute (given as a whole number) difference between actual CDOU and targeted CDOU."
+
   }
 
   measure: target_lift {
     type: number
     value_format: "0.0%"
     sql: (${mobile_prediction.recent_cdou_target} / ${mobile_prediction.recent_cdou_forecast} ) - 1 ;;
+    hidden: yes
   }
 
 }
