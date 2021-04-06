@@ -268,7 +268,7 @@ view: prediction {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.dau_forecast_lower) ;;
-    description: "Lower bound of forecasted value for Cumulative Days of Use. Only relevant for 2021."
+    description: "Lower bound (10th percentile) of forecasted value for Cumulative Days of Use. Only relevant for 2021."
   }
 
   measure: dau_forecast_lower_7day_ma {
@@ -283,7 +283,7 @@ view: prediction {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.dau_forecast_upper) ;;
-    description: "Upper bound of forecasted value for Cumulative Days of Use. Only relevant for 2021."
+    description: "Upper bound (90th percentile) of forecasted value for Cumulative Days of Use. Only relevant for 2021."
   }
 
   measure: dau_forecast_upper_7day_ma {
@@ -326,7 +326,7 @@ view: prediction {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.new_profiles_forecast_lower) ;;
-    description: "Lower bound value for Forecasted New Profiles. Only relevant for 2021."
+    description: "Lower bound (10th percentile) value for Forecasted New Profiles. Only relevant for 2021."
   }
 
   measure: new_profiles_forecast_lower_7day_ma {
@@ -341,7 +341,7 @@ view: prediction {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.new_profiles_forecast_upper) ;;
-    description: "Upper bound value for Forecasted New Profiles. Only relevant for 2021."
+    description: "Upper bound (90th percentile) value for Forecasted New Profiles. Only relevant for 2021."
   }
 
   measure: new_profiles_forecast_upper_7day_ma {

@@ -39,14 +39,14 @@ derived_table: {
     suggest_explore: firefox_desktop_usage_fields
     suggest_dimension: firefox_desktop_usage_fields.activity_segment
     type: string
-    description: "The classification of clients based on URI count."
+    description: "The classification of clients based on days of use with at least one URI browsed."
   }
 
   filter: campaign {
     suggest_explore: firefox_desktop_usage_fields
     suggest_dimension: firefox_desktop_usage_fields.campaign
     type: string
-    description: "A campaign that profiles are attributed to."
+    description: "The (UTM) campaign that profiles are attributed to."
   }
 
   filter: channel {
@@ -60,7 +60,7 @@ derived_table: {
     suggest_explore: firefox_desktop_usage_fields
     suggest_dimension: firefox_desktop_usage_fields.content
     type: string
-    description: "Content that profiles are attributed to."
+    description: "The UTM content that profiles are attributed to."
   }
 
   filter: country {
@@ -95,7 +95,7 @@ derived_table: {
     suggest_explore: firefox_desktop_usage_fields
     suggest_dimension: firefox_desktop_usage_fields.medium
     type: string
-    description: "The medium that profiles are attributed to."
+    description: "The UTM medium that profiles are attributed to."
   }
 
   filter: os {
@@ -109,14 +109,14 @@ derived_table: {
     suggest_explore: firefox_desktop_usage_fields
     suggest_dimension: firefox_desktop_usage_fields.source
     type: string
-    description: "The source that the profile is attributed to."
+    description: "The UTM source that the profile is attributed to."
   }
 
   filter: attributed {
     suggest_explore: firefox_desktop_usage_fields
     suggest_dimension: firefox_desktop_usage_fields.attributed
     type: yesno
-    description: "Attributed installs have a source or a campaign."
+    description: "Attributed installs have a non-null UTM source or UTM campaign."
   }
 
   dimension: date {
