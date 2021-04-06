@@ -1,5 +1,5 @@
-- dashboard: desktop_kpi_dashboard_with_filters_alternate
-  title: Desktop KPI Dashboard with Filters Alternate
+- dashboard: desktop_kpi_dashboard
+  title: Desktop KPI Dashboard
   layout: newspaper
   preferred_viewer: dashboards-next
   refresh: 2147484 seconds
@@ -9,8 +9,9 @@
     model: kpi
     explore: firefox_desktop_usage_2021
     type: looker_line
-    fields: [firefox_desktop_usage_2021.dau, firefox_desktop_usage_2021.date, prediction.dau_forecast,
-      prediction.dau_forecast_lower, prediction.dau_forecast_upper]
+    fields: [firefox_desktop_usage_2021.date, firefox_desktop_usage_2021.dau_7day_ma,
+      prediction.dau_forecast_7day_ma, prediction.dau_forecast_lower_7day_ma, prediction.dau_forecast_upper_7day_ma,
+      firefox_desktop_usage_2021.year_over_year_dau_7day_ma]
     fill_fields: [firefox_desktop_usage_2021.date]
     sorts: [firefox_desktop_usage_2021.date desc]
     limit: 500
@@ -38,6 +39,14 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
+    y_axes: [{label: '', orientation: left, series: [{axisId: firefox_desktop_usage_2021.dau_7day_ma,
+            id: firefox_desktop_usage_2021.dau_7day_ma, name: DAU (7 Day MA)}, {axisId: prediction.dau_forecast_7day_ma,
+            id: prediction.dau_forecast_7day_ma, name: DAU Forecast (7 Day MA)}, {
+            axisId: prediction.dau_forecast_lower_7day_ma, id: prediction.dau_forecast_lower_7day_ma,
+            name: DAU Forecast Lower Bound}, {axisId: prediction.dau_forecast_upper_7day_ma,
+            id: prediction.dau_forecast_upper_7day_ma, name: DAU Forecast Upper Bound}],
+        showLabels: true, showValues: true, minValue: 50000000, unpinAxis: false,
+        tickDensity: default, tickDensityCustom: 5, type: linear}]
     series_types:
       prediction.dau_forecast_lower: scatter
       prediction.dau_forecast_upper: scatter
@@ -45,11 +54,17 @@
     series_colors:
       prediction.dau_forecast_upper: "#b7b5c2"
       prediction.dau_forecast_lower: "#b7b5c2"
+      prediction.dau_forecast_lower_7day_ma: "#80868B"
+      prediction.dau_forecast_upper_7day_ma: "#80868B"
+    series_labels:
+      firefox_desktop_usage_2021.dau_7day_ma: DAU (7 Day MA)
+      prediction.dau_forecast_7day_ma: DAU Forecast (7 Day MA)
+      prediction.dau_forecast_lower_7day_ma: DAU Forecast Lower Bound
+      prediction.dau_forecast_upper_7day_ma: DAU Forecast Upper Bound
     series_point_styles:
       prediction.dau_forecast_lower: triangle
       prediction.dau_forecast_upper: triangle-down
-    trend_lines: [{color: "#000000", label_position: center, period: 7, regression_type: average,
-        series_index: 1, show_label: true}]
+    trend_lines: []
     defaults_version: 1
     hidden_fields:
     note_state: collapsed
@@ -67,7 +82,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 23
+    row: 25
     col: 0
     width: 24
     height: 9
@@ -106,10 +121,7 @@
     show_null_points: true
     interpolation: linear
     hidden_series: []
-    series_labels:
-      firefox_desktop_usage_2021.cdou: Cumulative Days of Use
-      prediction.cdou_forecast: Forecast
-      prediction.cdou_target: CDOU Target Pace
+    series_labels: {}
     defaults_version: 1
     hidden_fields: []
     note_state: collapsed
@@ -123,7 +135,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 14
+    row: 16
     col: 12
     width: 12
     height: 9
@@ -134,7 +146,7 @@
     body_text: '<h1 style="margin-top:20px; padding: 5px; border-bottom: solid 1px
       #412399; height: 60px; color: #412399; text-align: center;" id="dou">Desktop
       Days of Use and DAU</h1>'
-    row: 0
+    row: 2
     col: 0
     width: 24
     height: 4
@@ -145,7 +157,7 @@
     body_text: "<h1 style=\"margin-top:20px; padding: 5px; border-bottom: solid 1px\
       \ #412399; height: 60px; color: #412399; text-align: center;\" id=\"new_profiles\"\
       >Desktop New Profiles</h1>\n\n"
-    row: 32
+    row: 34
     col: 0
     width: 24
     height: 3
@@ -192,7 +204,7 @@
               Target Count}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
-        margin_value: mean, margin_bottom: deviation, label_position: right, color: "#1A73E8",
+        margin_value: mean, margin_bottom: deviation, label_position: center, color: "#000000",
         line_value: '0', label: At Forecast}]
     defaults_version: 1
     note_state: collapsed
@@ -208,7 +220,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 14
+    row: 16
     col: 0
     width: 12
     height: 9
@@ -248,7 +260,7 @@
     interpolation: linear
     series_labels:
       prediction.cum_new_profiles_forecast: Forecast
-      prediction.cum_new_profiles_target: Target Pace
+      prediction.cum_new_profiles_target: Target
       firefox_desktop_usage_2021.new_profiles_cumulative: Cumulative New Profiles
     defaults_version: 1
     note_state: collapsed
@@ -262,7 +274,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 46
+    row: 48
     col: 12
     width: 12
     height: 9
@@ -271,8 +283,9 @@
     model: kpi
     explore: firefox_desktop_usage_2021
     type: looker_line
-    fields: [firefox_desktop_usage_2021.new_profiles, firefox_desktop_usage_2021.date,
-      prediction.new_profiles_forecast, prediction.new_profiles_forecast_lower, prediction.new_profiles_forecast_upper]
+    fields: [firefox_desktop_usage_2021.date, firefox_desktop_usage_2021.new_profiles_7day_ma,
+      prediction.new_profiles_forecast_7day_ma, prediction.new_profiles_forecast_lower_7day_ma,
+      prediction.new_profiles_forecast_upper_7day_ma, firefox_desktop_usage_2021.year_over_year_new_profiles_7day_ma]
     fill_fields: [firefox_desktop_usage_2021.date]
     sorts: [firefox_desktop_usage_2021.date desc]
     limit: 500
@@ -300,6 +313,15 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
+    y_axes: [{label: '', orientation: left, series: [{axisId: firefox_desktop_usage_2021.new_profiles_7day_ma,
+            id: firefox_desktop_usage_2021.new_profiles_7day_ma, name: New Profiles
+              (7 Day MA)}, {axisId: prediction.new_profiles_forecast_7day_ma, id: prediction.new_profiles_forecast_7day_ma,
+            name: New Profiles Forecast (7 Day MA)}, {axisId: prediction.new_profiles_forecast_lower_7day_ma,
+            id: prediction.new_profiles_forecast_lower_7day_ma, name: New Profiles
+              Lower Bound}, {axisId: prediction.new_profiles_forecast_upper_7day_ma,
+            id: prediction.new_profiles_forecast_upper_7day_ma, name: New Profiles
+              Upper Bound}], showLabels: true, showValues: true, minValue: 500000,
+        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     series_types:
       prediction.new_profiles_forecast_lower: scatter
       prediction.new_profiles_forecast_upper: scatter
@@ -308,13 +330,22 @@
       prediction.new_profiles_forecast_lower: "#b7b5c2"
       prediction.new_profiles_forecast_upper: "#b7b5c2"
       prediction.new_profiles_forecast: "#E52592"
+      prediction.new_profiles_forecast_lower_7day_ma: "#80868B"
+      prediction.new_profiles_forecast_upper_7day_ma: "#80868B"
     series_labels:
       prediction.new_profiles_forecast_lower: Forecast Lower
       prediction.new_profiles_forecast_upper: Forecast Upper
       prediction.new_profiles_forecast: Forecast
+      firefox_desktop_usage_2021.new_profiles_7day_ma: New Profiles (7 Day MA)
+      prediction.new_profiles_forecast_7day_ma: New Profiles Forecast (7 Day MA)
+      prediction.new_profiles_forecast_lower_7day_ma: New Profiles Forecast Lower
+        Bound
+      prediction.new_profiles_forecast_upper_7day_ma: New Profiles Forecast Upper
+        Bound
     series_point_styles:
       prediction.new_profiles_forecast_lower: triangle
       prediction.new_profiles_forecast_upper: triangle-down
+    trend_lines: []
     defaults_version: 1
     note_state: collapsed
     note_display: hover
@@ -328,7 +359,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 55
+    row: 57
     col: 0
     width: 24
     height: 10
@@ -375,7 +406,7 @@
               From Target New Profiles Count}], showLabels: true, showValues: true,
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
-        margin_value: mean, margin_bottom: deviation, label_position: left, color: "#1A73E8",
+        margin_value: mean, margin_bottom: deviation, label_position: center, color: "#000000",
         line_value: '0', label: At Forecast}]
     defaults_version: 1
     note_state: collapsed
@@ -391,7 +422,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 46
+    row: 48
     col: 0
     width: 12
     height: 9
@@ -450,8 +481,13 @@
     series_types: {}
     title_hidden: true
     listen:
+      Channel: firefox_desktop_usage_2021.channel
+      Activity Segment: firefox_desktop_usage_2021.activity_segment
+      OS: firefox_desktop_usage_2021.os
+      Attributed (Yes / No): firefox_desktop_usage_2021.attributed
+      Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 4
+    row: 6
     col: 0
     width: 24
     height: 10
@@ -512,8 +548,13 @@
     series_types: {}
     title_hidden: true
     listen:
+      Channel: firefox_desktop_usage_2021.channel
+      Activity Segment: firefox_desktop_usage_2021.activity_segment
+      OS: firefox_desktop_usage_2021.os
+      Attributed (Yes / No): firefox_desktop_usage_2021.attributed
+      Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 35
+    row: 37
     col: 0
     width: 24
     height: 11
@@ -538,10 +579,21 @@
       <p>This is the count of new desktop client_ids (profiles) that are created over the course of the year. A new Firefox profile counts to  this metric on the day we receive its first main ping.</p>
       <p>The 2021 target for cumulative new profiles is +5% over forecast. </p>
       </div>
-    row: 65
+    row: 67
     col: 0
-    width: 15
+    width: 24
     height: 9
+  - name: " (4)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: "*Running slow? If no one has queried a slice before, it will take\
+      \ a 2-3 minutes to build the forecasting models. From then on, queries against\
+      \ that slice should run within 10-15 seconds.*"
+    row: 0
+    col: 0
+    width: 24
+    height: 2
   filters:
   - name: Date
     title: Date
