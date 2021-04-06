@@ -218,126 +218,151 @@ view: prediction {
   dimension: date {
     type: date
     sql: ${TABLE}.submission_date ;;
+    hidden: yes
   }
 
   measure: cdou_forecast {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.cdou_forecast) ;;
+    description: "Forecasted value for Cumulative Days of Use. Only relevant for 2021."
   }
 
   measure: cdou_target {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.cdou_target) ;;
+    description: "Targeted value for Cumulative Days of Use. Only relevant for 2021."
   }
 
   measure: cum_new_profiles_forecast {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.cum_new_profiles_forecast) ;;
+    description: "Forecasted value for Cumulative New Profiles. Only relevant for 2021."
   }
 
   measure: cum_new_profiles_target {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.cum_new_profiles_target) ;;
+    description: "Targeted value for Cumulative New Profiles. Only relevant for 2021."
   }
 
   measure: dau_forecast {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.dau_forecast) ;;
+    description: "Forecasted value for Daily Active Users. Only relevant for 2021."
   }
 
   measure: dau_forecast_7day_ma {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.dau_forecast_7day_ma) ;;
+    hidden: yes
   }
 
   measure: dau_forecast_lower {
+    label: "DAU Forecast Lower Bound"
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.dau_forecast_lower) ;;
+    description: "Lower bound of forecasted value for Cumulative Days of Use. Only relevant for 2021."
   }
 
   measure: dau_forecast_lower_7day_ma {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.dau_forecast_lower_7day_ma) ;;
+    hidden: yes
   }
 
   measure: dau_forecast_upper {
+    label: "DAU Forecast Upper Bound"
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.dau_forecast_upper) ;;
+    description: "Upper bound of forecasted value for Cumulative Days of Use. Only relevant for 2021."
   }
 
   measure: dau_forecast_upper_7day_ma {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.dau_forecast_upper_7day_ma) ;;
+    hidden: yes
   }
 
   measure: dau_target {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.dau_target) ;;
+    description: "Targeted value for Daily Active Users. Only relevant for 2021."
   }
 
   measure: dau_target_7day_ma {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.dau_target_7day_ma) ;;
+    hidden: yes
   }
 
   measure: new_profiles_forecast {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.new_profiles_forecast) ;;
+    description: "Forecasted value for New Profiles. Only relevant for 2021."
   }
 
   measure: new_profiles_forecast_7day_ma {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.new_profiles_forecast_7day_ma) ;;
+    hidden: yes
   }
 
   measure: new_profiles_forecast_lower {
+    label: "New Profiles Forecast Lower Bound"
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.new_profiles_forecast_lower) ;;
+    description: "Lower bound value for Forecasted New Profiles. Only relevant for 2021."
   }
 
   measure: new_profiles_forecast_lower_7day_ma {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.new_profiles_forecast_lower_7day_ma) ;;
+    hidden: yes
   }
 
   measure: new_profiles_forecast_upper {
+    label: "New Profiles Forecast Upper Bound"
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.new_profiles_forecast_upper) ;;
+    description: "Upper bound value for Forecasted New Profiles. Only relevant for 2021."
   }
 
   measure: new_profiles_forecast_upper_7day_ma {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.new_profiles_forecast_upper_7day_ma) ;;
+    hidden: yes
   }
 
   measure: new_profiles_target {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.new_profiles_target) ;;
+    description: "Targeted value for New Profiles. Only relevant for 2021."
   }
 
   measure: new_profiles_target_7day_ma {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.new_profiles_target_7day_ma) ;;
+    hidden: yes
   }
 
   measure: recent_cum_new_profiles_forecast {
@@ -347,6 +372,7 @@ view: prediction {
     filters: [
       date: "after 2021-01-01"
     ]
+    hidden: yes
   }
 
   measure: recent_cum_new_profiles_target {
@@ -356,6 +382,7 @@ view: prediction {
     filters: [
       date: "after 2021-01-01"
     ]
+    hidden: yes
   }
 
   measure: recent_cdou_forecast {
@@ -365,6 +392,7 @@ view: prediction {
     filters: [
       date: "after 2021-01-01"
     ]
+    hidden: yes
   }
 
   measure: recent_cdou_target {
@@ -374,5 +402,6 @@ view: prediction {
     filters: [
       date: "after 2021-01-01"
     ]
+    hidden: yes
   }
 }
