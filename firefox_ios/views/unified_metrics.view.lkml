@@ -4,61 +4,61 @@ explore: unified_metrics {
 
   join: unified_metrics__ping_info__experiments {
     view_label: "Experiments"
-    sql: LEFT JOIN UNNEST(${unified_metrics.ping_info__experiments}) as unified_metrics__ping_info__experiments ;;
+    sql: CROSS JOIN UNNEST(${unified_metrics.ping_info__experiments}) as unified_metrics__ping_info__experiments ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__tabs_open {
     view_label: "Labeled Counter Tabs Open"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__tabs_open}) as unified_metrics__metrics__labeled_counter__tabs_open ;;
+    sql: CROSS JOIN UNNEST(${unified_metrics.metrics__labeled_counter__tabs_open}) as unified_metrics__metrics__labeled_counter__tabs_open ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__tabs_close {
     view_label: "Labeled Counter Tabs Close"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__tabs_close}) as unified_metrics__metrics__labeled_counter__tabs_close ;;
+    sql: CROSS JOIN UNNEST(${unified_metrics.metrics__labeled_counter__tabs_close}) as unified_metrics__metrics__labeled_counter__tabs_close ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__bookmarks_add {
     view_label: "Labeled Counter Bookmarks Add"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__bookmarks_add}) as unified_metrics__metrics__labeled_counter__bookmarks_add ;;
+    sql: CROSS JOIN UNNEST(${unified_metrics.metrics__labeled_counter__bookmarks_add}) as unified_metrics__metrics__labeled_counter__bookmarks_add ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__search_counts {
     view_label: "Labeled Counter Search Counts"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__search_counts}) as unified_metrics__metrics__labeled_counter__search_counts ;;
+    sql: CROSS JOIN UNNEST(${unified_metrics.metrics__labeled_counter__search_counts}) as unified_metrics__metrics__labeled_counter__search_counts ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__bookmarks_open {
     view_label: "Labeled Counter Bookmarks Open"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__bookmarks_open}) as unified_metrics__metrics__labeled_counter__bookmarks_open ;;
+    sql: CROSS JOIN UNNEST(${unified_metrics.metrics__labeled_counter__bookmarks_open}) as unified_metrics__metrics__labeled_counter__bookmarks_open ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__bookmarks_delete {
     view_label: "Labeled Counter Bookmarks Delete"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__bookmarks_delete}) as unified_metrics__metrics__labeled_counter__bookmarks_delete ;;
+    sql: CROSS JOIN UNNEST(${unified_metrics.metrics__labeled_counter__bookmarks_delete}) as unified_metrics__metrics__labeled_counter__bookmarks_delete ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__reading_list_add {
     view_label: "Labeled Counter Reading List Add"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__reading_list_add}) as unified_metrics__metrics__labeled_counter__reading_list_add ;;
+    sql: CROSS JOIN UNNEST(${unified_metrics.metrics__labeled_counter__reading_list_add}) as unified_metrics__metrics__labeled_counter__reading_list_add ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__bookmarks_view_list {
     view_label: "Labeled Counter Bookmarks View List"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__bookmarks_view_list}) as unified_metrics__metrics__labeled_counter__bookmarks_view_list ;;
+    sql: CROSS JOIN UNNEST(${unified_metrics.metrics__labeled_counter__bookmarks_view_list}) as unified_metrics__metrics__labeled_counter__bookmarks_view_list ;;
     relationship: one_to_many
   }
 
   join: unified_metrics__metrics__labeled_counter__reading_list_delete {
     view_label: "Labeled Counter Reading List Delete"
-    sql: LEFT JOIN UNNEST(${unified_metrics.metrics__labeled_counter__reading_list_delete}) as unified_metrics__metrics__labeled_counter__reading_list_delete ;;
+    sql: CROSS JOIN UNNEST(${unified_metrics.metrics__labeled_counter__reading_list_delete}) as unified_metrics__metrics__labeled_counter__reading_list_delete ;;
     relationship: one_to_many
   }
 }
