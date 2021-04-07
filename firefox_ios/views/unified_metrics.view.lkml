@@ -384,11 +384,10 @@ view: unified_metrics {
     sql:  ${metrics__counter__glean_validation_foreground_count} ;;
   }
 
-  measure: glean_validation_foreground_client_count {
+  measure: glean_validation_foreground_count_client_count {
     type:  count_distinct
     sql: case when ${metrics__counter__glean_validation_foreground_count} > 0 then ${client_info__client_id} end ;;
   }
-
 
   dimension: metrics__counter__qr_code_scanned {
     hidden: yes
@@ -401,6 +400,11 @@ view: unified_metrics {
   measure: qr_code_scanned {
     type:  sum
     sql:  ${metrics__counter__qr_code_scanned} ;;
+  }
+
+  measure: qr_code_scanned_client_count {
+    type:  count_distinct
+    sql: case when ${metrics__counter__qr_code_scanned} > 0 then ${client_info__client_id} end ;;
   }
 
   dimension: metrics__counter__reader_mode_close {
@@ -416,6 +420,11 @@ view: unified_metrics {
     sql:  ${metrics__counter__reader_mode_close} ;;
   }
 
+  measure: reader_mode_close_client_count {
+    type:  count_distinct
+    sql: case when ${metrics__counter__reader_mode_close} > 0 then ${client_info__client_id} end ;;
+  }
+
   dimension: metrics__counter__reader_mode_open {
     hidden: yes
     type: number
@@ -427,6 +436,11 @@ view: unified_metrics {
   measure: reader_mode_open {
     type:  sum
     sql:  ${metrics__counter__reader_mode_open} ;;
+  }
+
+  measure: reader_mode_open_client_count {
+    type:  count_distinct
+    sql: case when ${metrics__counter__reader_mode_open} > 0 then ${client_info__client_id} end ;;
   }
 
   dimension: metrics__counter__reading_list_mark_read {
@@ -442,6 +456,11 @@ view: unified_metrics {
     sql:  ${metrics__counter__reading_list_mark_read} ;;
   }
 
+  measure: reading_list_mark_read_client_count {
+    type:  count_distinct
+    sql: case when ${metrics__counter__reading_list_mark_read} > 0 then ${client_info__client_id} end ;;
+  }
+
   dimension: metrics__counter__reading_list_mark_unread {
     hidden: yes
     type: number
@@ -453,6 +472,11 @@ view: unified_metrics {
   measure: reading_list_mark_unread {
     type:  sum
     sql:  ${metrics__counter__reading_list_mark_unread} ;;
+  }
+
+  measure: reading_list_mark_unread_client_count {
+    type:  count_distinct
+    sql: case when ${metrics__counter__reading_list_mark_unread} > 0 then ${client_info__client_id} end ;;
   }
 
   dimension: metrics__counter__reading_list_open {
@@ -468,6 +492,11 @@ view: unified_metrics {
     sql:  ${metrics__counter__reading_list_open} ;;
   }
 
+  measure: reading_list_open_client_count {
+    type:  count_distinct
+    sql: case when ${metrics__counter__reading_list_open} > 0 then ${client_info__client_id} end ;;
+  }
+
   dimension: metrics__counter__tabs_cumulative_count {
     hidden: yes
     type: number
@@ -479,6 +508,11 @@ view: unified_metrics {
   measure: tabs_cumulative_count {
     type:  sum
     sql:  ${metrics__counter__tabs_cumulative_count} ;;
+  }
+
+  measure: tabs_cumulative_count_client_count {
+    type:  count_distinct
+    sql: case when ${metrics__counter__tabs_cumulative_count} > 0 then ${client_info__client_id} end ;;
   }
 
   dimension: metrics__labeled_counter__bookmarks_add {
@@ -604,6 +638,11 @@ view: unified_metrics__metrics__labeled_counter__tabs_open {
     type:  sum
     sql:  ${value} ;;
   }
+
+  measure: client_count {
+    type:  count_distinct
+    sql: case when ${value} > 0 then ${client_info__client_id} end ;;
+  }
 }
 
 view: unified_metrics__metrics__labeled_counter__tabs_close {
@@ -622,6 +661,11 @@ view: unified_metrics__metrics__labeled_counter__tabs_close {
   measure: count {
     type:  sum
     sql:  ${value} ;;
+  }
+
+  measure: client_count {
+    type:  count_distinct
+    sql: case when ${value} > 0 then ${client_info__client_id} end ;;
   }
 }
 
@@ -642,6 +686,11 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_add {
     type:  sum
     sql:  ${value} ;;
   }
+
+  measure: client_count {
+    type:  count_distinct
+    sql: case when ${value} > 0 then ${client_info__client_id} end ;;
+  }
 }
 
 view: unified_metrics__metrics__labeled_counter__search_counts {
@@ -661,6 +710,11 @@ view: unified_metrics__metrics__labeled_counter__search_counts {
     type:  sum
     sql:  ${value} ;;
   }
+
+  measure: client_count {
+    type:  count_distinct
+    sql: case when ${value} > 0 then ${client_info__client_id} end ;;
+  }
 }
 
 view: unified_metrics__metrics__labeled_counter__bookmarks_open {
@@ -679,6 +733,11 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_open {
   measure: count {
     type:  sum
     sql:  ${value} ;;
+  }
+
+  measure: client_count {
+    type:  count_distinct
+    sql: case when ${value} > 0 then ${client_info__client_id} end ;;
   }
 }
 
@@ -700,6 +759,11 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_delete {
     type:  sum
     sql:  ${value} ;;
   }
+
+  measure: client_count {
+    type:  count_distinct
+    sql: case when ${value} > 0 then ${client_info__client_id} end ;;
+  }
 }
 
 view: unified_metrics__metrics__labeled_counter__reading_list_add {
@@ -718,6 +782,11 @@ view: unified_metrics__metrics__labeled_counter__reading_list_add {
   measure: count {
     type:  sum
     sql:  ${value} ;;
+  }
+
+  measure: client_count {
+    type:  count_distinct
+    sql: case when ${value} > 0 then ${client_info__client_id} end ;;
   }
 }
 
@@ -739,6 +808,11 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_view_list {
     type:  sum
     sql:  ${value} ;;
   }
+
+  measure: client_count {
+    type:  count_distinct
+    sql: case when ${value} > 0 then ${client_info__client_id} end ;;
+  }
 }
 
 view: unified_metrics__metrics__labeled_counter__reading_list_delete {
@@ -757,5 +831,10 @@ view: unified_metrics__metrics__labeled_counter__reading_list_delete {
   measure: count {
     type:  sum
     sql:  ${value} ;;
+  }
+
+  measure: client_count {
+    type:  count_distinct
+    sql: case when ${value} > 0 then ${client_info__client_id} end ;;
   }
 }
