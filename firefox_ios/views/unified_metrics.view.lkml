@@ -384,6 +384,11 @@ view: unified_metrics {
     sql:  ${metrics__counter__glean_validation_foreground_count} ;;
   }
 
+  measure: glean_validation_foreground_client_count {
+    type:  count_distinct
+    sql: case when ${metrics__counter__glean_validation_foreground_count} > 0 then ${client_info__client_id} end ;;
+  }
+
 
   dimension: metrics__counter__qr_code_scanned {
     hidden: yes
@@ -564,7 +569,7 @@ view: unified_metrics {
 
 view: unified_metrics__ping_info__experiments {
   dimension: key {
-    lable: "Label"
+    label: "Label"
     type: string
     sql: ${TABLE}.key ;;
   }
@@ -584,7 +589,7 @@ view: unified_metrics__ping_info__experiments {
 
 view: unified_metrics__metrics__labeled_counter__tabs_open {
   dimension: key {
-    lable: "Label"
+    label: "Label"
     type: string
     sql: ${TABLE}.key ;;
   }
@@ -603,7 +608,7 @@ view: unified_metrics__metrics__labeled_counter__tabs_open {
 
 view: unified_metrics__metrics__labeled_counter__tabs_close {
   dimension: key {
-    lable: "Label"
+    label: "Label"
     type: string
     sql: ${TABLE}.key ;;
   }
@@ -622,7 +627,7 @@ view: unified_metrics__metrics__labeled_counter__tabs_close {
 
 view: unified_metrics__metrics__labeled_counter__bookmarks_add {
   dimension: key {
-    lable: "Label"
+    label: "Label"
     type: string
     sql: ${TABLE}.key ;;
   }
@@ -641,7 +646,7 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_add {
 
 view: unified_metrics__metrics__labeled_counter__search_counts {
   dimension: key {
-    lable: "Label"
+    label: "Label"
     type: string
     sql: ${TABLE}.key ;;
   }
@@ -660,7 +665,7 @@ view: unified_metrics__metrics__labeled_counter__search_counts {
 
 view: unified_metrics__metrics__labeled_counter__bookmarks_open {
   dimension: key {
-    lable: "Label"
+    label: "Label"
     type: string
     sql: ${TABLE}.key ;;
   }
@@ -680,7 +685,7 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_open {
 
 view: unified_metrics__metrics__labeled_counter__bookmarks_delete {
   dimension: key {
-    lable: "Label"
+    label: "Label"
     type: string
     sql: ${TABLE}.key ;;
   }
@@ -699,7 +704,7 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_delete {
 
 view: unified_metrics__metrics__labeled_counter__reading_list_add {
   dimension: key {
-    lable: "Label"
+    label: "Label"
     type: string
     sql: ${TABLE}.key ;;
   }
@@ -719,7 +724,7 @@ view: unified_metrics__metrics__labeled_counter__reading_list_add {
 
 view: unified_metrics__metrics__labeled_counter__bookmarks_view_list {
   dimension: key {
-    lable: "Label"
+    label: "Label"
     type: string
     sql: ${TABLE}.key ;;
   }
@@ -738,7 +743,7 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_view_list {
 
 view: unified_metrics__metrics__labeled_counter__reading_list_delete {
   dimension: key {
-    lable: "Label"
+    label: "Label"
     type: string
     sql: ${TABLE}.key ;;
   }
