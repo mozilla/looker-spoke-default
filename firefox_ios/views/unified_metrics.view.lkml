@@ -563,7 +563,7 @@ view: unified_metrics {
 
 view: unified_metrics__ping_info__experiments {
   dimension: key {
-    label: "Name"
+    lable: "Label"
     type: string
     sql: ${TABLE}.key ;;
   }
@@ -583,7 +583,7 @@ view: unified_metrics__ping_info__experiments {
 
 view: unified_metrics__metrics__labeled_counter__tabs_open {
   dimension: key {
-    label: "Name"
+    lable: "Label"
     type: string
     sql: ${TABLE}.key ;;
   }
@@ -602,7 +602,7 @@ view: unified_metrics__metrics__labeled_counter__tabs_open {
 
 view: unified_metrics__metrics__labeled_counter__tabs_close {
   dimension: key {
-    label: "Name"
+    lable: "Label"
     type: string
     sql: ${TABLE}.key ;;
   }
@@ -621,7 +621,7 @@ view: unified_metrics__metrics__labeled_counter__tabs_close {
 
 view: unified_metrics__metrics__labeled_counter__bookmarks_add {
   dimension: key {
-    label: "Name"
+    lable: "Label"
     type: string
     sql: ${TABLE}.key ;;
   }
@@ -640,7 +640,7 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_add {
 
 view: unified_metrics__metrics__labeled_counter__search_counts {
   dimension: key {
-    label: "Name"
+    lable: "Label"
     type: string
     sql: ${TABLE}.key ;;
   }
@@ -659,7 +659,7 @@ view: unified_metrics__metrics__labeled_counter__search_counts {
 
 view: unified_metrics__metrics__labeled_counter__bookmarks_open {
   dimension: key {
-    label: "Name"
+    lable: "Label"
     type: string
     sql: ${TABLE}.key ;;
   }
@@ -679,7 +679,7 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_open {
 
 view: unified_metrics__metrics__labeled_counter__bookmarks_delete {
   dimension: key {
-    label: "Name"
+    lable: "Label"
     type: string
     sql: ${TABLE}.key ;;
   }
@@ -698,7 +698,7 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_delete {
 
 view: unified_metrics__metrics__labeled_counter__reading_list_add {
   dimension: key {
-    label: "Name"
+    lable: "Label"
     type: string
     sql: ${TABLE}.key ;;
   }
@@ -718,7 +718,7 @@ view: unified_metrics__metrics__labeled_counter__reading_list_add {
 
 view: unified_metrics__metrics__labeled_counter__bookmarks_view_list {
   dimension: key {
-    label: "Name"
+    lable: "Label"
     type: string
     sql: ${TABLE}.key ;;
   }
@@ -737,7 +737,7 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_view_list {
 
 view: unified_metrics__metrics__labeled_counter__reading_list_delete {
   dimension: key {
-    label: "Name"
+    lable: "Label"
     type: string
     sql: ${TABLE}.key ;;
   }
