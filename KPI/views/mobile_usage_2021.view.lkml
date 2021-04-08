@@ -2,31 +2,49 @@ view: mobile_usage_2021 {
   derived_table: {
     sql:
       with
-        base as (
-      select
-          submission_date,
-          app_name,
-          canonical_app_name,
-          sum(dau) as dau,
-          sum(wau) as wau,
-          sum(mau) as mau,
-          sum(cdou) as cdou
-      from
-          ${mobile_usage_fields.SQL_TABLE_NAME} AS mobile_usage_fields
-      where
-          {% condition mobile_usage_2021.campaign %} campaign {% endcondition %}
-          AND {% condition mobile_usage_2021.channel %} channel {% endcondition %}
-          AND {% condition mobile_usage_2021.country %} country {% endcondition %}
-          AND {% condition mobile_usage_2021.country_name %} country_name {% endcondition %}
-          AND {% condition mobile_usage_2021.distribution_id %} distribution_id {% endcondition %}
-          AND {% condition mobile_usage_2021.id_bucket %} id_bucket {% endcondition %}
-          AND {% condition mobile_usage_2021.os %} os {% endcondition %}
-      group by 1,2,3 )
+        dau as (
+          select
+              submission_date,
+              app_name,
+              canonical_app_name,
+              sum(dau) as dau,
+              sum(wau) as wau,
+              sum(mau) as mau,
+              sum(cdou) as cdou
+          from
+              ${mobile_usage_fields.SQL_TABLE_NAME} AS mobile_usage_fields
+          where
+              {% condition mobile_usage_2021.campaign %} campaign {% endcondition %}
+              AND {% condition mobile_usage_2021.channel %} channel {% endcondition %}
+              AND {% condition mobile_usage_2021.country %} country {% endcondition %}
+              AND {% condition mobile_usage_2021.country_name %} country_name {% endcondition %}
+              AND {% condition mobile_usage_2021.distribution_id %} distribution_id {% endcondition %}
+              AND {% condition mobile_usage_2021.id_bucket %} id_bucket {% endcondition %}
+              AND {% condition mobile_usage_2021.os %} os {% endcondition %}
+          group by 1,2,3
+        ),
+
+        np as (
+        # temporary until the clients_first_seen work is totally done and first_seen_date is incorporated into `mozdata.telemetry.mobile_usage_2021`
+        # see https://console.cloud.google.com/bigquery?sq=630180991450:261b6210dc8047da9dfd4e51cbc22efb
+          select
+            first_seen_date,
+            app_name,
+            canonical_app_name,
+            sum(new_profiles) as new_profiles
+          from `mozdata.analysis.loines_temp_mobile_new_profiles_per_day`
+          where app_name in ('fennec_fenix', 'firefox_ios', 'focus_ios', 'focus_android')
+          group by 1,2,3
+        )
 
       select
-        *,
-        avg(dau) over (partition by app_name order by submission_date rows between 6 preceding and current row) as dau_7day_ma
-      from base
+        d.*,
+        avg(dau) over (partition by d.app_name order by submission_date rows between 6 preceding and current row) as dau_7day_ma,
+        n.new_profiles,
+        avg(n.new_profiles) over (partition by n.app_name order by first_seen_date rows between 6 preceding and current row) as new_profiles_7day_ma,
+      from dau d
+      left join np n
+      on d.submission_date = n.first_seen_date and d.app_name = n.app_name
       ;;
   }
 
@@ -206,6 +224,20 @@ view: mobile_usage_2021 {
     value_format: "0.0%"
     sql: (${mobile_prediction.recent_cdou_target} / ${mobile_prediction.recent_cdou_forecast} ) - 1 ;;
     hidden: yes
+  }
+
+  measure: new_profiles {
+    type: sum
+    value_format: "#,##0"
+    sql: ${TABLE}.new_profiles ;;
+    description: "New Profiles."
+  }
+
+  measure: new_profiles_7day_ma {
+    type: sum
+    value_format: "#,##0"
+    sql: ${TABLE}.new_profiles_7day_ma ;;
+    hidden: no
   }
 
 }
