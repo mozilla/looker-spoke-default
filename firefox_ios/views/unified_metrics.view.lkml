@@ -641,7 +641,7 @@ view: unified_metrics__metrics__labeled_counter__tabs_open {
 
   measure: client_count {
     type:  count_distinct
-    sql: case when ${value} > 0 then ${client_info__client_id} end ;;
+    sql: case when ${value} > 0 then ${unified_metrics.client_info__client_id} end ;;
   }
 }
 
@@ -665,7 +665,7 @@ view: unified_metrics__metrics__labeled_counter__tabs_close {
 
   measure: client_count {
     type:  count_distinct
-    sql: case when ${value} > 0 then ${client_info__client_id} end ;;
+    sql: case when ${value} > 0 then ${unified_metrics.client_info__client_id} end ;;
   }
 }
 
@@ -689,7 +689,7 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_add {
 
   measure: client_count {
     type:  count_distinct
-    sql: case when ${value} > 0 then ${client_info__client_id} end ;;
+    sql: case when ${value} > 0 then ${unified_metrics.client_info__client_id} end ;;
   }
 }
 
@@ -713,7 +713,7 @@ view: unified_metrics__metrics__labeled_counter__search_counts {
 
   measure: client_count {
     type:  count_distinct
-    sql: case when ${value} > 0 then ${client_info__client_id} end ;;
+    sql: case when ${value} > 0 then ${unified_metrics.client_info__client_id} end ;;
   }
 }
 
@@ -737,7 +737,7 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_open {
 
   measure: client_count {
     type:  count_distinct
-    sql: case when ${value} > 0 then ${client_info__client_id} end ;;
+    sql: case when ${value} > 0 then ${unified_metrics.client_info__client_id} end ;;
   }
 }
 
@@ -762,7 +762,7 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_delete {
 
   measure: client_count {
     type:  count_distinct
-    sql: case when ${value} > 0 then ${client_info__client_id} end ;;
+    sql: case when ${value} > 0 then ${unified_metrics.client_info__client_id} end ;;
   }
 }
 
@@ -786,7 +786,7 @@ view: unified_metrics__metrics__labeled_counter__reading_list_add {
 
   measure: client_count {
     type:  count_distinct
-    sql: case when ${value} > 0 then ${client_info__client_id} end ;;
+    sql: case when ${value} > 0 then ${unified_metrics.client_info__client_id} end ;;
   }
 }
 
@@ -811,7 +811,7 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_view_list {
 
   measure: client_count {
     type:  count_distinct
-    sql: case when ${value} > 0 then ${client_info__client_id} end ;;
+    sql: case when ${value} > 0 then ${unified_metrics.client_info__client_id} end ;;
   }
 }
 
@@ -835,6 +835,6 @@ view: unified_metrics__metrics__labeled_counter__reading_list_delete {
 
   measure: client_count {
     type:  count_distinct
-    sql: case when ${value} > 0 then ${client_info__client_id} end ;;
+    sql: case when ${value} > 0 then ${unified_metrics.client_info__client_id} end ;;
   }
 }
