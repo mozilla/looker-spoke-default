@@ -429,6 +429,6 @@ view: key_in_cache {
 
   measure: is_cached {
     type: string
-    sql: if(MAX(row_count) > 0, "Retreiving cached value...", "Building forecast model, will take 2-3 minutes...") ;;
+    sql: if(MAX(row_count) > 0, "Retrieving cached value...", "Building forecast model, will take 2-3 minutes...") ;;
   }
 }
