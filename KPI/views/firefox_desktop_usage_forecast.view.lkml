@@ -405,3 +405,30 @@ view: prediction {
     hidden: yes
   }
 }
+
+view: key_in_cache {
+  derived_table: {
+    sql:
+      SELECT COUNT(*) AS row_count
+      FROM mozdata.analysis.dou_forecasts
+      WHERE key = ARRAY_TO_STRING(REGEXP_EXTRACT_ALL("""
+      {% condition firefox_desktop_usage_2021.activity_segment %} activity_segment {% endcondition %}
+      {% condition firefox_desktop_usage_2021.campaign %} campaign {% endcondition %}
+      {% condition firefox_desktop_usage_2021.channel %} channel {% endcondition %}
+      {% condition firefox_desktop_usage_2021.content %} content {% endcondition %}
+      {% condition firefox_desktop_usage_2021.country %} country {% endcondition %}
+      {% condition firefox_desktop_usage_2021.country_name %} country_name {% endcondition %}
+      {% condition firefox_desktop_usage_2021.distribution_id %} distribution_id {% endcondition %}
+      {% condition firefox_desktop_usage_2021.id_bucket %} id_bucket {% endcondition %}
+      {% condition firefox_desktop_usage_2021.medium %} medium {% endcondition %}
+      {% condition firefox_desktop_usage_2021.os %} os {% endcondition %}
+      {% condition firefox_desktop_usage_2021.source %} source {% endcondition %}
+      {% condition firefox_desktop_usage_2021.attributed %} (attributed) {% endcondition %}
+      """, r"(\(.*\))"), '') ;;
+  }
+
+  measure: is_cached {
+    type: string
+    sql: if(MAX(row_count) > 0, "Retreiving cached value...", "Building forecast model, will take 2-3 minutes...") ;;
+  }
+}
