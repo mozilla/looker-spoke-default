@@ -2,7 +2,7 @@
   title: Mobile KPIs
   layout: newspaper
   preferred_viewer: dashboards-next
-  refresh: 12 hours
+  refresh: 2147484 seconds
   elements:
   - title: Firefox for Android (Fennec + Fenix) Daily Active Users (DAU)
     name: Firefox for Android (Fennec + Fenix) Daily Active Users (DAU)
@@ -59,6 +59,7 @@
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
     row: 17
     col: 12
     width: 12
@@ -118,6 +119,7 @@
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
     row: 72
     col: 11
     width: 13
@@ -177,6 +179,7 @@
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
     row: 45
     col: 12
     width: 12
@@ -236,6 +239,7 @@
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
     row: 98
     col: 11
     width: 13
@@ -261,6 +265,7 @@
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
     row: 0
     col: 0
     width: 24
@@ -286,6 +291,7 @@
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
     row: 54
     col: 0
     width: 24
@@ -311,6 +317,7 @@
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
     row: 27
     col: 0
     width: 24
@@ -336,6 +343,7 @@
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
     row: 81
     col: 0
     width: 24
@@ -384,6 +392,7 @@
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
     row: 8
     col: 12
     width: 12
@@ -432,6 +441,7 @@
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
     row: 36
     col: 12
     width: 12
@@ -480,6 +490,7 @@
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
     row: 89
     col: 11
     width: 13
@@ -528,6 +539,7 @@
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
     row: 63
     col: 11
     width: 13
@@ -568,11 +580,9 @@
     show_null_points: true
     interpolation: linear
     y_axes: [{label: '', orientation: left, series: [{axisId: mobile_usage_2021.delta_from_target_count,
-            id: mobile_usage_2021.delta_from_target_count, name: Delta From Target
-              Count}], showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
-        tickDensityCustom: 5, type: linear}, {label: !!null '', orientation: right,
-        series: [{axisId: mobile_usage_2021.delta_from_forecast_count, id: mobile_usage_2021.delta_from_forecast_count,
-            name: Delta From Forecast Count}], showLabels: true, showValues: true,
+            id: mobile_usage_2021.delta_from_target_count, name: Difference From Target},
+          {axisId: mobile_usage_2021.delta_from_forecast_count, id: mobile_usage_2021.delta_from_forecast_count,
+            name: Difference From Forecast}], showLabels: true, showValues: true,
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     series_types: {}
     series_labels:
@@ -580,10 +590,11 @@
       mobile_usage_2021.delta_from_forecast_count: Difference From Forecast
     reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
         margin_value: mean, margin_bottom: deviation, label_position: center, color: "#000000",
-        line_value: '0', label: At Target (Left) / Forecast (Right)}]
+        line_value: '0', label: At Target / Forecast}]
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
     row: 8
     col: 0
     width: 12
@@ -624,11 +635,9 @@
     show_null_points: true
     interpolation: linear
     y_axes: [{label: '', orientation: left, series: [{axisId: mobile_usage_2021.delta_from_target_count,
-            id: mobile_usage_2021.delta_from_target_count, name: Delta From Target
-              Count}], showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
-        tickDensityCustom: 5, type: linear}, {label: !!null '', orientation: right,
-        series: [{axisId: mobile_usage_2021.delta_from_forecast_count, id: mobile_usage_2021.delta_from_forecast_count,
-            name: Delta From Forecast Count}], showLabels: true, showValues: true,
+            id: mobile_usage_2021.delta_from_target_count, name: Difference From Target},
+          {axisId: mobile_usage_2021.delta_from_forecast_count, id: mobile_usage_2021.delta_from_forecast_count,
+            name: Difference From Forecast}], showLabels: true, showValues: true,
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     series_types: {}
     series_labels:
@@ -636,10 +645,11 @@
       mobile_usage_2021.delta_from_forecast_count: Difference From Forecast
     reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
         margin_value: mean, margin_bottom: deviation, label_position: center, color: "#000000",
-        line_value: '0', label: At Target (Left) / Forecast (Right)}]
+        line_value: '0', label: At Target / Forecast}]
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
     row: 89
     col: 0
     width: 11
@@ -680,11 +690,9 @@
     show_null_points: true
     interpolation: linear
     y_axes: [{label: '', orientation: left, series: [{axisId: mobile_usage_2021.delta_from_target_count,
-            id: mobile_usage_2021.delta_from_target_count, name: Delta From Target
-              Count}], showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
-        tickDensityCustom: 5, type: linear}, {label: !!null '', orientation: right,
-        series: [{axisId: mobile_usage_2021.delta_from_forecast_count, id: mobile_usage_2021.delta_from_forecast_count,
-            name: Delta From Forecast Count}], showLabels: true, showValues: true,
+            id: mobile_usage_2021.delta_from_target_count, name: Difference From Target},
+          {axisId: mobile_usage_2021.delta_from_forecast_count, id: mobile_usage_2021.delta_from_forecast_count,
+            name: Difference From Forecast}], showLabels: true, showValues: true,
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     series_types: {}
     series_labels:
@@ -692,10 +700,11 @@
       mobile_usage_2021.delta_from_forecast_count: Difference From Forecast
     reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
         margin_value: mean, margin_bottom: deviation, label_position: center, color: "#000000",
-        line_value: '0', label: At Target (Left) / Forecast (Right)}]
+        line_value: '0', label: At Target / Forecast}]
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
     row: 63
     col: 0
     width: 11
@@ -736,11 +745,9 @@
     show_null_points: true
     interpolation: linear
     y_axes: [{label: '', orientation: left, series: [{axisId: mobile_usage_2021.delta_from_target_count,
-            id: mobile_usage_2021.delta_from_target_count, name: Delta From Target
-              Count}], showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
-        tickDensityCustom: 5, type: linear}, {label: !!null '', orientation: right,
-        series: [{axisId: mobile_usage_2021.delta_from_forecast_count, id: mobile_usage_2021.delta_from_forecast_count,
-            name: Delta From Forecast Count}], showLabels: true, showValues: true,
+            id: mobile_usage_2021.delta_from_target_count, name: Difference From Target},
+          {axisId: mobile_usage_2021.delta_from_forecast_count, id: mobile_usage_2021.delta_from_forecast_count,
+            name: Difference From Forecast}], showLabels: true, showValues: true,
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     series_types: {}
     series_labels:
@@ -748,10 +755,11 @@
       mobile_usage_2021.delta_from_forecast_count: Difference From Forecast
     reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
         margin_value: mean, margin_bottom: deviation, label_position: center, color: "#000000",
-        line_value: '0', label: At Target (Left) / Forecast (Right)}]
+        line_value: '0', label: At Target / Forecast}]
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
     row: 36
     col: 0
     width: 12
@@ -970,7 +978,6 @@
     fill_fields: [mobile_usage_2021.date]
     filters:
       mobile_usage_2021.app_name: '"fennec_fenix"'
-      mobile_usage_2021.date: after 2021/01/01
     sorts: [mobile_usage_2021.date]
     limit: 500
     show_view_names: false
@@ -1022,7 +1029,9 @@
     show_comparison_label: true
     defaults_version: 1
     title_hidden: true
-    listen: {}
+    listen:
+      Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
     row: 17
     col: 0
     width: 12
@@ -1037,7 +1046,6 @@
     fill_fields: [mobile_usage_2021.date]
     filters:
       mobile_usage_2021.app_name: '"firefox_ios"'
-      mobile_usage_2021.date: after 2021/01/01
     sorts: [mobile_usage_2021.date]
     limit: 500
     show_view_names: false
@@ -1089,6 +1097,9 @@
     show_comparison_label: true
     defaults_version: 1
     title_hidden: true
+    listen:
+      Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
     row: 45
     col: 0
     width: 12
@@ -1103,7 +1114,6 @@
     fill_fields: [mobile_usage_2021.date]
     filters:
       mobile_usage_2021.app_name: '"focus_android"'
-      mobile_usage_2021.date: after 2021/01/01
     sorts: [mobile_usage_2021.date]
     limit: 500
     show_view_names: false
@@ -1155,6 +1165,9 @@
     show_comparison_label: true
     defaults_version: 1
     title_hidden: true
+    listen:
+      Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
     row: 72
     col: 0
     width: 11
@@ -1169,7 +1182,6 @@
     fill_fields: [mobile_usage_2021.date]
     filters:
       mobile_usage_2021.app_name: '"focus_ios"'
-      mobile_usage_2021.date: after 2021/01/01
     sorts: [mobile_usage_2021.date]
     limit: 500
     show_view_names: false
@@ -1221,6 +1233,9 @@
     show_comparison_label: true
     defaults_version: 1
     title_hidden: true
+    listen:
+      Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
     row: 98
     col: 0
     width: 11
