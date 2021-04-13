@@ -1,5 +1,5 @@
-- dashboard: desktop_kpi_dashboard__edit_for_in_cache
-  title: Desktop KPI Dashboard - Edit for in cache
+- dashboard: desktop_kpi_dashboard
+  title: Desktop KPI Dashboard
   layout: newspaper
   preferred_viewer: dashboards-next
   refresh: 2147484 seconds
