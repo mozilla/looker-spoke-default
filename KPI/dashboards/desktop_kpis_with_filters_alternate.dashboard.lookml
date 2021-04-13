@@ -612,6 +612,7 @@
     col: 0
     width: 24
     height: 2
+    refresh: 10 seconds
   filters:
   - name: Date
     title: Date
