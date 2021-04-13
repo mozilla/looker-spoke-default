@@ -39,7 +39,14 @@ explore: mobile_usage_2021 {
     sql_on: ${mobile_usage_2021.date} = ${mobile_prediction.date} AND ${mobile_usage_2021.app_name} = ${mobile_prediction.app_name};;
     relationship: one_to_one
   }
-  hidden: no
+  join:  mobile_usage_2020 {
+    from: mobile_usage_2021
+    fields: []
+    view_label: "Firefox Mobile Usage 2020"
+    type: left_outer
+    sql_on: DATE_SUB(${mobile_usage_2021.date}, INTERVAL 1 YEAR) = ${mobile_usage_2020.date} AND ${mobile_usage_2021.app_name} = ${mobile_usage_2020.app_name} ;;
+    relationship: one_to_one
+  }
 }
 
 # For suggestions
