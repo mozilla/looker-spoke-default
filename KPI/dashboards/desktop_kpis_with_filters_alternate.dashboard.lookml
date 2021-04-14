@@ -44,9 +44,10 @@
             id: prediction.dau_forecast_7day_ma, name: DAU Forecast (7 Day MA)}, {
             axisId: prediction.dau_forecast_lower_7day_ma, id: prediction.dau_forecast_lower_7day_ma,
             name: DAU Forecast Lower Bound}, {axisId: prediction.dau_forecast_upper_7day_ma,
-            id: prediction.dau_forecast_upper_7day_ma, name: DAU Forecast Upper Bound}],
-        showLabels: true, showValues: true, minValue: 50000000, unpinAxis: false,
-        tickDensity: default, tickDensityCustom: 5, type: linear}]
+            id: prediction.dau_forecast_upper_7day_ma, name: DAU Forecast Upper Bound},
+          {axisId: firefox_desktop_usage_2021.year_over_year_dau_7day_ma, id: firefox_desktop_usage_2021.year_over_year_dau_7day_ma,
+            name: 2020 Dau MA}], showLabels: true, showValues: true, minValue: !!null '',
+        unpinAxis: true, tickDensity: default, tickDensityCustom: 5, type: linear}]
     series_types:
       prediction.dau_forecast_lower: scatter
       prediction.dau_forecast_upper: scatter
@@ -318,10 +319,12 @@
               (7 Day MA)}, {axisId: prediction.new_profiles_forecast_7day_ma, id: prediction.new_profiles_forecast_7day_ma,
             name: New Profiles Forecast (7 Day MA)}, {axisId: prediction.new_profiles_forecast_lower_7day_ma,
             id: prediction.new_profiles_forecast_lower_7day_ma, name: New Profiles
-              Lower Bound}, {axisId: prediction.new_profiles_forecast_upper_7day_ma,
+              Forecast Lower Bound}, {axisId: prediction.new_profiles_forecast_upper_7day_ma,
             id: prediction.new_profiles_forecast_upper_7day_ma, name: New Profiles
-              Upper Bound}], showLabels: true, showValues: true, minValue: 500000,
-        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
+              Forecast Upper Bound}, {axisId: firefox_desktop_usage_2021.year_over_year_new_profiles_7day_ma,
+            id: firefox_desktop_usage_2021.year_over_year_new_profiles_7day_ma, name: 2020
+              New Profiles MA}], showLabels: true, showValues: true, minValue: !!null '',
+        unpinAxis: true, tickDensity: default, tickDensityCustom: 5, type: linear}]
     series_types:
       prediction.new_profiles_forecast_lower: scatter
       prediction.new_profiles_forecast_upper: scatter
@@ -601,6 +604,7 @@
     conditional_formatting_include_nulls: false
     series_types: {}
     defaults_version: 1
+    refresh: 10 seconds
     listen:
       Channel: firefox_desktop_usage_2021.channel
       Activity Segment: firefox_desktop_usage_2021.activity_segment
@@ -612,7 +616,6 @@
     col: 0
     width: 24
     height: 2
-    refresh: 10 seconds
   filters:
   - name: Date
     title: Date
