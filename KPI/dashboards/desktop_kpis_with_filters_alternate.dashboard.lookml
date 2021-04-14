@@ -583,17 +583,36 @@
     col: 0
     width: 24
     height: 9
-  - name: " (4)"
-    type: text
-    title_text: ''
-    subtitle_text: ''
-    body_text: "*Running slow? If no one has queried a slice before, it will take\
-      \ a 2-3 minutes to build the forecasting models. From then on, queries against\
-      \ that slice should run within 10-15 seconds.*"
+  - title: ''
+    name: " (4)"
+    model: kpi
+    explore: firefox_desktop_usage_2021
+    type: single_value
+    fields: [key_in_cache.is_cached]
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    series_types: {}
+    defaults_version: 1
+    listen:
+      Channel: firefox_desktop_usage_2021.channel
+      Activity Segment: firefox_desktop_usage_2021.activity_segment
+      OS: firefox_desktop_usage_2021.os
+      Attributed (Yes / No): firefox_desktop_usage_2021.attributed
+      Country Name: firefox_desktop_usage_2021.country_name
+      Date: firefox_desktop_usage_2021.date
     row: 0
     col: 0
     width: 24
     height: 2
+    refresh: 10 seconds
   filters:
   - name: Date
     title: Date
