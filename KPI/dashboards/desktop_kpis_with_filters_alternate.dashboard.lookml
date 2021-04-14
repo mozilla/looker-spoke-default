@@ -604,7 +604,7 @@
     conditional_formatting_include_nulls: false
     series_types: {}
     defaults_version: 1
-    refresh: '10000'
+    refresh: 10 seconds
     listen:
       Channel: firefox_desktop_usage_2021.channel
       Activity Segment: firefox_desktop_usage_2021.activity_segment
