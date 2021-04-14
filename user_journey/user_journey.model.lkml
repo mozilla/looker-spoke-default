@@ -16,6 +16,14 @@ explore: funnel_analysis {
               OR (${days_of_use.submission_date} = DATE_SUB(current_date, INTERVAL 2 DAY)
                   AND DATE_ADD(${funnel_analysis.submission_date}, INTERVAL 56 DAY) >  DATE_SUB(current_date, INTERVAL 2 DAY)));;
   }
+  join: client_properties {
+    view_label: "Client Properties"
+    relationship: one_to_one
+    type: left_outer
+    sql_on: ${funnel_analysis.sample_id} = ${client_properties.sample_id}
+        AND ${funnel_analysis.client_id} = ${client_properties.client_id}
+        AND ${funnel_analysis.submission_date} = ${client_properties.submission_date};;
+  }
   join: event_type_1 {
     relationship: many_to_one
     type: cross
