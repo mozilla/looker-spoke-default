@@ -38,23 +38,21 @@ view: client_properties {
     sql: ${TABLE}.days_since_seen ;;
   }
 
-  measure: count_active_is_default_browser {
+  measure: count_is_default_browser {
     label: "Count Active Is Default Browser"
     type: count
 
-    filters: [is_default_browser: "yes", days_since_seen: "<1"]
+    filters: [is_default_browser: "yes"]
   }
 
-  measure: count_active_users {
-    label: "Count Active Users"
+  measure: count_users {
+    label: "Count Users"
     type: count
-
-    filters: [days_since_seen: "<1"]
   }
 
   measure: fraction_is_default_browser {
     label: "Fraction Is Default Browser"
-    sql: SAFE_DIVIDE(${count_active_is_default_browser}, ${count_active_users}) ;;
+    sql: SAFE_DIVIDE(${count_is_default_browser}, ${count_users}) ;;
     type: number
   }
 }
