@@ -39,20 +39,20 @@ view: client_properties {
   }
 
   measure: count_is_default_browser {
-    label: "Count Active Is Default Browser"
+    label: "Count Is Default Browser"
     type: count
 
     filters: [is_default_browser: "yes"]
   }
 
-  measure: count_users {
-    label: "Count Users"
+  measure: count_clients {
+    label: "Count Clients"
     type: count
   }
 
   measure: fraction_is_default_browser {
     label: "Fraction Is Default Browser"
-    sql: SAFE_DIVIDE(${count_is_default_browser}, ${count_users}) ;;
+    sql: SAFE_DIVIDE(${count_is_default_browser}, ${count_clients}) ;;
     type: number
   }
 }
