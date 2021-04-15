@@ -19,10 +19,10 @@ explore: funnel_analysis {
   join: client_properties {
     relationship: one_to_one
     type: left_outer
-    sql_where: client_properties.submission_date BETWEEN DATE({% date_start funnel_analysis.date %}) AND DATE({% date_end funnel_analysis.date %});;
+    sql_where: client_properties.submission_date BETWEEN DATE_SUB(DATE({% date_start funnel_analysis.date %}), INTERVAL ${client_properties.days_diff} DAY) AND DATE_SUB(DATE({% date_end funnel_analysis.date %}), INTERVAL ${client_properties.days_diff} DAY);;
     sql_on: ${funnel_analysis.sample_id} = ${client_properties.sample_id}
-        AND ${funnel_analysis.client_id} = ${client_properties.client_id}
-        AND ${funnel_analysis.submission_date} = ${client_properties.submission_date};;
+      AND ${funnel_analysis.client_id} = ${client_properties.client_id}
+      AND ${funnel_analysis.submission_date} = DATE_SUB(${client_properties.submission_date}, INTERVAL ${client_properties.days_diff} DAY);;
     fields: [client_properties.fraction_is_default_browser, client_properties.count_is_default_browser, client_properties.is_default_browser]
   }
   join: event_type_1 {

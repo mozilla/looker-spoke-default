@@ -3,6 +3,11 @@ include: "//looker-hub/firefox_desktop/views/clients_last_seen.view.lkml"
 view: client_properties {
   extends: [clients_last_seen]
 
+  parameter: days_diff {
+    type: number
+    default_value: "0"
+  }
+
   measure: count_is_default_browser {
     type: count
 
