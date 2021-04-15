@@ -3,17 +3,6 @@ include: "//looker-hub/firefox_desktop/views/clients_last_seen.view.lkml"
 view: client_properties {
   extends: [clients_last_seen]
 
-  dimension: is_default_browser {
-    type: yesno
-    sql: ${TABLE}.is_default_browser ;;
-  }
-
-  dimension: days_since_seen {
-    hidden: yes
-    type: number
-    sql: ${TABLE}.days_since_seen ;;
-  }
-
   measure: count_is_default_browser {
     type: count
 
