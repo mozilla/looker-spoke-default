@@ -107,6 +107,12 @@ view: unified_metrics {
 
   dimension: client_info__client_id {
     type: string
+    description: "A UUID uniquely identifying the client."
+    link: {
+      label: "Glean Dictionary reference for client_id"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/client_id"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
     sql: ${TABLE}.client_info.client_id ;;
     group_label: "Client Info"
     group_item_label: "Client ID"
@@ -436,6 +442,11 @@ view: unified_metrics {
   measure: reader_mode_open {
     type:  sum
     sql:  ${metrics__counter__reader_mode_open} ;;
+    link: {
+      label: "Glean Dictionary reference for reader_mode_open"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/reader_mode_open"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   measure: reader_mode_open_client_count {
@@ -454,6 +465,11 @@ view: unified_metrics {
   measure: reading_list_mark_read {
     type:  sum
     sql:  ${metrics__counter__reading_list_mark_read} ;;
+    link: {
+      label: "Glean Dictionary reference for reading_list_mark_read"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/reading_list_mark_read"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   measure: reading_list_mark_read_client_count {
