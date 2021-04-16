@@ -406,11 +406,21 @@ view: unified_metrics {
   measure: qr_code_scanned {
     type:  sum
     sql:  ${metrics__counter__qr_code_scanned} ;;
+    link: {
+      label: "Glean Dictionary reference for qr_code_scanned"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/qr_code_scanned"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   measure: qr_code_scanned_client_count {
     type:  count_distinct
     sql: case when ${metrics__counter__qr_code_scanned} > 0 then ${client_info__client_id} end ;;
+    link: {
+      label: "Glean Dictionary reference for qr_code_scanned"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/qr_code_scanned"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   dimension: metrics__counter__reader_mode_close {
@@ -424,11 +434,21 @@ view: unified_metrics {
   measure: reader_mode_close {
     type:  sum
     sql:  ${metrics__counter__reader_mode_close} ;;
+    link: {
+      label: "Glean Dictionary reference for reader_mode_close"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/reader_mode_close"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   measure: reader_mode_close_client_count {
     type:  count_distinct
     sql: case when ${metrics__counter__reader_mode_close} > 0 then ${client_info__client_id} end ;;
+    link: {
+      label: "Glean Dictionary reference for reader_mode_close"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/reader_mode_close"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   dimension: metrics__counter__reader_mode_open {
@@ -452,6 +472,11 @@ view: unified_metrics {
   measure: reader_mode_open_client_count {
     type:  count_distinct
     sql: case when ${metrics__counter__reader_mode_open} > 0 then ${client_info__client_id} end ;;
+    link: {
+      label: "Glean Dictionary reference for reader_mode_open"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/reader_mode_open"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   dimension: metrics__counter__reading_list_mark_read {
@@ -475,6 +500,11 @@ view: unified_metrics {
   measure: reading_list_mark_read_client_count {
     type:  count_distinct
     sql: case when ${metrics__counter__reading_list_mark_read} > 0 then ${client_info__client_id} end ;;
+    link: {
+      label: "Glean Dictionary reference for reading_list_mark_read"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/reading_list_mark_read"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   dimension: metrics__counter__reading_list_mark_unread {
@@ -488,11 +518,21 @@ view: unified_metrics {
   measure: reading_list_mark_unread {
     type:  sum
     sql:  ${metrics__counter__reading_list_mark_unread} ;;
+    link: {
+      label: "Glean Dictionary reference for reading_list_mark_unread"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/reading_list_mark_unread"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   measure: reading_list_mark_unread_client_count {
     type:  count_distinct
     sql: case when ${metrics__counter__reading_list_mark_unread} > 0 then ${client_info__client_id} end ;;
+    link: {
+      label: "Glean Dictionary reference for reading_list_mark_unread"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/reading_list_mark_unread"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   dimension: metrics__counter__reading_list_open {
@@ -506,11 +546,21 @@ view: unified_metrics {
   measure: reading_list_open {
     type:  sum
     sql:  ${metrics__counter__reading_list_open} ;;
+    link: {
+      label: "Glean Dictionary reference for reading_list_open"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/reading_list_open"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   measure: reading_list_open_client_count {
     type:  count_distinct
     sql: case when ${metrics__counter__reading_list_open} > 0 then ${client_info__client_id} end ;;
+    link: {
+      label: "Glean Dictionary reference for reading_list_open"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/reading_list_open"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   dimension: metrics__counter__tabs_cumulative_count {
@@ -524,11 +574,21 @@ view: unified_metrics {
   measure: tabs_cumulative_count {
     type:  sum
     sql:  ${metrics__counter__tabs_cumulative_count} ;;
+    link: {
+      label: "Glean Dictionary reference for tabs_cumulative_count"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/tabs_cumulative_count"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   measure: tabs_cumulative_count_client_count {
     type:  count_distinct
     sql: case when ${metrics__counter__tabs_cumulative_count} > 0 then ${client_info__client_id} end ;;
+    link: {
+      label: "Glean Dictionary reference for tabs_cumulative_count"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/tabs_cumulative_count"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   dimension: metrics__labeled_counter__bookmarks_add {
@@ -653,11 +713,21 @@ view: unified_metrics__metrics__labeled_counter__tabs_open {
   measure: count {
     type:  sum
     sql:  ${value} ;;
+    link: {
+      label: "Glean Dictionary reference for tabs_open"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/tabs_open"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   measure: client_count {
     type:  count_distinct
     sql: case when ${value} > 0 then ${unified_metrics.client_info__client_id} end ;;
+    link: {
+      label: "Glean Dictionary reference for tabs_open"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/tabs_open"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 }
 
@@ -677,11 +747,21 @@ view: unified_metrics__metrics__labeled_counter__tabs_close {
   measure: count {
     type:  sum
     sql:  ${value} ;;
+    link: {
+      label: "Glean Dictionary reference for tabs_close"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/tabs_close"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   measure: client_count {
     type:  count_distinct
     sql: case when ${value} > 0 then ${unified_metrics.client_info__client_id} end ;;
+    link: {
+      label: "Glean Dictionary reference for tabs_close"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/tabs_close"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 }
 
@@ -701,11 +781,21 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_add {
   measure: count {
     type:  sum
     sql:  ${value} ;;
+    link: {
+      label: "Glean Dictionary reference for bookmarks_add"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/bookmarks_add"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   measure: client_count {
     type:  count_distinct
     sql: case when ${value} > 0 then ${unified_metrics.client_info__client_id} end ;;
+    link: {
+      label: "Glean Dictionary reference for bookmarks_add"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/bookmarks_add"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 }
 
@@ -725,11 +815,21 @@ view: unified_metrics__metrics__labeled_counter__search_counts {
   measure: count {
     type:  sum
     sql:  ${value} ;;
+    link: {
+      label: "Glean Dictionary reference for search_counts"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/search_counts"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   measure: client_count {
     type:  count_distinct
     sql: case when ${value} > 0 then ${unified_metrics.client_info__client_id} end ;;
+    link: {
+      label: "Glean Dictionary reference for search_counts"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/search_counts"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 }
 
@@ -749,11 +849,21 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_open {
   measure: count {
     type:  sum
     sql:  ${value} ;;
+    link: {
+      label: "Glean Dictionary reference for bookmarks_open"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/bookmarks_open"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   measure: client_count {
     type:  count_distinct
     sql: case when ${value} > 0 then ${unified_metrics.client_info__client_id} end ;;
+    link: {
+      label: "Glean Dictionary reference for bookmarks_open"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/bookmarks_open"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 }
 
@@ -774,11 +884,21 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_delete {
   measure: count {
     type:  sum
     sql:  ${value} ;;
+    link: {
+      label: "Glean Dictionary reference for bookmarks_delete"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/bookmarks_delete"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   measure: client_count {
     type:  count_distinct
     sql: case when ${value} > 0 then ${unified_metrics.client_info__client_id} end ;;
+    link: {
+      label: "Glean Dictionary reference for bookmarks_delete"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/bookmarks_delete"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 }
 
@@ -798,11 +918,21 @@ view: unified_metrics__metrics__labeled_counter__reading_list_add {
   measure: count {
     type:  sum
     sql:  ${value} ;;
+    link: {
+      label: "Glean Dictionary reference for reading_list_add"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/reading_list_add"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   measure: client_count {
     type:  count_distinct
     sql: case when ${value} > 0 then ${unified_metrics.client_info__client_id} end ;;
+    link: {
+      label: "Glean Dictionary reference for reading_list_add"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/reading_list_add"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 }
 
@@ -823,11 +953,21 @@ view: unified_metrics__metrics__labeled_counter__bookmarks_view_list {
   measure: count {
     type:  sum
     sql:  ${value} ;;
+    link: {
+      label: "Glean Dictionary reference for bookmarks_view_list"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/bookmarks_view_list"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   measure: client_count {
     type:  count_distinct
     sql: case when ${value} > 0 then ${unified_metrics.client_info__client_id} end ;;
+    link: {
+      label: "Glean Dictionary reference for bookmarks_view_list"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/bookmarks_view_list"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 }
 
@@ -847,10 +987,20 @@ view: unified_metrics__metrics__labeled_counter__reading_list_delete {
   measure: count {
     type:  sum
     sql:  ${value} ;;
+    link: {
+      label: "Glean Dictionary reference for reading_list_delete"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/reading_list_delete"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 
   measure: client_count {
     type:  count_distinct
     sql: case when ${value} > 0 then ${unified_metrics.client_info__client_id} end ;;
+    link: {
+      label: "Glean Dictionary reference for reading_list_delete"
+      url: "https://dictionary.protosaur.dev/apps/firefox_ios/metrics/reading_list_delete"
+      icon_url: "https://dictionary.protosaur.dev/favicon.png"
+    }
   }
 }
