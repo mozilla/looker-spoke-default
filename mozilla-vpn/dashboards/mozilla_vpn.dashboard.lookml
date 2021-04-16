@@ -464,7 +464,7 @@
   - name: Provider
     title: Provider
     type: field_filter
-    default_value: ''
+    default_value: APPLE,FXA
     allow_multiple_values: true
     required: false
     ui_config:
