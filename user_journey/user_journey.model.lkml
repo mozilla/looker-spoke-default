@@ -23,7 +23,7 @@ explore: funnel_analysis {
     sql_on: ${funnel_analysis.sample_id} = ${client_properties.sample_id}
       AND ${funnel_analysis.client_id} = ${client_properties.client_id}
       AND ${funnel_analysis.submission_date} = DATE_SUB(${client_properties.submission_date}, INTERVAL {% parameter client_properties.diff_days %} DAY);;
-    fields: [client_properties.fraction_is_default_browser, client_properties.count_is_default_browser, diff_days]
+    fields: [client_properties.fraction_is_default_browser, client_properties.is_default_browser, client_properties.count_is_default_browser, diff_days]
   }
   join: event_type_1 {
     relationship: many_to_one

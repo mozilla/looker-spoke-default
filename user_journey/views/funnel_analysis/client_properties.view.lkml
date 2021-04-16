@@ -13,7 +13,7 @@ view: client_properties {
   measure: count_is_default_browser {
     type: count
     description: "Number of clients that have is_default_browser set to true."
-
+    filters: [is_default_browser: "yes"]
   }
 
   measure: count_clients {
