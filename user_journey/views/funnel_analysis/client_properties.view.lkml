@@ -10,6 +10,10 @@ view: client_properties {
     default_value: "0"
   }
 
+  dimension: is_default_browser {
+    hidden: yes
+  }
+
   measure: count_is_default_browser {
     type: count
     description: "Number of clients that have is_default_browser set to true."
