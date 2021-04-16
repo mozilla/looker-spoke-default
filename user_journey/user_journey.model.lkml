@@ -16,6 +16,15 @@ explore: funnel_analysis {
               OR (${days_of_use.submission_date} = DATE_SUB(current_date, INTERVAL 2 DAY)
                   AND DATE_ADD(${funnel_analysis.submission_date}, INTERVAL 56 DAY) >  DATE_SUB(current_date, INTERVAL 2 DAY)));;
   }
+  join: client_properties {
+    relationship: one_to_one
+    type: left_outer
+    sql_where: client_properties.submission_date BETWEEN DATE_SUB(DATE({% date_start funnel_analysis.date %}), INTERVAL {% parameter client_properties.diff_days %} DAY) AND DATE_SUB(DATE({% date_end funnel_analysis.date %}), INTERVAL {% parameter client_properties.diff_days %} DAY);;
+    sql_on: ${funnel_analysis.sample_id} = ${client_properties.sample_id}
+      AND ${funnel_analysis.client_id} = ${client_properties.client_id}
+      AND ${funnel_analysis.submission_date} = DATE_SUB(${client_properties.submission_date}, INTERVAL {% parameter client_properties.diff_days %} DAY);;
+    fields: [client_properties.fraction_is_default_browser, client_properties.is_default_browser, client_properties.count_is_default_browser, diff_days]
+  }
   join: event_type_1 {
     relationship: many_to_one
     type: cross
@@ -101,14 +110,14 @@ explore: cohort_analysis {
     relationship: many_to_one
     type: cross
   }
-  join: clients_last_seen {
+  join: search_clients_last_seen {
     fields: []
     relationship: one_to_one
     type: left_outer
-    sql_on: ${cohort_analysis.sample_id} = ${clients_last_seen.sample_id}
-        AND ${cohort_analysis.client_id} = ${clients_last_seen.client_id}
-        AND (${cohort_analysis.submission_date} = DATE_SUB(${clients_last_seen.submission_date}, INTERVAL 56 DAY)
-              OR (${clients_last_seen.submission_date} = DATE_SUB(current_date, INTERVAL 2 DAY)
+    sql_on: ${cohort_analysis.sample_id} = ${search_clients_last_seen.sample_id}
+        AND ${cohort_analysis.client_id} = ${search_clients_last_seen.client_id}
+        AND (${cohort_analysis.submission_date} = DATE_SUB(${search_clients_last_seen.submission_date}, INTERVAL 56 DAY)
+              OR (${search_clients_last_seen.submission_date} = DATE_SUB(current_date, INTERVAL 2 DAY)
                   AND DATE_ADD(${cohort_analysis.submission_date}, INTERVAL 56 DAY) >  DATE_SUB(current_date, INTERVAL 2 DAY)));;
   }
   sql_always_where: cohort_analysis.submission_date > "2010-01-01" ;;
@@ -171,7 +180,7 @@ explore: event_counts {
     limit: 500
   }
   sql_always_where: DATE(submission_timestamp) > '2020-01-01'
-  ;;
+    ;;
 }
 
 

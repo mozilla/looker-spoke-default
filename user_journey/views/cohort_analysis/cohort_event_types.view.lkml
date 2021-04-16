@@ -5,7 +5,7 @@ view: cohort_event_type_1 {
 
   measure: total_days_of_use {
     type: sum
-    sql: ${clients_last_seen.days_of_use} ;;
+    sql: ${search_clients_last_seen.days_of_use} ;;
     filters: [
       cohort_analysis.completed_event_1: "yes"
     ]
@@ -13,7 +13,7 @@ view: cohort_event_type_1 {
 
   measure: average_days_of_use {
     type: average
-    sql: ${clients_last_seen.days_of_use} ;;
+    sql: ${search_clients_last_seen.days_of_use} ;;
     filters: [
       cohort_analysis.completed_event_1: "yes"
     ]
@@ -25,7 +25,7 @@ view: cohort_event_type_2 {
 
   measure: total_days_of_use {
     type: sum
-    sql: ${clients_last_seen.days_of_use} ;;
+    sql: ${search_clients_last_seen.days_of_use} ;;
     filters: [
       cohort_analysis.completed_event_2: "yes"
     ]
@@ -33,7 +33,7 @@ view: cohort_event_type_2 {
 
   measure: average_days_of_use {
     type: average
-    sql: ${clients_last_seen.days_of_use} ;;
+    sql: ${search_clients_last_seen.days_of_use} ;;
     filters: [
       cohort_analysis.completed_event_2: "yes"
     ]
@@ -45,7 +45,7 @@ view: cohort_event_type_3 {
 
   measure: total_days_of_use {
     type: sum
-    sql: ${clients_last_seen.days_of_use} ;;
+    sql: ${search_clients_last_seen.days_of_use} ;;
     filters: [
       cohort_analysis.completed_event_3: "yes"
     ]
@@ -53,7 +53,7 @@ view: cohort_event_type_3 {
 
   measure: average_days_of_use {
     type: average
-    sql: ${clients_last_seen.days_of_use} ;;
+    sql: ${search_clients_last_seen.days_of_use} ;;
     filters: [
       cohort_analysis.completed_event_3: "yes"
     ]
@@ -65,7 +65,7 @@ view: cohort_event_type_4 {
 
   measure: total_days_of_use {
     type: sum
-    sql: ${clients_last_seen.days_of_use} ;;
+    sql: ${search_clients_last_seen.days_of_use} ;;
     filters: [
       cohort_analysis.completed_event_4: "yes"
     ]
@@ -73,7 +73,7 @@ view: cohort_event_type_4 {
 
   measure: average_days_of_use {
     type: average
-    sql: ${clients_last_seen.days_of_use} ;;
+    sql: ${search_clients_last_seen.days_of_use} ;;
     filters: [
       cohort_analysis.completed_event_4: "yes"
     ]
