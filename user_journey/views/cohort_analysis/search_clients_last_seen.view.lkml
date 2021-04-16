@@ -1,4 +1,4 @@
-view: clients_last_seen {
+view: search_clients_last_seen {
   derived_table:{
     sql:
       SELECT
