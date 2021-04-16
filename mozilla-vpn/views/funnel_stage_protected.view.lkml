@@ -1,5 +1,5 @@
-view: add_device_events {
-  sql_table_name: `mozdata.mozilla_vpn.add_device_events`;;
+view: funnel_stage_protected {
+  sql_table_name: `mozdata.mozilla_vpn.protected`;;
 
   dimension: fxa_uid {
     hidden: yes
@@ -8,7 +8,7 @@ view: add_device_events {
     sql: ${TABLE}.fxa_uid;;
   }
 
-  dimension_group: timestamp {
+  dimension_group: first_protected {
     type: time
     timeframes: [
       raw,
@@ -19,7 +19,7 @@ view: add_device_events {
       quarter,
       year
     ]
-    sql: ${TABLE}.timestamp;;
+    sql: ${TABLE}.first_protected;;
   }
 
   measure: count {

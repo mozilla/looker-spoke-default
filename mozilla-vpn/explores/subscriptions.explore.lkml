@@ -5,7 +5,6 @@ explore: subscriptions {
     stripe_subscriptions
   ]
 
-  # apple subscriptions
   from: apple_subscriptions
   view_name: apple_subscriptions
   fields: [
@@ -13,7 +12,6 @@ explore: subscriptions {
     -apple_subscriptions*
   ]
 
-  # stripe subscriptions
   join: stripe_subscriptions {
     type: full_outer
     # stripe susbscriptions go in separate rows
@@ -21,7 +19,6 @@ explore: subscriptions {
     relationship: one_to_one
   }
 
-  # users
   join: stripe_customers {
     # hide all fields this is only for joining users to stripe subscriptions
     fields: []
@@ -40,13 +37,11 @@ explore: subscriptions {
     sql_on: COALESCE(${apple_subscriptions.user_id}, ${stripe_users.id}) = ${users.id};;
   }
 
-  # devices
   join: devices {
     relationship: many_to_one
     sql_on: ${devices.user_id} = ${users.id};;
   }
 
-  # common fields
   join: all_subscriptions {
     relationship: one_to_one
     sql: LEFT JOIN UNNEST(
@@ -93,7 +88,6 @@ explore: subscriptions {
   }
 
   join: all_subscriptions__events {
-    # required_joins: [subscription_periods]
     view_label: "All Subscriptions: Events"
     sql: CROSS JOIN UNNEST(${all_subscriptions.events}) AS all_subscriptions__events;;
     relationship:  one_to_many
@@ -102,14 +96,15 @@ explore: subscriptions {
 }
 
 view: all_subscriptions {
-  # dimension: id {
-  #   hidden: yes
-  #   primary_key: yes
-  #   sql: COALESCE(
-  #     ${stripe_subscriptions.id},
-  #     CAST(${apple_subscriptions.id} AS STRING)
-  #   );;
-  # }
+  dimension: id {
+    hidden: yes
+    primary_key: yes
+    sql: COALESCE(
+      ${stripe_subscriptions.id},
+      CAST(${apple_subscriptions.id} AS STRING)
+    );;
+  }
+
   dimension: provider {
     type: string
     sql: ${TABLE}.provider;;
@@ -144,13 +139,6 @@ view: all_subscriptions {
   }
   dimension: cancel_reason {
     type: string
-    # sql: CASE
-    # WHEN ${stripe_subscriptions.id} IS NULL
-    # THEN "Cancelled by IAP"
-    # WHEN ${stripe_subscriptions.cancelled_by_customer}
-    # THEN "Cancelled by Customer"
-    # ELSE "Payment Failed"
-    # END;;
     sql: ${TABLE}.cancel_reason;;
   }
   dimension_group: user_start {
@@ -187,19 +175,6 @@ view: all_subscriptions {
           ${cancel_reason} AS granular_type,
           -1 AS delta
         ),
-        -- repeat events for displaying net change
-        STRUCT(
-          ${start_raw} AS date,
-          "Net Paid Subscribers" AS type,
-          "Net Paid Subscribers" AS granular_type,
-          1 AS delta
-        ),
-        STRUCT(
-          ${end_raw} AS date,
-          "Net Paid Subscribers" AS type,
-          "Net Paid Subscribers" AS granular_type,
-          -1 AS delta
-        )
       ];;
   }
   measure: count {
@@ -253,12 +228,6 @@ view: all_subscriptions__events {
     type: string
     sql: ${TABLE}.granular_type;;
   }
-
-  # dimension: raw_delta {
-  #   type: string
-  #   hidden: yes
-  #   sql: ${TABLE}.delta;;
-  # }
 
   measure: delta {
     type: sum

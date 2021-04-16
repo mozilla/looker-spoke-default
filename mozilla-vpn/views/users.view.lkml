@@ -47,9 +47,4 @@ view: users {
   measure: count {
     type: count
   }
-
-  # measure: users {
-  #   type: count_distinct
-  #   sql_distinct_key: ${id};;
-  # }
 }
