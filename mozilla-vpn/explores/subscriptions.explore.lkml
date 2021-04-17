@@ -5,14 +5,16 @@ explore: subscriptions {
     stripe_subscriptions
   ]
 
-  from: apple_subscriptions
   view_name: apple_subscriptions
+  # hide all fields, this is only for building all_subscriptions
   fields: [
     ALL_FIELDS*,
     -apple_subscriptions*
   ]
 
   join: stripe_subscriptions {
+    # hide all fields, this is only for building all_subscriptions
+    fields: []
     type: full_outer
     # stripe susbscriptions go in separate rows
     sql_on: FALSE;;
@@ -104,7 +106,6 @@ view: all_subscriptions {
       CAST(${apple_subscriptions.id} AS STRING)
     );;
   }
-
   dimension: provider {
     type: string
     sql: ${TABLE}.provider;;
@@ -174,7 +175,7 @@ view: all_subscriptions {
           "Cancelled" AS type,
           ${cancel_reason} AS granular_type,
           -1 AS delta
-        ),
+        )
       ];;
   }
   measure: count {

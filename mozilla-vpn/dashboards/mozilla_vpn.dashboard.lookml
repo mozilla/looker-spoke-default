@@ -94,6 +94,7 @@
     - all_subscriptions__events.event_date
     - all_subscriptions__events.type
     limit: 500
+    row_total: right
     dynamic_fields:
     - table_calculation: 7_day_sum
       label: 7-day Sum
@@ -102,11 +103,19 @@
       value_format_name:
       _kind_hint: measure
       _type_hint: number
+    - table_calculation: net_7_day_sum
+      label: Net Paid Subscriptions - 7-day Sum
+      expression: sum(offset_list(${all_subscriptions__events.delta:row_total}, -6,
+        7))
+      value_format:
+      value_format_name:
+      _kind_hint: supermeasure
+      _type_hint: number
     color_application: *color_application
     series_colors:
       New - 7_day_sum: "#08B248"
       Cancelled - 7_day_sum: "#FC2E31"
-      Net Paid Subscribers - 7_day_sum: "#3D52B9"
+      net_7_day_sum: "#3D52B9"
     defaults_version: 1
     hidden_fields:
     - all_subscriptions__events.delta
@@ -132,11 +141,14 @@
     - all_subscriptions__events.event_date desc
     - all_subscriptions__events.type
     limit: 500
+    row_total: right
     color_application: *color_application
     series_colors:
       New - all_subscriptions__events.delta: "#08B248"
       Cancelled - all_subscriptions__events.delta: "#FC2E31"
-      Net Paid Subscribers - all_subscriptions__events.delta: "#3D52B9"
+      Row Total - all_subscriptions__events.delta: "#3D52B9"
+    series_labels:
+      Row Total - all_subscriptions__events.delta: Net Paid Subscriptions
     defaults_version: 1
     listen: *listen
     row: 9
@@ -149,75 +161,39 @@
     explore: funnel
     type: looker_line
     fields:
-    - login_flows.flow_started_date
-    - login_flows.count
-    - login_flows.completed_login
-    - users.count
-    - stripe_customers.count
-    - add_device_events.count
-    - protected.count
+    - funnel_start_fxa_login.start_date
+    - funnel_start_fxa_login.count
+    - funnel_start_fxa_login.frac_completed_login
+    - funnel_start_fxa_login.frac_registered_user
+    - funnel_start_fxa_login.frac_subscribed
+    - funnel_start_fxa_login.frac_registered_device
+    - funnel_start_fxa_login.frac_protected
     fill_fields:
-    - login_flows.flow_started_date
+    - funnel_start_fxa_login.start_date
     filters:
-      login_flows.flow_started_date: after 2020/05/01
+      funnel_start_fxa_login.start_date: after 2020/05/01
     sorts:
-    - login_flows.flow_started_date desc
+    - funnel_start_fxa_login.start_date desc
     limit: 500
-    dynamic_fields:
-    - table_calculation: frac_registered_user
-      label: Frac Registered User
-      expression: "${users.count}/${login_flows.count}"
-      value_format:
-      value_format_name:
-      _kind_hint: measure
-      _type_hint: number
-    - table_calculation: frac_completed_login
-      label: Frac Completed Login
-      expression: "${login_flows.completed_login}/${login_flows.count}"
-      value_format:
-      value_format_name:
-      _kind_hint: measure
-      _type_hint: number
-    - table_calculation: frac_subscribed
-      label: Frac Subscribed
-      expression: "${stripe_customers.count}/${login_flows.count}"
-      value_format:
-      value_format_name:
-      _kind_hint: measure
-      _type_hint: number
-    - table_calculation: frac_registered_device
-      label: Frac Registered Device
-      expression: "${add_device_events.count}/${login_flows.count}"
-      value_format:
-      value_format_name:
-      _kind_hint: measure
-      _type_hint: number
-    - table_calculation: frac_protected
-      label: Frac Protected
-      expression: "${protected.count}/${login_flows.count}"
-      value_format:
-      value_format_name:
-      _kind_hint: measure
-      _type_hint: number
     y_axes:
     - label: ''
       orientation: left
       series:
-      - axisId: frac_registered_user
-        id: frac_registered_user
-        name: Frac Registered User
-      - axisId: frac_completed_login
-        id: frac_completed_login
+      - axisId: funnel_start_fxa_login.frac_completed_login
+        id: funnel_start_fxa_login.frac_completed_login
         name: Frac Completed Login
-      - axisId: frac_subscribed
-        id: frac_subscribed
+      - axisId: funnel_start_fxa_login.frac_registered_user
+        id: funnel_start_fxa_login.frac_registered_user
+        name: Frac Registered User
+      - axisId: funnel_start_fxa_login.frac_subscribed
+        id: funnel_start_fxa_login.frac_subscribed
         name: Frac Subscribed
-      - axisId: frac_registered_device
-        id: frac_registered_device
-        name: Frac Registered Device
-      - axisId: frac_protected
-        id: frac_protected
+      - axisId: funnel_start_fxa_login.frac_protected
+        id: funnel_start_fxa_login.frac_protected
         name: Frac Protected
+      - axisId: funnel_start_fxa_login.frac_registered_device
+        id: funnel_start_fxa_login.frac_registered_device
+        name: Frac Registered Device
       showLabels: true
       showValues: true
       unpinAxis: false
@@ -227,9 +203,9 @@
     - label:
       orientation: right
       series:
-      - axisId: login_flows.count
-        id: login_flows.count
-        name: Login Flows
+      - axisId: funnel_start_fxa_login.count
+        id: funnel_start_fxa_login.count
+        name: Login Attempts
       showLabels: true
       showValues: true
       unpinAxis: false
@@ -237,12 +213,6 @@
       tickDensityCustom: 5
       type: linear
     defaults_version: 1
-    hidden_fields:
-    - login_flows.completed_login
-    - users.count
-    - stripe_customers.count
-    - add_device_events.count
-    - protected.count
     row: 18
     col: 0
     width: 12
@@ -264,14 +234,17 @@
     - all_subscriptions__events.event_date desc
     - all_subscriptions__events.granular_type
     limit: 500
+    row_total: right
     color_application: *color_application
     series_colors:
       New - all_subscriptions__events.delta: "#08B248"
-      Net Paid Subscribers - all_subscriptions__events.delta: "#3D52B9"
       Resurrected - all_subscriptions__events.delta: "#C9DC10"
       Cancelled by Customer - all_subscriptions__events.delta: "#FC2E31"
       Cancelled by IAP - all_subscriptions__events.delta: "#FA2F90"
-      Payment Failed = all_subscriptions__events.delta: FA9200
+      Payment Failed = all_subscriptions__events.delta: "#FA9200"
+      Row Total - all_subscriptions__events.delta: "#3D52B9"
+    series_labels:
+      Row Total - all_subscriptions__events.delta: Net Paid Subscriptions
     defaults_version: 1
     listen: *listen
     row: 18

@@ -1,26 +1,3 @@
-# Un-hide and use this explore, or copy the joins into another explore, to get all the fully nested relationships from this view
-# explore: stripe_products {
-#   hidden: yes
-
-#   join: stripe_products__images {
-#     view_label: "Products: Images"
-#     sql: LEFT JOIN UNNEST(${stripe_products.images}) as stripe_products__images;;
-#     relationship: one_to_many
-#   }
-
-#   join: stripe_products__attributes {
-#     view_label: "Products: Attributes"
-#     sql: LEFT JOIN UNNEST(${stripe_products.attributes}) as stripe_products__attributes;;
-#     relationship: one_to_many
-#   }
-
-#   join: stripe_products__deactive_on {
-#     view_label: "Products: Deactive On"
-#     sql: LEFT JOIN UNNEST(${stripe_products.deactive_on}) as stripe_products__deactive_on;;
-#     relationship: one_to_many
-#   }
-# }
-
 view: stripe_products {
   sql_table_name: `mozdata.stripe.products`;;
 
@@ -70,7 +47,9 @@ view: stripe_products {
     sql: ${TABLE}.description;;
   }
 
-  dimension_group: event_timestamp {
+  dimension_group: modified {
+    # this field is renamed to make the meaning more clean in context
+    sql: ${TABLE}.event_timestamp;;
     hidden: yes
     type: time
     timeframes: [
@@ -82,7 +61,6 @@ view: stripe_products {
       quarter,
       year
     ]
-    sql: ${TABLE}.event_timestamp;;
   }
 
   dimension: images {

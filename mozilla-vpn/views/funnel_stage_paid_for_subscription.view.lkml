@@ -9,12 +9,13 @@ view: funnel_stage_paid_for_subscription {
     JOIN
       mozdata.stripe.products
     ON
-      subscriptions.plan.product = products.id
-      AND products.name = "Mozilla VPN"
+      subscriptions.product = products.id
     JOIN
       mozdata.stripe.customers
     ON
       subscriptions.customer = customers.id
+    WHERE
+      products.name = "Mozilla VPN"
     GROUP BY
       fxa_uid;;
   }

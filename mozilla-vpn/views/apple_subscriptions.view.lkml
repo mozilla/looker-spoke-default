@@ -2,12 +2,21 @@ view: apple_subscriptions {
   derived_table: {
     sql:
       SELECT
-        *,
+        * REPLACE(
+          STRUCT(
+            apple_receipt.environment,
+            start_date,
+            end_date,
+            active_period_offset,
+            `interval`
+          ) AS apple_receipt
+        ),
         MIN(start_date) OVER (PARTITION BY user_id) AS user_start_date,
       FROM
         `mozdata.mozilla_vpn.subscriptions`
       CROSS JOIN
         UNNEST(apple_receipt.active_periods)
+        WITH OFFSET AS active_period_offset
       WHERE
         apple_receipt.environment = "Production";;
   }
@@ -39,7 +48,7 @@ view: apple_subscriptions {
     ]
     convert_tz: no
     datatype: date
-    sql: ${TABLE}.end_date;;
+    sql: ${TABLE}.apple_receipt.end_date;;
     group_label: "Apple Receipt"
     group_item_label: "End Date"
   }
@@ -56,14 +65,14 @@ view: apple_subscriptions {
     ]
     convert_tz: no
     datatype: date
-    sql: ${TABLE}.start_date;;
+    sql: ${TABLE}.apple_receipt.start_date;;
     group_label: "Apple Receipt"
     group_item_label: "Start Date"
   }
 
   dimension: apple_receipt__interval {
     type: string
-    sql: ${TABLE}.interval;;
+    sql: ${TABLE}.apple_receipt.interval;;
     group_label: "Apple Receipt"
     group_item_label: "Interval"
   }
@@ -94,7 +103,7 @@ view: apple_subscriptions {
       quarter,
       year
     ]
-    sql: ${TABLE}.created_at ;;
+    sql: ${TABLE}.created_at;;
   }
 
   dimension_group: ended {
@@ -108,22 +117,22 @@ view: apple_subscriptions {
       quarter,
       year
     ]
-    sql: ${TABLE}.ended_at ;;
+    sql: ${TABLE}.ended_at;;
   }
 
   dimension: is_active {
     type: yesno
-    sql: ${TABLE}.is_active ;;
+    sql: ${TABLE}.is_active;;
   }
 
   dimension: provider {
     type: string
-    sql: ${TABLE}.provider ;;
+    sql: ${TABLE}.provider;;
   }
 
   dimension: type {
     type: string
-    sql: ${TABLE}.type ;;
+    sql: ${TABLE}.type;;
   }
 
   dimension_group: modified {
@@ -145,7 +154,7 @@ view: apple_subscriptions {
     hidden: yes
     type: number
     # hidden: yes
-    sql: ${TABLE}.user_id ;;
+    sql: ${TABLE}.user_id;;
   }
 
   measure: count {

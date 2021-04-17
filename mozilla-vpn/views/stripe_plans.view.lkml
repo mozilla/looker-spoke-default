@@ -1,14 +1,3 @@
-# Un-hide and use this explore, or copy the joins into another explore, to get all the fully nested relationships from this view
-explore: stripe_plans {
-  hidden: yes
-
-  join: stripe_plans__tiers {
-    view_label: "Stripe Plans: Tiers"
-    sql: LEFT JOIN UNNEST(${stripe_plans.tiers}) as stripe_plans__tiers;;
-    relationship: one_to_many
-  }
-}
-
 view: stripe_plans {
   sql_table_name: `mozdata.stripe.plans`;;
 
@@ -64,7 +53,9 @@ view: stripe_plans {
     sql: ${TABLE}.currency;;
   }
 
-  dimension_group: event_timestamp {
+  dimension_group: modified {
+    # this field is renamed to make the meaning more clean in context
+    sql: ${TABLE}.event_timestamp;;
     hidden: yes
     type: time
     timeframes: [
@@ -76,7 +67,6 @@ view: stripe_plans {
       quarter,
       year
     ]
-    sql: ${TABLE}.event_timestamp;;
   }
 
   dimension: interval {
@@ -152,29 +142,29 @@ view: stripe_plans {
   }
 }
 
-view: stripe_plans__tiers {
-  dimension: flat_amount {
-    type: number
-    sql: ${TABLE}.flat_amount;;
-  }
+# view: stripe_plans__tiers {
+#   dimension: flat_amount {
+#     type: number
+#     sql: ${TABLE}.flat_amount;;
+#   }
 
-  dimension: flat_amount_decimal {
-    type: string
-    sql: ${TABLE}.flat_amount_decimal;;
-  }
+#   dimension: flat_amount_decimal {
+#     type: string
+#     sql: ${TABLE}.flat_amount_decimal;;
+#   }
 
-  dimension: unit_amount {
-    type: number
-    sql: ${TABLE}.unit_amount;;
-  }
+#   dimension: unit_amount {
+#     type: number
+#     sql: ${TABLE}.unit_amount;;
+#   }
 
-  dimension: unit_amount_decimal {
-    type: string
-    sql: ${TABLE}.unit_amount_decimal;;
-  }
+#   dimension: unit_amount_decimal {
+#     type: string
+#     sql: ${TABLE}.unit_amount_decimal;;
+#   }
 
-  dimension: up_to {
-    type: number
-    sql: ${TABLE}.up_to;;
-  }
-}
+#   dimension: up_to {
+#     type: number
+#     sql: ${TABLE}.up_to;;
+#   }
+# }

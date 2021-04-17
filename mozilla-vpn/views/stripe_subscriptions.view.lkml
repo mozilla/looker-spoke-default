@@ -109,7 +109,9 @@ view: stripe_subscriptions {
     sql: COALESCE(${TABLE}.ended_at, CURRENT_TIMESTAMP);;
   }
 
-  dimension_group: event_timestamp {
+  dimension_group: modified {
+    # this field is renamed to make the meaning more clean in context
+    sql: ${TABLE}.event_timestamp;;
     hidden: yes
     type: time
     timeframes: [
@@ -121,7 +123,6 @@ view: stripe_subscriptions {
       quarter,
       year
     ]
-    sql: ${TABLE}.event_timestamp;;
   }
 
   dimension: metadata {

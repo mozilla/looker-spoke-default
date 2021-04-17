@@ -48,7 +48,8 @@ view: devices {
     sql: ${TABLE}.user_id;;
   }
 
-  dimension: user_agent {
+  dimension: useragent {
+    label: "User Agent"
     type: string
     sql: ${TABLE}.useragent;;
   }
