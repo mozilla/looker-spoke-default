@@ -1,6 +1,6 @@
 include: "//looker-hub/firefox_desktop/views/clients_last_seen.view.lkml"
 
-view: client_properties {
+view: browser_properties {
   extends: [clients_last_seen]
 
   parameter: diff_days {
@@ -14,10 +14,21 @@ view: client_properties {
     hidden: yes
   }
 
+  dimension: scalar_parent_os_environment_is_taskbar_pinned {
+    type: yesno
+    hidden: yes
+  }
+
   measure: count_is_default_browser {
     type: count
     description: "Number of clients that have is_default_browser set to true."
     filters: [is_default_browser: "yes"]
+  }
+
+  measure: count_is_taskbar_pinned {
+    type: count
+    description: "Number of clients that have is_taskbar_pinned set to true"
+    filters: [scalar_parent_os_environment_is_taskbar_pinned: "yes"]
   }
 
   measure: count_clients {
@@ -28,5 +39,11 @@ view: client_properties {
     sql: SAFE_DIVIDE(${count_is_default_browser}, ${count_clients}) ;;
     type: number
     description: "Fraction of clients that have is_default_browser set to true."
+  }
+
+  measure: fraction_is_taskbar_pinned {
+    sql: SAFE_DIVIDE(${count_is_taskbar_pinned}, ${count_clients}) ;;
+    type: number
+    description: "Fraction of clients that have is_taskbar_pinned set to true"
   }
 }

@@ -16,14 +16,21 @@ explore: funnel_analysis {
               OR (${days_of_use.submission_date} = DATE_SUB(current_date, INTERVAL 2 DAY)
                   AND DATE_ADD(${funnel_analysis.submission_date}, INTERVAL 56 DAY) >  DATE_SUB(current_date, INTERVAL 2 DAY)));;
   }
-  join: client_properties {
+  join: browser_properties {
     relationship: one_to_one
     type: left_outer
-    sql_where: client_properties.submission_date BETWEEN DATE_SUB(DATE({% date_start funnel_analysis.date %}), INTERVAL {% parameter client_properties.diff_days %} DAY) AND DATE_SUB(DATE({% date_end funnel_analysis.date %}), INTERVAL {% parameter client_properties.diff_days %} DAY);;
-    sql_on: ${funnel_analysis.sample_id} = ${client_properties.sample_id}
-      AND ${funnel_analysis.client_id} = ${client_properties.client_id}
-      AND ${funnel_analysis.submission_date} = DATE_SUB(${client_properties.submission_date}, INTERVAL {% parameter client_properties.diff_days %} DAY);;
-    fields: [client_properties.fraction_is_default_browser, client_properties.is_default_browser, client_properties.count_is_default_browser, diff_days]
+    sql_where: browser_properties.submission_date BETWEEN DATE_SUB(DATE({% date_start funnel_analysis.date %}), INTERVAL {% parameter browser_properties.diff_days %} DAY) AND DATE_SUB(DATE({% date_end funnel_analysis.date %}), INTERVAL {% parameter browser_properties.diff_days %} DAY);;
+    sql_on: ${funnel_analysis.sample_id} = ${browser_properties.sample_id}
+      AND ${funnel_analysis.client_id} = ${browser_properties.client_id}
+      AND ${funnel_analysis.submission_date} = DATE_SUB(${browser_properties.submission_date}, INTERVAL {% parameter browser_properties.diff_days %} DAY);;
+    fields: [
+      browser_properties.fraction_is_default_browser,
+      browser_properties.is_default_browser,
+      browser_properties.count_is_default_browser,
+      browser_properties.scalar_parent_os_environment_is_taskbar_pinned,
+      browser_properties.fraction_is_taskbar_pinned,
+      browser_properties.count_is_taskbar_pinned,
+      diff_days]
   }
   join: event_type_1 {
     relationship: many_to_one
