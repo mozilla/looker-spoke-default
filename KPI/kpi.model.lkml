@@ -57,3 +57,9 @@ explore: mobile_usage_2021 {
 explore: mobile_usage_fields {
   hidden: yes
 }
+
+explore: desktop_segments {
+  label: "Desktop KPI Segments"
+  group_label: "KPIs"
+  from: desktop_segments
+}
