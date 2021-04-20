@@ -18,7 +18,7 @@ view: mobile_dau_model {
 
     SET row_count = (
       SELECT COUNT(*)
-      FROM mozdata.analysis.mobile_dou_forecasts
+      FROM mozdata.analysis.mobile_dou_forecasts_v2
       WHERE key = current_key);
 
     IF row_count = 0 THEN
@@ -60,15 +60,16 @@ view: mobile_insert_stmnt {
 
       SET row_count = (
         SELECT COUNT(*)
-        FROM mozdata.analysis.mobile_dou_forecasts
+        FROM mozdata.analysis.mobile_dou_forecasts_v2
         WHERE key = current_key);
 
       IF row_count = 0 THEN
-      INSERT INTO mozdata.analysis.mobile_dou_forecasts_cache
+      INSERT INTO mozdata.analysis.mobile_dou_forecasts_cache_v2
       WITH target_lifts AS (
         SELECT
             DISTINCT app_name, target_lift
-        FROM `moz-fx-data-shared-prod.static.mobile_forecasts_official_2021`
+        # need to move this modified table to static
+        FROM `mozdata.analysis.mobile_forecasts_official_v2`
       ), historic_data AS (
         SELECT
           CAST(submission_date AS TIMESTAMP) AS submission_date,
@@ -127,7 +128,7 @@ view: mobile_prediction {
       avg(dau_forecast_lower) over window_7day as dau_forecast_lower_7day_ma,
       avg(dau_forecast_upper) over window_7day as dau_forecast_upper_7day_ma
     FROM
-      mozdata.analysis.mobile_dou_forecasts
+      mozdata.analysis.mobile_dou_forecasts_v2
     WHERE -- Also requires ${mobile_insert_stmnt.SQL_TABLE_NAME}
       key = ARRAY_TO_STRING(REGEXP_EXTRACT_ALL("""
       {% condition mobile_usage_2021.campaign %} campaign {% endcondition %}

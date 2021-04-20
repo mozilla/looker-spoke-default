@@ -3,30 +3,50 @@ view: mobile_usage_2021 {
     sql:
       with
       dau as (
-        select
-            submission_date,
-            app_name,
-            canonical_app_name,
-            sum(dau) as dau,
-            sum(wau) as wau,
-            sum(mau) as mau,
-            sum(cdou) as cdou
-        from
-            ${mobile_usage_fields.SQL_TABLE_NAME} AS mobile_usage_fields
-        where
-            {% condition mobile_usage_2021.campaign %} campaign {% endcondition %}
-            AND {% condition mobile_usage_2021.channel %} channel {% endcondition %}
-            AND {% condition mobile_usage_2021.country %} country {% endcondition %}
-            AND {% condition mobile_usage_2021.country_name %} country_name {% endcondition %}
-            AND {% condition mobile_usage_2021.distribution_id %} distribution_id {% endcondition %}
-            AND {% condition mobile_usage_2021.id_bucket %} id_bucket {% endcondition %}
-            AND {% condition mobile_usage_2021.os %} os {% endcondition %}
-        group by 1,2,3
+          (select
+              submission_date,
+              app_name,
+              canonical_app_name,
+              sum(dau) as dau,
+              sum(wau) as wau,
+              sum(mau) as mau,
+              sum(cdou) as cdou
+          from
+              ${mobile_usage_fields.SQL_TABLE_NAME} AS mobile_usage_fields
+          where
+              {% condition mobile_usage_2021.campaign %} campaign {% endcondition %}
+              AND {% condition mobile_usage_2021.channel %} channel {% endcondition %}
+              AND {% condition mobile_usage_2021.country %} country {% endcondition %}
+              AND {% condition mobile_usage_2021.country_name %} country_name {% endcondition %}
+              AND {% condition mobile_usage_2021.distribution_id %} distribution_id {% endcondition %}
+              AND {% condition mobile_usage_2021.id_bucket %} id_bucket {% endcondition %}
+              AND {% condition mobile_usage_2021.os %} os {% endcondition %}
+          group by 1,2,3)
+          UNION ALL
+          (select
+              submission_date,
+              'total_mobile' as app_name,
+              'All Mobile Browsers' as canonical_app_name,
+              sum(dau) as dau,
+              sum(wau) as wau,
+              sum(mau) as mau,
+              sum(cdou) as cdou
+          from
+              ${mobile_usage_fields.SQL_TABLE_NAME} AS mobile_usage_fields
+          where
+              {% condition mobile_usage_2021.campaign %} campaign {% endcondition %}
+              AND {% condition mobile_usage_2021.channel %} channel {% endcondition %}
+              AND {% condition mobile_usage_2021.country %} country {% endcondition %}
+              AND {% condition mobile_usage_2021.country_name %} country_name {% endcondition %}
+              AND {% condition mobile_usage_2021.distribution_id %} distribution_id {% endcondition %}
+              AND {% condition mobile_usage_2021.id_bucket %} id_bucket {% endcondition %}
+              AND {% condition mobile_usage_2021.os %} os {% endcondition %}
+            group by 1,2,3)
         ),
 
       # temporary - this is NOT using first_seen_date for now.
       new_profiles as (
-        select
+        (select
             cohort_date as submission_date,
             case when product in ("Fenix", "Fennec") then "fennec_fenix"
               when product = "Firefox iOS" then "firefox_ios"
@@ -40,7 +60,18 @@ view: mobile_usage_2021 {
         from `mozdata.telemetry.firefox_nondesktop_day_2_7_activation`
         where
           {% condition mobile_usage_2021.country %} country {% endcondition %}
-        group by 1,2,3
+        group by 1,2,3)
+        UNION ALL
+        (select
+          cohort_date as submission_date,
+          'total_mobile' as app_name,
+          'All Mobile Browsers' as canonical_app_name,
+          sum(new_profiles) AS new_profiles
+        from `mozdata.telemetry.firefox_nondesktop_day_2_7_activation`
+        where
+          {% condition mobile_usage_2021.country %} country {% endcondition %}
+          and product in ("Fenix", "Fennec", "Focus iOS", "Focus Android", "Firefox iOS")
+        group by 1,2,3)
       )
 
       select
@@ -206,8 +237,8 @@ view: mobile_usage_2021 {
     <div class="topline" style="font-size: 30px; background-color: #d7d7db; color:#000000; padding: 12px; margin: 12px;">
       <center>
       <h1><b><u><font color="#ff9400">Progress in {{ mobile_usage_2021.canonical_app_name._value }} Cumulative Days of Use (CDOU) As Of {{ mobile_usage_2021.recent_date._rendered_value }}</font></u></b></h1>
-      {% if app_type == 'fennec_fenix' or app_type == 'firefox_ios' %} <img src="https://d33wubrfki0l68.cloudfront.net/06185f059f69055733688518b798a0feb4c7f160/9f07a/images/product-identity-assets/firefox.png" alt="Firefox Logo" style="width:300px;height:300px;float:right"> {% else %} <img src="https://design.firefox.com/product-identity/firefox-focus/firefox-logo-focus.png" alt="Firefox Focus Logo" style="width:200px;height:200px;float:right"> {% endif %}
-      {% if app_type == 'fennec_fenix' or app_type == 'firefox_ios' %} <img src="https://d33wubrfki0l68.cloudfront.net/06185f059f69055733688518b798a0feb4c7f160/9f07a/images/product-identity-assets/firefox.png" alt="Firefox Logo" style="width:300px;height:300px;float:left"> {% else %} <img src="https://design.firefox.com/product-identity/firefox-focus/firefox-logo-focus.png" alt="Firefox Focus Logo" style="width:200px;height:200px;float:left"> {% endif %}
+      {% if app_type == 'focus_ios' or app_type == 'focus_android' %} <img src="https://design.firefox.com/product-identity/firefox-focus/firefox-logo-focus.png" alt="Firefox Focus Logo" style="width:200px;height:200px;float:right"> {% else %} <img src="https://d33wubrfki0l68.cloudfront.net/06185f059f69055733688518b798a0feb4c7f160/9f07a/images/product-identity-assets/firefox.png" alt="Firefox Logo" style="width:300px;height:300px;float:right"> {% endif %}
+      {% if app_type == 'focus_ios' or app_type == 'focus_android' %} <img src="https://design.firefox.com/product-identity/firefox-focus/firefox-logo-focus.png" alt="Firefox Focus Logo" style="width:200px;height:200px;float:left"> {% else %} <img src="https://d33wubrfki0l68.cloudfront.net/06185f059f69055733688518b798a0feb4c7f160/9f07a/images/product-identity-assets/firefox.png" alt="Firefox Logo" style="width:300px;height:300px;float:left"> {% endif %}
       <h1><b><font color= "#45a1ff">Current CDOU: {{ mobile_usage_2021.recent_cdou._rendered_value }}</font></b></h1>
       <p><em>{% if target_delta > 0 %} <font color="#30e60b">▲ {{ mobile_usage_2021.delta_from_target._rendered_value }}</font> {% else %} <font color="#ff0039">▼ {{ mobile_usage_2021.delta_from_target._rendered_value }}</font> {% endif %}  from +{{ mobile_usage_2021.target_lift._rendered_value }} Target Pace ({{ mobile_prediction.recent_cdou_target._rendered_value }})</em></p>
       <p>{% if forecast_delta > 0 %} <font color="#30e60b">▲ {{ mobile_usage_2021.delta_from_forecast._rendered_value }}</font> {% else %} <font color="#ff0039">▼ {{ mobile_usage_2021.delta_from_forecast._rendered_value }}</font> {% endif %} from Forecast ({{ mobile_prediction.recent_cdou_forecast._rendered_value }})</p>
