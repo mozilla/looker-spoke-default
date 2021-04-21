@@ -14,14 +14,20 @@ view: mobile_dau_model {
       -- country tier: FR, GB, US, CA, DE
       """, r"(\(.*\))"), '');
 
-    DECLARE row_count INT64;
+    DECLARE possible_apps ARRAY<STRING> DEFAULT ["fennec_fenix", "firefox_ios", "focus_android", "focus_ios", "total_mobile"];
+    DECLARE existing_apps ARRAY<STRING>;
+    DECLARE intersection ARRAY<STRING>;
 
-    SET row_count = (
-      SELECT COUNT(*)
+    SET existing_apps = (
+      SELECT ARRAY_AGG(DISTINCT app_name)
       FROM mozdata.analysis.mobile_dou_forecasts_v2
-      WHERE key = current_key);
+      WHERE key = current_key
+      AND app_name IN (SELECT * FROM UNNEST(possible_apps))
+    );
 
-    IF row_count = 0 THEN
+    SET intersection = ARRAY( (SELECT * FROM UNNEST(possible_apps)) INTERSECT DISTINCT (SELECT * FROM UNNEST(existing_apps)) );
+
+    IF ARRAY_LENGTH(intersection) != ARRAY_LENGTH(possible_apps) THEN
       -- Create model
       CREATE OR REPLACE MODEL
       ${SQL_TABLE_NAME} OPTIONS(
@@ -37,7 +43,8 @@ view: mobile_dau_model {
       FROM
         ${mobile_usage_2021.SQL_TABLE_NAME}
       WHERE
-        submission_date < '2021-01-19';
+        submission_date < '2021-01-19'
+      AND app_name NOT IN (SELECT * FROM UNNEST(intersection));
     END IF; ;;
   }
 }
@@ -56,20 +63,27 @@ view: mobile_insert_stmnt {
       {% condition mobile_usage_2021.os %} os {% endcondition %}
       """, r"(\(.*\))"), '');
 
-      DECLARE row_count INT64;
+      DECLARE possible_apps ARRAY<STRING> DEFAULT ["fennec_fenix", "firefox_ios", "focus_android", "focus_ios", "total_mobile"];
+      DECLARE existing_apps ARRAY<STRING>;
+      DECLARE intersection ARRAY<STRING>;
 
-      SET row_count = (
-        SELECT COUNT(*)
+      SET existing_apps = (
+        SELECT ARRAY_AGG(DISTINCT app_name)
         FROM mozdata.analysis.mobile_dou_forecasts_v2
-        WHERE key = current_key);
+        WHERE key = current_key
+        AND app_name IN (SELECT * FROM UNNEST(possible_apps))
+      );
 
-      IF row_count = 0 THEN
+      SET intersection = ARRAY( (SELECT * FROM UNNEST(possible_apps)) INTERSECT DISTINCT (SELECT * FROM UNNEST(existing_apps)) );
+
+      IF ARRAY_LENGTH(intersection) != ARRAY_LENGTH(possible_apps) THEN
       INSERT INTO mozdata.analysis.mobile_dou_forecasts_cache_v2
       WITH target_lifts AS (
         SELECT
             DISTINCT app_name, target_lift
         # need to move this modified table to static
         FROM `mozdata.analysis.mobile_forecasts_official_v2`
+        WHERE app_name NOT IN (SELECT * FROM UNNEST(intersection))
       ), historic_data AS (
         SELECT
           CAST(submission_date AS TIMESTAMP) AS submission_date,
@@ -80,6 +94,7 @@ view: mobile_insert_stmnt {
         FROM
           ${mobile_usage_2021.SQL_TABLE_NAME}
         WHERE submission_date BETWEEN '2021-01-01' AND '2021-01-18'
+        AND app_name NOT IN (SELECT * FROM UNNEST(intersection))
       ), predicted_data AS (
         SELECT
           forecast_timestamp AS submission_date,
