@@ -44,6 +44,7 @@ view: mobile_dau_model {
         ${mobile_usage_2021.SQL_TABLE_NAME}
       WHERE
         submission_date < '2021-01-19'
+      AND app_name IN (SELECT * FROM UNNEST(possible_apps))
       AND app_name NOT IN (SELECT * FROM UNNEST(intersection));
     END IF; ;;
   }
@@ -94,6 +95,7 @@ view: mobile_insert_stmnt {
         FROM
           ${mobile_usage_2021.SQL_TABLE_NAME}
         WHERE submission_date BETWEEN '2021-01-01' AND '2021-01-18'
+        AND app_name IN (SELECT * FROM UNNEST(possible_apps))
         AND app_name NOT IN (SELECT * FROM UNNEST(intersection))
       ), predicted_data AS (
         SELECT
