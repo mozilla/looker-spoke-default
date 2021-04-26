@@ -117,3 +117,43 @@ view: funnel_analysis {
     type: number
   }
 }
+
+view: experiments {
+  sql_table_name: UNNEST(experiments) ;;
+
+  dimension: experiment {
+    type: string
+    sql: ${TABLE}.key ;;
+    description: "Experiment name"
+    suggest_explore: experiment_names
+    suggest_dimension: experiment_names.experiment
+  }
+
+  dimension: branch {
+    type: string
+    sql: ${TABLE}.value ;;
+    description: "Experiment branch"
+    suggest_explore: experiment_names
+    suggest_dimension: experiment_names.branch
+  }
+}
+
+view: experiment_names {
+  derived_table: {
+    sql:
+      SELECT key AS experiment, value AS branch
+      FROM mozdata.messaging_system.events_daily
+      CROSS JOIN UNNEST(experiments)
+      WHERE submission_date >= '2020-01-01';;
+  }
+
+  dimension: experiment {
+    type: string
+    description: "Experiment name"
+  }
+
+  dimension: branch {
+    type: string
+    description: "Experiment branch"
+  }
+}

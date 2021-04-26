@@ -75,6 +75,7 @@ view: onboarding_v1 {
     type: string
     sql: ${TABLE}.document_id ;;
     hidden: yes
+    primary_key: yes
   }
 
   dimension: event {
@@ -343,15 +344,26 @@ view: message_id_ranks {
 }
 
 view: onboarding_v1__experiments {
-  dimension: key {
+  sql_table_name: UNNEST(experiments) ;;
+
+  dimension: experiment {
     type: string
     sql: ${TABLE}.key ;;
+    description: "Experiment name"
+    suggest_explore: experiment_names
+    suggest_dimension: experiment_names.experiment
   }
 
-  dimension: value__branch {
+  dimension: branch {
     type: string
     sql: ${TABLE}.value.branch ;;
-    group_label: "Value"
-    group_item_label: "Branch"
+    description: "Experiment branch"
+    suggest_explore: experiment_names
+    suggest_dimension: experiment_names.branch
+  }
+
+  measure: count {
+    type: count
+    description: "Count of rows"
   }
 }
