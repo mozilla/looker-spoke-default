@@ -1,0 +1,7 @@
+connection: "telemetry"
+label: "Firefox for Android"
+include: "//looker-hub/fenix/explores/*"
+include: "//looker-hub/fenix/dashboards/*"
+include: "views/*"
+include: "explores/*"
+include: "dashboards/*"
