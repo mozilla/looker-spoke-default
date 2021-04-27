@@ -34,7 +34,6 @@ view: releases {
 
   dimension: is_security_driven {
     type: yesno
-    hidden: yes
     sql: ${TABLE}.is_security_driven ;;
   }
 
