@@ -35,13 +35,6 @@ view: desktop_new_profile {
     type: date
   }
 
-  parameter: date_shift {
-    label: "Shift N days"
-    type: number
-    description: "Shift dates by n days. This parameter allows to adjust the date range, for example, activations are always 7 days behind."
-    default_value: "0"
-  }
-
   parameter: previous_time_period {
     type: yesno
     description: "Flag to determine whether data from the previous time period should be used. For example, if the date filter is set to the previous 7 days, then the 7 days before that will be used instead."
