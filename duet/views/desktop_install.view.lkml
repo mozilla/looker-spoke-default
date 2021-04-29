@@ -3,7 +3,9 @@ include: "//looker-hub/duet/views/*.view.lkml"
 view: desktop_install {
   extends: [install]
 
-  dimension: submission_timestamp_date {}
+  dimension: submission_timestamp_date {
+    type: date
+  }
 
   dimension: attribution {
     hidden: yes

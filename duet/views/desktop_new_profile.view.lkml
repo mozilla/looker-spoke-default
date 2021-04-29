@@ -3,7 +3,9 @@ include: "//looker-hub/duet/views/*.view.lkml"
 view: desktop_new_profile {
   extends: [new_profile]
 
-  dimension: submission_timestamp_date {}
+  dimension: submission_timestamp_date {
+    type: date
+  }
 
   dimension: startup_profile_selection_reason {
     hidden: yes

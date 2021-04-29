@@ -772,7 +772,7 @@
     model: duet
     explore: desktop_new_profile
     listens_to_filters: []
-    field: desktop_new_profile.submission_timestamp_date
+    field: desktop_new_profile.date
   - name: Countries
     title: Countries
     type: string_filter
