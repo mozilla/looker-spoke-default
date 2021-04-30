@@ -24,14 +24,14 @@
       - field_name: country_buckets.bucket
         source_field_name: country_buckets.bucket
     - model: duet
-      explore: session
+      explore: desktop_session
       type: table
-      fields: [session.date_date, session.total_non_fx_downloads, session.total_non_fx_sessions,
+      fields: [desktop_session.date_date, desktop_session.total_non_fx_downloads, desktop_session.total_non_fx_sessions,
         country_buckets.bucket]
-      sorts: [session.date_date desc]
+      sorts: [desktop_session.date_date desc]
       limit: 500
       join_fields:
-      - field_name: session.date_date
+      - field_name: desktop_session.date_date
         source_field_name: desktop_install.submission_date
       - field_name: country_buckets.bucket
         source_field_name: country_buckets.bucket
@@ -62,9 +62,9 @@
     show_view_names: false
     y_axes: [{label: '', orientation: left, series: [{axisId: desktop_install.new_installs,
             id: desktop_install.new_installs, name: New Installs}, {axisId: desktop_new_profile.new_profiles,
-            id: desktop_new_profile.new_profiles, name: New Profiles}, {axisId: session.total_non_fx_downloads,
-            id: session.total_non_fx_downloads, name: Total Non Fx Downloads}, {axisId: session.total_non_fx_sessions,
-            id: session.total_non_fx_sessions, name: Total Non Fx Sessions}, {axisId: desktop_activation.activations,
+            id: desktop_new_profile.new_profiles, name: New Profiles}, {axisId: desktop_session.total_non_fx_downloads,
+            id: desktop_session.total_non_fx_downloads, name: Total Non Fx Downloads}, {axisId: desktop_session.total_non_fx_sessions,
+            id: desktop_session.total_non_fx_sessions, name: Total Non Fx Sessions}, {axisId: desktop_activation.activations,
             id: desktop_activation.activations, name: Activations}], showLabels: true, showValues: true,
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear},
       {label: !!null '', orientation: right, series: [{axisId: release, id: release,
@@ -87,16 +87,16 @@
     series_types:
       desktop_install.new_installs: line
       desktop_new_profile.new_profiles: line
-      session.total_non_fx_downloads: line
-      session.total_non_fx_sessions: line
+      desktop_session.total_non_fx_downloads: line
+      desktop_session.total_non_fx_sessions: line
       desktop_activation.activations: line
     point_style: none
     series_colors:
       release: "#909494"
       desktop_install.new_installs: "#E52592"
       desktop_new_profile.new_profiles: "#E8710A"
-      session.total_non_fx_downloads: "#12B5CB"
-      session.total_non_fx_sessions: "#1A73E8"
+      desktop_session.total_non_fx_downloads: "#12B5CB"
+      desktop_session.total_non_fx_sessions: "#1A73E8"
     show_value_labels: false
     label_density: 25
     x_axis_scale: auto
@@ -113,7 +113,7 @@
     type: looker_column
     hidden_fields: [releases.version, country_buckets.bucket]
     dynamic_fields: [{table_calculation: release, label: Release, expression: 'if(is_null(${releases.version}),
-          null, ${session.total_non_fx_sessions} / ${session.total_non_fx_sessions})',
+          null, ${desktop_session.total_non_fx_sessions} / ${desktop_session.total_non_fx_sessions})',
         value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
         _type_hint: number}]
     listen:
@@ -123,9 +123,9 @@
     - Date Range: desktop_new_profile.date
       Countries: country_buckets.bucket
       Ignore Most Recent Week: desktop_new_profile.ignore_most_recent_week
-    - Date Range: session.date
+    - Date Range: desktop_session.date
       Countries: country_buckets.bucket
-      Ignore Most Recent Week: session.ignore_most_recent_week
+      Ignore Most Recent Week: desktop_session.ignore_most_recent_week
     - Date Range: desktop_activation.date
       Countries: country_buckets.bucket
       Ignore Most Recent Week: desktop_activation.ignore_most_recent_week
@@ -138,14 +138,14 @@
     title: Rates
     merged_queries:
     - model: duet
-      explore: session
+      explore: desktop_session
       type: looker_line
-      fields: [session.date_date, session.total_non_fx_downloads, session.total_non_fx_sessions,
+      fields: [desktop_session.date_date, desktop_session.total_non_fx_downloads, desktop_session.total_non_fx_sessions,
         country_buckets.bucket]
-      sorts: [session.date_date desc]
+      sorts: [desktop_session.date_date desc]
       limit: 500
-      dynamic_fields: [{table_calculation: download_rate, label: Download Rate, expression: "${session.total_non_fx_downloads}\
-            \ / ${session.total_non_fx_sessions} ", value_format: !!null '', value_format_name: !!null '',
+      dynamic_fields: [{table_calculation: download_rate, label: Download Rate, expression: "${desktop_session.total_non_fx_downloads}\
+            \ / ${desktop_session.total_non_fx_sessions} ", value_format: !!null '', value_format_name: !!null '',
           is_disabled: false, _kind_hint: measure, _type_hint: number}]
       x_axis_gridlines: false
       y_axis_gridlines: true
@@ -181,7 +181,7 @@
       show_silhouette: false
       totals_color: "#808080"
       defaults_version: 1
-      hidden_fields: [session.total_non_fx_downloads, session.total_non_fx_sessions]
+      hidden_fields: [desktop_session.total_non_fx_downloads, desktop_session.total_non_fx_sessions]
     - model: duet
       explore: desktop_install
       type: table
@@ -190,7 +190,7 @@
       limit: 500
       join_fields:
       - field_name: desktop_install.submission_date
-        source_field_name: session.date_date
+        source_field_name: desktop_session.date_date
       - field_name: country_buckets.bucket
         source_field_name: country_buckets.bucket
     - model: duet
@@ -200,7 +200,7 @@
       limit: 500
       join_fields:
       - field_name: desktop_new_profile.submission_date
-        source_field_name: session.date_date
+        source_field_name: desktop_session.date_date
       - field_name: country_buckets.bucket
         source_field_name: country_buckets.bucket
     - model: duet
@@ -210,7 +210,7 @@
       limit: 500
       join_fields:
       - field_name: desktop_activation.submission_timestamp_date
-        source_field_name: session.date_date
+        source_field_name: desktop_session.date_date
       - field_name: country_buckets.bucket
         source_field_name: country_buckets.bucket
     - model: duet
@@ -223,7 +223,7 @@
       limit: 500
       join_fields:
       - field_name: releases.date_date
-        source_field_name: session.date_date
+        source_field_name: desktop_session.date_date
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -274,27 +274,27 @@
     totals_color: "#808080"
     show_null_points: true
     interpolation: linear
-    hidden_fields: [desktop_install.new_installs, session.total_non_fx_sessions, session.total_non_fx_downloads,
+    hidden_fields: [desktop_install.new_installs, desktop_session.total_non_fx_sessions, desktop_session.total_non_fx_downloads,
       desktop_new_profile.new_profiles, desktop_activation.activations, releases.version, country_buckets.bucket]
     type: looker_column
     sorts: [country_buckets.bucket desc]
     dynamic_fields: [{table_calculation: installation_rate, label: Installation Rate,
-        expression: "${desktop_install.new_installs} / ${session.total_non_fx_sessions}",
+        expression: "${desktop_install.new_installs} / ${desktop_session.total_non_fx_sessions}",
         value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
         _type_hint: number}, {table_calculation: first_run_rate, label: First Run
-          Rate, expression: "${desktop_new_profile.new_profiles} / ${session.total_non_fx_sessions}",
+          Rate, expression: "${desktop_new_profile.new_profiles} / ${desktop_session.total_non_fx_sessions}",
         value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
         _type_hint: number}, {table_calculation: activation_rate, label: Activation
-          Rate, expression: "${desktop_activation.activations} / ${session.total_non_fx_sessions}",
+          Rate, expression: "${desktop_activation.activations} / ${desktop_session.total_non_fx_sessions}",
         value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
         _type_hint: number}, {table_calculation: release, label: Release, expression: 'if(is_null(${releases.version}),
-          null, ${session.total_non_fx_sessions} / ${session.total_non_fx_sessions})',
+          null, ${desktop_session.total_non_fx_sessions} / ${desktop_session.total_non_fx_sessions})',
         value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
         _type_hint: number}]
     listen:
-    - Date Range: session.date
+    - Date Range: desktop_session.date
       Countries: country_buckets.bucket
-      Ignore Most Recent Week: session.ignore_most_recent_week
+      Ignore Most Recent Week: desktop_session.ignore_most_recent_week
     - Date Range: desktop_install.date
       Countries: country_buckets.bucket
       Ignore Most Recent Week: desktop_install.ignore_most_recent_week
@@ -313,10 +313,10 @@
     title: Funnel Overview
     merged_queries:
     - model: duet
-      explore: session
+      explore: desktop_session
       type: looker_funnel
-      fields: [session.total_non_fx_sessions, session.total_non_fx_downloads, session.join_field]
-      sorts: [session.total_non_fx_sessions desc]
+      fields: [desktop_session.total_non_fx_sessions, desktop_session.total_non_fx_downloads, desktop_session.join_field]
+      sorts: [desktop_session.total_non_fx_sessions desc]
       limit: 500
       leftAxisLabelVisible: false
       leftAxisLabel: ''
@@ -371,7 +371,7 @@
       limit: 500
       join_fields:
       - field_name: desktop_install.join_field
-        source_field_name: session.join_field
+        source_field_name: desktop_session.join_field
     - model: duet
       explore: desktop_new_profile
       type: table
@@ -379,7 +379,7 @@
       limit: 500
       join_fields:
       - field_name: desktop_new_profile.join_field
-        source_field_name: session.join_field
+        source_field_name: desktop_session.join_field
     - model: duet
       explore: desktop_activation
       type: table
@@ -387,7 +387,7 @@
       limit: 500
       join_fields:
       - field_name: desktop_activation.join_field
-        source_field_name: session.join_field
+        source_field_name: desktop_session.join_field
     leftAxisLabelVisible: false
     leftAxisLabel: ''
     rightAxisLabelVisible: false
@@ -409,9 +409,9 @@
     type: looker_funnel
     series_types: {}
     listen:
-    - Date Range: session.date
+    - Date Range: desktop_session.date
       Countries: country_buckets.bucket
-      Ignore Most Recent Week: session.ignore_most_recent_week
+      Ignore Most Recent Week: desktop_session.ignore_most_recent_week
     - Date Range: desktop_install.date
       Countries: country_buckets.bucket
       Ignore Most Recent Week: desktop_install.ignore_most_recent_week
@@ -576,20 +576,20 @@
     title: Downloads
     merged_queries:
     - model: duet
-      explore: session
+      explore: desktop_session
       type: table
-      fields: [session.join_field, session.total_non_fx_downloads]
+      fields: [desktop_session.join_field, desktop_session.total_non_fx_downloads]
       limit: 500
     - model: duet
-      explore: session
+      explore: desktop_session
       type: table
-      fields: [session.total_non_fx_downloads, session.join_field]
+      fields: [desktop_session.total_non_fx_downloads, desktop_session.join_field]
       filters:
-        session.previous_time_period: 'Yes'
+        desktop_session.previous_time_period: 'Yes'
       limit: 500
       join_fields:
-      - field_name: session.join_field
-        source_field_name: session.join_field
+      - field_name: desktop_session.join_field
+        source_field_name: desktop_session.join_field
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -600,20 +600,20 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    hidden_fields: [q1_session.total_non_fx_downloads, q1_session.join_field]
+    hidden_fields: [q1_desktop_session.total_non_fx_downloads, q1_desktop_session.join_field]
     type: single_value
     series_types: {}
     dynamic_fields: [{table_calculation: from_previous, label: From Previous, expression: 'round((1
-          - ${q1_session.total_non_fx_downloads} / ${session.total_non_fx_downloads})
+          - ${q1_desktop_session.total_non_fx_downloads} / ${desktop_session.total_non_fx_downloads})
           * 100, 1)', value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
         _type_hint: number}]
     listen:
-    - Date Range: session.date
+    - Date Range: desktop_session.date
       Countries: country_buckets.bucket
-      Ignore Most Recent Week: session.ignore_most_recent_week
-    - Date Range: session.date
+      Ignore Most Recent Week: desktop_session.ignore_most_recent_week
+    - Date Range: desktop_session.date
       Countries: country_buckets.bucket
-      Ignore Most Recent Week: session.ignore_most_recent_week
+      Ignore Most Recent Week: desktop_session.ignore_most_recent_week
     row: 0
     col: 7
     width: 7
@@ -622,20 +622,20 @@
     title: Visits
     merged_queries:
     - model: duet
-      explore: session
+      explore: desktop_session
       type: table
-      fields: [session.total_non_fx_sessions, session.join_field]
+      fields: [desktop_session.total_non_fx_sessions, desktop_session.join_field]
       limit: 500
     - model: duet
-      explore: session
+      explore: desktop_session
       type: table
-      fields: [session.total_non_fx_sessions, session.join_field]
+      fields: [desktop_session.total_non_fx_sessions, desktop_session.join_field]
       filters:
-        session.previous_time_period: 'Yes'
+        desktop_session.previous_time_period: 'Yes'
       limit: 500
       join_fields:
-      - field_name: session.join_field
-        source_field_name: session.join_field
+      - field_name: desktop_session.join_field
+        source_field_name: desktop_session.join_field
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -646,20 +646,20 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    hidden_fields: [q1_session.join_field, q1_session.total_non_fx_sessions]
+    hidden_fields: [q1_desktop_session.join_field, q1_desktop_session.total_non_fx_sessions]
     type: single_value
     series_types: {}
     dynamic_fields: [{table_calculation: from_previous, label: From Previous, expression: 'round((1
-          - ${q1_session.total_non_fx_sessions} / ${session.total_non_fx_sessions})
+          - ${q1_desktop_session.total_non_fx_sessions} / ${desktop_session.total_non_fx_sessions})
           * 100, 1)', value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
         _type_hint: number}]
     listen:
-    - Date Range: session.date
+    - Date Range: desktop_session.date
       Countries: country_buckets.bucket
-      Ignore Most Recent Week: session.ignore_most_recent_week
-    - Date Range: session.date
+      Ignore Most Recent Week: desktop_session.ignore_most_recent_week
+    - Date Range: desktop_session.date
       Countries: country_buckets.bucket
-      Ignore Most Recent Week: session.ignore_most_recent_week
+      Ignore Most Recent Week: desktop_session.ignore_most_recent_week
     row: 0
     col: 0
     width: 7

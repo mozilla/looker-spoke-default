@@ -5,6 +5,7 @@ include: "explores/*"
 include: "dashboards/*"
 
 explore: releases {
+  hidden: yes
   always_filter: {
     filters: [
       releases.category: "major"
