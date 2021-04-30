@@ -6,6 +6,25 @@ include: "/user_journey/views/*.view.lkml"
 
 explore: funnel_analysis {
   view_label: " User-Day Funnels"
+  join: experiments {
+    relationship: one_to_one
+    type: cross
+    sql_where:
+      {% if experiments.branch._is_filtered or experiments.experiment._is_filtered %}
+        {% unless experiments.branch._is_selected and experiments.experiment._is_selected %}
+          ERROR("""
+            Must include both experiment and branch in the query as either selected fields or pivoted fields. This is to prevent incorrect counting of users.
+            """)
+        {% endunless %}
+      {% elsif experiments.branch._is_selected %}
+        {% unless experiments.experiment._is_selected %}
+          ERROR("""
+            When using branch in a query, must also include experiment as a selected field.
+            This is to prevent the incorrect counting of users.
+            """)
+        {% endunless %}
+      {% endif %};;
+  }
   join: days_of_use {
     view_label: "Days of Use"
     relationship: one_to_one
@@ -16,14 +35,21 @@ explore: funnel_analysis {
               OR (${days_of_use.submission_date} = DATE_SUB(current_date, INTERVAL 2 DAY)
                   AND DATE_ADD(${funnel_analysis.submission_date}, INTERVAL 56 DAY) >  DATE_SUB(current_date, INTERVAL 2 DAY)));;
   }
-  join: client_properties {
+  join: browser_properties {
     relationship: one_to_one
     type: left_outer
-    sql_where: client_properties.submission_date BETWEEN DATE_SUB(DATE({% date_start funnel_analysis.date %}), INTERVAL {% parameter client_properties.diff_days %} DAY) AND DATE_SUB(DATE({% date_end funnel_analysis.date %}), INTERVAL {% parameter client_properties.diff_days %} DAY);;
-    sql_on: ${funnel_analysis.sample_id} = ${client_properties.sample_id}
-      AND ${funnel_analysis.client_id} = ${client_properties.client_id}
-      AND ${funnel_analysis.submission_date} = DATE_SUB(${client_properties.submission_date}, INTERVAL {% parameter client_properties.diff_days %} DAY);;
-    fields: [client_properties.fraction_is_default_browser, client_properties.is_default_browser, client_properties.count_is_default_browser, diff_days]
+    sql_where: browser_properties.submission_date BETWEEN DATE_SUB(DATE({% date_start funnel_analysis.date %}), INTERVAL {% parameter browser_properties.diff_days %} DAY) AND DATE_SUB(DATE({% date_end funnel_analysis.date %}), INTERVAL {% parameter browser_properties.diff_days %} DAY);;
+    sql_on: ${funnel_analysis.sample_id} = ${browser_properties.sample_id}
+      AND ${funnel_analysis.client_id} = ${browser_properties.client_id}
+      AND ${funnel_analysis.submission_date} = DATE_SUB(${browser_properties.submission_date}, INTERVAL {% parameter browser_properties.diff_days %} DAY);;
+    fields: [
+      browser_properties.fraction_is_default_browser,
+      browser_properties.is_default_browser,
+      browser_properties.count_is_default_browser,
+      browser_properties.scalar_parent_os_environment_is_taskbar_pinned,
+      browser_properties.fraction_is_taskbar_pinned,
+      browser_properties.count_is_taskbar_pinned,
+      diff_days]
   }
   join: event_type_1 {
     relationship: many_to_one
@@ -154,6 +180,12 @@ explore: cohort_analysis {
 
 explore: event_counts {
   from: onboarding_v1
+
+  join: onboarding_v1__experiments {
+    type: cross
+    relationship: one_to_many
+    view_label: "Experiments"
+  }
   join: message_id_ranks {
     fields: [rank]
     type: inner
@@ -227,4 +259,8 @@ explore: event_property_display {
   hidden: yes
   from: raw_event_types
   sql_always_where: property_name = 'display';;
+}
+
+explore: experiment_names {
+  hidden: yes
 }

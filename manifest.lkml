@@ -1,4 +1,4 @@
-project_name: "Firefox for iOS"
+project_name: "spoke-default"
 
 local_dependency: {
   project: "looker-hub"
