@@ -1,6 +1,7 @@
 include: "../views/*.view.lkml"
 
 explore: desktop_activation {
+  description: "Activated new profiles. A new profile is active at least 5 days out of 7 in the week after it’s first run. Note, this number is only available one week after a cohort date."
   sql_always_where: ${submission_timestamp_date} > date(2020, 7 ,1) AND
     ${channel} = "release" AND
     DATE_DIFF(  -- Only use builds from the last month
@@ -71,5 +72,16 @@ explore: desktop_activation {
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
+  }
+
+  query: total_activations {
+    dimensions: [country_buckets.bucket]
+    measures: [activations]
+    filters: [
+      desktop_activation.date: "28 days",
+      desktop_activation.ignore_most_recent_week: "Yes",
+      desktop_activation.join_field: "yes"
+    ]
+    label: "Desktop profile activations in the past 28 days"
   }
 }

@@ -1,6 +1,7 @@
 include: "../views/*.view.lkml"
 
 explore: desktop_install  {
+  description: "New Installs and re-installation of Firefox."
   sql_always_where:
     ${submission_date} > date(2020, 7 ,1) AND
     ${succeeded} AND
@@ -71,5 +72,16 @@ explore: desktop_install  {
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
+  }
+
+  query: total_new_installs {
+    dimensions: [country_buckets.bucket]
+    measures: [desktop_install.new_installs]
+    filters: [
+      desktop_install.date: "28 days",
+      desktop_install.ignore_most_recent_week: "No",
+      desktop_install.join_field: "yes"
+    ]
+    label: "Total new Firefox installs in the past 28 days"
   }
 }

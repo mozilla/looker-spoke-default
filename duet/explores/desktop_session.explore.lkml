@@ -1,6 +1,7 @@
 include: "../views/*.view.lkml"
 
 explore: desktop_session {
+  description: "Individual user visits to mozilla.org. By default, if a user is inactive for 30 minutes or more, any future activity is attributed to a new visit. Users that leave mozilla.org and return within 30 minutes are counted as part of the original visit."
   sql_always_where:
     ${operating_system} = "Windows" and ${browser} != "Mozilla" AND
     DATE(${desktop_session.date_date}) <= DATE_SUB(
@@ -76,5 +77,27 @@ explore: desktop_session {
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
+  }
+
+  query: total_downloads {
+    dimensions: [country_buckets.bucket]
+    measures: [desktop_session.total_non_fx_downloads]
+    filters: [
+      desktop_session.date: "28 days",
+      desktop_session.ignore_most_recent_week: "No",
+      desktop_session.join_field: "yes"
+    ]
+    label: "Total downloads from non-Firefox browsers in the past 28 days"
+  }
+
+  query: total_visits {
+    dimensions: [country_buckets.bucket]
+    measures: [desktop_session.total_non_fx_downloads]
+    filters: [
+      desktop_session.date: "28 days",
+      desktop_session.ignore_most_recent_week: "No",
+      desktop_session.join_field: "yes"
+    ]
+    label: "Total visits from non-Firefox browsers in the past 28 days"
   }
 }

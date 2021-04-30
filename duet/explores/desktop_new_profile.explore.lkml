@@ -1,6 +1,7 @@
 include: "../views/*.view.lkml"
 
 explore: desktop_new_profile {
+  description: "First runs of a new installation of Firefox (for installs downloaded from the website on a non-Firefox browser)."
   sql_always_where:
     ${submission_date} > date(2020, 7 ,1) AND
     ${normalized_channel} = "release" AND
@@ -73,5 +74,16 @@ explore: desktop_new_profile {
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
+  }
+
+  query: total_new_profiles {
+    dimensions: [country_buckets.bucket]
+    measures: [desktop_new_profile.new_profiles]
+    filters: [
+      desktop_new_profile.date: "28 days",
+      desktop_new_profile.ignore_most_recent_week: "No",
+      desktop_new_profile.join_field: "yes"
+    ]
+    label: "Total new Firefox first runs in the past 28 days"
   }
 }
