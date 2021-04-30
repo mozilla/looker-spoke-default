@@ -456,7 +456,7 @@
     comparison_reverse_colors: false
     show_comparison_label: true
     comparison_label: "% From Previous Time Period"
-    enable_conditional_formatting: true
+    enable_conditional_formatting: false
     conditional_formatting: [{type: equal to, value: !!null '', background_color: "#1A73E8",
         font_color: !!null '', color_application: {collection_id: 7c56cc21-66e4-41c9-81ce-a60e1c3967b2,
           palette_id: 56d0c358-10a0-4fd6-aa0b-b117bef527ab}, bold: false, italic: false,
