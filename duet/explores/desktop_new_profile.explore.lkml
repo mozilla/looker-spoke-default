@@ -2,19 +2,19 @@ include: "../views/*.view.lkml"
 
 explore: desktop_new_profile {
   sql_always_where:
-    ${submission_timestamp_date} > date(2020, 7 ,1) AND
+    ${submission_date} > date(2020, 7 ,1) AND
     ${normalized_channel} = "release" AND
     DATE_DIFF(  -- Only use builds from the last month
-      ${submission_timestamp_date},
+      ${submission_date},
       SAFE.PARSE_DATE('%Y%m%d', SUBSTR(${application__build_id}, 0, 8)),
       MONTH
     ) <= 1 AND
     ${normalized_os} = "Windows" AND
-    ${attribution_source} IS NOT NULL AND
-    ${distribution_id} IS NULL AND
-    ${attribution_ua} != "firefox" AND
-    ${startup_profile_selection_reason} = "firstrun-created-default" AND
-    DATE(${submission_timestamp_date}) <= DATE_SUB(
+    ${environment__settings__attribution__source} IS NOT NULL AND
+    ${environment__partner__distribution_id} IS NULL AND
+    COALESCE(${environment__settings__attribution__ua}, "") != "firefox" AND
+    ${payload__processes__parent__scalars__startup_profile_selection_reason} = "firstrun-created-default" AND
+    DATE(${submission_date}) <= DATE_SUB(
       IF({% parameter desktop_new_profile.previous_time_period %},
         -- if the data for the previous time period is requested,
         -- shift dates by the date range provided via the 'date' filter
@@ -25,7 +25,7 @@ explore: desktop_new_profile {
       -- if the most recent week is to be ignored, shift date range by 8 days
       INTERVAL IF({% parameter desktop_new_profile.ignore_most_recent_week %}, 8, 0) DAY)
     AND
-    DATE(${submission_timestamp_date}) > DATE_SUB(
+    DATE(${submission_date}) > DATE_SUB(
       IF({% parameter desktop_new_profile.previous_time_period %},
         -- if the data for the previous time period is requested,
         -- shift dates by the date range provided via the 'date' filter
@@ -44,5 +44,33 @@ explore: desktop_new_profile {
     filters: [
       desktop_new_profile.date: "28 day"
     ]
+  }
+
+  aggregate_table: rollup__country_buckets_bucket__submission_date {
+    query: {
+      dimensions: [country_buckets.bucket, submission_date]
+      measures: [new_profiles]
+      filters: [desktop_new_profile.date: "28 days", desktop_new_profile.ignore_most_recent_week: "Yes"]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT CURRENT-DATE;;
+    }
+  }
+
+  aggregate_table: rollup__country_buckets_bucket__submission_date_prev {
+    query: {
+      dimensions: [country_buckets.bucket, submission_date]
+      measures: [new_profiles]
+      filters: [
+        desktop_new_profile.date: "28 days",
+        desktop_new_profile.ignore_most_recent_week: "Yes",
+        desktop_new_profile.previous_time_period: "Yes"
+      ]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT CURRENT-DATE;;
+    }
   }
 }

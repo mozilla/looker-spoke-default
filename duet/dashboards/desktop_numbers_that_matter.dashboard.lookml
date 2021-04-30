@@ -9,18 +9,18 @@
     - model: duet
       explore: desktop_install
       type: table
-      fields: [desktop_install.submission_timestamp_date, desktop_install.new_installs, country_buckets.bucket]
-      sorts: [desktop_install.submission_timestamp_date desc]
+      fields: [desktop_install.submission_date, desktop_install.new_installs, country_buckets.bucket]
+      sorts: [desktop_install.submission_date desc]
       limit: 500
     - model: duet
       explore: desktop_new_profile
       type: table
-      fields: [desktop_new_profile.new_profiles, desktop_new_profile.submission_timestamp_date, country_buckets.bucket]
-      sorts: [desktop_new_profile.submission_timestamp_date desc]
+      fields: [desktop_new_profile.new_profiles, desktop_new_profile.submission_date, country_buckets.bucket]
+      sorts: [desktop_new_profile.submission_date desc]
       limit: 500
       join_fields:
-      - field_name: desktop_new_profile.submission_timestamp_date
-        source_field_name: desktop_install.submission_timestamp_date
+      - field_name: desktop_new_profile.submission_date
+        source_field_name: desktop_install.submission_date
       - field_name: country_buckets.bucket
         source_field_name: country_buckets.bucket
     - model: duet
@@ -32,7 +32,7 @@
       limit: 500
       join_fields:
       - field_name: session.date_date
-        source_field_name: desktop_install.submission_timestamp_date
+        source_field_name: desktop_install.submission_date
       - field_name: country_buckets.bucket
         source_field_name: country_buckets.bucket
     - model: duet
@@ -43,7 +43,7 @@
       limit: 500
       join_fields:
       - field_name: desktop_activation.submission_timestamp_date
-        source_field_name: desktop_install.submission_timestamp_date
+        source_field_name: desktop_install.submission_date
       - field_name: country_buckets.bucket
         source_field_name: country_buckets.bucket
     - model: duet
@@ -56,7 +56,7 @@
       limit: 500
       join_fields:
       - field_name: releases.date_date
-        source_field_name: desktop_install.submission_timestamp_date
+        source_field_name: desktop_install.submission_date
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -185,21 +185,21 @@
     - model: duet
       explore: desktop_install
       type: table
-      fields: [desktop_install.new_installs, desktop_install.submission_timestamp_date, country_buckets.bucket]
-      sorts: [desktop_install.submission_timestamp_date desc]
+      fields: [desktop_install.new_installs, desktop_install.submission_date, country_buckets.bucket]
+      sorts: [desktop_install.submission_date desc]
       limit: 500
       join_fields:
-      - field_name: desktop_install.submission_timestamp_date
+      - field_name: desktop_install.submission_date
         source_field_name: session.date_date
       - field_name: country_buckets.bucket
         source_field_name: country_buckets.bucket
     - model: duet
       explore: desktop_new_profile
       type: table
-      fields: [desktop_new_profile.new_profiles, desktop_new_profile.submission_timestamp_date, country_buckets.bucket]
+      fields: [desktop_new_profile.new_profiles, desktop_new_profile.submission_date, country_buckets.bucket]
       limit: 500
       join_fields:
-      - field_name: desktop_new_profile.submission_timestamp_date
+      - field_name: desktop_new_profile.submission_date
         source_field_name: session.date_date
       - field_name: country_buckets.bucket
         source_field_name: country_buckets.bucket

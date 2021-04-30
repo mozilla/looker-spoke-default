@@ -3,20 +3,10 @@ include: "//looker-hub/duet/views/*.view.lkml"
 view: desktop_install {
   extends: [install]
 
-  dimension: submission_timestamp_date {
-    type: date
-  }
-
   dimension: attribution {
     hidden: yes
     type: string
     sql: IF(${TABLE}.attribution IS NULL, "Unknown", SPLIT(SPLIT(${TABLE}.attribution, '26ua%3D')[SAFE_OFFSET(1)], '%')[SAFE_OFFSET(0)]) ;;
-  }
-
-  dimension: join_date {
-    description: "Date used for joining installs from different time periods."
-    type: date
-    sql: IF({% parameter previous_time_period %}, DATE(DATE_SUB(${submission_timestamp_date}, INTERVAL DATE_DIFF(DATE({% date_start date %}), DATE({% date_end date %}), DAY) DAY)), ${submission_timestamp_date}) ;;
   }
 
   filter: date {

@@ -75,12 +75,6 @@ view: session {
     default_value: "no"
   }
 
-  dimension: join_date {
-    description: "Date used for joining sessions from different time periods."
-    type: date
-    sql: IF({% parameter previous_time_period %}, DATE(DATE_SUB(${date_date}, INTERVAL DATE_DIFF(DATE({% date_start date %}), DATE({% date_end date %}), DAY) DAY)), ${date_date}) ;;
-  }
-
   measure: total_non_fx_sessions {
     description: "Total visits from non-Firefox browsers."
     type: sum

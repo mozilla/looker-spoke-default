@@ -43,4 +43,32 @@ explore: desktop_activation {
       desktop_activation.ignore_most_recent_week: "yes"
     ]
   }
+
+  aggregate_table: rollup__country_buckets_bucket__submission_date {
+    query: {
+      dimensions: [country_buckets.bucket, desktop_activation.submission_timestamp_date]
+      measures: [desktop_activation.activations]
+      filters: [desktop_activation.date: "28 days", desktop_activation.ignore_most_recent_week: "Yes"]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT CURRENT-DATE;;
+    }
+  }
+
+  aggregate_table: rollup__country_buckets_bucket__submission_date_prev {
+    query: {
+      dimensions: [country_buckets.bucket, desktop_activation.submission_timestamp_date]
+      measures: [desktop_activation.activations]
+      filters: [
+        desktop_activation.date: "28 days",
+        desktop_activation.ignore_most_recent_week: "Yes",
+        desktop_activation.previous_time_period: "Yes"
+      ]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT CURRENT-DATE;;
+    }
+  }
 }

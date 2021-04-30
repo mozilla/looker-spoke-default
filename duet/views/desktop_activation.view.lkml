@@ -128,12 +128,6 @@ view: desktop_activation {
     default_value: "yes"
   }
 
-  dimension: join_date {
-    description: "Date used for joining activations from different time periods."
-    type: date
-    sql: IF({% parameter previous_time_period %}, DATE(DATE_SUB(${submission_timestamp_date}, INTERVAL DATE_DIFF(DATE({% date_start date %}), DATE({% date_end date %}), DAY) DAY)), ${submission_timestamp_date}) ;;
-  }
-
   measure: activations {
     type: count
     filters: [startup_profile_selection_reason: "firstrun-created-default", activated: "yes"]

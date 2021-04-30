@@ -48,4 +48,32 @@ explore: session {
       session.date: "28 day"
     ]
   }
+
+  aggregate_table: rollup__country_buckets_bucket__submission_date {
+    query: {
+      dimensions: [country_buckets.bucket, session.date_date]
+      measures: [session.total_non_fx_downloads, session.total_non_fx_sessions]
+      filters: [session.date: "28 days", session.ignore_most_recent_week: "Yes"]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT CURRENT-DATE;;
+    }
+  }
+
+  aggregate_table: rollup__country_buckets_bucket__submission_date_prev {
+    query: {
+      dimensions: [country_buckets.bucket, session.date_date]
+      measures: [session.total_non_fx_downloads, session.total_non_fx_sessions]
+      filters: [
+        session.date: "28 days",
+        session.ignore_most_recent_week: "Yes",
+        session.previous_time_period: "Yes"
+      ]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT CURRENT-DATE;;
+    }
+  }
 }

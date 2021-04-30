@@ -3,34 +3,6 @@ include: "//looker-hub/duet/views/*.view.lkml"
 view: desktop_new_profile {
   extends: [new_profile]
 
-  dimension: submission_timestamp_date {
-    type: date
-  }
-
-  dimension: startup_profile_selection_reason {
-    hidden: yes
-    type: string
-    sql: ${TABLE}.payload.processes.parent.scalars.startup_profile_selection_reason  ;;
-  }
-
-  dimension: attribution_ua {
-    hidden: yes
-    type: string
-    sql: coalesce(${TABLE}.environment.settings.attribution.ua, "")  ;;
-  }
-
-  dimension: attribution_source {
-    hidden: yes
-    type: string
-    sql: ${TABLE}.environment.settings.attribution.source ;;
-  }
-
-  dimension: distribution_id {
-    hidden: yes
-    type: number
-    sql: ${TABLE}.environment.partner.distribution_id ;;
-  }
-
   filter: date {
     type: date
   }
@@ -48,14 +20,8 @@ view: desktop_new_profile {
     default_value: "no"
   }
 
-  dimension: join_date {
-    description: "Date used for joining new profiles from different time periods."
-    type: date
-    sql: IF({% parameter previous_time_period %}, DATE(DATE_SUB(${submission_timestamp_date}, INTERVAL DATE_DIFF(DATE({% date_start date %}), DATE({% date_end date %}), DAY) DAY)), ${submission_timestamp_date}) ;;
-  }
-
   measure: new_profiles {
     type: count
-    filters: [startup_profile_selection_reason: "firstrun-created-default"]
+    filters: [payload__processes__parent__scalars__startup_profile_selection_reason: "firstrun-created-default"]
   }
 }
