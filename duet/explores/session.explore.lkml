@@ -45,7 +45,7 @@ explore: session {
   }
   always_filter: {
     filters: [
-      session.date: "28 days",
+      session.date: "28 day",
       session.join_field: "yes"
     ]
   }
@@ -54,7 +54,7 @@ explore: session {
     query: {
       dimensions: [country_buckets.bucket, session.date_date, session.join_field]
       measures: [session.total_non_fx_downloads, session.total_non_fx_sessions]
-      filters: [session.date: "28 days", session.ignore_most_recent_week: "Yes"]
+      filters: [session.date: "28 day", session.ignore_most_recent_week: "Yes"]
     }
 
     materialization: {
@@ -67,7 +67,7 @@ explore: session {
       dimensions: [country_buckets.bucket, session.date_date, session.join_field]
       measures: [session.total_non_fx_downloads, session.total_non_fx_sessions]
       filters: [
-        session.date: "28 days",
+        session.date: "28 day",
         session.ignore_most_recent_week: "Yes",
         session.previous_time_period: "Yes"
       ]

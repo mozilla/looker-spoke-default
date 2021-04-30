@@ -39,7 +39,7 @@ explore: desktop_activation {
   }
   always_filter: {
     filters: [
-      desktop_activation.date: "28 days",
+      desktop_activation.date: "28 day",
       desktop_activation.ignore_most_recent_week: "yes",
       join_field: "yes"
     ]
@@ -49,7 +49,7 @@ explore: desktop_activation {
     query: {
       dimensions: [country_buckets.bucket, desktop_activation.submission_timestamp_date, join_field]
       measures: [desktop_activation.activations]
-      filters: [desktop_activation.date: "28 days", desktop_activation.ignore_most_recent_week: "Yes"]
+      filters: [desktop_activation.date: "28 day", desktop_activation.ignore_most_recent_week: "Yes"]
     }
 
     materialization: {
@@ -62,7 +62,7 @@ explore: desktop_activation {
       dimensions: [country_buckets.bucket, desktop_activation.submission_timestamp_date, join_field]
       measures: [desktop_activation.activations]
       filters: [
-        desktop_activation.date: "28 days",
+        desktop_activation.date: "28 day",
         desktop_activation.ignore_most_recent_week: "Yes",
         desktop_activation.previous_time_period: "Yes"
       ]

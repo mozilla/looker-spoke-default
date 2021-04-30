@@ -42,7 +42,7 @@ explore: desktop_new_profile {
   }
   always_filter: {
     filters: [
-      desktop_new_profile.date: "28 days",
+      desktop_new_profile.date: "28 day",
       join_field: "yes"
     ]
   }
@@ -51,7 +51,7 @@ explore: desktop_new_profile {
     query: {
       dimensions: [country_buckets.bucket, submission_date, join_field]
       measures: [new_profiles]
-      filters: [desktop_new_profile.date: "28 days", desktop_new_profile.ignore_most_recent_week: "Yes"]
+      filters: [desktop_new_profile.date: "28 day", desktop_new_profile.ignore_most_recent_week: "Yes"]
     }
 
     materialization: {
@@ -64,7 +64,7 @@ explore: desktop_new_profile {
       dimensions: [country_buckets.bucket, submission_date, join_field]
       measures: [new_profiles]
       filters: [
-        desktop_new_profile.date: "28 days",
+        desktop_new_profile.date: "28 day",
         desktop_new_profile.ignore_most_recent_week: "Yes",
         desktop_new_profile.previous_time_period: "Yes"
       ]

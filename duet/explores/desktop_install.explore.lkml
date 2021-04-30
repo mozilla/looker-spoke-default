@@ -40,7 +40,7 @@ explore: desktop_install  {
   }
   always_filter: {
     filters: [
-      desktop_install.date: "28 days",
+      desktop_install.date: "28 day",
       join_field: "yes"
     ]
   }
@@ -49,7 +49,7 @@ explore: desktop_install  {
     query: {
       dimensions: [country_buckets.bucket, submission_date, join_field]
       measures: [new_installs, paveovers]
-      filters: [desktop_install.date: "28 days", desktop_install.ignore_most_recent_week: "Yes"]
+      filters: [desktop_install.date: "28 day", desktop_install.ignore_most_recent_week: "Yes"]
     }
 
     materialization: {
@@ -62,7 +62,7 @@ explore: desktop_install  {
       dimensions: [country_buckets.bucket, submission_date, join_field]
       measures: [new_installs, paveovers]
       filters: [
-        desktop_install.date: "28 days",
+        desktop_install.date: "28 day",
         desktop_install.ignore_most_recent_week: "Yes",
         desktop_install.previous_time_period: "Yes"
       ]

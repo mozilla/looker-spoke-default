@@ -714,7 +714,7 @@
   - name: Date Range
     title: Date Range
     type: field_filter
-    default_value: 28 days
+    default_value: 28 day
     allow_multiple_values: true
     required: false
     ui_config:
