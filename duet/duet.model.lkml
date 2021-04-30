@@ -1,7 +1,14 @@
 connection: "telemetry"
 label: "DUET"
-include: "//looker-hub/duet/explores/*"
-include: "//looker-hub/duet/dashboards/*"
 include: "views/*"
 include: "explores/*"
 include: "dashboards/*"
+
+explore: releases {
+  hidden: yes
+  always_filter: {
+    filters: [
+      releases.category: "major"
+    ]
+  }
+}
