@@ -39,26 +39,27 @@ explore: desktop_activation {
   }
   always_filter: {
     filters: [
-      desktop_activation.date: "28 day",
-      desktop_activation.ignore_most_recent_week: "yes"
+      desktop_activation.date: "28 days",
+      desktop_activation.ignore_most_recent_week: "yes",
+      join_field: "yes"
     ]
   }
 
   aggregate_table: rollup__country_buckets_bucket__submission_date {
     query: {
-      dimensions: [country_buckets.bucket, desktop_activation.submission_timestamp_date]
+      dimensions: [country_buckets.bucket, desktop_activation.submission_timestamp_date, join_field]
       measures: [desktop_activation.activations]
       filters: [desktop_activation.date: "28 days", desktop_activation.ignore_most_recent_week: "Yes"]
     }
 
     materialization: {
-      sql_trigger_value: SELECT CURRENT-DATE;;
+      sql_trigger_value: SELECT CURRENT_DATE();;
     }
   }
 
   aggregate_table: rollup__country_buckets_bucket__submission_date_prev {
     query: {
-      dimensions: [country_buckets.bucket, desktop_activation.submission_timestamp_date]
+      dimensions: [country_buckets.bucket, desktop_activation.submission_timestamp_date, join_field]
       measures: [desktop_activation.activations]
       filters: [
         desktop_activation.date: "28 days",
@@ -68,7 +69,7 @@ explore: desktop_activation {
     }
 
     materialization: {
-      sql_trigger_value: SELECT CURRENT-DATE;;
+      sql_trigger_value: SELECT CURRENT_DATE();;
     }
   }
 }

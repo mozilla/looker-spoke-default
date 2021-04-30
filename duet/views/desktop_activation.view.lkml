@@ -111,6 +111,12 @@ view: desktop_activation {
     sql: ${TABLE}.activated ;;
   }
 
+  dimension: join_field {
+    type: yesno
+    description: "Always set to true. Allows to merge explores."
+    sql: TRUE ;;
+  }
+
   filter: date {
     type: date
   }

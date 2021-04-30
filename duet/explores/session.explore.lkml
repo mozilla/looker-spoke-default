@@ -45,25 +45,26 @@ explore: session {
   }
   always_filter: {
     filters: [
-      session.date: "28 day"
+      session.date: "28 days",
+      session.join_field: "yes"
     ]
   }
 
   aggregate_table: rollup__country_buckets_bucket__submission_date {
     query: {
-      dimensions: [country_buckets.bucket, session.date_date]
+      dimensions: [country_buckets.bucket, session.date_date, session.join_field]
       measures: [session.total_non_fx_downloads, session.total_non_fx_sessions]
       filters: [session.date: "28 days", session.ignore_most_recent_week: "Yes"]
     }
 
     materialization: {
-      sql_trigger_value: SELECT CURRENT-DATE;;
+      sql_trigger_value: SELECT CURRENT_DATE();;
     }
   }
 
   aggregate_table: rollup__country_buckets_bucket__submission_date_prev {
     query: {
-      dimensions: [country_buckets.bucket, session.date_date]
+      dimensions: [country_buckets.bucket, session.date_date, session.join_field]
       measures: [session.total_non_fx_downloads, session.total_non_fx_sessions]
       filters: [
         session.date: "28 days",
@@ -73,7 +74,7 @@ explore: session {
     }
 
     materialization: {
-      sql_trigger_value: SELECT CURRENT-DATE;;
+      sql_trigger_value: SELECT CURRENT_DATE();;
     }
   }
 }

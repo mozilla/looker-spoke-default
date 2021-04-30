@@ -3,6 +3,12 @@ include: "//looker-hub/duet/views/*.view.lkml"
 view: desktop_new_profile {
   extends: [new_profile]
 
+  dimension: join_field {
+    type: yesno
+    description: "Always set to true. Allows to merge explores."
+    sql: TRUE ;;
+  }
+
   filter: date {
     type: date
   }

@@ -42,25 +42,26 @@ explore: desktop_new_profile {
   }
   always_filter: {
     filters: [
-      desktop_new_profile.date: "28 day"
+      desktop_new_profile.date: "28 days",
+      join_field: "yes"
     ]
   }
 
   aggregate_table: rollup__country_buckets_bucket__submission_date {
     query: {
-      dimensions: [country_buckets.bucket, submission_date]
+      dimensions: [country_buckets.bucket, submission_date, join_field]
       measures: [new_profiles]
       filters: [desktop_new_profile.date: "28 days", desktop_new_profile.ignore_most_recent_week: "Yes"]
     }
 
     materialization: {
-      sql_trigger_value: SELECT CURRENT-DATE;;
+      sql_trigger_value: SELECT CURRENT_DATE();;
     }
   }
 
   aggregate_table: rollup__country_buckets_bucket__submission_date_prev {
     query: {
-      dimensions: [country_buckets.bucket, submission_date]
+      dimensions: [country_buckets.bucket, submission_date, join_field]
       measures: [new_profiles]
       filters: [
         desktop_new_profile.date: "28 days",
@@ -70,7 +71,7 @@ explore: desktop_new_profile {
     }
 
     materialization: {
-      sql_trigger_value: SELECT CURRENT-DATE;;
+      sql_trigger_value: SELECT CURRENT_DATE();;
     }
   }
 }

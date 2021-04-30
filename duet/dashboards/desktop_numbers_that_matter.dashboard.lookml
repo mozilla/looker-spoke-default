@@ -315,12 +315,9 @@
     - model: duet
       explore: session
       type: looker_funnel
-      fields: [session.total_non_fx_sessions, session.total_non_fx_downloads, merge_field]
+      fields: [session.total_non_fx_sessions, session.total_non_fx_downloads, session.join_field]
       sorts: [session.total_non_fx_sessions desc]
       limit: 500
-      dynamic_fields: [{dimension: merge_field, label: merge field, expression: 'yes',
-          value_format: !!null '', value_format_name: !!null '', _kind_hint: dimension,
-          _type_hint: yesno}]
       leftAxisLabelVisible: false
       leftAxisLabel: ''
       rightAxisLabelVisible: false
@@ -370,36 +367,27 @@
     - model: duet
       explore: desktop_install
       type: table
-      fields: [merge_field, desktop_install.new_installs]
+      fields: [desktop_install.join_field, desktop_install.new_installs]
       limit: 500
-      dynamic_fields: [{dimension: merge_field, label: merge field, expression: 'yes',
-          value_format: !!null '', value_format_name: !!null '', _kind_hint: dimension,
-          _type_hint: yesno}]
       join_fields:
-      - field_name: merge_field
-        source_field_name: merge_field
+      - field_name: desktop_install.join_field
+        source_field_name: session.join_field
     - model: duet
       explore: desktop_new_profile
       type: table
-      fields: [desktop_new_profile.new_profiles, merge_field]
+      fields: [desktop_new_profile.new_profiles, desktop_new_profile.join_field]
       limit: 500
-      dynamic_fields: [{dimension: merge_field, label: merge field, expression: 'yes',
-          value_format: !!null '', value_format_name: !!null '', _kind_hint: dimension,
-          _type_hint: yesno}]
       join_fields:
-      - field_name: merge_field
-        source_field_name: merge_field
+      - field_name: desktop_new_profile.join_field
+        source_field_name: session.join_field
     - model: duet
       explore: desktop_activation
       type: table
-      fields: [desktop_activation.activations, merge_field]
+      fields: [desktop_activation.activations, desktop_activation.join_field]
       limit: 500
-      dynamic_fields: [{dimension: merge_field, label: merge field, expression: 'yes',
-          value_format: !!null '', value_format_name: !!null '', _kind_hint: dimension,
-          _type_hint: yesno}]
       join_fields:
-      - field_name: merge_field
-        source_field_name: merge_field
+      - field_name: desktop_activation.join_field
+        source_field_name: session.join_field
     leftAxisLabelVisible: false
     leftAxisLabel: ''
     rightAxisLabelVisible: false
@@ -417,7 +405,7 @@
     valuePosition: right
     labelColorEnabled: false
     labelColor: "#FFF"
-    hidden_fields: [merge_field]
+    hidden_fields: [join_field]
     type: looker_funnel
     series_types: {}
     listen:
@@ -443,26 +431,20 @@
     - model: duet
       explore: desktop_install
       type: table
-      fields: [desktop_install.new_installs, join_field]
+      fields: [desktop_install.new_installs, desktop_install.join_field]
       sorts: [desktop_install.new_installs desc]
       limit: 500
-      dynamic_fields: [{dimension: join_field, label: Join Field, expression: 'yes',
-          value_format: !!null '', value_format_name: !!null '', _kind_hint: dimension,
-          _type_hint: yesno}]
     - model: duet
       explore: desktop_install
       type: table
-      fields: [desktop_install.new_installs, join_field]
+      fields: [desktop_install.new_installs, desktop_install.join_field]
       filters:
         desktop_install.previous_time_period: 'Yes'
       sorts: [desktop_install.new_installs desc]
       limit: 500
-      dynamic_fields: [{dimension: join_field, label: Join Field, expression: 'yes',
-          value_format: !!null '', value_format_name: !!null '', _kind_hint: dimension,
-          _type_hint: yesno}]
       join_fields:
-      - field_name: join_field
-        source_field_name: join_field
+      - field_name: desktop_install.join_field
+        source_field_name: desktop_install.join_field
     color_application:
       collection_id: 7c56cc21-66e4-41c9-81ce-a60e1c3967b2
       palette_id: 5d189dfc-4f46-46f3-822b-bfb0b61777b1
@@ -483,7 +465,7 @@
     conditional_formatting_include_nulls: false
     type: single_value
     series_types: {}
-    hidden_fields: [q1_desktop_install.new_installs, join_field]
+    hidden_fields: [q1_desktop_install.new_installs, q1_desktop_install.join_field]
     dynamic_fields: [{table_calculation: from_previous, label: From Previous, expression: 'round((1
           - ${q1_desktop_install.new_installs} / ${desktop_install.new_installs}) * 100, 1)', value_format: !!null '',
         value_format_name: !!null '', _kind_hint: measure, _type_hint: number}]
@@ -504,24 +486,18 @@
     - model: duet
       explore: desktop_install
       type: table
-      fields: [desktop_install.paveovers, join_field]
+      fields: [desktop_install.paveovers, desktop_install.join_field]
       limit: 500
-      dynamic_fields: [{dimension: join_field, label: Join Field, expression: 'yes',
-          value_format: !!null '', value_format_name: !!null '', _kind_hint: dimension,
-          _type_hint: yesno}]
     - model: duet
       explore: desktop_install
       type: table
-      fields: [desktop_install.paveovers, join_field]
+      fields: [desktop_install.paveovers, desktop_install.join_field]
       filters:
         desktop_install.previous_time_period: 'Yes'
       limit: 500
-      dynamic_fields: [{dimension: join_field, label: Join Field, expression: 'yes',
-          value_format: !!null '', value_format_name: !!null '', _kind_hint: dimension,
-          _type_hint: yesno}]
       join_fields:
-      - field_name: join_field
-        source_field_name: join_field
+      - field_name: desktop_install.join_field
+        source_field_name: desktop_install.join_field
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -555,25 +531,19 @@
     - model: duet
       explore: desktop_new_profile
       type: table
-      fields: [desktop_new_profile.new_profiles, join_field]
+      fields: [desktop_new_profile.new_profiles, desktop_new_profile.join_field]
       sorts: [desktop_new_profile.new_profiles desc]
       limit: 500
-      dynamic_fields: [{dimension: join_field, label: Join Field, expression: 'yes',
-          value_format: !!null '', value_format_name: !!null '', _kind_hint: dimension,
-          _type_hint: yesno}]
     - model: duet
       explore: desktop_new_profile
       type: table
-      fields: [desktop_new_profile.new_profiles, join_field]
+      fields: [desktop_new_profile.new_profiles, desktop_new_profile.join_field]
       filters:
         desktop_new_profile.previous_time_period: 'Yes'
       limit: 500
-      dynamic_fields: [{dimension: join_field, label: Join Field, expression: 'yes',
-          value_format: !!null '', value_format_name: !!null '', _kind_hint: dimension,
-          _type_hint: yesno}]
       join_fields:
-      - field_name: join_field
-        source_field_name: join_field
+      - field_name: desktop_new_profile.join_field
+        source_field_name: desktop_new_profile.join_field
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -584,7 +554,7 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    hidden_fields: [join_field, q1_desktop_new_profile.new_profiles]
+    hidden_fields: [q1_desktop_new_profile.join_field, q1_desktop_new_profile.new_profiles]
     series_types: {}
     type: single_value
     dynamic_fields: [{table_calculation: from_previous, label: From Previous, expression: 'round((1
@@ -608,24 +578,18 @@
     - model: duet
       explore: session
       type: table
-      fields: [join_field, session.total_non_fx_downloads]
+      fields: [session.join_field, session.total_non_fx_downloads]
       limit: 500
-      dynamic_fields: [{dimension: join_field, label: Join Field, expression: 'yes',
-          value_format: !!null '', value_format_name: !!null '', _kind_hint: dimension,
-          _type_hint: yesno}]
     - model: duet
       explore: session
       type: table
-      fields: [session.total_non_fx_downloads, join_field]
+      fields: [session.total_non_fx_downloads, session.join_field]
       filters:
         session.previous_time_period: 'Yes'
       limit: 500
-      dynamic_fields: [{dimension: join_field, label: Join Field, expression: 'yes',
-          value_format: !!null '', value_format_name: !!null '', _kind_hint: dimension,
-          _type_hint: yesno}]
       join_fields:
-      - field_name: join_field
-        source_field_name: join_field
+      - field_name: session.join_field
+        source_field_name: session.join_field
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -636,7 +600,7 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    hidden_fields: [q1_session.total_non_fx_downloads, join_field]
+    hidden_fields: [q1_session.total_non_fx_downloads, q1_session.join_field]
     type: single_value
     series_types: {}
     dynamic_fields: [{table_calculation: from_previous, label: From Previous, expression: 'round((1
@@ -660,24 +624,18 @@
     - model: duet
       explore: session
       type: table
-      fields: [session.total_non_fx_sessions, join_field]
+      fields: [session.total_non_fx_sessions, session.join_field]
       limit: 500
-      dynamic_fields: [{dimension: join_field, label: Join Field, expression: 'yes',
-          value_format: !!null '', value_format_name: !!null '', _kind_hint: dimension,
-          _type_hint: yesno}]
     - model: duet
       explore: session
       type: table
-      fields: [session.total_non_fx_sessions, join_field]
+      fields: [session.total_non_fx_sessions, session.join_field]
       filters:
         session.previous_time_period: 'Yes'
       limit: 500
-      dynamic_fields: [{dimension: join_field, label: Join Field, expression: 'yes',
-          value_format: !!null '', value_format_name: !!null '', _kind_hint: dimension,
-          _type_hint: yesno}]
       join_fields:
-      - field_name: join_field
-        source_field_name: join_field
+      - field_name: session.join_field
+        source_field_name: session.join_field
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -688,7 +646,7 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    hidden_fields: [join_field, q1_session.total_non_fx_sessions]
+    hidden_fields: [q1_session.join_field, q1_session.total_non_fx_sessions]
     type: single_value
     series_types: {}
     dynamic_fields: [{table_calculation: from_previous, label: From Previous, expression: 'round((1
@@ -712,24 +670,18 @@
     - model: duet
       explore: desktop_activation
       type: table
-      fields: [desktop_activation.activations, join_field]
+      fields: [desktop_activation.activations, desktop_activation.join_field]
       limit: 500
-      dynamic_fields: [{dimension: join_field, label: Join Field, expression: 'yes',
-          value_format: !!null '', value_format_name: !!null '', _kind_hint: dimension,
-          _type_hint: yesno}]
     - model: duet
       explore: desktop_activation
       type: table
-      fields: [join_field, desktop_activation.activations]
+      fields: [desktop_activation.join_field, desktop_activation.activations]
       filters:
         desktop_activation.previous_time_period: 'Yes'
       limit: 500
-      dynamic_fields: [{dimension: join_field, label: Join Field, expression: 'yes',
-          value_format: !!null '', value_format_name: !!null '', _kind_hint: dimension,
-          _type_hint: yesno}]
       join_fields:
-      - field_name: join_field
-        source_field_name: join_field
+      - field_name: desktop_activation.join_field
+        source_field_name: desktop_activation.join_field
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -740,7 +692,7 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    hidden_fields: [join_field, q1_desktop_activation.activations]
+    hidden_fields: [q1_desktop_activation.join_field, q1_desktop_activation.activations]
     series_types: {}
     type: single_value
     dynamic_fields: [{table_calculation: from_previous, label: From Previous, expression: 'round((1
@@ -762,7 +714,7 @@
   - name: Date Range
     title: Date Range
     type: field_filter
-    default_value: 28 day
+    default_value: 28 days
     allow_multiple_values: true
     required: false
     ui_config:

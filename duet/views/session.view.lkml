@@ -58,6 +58,12 @@ view: session {
     sql: ${TABLE}.standardized_country_name ;;
   }
 
+  dimension: join_field {
+    type: yesno
+    description: "Always set to true. Allows to merge explores."
+    sql: TRUE ;;
+  }
+
   filter: date {
     type: date
   }

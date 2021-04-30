@@ -40,25 +40,26 @@ explore: desktop_install  {
   }
   always_filter: {
     filters: [
-      desktop_install.date: "28 day"
+      desktop_install.date: "28 days",
+      join_field: "yes"
     ]
   }
 
   aggregate_table: rollup__country_buckets_bucket__submission_date {
     query: {
-      dimensions: [country_buckets.bucket, submission_date]
+      dimensions: [country_buckets.bucket, submission_date, join_field]
       measures: [new_installs, paveovers]
       filters: [desktop_install.date: "28 days", desktop_install.ignore_most_recent_week: "Yes"]
     }
 
     materialization: {
-      sql_trigger_value: SELECT CURRENT-DATE;;
+      sql_trigger_value: SELECT CURRENT_DATE();;
     }
   }
 
   aggregate_table: rollup__country_buckets_bucket__submission_date_prev {
     query: {
-      dimensions: [country_buckets.bucket, submission_date]
+      dimensions: [country_buckets.bucket, submission_date, join_field]
       measures: [new_installs, paveovers]
       filters: [
         desktop_install.date: "28 days",
@@ -68,7 +69,7 @@ explore: desktop_install  {
     }
 
     materialization: {
-      sql_trigger_value: SELECT CURRENT-DATE;;
+      sql_trigger_value: SELECT CURRENT_DATE();;
     }
   }
 }

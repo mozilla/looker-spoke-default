@@ -9,6 +9,12 @@ view: desktop_install {
     sql: IF(${TABLE}.attribution IS NULL, "Unknown", SPLIT(SPLIT(${TABLE}.attribution, '26ua%3D')[SAFE_OFFSET(1)], '%')[SAFE_OFFSET(0)]) ;;
   }
 
+  dimension: join_field {
+    type: yesno
+    description: "Always set to true. Allows to merge explores."
+    sql: TRUE ;;
+  }
+
   filter: date {
     type: date
   }
