@@ -20,6 +20,7 @@ view: dau_model {
       """, r"(\(.*\))"), '');
 
     DECLARE row_count INT64;
+    DECLARE data ARRAY<STRUCT<dau INT64, submission_date DATE>>;
 
     SET row_count = (
       SELECT COUNT(*)
@@ -27,6 +28,16 @@ view: dau_model {
       WHERE key = current_key);
 
     IF row_count = 0 THEN
+      SET data = ARRAY(
+        SELECT AS STRUCT
+          dau,
+          submission_date,
+        FROM
+          ${firefox_desktop_usage_2021.SQL_TABLE_NAME}
+        WHERE
+          submission_date < '2021-01-19'
+      );
+
       -- Create model
       CREATE OR REPLACE MODEL
       ${SQL_TABLE_NAME} OPTIONS(
@@ -38,9 +49,7 @@ view: dau_model {
         submission_date,
         dau
       FROM
-        ${firefox_desktop_usage_2021.SQL_TABLE_NAME}
-      WHERE
-        submission_date < '2021-01-19';
+        UNNEST(data);
     END IF; ;;
   }
 }
@@ -65,6 +74,7 @@ view: new_profiles_model {
       """, r"(\(.*\))"), '');
 
     DECLARE row_count INT64;
+    DECLARE data ARRAY<STRUCT<new_profiles INT64, submission_date DATE>>;
 
     SET row_count = (
       SELECT COUNT(*)
@@ -72,6 +82,16 @@ view: new_profiles_model {
       WHERE key = current_key);
 
     IF row_count = 0 THEN
+      SET data = ARRAY(
+        SELECT AS STRUCT
+          new_profiles,
+          submission_date,
+        FROM
+          ${firefox_desktop_usage_2021.SQL_TABLE_NAME}
+        WHERE
+          submission_date < '2021-01-19'
+      );
+
       CREATE OR REPLACE MODEL
       ${SQL_TABLE_NAME} OPTIONS(
         model_type='ARIMA',
@@ -82,9 +102,7 @@ view: new_profiles_model {
         submission_date,
         new_profiles
       FROM
-        ${firefox_desktop_usage_2021.SQL_TABLE_NAME}
-      WHERE
-        submission_date < '2021-01-19';
+        UNNEST(data);
     END IF; ;;
   }
 }

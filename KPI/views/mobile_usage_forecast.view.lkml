@@ -15,6 +15,7 @@ view: mobile_dau_model {
       """, r"(\(.*\))"), '');
 
     DECLARE row_count INT64;
+    DECLARE data ARRAY<STRUCT<dau INT64, app_name STRING, submission_date DATE>>;
 
     SET row_count = (
       SELECT COUNT(*)
@@ -22,6 +23,16 @@ view: mobile_dau_model {
       WHERE key = current_key);
 
     IF row_count = 0 THEN
+      SET data = ARRAY(
+        SELECT AS STRUCT
+          dau,
+          app_name,
+          submission_date,
+        FROM
+          ${mobile_usage_2021.SQL_TABLE_NAME}
+        WHERE
+          submission_date < '2021-01-19'
+      );
       -- Create model
       CREATE OR REPLACE MODEL
       ${SQL_TABLE_NAME} OPTIONS(
@@ -31,13 +42,11 @@ view: mobile_dau_model {
         time_series_timestamp_col='submission_date'
       ) AS
       SELECT
-        submission_date,
+        dau,
         app_name,
-        dau
+        submission_date
       FROM
-        ${mobile_usage_2021.SQL_TABLE_NAME}
-      WHERE
-        submission_date < '2021-01-19';
+        UNNEST(data);
     END IF; ;;
   }
 }
