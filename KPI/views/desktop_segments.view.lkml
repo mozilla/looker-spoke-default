@@ -1,10 +1,19 @@
 view: desktop_segments {
   derived_table:  {
+    persist_for: "24 hours"
     sql:
     with base as (
       select
           CAST(submission_date AS TIMESTAMP) AS submission_date,
           country_name,
+          attributed,
+          channel,
+          os,
+          activity_segment,
+          source,
+          medium,
+          campaign,
+          content,
           sum(dau) as dau,
           sum(wau) as wau,
           sum(mau) as mau,
@@ -13,117 +22,121 @@ view: desktop_segments {
           sum(cumulative_new_profiles) as cumulative_new_profiles,
       from
           ${firefox_desktop_usage_fields.SQL_TABLE_NAME} AS firefox_desktop_usage_fields
-      where
-          {% condition desktop_segments.activity_segment %} activity_segment {% endcondition %}
-          AND {% condition desktop_segments.campaign %} campaign {% endcondition %}
-          AND {% condition desktop_segments.channel %} channel {% endcondition %}
-          AND {% condition desktop_segments.content %} content {% endcondition %}
-          AND {% condition desktop_segments.distribution_id %} distribution_id {% endcondition %}
-          AND {% condition desktop_segments.id_bucket %} id_bucket {% endcondition %}
-          AND {% condition desktop_segments.medium %} medium {% endcondition %}
-          AND {% condition desktop_segments.os %} os {% endcondition %}
-          AND {% condition desktop_segments.source %} source {% endcondition %}
-          AND {% condition desktop_segments.attributed %} attributed {% endcondition %}
-      group by 1, 2
+      group by 1,2,3,4,5,6,7,8,9,10
     ),
 
-    grouped as (
+    countries as (
       select
-        country_name,
-        avg(dau) as avg_dau
-      from base
-      group by 1
+        *,
+        dense_rank() over(order by total_country_dau desc) as country_dau_rank,
+        dense_rank() over(order by total_country_new_profiles desc) as country_new_profiles_rank
+      from (
+        select
+            country_name,
+            sum(dau) as total_country_dau,
+            sum(new_profiles) as total_country_new_profiles
+        from base
+        group by 1
+      )
+    ),
+
+    sources as (
+      select
+        *,
+        dense_rank() over(order by total_source_dau desc) as source_dau_rank,
+        dense_rank() over(order by total_source_new_profiles desc) as source_new_profiles_rank
+      from (
+        select
+            source,
+            sum(dau) as total_source_dau,
+            sum(new_profiles) as total_source_new_profiles
+        from base
+        group by 1
+      )
+    ),
+
+    campaigns as (
+      select
+        *,
+        dense_rank() over(order by total_campaign_dau desc) as campaign_dau_rank,
+        dense_rank() over(order by total_campaign_new_profiles desc) as campaign_new_profiles_rank
+      from (
+        select
+            campaign,
+            sum(dau) as total_campaign_dau,
+            sum(new_profiles) as total_campaign_new_profiles
+        from base
+        group by 1
+      )
+    ),
+
+    contents as (
+      select
+        *,
+        dense_rank() over(order by total_content_dau desc) as content_dau_rank,
+        dense_rank() over(order by total_content_new_profiles desc) as content_new_profiles_rank
+      from (
+        select
+            content,
+            sum(dau) as total_content_dau,
+            sum(new_profiles) as total_content_new_profiles
+        from base
+        group by 1
+      )
+    ),
+
+    mediums as (
+      select
+        *,
+        dense_rank() over(order by total_medium_dau desc) as medium_dau_rank,
+        dense_rank() over(order by total_medium_new_profiles desc) as medium_new_profiles_rank
+      from (
+        select
+            medium,
+            sum(dau) as total_medium_dau,
+            sum(new_profiles) as total_medium_new_profiles
+        from base
+        group by 1
+      )
+    ),
+
+    joined as (
+        select
+            *
+        from base
+        left join countries
+        using(country_name)
+        left join sources
+        using(source)
+        left join campaigns
+        using(campaign)
+        left join contents
+        using(content)
+        left join mediums
+        using(medium)
     ),
 
     ma as (
       select
         *,
-        dense_rank() over (order by avg_dau desc) as country_rank,
-        avg(dau) over (partition by country_name order by submission_date rows between 6 preceding and current row) as dau_7day_ma,
-        avg(dau) over (partition by country_name order by submission_date rows between 27 preceding and current row) as dau_28day_ma,
-        avg(new_profiles) over (partition by country_name order by submission_date rows between 6 preceding and current row) as new_profiles_7day_ma
-      from base
-      inner join grouped
-      using(country_name)
+        avg(dau) over (partition by country_name, attributed, channel, os, activity_segment, source, medium, campaign, content order by submission_date rows between 6 preceding and current row) as dau_7day_ma,
+        avg(dau) over (partition by country_name, attributed, channel, os, activity_segment, source, medium, campaign, content order by submission_date rows between 27 preceding and current row) as dau_28day_ma,
+        avg(new_profiles) over (partition by country_name, attributed, channel, os, activity_segment, source, medium, campaign, content order by submission_date rows between 6 preceding and current row) as new_profiles_7day_ma,
+        avg(new_profiles) over (partition by country_name, attributed, channel, os, activity_segment, source, medium, campaign, content order by submission_date rows between 27 preceding and current row) as new_profiles_28day_ma
+      from joined
     )
 
   select
     *,
-    lag(dau_7day_ma, 6) over (partition by country_name order by submission_date) as dau_ma_previous_week,
-    lag(dau_28day_ma, 27) over (partition by country_name order by submission_date) as dau_ma_previous_month,
-    safe_divide(dau_7day_ma, lag(dau_7day_ma, 6) over (partition by country_name order by submission_date)) - 1 as dau_wow_change,
-    safe_divide(dau_28day_ma, lag(dau_28day_ma, 27) over (partition by country_name order by submission_date)) - 1 as dau_mom_change
+    lag(dau_7day_ma, 6) over (partition by country_name, attributed, channel, os, activity_segment, source, medium, campaign, content order by submission_date) as dau_ma_previous_week,
+    lag(dau_28day_ma, 27) over (partition by country_name, attributed, channel, os, activity_segment, source, medium, campaign, content order by submission_date) as dau_ma_previous_month,
+    safe_divide(dau_7day_ma, lag(dau_7day_ma, 6) over (partition by country_name, attributed, channel, os, activity_segment, source, medium, campaign, content order by submission_date)) - 1 as dau_wow_change,
+    safe_divide(dau_28day_ma, lag(dau_28day_ma, 27) over (partition by country_name, attributed, channel, os, activity_segment, source, medium, campaign, content order by submission_date)) - 1 as dau_mom_change,
+    lag(new_profiles_7day_ma, 6) over (partition by country_name, attributed, channel, os, activity_segment, source, medium, campaign, content order by submission_date) as new_profiles_ma_previous_week,
+    lag(new_profiles_28day_ma, 27) over (partition by country_name, attributed, channel, os, activity_segment, source, medium, campaign, content order by submission_date) as new_profiles_ma_previous_month,
+    safe_divide(new_profiles_7day_ma, lag(new_profiles_7day_ma, 6) over (partition by country_name, attributed, channel, os, activity_segment, source, medium, campaign, content order by submission_date)) - 1 as new_profiles_wow_change,
+    safe_divide(new_profiles_28day_ma, lag(new_profiles_28day_ma, 27) over (partition by country_name, attributed, channel, os, activity_segment, source, medium, campaign, content order by submission_date)) - 1 as new_profiles_mom_change
   from ma;;
-  }
-
-  filter: activity_segment {
-    suggest_explore: firefox_desktop_usage_fields
-    suggest_dimension: firefox_desktop_usage_fields.activity_segment
-    type: string
-    description: "The classification of clients based on days of use with at least one URI browsed."
-  }
-
-  filter: campaign {
-    suggest_explore: firefox_desktop_usage_fields
-    suggest_dimension: firefox_desktop_usage_fields.campaign
-    type: string
-    description: "The (UTM) campaign that profiles are attributed to."
-  }
-
-  filter: channel {
-    suggest_explore: firefox_desktop_usage_fields
-    suggest_dimension: firefox_desktop_usage_fields.channel
-    type: string
-    description: "Firefox release channel."
-  }
-
-  filter: content {
-    suggest_explore: firefox_desktop_usage_fields
-    suggest_dimension: firefox_desktop_usage_fields.content
-    type: string
-    description: "The UTM content that profiles are attributed to."
-  }
-
-  filter: distribution_id {
-    suggest_explore: firefox_desktop_usage_fields
-    suggest_dimension: firefox_desktop_usage_fields.distribution_id
-    type: string
-    description: "The distribution ID, through a partner or a repack."
-  }
-
-  filter: id_bucket {
-    suggest_explore: firefox_desktop_usage_fields
-    suggest_dimension: firefox_desktop_usage_fields.id_bucket
-    type: number
-    description: "For sampling: each client_id is mapped to one of twenty id_buckets."
-  }
-
-  filter: medium {
-    suggest_explore: firefox_desktop_usage_fields
-    suggest_dimension: firefox_desktop_usage_fields.medium
-    type: string
-    description: "The UTM medium that profiles are attributed to."
-  }
-
-  filter: os {
-    suggest_explore: firefox_desktop_usage_fields
-    suggest_dimension: firefox_desktop_usage_fields.os
-    type: string
-    description: "Profile's Operating System."
-  }
-
-  filter: source {
-    suggest_explore: firefox_desktop_usage_fields
-    suggest_dimension: firefox_desktop_usage_fields.source
-    type: string
-    description: "The UTM source that the profile is attributed to."
-  }
-
-  filter: attributed {
-    suggest_explore: firefox_desktop_usage_fields
-    suggest_dimension: firefox_desktop_usage_fields.attributed
-    type: yesno
-    description: "Attributed installs have a non-null UTM source or UTM campaign."
   }
 
   dimension: date {
@@ -134,13 +147,140 @@ view: desktop_segments {
   dimension: country_name {
     type: string
     map_layer_name: countries
+    order_by_field: country_dau_rank
+    # suggest_explore: firefox_desktop_usage_fields
+    # suggest_dimension: firefox_usage_fields.country_name
     sql: ${TABLE}.country_name ;;
   }
 
-  dimension: country_rank {
+  dimension: source {
+    type: string
+    order_by_field: source_dau_rank
+    # suggest_explore: firefox_desktop_usage_fields
+    # suggest_dimension: firefox_desktop_usage_fields.source
+    sql: ${TABLE}.source ;;
+  }
+
+  dimension: campaign {
+    type: string
+    order_by_field: campaign_dau_rank
+    # suggest_explore: firefox_desktop_usage_fields
+    # suggest_dimension: firefox_desktop_usage_fields.source
+    sql: ${TABLE}.campaign ;;
+  }
+
+  dimension: medium {
+    type: string
+    order_by_field: medium_dau_rank
+    # suggest_explore: firefox_desktop_usage_fields
+    # suggest_dimension: firefox_desktop_usage_fields.source
+    sql: ${TABLE}.medium ;;
+  }
+
+  dimension: content {
+    type: string
+    order_by_field: content_dau_rank
+    # suggest_explore: firefox_desktop_usage_fields
+    # suggest_dimension: firefox_desktop_usage_fields.source
+    sql: ${TABLE}.content ;;
+  }
+
+  dimension: activity_segment {
+    type: string
+    # suggest_explore: firefox_desktop_usage_fields
+    # suggest_dimension: firefox_desktop_usage_fields.source
+    sql: ${TABLE}.activity_segment ;;
+  }
+
+  dimension: os {
+    type: string
+    # suggest_explore: firefox_desktop_usage_fields
+    # suggest_dimension: firefox_desktop_usage_fields.source
+    sql: ${TABLE}.os ;;
+  }
+
+  dimension: channel {
+    type: string
+    # suggest_explore: firefox_desktop_usage_fields
+    # suggest_dimension: firefox_desktop_usage_fields.source
+    sql: ${TABLE}.channel ;;
+  }
+
+  dimension: attributed {
+    type: yesno
+    # suggest_explore: firefox_desktop_usage_fields
+    # suggest_dimension: firefox_desktop_usage_fields.source
+    sql: ${TABLE}.attributed ;;
+  }
+
+  dimension: country_dau_rank {
     type: number
+    hidden: yes
     value_format: "#,##0"
-    sql: ${TABLE}.country_rank ;;
+    sql: ${TABLE}.country_dau_rank ;;
+  }
+
+  dimension: source_dau_rank {
+    type: number
+    hidden: yes
+    value_format: "#,##0"
+    sql: ${TABLE}.source_dau_rank ;;
+  }
+
+  dimension: medium_dau_rank {
+    type: number
+    hidden: yes
+    value_format: "#,##0"
+    sql: ${TABLE}.medium_dau_rank ;;
+  }
+
+  dimension: content_dau_rank {
+    type: number
+    hidden: yes
+    value_format: "#,##0"
+    sql: ${TABLE}.content_dau_rank ;;
+  }
+
+  dimension: campaign_dau_rank {
+    type: number
+    hidden: yes
+    value_format: "#,##0"
+    sql: ${TABLE}.campaign_dau_rank ;;
+  }
+
+  dimension: country_new_profiles_rank {
+    type: number
+    hidden: yes
+    value_format: "#,##0"
+    sql: ${TABLE}.country_new_profiles_rank ;;
+  }
+
+  dimension: source_new_profiles_rank {
+    type: number
+    hidden: yes
+    value_format: "#,##0"
+    sql: ${TABLE}.source_new_profiles_rank ;;
+  }
+
+  dimension: medium_new_profiles_rank {
+    type: number
+    hidden: yes
+    value_format: "#,##0"
+    sql: ${TABLE}.medium_new_profiles_rank ;;
+  }
+
+  dimension: content_new_profiles_rank {
+    type: number
+    hidden: yes
+    value_format: "#,##0"
+    sql: ${TABLE}.content_new_profiles_rank ;;
+  }
+
+  dimension: campaign_new_profiles_rank {
+    type: number
+    hidden: yes
+    value_format: "#,##0"
+    sql: ${TABLE}.campaign_new_profiles_rank ;;
   }
 
   measure: dau_7day_ma {
@@ -167,16 +307,28 @@ view: desktop_segments {
     sql: ${TABLE}.dau_ma_previous_month ;;
   }
 
-  measure: dau_wow_change {
+  measure: new_profiles_7day_ma {
     type: sum
-    value_format: "0.000%"
-    sql: ${TABLE}.dau_wow_change ;;
+    value_format: "#,##0"
+    sql: ${TABLE}.new_profiles_7day_ma ;;
   }
 
-  measure: dau_mom_change {
+  measure: new_profiles_28day_ma {
     type: sum
-    value_format: "0.000%"
-    sql: ${TABLE}.dau_mom_change ;;
+    value_format: "#,##0"
+    sql: ${TABLE}.new_profiles_28day_ma ;;
+  }
+
+  measure: new_profiles_ma_previous_week {
+    type: sum
+    value_format: "#,##0"
+    sql: ${TABLE}.new_profiles_ma_previous_week ;;
+  }
+
+  measure: new_profiles_ma_previous_month {
+    type: sum
+    value_format: "#,##0"
+    sql: ${TABLE}.new_profiles_ma_previous_month ;;
   }
 
 }
