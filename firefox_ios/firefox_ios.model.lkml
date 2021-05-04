@@ -51,7 +51,7 @@ explore: client_counts {
   description: "Client counts across dimensions and cohorts."
   always_filter: {
     filters: [
-      client_counts.submission_date: "4 weeks ago",
+      client_counts.submission_date: "4 weeks",
       client_counts.channel: "mozdata.org^_mozilla^_ios^_firefox.baseline^_clients^_daily",
     ]
   }
@@ -64,8 +64,8 @@ explore: client_counts {
     measures: [client_counts.client_count]
     pivots: [client_counts.first_seen_week]
     filters: [
-      submission_date: "8 weeks ago",
-      first_seen_date: "8 weeks ago",
+      submission_date: "8 weeks",
+      first_seen_date: "8 weeks",
       client_counts.have_completed_period: "yes",
     ]
     sorts: [
