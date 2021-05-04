@@ -56,7 +56,7 @@ explore: client_counts {
     ]
   }
   query: cohort_analysis {
-    description: "Client Counts of weekly cohorts over the N days."
+    description: "Client Counts of weekly cohorts over the past N days."
     dimensions: [
       client_counts.days_since_first_seen,
       client_counts.first_seen_week
