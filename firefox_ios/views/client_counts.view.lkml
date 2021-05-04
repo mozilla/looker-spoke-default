@@ -27,9 +27,9 @@ view: client_counts {
         {% elsif client_counts.first_seen_week._is_selected %}
           DATE_ADD(DATE(${client_counts.first_seen_week}), INTERVAL 1 WEEK)
         {% elsif client_counts.first_seen_month._is_selected %}
-          DATE_ADD(DATE(${client_counts.first_seen_month}), INTERVAL 1 MONTH)
+          DATE_ADD(PARSE_DATE('%Y-%m', ${client_counts.first_seen_month}), INTERVAL 1 MONTH)
         {% elsif client_counts.first_seen_year._is_selected %}
-          DATE_ADD(DATE(${client_counts.first_seen_year}), INTERVAL 1 YEAR)
+          DATE_ADD(DATE(${client_counts.first_seen_year}, 1, 1), INTERVAL 1 YEAR)
         {% endif %}
         ,
         {% if client_counts.days_since_first_seen._is_selected %}
