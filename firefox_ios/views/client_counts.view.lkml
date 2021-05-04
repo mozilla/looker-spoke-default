@@ -6,8 +6,8 @@ view: client_counts {
   dimension_group: since_first_seen {
     type: duration
     description: "Amount of time that has passed since the client was first seen."
-    sql_start: ${TABLE}.first_seen_date ;;
-    sql_end: ${TABLE}.submission_date ;;
+    sql_start: CAST(${TABLE}.first_seen_date AS TIMESTAMP) ;;
+    sql_end: CAST(${TABLE}.submission_date AS TIMESTAMP) ;;
     intervals: [
       day, week, month, year
     ]
