@@ -204,6 +204,11 @@
             id: firefox_desktop_usage_2021.delta_from_target_count, name: Delta From
               Target Count}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
+    series_labels:
+      firefox_desktop_usage_2021.delta_from_forecast_count: 'CDOU: Absolute Delta
+        from Forecast'
+      firefox_desktop_usage_2021.delta_from_target_count: 'CDOU: Absolute Delta from
+        Target'
     reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
         margin_value: mean, margin_bottom: deviation, label_position: center, color: "#000000",
         line_value: '0', label: At Forecast}]
@@ -604,7 +609,7 @@
     conditional_formatting_include_nulls: false
     series_types: {}
     defaults_version: 1
-    refresh: 10 seconds
+    refresh: '10000'
     listen:
       Channel: firefox_desktop_usage_2021.channel
       Activity Segment: firefox_desktop_usage_2021.activity_segment
