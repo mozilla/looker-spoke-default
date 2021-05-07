@@ -1,5 +1,5 @@
-- dashboard: mr1dev
-  title: MR1Dev
+- dashboard: mr1_indevelopmentdonotshare
+  title: Mr1 Indevelopmentdonotshare
   layout: newspaper
   preferred_viewer: dashboards-next
   load_configuration: wait
