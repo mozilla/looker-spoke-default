@@ -94,37 +94,37 @@ view: mozorg_ga {
 ######################################################
 
   measure: sessions {
-    type:sum
+    type: sum
     sql: ${TABLE}.sessions;;
     drill_fields: [detail*]
   }
 
   measure: non_fx_sessions {
-    type:sum
+    type: sum
     sql: ${TABLE}.non_fx_sessions;;
     drill_fields: [detail*]
   }
 
   measure: fx_sessions {
-    type:sum
+    type: sum
     sql: ${TABLE}.fx_sessions;;
     drill_fields: [detail*]
   }
 
   measure: downloads {
-    type:sum
+    type: sum
     sql: ${TABLE}.downloads;;
     drill_fields: [detail*]
   }
 
   measure: non_fx_downloads {
-    type:sum
+    type: sum
     sql: ${TABLE}.non_fx_downloads;;
     drill_fields: [detail*]
   }
 
   measure: fx_downloads {
-    type:sum
+    type: sum
     sql: ${TABLE}.fx_downloads;;
     drill_fields: [detail*]
   }

@@ -74,7 +74,7 @@ GROUP BY 1,
 ######################################################
 
   measure: cc {
-    type:sum
+    type: sum
     sql: ${TABLE}.cc;;
     drill_fields: [detail*]
   }

@@ -76,7 +76,7 @@ view: mozblogs_ga {
 ######################################################
 
   measure: sessions {
-    type:sum
+    type: sum
     sql: ${TABLE}.sessions;;
     drill_fields: [detail*]
   }

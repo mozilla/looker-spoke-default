@@ -69,31 +69,31 @@ view: feature_usage {
 ######################################################
 
   measure: cc {
-    type:sum
+    type: sum
     sql: ${TABLE}.cc;;
     drill_fields: [detail*]
   }
 
   measure: browser_pinned {
-    type:sum
+    type: sum
     sql: ${TABLE}.browser_pinned;;
     drill_fields: [detail*]
   }
 
   measure: browser_default {
-    type:sum
+    type: sum
     sql: ${TABLE}.browser_default;;
     drill_fields: [detail*]
   }
 
   measure: browser_not_pinned {
-    type:sum
+    type: sum
     sql: ${TABLE}.browser_not_pinned;;
     drill_fields: [detail*]
   }
 
   measure: browser_not_default {
-    type:sum
+    type: sum
     sql: ${TABLE}.browser_not_default;;
     drill_fields: [detail*]
   }
