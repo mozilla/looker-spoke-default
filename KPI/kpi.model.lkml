@@ -58,8 +58,15 @@ explore: mobile_usage_fields {
   hidden: yes
 }
 
+datagroup: desktop_segments_datagroup {
+  label: "Desktop KPI Segments"
+  max_cache_age: "24 hours"
+  sql_trigger: SELECT max(submission_date) FROM ${desktop_segments.SQL_TABLE_NAME} ;;
+}
+
 explore: desktop_segments {
   label: "Desktop KPI Segments"
   group_label: "KPIs"
   from: desktop_segments
+  persist_with: desktop_segments_datagroup
 }

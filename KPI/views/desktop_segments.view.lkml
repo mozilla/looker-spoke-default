@@ -1,6 +1,6 @@
 view: desktop_segments {
   derived_table:  {
-    persist_for: "24 hours"
+    datagroup_trigger: desktop_segments_datagroup
     sql:
     with base as (
       select
@@ -148,68 +148,63 @@ view: desktop_segments {
     type: string
     map_layer_name: countries
     order_by_field: country_dau_rank
-    # suggest_explore: firefox_desktop_usage_fields
-    # suggest_dimension: firefox_usage_fields.country_name
+    drill_fields: [source, campaign, medium, content, activity_segment, channel, attributed, os]
+    link: {
+      label: "Drill Down Dashboard for This Country"
+      url: "/dashboards-next/81?Date=after%202021%2F01%2F01&Country%20Name={{ value }}"
+    }
     sql: ${TABLE}.country_name ;;
   }
 
   dimension: source {
     type: string
     order_by_field: source_dau_rank
-    # suggest_explore: firefox_desktop_usage_fields
-    # suggest_dimension: firefox_desktop_usage_fields.source
+    drill_fields: [country_name, campaign, medium, content, activity_segment, channel, attributed, os]
     sql: ${TABLE}.source ;;
   }
 
   dimension: campaign {
     type: string
     order_by_field: campaign_dau_rank
-    # suggest_explore: firefox_desktop_usage_fields
-    # suggest_dimension: firefox_desktop_usage_fields.source
+    drill_fields: [country_name, source, medium, content, activity_segment, channel, attributed, os]
     sql: ${TABLE}.campaign ;;
   }
 
   dimension: medium {
     type: string
     order_by_field: medium_dau_rank
-    # suggest_explore: firefox_desktop_usage_fields
-    # suggest_dimension: firefox_desktop_usage_fields.source
+    drill_fields: [country_name, source, campaign, content, activity_segment, channel, attributed, os]
     sql: ${TABLE}.medium ;;
   }
 
   dimension: content {
     type: string
     order_by_field: content_dau_rank
-    # suggest_explore: firefox_desktop_usage_fields
-    # suggest_dimension: firefox_desktop_usage_fields.source
+    drill_fields: [country_name, source, campaign, medium, activity_segment, channel, attributed, os]
     sql: ${TABLE}.content ;;
   }
 
   dimension: activity_segment {
     type: string
-    # suggest_explore: firefox_desktop_usage_fields
-    # suggest_dimension: firefox_desktop_usage_fields.source
+    drill_fields: [country_name, source, campaign, medium, content, channel, attributed, os]
     sql: ${TABLE}.activity_segment ;;
   }
 
   dimension: os {
     type: string
-    # suggest_explore: firefox_desktop_usage_fields
-    # suggest_dimension: firefox_desktop_usage_fields.source
+    drill_fields: [country_name, source, campaign, medium, content, channel, attributed, activity_segment]
     sql: ${TABLE}.os ;;
   }
 
   dimension: channel {
     type: string
-    # suggest_explore: firefox_desktop_usage_fields
-    # suggest_dimension: firefox_desktop_usage_fields.source
+    drill_fields: [country_name, source, campaign, medium, content, os, attributed, activity_segment]
     sql: ${TABLE}.channel ;;
   }
 
   dimension: attributed {
     type: yesno
-    # suggest_explore: firefox_desktop_usage_fields
-    # suggest_dimension: firefox_desktop_usage_fields.source
+    drill_fields: [country_name, source, campaign, medium, content, os, channel, activity_segment]
     sql: ${TABLE}.attributed ;;
   }
 
@@ -222,28 +217,28 @@ view: desktop_segments {
 
   dimension: source_dau_rank {
     type: number
-    hidden: yes
+    hidden: no
     value_format: "#,##0"
     sql: ${TABLE}.source_dau_rank ;;
   }
 
   dimension: medium_dau_rank {
     type: number
-    hidden: yes
+    hidden: no
     value_format: "#,##0"
     sql: ${TABLE}.medium_dau_rank ;;
   }
 
   dimension: content_dau_rank {
     type: number
-    hidden: yes
+    hidden: no
     value_format: "#,##0"
     sql: ${TABLE}.content_dau_rank ;;
   }
 
   dimension: campaign_dau_rank {
     type: number
-    hidden: yes
+    hidden: no
     value_format: "#,##0"
     sql: ${TABLE}.campaign_dau_rank ;;
   }
