@@ -385,42 +385,42 @@ view: prediction {
 
   measure: recent_cum_new_profiles_forecast {
     type: max
-    value_format: "#,##0"
+    value_format: "0.000,, \"Million\""
     sql: ${TABLE}.cum_new_profiles_forecast ;;
     filters: [
       date: "after 2021-01-01"
     ]
-    hidden: yes
+    hidden: no
   }
 
   measure: recent_cum_new_profiles_target {
     type: max
-    value_format: "#,##0"
+    value_format: "0.000,, \"Million\""
     sql: ${TABLE}.cum_new_profiles_target ;;
     filters: [
       date: "after 2021-01-01"
     ]
-    hidden: yes
+    hidden: no
   }
 
   measure: recent_cdou_forecast {
     type: max
-    value_format: "#,##0"
+    value_format: "0.000,,, \"Billion\""
     sql: ${TABLE}.cdou_forecast ;;
     filters: [
       date: "after 2021-01-01"
     ]
-    hidden: yes
+    hidden: no
   }
 
   measure: recent_cdou_target {
     type: max
-    value_format: "#,##0"
+    value_format: "0.000,,, \"Billion\""
     sql: ${TABLE}.cdou_target ;;
     filters: [
       date: "after 2021-01-01"
     ]
-    hidden: yes
+    hidden: no
   }
 }
 
