@@ -200,7 +200,7 @@ derived_table: {
   measure: recent_cdou {
     hidden: no
     type: max
-    value_format: "0.000,,, \"Billion\""
+    value_format: "0.00,,, \"Billion\""
     sql: ${TABLE}.cdou ;;
   }
 
@@ -391,7 +391,7 @@ derived_table: {
   measure: recent_cdou_2020 {
     hidden: no
     type: number
-    value_format: "0.000,,, \"Billion\""
+    value_format: "0.00,,, \"Billion\""
     sql: ${firefox_desktop_usage_2020.recent_cdou} ;;
   }
 

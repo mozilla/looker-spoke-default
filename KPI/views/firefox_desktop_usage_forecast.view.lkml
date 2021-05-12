@@ -395,7 +395,7 @@ view: prediction {
 
   measure: recent_cum_new_profiles_target {
     type: max
-    value_format: "0.000,, \"Million\""
+    value_format: "0.00,, \"Million\""
     sql: ${TABLE}.cum_new_profiles_target ;;
     filters: [
       date: "after 2021-01-01"
@@ -405,7 +405,7 @@ view: prediction {
 
   measure: recent_cdou_forecast {
     type: max
-    value_format: "0.000,,, \"Billion\""
+    value_format: "0.00,,, \"Billion\""
     sql: ${TABLE}.cdou_forecast ;;
     filters: [
       date: "after 2021-01-01"
@@ -415,7 +415,7 @@ view: prediction {
 
   measure: recent_cdou_target {
     type: max
-    value_format: "0.000,,, \"Billion\""
+    value_format: "0.00,,, \"Billion\""
     sql: ${TABLE}.cdou_target ;;
     filters: [
       date: "after 2021-01-01"
