@@ -1,8 +1,8 @@
 view: mobile_android_store {
-  sql_table_name: `moz-fx-data-marketing-prod.google_play_store.p_Installs_country_v1`
+  sql_table_name: `moz-fx-data-marketing-prod.google_play_store.Retained_installers_play_country_v1`
     ;;
 
-  dimension_group: _partitiondate {
+  dimension_group: _data {
     type: time
     timeframes: [
       raw,
@@ -14,43 +14,28 @@ view: mobile_android_store {
     ]
     convert_tz: no
     datatype: date
-    sql: ${TABLE}._PARTITIONDATE ;;
+    sql: ${TABLE}._DATA_DATE ;;
   }
 
-  dimension: active_device_installs {
-    type: number
-    sql: ${TABLE}.Active_Device_Installs ;;
+  dimension_group: _latest {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}._LATEST_DATE ;;
   }
 
   dimension: country {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.Country ;;
-  }
-
-  dimension: daily_device_installs {
-    type: number
-    sql: ${TABLE}.Daily_Device_Installs ;;
-  }
-
-  dimension: daily_device_uninstalls {
-    type: number
-    sql: ${TABLE}.Daily_Device_Uninstalls ;;
-  }
-
-  dimension: daily_device_upgrades {
-    type: number
-    sql: ${TABLE}.Daily_Device_Upgrades ;;
-  }
-
-  dimension: daily_user_installs {
-    type: number
-    sql: ${TABLE}.Daily_User_Installs ;;
-  }
-
-  dimension: daily_user_uninstalls {
-    type: number
-    sql: ${TABLE}.Daily_User_Uninstalls ;;
   }
 
   dimension_group: date {
@@ -68,9 +53,54 @@ view: mobile_android_store {
     sql: ${TABLE}.Date ;;
   }
 
-  dimension: install_events {
+  dimension: installer_to_15_days_retention_rate {
     type: number
-    sql: ${TABLE}.Install_events ;;
+    sql: ${TABLE}.Installer_to_15_days_retention_rate ;;
+  }
+
+  dimension: installer_to_1_day_retention_rate {
+    type: number
+    sql: ${TABLE}.Installer_to_1_day_retention_rate ;;
+  }
+
+  dimension: installer_to_30_days_retention_rate {
+    type: number
+    sql: ${TABLE}.Installer_to_30_days_retention_rate ;;
+  }
+
+  dimension: installer_to_7_days_retention_rate {
+    type: number
+    sql: ${TABLE}.Installer_to_7_days_retention_rate ;;
+  }
+
+  dimension: installers {
+    type: number
+    sql: ${TABLE}.Installers ;;
+  }
+
+  dimension: installers_retained_for_15_days {
+    type: number
+    sql: ${TABLE}.Installers_retained_for_15_days ;;
+  }
+
+  dimension: installers_retained_for_1_day {
+    type: number
+    sql: ${TABLE}.Installers_retained_for_1_day ;;
+  }
+
+  dimension: installers_retained_for_30_days {
+    type: number
+    sql: ${TABLE}.Installers_retained_for_30_days ;;
+  }
+
+  dimension: installers_retained_for_7_days {
+    type: number
+    sql: ${TABLE}.Installers_retained_for_7_days ;;
+  }
+
+  dimension: median_visitor_to_installer_conversion_rate_benchmark {
+    type: number
+    sql: ${TABLE}.Median_Visitor_to_Installer_conversion_rate_benchmark ;;
   }
 
   dimension: package_name {
@@ -78,19 +108,14 @@ view: mobile_android_store {
     sql: ${TABLE}.Package_Name ;;
   }
 
-  dimension: total_user_installs {
+  dimension: store_listing_visitors {
     type: number
-    sql: ${TABLE}.Total_User_Installs ;;
+    sql: ${TABLE}.Store_Listing_Visitors ;;
   }
 
-  dimension: uninstall_events {
+  dimension: visitor_to_installer_conversion_rate {
     type: number
-    sql: ${TABLE}.Uninstall_events ;;
-  }
-
-  dimension: update_events {
-    type: number
-    sql: ${TABLE}.Update_events ;;
+    sql: ${TABLE}.Visitor_to_Installer_conversion_rate ;;
   }
 
   measure: count {
