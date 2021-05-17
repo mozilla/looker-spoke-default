@@ -1,7 +1,3 @@
 connection: "telemetry"
 label: "Bergamot Translator"
 include: "//looker-hub/bergamot/explores/*"
-include: "//looker-hub/bergamot/dashboards/*"
-include: "views/*"
-include: "explores/*"
-include: "dashboards/*"
