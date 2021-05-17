@@ -193,7 +193,7 @@ derived_table: {
   measure: recent_new_profiles_cumulative {
     hidden: no
     type: max
-    value_format: "#,##0"
+    value_format: "0.00,, \"Million\""
     sql: ${TABLE}.cumulative_new_profiles ;;
   }
 
@@ -393,6 +393,13 @@ derived_table: {
     type: number
     value_format: "0.00,,, \"Billion\""
     sql: ${firefox_desktop_usage_2020.recent_cdou} ;;
+  }
+
+  measure: recent_new_profiles_2020 {
+    hidden: no
+    type: number
+    value_format: "0.00,, \"Million\""
+    sql: ${firefox_desktop_usage_2020.recent_new_profiles_cumulative} ;;
   }
 
 }
