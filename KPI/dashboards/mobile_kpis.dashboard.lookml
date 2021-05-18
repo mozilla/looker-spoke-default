@@ -1,5 +1,5 @@
 - dashboard: mobile_kpis
-  title: Mobile KPIs
+  title: Mobile KPI Dashboard
   layout: newspaper
   preferred_viewer: dashboards-next
   refresh: 2147484 seconds
@@ -60,7 +60,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 17
+    row: 16
     col: 12
     width: 12
     height: 10
@@ -120,9 +120,9 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 72
-    col: 11
-    width: 13
+    row: 67
+    col: 12
+    width: 12
     height: 9
   - title: Firefox for iOS Daily Active Users (DAU)
     name: Firefox for iOS Daily Active Users (DAU)
@@ -180,7 +180,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 45
+    row: 42
     col: 12
     width: 12
     height: 9
@@ -240,113 +240,9 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 98
-    col: 11
-    width: 13
-    height: 8
-  - title: Firefox for Android (Fennec + Fenix)
-    name: Firefox for Android (Fennec + Fenix)
-    model: kpi
-    explore: mobile_usage_2021
-    type: single_value
-    fields: [mobile_usage_2021.delta_from_forecast_format]
-    filters:
-      mobile_usage_2021.app_name: '"fennec_fenix"'
-    limit: 500
-    custom_color_enabled: true
-    show_single_value_title: false
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    defaults_version: 1
-    listen:
-      Date: mobile_usage_2021.date
-      Country: mobile_usage_2021.country
-    row: 0
-    col: 0
-    width: 24
-    height: 8
-  - title: Focus for Android
-    name: Focus for Android
-    model: kpi
-    explore: mobile_usage_2021
-    type: single_value
-    fields: [mobile_usage_2021.delta_from_forecast_format]
-    filters:
-      mobile_usage_2021.app_name: '"focus_android"'
-    limit: 500
-    custom_color_enabled: true
-    show_single_value_title: false
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    defaults_version: 1
-    listen:
-      Date: mobile_usage_2021.date
-      Country: mobile_usage_2021.country
-    row: 54
-    col: 0
-    width: 24
-    height: 9
-  - title: Firefox for iOS
-    name: Firefox for iOS
-    model: kpi
-    explore: mobile_usage_2021
-    type: single_value
-    fields: [mobile_usage_2021.delta_from_forecast_format]
-    filters:
-      mobile_usage_2021.app_name: '"firefox_ios"'
-    limit: 500
-    custom_color_enabled: true
-    show_single_value_title: false
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    defaults_version: 1
-    listen:
-      Date: mobile_usage_2021.date
-      Country: mobile_usage_2021.country
-    row: 27
-    col: 0
-    width: 24
-    height: 9
-  - title: Focus for iOS
-    name: Focus for iOS
-    model: kpi
-    explore: mobile_usage_2021
-    type: single_value
-    fields: [mobile_usage_2021.delta_from_forecast_format]
-    filters:
-      mobile_usage_2021.app_name: '"focus_ios"'
-    limit: 500
-    custom_color_enabled: true
-    show_single_value_title: false
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    defaults_version: 1
-    listen:
-      Date: mobile_usage_2021.date
-      Country: mobile_usage_2021.country
-    row: 81
-    col: 0
-    width: 24
+    row: 92
+    col: 12
+    width: 12
     height: 8
   - title: Firefox for Android CDOU Burn-Up
     name: Firefox for Android CDOU Burn-Up
@@ -387,13 +283,13 @@
     series_types: {}
     series_labels:
       mobile_usage_2021.cdou: Cumulative Days of Use (CDOU)
-      mobile_prediction.cdou_forecast: CDOU Forecast
-      mobile_prediction.cdou_target: CDOU Target Pace
+      mobile_prediction.cdou_forecast: Forecast
+      mobile_prediction.cdou_target: Stretch Goal Pace
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 8
+    row: 7
     col: 12
     width: 12
     height: 9
@@ -436,13 +332,13 @@
     series_types: {}
     series_labels:
       mobile_usage_2021.cdou: Cumulative Days of Use (CDOU)
-      mobile_prediction.cdou_forecast: CDOU Forecast
-      mobile_prediction.cdou_target: CDOU Target Pace
+      mobile_prediction.cdou_forecast: Forecast
+      mobile_prediction.cdou_target: Stretch Goal Pace
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 36
+    row: 33
     col: 12
     width: 12
     height: 9
@@ -485,15 +381,15 @@
     series_types: {}
     series_labels:
       mobile_usage_2021.cdou: Cumulative Days of Use (CDOU)
-      mobile_prediction.cdou_forecast: CDOU Forecast
-      mobile_prediction.cdou_target: CDOU Target Pace
+      mobile_prediction.cdou_forecast: Forecast
+      mobile_prediction.cdou_target: Stretch Goal Pace
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 89
-    col: 11
-    width: 13
+    row: 83
+    col: 12
+    width: 12
     height: 9
   - title: Focus for Android CDOU Burn-Up
     name: Focus for Android CDOU Burn-Up
@@ -534,18 +430,18 @@
     series_types: {}
     series_labels:
       mobile_usage_2021.cdou: Cumulative Days of Use (CDOU)
-      mobile_prediction.cdou_forecast: CDOU Forecast
-      mobile_prediction.cdou_target: CDOU Target Pace
+      mobile_prediction.cdou_forecast: Forecast
+      mobile_prediction.cdou_target: Stretch Goal Pace
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 63
-    col: 11
-    width: 13
+    row: 58
+    col: 12
+    width: 12
     height: 9
-  - title: Cumulative Difference vs Target / Forecast
-    name: Cumulative Difference vs Target / Forecast
+  - title: Difference from CDOU Forecast
+    name: Difference from CDOU Forecast
     model: kpi
     explore: mobile_usage_2021
     type: looker_line
@@ -585,22 +481,26 @@
             name: Difference From Forecast}], showLabels: true, showValues: true,
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     series_types: {}
+    series_colors:
+      mobile_usage_2021.delta_from_target_count: "#3FE1B0"
+      mobile_usage_2021.delta_from_forecast_count: "#0060E0"
     series_labels:
-      mobile_usage_2021.delta_from_target_count: Difference From Target
-      mobile_usage_2021.delta_from_forecast_count: Difference From Forecast
+      mobile_usage_2021.delta_from_target_count: Cumulative Difference vs Stretch
+        Goal
+      mobile_usage_2021.delta_from_forecast_count: Cumulative Difference vs Forecast
     reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
         margin_value: mean, margin_bottom: deviation, label_position: center, color: "#000000",
-        line_value: '0', label: At Target / Forecast}]
+        line_value: '0', label: At Forecast/Stretch Goal}]
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 8
+    row: 7
     col: 0
     width: 12
     height: 9
-  - title: Cumulative Difference vs Target / Forecast
-    name: Cumulative Difference vs Target / Forecast (2)
+  - title: Difference from CDOU Forecast
+    name: Difference from CDOU Forecast (2)
     model: kpi
     explore: mobile_usage_2021
     type: looker_line
@@ -641,21 +541,22 @@
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     series_types: {}
     series_labels:
-      mobile_usage_2021.delta_from_target_count: Difference From Target
-      mobile_usage_2021.delta_from_forecast_count: Difference From Forecast
+      mobile_usage_2021.delta_from_target_count: Cumulative Difference From Stretch
+        Goal
+      mobile_usage_2021.delta_from_forecast_count: Cumulative Difference From Forecast
     reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
         margin_value: mean, margin_bottom: deviation, label_position: center, color: "#000000",
-        line_value: '0', label: At Target / Forecast}]
+        line_value: '0', label: At Forecast/Stretch Goal}]
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 89
+    row: 83
     col: 0
-    width: 11
+    width: 12
     height: 9
-  - title: Cumulative Difference vs Target / Forecast
-    name: Cumulative Difference vs Target / Forecast (3)
+  - title: Difference from CDOU Forecast
+    name: Difference from CDOU Forecast (3)
     model: kpi
     explore: mobile_usage_2021
     type: looker_line
@@ -696,21 +597,22 @@
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     series_types: {}
     series_labels:
-      mobile_usage_2021.delta_from_target_count: Difference From Target
-      mobile_usage_2021.delta_from_forecast_count: Difference From Forecast
+      mobile_usage_2021.delta_from_target_count: Cumulative Difference from Stretch
+        Goal
+      mobile_usage_2021.delta_from_forecast_count: Cumulative Difference From Forecast
     reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
         margin_value: mean, margin_bottom: deviation, label_position: center, color: "#000000",
-        line_value: '0', label: At Target / Forecast}]
+        line_value: '0', label: At Forecast/Stretch Goal}]
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 63
+    row: 58
     col: 0
-    width: 11
+    width: 12
     height: 9
-  - title: Cumulative Difference vs Target / Forecast
-    name: Cumulative Difference vs Target / Forecast (4)
+  - title: Difference from CDOU Forecast
+    name: Difference from CDOU Forecast (4)
     model: kpi
     explore: mobile_usage_2021
     type: looker_line
@@ -750,17 +652,21 @@
             name: Difference From Forecast}], showLabels: true, showValues: true,
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     series_types: {}
+    series_colors:
+      mobile_usage_2021.delta_from_target_count: "#0060E0"
+      mobile_usage_2021.delta_from_forecast_count: "#3FE1B0"
     series_labels:
-      mobile_usage_2021.delta_from_target_count: Difference From Target
-      mobile_usage_2021.delta_from_forecast_count: Difference From Forecast
+      mobile_usage_2021.delta_from_target_count: Cumulative Difference vs Stretch
+        Goal
+      mobile_usage_2021.delta_from_forecast_count: Cumulative Difference From Forecast
     reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
         margin_value: mean, margin_bottom: deviation, label_position: center, color: "#000000",
-        line_value: '0', label: At Target / Forecast}]
+        line_value: '0', label: At Forecast/Stretch Goal}]
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 36
+    row: 33
     col: 0
     width: 12
     height: 9
@@ -811,7 +717,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 19
+    row: 18
     col: 0
     width: 12
     height: 8
@@ -862,7 +768,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 47
+    row: 44
     col: 0
     width: 12
     height: 7
@@ -913,9 +819,9 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 100
+    row: 94
     col: 0
-    width: 11
+    width: 12
     height: 6
   - title: Focus for Android New Profiles Per Day
     name: Focus for Android New Profiles Per Day
@@ -964,9 +870,9 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 74
+    row: 69
     col: 0
-    width: 11
+    width: 12
     height: 7
   - title: 2021 Cumulative New Profiles (Copy)
     name: 2021 Cumulative New Profiles (Copy)
@@ -1032,7 +938,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 17
+    row: 16
     col: 0
     width: 12
     height: 2
@@ -1100,7 +1006,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 45
+    row: 42
     col: 0
     width: 12
     height: 2
@@ -1168,9 +1074,9 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 72
+    row: 67
     col: 0
-    width: 11
+    width: 12
     height: 2
   - title: 2021 Cumulative New Profiles (Copy 2)
     name: 2021 Cumulative New Profiles (Copy 2)
@@ -1236,10 +1142,587 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 98
+    row: 92
     col: 0
-    width: 11
+    width: 12
     height: 2
+  - title: Untitled
+    name: Untitled
+    model: kpi
+    explore: mobile_usage_2021
+    type: single_value
+    fields: [mobile_usage_2021.delta_from_forecast, mobile_prediction.recent_cdou_forecast]
+    filters:
+      mobile_usage_2021.date: after 2021/01/01
+      mobile_usage_2021.app_name: '"fennec_fenix"'
+    sorts: [mobile_usage_2021.delta_from_forecast desc]
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: Difference From CDOU Forecast
+    comparison_label: Forecasted CDOU as of today
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    series_types: {}
+    listen: {}
+    row: 3
+    col: 8
+    width: 8
+    height: 4
+  - title: Untitled
+    name: Untitled (2)
+    model: kpi
+    explore: mobile_usage_2021
+    type: single_value
+    fields: [mobile_usage_2021.recent_cdou]
+    filters:
+      mobile_usage_2021.app_name: '"fennec_fenix"'
+      mobile_usage_2021.date: after 2021/01/01
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    defaults_version: 1
+    row: 3
+    col: 0
+    width: 8
+    height: 4
+  - title: Untitled
+    name: Untitled (3)
+    model: kpi
+    explore: mobile_usage_2021
+    type: single_value
+    fields: [mobile_usage_2021.delta_from_target, mobile_prediction.recent_cdou_target]
+    filters:
+      mobile_usage_2021.app_name: '"fennec_fenix"'
+      mobile_usage_2021.date: after 2021/01/01
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: Difference From CDOU Stretch Goal
+    comparison_label: CDOU needed to hit stretch goal
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    series_types: {}
+    row: 3
+    col: 16
+    width: 8
+    height: 4
+  - name: ''
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: '<h1 style="margin-top:20px; padding: 5px; border-bottom: solid 1px
+      #412399; height: 50px; color: #412399; text-align: center;" id="dou">Firefox
+      iOS Days of Use and DAU</h1>'
+    row: 26
+    col: 0
+    width: 24
+    height: 3
+  - name: " (2)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: '<h1 style="margin-top:20px; padding: 5px; border-bottom: solid 1px
+      #412399; height: 50px; color: #412399; text-align: center;" id="dou">Firefox
+      Focus for iOS Days of Use and DAU</h1>'
+    row: 76
+    col: 0
+    width: 24
+    height: 3
+  - name: " (3)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: '<h1 style="margin-top:20px; padding: 5px; border-bottom: solid 1px
+      #412399; height: 50px; color: #412399; text-align: center;" id="dou">Firefox
+      Android (Fennec + Fenix) Days of Use and DAU</h1>'
+    row: 0
+    col: 0
+    width: 24
+    height: 3
+  - name: " (4)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: '<h1 style="margin-top:20px; padding: 5px; border-bottom: solid 1px
+      #412399; height: 50px; color: #412399; text-align: center;" id="dou">Firefox
+      Focus for Android Days of Use and DAU</h1>'
+    row: 51
+    col: 0
+    width: 24
+    height: 3
+  - title: Untitled (Copy)
+    name: Untitled (Copy)
+    model: kpi
+    explore: mobile_usage_2021
+    type: single_value
+    fields: [mobile_usage_2021.recent_cdou]
+    filters:
+      mobile_usage_2021.app_name: '"firefox_ios"'
+      mobile_usage_2021.date: after 2021/01/01
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    defaults_version: 1
+    row: 29
+    col: 0
+    width: 8
+    height: 4
+  - title: Untitled (Copy 2)
+    name: Untitled (Copy 2)
+    model: kpi
+    explore: mobile_usage_2021
+    type: single_value
+    fields: [mobile_usage_2021.delta_from_forecast, mobile_prediction.recent_cdou_forecast]
+    filters:
+      mobile_usage_2021.date: after 2021/01/01
+      mobile_usage_2021.app_name: '"firefox_ios"'
+    sorts: [mobile_usage_2021.delta_from_forecast desc]
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: Difference From CDOU Forecast
+    comparison_label: Forecasted CDOU as of today
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    series_types: {}
+    row: 29
+    col: 8
+    width: 8
+    height: 4
+  - title: Untitled (Copy 4)
+    name: Untitled (Copy 4)
+    model: kpi
+    explore: mobile_usage_2021
+    type: single_value
+    fields: [mobile_usage_2021.recent_cdou]
+    filters:
+      mobile_usage_2021.app_name: '"focus_android"'
+      mobile_usage_2021.date: after 2021/01/01
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    defaults_version: 1
+    row: 54
+    col: 0
+    width: 8
+    height: 4
+  - title: Untitled (Copy 6)
+    name: Untitled (Copy 6)
+    model: kpi
+    explore: mobile_usage_2021
+    type: single_value
+    fields: [mobile_usage_2021.delta_from_target, mobile_prediction.recent_cdou_target]
+    filters:
+      mobile_usage_2021.app_name: '"focus_android"'
+      mobile_usage_2021.date: after 2021/01/01
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: Difference From CDOU Stretch Goal
+    comparison_label: CDOU needed to hit stretch goal
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    series_types: {}
+    row: 54
+    col: 16
+    width: 8
+    height: 4
+  - title: Untitled (Copy 8)
+    name: Untitled (Copy 8)
+    model: kpi
+    explore: mobile_usage_2021
+    type: single_value
+    fields: [mobile_usage_2021.delta_from_forecast, mobile_prediction.recent_cdou_forecast]
+    filters:
+      mobile_usage_2021.date: after 2021/01/01
+      mobile_usage_2021.app_name: '"focus_ios"'
+    sorts: [mobile_usage_2021.delta_from_forecast desc]
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: Difference From CDOU Forecast
+    comparison_label: Forecasted CDOU as of today
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    series_types: {}
+    row: 79
+    col: 8
+    width: 8
+    height: 4
+  - title: Untitled (Copy 3)
+    name: Untitled (Copy 3)
+    model: kpi
+    explore: mobile_usage_2021
+    type: single_value
+    fields: [mobile_usage_2021.delta_from_target, mobile_prediction.recent_cdou_target]
+    filters:
+      mobile_usage_2021.app_name: '"firefox_ios"'
+      mobile_usage_2021.date: after 2021/01/01
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: Difference From CDOU Stretch Goal
+    comparison_label: CDOU needed to hit stretch goal
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    series_types: {}
+    row: 29
+    col: 16
+    width: 8
+    height: 4
+  - title: Untitled (Copy 5)
+    name: Untitled (Copy 5)
+    model: kpi
+    explore: mobile_usage_2021
+    type: single_value
+    fields: [mobile_usage_2021.delta_from_forecast, mobile_prediction.recent_cdou_forecast]
+    filters:
+      mobile_usage_2021.date: after 2021/01/01
+      mobile_usage_2021.app_name: '"focus_android"'
+    sorts: [mobile_usage_2021.delta_from_forecast desc]
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: Difference From CDOU Forecast
+    comparison_label: Forecasted CDOU as of today
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    series_types: {}
+    row: 54
+    col: 8
+    width: 8
+    height: 4
+  - title: Untitled (Copy 7)
+    name: Untitled (Copy 7)
+    model: kpi
+    explore: mobile_usage_2021
+    type: single_value
+    fields: [mobile_usage_2021.recent_cdou]
+    filters:
+      mobile_usage_2021.app_name: '"focus_ios"'
+      mobile_usage_2021.date: after 2021/01/01
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    defaults_version: 1
+    row: 79
+    col: 0
+    width: 8
+    height: 4
+  - title: Untitled (Copy 9)
+    name: Untitled (Copy 9)
+    model: kpi
+    explore: mobile_usage_2021
+    type: single_value
+    fields: [mobile_usage_2021.delta_from_target, mobile_prediction.recent_cdou_target]
+    filters:
+      mobile_usage_2021.app_name: '"focus_ios"'
+      mobile_usage_2021.date: after 2021/01/01
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: Difference From CDOU Stretch Goal
+    comparison_label: CDOU needed to hit stretch goal
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    series_types: {}
+    row: 79
+    col: 16
+    width: 8
+    height: 4
   filters:
   - name: Date
     title: Date

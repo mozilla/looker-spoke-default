@@ -191,16 +191,16 @@ derived_table: {
   }
 
   measure: recent_new_profiles_cumulative {
-    hidden: yes
+    hidden: no
     type: max
-    value_format: "#,##0"
+    value_format: "0.00,, \"Million\""
     sql: ${TABLE}.cumulative_new_profiles ;;
   }
 
   measure: recent_cdou {
-    hidden: yes
+    hidden: no
     type: max
-    value_format: "#,##0"
+    value_format: "0.00,,, \"Billion\""
     sql: ${TABLE}.cdou ;;
   }
 
@@ -386,6 +386,20 @@ derived_table: {
     value_format: "#,##0"
     sql: ${new_profiles_cumulative} - ${year_over_year_new_profiles_cumulative} ;;
     description: "Absolute (given as a whole number) difference between 2020's Cumulative New Profiles and 2021's Cumulative New Profiles."
+  }
+
+  measure: recent_cdou_2020 {
+    hidden: no
+    type: number
+    value_format: "0.00,,, \"Billion\""
+    sql: ${firefox_desktop_usage_2020.recent_cdou} ;;
+  }
+
+  measure: recent_new_profiles_2020 {
+    hidden: no
+    type: number
+    value_format: "0.00,, \"Million\""
+    sql: ${firefox_desktop_usage_2020.recent_new_profiles_cumulative} ;;
   }
 
 }
