@@ -14,9 +14,8 @@ view: mobile_dau_model {
       -- country tier: FR, GB, US, CA, DE
       """, r"(\(.*\))"), '');
 
-    DECLARE possible_apps ARRAY<STRING> DEFAULT ["fennec_fenix", "firefox_ios", "focus_android", "focus_ios", "total_mobile"];
-    DECLARE existing_apps ARRAY<STRING>;
-    DECLARE intersection ARRAY<STRING>;
+    DECLARE row_count INT64;
+    DECLARE data ARRAY<STRUCT<dau INT64, app_name STRING, submission_date DATE>>;
 
     SET existing_apps = (
       SELECT ARRAY_AGG(DISTINCT app_name)
@@ -25,10 +24,19 @@ view: mobile_dau_model {
       AND app_name IN (SELECT * FROM UNNEST(possible_apps))
     );
 
-    SET intersection = ARRAY( (SELECT * FROM UNNEST(possible_apps)) INTERSECT DISTINCT (SELECT * FROM UNNEST(existing_apps)) );
-
-    IF ARRAY_LENGTH(intersection) != ARRAY_LENGTH(possible_apps) THEN
-      -- Create model
+    IF row_count = 0 THEN
+      SET data = ARRAY(
+        SELECT AS STRUCT
+          dau,
+          app_name,
+          submission_date,
+        FROM
+          ${mobile_usage_2021.SQL_TABLE_NAME}
+        WHERE
+          submission_date < '2021-01-19'
+      );
+      
+    -- Create model
       CREATE OR REPLACE MODEL
       ${SQL_TABLE_NAME} OPTIONS(
         model_type='ARIMA',
@@ -37,15 +45,11 @@ view: mobile_dau_model {
         time_series_timestamp_col='submission_date'
       ) AS
       SELECT
-        submission_date,
+        dau,
         app_name,
-        dau
+        submission_date
       FROM
-        ${mobile_usage_2021.SQL_TABLE_NAME}
-      WHERE
-        submission_date < '2021-01-19'
-      AND app_name IN (SELECT * FROM UNNEST(possible_apps))
-      AND app_name NOT IN (SELECT * FROM UNNEST(intersection));
+        UNNEST(data);
     END IF; ;;
   }
 }

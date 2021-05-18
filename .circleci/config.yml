@@ -1,18 +1,40 @@
 ---
 version: 2
 jobs:
-  deploy:
+  deploy-prod:
     docker:
       - image: cimg/base:2020.01
     steps:
       - run: curl https://mozilla.cloud.looker.com/webhooks/projects/spoke-default/deploy
+  deploy-stage:
+    docker:
+      - image: cimg/base:2020.01
+    steps:
+      - run: curl https://mozillastaging.cloud.looker.com/webhooks/projects/spoke-default/deploy
+  deploy-dev:
+    docker:
+      - image: cimg/base:2020.01
+    steps:
+      - run: curl https://mozilladev.cloud.looker.com/webhooks/projects/spoke-default/deploy
 workflows:
   version: 2
   build:
     jobs:
-      - deploy:
+      - deploy-prod:
           filters:
             branches:
               only: main
+            tags:
+              only: /.*/
+      - deploy-stage:
+          filters:
+            branches:
+              only: main-stage
+            tags:
+              only: /.*/
+      - deploy-dev:
+          filters:
+            branches:
+              only: main-nonprod
             tags:
               only: /.*/
