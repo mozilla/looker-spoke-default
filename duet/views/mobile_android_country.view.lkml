@@ -4,7 +4,8 @@ view: mobile_android_country {
           SELECT
           Date AS submission_date,
           COALESCE(IF(country = "Other", null, country), "OTHER") as country,
-          SUM(Store_Listing_visitors) AS unique_visitor_count,
+          MAX(_LATEST_DATE) as latest_date,
+          SUM(Store_Listing_visitors) AS first_time_visitor_count,
           SUM(Installers) AS first_time_installs
           FROM
           `moz-fx-data-marketing-prod.google_play_store.Retained_installers_country_v1`
@@ -19,6 +20,7 @@ view: mobile_android_country {
           COALESCE(IF(country = "Other", null, country), "OTHER") as country,
           sum(Daily_Device_installs) as device_installs,
           sum(Daily_User_Installs) as user_installs,
+          sum(Install_events) as event_installs,
           FROM
           `moz-fx-data-marketing-prod.google_play_store.Installs_country_v1`
           WHERE
@@ -35,8 +37,8 @@ view: mobile_android_country {
           select
               first_seen_date as submission_date,
               coalesce(play_store_countries.country, "OTHER") as country,
-              count(distinct client_id) as n_first_seen,
-              count(distinct case when coalesce(BIT_COUNT(days_seen_bits), 0) >= 5 then client_id end) as n_activated
+              count(distinct client_id) as first_seen,
+              count(distinct case when coalesce(BIT_COUNT(days_seen_bits), 0) >= 5 then client_id end) as activated
           from `moz-fx-data-shared-prod.org_mozilla_firefox_beta_derived.baseline_clients_last_seen_v1`
           -- limit countries to those in the play store
           left join play_store_countries
@@ -49,12 +51,13 @@ view: mobile_android_country {
       select
           submission_date,
           country,
-          sum(unique_visitor_count) as unique_visitor_count,
+          max(latest_date) as latest_date,
+          sum(first_time_visitor_count) as first_time_visitor_count,
           sum(first_time_installs) as first_time_installs,
           sum(device_installs) as device_installs,
           sum(user_installs) as user_installs,
-          sum(n_first_seen) as n_first_seen,
-          sum(n_activated) as n_activated
+          sum(first_seen) as first_seen,
+          sum(activated) as activated
       from play_store_retained
       right join play_store_installs
       using (submission_date, country)
@@ -66,15 +69,25 @@ view: mobile_android_country {
        ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [detail*]
+  dimension_group: submission {
+    type: time
+    datatype: date
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.submission_date ;;
   }
 
-  dimension: submission_date {
+  dimension: latest_date {
     type: date
     datatype: date
-    sql: ${TABLE}.submission_date ;;
+    sql: ${TABLE}.latest_date ;;
   }
 
   dimension: country {
@@ -82,46 +95,51 @@ view: mobile_android_country {
     sql: ${TABLE}.country ;;
   }
 
-  dimension: unique_visitor_count {
-    type: number
-    sql: ${TABLE}.unique_visitor_count ;;
+  measure: first_time_visitor_count {
+    type: sum
+    sql: ${TABLE}.first_time_visitor_count ;;
   }
 
-  dimension: first_time_installs {
-    type: number
+  measure: first_time_installs {
+    type: sum
     sql: ${TABLE}.first_time_installs ;;
   }
 
-  dimension: device_installs {
-    type: number
+  measure: device_installs {
+    type: sum
     sql: ${TABLE}.device_installs ;;
   }
 
-  dimension: user_installs {
-    type: number
+  measure: user_installs {
+    type: sum
     sql: ${TABLE}.user_installs ;;
   }
 
-  dimension: n_first_seen {
-    type: number
-    sql: ${TABLE}.n_first_seen ;;
+  measure: event_installs {
+    type: sum
+    sql: ${TABLE}.event_installs ;;
   }
 
-  dimension: n_activated {
-    type: number
-    sql: ${TABLE}.n_activated ;;
+
+  measure: first_seen {
+    type: sum
+    sql: ${TABLE}.first_seen ;;
+  }
+
+  measure: activated {
+    type: sum
+    sql: ${TABLE}.activated ;;
   }
 
   set: detail {
     fields: [
-      submission_date,
       country,
-      unique_visitor_count,
+      first_time_visitor_count,
       first_time_installs,
       device_installs,
       user_installs,
-      n_first_seen,
-      n_activated
+      first_seen,
+      activated
     ]
   }
 }
