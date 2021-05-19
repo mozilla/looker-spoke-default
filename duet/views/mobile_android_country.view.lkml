@@ -143,6 +143,13 @@ view: mobile_android_country {
     }
   }
 
+  dimension: join_field {
+    type: yesno
+    description: "Always set to true. Allows to merge explores."
+    sql: TRUE ;;
+    primary_key: yes
+  }
+
 
   dimension_group: submission {
     type: time
