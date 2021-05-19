@@ -11,7 +11,7 @@ view: mobile_android_country {
           `moz-fx-data-marketing-prod.google_play_store.Retained_installers_country_v1`
           WHERE
           Date >= '2021-04-01'
-          AND Package_name IN ('org.mozilla.firefox_beta')
+          AND Package_name IN ('org.mozilla.{% parameter.app_id %}')
           GROUP BY 1, 2
       ),
       play_store_installs as (
@@ -25,7 +25,7 @@ view: mobile_android_country {
           `moz-fx-data-marketing-prod.google_play_store.Installs_country_v1`
           WHERE
           Date >= '2021-04-01'
-          AND Package_name IN ('org.mozilla.firefox_beta')
+          AND Package_name IN ('org.mozilla.{% parameter.app_id %}')
           GROUP BY 1, 2
       ),
       -- The set of play store countries is much smaller than the entire set of countries that we may
@@ -39,7 +39,7 @@ view: mobile_android_country {
               coalesce(play_store_countries.country, "OTHER") as country,
               count(distinct client_id) as first_seen,
               count(distinct case when coalesce(BIT_COUNT(days_seen_bits), 0) >= 5 then client_id end) as activated
-          from `moz-fx-data-shared-prod.org_mozilla_firefox_beta_derived.baseline_clients_last_seen_v1`
+          from `moz-fx-data-shared-prod.org_mozilla_{% parameter.app_id %}_derived.baseline_clients_last_seen_v1`
           -- limit countries to those in the play store
           left join play_store_countries
           using (country)
@@ -56,6 +56,7 @@ view: mobile_android_country {
           sum(first_time_installs) as first_time_installs,
           sum(device_installs) as device_installs,
           sum(user_installs) as user_installs,
+          sum(event_installs) as event_installs,
           sum(first_seen) as first_seen,
           sum(activated) as activated
       from play_store_retained
@@ -68,6 +69,20 @@ view: mobile_android_country {
       order by 1, 2
        ;;
   }
+
+  parameter: app_id {
+    type:  unquoted
+    allowed_value: {
+      value: "firefox"
+    }
+    allowed_value: {
+      value: "firefox_beta"
+    }
+    allowed_value: {
+      value:  "fenix"
+    }
+  }
+
 
   dimension_group: submission {
     type: time
