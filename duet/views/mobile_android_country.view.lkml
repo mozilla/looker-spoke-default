@@ -6,6 +6,17 @@ view: mobile_android_country {
       from `moz-fx-data-marketing-prod.google_play_store.Retained_installers_country_v1`
       where Date >= date_sub(current_date(), interval 28 day)
     ),
+    period as (
+      select
+        latest_date,
+        date_sub(latest_date,
+          interval {% parameter.history_days %} * ({% parameter.period_offset %} + 1) - 1  day
+        ) as start_date,
+        date_sub(latest_date,
+          interval {% parameter.history_days %} * {% parameter.period_offset %} day
+        ) as end_date
+      from last_updated
+    ),
     play_store_retained as (
           SELECT
           Date AS submission_date,
@@ -15,10 +26,9 @@ view: mobile_android_country {
           FROM
             `moz-fx-data-marketing-prod.google_play_store.Retained_installers_country_v1`
           CROSS JOIN
-            last_updated
+            period
           WHERE
-            Date between date_sub(latest_date, interval {% parameter.history_days %} - 1 day)
-              and latest_date
+            Date between start_date and end_date
             AND Package_name IN ('org.mozilla.{% parameter.app_id %}')
           GROUP BY 1, 2
       ),
@@ -32,10 +42,9 @@ view: mobile_android_country {
           FROM
             `moz-fx-data-marketing-prod.google_play_store.Installs_country_v1`
           CROSS JOIN
-            last_updated
+            period
           WHERE
-            Date between date_sub(latest_date, interval {% parameter.history_days %} - 1 day)
-              and latest_date
+            Date between start_date and end_date
           AND Package_name IN ('org.mozilla.{% parameter.app_id %}')
           GROUP BY 1, 2
       ),
@@ -55,16 +64,16 @@ view: mobile_android_country {
           left join play_store_countries
           using (country)
           CROSS JOIN
-            last_updated
+            period
           WHERE
             -- NOTE: we need to filter on the primary partition key since pushdown doesn't happen in this context.
             -- We'll overshoot the amount of time we need to filter by 3 days, in case the latest day is behind by
             -- more than a week. The number of days chosen is abitrary, the margin for fuzzing could be smaller.
-            submission_date >= date_sub(current_date(), interval {% parameter.history_days %} + 7 + 3 day)
-            AND first_seen_date between
-              date_sub(latest_date, interval {% parameter.history_days %} - 1 day)
-              AND latest_date
-            AND date_sub(submission_date, interval 7 day) = first_seen_date
+            submission_date
+              between date_sub(current_date(), interval {% parameter.history_days %}*({% parameter.period_offset %}+1) + 7 + 3 day)
+              and date_sub(current_date(), interval {% parameter.history_days %}*{% parameter.period_offset %} day)
+            and first_seen_date between start_date and end_date
+            and date_sub(submission_date, interval 7 day) = first_seen_date
           group by 1, 2
       )
       select
@@ -83,10 +92,8 @@ view: mobile_android_country {
       using (submission_date, country)
       right join last_seen
       using (submission_date, country)
-      cross join last_updated
-      where submission_date between
-        date_sub(latest_date, interval {% parameter.history_days %} - 1 day)
-        and latest_date
+      cross join period
+      where submission_date between start_date and end_date
       group by 1, 2
       order by 1, 2
        ;;
@@ -95,6 +102,7 @@ view: mobile_android_country {
   # Allow swapping between various applications in the dataset
   parameter: app_id {
     type:  unquoted
+    default_value: "fenix"
     allowed_value: {
       value: "firefox"
     }
@@ -109,6 +117,7 @@ view: mobile_android_country {
   # Choose how far back in history to look
   parameter: history_days {
     type:  number
+    default_value: "7"
     allowed_value: {
       value: "1"
     }
@@ -120,6 +129,17 @@ view: mobile_android_country {
     }
     allowed_value: {
       value: "84"
+    }
+  }
+
+  parameter: period_offset {
+    type: number
+    default_value: "0"
+    allowed_value: {
+      value: "0"
+    }
+    allowed_value: {
+      value: "1"
     }
   }
 
