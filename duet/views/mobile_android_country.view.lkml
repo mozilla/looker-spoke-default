@@ -1,17 +1,25 @@
 view: mobile_android_country {
   derived_table: {
-    sql: with play_store_retained as (
+    sql: with last_updated as (
+      -- this table has rows that lag ~7 days
+      select distinct max(_LATEST_DATE) as latest_date
+      from `moz-fx-data-marketing-prod.google_play_store.Retained_installers_country_v1`
+      where Date >= date_sub(current_date(), interval 28 day)
+    ),
+    play_store_retained as (
           SELECT
           Date AS submission_date,
           COALESCE(IF(country = "Other", null, country), "OTHER") as country,
-          MAX(_LATEST_DATE) as latest_date,
           SUM(Store_Listing_visitors) AS first_time_visitor_count,
           SUM(Installers) AS first_time_installs
           FROM
-          `moz-fx-data-marketing-prod.google_play_store.Retained_installers_country_v1`
+            `moz-fx-data-marketing-prod.google_play_store.Retained_installers_country_v1`
+          CROSS JOIN
+            last_updated
           WHERE
-          Date >= '2021-04-01'
-          AND Package_name IN ('org.mozilla.{% parameter.app_id %}')
+            Date between date_sub(latest_date, interval {% parameter.history_days %} - 1 day)
+              and latest_date
+            AND Package_name IN ('org.mozilla.{% parameter.app_id %}')
           GROUP BY 1, 2
       ),
       play_store_installs as (
@@ -22,9 +30,12 @@ view: mobile_android_country {
           sum(Daily_User_Installs) as user_installs,
           sum(Install_events) as event_installs,
           FROM
-          `moz-fx-data-marketing-prod.google_play_store.Installs_country_v1`
+            `moz-fx-data-marketing-prod.google_play_store.Installs_country_v1`
+          CROSS JOIN
+            last_updated
           WHERE
-          Date >= '2021-04-01'
+            Date between date_sub(latest_date, interval {% parameter.history_days %} - 1 day)
+              and latest_date
           AND Package_name IN ('org.mozilla.{% parameter.app_id %}')
           GROUP BY 1, 2
       ),
@@ -43,9 +54,17 @@ view: mobile_android_country {
           -- limit countries to those in the play store
           left join play_store_countries
           using (country)
-          where date_sub(submission_date, interval 7 day) = first_seen_date
-          -- NOTE: we need to filter on the primary partition key since pushdown doesn't happen in this context...
-          and submission_date > "2021-04-01"
+          CROSS JOIN
+            last_updated
+          WHERE
+            -- NOTE: we need to filter on the primary partition key since pushdown doesn't happen in this context.
+            -- We'll overshoot the amount of time we need to filter by 3 days, in case the latest day is behind by
+            -- more than a week. The number of days chosen is abitrary, the margin for fuzzing could be smaller.
+            submission_date >= date_sub(current_date(), interval {% parameter.history_days %} + 7 + 3 day)
+            AND first_seen_date between
+              date_sub(latest_date, interval {% parameter.history_days %} - 1 day)
+              AND latest_date
+            AND date_sub(submission_date, interval 7 day) = first_seen_date
           group by 1, 2
       )
       select
@@ -64,12 +83,16 @@ view: mobile_android_country {
       using (submission_date, country)
       right join last_seen
       using (submission_date, country)
-      where submission_date > "2021-04-01"
+      cross join last_updated
+      where submission_date between
+        date_sub(latest_date, interval {% parameter.history_days %} - 1 day)
+        and latest_date
       group by 1, 2
       order by 1, 2
        ;;
   }
 
+  # Allow swapping between various applications in the dataset
   parameter: app_id {
     type:  unquoted
     allowed_value: {
@@ -80,6 +103,23 @@ view: mobile_android_country {
     }
     allowed_value: {
       value:  "fenix"
+    }
+  }
+
+  # Choose how far back in history to look
+  parameter: history_days {
+    type:  number
+    allowed_value: {
+      value: "1"
+    }
+    allowed_value: {
+      value: "7"
+    }
+    allowed_value: {
+      value: "28"
+    }
+    allowed_value: {
+      value: "84"
     }
   }
 
