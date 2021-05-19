@@ -47,7 +47,8 @@
             id: prediction.dau_forecast_upper_7day_ma, name: DAU Forecast Upper Bound},
           {axisId: firefox_desktop_usage_2021.year_over_year_dau_7day_ma, id: firefox_desktop_usage_2021.year_over_year_dau_7day_ma,
             name: 2020 Dau MA}], showLabels: true, showValues: true, minValue: !!null '',
-        unpinAxis: true, tickDensity: default, tickDensityCustom: 5, type: linear}]
+        valueFormat: '0.0,, "M"', unpinAxis: true, tickDensity: default, tickDensityCustom: 5,
+        type: linear}]
     series_types:
       prediction.dau_forecast_lower: scatter
       prediction.dau_forecast_upper: scatter
@@ -62,6 +63,7 @@
       prediction.dau_forecast_7day_ma: DAU Forecast (7 Day MA)
       prediction.dau_forecast_lower_7day_ma: DAU Forecast Lower Bound
       prediction.dau_forecast_upper_7day_ma: DAU Forecast Upper Bound
+      firefox_desktop_usage_2021.year_over_year_dau_7day_ma: 2020 DAU MA
     series_point_styles:
       prediction.dau_forecast_lower: triangle
       prediction.dau_forecast_upper: triangle-down
@@ -83,7 +85,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 25
+    row: 18
     col: 0
     width: 24
     height: 9
@@ -121,8 +123,17 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
+    y_axes: [{label: '', orientation: left, series: [{axisId: firefox_desktop_usage_2021.cdou,
+            id: firefox_desktop_usage_2021.cdou, name: Cumulative Days of Use}, {
+            axisId: prediction.cdou_forecast, id: prediction.cdou_forecast, name: Forecast},
+          {axisId: prediction.cdou_target, id: prediction.cdou_target, name: Target
+              Pace}], showLabels: true, showValues: true, valueFormat: '0.0,,, "B"',
+        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     hidden_series: []
-    series_labels: {}
+    series_labels:
+      firefox_desktop_usage_2021.cdou: Cumulative Days of Use
+      prediction.cdou_forecast: Forecast
+      prediction.cdou_target: Stretch Goal Pace
     defaults_version: 1
     hidden_fields: []
     note_state: collapsed
@@ -136,7 +147,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 16
+    row: 9
     col: 12
     width: 12
     height: 9
@@ -145,12 +156,12 @@
     title_text: ''
     subtitle_text: ''
     body_text: '<h1 style="margin-top:20px; padding: 5px; border-bottom: solid 1px
-      #412399; height: 60px; color: #412399; text-align: center;" id="dou">Desktop
+      #412399; height: 50px; color: #412399; text-align: center;" id="dou">Desktop
       Days of Use and DAU</h1>'
-    row: 2
+    row: 0
     col: 0
     width: 24
-    height: 4
+    height: 3
   - name: " (2)"
     type: text
     title_text: ''
@@ -158,7 +169,7 @@
     body_text: "<h1 style=\"margin-top:20px; padding: 5px; border-bottom: solid 1px\
       \ #412399; height: 60px; color: #412399; text-align: center;\" id=\"new_profiles\"\
       >Desktop New Profiles</h1>\n\n"
-    row: 34
+    row: 27
     col: 0
     width: 24
     height: 3
@@ -196,22 +207,20 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
-    y_axes: [{label: Difference From Forecast, orientation: left, series: [{axisId: firefox_desktop_usage_2021.delta_from_forecast_count,
-            id: firefox_desktop_usage_2021.delta_from_forecast_count, name: Delta
-              From Forecast Count}], showLabels: true, showValues: true, unpinAxis: false,
-        tickDensity: default, tickDensityCustom: 5, type: linear}, {label: !!null '',
-        orientation: right, series: [{axisId: firefox_desktop_usage_2021.delta_from_target_count,
-            id: firefox_desktop_usage_2021.delta_from_target_count, name: Delta From
-              Target Count}], showLabels: true, showValues: true, unpinAxis: false,
-        tickDensity: default, tickDensityCustom: 5, type: linear}]
+    y_axes: [{label: Difference From Forecast / Stretch Goal, orientation: left, series: [
+          {axisId: firefox_desktop_usage_2021.delta_from_forecast_count, id: firefox_desktop_usage_2021.delta_from_forecast_count,
+            name: Cumulative Difference vs Forecast}, {axisId: firefox_desktop_usage_2021.delta_from_target_count,
+            id: firefox_desktop_usage_2021.delta_from_target_count, name: Cumulative
+              Difference vs Stretch Goal}], showLabels: true, showValues: true, valueFormat: '0.0,,
+          "M"', unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     series_labels:
-      firefox_desktop_usage_2021.delta_from_forecast_count: 'CDOU: Absolute Delta
-        from Forecast'
-      firefox_desktop_usage_2021.delta_from_target_count: 'CDOU: Absolute Delta from
-        Target'
+      firefox_desktop_usage_2021.delta_from_forecast_count: Cumulative Difference
+        vs Forecast
+      firefox_desktop_usage_2021.delta_from_target_count: Cumulative Difference vs
+        Stretch Goal
     reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
         margin_value: mean, margin_bottom: deviation, label_position: center, color: "#000000",
-        line_value: '0', label: At Forecast}]
+        line_value: '0', label: At Forecast / Stretch Goal}]
     defaults_version: 1
     note_state: collapsed
     note_display: hover
@@ -226,7 +235,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 16
+    row: 9
     col: 0
     width: 12
     height: 9
@@ -264,10 +273,16 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
+    y_axes: [{label: '', orientation: left, series: [{axisId: firefox_desktop_usage_2021.new_profiles_cumulative,
+            id: firefox_desktop_usage_2021.new_profiles_cumulative, name: Actual Number
+              of New Profiles}, {axisId: prediction.cum_new_profiles_forecast, id: prediction.cum_new_profiles_forecast,
+            name: Forecast}, {axisId: prediction.cum_new_profiles_target, id: prediction.cum_new_profiles_target,
+            name: Target Pace}], showLabels: true, showValues: true, valueFormat: '0.0,,
+          "M"', unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     series_labels:
       prediction.cum_new_profiles_forecast: Forecast
-      prediction.cum_new_profiles_target: Target
-      firefox_desktop_usage_2021.new_profiles_cumulative: Cumulative New Profiles
+      prediction.cum_new_profiles_target: Stretch Goal Pace
+      firefox_desktop_usage_2021.new_profiles_cumulative: Actual Number of New Profiles
     defaults_version: 1
     note_state: collapsed
     note_display: hover
@@ -280,7 +295,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 48
+    row: 34
     col: 12
     width: 12
     height: 9
@@ -367,7 +382,7 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 57
+    row: 43
     col: 0
     width: 24
     height: 10
@@ -405,17 +420,22 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
-    y_axes: [{label: Difference From Forecast, orientation: left, series: [{axisId: firefox_desktop_usage_2021.delta_from_forecast_new_profiles_count,
+    y_axes: [{label: Difference From Forecast / Stretch Goal, orientation: left, series: [
+          {axisId: firefox_desktop_usage_2021.delta_from_forecast_new_profiles_count,
             id: firefox_desktop_usage_2021.delta_from_forecast_new_profiles_count,
-            name: Delta From Forecast New Profiles Count}], showLabels: true, showValues: true,
-        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear},
-      {label: Difference From Target, orientation: right, series: [{axisId: firefox_desktop_usage_2021.delta_from_target_new_profiles_count,
-            id: firefox_desktop_usage_2021.delta_from_target_new_profiles_count, name: Delta
-              From Target New Profiles Count}], showLabels: true, showValues: true,
-        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
+            name: 'New Profiles: Cumulative Difference vs Forecast'}, {axisId: firefox_desktop_usage_2021.delta_from_target_new_profiles_count,
+            id: firefox_desktop_usage_2021.delta_from_target_new_profiles_count, name: 'New
+              Profiles: Cumulative Difference vs Stretch Goal'}], showLabels: true,
+        showValues: true, valueFormat: '0.0,, "M"', unpinAxis: false, tickDensity: default,
+        tickDensityCustom: 5, type: linear}]
+    series_labels:
+      firefox_desktop_usage_2021.delta_from_forecast_new_profiles_count: 'New Profiles:
+        Cumulative Difference vs Forecast'
+      firefox_desktop_usage_2021.delta_from_target_new_profiles_count: 'New Profiles:
+        Cumulative Difference vs Stretch Goal'
     reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
         margin_value: mean, margin_bottom: deviation, label_position: center, color: "#000000",
-        line_value: '0', label: At Forecast}]
+        line_value: '0', label: At Forecast / Stretch Goal}]
     defaults_version: 1
     note_state: collapsed
     note_display: hover
@@ -430,142 +450,10 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 48
+    row: 34
     col: 0
     width: 12
     height: 9
-  - title: Top Line Numbers for CDOU
-    name: Top Line Numbers for CDOU
-    model: kpi
-    explore: firefox_desktop_usage_2021
-    type: looker_grid
-    fields: [firefox_desktop_usage_2021.delta_from_forecast_format2]
-    limit: 500
-    show_view_names: false
-    show_row_numbers: false
-    transpose: false
-    truncate_text: false
-    hide_totals: false
-    hide_row_totals: false
-    size_to_fit: true
-    table_theme: unstyled
-    limit_displayed_rows: false
-    enable_conditional_formatting: false
-    header_text_alignment: ''
-    header_font_size: '12'
-    rows_font_size: '99'
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    show_sql_query_menu_options: false
-    show_totals: false
-    show_row_totals: false
-    series_labels:
-      firefox_desktop_usage_2021.delta_from_forecast_format2: "."
-    series_column_widths:
-      firefox_desktop_usage_2021.delta_from_forecast_format2: 1541
-    series_cell_visualizations:
-      firefox_desktop_usage_2021.delta_from_forecast_format:
-        is_active: true
-      firefox_desktop_usage_2021.delta_from_forecast_format2:
-        is_active: false
-    series_text_format:
-      firefox_desktop_usage_2021.delta_from_forecast_format2:
-        align: left
-    limit_displayed_rows_values:
-      show_hide: show
-      first_last: first
-      num_rows: '1'
-    conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#1A73E8",
-        font_color: !!null '', color_application: {collection_id: 7c56cc21-66e4-41c9-81ce-a60e1c3967b2,
-          palette_id: 56d0c358-10a0-4fd6-aa0b-b117bef527ab}, bold: false, italic: false,
-        strikethrough: false, fields: !!null ''}]
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    defaults_version: 1
-    series_types: {}
-    title_hidden: true
-    listen:
-      Channel: firefox_desktop_usage_2021.channel
-      Activity Segment: firefox_desktop_usage_2021.activity_segment
-      OS: firefox_desktop_usage_2021.os
-      Attributed (Yes / No): firefox_desktop_usage_2021.attributed
-      Country Name: firefox_desktop_usage_2021.country_name
-      Date: firefox_desktop_usage_2021.date
-    row: 6
-    col: 0
-    width: 24
-    height: 10
-  - title: Top Line Numbers for New Profiles
-    name: Top Line Numbers for New Profiles
-    model: kpi
-    explore: firefox_desktop_usage_2021
-    type: looker_grid
-    fields: [firefox_desktop_usage_2021.delta_from_forecast_format]
-    limit: 500
-    show_view_names: false
-    show_row_numbers: false
-    transpose: false
-    truncate_text: false
-    hide_totals: false
-    hide_row_totals: false
-    size_to_fit: true
-    table_theme: unstyled
-    limit_displayed_rows: false
-    enable_conditional_formatting: false
-    header_text_alignment: ''
-    header_font_size: '12'
-    rows_font_size: '99'
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    show_sql_query_menu_options: false
-    show_totals: false
-    show_row_totals: false
-    series_labels:
-      firefox_desktop_usage_2021.delta_from_forecast_format2: Top Line CDOU
-      firefox_desktop_usage_2021.delta_from_forecast_format: "."
-    series_column_widths:
-      firefox_desktop_usage_2021.delta_from_forecast_format2: 2445
-      firefox_desktop_usage_2021.delta_from_forecast_format: 1537
-    series_cell_visualizations:
-      firefox_desktop_usage_2021.delta_from_forecast_format:
-        is_active: false
-      firefox_desktop_usage_2021.delta_from_forecast_format2:
-        is_active: false
-    series_text_format:
-      firefox_desktop_usage_2021.delta_from_forecast_format2:
-        align: left
-    limit_displayed_rows_values:
-      show_hide: show
-      first_last: first
-      num_rows: '1'
-    conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#1A73E8",
-        font_color: !!null '', color_application: {collection_id: 7c56cc21-66e4-41c9-81ce-a60e1c3967b2,
-          palette_id: 56d0c358-10a0-4fd6-aa0b-b117bef527ab}, bold: false, italic: false,
-        strikethrough: false, fields: !!null ''}]
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    defaults_version: 1
-    series_types: {}
-    title_hidden: true
-    listen:
-      Channel: firefox_desktop_usage_2021.channel
-      Activity Segment: firefox_desktop_usage_2021.activity_segment
-      OS: firefox_desktop_usage_2021.os
-      Attributed (Yes / No): firefox_desktop_usage_2021.attributed
-      Country Name: firefox_desktop_usage_2021.country_name
-      Date: firefox_desktop_usage_2021.date
-    row: 37
-    col: 0
-    width: 24
-    height: 11
   - name: " (3)"
     type: text
     title_text: ''
@@ -587,7 +475,7 @@
       <p>This is the count of new desktop client_ids (profiles) that are created over the course of the year. A new Firefox profile counts to  this metric on the day we receive its first main ping.</p>
       <p>The 2021 target for cumulative new profiles is +5% over forecast. </p>
       </div>
-    row: 67
+    row: 53
     col: 0
     width: 24
     height: 9
@@ -609,7 +497,7 @@
     conditional_formatting_include_nulls: false
     series_types: {}
     defaults_version: 1
-    refresh: 10 seconds
+    refresh: 10 Seconds
     listen:
       Channel: firefox_desktop_usage_2021.channel
       Activity Segment: firefox_desktop_usage_2021.activity_segment
@@ -617,10 +505,202 @@
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
       Date: firefox_desktop_usage_2021.date
-    row: 0
+    row: 7
     col: 0
     width: 24
     height: 2
+  - title: Desktop Cumulative Days of Use (CDOU)
+    name: Desktop Cumulative Days of Use (CDOU)
+    model: kpi
+    explore: firefox_desktop_usage_2021
+    type: single_value
+    fields: [firefox_desktop_usage_2021.recent_cdou, firefox_desktop_usage_2021.recent_cdou_2020]
+    sorts: [firefox_desktop_usage_2021.recent_cdou_2020 desc]
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: ''
+    value_format: ''
+    comparison_label: At this time in 2020
+    series_types: {}
+    defaults_version: 1
+    listen:
+      Date: firefox_desktop_usage_2021.date
+    row: 3
+    col: 0
+    width: 8
+    height: 4
+  - title: Untitled
+    name: Untitled
+    model: kpi
+    explore: firefox_desktop_usage_2021
+    type: single_value
+    fields: [firefox_desktop_usage_2021.delta_from_forecast, prediction.recent_cdou_forecast]
+    filters: {}
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: true
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: Difference From CDOU Forecast
+    comparison_label: Forecasted CDOU as of today
+    conditional_formatting: []
+    defaults_version: 1
+    series_types: {}
+    show_view_names: false
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    limit_displayed_rows: false
+    header_text_alignment: left
+    header_font_size: 12
+    rows_font_size: 12
+    listen:
+      Date: firefox_desktop_usage_2021.date
+    row: 3
+    col: 8
+    width: 8
+    height: 4
+  - title: Untitled (Copy)
+    name: Untitled (Copy)
+    model: kpi
+    explore: firefox_desktop_usage_2021
+    type: single_value
+    fields: [firefox_desktop_usage_2021.delta_from_target, prediction.recent_cdou_target,
+      firefox_desktop_usage_2021.date]
+    fill_fields: [firefox_desktop_usage_2021.date]
+    filters: {}
+    sorts: [firefox_desktop_usage_2021.date desc]
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: true
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: Difference From CDOU Stretch Goal
+    comparison_label: CDOU needed to hit stretch goal
+    conditional_formatting: []
+    defaults_version: 1
+    listen:
+      Date: firefox_desktop_usage_2021.date
+    row: 3
+    col: 16
+    width: 8
+    height: 4
+  - title: Desktop Cumulative New Profiles
+    name: Desktop Cumulative New Profiles
+    model: kpi
+    explore: firefox_desktop_usage_2021
+    type: single_value
+    fields: [firefox_desktop_usage_2021.recent_new_profiles_cumulative, firefox_desktop_usage_2021.recent_new_profiles_2020]
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: ''
+    value_format: ''
+    comparison_label: At this time in 2020
+    series_types: {}
+    defaults_version: 1
+    listen:
+      Date: firefox_desktop_usage_2021.date
+    row: 30
+    col: 0
+    width: 8
+    height: 4
+  - title: Untitled (Copy 2)
+    name: Untitled (Copy 2)
+    model: kpi
+    explore: firefox_desktop_usage_2021
+    type: single_value
+    fields: [firefox_desktop_usage_2021.delta_from_forecast_new_profiles, prediction.recent_cum_new_profiles_forecast]
+    filters: {}
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: true
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: Difference From New Profiles Forecast
+    comparison_label: Forecasted New Profiles as of today
+    conditional_formatting: []
+    defaults_version: 1
+    series_types: {}
+    show_view_names: false
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    limit_displayed_rows: false
+    header_text_alignment: left
+    header_font_size: 12
+    rows_font_size: 12
+    listen:
+      Date: firefox_desktop_usage_2021.date
+    row: 30
+    col: 8
+    width: 8
+    height: 4
+  - title: Untitled (Copy 3)
+    name: Untitled (Copy 3)
+    model: kpi
+    explore: firefox_desktop_usage_2021
+    type: single_value
+    fields: [firefox_desktop_usage_2021.delta_from_target_new_profiles, prediction.recent_cum_new_profiles_target]
+    filters: {}
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: true
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: Difference From New Profiles Stretch Goal
+    comparison_label: New Profiles needed to hit stretch goal
+    conditional_formatting: []
+    defaults_version: 1
+    listen:
+      Date: firefox_desktop_usage_2021.date
+    row: 30
+    col: 16
+    width: 8
+    height: 4
   filters:
   - name: Date
     title: Date

@@ -163,14 +163,14 @@ view: mobile_prediction {
 
   measure: cdou_forecast {
     type: number
-    value_format: "#,##0"
+    value_format: "0.000,,, \"Billion\""
     sql: ANY_VALUE(${TABLE}.cdou_forecast) ;;
     description: "Forecasted value for Cumulative Days of Use. Only relevant for 2021."
   }
 
   measure: cdou_target {
     type: number
-    value_format: "#,##0"
+    value_format: "0.000,,, \"Billion\""
     sql: ANY_VALUE(${TABLE}.cdou_target) ;;
     description: "Targeted value for Cumulative Days of Use. Only relevant for 2021."
   }
@@ -233,21 +233,21 @@ view: mobile_prediction {
 
   measure: recent_cdou_forecast {
     type: max
-    value_format: "#,##0"
+    value_format: "0.000,,, \"Billion\""
     sql: ${TABLE}.cdou_forecast ;;
     filters: [
       date: "after 2021-01-01"
     ]
-    hidden: yes
+    hidden: no
   }
 
   measure: recent_cdou_target {
     type: max
-    value_format: "#,##0"
+    value_format: "0.000,,, \"Billion\""
     sql: ${TABLE}.cdou_target ;;
     filters: [
       date: "after 2021-01-01"
     ]
-    hidden: yes
+    hidden: no
   }
 }
