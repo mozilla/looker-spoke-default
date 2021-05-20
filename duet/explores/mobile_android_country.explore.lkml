@@ -19,7 +19,7 @@ explore: mobile_android_country {
         mobile_android_country.app_id: "firefox",
         # "mobile_android_country.history_days" is filtered on by the dashboard. The filter
         # value below may not optimize with other filter values.
-        mobile_android_country.history_days: "7"
+        mobile_android_country.history_days: "1"
       ]
     }
 
@@ -47,7 +47,7 @@ explore: mobile_android_country {
         mobile_android_country.app_id: "firefox",
         # "mobile_android_country.history_days" is filtered on by the dashboard. The filter
         # value below may not optimize with other filter values.
-        mobile_android_country.history_days: "7"
+        mobile_android_country.history_days: "1"
       ]
     }
 

@@ -1,13 +1,21 @@
 view: mobile_android_country {
   derived_table: {
     sql: with last_updated as (
-      -- this table has rows that lag ~7 days
-      select distinct max(_LATEST_DATE) as latest_date
+      -- this table has rows that lag ~7 days plus/minus several days
+      select distinct
+        _LATEST_DATE as play_store_updated,
+        -- We need a full week to see activated client; ignore the current day of partial data
+        if(
+          _LATEST_DATE < date_sub(current_date(), interval 7+1 day),
+          _LATEST_DATE,
+          date_sub(current_date(), interval 7+1 day)
+        ) as latest_date
       from `moz-fx-data-marketing-prod.google_play_store.Retained_installers_country_v1`
       where Date >= date_sub(current_date(), interval 28 day)
     ),
     period as (
       select
+        play_store_updated,
         latest_date,
         date_sub(latest_date,
           interval {% parameter.history_days %} * ({% parameter.period_offset %} + 1) - 1  day
@@ -79,6 +87,7 @@ view: mobile_android_country {
       select
           submission_date,
           country,
+          max(play_store_updated) as play_store_updated,
           max(latest_date) as latest_date,
           sum(first_time_visitor_count) as first_time_visitor_count,
           sum(first_time_installs) as first_time_installs,
@@ -163,6 +172,12 @@ view: mobile_android_country {
       year
     ]
     sql: ${TABLE}.submission_date ;;
+  }
+
+  dimension: play_store_updated {
+    type: date
+    datatype: date
+    sql: ${TABLE}.play_store_updated ;;
   }
 
   dimension: latest_date {
