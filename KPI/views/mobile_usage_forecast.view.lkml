@@ -254,7 +254,7 @@ view: mobile_prediction {
     filters: [
       date: "after 2021-01-01"
     ]
-    hidden: no
+    hidden: yes
   }
 
   measure: recent_cdou_target {
@@ -264,6 +264,6 @@ view: mobile_prediction {
     filters: [
       date: "after 2021-01-01"
     ]
-    hidden: no
+    hidden: yes
   }
 }

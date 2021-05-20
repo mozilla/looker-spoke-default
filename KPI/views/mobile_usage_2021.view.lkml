@@ -172,7 +172,7 @@ view: mobile_usage_2021 {
     type: max
     value_format: "0.00,,, \"Billion\""
     sql: ${TABLE}.cdou ;;
-    hidden: no
+    hidden: yes
   }
 
   measure: recent_date {
