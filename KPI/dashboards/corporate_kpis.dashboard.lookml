@@ -146,7 +146,7 @@
     title_text: ''
     subtitle_text: ''
     body_text: |-
-      <h1 style="margin-top:20px; padding: 5px; border-bottom: solid 1px #412399; height: 50px; color: #412399; text-align: center;" id="dou">Desktop Days of Use and DAU</h1>
+      <h1 style="margin-top:0px; padding: 5px; border-bottom: solid 1px #412399; height: 50px; color: #412399; text-align: left;" id="dou">Desktop Days of Use and DAU</h1>
       <div><a style="font-weight: bold;" href="https://mozilla.cloud.looker.com/dashboards-next/88?Date=after%202021%2F01%2F01&Channel=&Activity%20Segment=&OS=&Attributed%20(Yes%20%2F%20No)=&Country%20Name=">☰
 
             Go Here for a More Detail on Desktop KPIs</a></div>
@@ -316,7 +316,7 @@
     title_text: ''
     subtitle_text: ''
     body_text: |-
-      <h1 style="margin-top:20px; padding: 5px; border-bottom: solid 1px #412399; height: 50px; color: #412399; text-align: center;" id="dou">Mobile Days of Use and DAU</h1>
+      <h1 style="margin-top:0px; padding: 5px; border-bottom: solid 1px #412399; height: 50px; color: #412399; text-align: left;" id="dou">Mobile Days of Use and DAU</h1>
       <div><a style="font-weight: bold;" href="https://mozilla.cloud.looker.com/dashboards-next/89?Date=after%202021%2F01%2F01&Country=">☰
 
             Go Here for a Breakdown of Mobile Products</a></div>
@@ -565,12 +565,12 @@
     title_text: ''
     subtitle_text: ''
     body_text: '<h1 style="margin-top:20px; padding: 5px; border-bottom: solid 1px
-      #412399; height: 50px; color: #412399; text-align: center;" id="dou">Quarterly
+      #412399; height: 50px; color: #412399; text-align: left;" id="dou">Quarterly
       Numbers</h1>'
     row: 51
     col: 0
     width: 24
-    height: 5
+    height: 3
   - title: Desktop CDOU
     name: Desktop CDOU
     model: kpi
@@ -595,12 +595,12 @@
     hide_totals: false
     hide_row_totals: false
     size_to_fit: true
-    table_theme: white
+    table_theme: unstyled
     limit_displayed_rows: false
     enable_conditional_formatting: false
-    header_text_alignment: left
-    header_font_size: '30'
-    rows_font_size: '24'
+    header_text_alignment: center
+    header_font_size: '20'
+    rows_font_size: '20'
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     show_sql_query_menu_options: false
@@ -616,6 +616,13 @@
     series_cell_visualizations:
       firefox_desktop_usage_2021.recent_cdou:
         is_active: false
+    series_text_format:
+      firefox_desktop_usage_2021.dau:
+        align: center
+      prediction.dau_forecast:
+        align: center
+      prediction.dau_target:
+        align: center
     series_value_format:
       firefox_desktop_usage_2021.dau: 0.000,,, "Billion"
       prediction.dau_forecast: 0.000,,, "Billion"
@@ -647,10 +654,11 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
-    row: 56
+    listen: {}
+    row: 54
     col: 0
-    width: 24
-    height: 5
+    width: 12
+    height: 4
   - title: Mobile CDOU
     name: Mobile CDOU
     model: kpi
@@ -674,12 +682,12 @@
     hide_totals: false
     hide_row_totals: false
     size_to_fit: true
-    table_theme: white
-    limit_displayed_rows: false
+    table_theme: unstyled
+    limit_displayed_rows: true
     enable_conditional_formatting: false
-    header_text_alignment: left
-    header_font_size: '30'
-    rows_font_size: '24'
+    header_text_alignment: center
+    header_font_size: '20'
+    rows_font_size: '20'
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     show_sql_query_menu_options: false
@@ -689,9 +697,22 @@
       mobile_usage_2021.dau: DAU
       mobile_prediction.dau_forecast: Target
       mobile_prediction.dau_target: Stretch
+    series_column_widths:
+      measure: 170
     series_cell_visualizations:
       mobile_usage_2021.dau:
         is_active: false
+    series_text_format:
+      mobile_usage_2021.dau:
+        align: center
+      mobile_prediction.dau_forecast:
+        align: center
+      mobile_prediction.dau_target:
+        align: center
+    limit_displayed_rows_values:
+      show_hide: show
+      first_last: first
+      num_rows: '5'
     series_value_format:
       mobile_usage_2021.dau: 0.000,,, "Billion"
       mobile_prediction.dau_forecast: 0.000,,, "Billion"
@@ -723,10 +744,11 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
-    row: 61
-    col: 0
-    width: 24
-    height: 5
+    listen: {}
+    row: 54
+    col: 12
+    width: 12
+    height: 4
   filters:
   - name: Date
     title: Date
