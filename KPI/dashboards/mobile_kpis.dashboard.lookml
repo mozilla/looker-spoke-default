@@ -1,4 +1,4 @@
-- dashboard: mobile_kpis
+- dashboard: mobile_kpi_dashboard
   title: Mobile KPI Dashboard
   layout: newspaper
   preferred_viewer: dashboards-next
@@ -60,7 +60,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 16
+    row: 41
     col: 12
     width: 12
     height: 10
@@ -120,7 +120,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 67
+    row: 92
     col: 12
     width: 12
     height: 9
@@ -180,7 +180,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 42
+    row: 67
     col: 12
     width: 12
     height: 9
@@ -240,7 +240,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 92
+    row: 117
     col: 12
     width: 12
     height: 8
@@ -289,7 +289,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 7
+    row: 32
     col: 12
     width: 12
     height: 9
@@ -338,7 +338,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 33
+    row: 58
     col: 12
     width: 12
     height: 9
@@ -387,7 +387,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 83
+    row: 108
     col: 12
     width: 12
     height: 9
@@ -436,7 +436,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 58
+    row: 83
     col: 12
     width: 12
     height: 9
@@ -495,7 +495,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 7
+    row: 32
     col: 0
     width: 12
     height: 9
@@ -551,7 +551,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 83
+    row: 108
     col: 0
     width: 12
     height: 9
@@ -607,7 +607,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 58
+    row: 83
     col: 0
     width: 12
     height: 9
@@ -666,7 +666,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 33
+    row: 58
     col: 0
     width: 12
     height: 9
@@ -717,7 +717,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 18
+    row: 43
     col: 0
     width: 12
     height: 8
@@ -768,7 +768,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 44
+    row: 69
     col: 0
     width: 12
     height: 7
@@ -819,7 +819,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 94
+    row: 119
     col: 0
     width: 12
     height: 6
@@ -870,7 +870,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 69
+    row: 94
     col: 0
     width: 12
     height: 7
@@ -938,7 +938,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 16
+    row: 41
     col: 0
     width: 12
     height: 2
@@ -1006,7 +1006,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 42
+    row: 67
     col: 0
     width: 12
     height: 2
@@ -1074,7 +1074,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 67
+    row: 92
     col: 0
     width: 12
     height: 2
@@ -1142,7 +1142,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 92
+    row: 117
     col: 0
     width: 12
     height: 2
@@ -1197,8 +1197,9 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
-    listen: {}
-    row: 3
+    listen:
+      Country: mobile_usage_2021.country
+    row: 28
     col: 8
     width: 8
     height: 4
@@ -1209,8 +1210,8 @@
     type: single_value
     fields: [mobile_usage_2021.recent_cdou]
     filters:
-      mobile_usage_2021.app_name: '"fennec_fenix"'
       mobile_usage_2021.date: after 2021/01/01
+      mobile_usage_2021.app_name: '"fennec_fenix"'
     limit: 500
     custom_color_enabled: true
     show_single_value_title: false
@@ -1222,7 +1223,9 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
-    row: 3
+    listen:
+      Country: mobile_usage_2021.country
+    row: 28
     col: 0
     width: 8
     height: 4
@@ -1276,7 +1279,9 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
-    row: 3
+    listen:
+      Country: mobile_usage_2021.country
+    row: 28
     col: 16
     width: 8
     height: 4
@@ -1287,7 +1292,7 @@
     body_text: '<h1 style="margin-top:20px; padding: 5px; border-bottom: solid 1px
       #412399; height: 50px; color: #412399; text-align: center;" id="dou">Firefox
       iOS Days of Use and DAU</h1>'
-    row: 26
+    row: 51
     col: 0
     width: 24
     height: 3
@@ -1298,7 +1303,7 @@
     body_text: '<h1 style="margin-top:20px; padding: 5px; border-bottom: solid 1px
       #412399; height: 50px; color: #412399; text-align: center;" id="dou">Firefox
       Focus for iOS Days of Use and DAU</h1>'
-    row: 76
+    row: 101
     col: 0
     width: 24
     height: 3
@@ -1309,7 +1314,7 @@
     body_text: '<h1 style="margin-top:20px; padding: 5px; border-bottom: solid 1px
       #412399; height: 50px; color: #412399; text-align: center;" id="dou">Firefox
       Android (Fennec + Fenix) Days of Use and DAU</h1>'
-    row: 0
+    row: 25
     col: 0
     width: 24
     height: 3
@@ -1320,7 +1325,7 @@
     body_text: '<h1 style="margin-top:20px; padding: 5px; border-bottom: solid 1px
       #412399; height: 50px; color: #412399; text-align: center;" id="dou">Firefox
       Focus for Android Days of Use and DAU</h1>'
-    row: 51
+    row: 76
     col: 0
     width: 24
     height: 3
@@ -1344,7 +1349,9 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
-    row: 29
+    listen:
+      Country: mobile_usage_2021.country
+    row: 54
     col: 0
     width: 8
     height: 4
@@ -1399,7 +1406,9 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
-    row: 29
+    listen:
+      Country: mobile_usage_2021.country
+    row: 54
     col: 8
     width: 8
     height: 4
@@ -1423,7 +1432,9 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
-    row: 54
+    listen:
+      Country: mobile_usage_2021.country
+    row: 79
     col: 0
     width: 8
     height: 4
@@ -1477,7 +1488,9 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
-    row: 54
+    listen:
+      Country: mobile_usage_2021.country
+    row: 79
     col: 16
     width: 8
     height: 4
@@ -1532,7 +1545,9 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
-    row: 79
+    listen:
+      Country: mobile_usage_2021.country
+    row: 104
     col: 8
     width: 8
     height: 4
@@ -1586,7 +1601,9 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
-    row: 29
+    listen:
+      Country: mobile_usage_2021.country
+    row: 54
     col: 16
     width: 8
     height: 4
@@ -1641,7 +1658,9 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
-    row: 54
+    listen:
+      Country: mobile_usage_2021.country
+    row: 79
     col: 8
     width: 8
     height: 4
@@ -1665,7 +1684,9 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
-    row: 79
+    listen:
+      Country: mobile_usage_2021.country
+    row: 104
     col: 0
     width: 8
     height: 4
@@ -1719,10 +1740,443 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
-    row: 79
+    listen:
+      Country: mobile_usage_2021.country
+    row: 104
     col: 16
     width: 8
     height: 4
+  - name: " (5)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: '<h1 style="margin-top:20px; padding: 5px; border-bottom: solid 1px
+      #412399; height: 50px; color: #412399; text-align: center;" id="dou">Overall
+      Mobile Days of Use and DAU</h1>'
+    row: 0
+    col: 0
+    width: 24
+    height: 3
+  - title: Overall Mobile Differene From CDOU Forecast
+    name: Overall Mobile Differene From CDOU Forecast
+    model: kpi
+    explore: mobile_usage_2021
+    type: single_value
+    fields: [mobile_usage_2021.delta_from_forecast_daily, mobile_prediction.dau_forecast_format]
+    filters:
+      mobile_usage_2021.date: after 2021/01/01
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: Difference From CDOU Forecast
+    value_format: ''
+    comparison_label: Forecasted CDOU as of today
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    series_types: {}
+    hidden_fields: []
+    listen:
+      Country: mobile_usage_2021.country
+    row: 3
+    col: 8
+    width: 8
+    height: 4
+  - title: Untitled (Copy 12)
+    name: Untitled (Copy 12)
+    model: kpi
+    explore: mobile_usage_2021
+    type: single_value
+    fields: [mobile_usage_2021.delta_from_target_daily, mobile_prediction.dau_target_format]
+    filters:
+      mobile_usage_2021.date: after 2021/01/01
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: Difference From CDOU Stretch Goal
+    comparison_label: CDOU needed to hit stretch goal
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    series_types: {}
+    listen:
+      Country: mobile_usage_2021.country
+    row: 3
+    col: 16
+    width: 8
+    height: 4
+  - title: Overall Mobile CDOU Burn-Up
+    name: Overall Mobile CDOU Burn-Up
+    model: kpi
+    explore: mobile_usage_2021
+    type: looker_line
+    fields: [mobile_usage_2021.date, mobile_usage_2021.cdou, mobile_prediction.cdou_forecast,
+      mobile_prediction.cdou_target]
+    fill_fields: [mobile_usage_2021.date]
+    filters:
+      mobile_usage_2021.app_name: ''
+    sorts: [mobile_usage_2021.date desc]
+    limit: 500
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    series_types: {}
+    series_labels:
+      mobile_usage_2021.cdou: Cumulative Days of Use (CDOU)
+      mobile_prediction.cdou_forecast: Forecast
+      mobile_prediction.cdou_target: Stretch Goal Pace
+    defaults_version: 1
+    listen:
+      Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
+    row: 7
+    col: 12
+    width: 12
+    height: 9
+  - title: Difference from CDOU Forecast
+    name: Difference from CDOU Forecast (5)
+    model: kpi
+    explore: mobile_usage_2021
+    type: looker_line
+    fields: [mobile_usage_2021.date, mobile_usage_2021.delta_from_target_count, mobile_usage_2021.delta_from_forecast_count]
+    fill_fields: [mobile_usage_2021.date]
+    filters:
+      mobile_usage_2021.app_name: ''
+    sorts: [mobile_usage_2021.date desc]
+    limit: 500
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    y_axes: [{label: '', orientation: left, series: [{axisId: mobile_usage_2021.delta_from_target_count,
+            id: mobile_usage_2021.delta_from_target_count, name: Difference From Target},
+          {axisId: mobile_usage_2021.delta_from_forecast_count, id: mobile_usage_2021.delta_from_forecast_count,
+            name: Difference From Forecast}], showLabels: true, showValues: true,
+        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
+    series_types: {}
+    series_colors:
+      mobile_usage_2021.delta_from_target_count: "#3FE1B0"
+      mobile_usage_2021.delta_from_forecast_count: "#0060E0"
+    series_labels:
+      mobile_usage_2021.delta_from_target_count: Cumulative Difference vs Stretch
+        Goal
+      mobile_usage_2021.delta_from_forecast_count: Cumulative Difference vs Forecast
+    reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
+        margin_value: mean, margin_bottom: deviation, label_position: center, color: "#000000",
+        line_value: '0', label: At Forecast/Stretch Goal}]
+    defaults_version: 1
+    listen:
+      Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
+    row: 7
+    col: 0
+    width: 12
+    height: 9
+  - title: Untitled (Copy 10)
+    name: Untitled (Copy 10)
+    model: kpi
+    explore: mobile_usage_2021
+    type: single_value
+    fields: [mobile_usage_2021.dau]
+    filters:
+      mobile_usage_2021.date: after 2021/01/01
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    value_format: 0.000,,, "Billion"
+    defaults_version: 1
+    hidden_fields: []
+    listen:
+      Country: mobile_usage_2021.country
+    row: 3
+    col: 0
+    width: 8
+    height: 4
+  - title: Overall Mobile Daily Active Users (DAU)
+    name: Overall Mobile Daily Active Users (DAU)
+    model: kpi
+    explore: mobile_usage_2021
+    type: looker_line
+    fields: [mobile_usage_2021.date, mobile_usage_2021.dau_7day_ma, mobile_prediction.dau_forecast_7day_ma,
+      mobile_prediction.dau_forecast_lower_7day_ma, mobile_prediction.dau_forecast_upper_7day_ma]
+    fill_fields: [mobile_usage_2021.date]
+    sorts: [mobile_usage_2021.date desc]
+    limit: 500
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    y_axes: [{label: '', orientation: left, series: [{axisId: mobile_usage_2021.dau_7day_ma,
+            id: mobile_usage_2021.dau_7day_ma, name: DAU (7 Day Moving Average)},
+          {axisId: mobile_prediction.dau_forecast_7day_ma, id: mobile_prediction.dau_forecast_7day_ma,
+            name: DAU Forecast (7 Day MA)}, {axisId: mobile_prediction.dau_forecast_lower_7day_ma,
+            id: mobile_prediction.dau_forecast_lower_7day_ma, name: Forecast Lower
+              Bound}, {axisId: mobile_prediction.dau_forecast_upper_7day_ma, id: mobile_prediction.dau_forecast_upper_7day_ma,
+            name: Forecast Upper Bound}], showLabels: true, showValues: true, minValue: !!null '',
+        unpinAxis: true, tickDensity: default, tickDensityCustom: 5, type: linear}]
+    series_colors:
+      mobile_prediction.dau_forecast_lower_7day_ma: "#80868B"
+      mobile_prediction.dau_forecast_upper_7day_ma: "#80868B"
+    series_labels:
+      mobile_prediction.dau_forecast_upper_7day_ma: Forecast Upper Bound
+      mobile_prediction.dau_forecast_lower_7day_ma: Forecast Lower Bound
+      mobile_prediction.dau_forecast_7day_ma: DAU Forecast (7 Day MA)
+      mobile_usage_2021.dau_7day_ma: DAU (7 Day Moving Average)
+    defaults_version: 1
+    listen:
+      Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
+    row: 16
+    col: 12
+    width: 12
+    height: 9
+  - title: Overall New Profiles Per Day
+    name: Overall New Profiles Per Day
+    model: kpi
+    explore: mobile_usage_2021
+    type: looker_line
+    fields: [mobile_usage_2021.date, mobile_usage_2021.new_profiles_7day_ma, mobile_usage_2021.year_over_year_new_profiles_7day_ma]
+    fill_fields: [mobile_usage_2021.date]
+    sorts: [mobile_usage_2021.date desc]
+    limit: 500
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    y_axes: [{label: '', orientation: left, series: [{axisId: mobile_usage_2021.new_profiles_7day_ma,
+            id: mobile_usage_2021.new_profiles_7day_ma, name: New Profiles 7day Ma}],
+        showLabels: true, showValues: true, unpinAxis: true, tickDensity: default,
+        tickDensityCustom: 5, type: linear}]
+    series_labels:
+      mobile_usage_2021.new_profiles_7day_ma: 2021 New Profiles (7 Day MA)
+      mobile_usage_2021.year_over_year_new_profiles_7day_ma: 2020 New Profiles (7
+        Day MA)
+    defaults_version: 1
+    listen:
+      Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
+    row: 18
+    col: 0
+    width: 12
+    height: 7
+  - title: 2021 Cumulative New Profiles (Copy 4)
+    name: 2021 Cumulative New Profiles (Copy 4)
+    model: kpi
+    explore: mobile_usage_2021
+    type: looker_grid
+    fields: [mobile_usage_2021.date, mobile_usage_2021.new_profiles_cumulative, mobile_usage_2021.year_over_year_new_profiles_cumulative,
+      mobile_usage_2021.year_over_year_new_profiles_delta]
+    fill_fields: [mobile_usage_2021.date]
+    sorts: [mobile_usage_2021.date]
+    limit: 500
+    show_view_names: false
+    show_row_numbers: false
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    limit_displayed_rows: true
+    enable_conditional_formatting: false
+    header_text_alignment: ''
+    header_font_size: '15'
+    rows_font_size: '30'
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    show_sql_query_menu_options: false
+    show_totals: true
+    show_row_totals: true
+    series_labels:
+      mobile_usage_2021.new_profiles_cumulative: 2021  New Profiles
+      mobile_usage_2021.year_over_year_new_profiles_cumulative: 2020 New Profiles
+      mobile_usage_2021.year_over_year_new_profiles_delta: YoY % Change
+    series_column_widths:
+      mobile_usage_2021.date: 197
+      mobile_usage_2021.year_over_year_new_profiles_cumulative: 183
+      mobile_usage_2021.new_profiles_cumulative: 201
+    series_cell_visualizations:
+      mobile_usage_2021.new_profiles_cumulative:
+        is_active: false
+    series_text_format:
+      mobile_usage_2021.new_profiles_cumulative:
+        align: left
+      mobile_usage_2021.year_over_year_new_profiles_cumulative:
+        align: left
+      mobile_usage_2021.year_over_year_new_profiles_delta:
+        align: left
+    limit_displayed_rows_values:
+      show_hide: show
+      first_last: last
+      num_rows: '1'
+    series_types: {}
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    defaults_version: 1
+    title_hidden: true
+    listen:
+      Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
+    row: 16
+    col: 0
+    width: 12
+    height: 2
   filters:
   - name: Date
     title: Date

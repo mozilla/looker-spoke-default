@@ -191,14 +191,14 @@ derived_table: {
   }
 
   measure: recent_new_profiles_cumulative {
-    hidden: no
+    hidden: yes
     type: max
     value_format: "0.00,, \"Million\""
     sql: ${TABLE}.cumulative_new_profiles ;;
   }
 
   measure: recent_cdou {
-    hidden: no
+    hidden: yes
     type: max
     value_format: "0.00,,, \"Billion\""
     sql: ${TABLE}.cdou ;;
@@ -389,14 +389,14 @@ derived_table: {
   }
 
   measure: recent_cdou_2020 {
-    hidden: no
+    hidden: yes
     type: number
     value_format: "0.00,,, \"Billion\""
     sql: ${firefox_desktop_usage_2020.recent_cdou} ;;
   }
 
   measure: recent_new_profiles_2020 {
-    hidden: no
+    hidden: yes
     type: number
     value_format: "0.00,, \"Million\""
     sql: ${firefox_desktop_usage_2020.recent_new_profiles_cumulative} ;;
