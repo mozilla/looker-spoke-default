@@ -172,9 +172,8 @@ view: mobile_usage_2021 {
     type: max
     value_format: "0.00,,, \"Billion\""
     sql: ${TABLE}.cdou ;;
-    hidden: no
+    hidden: yes
   }
-
 
   measure: recent_date {
     type: date
@@ -194,6 +193,14 @@ view: mobile_usage_2021 {
     value_format: "0.00%"
     sql: (${recent_cdou} / ${mobile_prediction.recent_cdou_forecast} ) - 1 ;;
     description: "Relative (given as a fraction) difference between actual CDOU and forecasted CDOU."
+  }
+
+  measure: delta_from_forecast_daily {
+    type: number
+    value_format: "0.00%"
+    sql: (${dau} / ${mobile_prediction.dau_forecast} ) - 1 ;;
+    description: "Relative (given as a fraction) difference between actual CDOU and forecasted CDOU."
+    hidden: yes
   }
 
   measure: delta_from_forecast_format{
@@ -223,6 +230,14 @@ view: mobile_usage_2021 {
     value_format: "0.00%"
     sql: (${recent_cdou} / ${mobile_prediction.recent_cdou_target} ) - 1 ;;
     description: "Relative (given as a fraction) difference between actual CDOU and targeted CDOU."
+  }
+
+  measure: delta_from_target_daily {
+    type: number
+    value_format: "0.00%"
+    sql: (${dau} / ${mobile_prediction.dau_target} ) - 1 ;;
+    description: "Relative (given as a fraction) difference between actual CDOU and forecasted CDOU."
+    hidden: yes
   }
 
   measure: delta_from_forecast_count {
