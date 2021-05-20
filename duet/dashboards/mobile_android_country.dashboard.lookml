@@ -50,8 +50,8 @@
     interpolation: linear
     defaults_version: 1
     listen:
-      App ID: mobile_android_country.app_id
       History Days: mobile_android_country.history_days
+      App ID: mobile_android_country.app_id
     row: 12
     col: 12
     width: 12
@@ -63,7 +63,7 @@
     type: single_value
     fields: [mobile_android_country.play_store_updated]
     fill_fields: [mobile_android_country.play_store_updated]
-    filters: {}
+    sorts: [mobile_android_country.play_store_updated desc]
     limit: 500
     dynamic_fields: [{measure: count_of_latest_date, based_on: mobile_android_country.latest_date,
         expression: '', label: Count of Latest Date, type: count_distinct, _kind_hint: measure,
@@ -105,8 +105,8 @@
     defaults_version: 1
     series_types: {}
     listen:
-      App ID: mobile_android_country.app_id
       History Days: mobile_android_country.history_days
+      App ID: mobile_android_country.app_id
     row: 4
     col: 0
     width: 12
@@ -171,8 +171,8 @@
     value_labels: legend
     label_type: labPer
     listen:
-      App ID: mobile_android_country.app_id
       History Days: mobile_android_country.history_days
+      App ID: mobile_android_country.app_id
     row: 12
     col: 0
     width: 12
@@ -188,6 +188,7 @@
       filters:
         mobile_android_country.period_offset: '0'
       limit: 500
+      join_fields: []
     - model: duet
       explore: mobile_android_country
       type: table
@@ -213,14 +214,15 @@
     hidden_fields: [q1_mobile_android_country.first_time_visitor_count]
     series_types: {}
     type: single_value
+    column_limit: 50
     dynamic_fields: [{_kind_hint: measure, table_calculation: from_previous_time_period,
         _type_hint: number, category: table_calculation, expression: "(${mobile_android_country.first_time_visitor_count}-${q1_mobile_android_country.first_time_visitor_count})/${q1_mobile_android_country.first_time_visitor_count}",
         label: From Previous Time Period, value_format: !!null '', value_format_name: percent_1}]
     listen:
-    - App ID: mobile_android_country.app_id
-      History Days: mobile_android_country.history_days
-    - App ID: mobile_android_country.app_id
-      History Days: mobile_android_country.history_days
+    - History Days: mobile_android_country.history_days
+      App ID: mobile_android_country.app_id
+    - History Days: mobile_android_country.history_days
+      App ID: mobile_android_country.app_id
     row: 6
     col: 0
     width: 12
@@ -237,6 +239,7 @@
         mobile_android_country.period_offset: '0'
       sorts: [mobile_android_country.event_installs desc]
       limit: 500
+      join_fields: []
     - model: duet
       explore: mobile_android_country
       type: table
@@ -262,14 +265,15 @@
     hidden_fields: [q1_mobile_android_country.event_installs]
     type: single_value
     series_types: {}
+    column_limit: 50
     dynamic_fields: [{_kind_hint: measure, table_calculation: from_previous_time_period,
         _type_hint: number, category: table_calculation, expression: "(${mobile_android_country.event_installs}-${q1_mobile_android_country.event_installs})/${q1_mobile_android_country.event_installs}",
         label: From Previous Time Period, value_format: !!null '', value_format_name: percent_1}]
     listen:
-    - App ID: mobile_android_country.app_id
-      History Days: mobile_android_country.history_days
-    - App ID: mobile_android_country.app_id
-      History Days: mobile_android_country.history_days
+    - History Days: mobile_android_country.history_days
+      App ID: mobile_android_country.app_id
+    - History Days: mobile_android_country.history_days
+      App ID: mobile_android_country.app_id
     row: 6
     col: 12
     width: 12
@@ -285,6 +289,7 @@
       filters:
         mobile_android_country.period_offset: '0'
       limit: 500
+      join_fields: []
     - model: duet
       explore: mobile_android_country
       type: table
@@ -310,14 +315,15 @@
     series_types: {}
     type: single_value
     hidden_fields: [q1_mobile_android_country.first_seen]
+    column_limit: 50
     dynamic_fields: [{_kind_hint: measure, table_calculation: from_previous_time_period,
         _type_hint: number, category: table_calculation, expression: "(${mobile_android_country.first_seen}-${q1_mobile_android_country.first_seen})/${q1_mobile_android_country.first_seen}",
         label: From Previous Time Period, value_format: !!null '', value_format_name: percent_1}]
     listen:
-    - App ID: mobile_android_country.app_id
-      History Days: mobile_android_country.history_days
-    - App ID: mobile_android_country.app_id
-      History Days: mobile_android_country.history_days
+    - History Days: mobile_android_country.history_days
+      App ID: mobile_android_country.app_id
+    - History Days: mobile_android_country.history_days
+      App ID: mobile_android_country.app_id
     row: 9
     col: 0
     width: 12
@@ -334,6 +340,7 @@
         mobile_android_country.period_offset: '0'
       sorts: [mobile_android_country.activated desc]
       limit: 500
+      join_fields: []
     - model: duet
       explore: mobile_android_country
       type: table
@@ -358,26 +365,26 @@
     hidden_fields: [q1_mobile_android_country.activated]
     type: single_value
     series_types: {}
+    column_limit: 50
     dynamic_fields: [{_kind_hint: measure, table_calculation: from_previous_time_period,
         _type_hint: number, category: table_calculation, expression: "(${mobile_android_country.activated}-${q1_mobile_android_country.activated})/${q1_mobile_android_country.activated}",
         label: From Previous Time Period, value_format: !!null '', value_format_name: percent_1}]
     listen:
-    - App ID: mobile_android_country.app_id
-      History Days: mobile_android_country.history_days
-    - App ID: mobile_android_country.app_id
-      History Days: mobile_android_country.history_days
+    - History Days: mobile_android_country.history_days
+      App ID: mobile_android_country.app_id
+    - History Days: mobile_android_country.history_days
+      App ID: mobile_android_country.app_id
     row: 9
     col: 12
     width: 12
     height: 3
-  - title: Last Play Store Update (Copy)
-    name: Last Play Store Update (Copy)
+  - title: Last Valid Submission Date
+    name: Last Valid Submission Date
     model: duet
     explore: mobile_android_country
     type: single_value
     fields: [mobile_android_country.latest_date]
     fill_fields: [mobile_android_country.latest_date]
-    filters: {}
     sorts: [mobile_android_country.latest_date desc]
     limit: 500
     dynamic_fields: [{measure: count_of_latest_date, based_on: mobile_android_country.latest_date,
@@ -420,8 +427,8 @@
     defaults_version: 1
     series_types: {}
     listen:
-      App ID: mobile_android_country.app_id
       History Days: mobile_android_country.history_days
+      App ID: mobile_android_country.app_id
     row: 4
     col: 12
     width: 12
@@ -444,7 +451,7 @@
   - name: History Days
     title: History Days
     type: field_filter
-    default_value: '1'
+    default_value: '7'
     allow_multiple_values: true
     required: false
     ui_config:

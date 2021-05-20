@@ -19,7 +19,7 @@ explore: mobile_android_country {
         mobile_android_country.app_id: "firefox",
         # "mobile_android_country.history_days" is filtered on by the dashboard. The filter
         # value below may not optimize with other filter values.
-        mobile_android_country.history_days: "1"
+        mobile_android_country.history_days: "7"
       ]
     }
 
@@ -47,10 +47,9 @@ explore: mobile_android_country {
         mobile_android_country.app_id: "firefox",
         # "mobile_android_country.history_days" is filtered on by the dashboard. The filter
         # value below may not optimize with other filter values.
-        mobile_android_country.history_days: "1"
+        mobile_android_country.history_days: "7"
       ]
     }
-
     # Please specify a datagroup_trigger or sql_trigger_value
     # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
