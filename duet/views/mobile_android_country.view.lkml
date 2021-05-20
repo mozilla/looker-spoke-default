@@ -97,9 +97,9 @@ view: mobile_android_country {
           sum(first_seen) as first_seen,
           sum(activated) as activated
       from play_store_retained
-      right join play_store_installs
+      full join play_store_installs
       using (submission_date, country)
-      right join last_seen
+      full join last_seen
       using (submission_date, country)
       cross join period
       where submission_date between start_date and end_date
@@ -110,6 +110,7 @@ view: mobile_android_country {
 
   # Allow swapping between various applications in the dataset
   parameter: app_id {
+    description: "The name of the application in the `org.mozilla` namespace."
     type:  unquoted
     default_value: "fenix"
     allowed_value: {
@@ -125,6 +126,7 @@ view: mobile_android_country {
 
   # Choose how far back in history to look
   parameter: history_days {
+    description: "The number of days to include in the aggregation period."
     type:  number
     default_value: "7"
     allowed_value: {
@@ -142,6 +144,7 @@ view: mobile_android_country {
   }
 
   parameter: period_offset {
+    description: "An offset into the aggregation period, used to calculate percent difference since last period."
     type: number
     default_value: "0"
     allowed_value: {
@@ -160,6 +163,7 @@ view: mobile_android_country {
 
 
   dimension_group: submission {
+    description: "The submission date of the data."
     type: time
     datatype: date
     timeframes: [
@@ -175,54 +179,63 @@ view: mobile_android_country {
   }
 
   dimension: play_store_updated {
+    description: "The submission date of the last play store update."
     type: date
     datatype: date
     sql: ${TABLE}.play_store_updated ;;
   }
 
   dimension: latest_date {
+    description: "The latest full day of data used for aggregates."
     type: date
     datatype: date
     sql: ${TABLE}.latest_date ;;
   }
 
   dimension: country {
+    description: "The country code of the aggregates. The set is limited by those reported in the play store."
     type: string
     sql: ${TABLE}.country ;;
   }
 
   measure: first_time_visitor_count {
+    description: "The number of first time visitors to the play store."
     type: sum
     sql: ${TABLE}.first_time_visitor_count ;;
   }
 
   measure: first_time_installs {
+    description: "The number of first time installs reported by the play store."
     type: sum
     sql: ${TABLE}.first_time_installs ;;
   }
 
   measure: device_installs {
+    description: "The number of installs by device reported by the play store."
     type: sum
     sql: ${TABLE}.device_installs ;;
   }
 
   measure: user_installs {
+    description: "The number of installs by user reported by the play store."
     type: sum
     sql: ${TABLE}.user_installs ;;
   }
 
   measure: event_installs {
+    description: "The number of install events reported by the play store."
     type: sum
     sql: ${TABLE}.event_installs ;;
   }
 
-
   measure: first_seen {
+    description: "The number of client ids seen for the first time in the baseline clients last seen table."
     type: sum
     sql: ${TABLE}.first_seen ;;
   }
 
   measure: activated {
+    description: "The number of clients that have used the app for 5/7 days."
     type: sum
     sql: ${TABLE}.activated ;;
   }
