@@ -268,9 +268,9 @@ view: prediction {
   }
 
   measure: dau_forecast {
-    type: number
+    type: sum
     value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.dau_forecast) ;;
+    sql: ${TABLE}.dau_forecast ;;
     description: "Forecasted value for Daily Active Users. Only relevant for 2021."
   }
 
@@ -312,9 +312,9 @@ view: prediction {
   }
 
   measure: dau_target {
-    type: number
+    type: sum
     value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.dau_target) ;;
+    sql: ${TABLE}.dau_target ;;
     description: "Targeted value for Daily Active Users. Only relevant for 2021."
   }
 
@@ -390,7 +390,7 @@ view: prediction {
     filters: [
       date: "after 2021-01-01"
     ]
-    hidden: no
+    hidden: yes
   }
 
   measure: recent_cum_new_profiles_target {
@@ -400,7 +400,7 @@ view: prediction {
     filters: [
       date: "after 2021-01-01"
     ]
-    hidden: no
+    hidden: yes
   }
 
   measure: recent_cdou_forecast {
@@ -410,7 +410,7 @@ view: prediction {
     filters: [
       date: "after 2021-01-01"
     ]
-    hidden: no
+    hidden: yes
   }
 
   measure: recent_cdou_target {
@@ -420,7 +420,7 @@ view: prediction {
     filters: [
       date: "after 2021-01-01"
     ]
-    hidden: no
+    hidden: yes
   }
 }
 
