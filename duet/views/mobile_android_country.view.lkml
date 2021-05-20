@@ -155,6 +155,13 @@ view: mobile_android_country {
     }
   }
 
+  dimension: bucket {
+    description: "The geographical bucket that the lies under. Do not combine with country unless this is set to overall."
+    type: "string"
+    suggest_explore: country_buckets
+    suggest_dimension: country_buckets.bucket
+  }
+
   dimension: join_field {
     type: yesno
     description: "Always set to true. Allows to merge explores."

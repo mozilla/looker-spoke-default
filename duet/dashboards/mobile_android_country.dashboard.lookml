@@ -52,6 +52,7 @@
     listen:
       History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
+      Bucket: country_buckets.bucket
     row: 12
     col: 12
     width: 12
@@ -107,6 +108,7 @@
     listen:
       History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
+      Bucket: country_buckets.bucket
     row: 4
     col: 0
     width: 12
@@ -173,6 +175,7 @@
     listen:
       History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
+      Bucket: country_buckets.bucket
     row: 12
     col: 0
     width: 12
@@ -221,8 +224,10 @@
     listen:
     - History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
+      Bucket: country_buckets.bucket
     - History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
+      Bucket: country_buckets.bucket
     row: 6
     col: 0
     width: 12
@@ -272,8 +277,10 @@
     listen:
     - History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
+      Bucket: country_buckets.bucket
     - History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
+      Bucket: country_buckets.bucket
     row: 6
     col: 12
     width: 12
@@ -322,8 +329,10 @@
     listen:
     - History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
+      Bucket: country_buckets.bucket
     - History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
+      Bucket: country_buckets.bucket
     row: 9
     col: 0
     width: 12
@@ -372,8 +381,10 @@
     listen:
     - History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
+      Bucket: country_buckets.bucket
     - History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
+      Bucket: country_buckets.bucket
     row: 9
     col: 12
     width: 12
@@ -429,6 +440,7 @@
     listen:
       History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
+      Bucket: country_buckets.bucket
     row: 4
     col: 12
     width: 12
@@ -462,3 +474,17 @@
     explore: mobile_android_country
     listens_to_filters: []
     field: mobile_android_country.history_days
+  - name: Bucket
+    title: Bucket
+    type: field_filter
+    default_value: tier-1
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: button_toggles
+      display: popover
+      options: []
+    model: duet
+    explore: country_buckets
+    listens_to_filters: []
+    field: country_buckets.bucket
