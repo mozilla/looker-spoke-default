@@ -8,7 +8,7 @@ explore: mobile_android_country {
   }
   always_filter: {
     filters: [
-      country_buckets.bucket: "${mobile_android_country.bucket}"
+      country_buckets.bucket: "Overall"
     ]
   }
 

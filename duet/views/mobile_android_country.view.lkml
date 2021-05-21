@@ -67,7 +67,12 @@ view: mobile_android_country {
               coalesce(play_store_countries.country, "OTHER") as country,
               count(distinct client_id) as first_seen,
               count(distinct case when coalesce(BIT_COUNT(days_seen_bits), 0) >= 5 then client_id end) as activated
-          from `moz-fx-data-shared-prod.org_mozilla_{% parameter.app_id %}_derived.baseline_clients_last_seen_v1`
+          from
+            {% if "firefox firefox_beta fenix" contains app_id._parameter_value %}
+                `moz-fx-data-shared-prod.org_mozilla_{% parameter.app_id %}_derived.baseline_clients_last_seen_v1`
+            {% elsif "focus klar" contains app_id._parameter_value %}
+                `moz-fx-data-shared-prod.telemetry.core_clients_last_seen`
+            {% endif %}
           -- limit countries to those in the play store
           left join play_store_countries
           using (country)
@@ -82,6 +87,9 @@ view: mobile_android_country {
               and date_sub(current_date(), interval {% parameter.history_days %}*{% parameter.period_offset %} day)
             and first_seen_date between start_date and end_date
             and date_sub(submission_date, interval 7 day) = first_seen_date
+            {% if app_id._parameter_value == "focus" %} and app_name = "Focus" and os = "Android"
+            {% elsif app_id._parameter_value == "klar" %} and app_name = "Klar" and os = "Android"
+            {% endif %}
           group by 1, 2
       )
       select
@@ -121,6 +129,12 @@ view: mobile_android_country {
     }
     allowed_value: {
       value:  "fenix"
+    }
+    allowed_value: {
+      value: "focus"
+    }
+    allowed_value: {
+      value: "klar"
     }
   }
 
