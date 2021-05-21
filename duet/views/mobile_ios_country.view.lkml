@@ -277,6 +277,12 @@ view: mobile_ios_country {
     suggest_dimension: country_buckets.bucket
   }
 
+  dimension: join_field {
+    type: yesno
+    description: "Always set to true. Allows to merge explores."
+    sql: TRUE ;;
+  }
+
   dimension_group: submission {
     description: "The submission date of the data."
     type: time
