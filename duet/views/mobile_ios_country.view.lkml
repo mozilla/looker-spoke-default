@@ -15,8 +15,12 @@ view: mobile_ios_country {
         SELECT
           ios_store_updated,
           latest_date,
-          date_sub(latest_date, INTERVAL 7 * 1 day) AS start_date,
-          date_sub(latest_date, INTERVAL 7 * 0 day) AS end_date
+          date_sub(latest_date,
+            INTERVAL {% parameter.history_days %} * ({% parameter.period_offset %} + 1) - 1  day
+          ) AS start_date,
+          date_sub(latest_date,
+            INTERVAL {% parameter.history_days %} * {% parameter.period_offset %} day
+          ) AS end_date
         FROM
           last_updated
       ),
@@ -110,8 +114,12 @@ view: mobile_ios_country {
             date
             BETWEEN start_date
             AND end_date
-            AND app_name IN ('Firefox')
-          -- or focus
+            AND app_name IN (
+              {% if app_id._parameter_value == "firefox" %} "Firefox"
+              {% elsif app_id._parameter_value == "focus" %} "Focus"
+              {% elsif app_id._parameter_value == "klar" %} "Klar"
+              {% endif %}
+            )
         ),
         apple_country_metrics AS (
           SELECT
@@ -166,7 +174,7 @@ view: mobile_ios_country {
               END
             ) AS activated
           FROM
-            `moz-fx-data-shared-prod.org_mozilla_ios_firefox.baseline_clients_last_seen`
+            `moz-fx-data-shared-prod.org_mozilla_ios_{% parameter.app_id %}.baseline_clients_last_seen`
           LEFT JOIN
             apple_countries
           USING
@@ -175,8 +183,8 @@ view: mobile_ios_country {
             period
           WHERE
             submission_date
-            BETWEEN date_sub(current_date(), INTERVAL 7 * 1 + 7 day)
-            AND date_sub(current_date(), INTERVAL 7 day)
+              BETWEEN date_sub(current_date(), INTERVAL {% parameter.history_days %}*({% parameter.period_offset %} + 1) + 7 day)
+              AND date_sub(current_date(), INTERVAL {% parameter.history_days %}*{% parameter.period_offset %} day)
             AND first_run_date
             BETWEEN start_date
             AND period.end_date
@@ -215,14 +223,73 @@ view: mobile_ios_country {
        ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [detail*]
+  parameter: app_id {
+    description: "The name of the application in the `org.mozilla` namespace."
+    type:  unquoted
+    default_value: "firefox"
+    allowed_value: {
+      value: "firefox"
+    }
+    allowed_value: {
+      value: "focus"
+    }
+    allowed_value: {
+      value: "klar"
+    }
   }
 
-  dimension: submission_date {
-    type: date
+  # Choose how far back in history to look
+  parameter: history_days {
+    description: "The number of days to include in the aggregation period."
+    type:  number
+    default_value: "7"
+    allowed_value: {
+      value: "1"
+    }
+    allowed_value: {
+      value: "7"
+    }
+    allowed_value: {
+      value: "28"
+    }
+    allowed_value: {
+      value: "84"
+    }
+  }
+
+  parameter: period_offset {
+    description: "An offset into the aggregation period, used to calculate percent difference since last period."
+    type: number
+    default_value: "0"
+    allowed_value: {
+      value: "0"
+    }
+    allowed_value: {
+      value: "1"
+    }
+  }
+
+  dimension: bucket {
+    description: "The geographical bucket that the lies under. Do not combine with country unless this is set to overall."
+    type: "string"
+    hidden: yes
+    suggest_explore: country_buckets
+    suggest_dimension: country_buckets.bucket
+  }
+
+  dimension_group: submission {
+    description: "The submission date of the data."
+    type: time
     datatype: date
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
     sql: ${TABLE}.submission_date ;;
   }
 
@@ -243,28 +310,30 @@ view: mobile_ios_country {
     sql: ${TABLE}.latest_date ;;
   }
 
-  dimension: product_page_views {
-    type: number
+  measure: product_page_views {
+    type: sum
     sql: ${TABLE}.product_page_views ;;
   }
 
-  dimension: first_time_installs {
-    type: number
+  measure: first_time_installs {
+    type: sum
     sql: ${TABLE}.first_time_installs ;;
   }
 
-  dimension: installations_opt_in {
-    type: number
+  measure: installations_opt_in {
+    type: sum
     sql: ${TABLE}.installations_opt_in ;;
   }
 
-  dimension: first_seen {
-    type: number
+  measure: first_seen {
+    description: "The number of client ids seen for the first time in the baseline clients last seen table."
+    type: sum
     sql: ${TABLE}.first_seen ;;
   }
 
-  dimension: activated {
-    type: number
+  measure: activated {
+    description: "The number of clients that have used the app for 5/7 days."
+    type: sum
     sql: ${TABLE}.activated ;;
   }
 
