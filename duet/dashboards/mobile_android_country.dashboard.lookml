@@ -1,5 +1,5 @@
-- dashboard: numbers_that_matter_android
-  title: Numbers that Matter (Android)
+- dashboard: android_numbers_that_matter
+  title: Android Numbers that Matter
   layout: newspaper
   preferred_viewer: dashboards-next
   elements:
@@ -7,9 +7,10 @@
     type: text
     title_text: Attribution Funnel for Android
     subtitle_text: ''
-    body_text: "This dashboard contains figures for new installations of Firefox products\
-      \ on Android. A better description TBD.\n\nData is source from the Google Play\
-      \ Store, alongside the Glean `baseline` for each product. "
+    body_text: |-
+      This dashboard contains figures for new installations of Firefox products on Android.
+
+      Data is source from the Google Play Store and the clients last seen tables for the respective applications. See [DS-1541](https://jira.mozilla.com/browse/DS-1541) for tracking and the [Android Mobile Funnel Documentation](https://docs.google.com/document/d/1fRdgPRJK8sNz_5_DicxY49TO9Q7I3QS6LpyIgvGIbns) for more details.
     row: 0
     col: 0
     width: 24
