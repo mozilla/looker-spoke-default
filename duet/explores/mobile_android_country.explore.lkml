@@ -1,7 +1,7 @@
 include: "../views/*.view.lkml"
 
 explore: mobile_android_country {
-  label: "Android Acquisition Funnel"
+  label: "Mobile Android Funnel"
   description: "Consolidated view of the Android acquisition funnel by country."
   join: country_buckets {
     type: inner
