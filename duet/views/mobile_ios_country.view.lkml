@@ -228,12 +228,15 @@ view: mobile_ios_country {
     type:  unquoted
     default_value: "firefox"
     allowed_value: {
+      label: "Firefox"
       value: "firefox"
     }
     allowed_value: {
+      label: "Focus"
       value: "focus"
     }
     allowed_value: {
+      label: "Klar (Focus)"
       value: "klar"
     }
   }
@@ -300,33 +303,39 @@ view: mobile_ios_country {
   }
 
   dimension: country {
+    description: "The country code for the aggregates"
     type: string
     sql: ${TABLE}.country ;;
   }
 
   dimension: ios_store_updated {
+    description: "The date of the last apple store import"
     type: date
     datatype: date
     sql: ${TABLE}.ios_store_updated ;;
   }
 
   dimension: latest_date {
+    description: "The most recent submission date used for analysis"
     type: date
     datatype: date
     sql: ${TABLE}.latest_date ;;
   }
 
   measure: product_page_views {
+    description: "The number of page visits to a particular apple storefront"
     type: sum
     sql: ${TABLE}.product_page_views ;;
   }
 
   measure: first_time_installs {
+    description: "The number of first time installs reported by the apple store"
     type: sum
     sql: ${TABLE}.first_time_installs ;;
   }
 
   measure: installations_opt_in {
+    description: "The number of opt-in first time runs reported by the apple store"
     type: sum
     sql: ${TABLE}.installations_opt_in ;;
   }
