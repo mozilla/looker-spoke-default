@@ -15,8 +15,8 @@
     col: 0
     width: 24
     height: 4
-  - title: Android Funnel Per Day
-    name: Android Funnel Per Day
+  - title: iOS Funnel Per Day
+    name: iOS Funnel Per Day
     model: duet
     explore: mobile_ios_country
     type: looker_line
@@ -181,8 +181,8 @@
     col: 0
     width: 12
     height: 8
-  - name: First Time Visitor Count
-    title: First Time Visitor Count
+  - name: Product Page Views
+    title: Product Page Views
     merged_queries:
     - model: duet
       explore: mobile_ios_country
@@ -260,7 +260,7 @@
         source_field_name: mobile_ios_country.join_field
     custom_color_enabled: true
     show_single_value_title: true
-    single_value_title: stalls
+    single_value_title: First Time Installs
     show_comparison: true
     comparison_type: change
     comparison_reverse_colors: false
