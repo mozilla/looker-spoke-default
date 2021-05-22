@@ -21,7 +21,8 @@
     explore: mobile_ios_country
     type: looker_line
     fields: [mobile_ios_country.submission_date, mobile_ios_country.product_page_views,
-      mobile_ios_country.first_time_installs, mobile_ios_country.first_seen, mobile_ios_country.activated]
+      mobile_ios_country.first_time_installs, mobile_ios_country.installations_opt_in,
+      mobile_ios_country.first_seen, mobile_ios_country.activated]
     fill_fields: [mobile_ios_country.submission_date]
     sorts: [mobile_ios_country.first_seen desc]
     limit: 500
@@ -54,7 +55,7 @@
       History Days: mobile_ios_country.history_days
       App ID: mobile_ios_country.app_id
       Bucket: country_buckets.bucket
-    row: 12
+    row: 15
     col: 12
     width: 12
     height: 8
@@ -120,7 +121,8 @@
     explore: mobile_ios_country
     type: looker_column
     fields: [mobile_ios_country.product_page_views, mobile_ios_country.first_time_installs,
-      mobile_ios_country.first_seen, mobile_ios_country.activated]
+      mobile_ios_country.installations_opt_in, mobile_ios_country.first_seen, mobile_ios_country.activated]
+    filters: {}
     sorts: [mobile_ios_country.first_time_installs desc]
     limit: 500
     x_axis_gridlines: false
@@ -130,8 +132,8 @@
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
+    show_x_axis_label: false
+    show_x_axis_ticks: false
     y_axis_scale_mode: linear
     x_axis_reversed: false
     y_axis_reversed: false
@@ -150,6 +152,13 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
+    color_application:
+      collection_id: mozilla
+      palette_id: mozilla-categorical-0
+      options:
+        steps: 5
+    series_types: {}
+    series_labels: {}
     leftAxisLabelVisible: false
     leftAxisLabel: ''
     rightAxisLabelVisible: false
@@ -162,22 +171,31 @@
     valuePosition: right
     labelColorEnabled: false
     labelColor: "#FFF"
-    color_application:
-      collection_id: mozilla
-      palette_id: mozilla-categorical-0
-      options:
-        steps: 5
-    series_types: {}
     defaults_version: 1
     show_null_points: true
     interpolation: linear
     value_labels: legend
     label_type: labPer
+    hidden_fields: []
+    hidden_points_if_no: []
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: 12
+    rows_font_size: 12
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
     listen:
       History Days: mobile_ios_country.history_days
       App ID: mobile_ios_country.app_id
       Bucket: country_buckets.bucket
-    row: 12
+    row: 15
     col: 0
     width: 12
     height: 8
@@ -286,6 +304,59 @@
     col: 12
     width: 12
     height: 3
+  - name: Installation Opt-In
+    title: Installation Opt-In
+    merged_queries:
+    - model: duet
+      explore: mobile_ios_country
+      type: table
+      fields: [mobile_ios_country.join_field, mobile_ios_country.installations_opt_in]
+      fill_fields: [mobile_ios_country.join_field]
+      filters:
+        mobile_ios_country.period_offset: '0'
+      sorts: [mobile_ios_country.installations_opt_in desc]
+      limit: 500
+      join_fields: []
+    - model: duet
+      explore: mobile_ios_country
+      type: table
+      fields: [mobile_ios_country.join_field, mobile_ios_country.installations_opt_in]
+      fill_fields: [mobile_ios_country.join_field]
+      filters:
+        mobile_ios_country.period_offset: '1'
+      sorts: [mobile_ios_country.installations_opt_in desc]
+      limit: 500
+      join_fields:
+      - field_name: mobile_ios_country.join_field
+        source_field_name: mobile_ios_country.join_field
+    custom_color_enabled: true
+    show_single_value_title: true
+    single_value_title: Installation Opt-In
+    show_comparison: true
+    comparison_type: change
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    hidden_fields: [q1_mobile_ios_country.installations_opt_in]
+    type: single_value
+    series_types: {}
+    column_limit: 50
+    dynamic_fields: [{_kind_hint: measure, table_calculation: from_previous_time_period,
+        _type_hint: number, category: table_calculation, expression: "(${mobile_ios_country.installations_opt_in}-${q1_mobile_ios_country.installations_opt_in})/${q1_mobile_ios_country.installations_opt_in}",
+        label: From Previous Time Period, value_format: !!null '', value_format_name: percent_1}]
+    listen:
+    - History Days: mobile_ios_country.history_days
+      App ID: mobile_ios_country.app_id
+      Bucket: country_buckets.bucket
+    - History Days: mobile_ios_country.history_days
+      App ID: mobile_ios_country.app_id
+      Bucket: country_buckets.bucket
+    row: 9
+    col: 0
+    width: 12
+    height: 3
   - name: First Seen
     title: First Seen
     merged_queries:
@@ -335,7 +406,7 @@
       App ID: mobile_ios_country.app_id
       Bucket: country_buckets.bucket
     row: 9
-    col: 0
+    col: 12
     width: 12
     height: 3
   - name: Activated
@@ -386,8 +457,8 @@
     - History Days: mobile_ios_country.history_days
       App ID: mobile_ios_country.app_id
       Bucket: country_buckets.bucket
-    row: 9
-    col: 12
+    row: 12
+    col: 0
     width: 12
     height: 3
   - title: Last Valid Submission Date
@@ -446,6 +517,15 @@
     col: 12
     width: 12
     height: 2
+  - name: ''
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: ''
+    row: 12
+    col: 12
+    width: 12
+    height: 3
   filters:
   - name: App ID
     title: App ID
