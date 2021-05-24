@@ -223,16 +223,16 @@ view: mobile_ios_country {
        ;;
   }
 
-  parameter: app_id {
-    description: "The name of the application in the `org.mozilla` namespace."
+  parameter: app_name {
+    description: "The name of the application."
     type:  unquoted
     default_value: "firefox"
     allowed_value: {
-      label: "Firefox"
+      label: "Firefox for iOS"
       value: "firefox"
     }
     allowed_value: {
-      label: "Focus"
+      label: "Focus for iOS"
       value: "focus"
     }
     allowed_value: {
