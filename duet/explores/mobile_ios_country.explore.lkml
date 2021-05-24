@@ -18,9 +18,9 @@ explore: mobile_ios_country {
   aggregate_table: rollup__submission_date__0 {
     query: {
       dimensions: [
-        # "app_id" is filtered on in the dashboard.
+        # "app_name" is filtered on in the dashboard.
         # Uncomment to allow all possible filters to work with aggregate awareness.
-        # app_id,
+        # app_name,
         # "country_buckets.bucket" is filtered on in the dashboard.
         # Uncomment to allow all possible filters to work with aggregate awareness.
         # country_buckets.bucket,
@@ -34,9 +34,9 @@ explore: mobile_ios_country {
         # "country_buckets.bucket" is filtered on by the dashboard. The filter
         # value below may not optimize with other filter values.
         country_buckets.bucket: "tier-1",
-        # "mobile_ios_country.app_id" is filtered on by the dashboard. The filter
+        # "mobile_ios_country.app_name" is filtered on by the dashboard. The filter
         # value below may not optimize with other filter values.
-        mobile_ios_country.app_id: "firefox",
+        mobile_ios_country.app_name: "firefox",
         # "mobile_ios_country.history_days" is filtered on by the dashboard. The filter
         # value below may not optimize with other filter values.
         mobile_ios_country.history_days: "7"
@@ -53,9 +53,9 @@ explore: mobile_ios_country {
   aggregate_table: rollup__activated__first_seen__first_time_installs__installations_opt_in__product_page_views__1 {
     query: {
       dimensions: [
-        # "app_id" is filtered on in the dashboard.
+        # "app_name" is filtered on in the dashboard.
         # Uncomment to allow all possible filters to work with aggregate awareness.
-        # app_id,
+        # app_name,
         # "country_buckets.bucket" is filtered on in the dashboard.
         # Uncomment to allow all possible filters to work with aggregate awareness.
         # country_buckets.bucket,
@@ -68,9 +68,9 @@ explore: mobile_ios_country {
         # "country_buckets.bucket" is filtered on by the dashboard. The filter
         # value below may not optimize with other filter values.
         country_buckets.bucket: "tier-1",
-        # "mobile_ios_country.app_id" is filtered on by the dashboard. The filter
+        # "mobile_ios_country.app_name" is filtered on by the dashboard. The filter
         # value below may not optimize with other filter values.
-        mobile_ios_country.app_id: "firefox",
+        mobile_ios_country.app_name: "firefox",
         # "mobile_ios_country.history_days" is filtered on by the dashboard. The filter
         # value below may not optimize with other filter values.
         mobile_ios_country.history_days: "7"

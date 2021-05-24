@@ -53,7 +53,7 @@
     defaults_version: 1
     listen:
       History Days: mobile_ios_country.history_days
-      App ID: mobile_ios_country.app_id
+      App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
     row: 15
     col: 12
@@ -109,7 +109,7 @@
     series_types: {}
     listen:
       History Days: mobile_ios_country.history_days
-      App ID: mobile_ios_country.app_id
+      App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
     row: 4
     col: 0
@@ -193,7 +193,7 @@
     conditional_formatting_include_nulls: false
     listen:
       History Days: mobile_ios_country.history_days
-      App ID: mobile_ios_country.app_id
+      App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
     row: 15
     col: 0
@@ -242,10 +242,10 @@
         label: From Previous Time Period, value_format: !!null '', value_format_name: percent_1}]
     listen:
     - History Days: mobile_ios_country.history_days
-      App ID: mobile_ios_country.app_id
+      App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
     - History Days: mobile_ios_country.history_days
-      App ID: mobile_ios_country.app_id
+      App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
     row: 6
     col: 0
@@ -295,10 +295,10 @@
         label: From Previous Time Period, value_format: !!null '', value_format_name: percent_1}]
     listen:
     - History Days: mobile_ios_country.history_days
-      App ID: mobile_ios_country.app_id
+      App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
     - History Days: mobile_ios_country.history_days
-      App ID: mobile_ios_country.app_id
+      App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
     row: 6
     col: 12
@@ -348,10 +348,10 @@
         label: From Previous Time Period, value_format: !!null '', value_format_name: percent_1}]
     listen:
     - History Days: mobile_ios_country.history_days
-      App ID: mobile_ios_country.app_id
+      App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
     - History Days: mobile_ios_country.history_days
-      App ID: mobile_ios_country.app_id
+      App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
     row: 9
     col: 0
@@ -400,10 +400,10 @@
         label: From Previous Time Period, value_format: !!null '', value_format_name: percent_1}]
     listen:
     - History Days: mobile_ios_country.history_days
-      App ID: mobile_ios_country.app_id
+      App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
     - History Days: mobile_ios_country.history_days
-      App ID: mobile_ios_country.app_id
+      App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
     row: 9
     col: 12
@@ -452,10 +452,10 @@
         label: From Previous Time Period, value_format: !!null '', value_format_name: percent_1}]
     listen:
     - History Days: mobile_ios_country.history_days
-      App ID: mobile_ios_country.app_id
+      App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
     - History Days: mobile_ios_country.history_days
-      App ID: mobile_ios_country.app_id
+      App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
     row: 12
     col: 0
@@ -511,7 +511,7 @@
     series_types: {}
     listen:
       History Days: mobile_ios_country.history_days
-      App ID: mobile_ios_country.app_id
+      App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
     row: 4
     col: 12
@@ -527,8 +527,8 @@
     width: 12
     height: 3
   filters:
-  - name: App ID
-    title: App ID
+  - name: App Name
+    title: App Name
     type: field_filter
     default_value: firefox
     allow_multiple_values: true
@@ -540,7 +540,7 @@
     model: duet
     explore: mobile_ios_country
     listens_to_filters: []
-    field: mobile_ios_country.app_id
+    field: mobile_ios_country.app_name
   - name: History Days
     title: History Days
     type: field_filter

@@ -115,9 +115,9 @@ view: mobile_ios_country {
             BETWEEN start_date
             AND end_date
             AND app_name IN (
-              {% if app_id._parameter_value == "firefox" %} "Firefox"
-              {% elsif app_id._parameter_value == "focus" %} "Focus"
-              {% elsif app_id._parameter_value == "klar" %} "Klar"
+              {% if app_name._parameter_value == "firefox" %} "Firefox"
+              {% elsif app_name._parameter_value == "focus" %} "Focus"
+              {% elsif app_name._parameter_value == "klar" %} "Klar"
               {% endif %}
             )
         ),
@@ -174,7 +174,7 @@ view: mobile_ios_country {
               END
             ) AS activated
           FROM
-            `moz-fx-data-shared-prod.org_mozilla_ios_{% parameter.app_id %}.baseline_clients_last_seen`
+            `moz-fx-data-shared-prod.org_mozilla_ios_{% parameter.app_name %}.baseline_clients_last_seen`
           LEFT JOIN
             apple_countries
           USING
