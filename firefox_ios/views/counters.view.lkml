@@ -1,22 +1,3 @@
-explore: app_display_major_version {
-  hidden: yes
-}
-
-view: app_display_major_version {
-  derived_table: {
-    sql:
-      SELECT DISTINCT cast(split(app_display_version, ".")[offset(0)] as int64) as app_display_major_version
-      FROM `moz-fx-data-shared-prod`.org_mozilla_ios_firefox.metrics m
-      WHERE DATE(submission_timestamp) > DATE_SUB(current_date(), interval 14 day)
-      ORDER BY 1 ;;
-  }
-
-  dimension: app_display_major_version {
-    type: number
-    sql:  ${TABLE}.app_display_major_version ;;
-  }
-}
-
 view: counters {
   derived_table: {
     sql:
@@ -158,8 +139,6 @@ view: counters {
   dimension: app_display_major_version {
     type: number
     sql: cast(split(${TABLE}.app_display_version, ".")[offset(0)] as int64) ;;
-    suggest_explore: app_display_major_version
-    suggest_dimension: app_display_major_version.app_display_major_version
   }
 
   dimension: architecture {
