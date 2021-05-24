@@ -675,6 +675,17 @@ view: unified_metrics {
     group_item_label: "Search Default Engine"
   }
 
+  measure: count {
+    description: "Count of rows."
+    type:  count
+  }
+
+  measure: client_count {
+    description: "Count of distinct clients."
+    type:  count_distinct
+    sql: ${client_info__client_id} ;;
+  }
+
 }
 
 view: unified_metrics__ping_info__experiments {
