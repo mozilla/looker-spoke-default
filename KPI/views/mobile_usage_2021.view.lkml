@@ -301,18 +301,26 @@ view: mobile_usage_2021 {
   }
 
   measure: year_over_year_cdou {
-    label: "2020 Cdou"
+    label: "2020 CDOU"
     type: number
     sql: ${mobile_usage_2020.cdou} ;;
     description: "Cumulative Days of Use on this day in 2020."
   }
 
   measure: year_over_year_cdou_delta_count {
-    label: "Cdou: Absolute Delta from 2020"
+    label: "CDOU: Absolute Delta from 2020"
     type: number
     value_format: "#,##0"
     sql: ${cdou} - ${year_over_year_cdou} ;;
     description: "Absolute (given as a whole number) difference between 2020's CDOU and 2021's CDOU."
+  }
+
+  measure: year_over_year_cdou_delta_percent {
+    label: "CDOU: Percent Delta from 2020"
+    type: number
+    value_format: "0.00%"
+    sql: ${dau} / ${year_over_year_dau} - 1 ;;
+    description: "Percent difference between 2020's CDOU and 2021's CDOU."
   }
 
   measure: year_over_year_new_profiles {
