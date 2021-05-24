@@ -122,18 +122,23 @@ view: mobile_android_country {
     type:  unquoted
     default_value: "fenix"
     allowed_value: {
+      label: "Firefox Release"
       value: "firefox"
     }
     allowed_value: {
+      label: "Firefox Beta"
       value: "firefox_beta"
     }
     allowed_value: {
+      label: "Firefox Nightly"
       value:  "fenix"
     }
     allowed_value: {
+      label: "Focus"
       value: "focus"
     }
     allowed_value: {
+      label: "Klar (Focus)"
       value: "klar"
     }
   }
