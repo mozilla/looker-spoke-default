@@ -273,7 +273,7 @@ view: mobile_ios_country {
   }
 
   dimension: bucket {
-    description: "The geographical bucket that the lies under. Do not combine with country unless this is set to overall."
+    description: "The geographical bucket that the country lies under. Do not combine with country unless this is set to overall."
     type: "string"
     hidden: yes
     suggest_explore: country_buckets
@@ -341,13 +341,13 @@ view: mobile_ios_country {
   }
 
   measure: first_seen {
-    description: "The number of client ids seen for the first time in the baseline clients last seen table."
+    description: "The number of client ids that sent a baseline ping (and accounted for at least 1 DOU)."
     type: sum
     sql: ${TABLE}.first_seen ;;
   }
 
   measure: activated {
-    description: "The number of clients that have used the app for 5/7 days."
+    description: "The number of clients that have used the app for at least 5 of their first 7 days."
     type: sum
     sql: ${TABLE}.activated ;;
   }

@@ -2,7 +2,8 @@ include: "../views/*.view.lkml"
 
 explore: mobile_ios_country {
   label: "Mobile iOS Funnel"
-  description: "Consolidated view of the Android acquisition funnel by country."
+  view_label: "iOS Funnel Steps"
+  description: "Consolidated view of the iOS acquisition funnel by country."
   join: country_buckets {
     type: inner
     relationship: many_to_one
