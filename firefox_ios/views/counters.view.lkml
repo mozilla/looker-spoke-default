@@ -138,7 +138,12 @@ view: counters {
 
   dimension: app_display_major_version {
     type: number
-    sql: cast(split(${TABLE}.app_display_version, ".")[offset(0)] as int64) ;;
+    sql: mozfun.norm.truncate_version(${app_display_version}, "major") ;;
+  }
+
+  dimension: app_display_minor_version {
+    type: number
+    sql: mozfun.norm.truncate_version(${app_display_version}, "minor") ;;
   }
 
   dimension: architecture {
@@ -185,7 +190,12 @@ view: counters {
 
   dimension: os_major_version {
     type: number
-    sql: cast(split(${TABLE}.os_version, ".")[offset(0)] as int64) ;;
+    sql: mozfun.norm.truncate_version(${os_version}, "major") ;;
+  }
+
+  dimension: os_minor_version {
+    type: number
+    sql: mozfun.norm.truncate_version(${os_version}, "minor") ;;
   }
 
   dimension: telemetry_sdk_build {
