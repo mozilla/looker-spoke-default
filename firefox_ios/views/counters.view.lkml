@@ -141,7 +141,7 @@ view: counters {
     sql: mozfun.norm.truncate_version(${app_display_version}, "major") ;;
   }
 
-  dimension: app_display_minor_version {
+  dimension: app_display_major_minor_version {
     type: number
     sql: mozfun.norm.truncate_version(${app_display_version}, "minor") ;;
   }
@@ -193,7 +193,7 @@ view: counters {
     sql: mozfun.norm.truncate_version(${os_version}, "major") ;;
   }
 
-  dimension: os_minor_version {
+  dimension: os_major_minor_version {
     type: number
     sql: mozfun.norm.truncate_version(${os_version}, "minor") ;;
   }
