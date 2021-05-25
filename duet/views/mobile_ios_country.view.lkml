@@ -28,86 +28,18 @@ view: mobile_ios_country {
       AS
         (
           SELECT
-            date,
+            date as submission_date,
             app_name,
-            CASE
-            WHEN
-              storefront LIKE '%St.%'
-            THEN
-              REPLACE(storefront, 'St.', 'Saint')
-            WHEN
-              storefront = 'China mainland'
-            THEN
-              'China'
-            WHEN
-              storefront = 'Russia'
-            THEN
-              'Russian Federation'
-            WHEN
-              storefront = 'Tanzania'
-            THEN
-              'Tanzania, United Republic of'
-            WHEN
-              storefront = 'North Macedonia'
-            THEN
-              'Macedonia, the Former Yugoslav Republic of'
-            WHEN
-              storefront = 'São Tomé and Príncipe'
-            THEN
-              'Sao Tome and Principe'
-            WHEN
-              storefront = 'Micronesia'
-            THEN
-              'Micronesia, Federated States of'
-            WHEN
-              storefront = 'Moldova'
-            THEN
-              'Moldova, Republic of'
-            WHEN
-              storefront = 'Venezuela'
-            THEN
-              'Venezuela, Bolivarian Republic of'
-            WHEN
-              storefront = 'Taiwan'
-            THEN
-              'Taiwan, Province of China'
-            WHEN
-              storefront = 'British Virgin Islands'
-            THEN
-              'Virgin Islands, British'
-            WHEN
-              storefront = 'Brunei'
-            THEN
-              'Brunei Darussalam'
-            WHEN
-              storefront = 'Congo, Democratic Republic of the'
-            THEN
-              'Congo, the Democratic Republic of the'
-            WHEN
-              storefront = 'Congo, Republic of the'
-            THEN
-              'Congo'
-            WHEN
-              storefront = 'Bolivia'
-            THEN
-              'Bolivia, Plurinational State of'
-            WHEN
-              storefront = 'Vietnam'
-            THEN
-              'Viet Nam'
-            WHEN
-              storefront = "Cote d'Ivoire"
-            THEN
-              "Côte d'Ivoire"
-            ELSE
-              storefront
-            END
-            AS name,
+            code as country,
             product_page_views,
             app_units AS first_time_installs,
             installations_opt_in
           FROM
             `moz-fx-data-marketing-prod.apple_app_store.metrics_by_storefront`
+          LEFT JOIN
+            `moz-fx-data-shared-prod.static.country_names_v1`
+          ON
+            storefront = name
           CROSS JOIN
             period
           WHERE
@@ -121,43 +53,11 @@ view: mobile_ios_country {
               {% endif %}
             )
         ),
-        apple_country_metrics AS (
-          SELECT
-            date AS submission_date,
-            app_name,
-           -- Macau, Eswatini, Laos
-            CASE
-            WHEN
-              name = 'Macau'
-            THEN
-              'MO'
-            WHEN
-              name = 'Eswatini'
-            THEN
-              'SZ'
-            WHEN
-              name = 'Laos'
-            THEN
-              'LA'
-            ELSE
-              code
-            END
-            AS country,
-            product_page_views,
-            first_time_installs,
-            installations_opt_in
-          FROM
-            apple_storefront_metrics
-          LEFT JOIN
-            `mozdata.static.country_codes_v1`
-          USING
-            (name)
-        ),
         apple_countries AS (
           SELECT DISTINCT
             country
           FROM
-            apple_country_metrics
+            apple_storefront_metrics
         ),
         last_seen AS (
           SELECT
@@ -203,7 +103,7 @@ view: mobile_ios_country {
         sum(first_seen) AS first_seen,
         sum(activated) AS activated
       FROM
-        apple_country_metrics
+        apple_storefront_metrics
       JOIN
         last_seen
       USING
