@@ -183,6 +183,11 @@ view: counters {
     suggest_dimension: metrics_sample.os_version
   }
 
+  dimension: os_major_version {
+    type: number
+    sql: cast(split(${TABLE}.os_version, ".")[offset(0)] as int64) ;;
+  }
+
   dimension: telemetry_sdk_build {
     type: string
     sql: ${TABLE}.telemetry_sdk_build ;;
