@@ -359,6 +359,14 @@ derived_table: {
     description: "Absolute (given as a whole number) difference between 2020's CDOU and 2021's CDOU."
   }
 
+  measure: year_over_year_cdou_delta_percent {
+    label: "Cdou: Relative Delta from 2020"
+    type: number
+    value_format: "0.000%"
+    sql: ${cdou} / ${year_over_year_cdou} - 1;;
+    description: "Absolute (given as a whole number) difference between 2020's CDOU and 2021's CDOU."
+  }
+
   measure: year_over_year_new_profiles {
     label: "2020 New Profiles"
     type: number
