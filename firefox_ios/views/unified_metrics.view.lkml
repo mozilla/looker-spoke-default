@@ -92,6 +92,7 @@ view: unified_metrics {
   }
 
   dimension: client_info__app_display_version {
+    hidden: yes
     type: string
     sql: ${TABLE}.client_info.app_display_version ;;
     group_label: "Client Info"
@@ -168,6 +169,7 @@ view: unified_metrics {
   }
 
   dimension: client_info__os_version {
+    hidden: yes
     type: string
     sql: ${TABLE}.client_info.os_version ;;
     group_label: "Client Info"

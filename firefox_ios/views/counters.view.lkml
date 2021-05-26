@@ -130,6 +130,7 @@ view: counters {
   }
 
   dimension: app_display_version {
+    hidden: yes
     type: string
     sql: ${TABLE}.app_display_version ;;
     suggest_explore: metrics_sample
@@ -182,6 +183,7 @@ view: counters {
   }
 
   dimension: os_version {
+    hidden: yes
     type: string
     sql: ${TABLE}.os_version ;;
     suggest_explore: metrics_sample
