@@ -92,10 +92,25 @@ view: unified_metrics {
   }
 
   dimension: client_info__app_display_version {
+    hidden: yes
     type: string
     sql: ${TABLE}.client_info.app_display_version ;;
     group_label: "Client Info"
     group_item_label: "App Display Version"
+  }
+
+  dimension: client_info__app_display_major_version {
+    type: number
+    sql: mozfun.norm.truncate_version(${client_info__app_display_version}, "major") ;;
+    group_label: "Client Info"
+    group_item_label: "App Display Major Version"
+  }
+
+  dimension: client_info__app_display_major_minor_version {
+    type: number
+    sql: mozfun.norm.truncate_version(${client_info__app_display_version}, "minor") ;;
+    group_label: "Client Info"
+    group_item_label: "App Display Major Minor Version"
   }
 
   dimension: client_info__architecture {
@@ -154,10 +169,25 @@ view: unified_metrics {
   }
 
   dimension: client_info__os_version {
+    hidden: yes
     type: string
     sql: ${TABLE}.client_info.os_version ;;
     group_label: "Client Info"
     group_item_label: "OS Version"
+  }
+
+  dimension: client_info__os_major_version {
+    type: number
+    sql: mozfun.norm.truncate_version(${client_info__os_version}, "major") ;;
+    group_label: "Client Info"
+    group_item_label: "OS Major Version"
+  }
+
+  dimension: client_info__os_major_minor_version {
+    type: number
+    sql: mozfun.norm.truncate_version(${client_info__os_version}, "minor") ;;
+    group_label: "Client Info"
+    group_item_label: "OS Major Minor Version"
   }
 
   dimension: client_info__telemetry_sdk_build {
