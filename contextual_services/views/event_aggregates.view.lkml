@@ -6,9 +6,22 @@ view: +event_aggregates {
     sql: ${TABLE}.user_count ;;
   }
 
-  measure: total_users {
+  dimension: event_count {
+    hidden: yes
+    sql: ${TABLE}.event_count ;;
+  }
+
+  measure: user_counts {
+    label: "User Count"
     type: sum
-    sql: ${user_count} ;;
-    description: "Count of Users."
+    sql: ${TABLE}.user_count ;;
+    description: "Count of users."
+  }
+
+  measure: event_counts {
+    label: "Event Count"
+    type: sum
+    sql: ${TABLE}.event_count ;;
+    description: "Count of events."
   }
 }
