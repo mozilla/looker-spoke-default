@@ -1,5 +1,5 @@
-- dashboard: desktop_kpi_dashboard
-  title: Desktop KPI Dashboard
+- dashboard: desktop_kr_dashboard
+  title: Desktop KR Dashboard
   layout: newspaper
   preferred_viewer: dashboards-next
   refresh: 2147484 seconds
@@ -79,12 +79,12 @@
       should be looking for multiple *consecutive* days outside of the range when
       determining if the actuals are truly starting to differ from the forecast. '
     listen:
+      Date: firefox_desktop_usage_2021.date
+      OS: firefox_desktop_usage_2021.os
       Channel: firefox_desktop_usage_2021.channel
       Activity Segment: firefox_desktop_usage_2021.activity_segment
-      OS: firefox_desktop_usage_2021.os
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
-      Date: firefox_desktop_usage_2021.date
     row: 18
     col: 0
     width: 24
@@ -141,12 +141,12 @@
     note_text: This shows the growth in CDOU since Jan 1, in comparison to forecast
       and the +5% Target Pace.
     listen:
+      Date: firefox_desktop_usage_2021.date
+      OS: firefox_desktop_usage_2021.os
       Channel: firefox_desktop_usage_2021.channel
       Activity Segment: firefox_desktop_usage_2021.activity_segment
-      OS: firefox_desktop_usage_2021.os
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
-      Date: firefox_desktop_usage_2021.date
     row: 9
     col: 12
     width: 12
@@ -229,12 +229,12 @@
       forecast/target, negative numbers indicate we are below. Positive numbers indicate
       that we are above forecast/target, negative numbers indicate we are below.
     listen:
+      Date: firefox_desktop_usage_2021.date
+      OS: firefox_desktop_usage_2021.os
       Channel: firefox_desktop_usage_2021.channel
       Activity Segment: firefox_desktop_usage_2021.activity_segment
-      OS: firefox_desktop_usage_2021.os
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
-      Date: firefox_desktop_usage_2021.date
     row: 9
     col: 0
     width: 12
@@ -289,12 +289,12 @@
     note_text: This shows the growth in cumulative new profiles since Jan 1, in comparison
       to forecast and the +5% Target Pace.
     listen:
+      Date: firefox_desktop_usage_2021.date
+      OS: firefox_desktop_usage_2021.os
       Channel: firefox_desktop_usage_2021.channel
       Activity Segment: firefox_desktop_usage_2021.activity_segment
-      OS: firefox_desktop_usage_2021.os
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
-      Date: firefox_desktop_usage_2021.date
     row: 34
     col: 12
     width: 12
@@ -376,12 +376,12 @@
       main ping. The upper and lower bounds of the forecast (triangles) show the 10th
       and 90th percentiles of forecasted new profiles for that day. '
     listen:
+      Date: firefox_desktop_usage_2021.date
+      OS: firefox_desktop_usage_2021.os
       Channel: firefox_desktop_usage_2021.channel
       Activity Segment: firefox_desktop_usage_2021.activity_segment
-      OS: firefox_desktop_usage_2021.os
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
-      Date: firefox_desktop_usage_2021.date
     row: 43
     col: 0
     width: 24
@@ -444,12 +444,12 @@
       indicate that we are above forecast/target, negative numbers indicate we are
       below.
     listen:
+      Date: firefox_desktop_usage_2021.date
+      OS: firefox_desktop_usage_2021.os
       Channel: firefox_desktop_usage_2021.channel
       Activity Segment: firefox_desktop_usage_2021.activity_segment
-      OS: firefox_desktop_usage_2021.os
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
-      Date: firefox_desktop_usage_2021.date
     row: 34
     col: 0
     width: 12
@@ -497,14 +497,14 @@
     conditional_formatting_include_nulls: false
     series_types: {}
     defaults_version: 1
-    refresh: 10 Seconds
+    refresh: '10000'
     listen:
+      Date: firefox_desktop_usage_2021.date
+      OS: firefox_desktop_usage_2021.os
       Channel: firefox_desktop_usage_2021.channel
       Activity Segment: firefox_desktop_usage_2021.activity_segment
-      OS: firefox_desktop_usage_2021.os
       Attributed (Yes / No): firefox_desktop_usage_2021.attributed
       Country Name: firefox_desktop_usage_2021.country_name
-      Date: firefox_desktop_usage_2021.date
     row: 7
     col: 0
     width: 24
@@ -533,6 +533,11 @@
     defaults_version: 1
     listen:
       Date: firefox_desktop_usage_2021.date
+      OS: firefox_desktop_usage_2021.os
+      Channel: firefox_desktop_usage_2021.channel
+      Activity Segment: firefox_desktop_usage_2021.activity_segment
+      Attributed (Yes / No): firefox_desktop_usage_2021.attributed
+      Country Name: firefox_desktop_usage_2021.country_name
     row: 3
     col: 0
     width: 8
@@ -543,7 +548,6 @@
     explore: firefox_desktop_usage_2021
     type: single_value
     fields: [firefox_desktop_usage_2021.delta_from_forecast, prediction.recent_cdou_forecast]
-    filters: {}
     limit: 500
     custom_color_enabled: true
     show_single_value_title: true
@@ -573,6 +577,11 @@
     rows_font_size: 12
     listen:
       Date: firefox_desktop_usage_2021.date
+      OS: firefox_desktop_usage_2021.os
+      Channel: firefox_desktop_usage_2021.channel
+      Activity Segment: firefox_desktop_usage_2021.activity_segment
+      Attributed (Yes / No): firefox_desktop_usage_2021.attributed
+      Country Name: firefox_desktop_usage_2021.country_name
     row: 3
     col: 8
     width: 8
@@ -585,7 +594,6 @@
     fields: [firefox_desktop_usage_2021.delta_from_target, prediction.recent_cdou_target,
       firefox_desktop_usage_2021.date]
     fill_fields: [firefox_desktop_usage_2021.date]
-    filters: {}
     sorts: [firefox_desktop_usage_2021.date desc]
     limit: 500
     custom_color_enabled: true
@@ -603,6 +611,11 @@
     defaults_version: 1
     listen:
       Date: firefox_desktop_usage_2021.date
+      OS: firefox_desktop_usage_2021.os
+      Channel: firefox_desktop_usage_2021.channel
+      Activity Segment: firefox_desktop_usage_2021.activity_segment
+      Attributed (Yes / No): firefox_desktop_usage_2021.attributed
+      Country Name: firefox_desktop_usage_2021.country_name
     row: 3
     col: 16
     width: 8
@@ -630,6 +643,11 @@
     defaults_version: 1
     listen:
       Date: firefox_desktop_usage_2021.date
+      OS: firefox_desktop_usage_2021.os
+      Channel: firefox_desktop_usage_2021.channel
+      Activity Segment: firefox_desktop_usage_2021.activity_segment
+      Attributed (Yes / No): firefox_desktop_usage_2021.attributed
+      Country Name: firefox_desktop_usage_2021.country_name
     row: 30
     col: 0
     width: 8
@@ -640,7 +658,6 @@
     explore: firefox_desktop_usage_2021
     type: single_value
     fields: [firefox_desktop_usage_2021.delta_from_forecast_new_profiles, prediction.recent_cum_new_profiles_forecast]
-    filters: {}
     limit: 500
     custom_color_enabled: true
     show_single_value_title: true
@@ -670,6 +687,11 @@
     rows_font_size: 12
     listen:
       Date: firefox_desktop_usage_2021.date
+      OS: firefox_desktop_usage_2021.os
+      Channel: firefox_desktop_usage_2021.channel
+      Activity Segment: firefox_desktop_usage_2021.activity_segment
+      Attributed (Yes / No): firefox_desktop_usage_2021.attributed
+      Country Name: firefox_desktop_usage_2021.country_name
     row: 30
     col: 8
     width: 8
@@ -680,7 +702,6 @@
     explore: firefox_desktop_usage_2021
     type: single_value
     fields: [firefox_desktop_usage_2021.delta_from_target_new_profiles, prediction.recent_cum_new_profiles_target]
-    filters: {}
     limit: 500
     custom_color_enabled: true
     show_single_value_title: true
@@ -697,6 +718,11 @@
     defaults_version: 1
     listen:
       Date: firefox_desktop_usage_2021.date
+      OS: firefox_desktop_usage_2021.os
+      Channel: firefox_desktop_usage_2021.channel
+      Activity Segment: firefox_desktop_usage_2021.activity_segment
+      Attributed (Yes / No): firefox_desktop_usage_2021.attributed
+      Country Name: firefox_desktop_usage_2021.country_name
     row: 30
     col: 16
     width: 8

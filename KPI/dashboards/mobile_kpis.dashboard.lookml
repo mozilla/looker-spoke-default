@@ -1,5 +1,5 @@
-- dashboard: mobile_kpi_dashboard
-  title: Mobile KPI Dashboard
+- dashboard: mobile_kr_dashboard
+  title: Mobile KR Dashboard
   layout: newspaper
   preferred_viewer: dashboards-next
   refresh: 2147484 seconds
