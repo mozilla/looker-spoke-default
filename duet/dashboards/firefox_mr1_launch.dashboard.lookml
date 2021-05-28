@@ -50,9 +50,7 @@
     show_null_points: true
     interpolation: linear
     defaults_version: 1
-    listen:
-      Desktop OS: version_uplift.desktop_OS
-      Country: version_uplift.country
+    listen: {}
     row: 6
     col: 0
     width: 8
@@ -86,9 +84,7 @@
     series_types: {}
     defaults_version: 1
     hidden_fields: [version_uplift.submission_date]
-    listen:
-      Desktop OS: version_uplift.desktop_OS
-      Country: version_uplift.country
+    listen: {}
     row: 4
     col: 0
     width: 8
@@ -331,9 +327,7 @@
     interpolation: linear
     defaults_version: 1
     hidden_fields:
-    listen:
-      Desktop OS: feature_usage.Desktop_OS
-      Country: feature_usage.country
+    listen: {}
     row: 152
     col: 9
     width: 8
@@ -393,9 +387,7 @@
     interpolation: linear
     defaults_version: 1
     hidden_fields:
-    listen:
-      Desktop OS: feature_usage.Desktop_OS
-      Country: feature_usage.country
+    listen: {}
     row: 152
     col: 0
     width: 9
@@ -464,9 +456,7 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
-    listen:
-      Visiting Browser: mozorg_ga.browser
-      Country: mozorg_ga.country
+    listen: {}
     row: 97
     col: 0
     width: 12
@@ -583,10 +573,7 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
-    listen:
-      Traffic Type: mozblogs_ga.traffic_type
-      Visiting Browser: mozblogs_ga.browser
-      Country: mozblogs_ga.country
+    listen: {}
     row: 84
     col: 8
     width: 16
@@ -817,8 +804,7 @@
     totals_color: "#808080"
     series_types: {}
     defaults_version: 1
-    listen:
-      Country: version_uplift_mobile.country
+    listen: {}
     row: 6
     col: 16
     width: 8
@@ -874,8 +860,7 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    listen:
-      Country: version_uplift_mobile.country
+    listen: {}
     row: 4
     col: 16
     width: 8
@@ -932,8 +917,7 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    listen:
-      Country: version_uplift_mobile.country
+    listen: {}
     row: 4
     col: 8
     width: 8
@@ -984,8 +968,7 @@
       version_uplift_mobile.Non_updated: "#12B5CB"
       version_uplift_mobile.Updated: "#1A73E8"
     defaults_version: 1
-    listen:
-      Country: version_uplift_mobile.country
+    listen: {}
     row: 6
     col: 8
     width: 8
@@ -1655,9 +1638,7 @@
     series_point_styles:
       dau_desktop.new_profiles_2020: diamond
     defaults_version: 1
-    listen:
-      Desktop OS: dau_desktop.desktop_OS
-      Country: dau_desktop.country
+    listen: {}
     row: 65
     col: 0
     width: 12
@@ -1703,9 +1684,7 @@
     series_point_styles:
       dau_desktop.DAU_2020: diamond
     defaults_version: 1
-    listen:
-      Desktop OS: dau_desktop.desktop_OS
-      Country: dau_desktop.country
+    listen: {}
     row: 57
     col: 0
     width: 12
@@ -1752,11 +1731,7 @@
     series_point_styles:
       mozorg_ga.non_fx_downloads_2020: diamond
     defaults_version: 1
-    listen:
-      Traffic Type: mozorg_ga.traffic_type
-      Visiting Browser: mozorg_ga.browser
-      Desktop OS: mozorg_ga.Desktop_OS
-      Country: mozorg_ga.country
+    listen: {}
     row: 73
     col: 0
     width: 12
@@ -1931,9 +1906,7 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
-    listen:
-      Visiting Browser: mozblogs_ga.browser
-      Country: mozblogs_ga.country
+    listen: {}
     row: 91
     col: 8
     width: 16
@@ -2002,9 +1975,7 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
-    listen:
-      Visiting Browser: mozorg_ga.browser
-      Country: mozorg_ga.country
+    listen: {}
     row: 97
     col: 12
     width: 12
@@ -2079,9 +2050,7 @@
     totals_color: "#808080"
     defaults_version: 1
     hidden_fields: []
-    listen:
-      Visiting Browser: mozorg_ga.browser
-      Country: mozorg_ga.country
+    listen: {}
     row: 103
     col: 12
     width: 12
@@ -2156,9 +2125,7 @@
     totals_color: "#808080"
     defaults_version: 1
     hidden_fields: []
-    listen:
-      Visiting Browser: mozorg_ga.browser
-      Country: mozorg_ga.country
+    listen: {}
     row: 103
     col: 0
     width: 12
@@ -2221,8 +2188,7 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    listen:
-      Country: dau_mobile.country
+    listen: {}
     row: 111
     col: 0
     width: 12
@@ -2272,8 +2238,7 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    listen:
-      Country: dau_mobile.country
+    listen: {}
     row: 111
     col: 12
     width: 12
@@ -2550,8 +2515,7 @@
     series_point_styles:
       install_android.device_installs_2020: diamond
     defaults_version: 1
-    listen:
-      Country: install_android.country
+    listen: {}
     row: 130
     col: 0
     width: 12
@@ -2701,8 +2665,7 @@
     series_colors:
       install_ios.installations_opt_in_2021: "#F9AB00"
     defaults_version: 1
-    listen:
-      Country: install_ios.country
+    listen: {}
     row: 130
     col: 12
     width: 12
@@ -2870,9 +2833,7 @@
     interpolation: linear
     defaults_version: 1
     hidden_fields:
-    listen:
-      Desktop OS: feature_usage.Desktop_OS
-      Country: feature_usage.country
+    listen: {}
     row: 159
     col: 0
     width: 9
@@ -2933,9 +2894,7 @@
     interpolation: linear
     defaults_version: 1
     hidden_fields:
-    listen:
-      Desktop OS: feature_usage.Desktop_OS
-      Country: feature_usage.country
+    listen: {}
     row: 159
     col: 9
     width: 8
@@ -2971,60 +2930,3 @@
     col: 0
     width: 8
     height: 6
-  filters:
-  - name: Desktop OS
-    title: Desktop OS
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: checkboxes
-      display: popover
-      options: []
-    model: MR1Dev
-    explore: version_uplift
-    listens_to_filters: []
-    field: version_uplift.desktop_OS
-  - name: Country
-    title: Country
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: tag_list
-      display: popover
-      options: []
-    model: MR1Dev
-    explore: version_uplift
-    listens_to_filters: []
-    field: version_uplift.country
-  - name: Visiting Browser
-    title: Visiting Browser
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: checkboxes
-      display: popover
-      options: []
-    model: MR1Dev
-    explore: mozorg_ga
-    listens_to_filters: []
-    field: mozorg_ga.browser
-  - name: Traffic Type
-    title: Traffic Type
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: checkboxes
-      display: popover
-      options: []
-    model: MR1Dev
-    explore: mozorg_ga
-    listens_to_filters: []
-    field: mozorg_ga.traffic_type
