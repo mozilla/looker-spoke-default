@@ -24,13 +24,13 @@ view: gplay_downloads {
 ######################################################
 
   measure: device_installs {
-    type: sum
+    type:sum
     sql: ${TABLE}.device_installs;;
     drill_fields: [detail*]
   }
 
   measure: user_installs {
-    type: sum
+    type:sum
     sql: ${TABLE}.user_installs;;
     drill_fields: [detail*]
   }
