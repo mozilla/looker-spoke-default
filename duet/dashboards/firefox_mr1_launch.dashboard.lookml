@@ -7,7 +7,7 @@
   elements:
   - title: Uplift Desktop
     name: Uplift Desktop
-    model: DUET
+    model: duet
     explore: version_uplift
     type: looker_column
     fields: [version_uplift.submission_date, version_uplift.Updated, version_uplift.Non_updated]
@@ -50,14 +50,16 @@
     show_null_points: true
     interpolation: linear
     defaults_version: 1
-    listen: {}
+    listen:
+      Desktop OS: version_uplift.desktop_OS
+      Country: version_uplift.country
     row: 6
     col: 0
     width: 8
     height: 8
   - title: Desktop
     name: Desktop
-    model: DUET
+    model: duet
     explore: version_uplift
     type: single_value
     fields: [version_uplift.submission_date, version_uplift.uplift]
@@ -84,7 +86,9 @@
     series_types: {}
     defaults_version: 1
     hidden_fields: [version_uplift.submission_date]
-    listen: {}
+    listen:
+      Desktop OS: version_uplift.desktop_OS
+      Country: version_uplift.country
     row: 4
     col: 0
     width: 8
@@ -104,7 +108,7 @@
     height: 4
   - title: Surveys Engaged
     name: Surveys Engaged
-    model: DUET
+    model: duet
     explore: surveys
     type: single_value
     fields: [surveys.engaged]
@@ -129,7 +133,7 @@
     height: 5
   - title: Surveys Offered
     name: Surveys Offered
-    model: DUET
+    model: duet
     explore: surveys
     type: single_value
     fields: [surveys.offered]
@@ -274,7 +278,7 @@
     height: 4
   - title: Default Rate (Overall)
     name: Default Rate (Overall)
-    model: DUET
+    model: duet
     explore: feature_usage
     type: looker_column
     fields: [feature_usage.submission_date, feature_usage.browser_default, feature_usage.browser_not_default]
@@ -327,14 +331,16 @@
     interpolation: linear
     defaults_version: 1
     hidden_fields:
-    listen: {}
+    listen:
+      Desktop OS: feature_usage.Desktop_OS
+      Country: feature_usage.country
     row: 152
     col: 9
     width: 8
     height: 7
   - title: Pinned Rate (Overall)
     name: Pinned Rate (Overall)
-    model: DUET
+    model: duet
     explore: feature_usage
     type: looker_column
     fields: [feature_usage.submission_date, feature_usage.browser_pinned, feature_usage.browser_not_pinned]
@@ -387,14 +393,16 @@
     interpolation: linear
     defaults_version: 1
     hidden_fields:
-    listen: {}
+    listen:
+      Desktop OS: feature_usage.Desktop_OS
+      Country: feature_usage.country
     row: 152
     col: 0
     width: 9
     height: 7
   - title: mozillaorg Desktop Traffic
     name: mozillaorg Desktop Traffic
-    model: DUET
+    model: duet
     explore: mozorg_ga
     type: looker_grid
     fields: [mozorg_ga.non_fx_sessions, mozorg_ga.non_fx_downloads, mozorg_ga.traffic_type]
@@ -456,7 +464,9 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
-    listen: {}
+    listen:
+      Visiting Browser: mozorg_ga.browser
+      Country: mozorg_ga.country
     row: 97
     col: 0
     width: 12
@@ -508,7 +518,7 @@
     height: 7
   - title: blogmozilla Visits (By Blog)
     name: blogmozilla Visits (By Blog)
-    model: DUET
+    model: duet
     explore: mozblogs_ga
     type: looker_grid
     fields: [mozblogs_ga.sessions, mozblogs_ga.blog, mozblogs_ga.mobile_sessions,
@@ -573,14 +583,17 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
-    listen: {}
+    listen:
+      Traffic Type: mozblogs_ga.traffic_type
+      Visiting Browser: mozblogs_ga.browser
+      Country: mozblogs_ga.country
     row: 84
     col: 8
     width: 16
     height: 7
   - title: DAU vs Recent Trend
     name: DAU vs Recent Trend
-    model: DUET
+    model: duet
     explore: forecast_desktopDAU
     type: looker_line
     fields: [forecast_desktopDAU.submission_date, forecast_desktopDAU.upper_bound,
@@ -639,7 +652,7 @@
     height: 6
   - title: Status
     name: Status
-    model: DUET
+    model: duet
     explore: forecast_desktopDAU
     type: single_value
     fields: [forecast_desktopDAU.submission_date, forecast_desktopDAU.lower_diff_pct,
@@ -704,7 +717,7 @@
     height: 2
   - title: New Profiles vs Recent Trend
     name: New Profiles vs Recent Trend
-    model: DUET
+    model: duet
     explore: forecast_desktopNP
     type: looker_line
     fields: [forecast_desktopNP.submission_date, forecast_desktopNP.upper_bound, forecast_desktopNP.new_profiles,
@@ -764,7 +777,7 @@
     height: 6
   - title: Uplift iOS
     name: Uplift iOS
-    model: DUET
+    model: duet
     explore: version_uplift_mobile
     type: looker_column
     fields: [version_uplift_mobile.submission_date, version_uplift_mobile.Updated,
@@ -804,14 +817,15 @@
     totals_color: "#808080"
     series_types: {}
     defaults_version: 1
-    listen: {}
+    listen:
+      Country: version_uplift_mobile.country
     row: 6
     col: 16
     width: 8
     height: 8
   - title: iOS
     name: iOS
-    model: DUET
+    model: duet
     explore: version_uplift_mobile
     type: single_value
     fields: [version_uplift_mobile.submission_date, version_uplift_mobile.uplift]
@@ -860,14 +874,15 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    listen: {}
+    listen:
+      Country: version_uplift_mobile.country
     row: 4
     col: 16
     width: 8
     height: 2
   - title: Android
     name: Android
-    model: DUET
+    model: duet
     explore: version_uplift_mobile
     type: single_value
     fields: [version_uplift_mobile.submission_date, version_uplift_mobile.uplift]
@@ -917,14 +932,15 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    listen: {}
+    listen:
+      Country: version_uplift_mobile.country
     row: 4
     col: 8
     width: 8
     height: 2
   - title: Uplift Android
     name: Uplift Android
-    model: DUET
+    model: duet
     explore: version_uplift_mobile
     type: looker_column
     fields: [version_uplift_mobile.submission_date, version_uplift_mobile.Updated,
@@ -968,7 +984,8 @@
       version_uplift_mobile.Non_updated: "#12B5CB"
       version_uplift_mobile.Updated: "#1A73E8"
     defaults_version: 1
-    listen: {}
+    listen:
+      Country: version_uplift_mobile.country
     row: 6
     col: 8
     width: 8
@@ -1572,7 +1589,7 @@
     height: 4
   - title: Status
     name: Status (2)
-    model: DUET
+    model: duet
     explore: forecast_desktopNP
     type: single_value
     fields: [forecast_desktopNP.submission_date, forecast_desktopNP.status]
@@ -1599,7 +1616,7 @@
     height: 2
   - title: New Profiles vs 2020
     name: New Profiles vs 2020
-    model: DUET
+    model: duet
     explore: dau_desktop
     type: looker_line
     fields: [dau_desktop.submission_date, dau_desktop.new_profiles_2021, dau_desktop.new_profiles_2020]
@@ -1638,14 +1655,16 @@
     series_point_styles:
       dau_desktop.new_profiles_2020: diamond
     defaults_version: 1
-    listen: {}
+    listen:
+      Desktop OS: dau_desktop.desktop_OS
+      Country: dau_desktop.country
     row: 65
     col: 0
     width: 12
     height: 8
   - title: DAU vs 2020
     name: DAU vs 2020
-    model: DUET
+    model: duet
     explore: dau_desktop
     type: looker_line
     fields: [dau_desktop.submission_date, dau_desktop.DAU_2021, dau_desktop.DAU_2020]
@@ -1684,14 +1703,16 @@
     series_point_styles:
       dau_desktop.DAU_2020: diamond
     defaults_version: 1
-    listen: {}
+    listen:
+      Desktop OS: dau_desktop.desktop_OS
+      Country: dau_desktop.country
     row: 57
     col: 0
     width: 12
     height: 8
   - title: mozillaorg Downloads vs 2020
     name: mozillaorg Downloads vs 2020
-    model: DUET
+    model: duet
     explore: mozorg_ga
     type: looker_line
     fields: [mozorg_ga.non_fx_downloads_2021, mozorg_ga.non_fx_downloads_2020, mozorg_ga.date]
@@ -1731,14 +1752,18 @@
     series_point_styles:
       mozorg_ga.non_fx_downloads_2020: diamond
     defaults_version: 1
-    listen: {}
+    listen:
+      Traffic Type: mozorg_ga.traffic_type
+      Visiting Browser: mozorg_ga.browser
+      Desktop OS: mozorg_ga.Desktop_OS
+      Country: mozorg_ga.country
     row: 73
     col: 0
     width: 12
     height: 8
   - title: mozillaorg Downloads vs Recent Trend
     name: mozillaorg Downloads vs Recent Trend
-    model: DUET
+    model: duet
     explore: forecast_dls
     type: looker_line
     fields: [forecast_dls.upper_bound, forecast_dls.non_fx_downloads, forecast_dls.lower_bound,
@@ -1787,7 +1812,7 @@
     height: 6
   - title: Status
     name: Status (3)
-    model: DUET
+    model: duet
     explore: forecast_dls
     type: single_value
     fields: [forecast_dls.submission_date, forecast_dls.status]
@@ -1845,7 +1870,7 @@
     height: 2
   - title: blogmozilla Visits (By Traffic Type)
     name: blogmozilla Visits (By Traffic Type)
-    model: DUET
+    model: duet
     explore: mozblogs_ga
     type: looker_grid
     fields: [mozblogs_ga.sessions, mozblogs_ga.mobile_sessions, mozblogs_ga.desktop_sessions,
@@ -1906,14 +1931,16 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
-    listen: {}
+    listen:
+      Visiting Browser: mozblogs_ga.browser
+      Country: mozblogs_ga.country
     row: 91
     col: 8
     width: 16
     height: 6
   - title: mozillaorg Mobile Traffic
     name: mozillaorg Mobile Traffic
-    model: DUET
+    model: duet
     explore: mozorg_ga
     type: looker_grid
     fields: [mozorg_ga.non_fx_sessions, mozorg_ga.non_fx_downloads, mozorg_ga.traffic_type]
@@ -1975,14 +2002,16 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
-    listen: {}
+    listen:
+      Visiting Browser: mozorg_ga.browser
+      Country: mozorg_ga.country
     row: 97
     col: 12
     width: 12
     height: 6
   - title: mozillaorg Mobile Visits (By Traffic Type)
     name: mozillaorg Mobile Visits (By Traffic Type)
-    model: DUET
+    model: duet
     explore: mozorg_ga
     type: looker_line
     fields: [mozorg_ga.date, mozorg_ga.traffic_type, mozorg_ga.non_fx_sessions]
@@ -2050,14 +2079,16 @@
     totals_color: "#808080"
     defaults_version: 1
     hidden_fields: []
-    listen: {}
+    listen:
+      Visiting Browser: mozorg_ga.browser
+      Country: mozorg_ga.country
     row: 103
     col: 12
     width: 12
     height: 6
   - title: mozillaorg Desktop Visits (By Traffic Type)
     name: mozillaorg Desktop Visits (By Traffic Type)
-    model: DUET
+    model: duet
     explore: mozorg_ga
     type: looker_line
     fields: [mozorg_ga.date, mozorg_ga.traffic_type, mozorg_ga.non_fx_sessions]
@@ -2125,7 +2156,9 @@
     totals_color: "#808080"
     defaults_version: 1
     hidden_fields: []
-    listen: {}
+    listen:
+      Visiting Browser: mozorg_ga.browser
+      Country: mozorg_ga.country
     row: 103
     col: 0
     width: 12
@@ -2144,7 +2177,7 @@
     height: 2
   - title: Android DAU vs 2020
     name: Android DAU vs 2020
-    model: DUET
+    model: duet
     explore: dau_mobile
     type: looker_line
     fields: [dau_mobile.submission_date, dau_mobile.DAU_2021, dau_mobile.DAU_2020]
@@ -2188,14 +2221,15 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    listen: {}
+    listen:
+      Country: dau_mobile.country
     row: 111
     col: 0
     width: 12
     height: 9
   - title: iOS DAU vs 2020
     name: iOS DAU vs 2020
-    model: DUET
+    model: duet
     explore: dau_mobile
     type: looker_line
     fields: [dau_mobile.submission_date, dau_mobile.DAU_2021, dau_mobile.DAU_2020]
@@ -2238,14 +2272,15 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    listen: {}
+    listen:
+      Country: dau_mobile.country
     row: 111
     col: 12
     width: 12
     height: 9
   - title: Android DAU vs Recent Trend
     name: Android DAU vs Recent Trend
-    model: DUET
+    model: duet
     explore: forecast_mobile_dau
     type: looker_line
     fields: [forecast_mobile_dau.submission_date, forecast_mobile_dau.upper_bound,
@@ -2301,7 +2336,7 @@
     height: 8
   - title: Status
     name: Status (4)
-    model: DUET
+    model: duet
     explore: forecast_mobile_dau
     type: single_value
     fields: [forecast_mobile_dau.submission_date, forecast_mobile_dau.status]
@@ -2360,7 +2395,7 @@
     height: 2
   - title: iOS DAU vs Recent Trend
     name: iOS DAU vs Recent Trend
-    model: DUET
+    model: duet
     explore: forecast_mobile_dau
     type: looker_line
     fields: [forecast_mobile_dau.submission_date, forecast_mobile_dau.upper_bound,
@@ -2416,7 +2451,7 @@
     height: 8
   - title: Status
     name: Status (5)
-    model: DUET
+    model: duet
     explore: forecast_mobile_dau
     type: single_value
     fields: [forecast_mobile_dau.submission_date, forecast_mobile_dau.status]
@@ -2475,7 +2510,7 @@
     height: 2
   - title: Android Installs vs 2020
     name: Android Installs vs 2020
-    model: DUET
+    model: duet
     explore: install_android
     type: looker_line
     fields: [install_android.submission_date, install_android.device_installs_2021,
@@ -2515,14 +2550,15 @@
     series_point_styles:
       install_android.device_installs_2020: diamond
     defaults_version: 1
-    listen: {}
+    listen:
+      Country: install_android.country
     row: 130
     col: 0
     width: 12
     height: 8
   - title: Android Installs vs Recent Trend
     name: Android Installs vs Recent Trend
-    model: DUET
+    model: duet
     explore: forecast_android_installs
     type: looker_line
     fields: [forecast_android_installs.submission_date, forecast_android_installs.upper_bound,
@@ -2571,7 +2607,7 @@
     height: 9
   - title: Status
     name: Status (6)
-    model: DUET
+    model: duet
     explore: forecast_android_installs
     type: single_value
     fields: [forecast_android_installs.submission_date, forecast_android_installs.status]
@@ -2629,7 +2665,7 @@
     height: 2
   - title: iOS Installs vs 2020
     name: iOS Installs vs 2020
-    model: DUET
+    model: duet
     explore: install_ios
     type: looker_line
     fields: [install_ios.submission_date, install_ios.installations_opt_in_2021, install_ios.installations_opt_in_2020]
@@ -2665,14 +2701,15 @@
     series_colors:
       install_ios.installations_opt_in_2021: "#F9AB00"
     defaults_version: 1
-    listen: {}
+    listen:
+      Country: install_ios.country
     row: 130
     col: 12
     width: 12
     height: 8
   - title: iOS Installs vs Recent Trend
     name: iOS Installs vs Recent Trend
-    model: DUET
+    model: duet
     explore: forecast_ios_installs
     type: looker_line
     fields: [forecast_ios_installs.submission_date, forecast_ios_installs.upper_bound,
@@ -2721,7 +2758,7 @@
     height: 9
   - title: Status
     name: Status (7)
-    model: DUET
+    model: duet
     explore: forecast_ios_installs
     type: single_value
     fields: [forecast_ios_installs.submission_date, forecast_ios_installs.status]
@@ -2779,7 +2816,7 @@
     height: 2
   - title: Pinned Rate (New Profile)
     name: Pinned Rate (New Profile)
-    model: DUET
+    model: duet
     explore: feature_usage
     type: looker_column
     fields: [feature_usage.submission_date, feature_usage.browser_pinned, feature_usage.browser_not_pinned]
@@ -2833,14 +2870,16 @@
     interpolation: linear
     defaults_version: 1
     hidden_fields:
-    listen: {}
+    listen:
+      Desktop OS: feature_usage.Desktop_OS
+      Country: feature_usage.country
     row: 159
     col: 0
     width: 9
     height: 7
   - title: Default Rate (New Profile)
     name: Default Rate (New Profile)
-    model: DUET
+    model: duet
     explore: feature_usage
     type: looker_column
     fields: [feature_usage.submission_date, feature_usage.browser_default, feature_usage.browser_not_default]
@@ -2894,7 +2933,9 @@
     interpolation: linear
     defaults_version: 1
     hidden_fields:
-    listen: {}
+    listen:
+      Desktop OS: feature_usage.Desktop_OS
+      Country: feature_usage.country
     row: 159
     col: 9
     width: 8
@@ -2930,3 +2971,60 @@
     col: 0
     width: 8
     height: 6
+  filters:
+  - name: Desktop OS
+    title: Desktop OS
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: checkboxes
+      display: popover
+      options: []
+    model: duet
+    explore: version_uplift
+    listens_to_filters: []
+    field: version_uplift.desktop_OS
+  - name: Country
+    title: Country
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: tag_list
+      display: popover
+      options: []
+    model: duet
+    explore: version_uplift
+    listens_to_filters: []
+    field: version_uplift.country
+  - name: Visiting Browser
+    title: Visiting Browser
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: checkboxes
+      display: popover
+      options: []
+    model: duet
+    explore: mozorg_ga
+    listens_to_filters: []
+    field: mozorg_ga.browser
+  - name: Traffic Type
+    title: Traffic Type
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: checkboxes
+      display: popover
+      options: []
+    model: duet
+    explore: mozorg_ga
+    listens_to_filters: []
+    field: mozorg_ga.traffic_type

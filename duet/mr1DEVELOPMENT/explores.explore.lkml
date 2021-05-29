@@ -1,98 +1,98 @@
 include: "views/*.view.lkml"
 
 explore: version_uplift {
-  hidden: yes
+  #hidden: yes
   from: version_uplift
 }
 
 
 explore: version_uplift_mobile {
-  hidden: yes
+  #hidden: yes
   from: version_uplift_mobile
 }
 
 
 explore: surveys {
-  hidden: yes
+  #hidden: yes
   from: surveys
 }
 
 
 explore: feature_usage {
-  hidden: yes
+  #hidden: yes
   from: feature_usage
 }
 
 
 explore: gplay_downloads {
-  hidden: yes
+  #hidden: yes
   from: gplay_downloads
 }
 
 
 explore: mozorg_ga {
-  hidden: yes
+  #hidden: yes
   from: mozorg_ga
 }
 
 
 explore: mozblogs_ga {
-  hidden: yes
+  #hidden: yes
   from: mozblogs_ga
 }
 
 
 explore: forecast_desktopDAU {
-  hidden: yes
+  #hidden: yes
   from: forecast_desktopDAU
 }
 
 
 explore: forecast_desktopNP {
-  hidden: yes
+  #hidden: yes
   from: forecast_desktopNP
 }
 
 explore: dau_desktop {
-  hidden: yes
+  #hidden: yes
   from: dau_desktop
 }
 
 explore: forecast_dls {
-  hidden: yes
+  #hidden: yes
   from: forecast_dls
 }
 
 explore: dau_mobile {
-  hidden: yes
+  #hidden: yes
   from: dau_mobile
 }
 
 
 explore: forecast_mobile_dau {
-  hidden: yes
+  #hidden: yes
   from: forecast_mobile_dau
 }
 
 
 explore: install_android {
-  hidden: yes
+  #hidden: yes
   from: install_android
 }
 
 
 explore: forecast_android_installs {
-  hidden: yes
+  #hidden: yes
   from: forecast_android_installs
 }
 
 explore: install_ios {
-  hidden: yes
+  #hidden: yes
   from: install_ios
 }
 
 
 explore: forecast_ios_installs {
-  hidden: yes
+  #hidden: yes
   from: forecast_ios_installs
 }
