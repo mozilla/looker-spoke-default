@@ -160,8 +160,16 @@
     - model: duet
       explore: desktop_install
       type: table
-      fields: [desktop_install.join_field, desktop_install.new_installs]
+      fields: [desktop_install.join_field, desktop_install.paveovers, desktop_install.new_installs]
       limit: 500
+      dynamic_fields: [{_kind_hint: measure, table_calculation: re_installs_new_installs,
+      _type_hint: number, category: table_calculation, expression: "${desktop_install.paveovers}\
+      \ + ${desktop_install.new_installs}", label: Re-Installs + New Installs,
+      value_format: !!null '', value_format_name: decimal_0}, {_kind_hint: measure,
+      table_calculation: new_installs, _type_hint: number, category: table_calculation,
+      expression: "\n\n${desktop_install.new_installs}", label: New Installs,
+      value_format: !!null '', value_format_name: decimal_0}]
+      hidden_fields: [desktop_install.paveovers, desktop_install.new_installs]
       join_fields:
       - field_name: desktop_install.join_field
         source_field_name: desktop_session.join_field
@@ -187,9 +195,26 @@
     rightAxisLabel: ''
     color_application:
       collection_id: 7c56cc21-66e4-41c9-81ce-a60e1c3967b2
-      palette_id: 5d189dfc-4f46-46f3-822b-bfb0b61777b1
+      custom:
+        id: 4645c003-7183-ca03-2bf8-2fcfbe289922
+        label: Custom
+        type: discrete
+        colors:
+        - "#1A73E8"
+        - "#12B5CB"
+        - "#9334E6"
+        - "#E52592"
+        - "#E8710A"
+        - "#F9AB00"
+        - "#9334E6"
+        - "#80868B"
+        - "#079c98"
+        - "#A8A116"
+        - "#EA4335"
+        - "#FF8168"
       options:
         steps: 5
+        reverse: false
     smoothedBars: true
     orientation: automatic
     labelPosition: left
@@ -198,7 +223,7 @@
     valuePosition: right
     labelColorEnabled: false
     labelColor: "#FFF"
-    hidden_fields: [join_field, desktop_session.join_field]
+    hidden_fields: [join_field, desktop_session.join_field, desktop_install.paveovers, desktop_install.new_installs]
     type: looker_funnel
     series_types: {}
     column_limit: 50
