@@ -10,14 +10,14 @@ view: desktop_activation {
               IF({% parameter previous_time_period %},
                 DATE(DATE_ADD(DATE({% date_end date %}), INTERVAL DATE_DIFF(DATE({% date_start date %}), DATE({% date_end date %}), DAY) DAY)),
                 DATE({% date_end date %})
-          ), INTERVAL IF({% parameter ignore_most_recent_week %}, 8, 0) DAY), INTERVAL 6 DAY)
+          ), INTERVAL IF({% parameter ignore_most_recent_week %}, 9, 0) DAY), INTERVAL 6 DAY)
           AND
           submission_date >= DATE_ADD(
             DATE_SUB(
               IF({% parameter previous_time_period %},
                 DATE(DATE_ADD(DATE({% date_start date %}), INTERVAL DATE_DIFF(DATE({% date_start date %}), DATE({% date_end date %}), DAY) DAY)),
                 DATE({% date_start date %})
-          ), INTERVAL IF({% parameter ignore_most_recent_week %}, 8, 0) DAY), INTERVAL 6 DAY)
+          ), INTERVAL IF({% parameter ignore_most_recent_week %}, 9, 0) DAY), INTERVAL 6 DAY)
       ),
       pop AS (
         SELECT
