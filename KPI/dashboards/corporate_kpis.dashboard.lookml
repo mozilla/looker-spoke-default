@@ -147,7 +147,7 @@
     subtitle_text: ''
     body_text: |-
       <h1 style="margin-top:0px; padding: 5px; border-bottom: solid 1px #412399; height: 50px; color: #412399; text-align: left;" id="dou">Desktop Days of Use and DAU</h1>
-      <div><a style="font-weight: bold;" href="https://mozilla.cloud.looker.com/dashboards-next/88?Date=after%202021%2F01%2F01&Channel=&Activity%20Segment=&OS=&Attributed%20(Yes%20%2F%20No)=&Country%20Name=">☰
+      <div><a style="font-weight: bold;" href="https://mozilla.cloud.looker.com/dashboards-next/kpi::desktop_kr_dashboard?Date=after+2021%2F01%2F01&Channel=&Activity+Segment=&OS=&Attributed+%28Yes+%2F+No%29=&Country+Name=">☰
 
             Go Here for a More Detail on Desktop KPIs</a></div>
     row: 0
@@ -316,7 +316,7 @@
     subtitle_text: ''
     body_text: |-
       <h1 style="margin-top:0px; padding: 5px; border-bottom: solid 1px #412399; height: 50px; color: #412399; text-align: left;" id="dou">Mobile Days of Use and DAU</h1>
-      <div><a style="font-weight: bold;" href="https://mozilla.cloud.looker.com/dashboards-next/89?Date=after%202021%2F01%2F01&Country=">☰
+      <div><a style="font-weight: bold;" href="https://mozilla.cloud.looker.com/dashboards-next/kpi::mobile_kr_dashboard?Date=after+2021%2F01%2F01&Country=">☰
 
             Go Here for a Breakdown of Mobile Products</a></div>
     row: 19
@@ -330,7 +330,6 @@
     type: single_value
     fields: [mobile_usage_2021.year_over_year_cdou_delta_percent, mobile_usage_2021.dau,
       mobile_usage_2021.year_over_year_cdou_delta_count, mobile_usage_2021.year_over_year_dau]
-    filters: {}
     limit: 500
     custom_color_enabled: true
     show_single_value_title: true
