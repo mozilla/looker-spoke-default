@@ -60,7 +60,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 41
+    row: 48
     col: 12
     width: 12
     height: 10
@@ -120,7 +120,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 92
+    row: 99
     col: 12
     width: 12
     height: 9
@@ -180,7 +180,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 67
+    row: 74
     col: 12
     width: 12
     height: 9
@@ -240,7 +240,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 117
+    row: 124
     col: 12
     width: 12
     height: 8
@@ -289,7 +289,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 32
+    row: 39
     col: 12
     width: 12
     height: 9
@@ -338,7 +338,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 58
+    row: 65
     col: 12
     width: 12
     height: 9
@@ -387,7 +387,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 108
+    row: 115
     col: 12
     width: 12
     height: 9
@@ -436,7 +436,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 83
+    row: 90
     col: 12
     width: 12
     height: 9
@@ -495,7 +495,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 32
+    row: 39
     col: 0
     width: 12
     height: 9
@@ -551,7 +551,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 108
+    row: 115
     col: 0
     width: 12
     height: 9
@@ -607,7 +607,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 83
+    row: 90
     col: 0
     width: 12
     height: 9
@@ -666,7 +666,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 58
+    row: 65
     col: 0
     width: 12
     height: 9
@@ -717,7 +717,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 43
+    row: 50
     col: 0
     width: 12
     height: 8
@@ -768,7 +768,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 69
+    row: 76
     col: 0
     width: 12
     height: 7
@@ -819,7 +819,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 119
+    row: 126
     col: 0
     width: 12
     height: 6
@@ -870,7 +870,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 94
+    row: 101
     col: 0
     width: 12
     height: 7
@@ -938,7 +938,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 41
+    row: 48
     col: 0
     width: 12
     height: 2
@@ -1006,7 +1006,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 67
+    row: 74
     col: 0
     width: 12
     height: 2
@@ -1074,7 +1074,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 92
+    row: 99
     col: 0
     width: 12
     height: 2
@@ -1142,7 +1142,7 @@
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
-    row: 117
+    row: 124
     col: 0
     width: 12
     height: 2
@@ -1199,7 +1199,7 @@
     series_types: {}
     listen:
       Country: mobile_usage_2021.country
-    row: 28
+    row: 35
     col: 8
     width: 8
     height: 4
@@ -1210,8 +1210,8 @@
     type: single_value
     fields: [mobile_usage_2021.recent_cdou]
     filters:
-      mobile_usage_2021.date: after 2021/01/01
       mobile_usage_2021.app_name: '"fennec_fenix"'
+      mobile_usage_2021.date: after 2021/01/01
     limit: 500
     custom_color_enabled: true
     show_single_value_title: false
@@ -1225,7 +1225,7 @@
     defaults_version: 1
     listen:
       Country: mobile_usage_2021.country
-    row: 28
+    row: 35
     col: 0
     width: 8
     height: 4
@@ -1281,7 +1281,7 @@
     series_types: {}
     listen:
       Country: mobile_usage_2021.country
-    row: 28
+    row: 35
     col: 16
     width: 8
     height: 4
@@ -1292,7 +1292,7 @@
     body_text: '<h1 style="margin-top:20px; padding: 5px; border-bottom: solid 1px
       #412399; height: 50px; color: #412399; text-align: center;" id="dou">Firefox
       iOS Days of Use and DAU</h1>'
-    row: 51
+    row: 58
     col: 0
     width: 24
     height: 3
@@ -1303,7 +1303,7 @@
     body_text: '<h1 style="margin-top:20px; padding: 5px; border-bottom: solid 1px
       #412399; height: 50px; color: #412399; text-align: center;" id="dou">Firefox
       Focus for iOS Days of Use and DAU</h1>'
-    row: 101
+    row: 108
     col: 0
     width: 24
     height: 3
@@ -1314,7 +1314,7 @@
     body_text: '<h1 style="margin-top:20px; padding: 5px; border-bottom: solid 1px
       #412399; height: 50px; color: #412399; text-align: center;" id="dou">Firefox
       Android (Fennec + Fenix) Days of Use and DAU</h1>'
-    row: 25
+    row: 32
     col: 0
     width: 24
     height: 3
@@ -1325,7 +1325,7 @@
     body_text: '<h1 style="margin-top:20px; padding: 5px; border-bottom: solid 1px
       #412399; height: 50px; color: #412399; text-align: center;" id="dou">Firefox
       Focus for Android Days of Use and DAU</h1>'
-    row: 76
+    row: 83
     col: 0
     width: 24
     height: 3
@@ -1351,7 +1351,7 @@
     defaults_version: 1
     listen:
       Country: mobile_usage_2021.country
-    row: 54
+    row: 61
     col: 0
     width: 8
     height: 4
@@ -1408,7 +1408,7 @@
     series_types: {}
     listen:
       Country: mobile_usage_2021.country
-    row: 54
+    row: 61
     col: 8
     width: 8
     height: 4
@@ -1434,7 +1434,7 @@
     defaults_version: 1
     listen:
       Country: mobile_usage_2021.country
-    row: 79
+    row: 86
     col: 0
     width: 8
     height: 4
@@ -1490,7 +1490,7 @@
     series_types: {}
     listen:
       Country: mobile_usage_2021.country
-    row: 79
+    row: 86
     col: 16
     width: 8
     height: 4
@@ -1547,7 +1547,7 @@
     series_types: {}
     listen:
       Country: mobile_usage_2021.country
-    row: 104
+    row: 111
     col: 8
     width: 8
     height: 4
@@ -1603,7 +1603,7 @@
     series_types: {}
     listen:
       Country: mobile_usage_2021.country
-    row: 54
+    row: 61
     col: 16
     width: 8
     height: 4
@@ -1660,7 +1660,7 @@
     series_types: {}
     listen:
       Country: mobile_usage_2021.country
-    row: 79
+    row: 86
     col: 8
     width: 8
     height: 4
@@ -1686,7 +1686,7 @@
     defaults_version: 1
     listen:
       Country: mobile_usage_2021.country
-    row: 104
+    row: 111
     col: 0
     width: 8
     height: 4
@@ -1742,7 +1742,7 @@
     series_types: {}
     listen:
       Country: mobile_usage_2021.country
-    row: 104
+    row: 111
     col: 16
     width: 8
     height: 4
@@ -2062,15 +2062,20 @@
     col: 12
     width: 12
     height: 9
-  - title: Overall New Profiles Per Day
-    name: Overall New Profiles Per Day
+  - title: Total Mobile New Profiles Per Day
+    name: Total Mobile New Profiles Per Day
     model: kpi
     explore: mobile_usage_2021
     type: looker_line
     fields: [mobile_usage_2021.date, mobile_usage_2021.new_profiles_7day_ma, mobile_usage_2021.year_over_year_new_profiles_7day_ma]
     fill_fields: [mobile_usage_2021.date]
+    filters: {}
     sorts: [mobile_usage_2021.date desc]
     limit: 500
+    dynamic_fields: [{_kind_hint: measure, table_calculation: yoy_7_day_ma, _type_hint: number,
+        category: table_calculation, expression: "${mobile_usage_2021.new_profiles_7day_ma}/${mobile_usage_2021.year_over_year_new_profiles_7day_ma}\
+          \ - ${mobile_usage_2021.year_over_year_new_profiles_7day_ma}/${mobile_usage_2021.year_over_year_new_profiles_7day_ma}",
+        label: YoY 7 Day MA, value_format: !!null '', value_format_name: !!null ''}]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -2099,11 +2104,19 @@
             id: mobile_usage_2021.new_profiles_7day_ma, name: New Profiles 7day Ma}],
         showLabels: true, showValues: true, unpinAxis: true, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
+    series_colors:
+      yoy_7_day_ma: "#0060E0"
     series_labels:
       mobile_usage_2021.new_profiles_7day_ma: 2021 New Profiles (7 Day MA)
       mobile_usage_2021.year_over_year_new_profiles_7day_ma: 2020 New Profiles (7
         Day MA)
+      yoy_7_day_ma: YoY Variance
+    reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
+        margin_bottom: deviation, label_position: center, color: "#66b2e0", line_value: '0.05',
+        margin_value: '0.05', label: 2021 New Profiles YoY Target}]
+    trend_lines: []
     defaults_version: 1
+    hidden_fields: [yoy_7_day_ma]
     listen:
       Date: mobile_usage_2021.date
       Country: mobile_usage_2021.country
@@ -2177,6 +2190,68 @@
     col: 0
     width: 12
     height: 2
+  - title: Total Mobile New Profiles 7 Day Moving Average YoY
+    name: Total Mobile New Profiles 7 Day Moving Average YoY
+    model: kpi
+    explore: mobile_usage_2021
+    type: looker_line
+    fields: [mobile_usage_2021.date, mobile_usage_2021.new_profiles_7day_ma, mobile_usage_2021.year_over_year_new_profiles_7day_ma]
+    fill_fields: [mobile_usage_2021.date]
+    filters: {}
+    sorts: [mobile_usage_2021.date desc]
+    limit: 500
+    dynamic_fields: [{_kind_hint: measure, table_calculation: yoy_7_day_ma, _type_hint: number,
+        category: table_calculation, expression: "${mobile_usage_2021.new_profiles_7day_ma}/${mobile_usage_2021.year_over_year_new_profiles_7day_ma}\
+          \ - ${mobile_usage_2021.year_over_year_new_profiles_7day_ma}/${mobile_usage_2021.year_over_year_new_profiles_7day_ma}",
+        label: YoY 7 Day MA, value_format: !!null '', value_format_name: !!null ''}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    y_axes: [{label: '', orientation: left, series: [{axisId: yoy_7_day_ma, id: yoy_7_day_ma,
+            name: YoY Variance}], showLabels: true, showValues: true, unpinAxis: false,
+        tickDensity: default, tickDensityCustom: 5, type: linear}]
+    hide_legend: false
+    series_colors:
+      yoy_7_day_ma: "#0060E0"
+    series_labels:
+      mobile_usage_2021.new_profiles_7day_ma: 2021 New Profiles (7 Day MA)
+      mobile_usage_2021.year_over_year_new_profiles_7day_ma: 2020 New Profiles (7
+        Day MA)
+      yoy_7_day_ma: YoY Variance
+    reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
+        margin_bottom: deviation, label_position: center, color: "#66b2e0", line_value: '0.05',
+        margin_value: '0.05', label: 2021 New Profiles YoY Target}]
+    trend_lines: []
+    defaults_version: 1
+    hidden_fields: [mobile_usage_2021.new_profiles_7day_ma, mobile_usage_2021.year_over_year_new_profiles_7day_ma]
+    listen:
+      Date: mobile_usage_2021.date
+      Country: mobile_usage_2021.country
+    row: 25
+    col: 0
+    width: 12
+    height: 7
   filters:
   - name: Date
     title: Date
