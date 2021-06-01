@@ -4,8 +4,8 @@ explore: desktop_install  {
   description: "New Installs and re-installation of Firefox."
   sql_always_where:
     ${submission_date} > date(2020, 7 ,1) AND
-    ${succeeded} AND
     (${silent} = FALSE OR ${silent} IS NULL) AND
+    ${succeeded} AND
     ${build_channel} = "release" AND
     DATE_DIFF(  -- Only use builds from the last month
         ${submission_date},

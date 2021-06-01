@@ -62,8 +62,8 @@ explore: desktop_new_profile {
       SAFE.PARSE_DATE('%Y%m%d', SUBSTR(${application__build_id}, 0, 8)),
       MONTH
     ) <= 1 AND
-    ${normalized_os} = "Windows" AND
     ${environment__settings__attribution__source} IS NOT NULL AND
+    ${normalized_os} = "Windows" AND
     ${environment__partner__distribution_id} IS NULL AND
     COALESCE(${environment__settings__attribution__ua}, "") != "firefox" AND
     ${payload__processes__parent__scalars__startup_profile_selection_reason} = "firstrun-created-default" AND

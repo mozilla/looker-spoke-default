@@ -40,7 +40,7 @@ explore: desktop_session {
       (${country_buckets.code} = "MX" AND ${desktop_session.standardized_country_name} = "Mexico") OR
       (${country_buckets.code} = "CN" AND ${desktop_session.standardized_country_name} = "China") OR
       (
-        ${desktop_session.standardized_country_name} NOT IN ("USA", "Germany", "United Kingdom", "France", "Canada", "Mexico", "China", "Brazil") AND
+        ${desktop_session.standardized_country_name} NOT IN ("Germany", "USA", "United Kingdom", "France", "Canada", "Mexico", "China", "Brazil") AND
         ${country_buckets.bucket} IN ("non-tier-1", "Overall") AND ${country_buckets.code} = "OTHER" )
       );;
   }
