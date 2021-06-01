@@ -321,7 +321,7 @@
     y_axes: [{label: '', orientation: left, series: [{axisId: feature_usage.browser_default,
             id: feature_usage.browser_default, name: Browser Default}, {axisId: feature_usage.browser_not_default,
             id: feature_usage.browser_not_default, name: Browser Not Default}], showLabels: true,
-        showValues: true, maxValue: 100, minValue: 0, valueFormat: "#.##", unpinAxis: false,
+        showValues: true, maxValue: 100, minValue: 0, valueFormat: '', unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     hide_legend: true
     label_value_format: ''
@@ -335,7 +335,7 @@
       Desktop OS: feature_usage.Desktop_OS
       Country: feature_usage.country
     row: 152
-    col: 9
+    col: 8
     width: 8
     height: 7
   - title: Pinned Rate (Overall)
@@ -383,7 +383,7 @@
     y_axes: [{label: '', orientation: left, series: [{axisId: feature_usage.browser_pinned,
             id: feature_usage.browser_pinned, name: Browser Pinned}, {axisId: feature_usage.browser_not_pinned,
             id: feature_usage.browser_not_pinned, name: Browser Not Pinned}], showLabels: true,
-        showValues: true, maxValue: 100, minValue: 0, valueFormat: "#.##", unpinAxis: false,
+        showValues: true, maxValue: 100, minValue: 0, valueFormat: '', unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     hide_legend: true
     label_value_format: ''
@@ -398,7 +398,7 @@
       Country: feature_usage.country
     row: 152
     col: 0
-    width: 9
+    width: 8
     height: 7
   - title: mozillaorg Desktop Traffic
     name: mozillaorg Desktop Traffic
@@ -487,15 +487,6 @@
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: "# COMING SOON: Themes (New Profile)"
-    row: 159
-    col: 17
-    width: 7
-    height: 7
-  - name: " (8)"
-    type: text
-    title_text: ''
-    subtitle_text: ''
     body_text: |+
       # Earned media
 
@@ -507,15 +498,6 @@
     col: 0
     width: 8
     height: 6
-  - name: " (9)"
-    type: text
-    title_text: ''
-    subtitle_text: ''
-    body_text: "# COMING SOON: Themes (Overall)"
-    row: 152
-    col: 17
-    width: 7
-    height: 7
   - title: blogmozilla Visits (By Blog)
     name: blogmozilla Visits (By Blog)
     model: duet
@@ -1322,7 +1304,7 @@
     col: 16
     width: 8
     height: 2
-  - name: " (10)"
+  - name: " (8)"
     type: text
     title_text: ''
     subtitle_text: ''
@@ -2163,7 +2145,7 @@
     col: 0
     width: 12
     height: 6
-  - name: " (11)"
+  - name: " (9)"
     type: text
     title_text: ''
     subtitle_text: ''
@@ -2860,7 +2842,7 @@
     y_axes: [{label: '', orientation: left, series: [{axisId: feature_usage.browser_pinned,
             id: feature_usage.browser_pinned, name: Browser Pinned}, {axisId: feature_usage.browser_not_pinned,
             id: feature_usage.browser_not_pinned, name: Browser Not Pinned}], showLabels: true,
-        showValues: true, maxValue: 100, minValue: 0, valueFormat: "#.##", unpinAxis: false,
+        showValues: true, maxValue: 100, minValue: 0, valueFormat: '', unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     hide_legend: true
     label_value_format: ''
@@ -2875,7 +2857,7 @@
       Country: feature_usage.country
     row: 159
     col: 0
-    width: 9
+    width: 8
     height: 7
   - title: Default Rate (New Profile)
     name: Default Rate (New Profile)
@@ -2923,7 +2905,7 @@
     y_axes: [{label: '', orientation: left, series: [{axisId: feature_usage.browser_default,
             id: feature_usage.browser_default, name: Browser Default}, {axisId: feature_usage.browser_not_default,
             id: feature_usage.browser_not_default, name: Browser Not Default}], showLabels: true,
-        showValues: true, maxValue: 100, minValue: 0, valueFormat: "#.##", unpinAxis: false,
+        showValues: true, maxValue: 100, minValue: 0, valueFormat: '', unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     hide_legend: true
     label_value_format: ''
@@ -2937,21 +2919,21 @@
       Desktop OS: feature_usage.Desktop_OS
       Country: feature_usage.country
     row: 159
-    col: 9
+    col: 8
     width: 8
     height: 7
-  - name: " (12)"
+  - name: " (10)"
     type: text
     title_text: ''
     subtitle_text: ''
     body_text: |-
       ---------------------------------------------------------------------------------------------
-      # COMING SOON: Feature Usage (Mobile)
+      # Feature Usage (Mobile)
     row: 166
     col: 0
     width: 24
     height: 4
-  - name: " (13)"
+  - name: " (11)"
     type: text
     title_text: ''
     subtitle_text: ''
@@ -2962,15 +2944,601 @@
     col: 0
     width: 24
     height: 3
-  - name: " (14)"
+  - title: Themes (Overall)
+    name: Themes (Overall)
+    model: duet
+    explore: feature_usage_themes
+    type: looker_column
+    fields: [feature_usage_themes.alpenglow_theme, feature_usage_themes.dark_theme,
+      feature_usage_themes.light_theme, feature_usage_themes.non_customized, feature_usage_themes.submission_date]
+    fill_fields: [feature_usage_themes.submission_date]
+    filters:
+      feature_usage_themes.submission_date: after 2021/05/18
+    sorts: [feature_usage_themes.submission_date desc]
+    limit: 500
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: percent
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    y_axes: [{label: '', orientation: left, series: [{axisId: feature_usage_themes.alpenglow_theme,
+            id: feature_usage_themes.alpenglow_theme, name: Alpenglow Theme}, {axisId: feature_usage_themes.dark_theme,
+            id: feature_usage_themes.dark_theme, name: Dark Theme}, {axisId: feature_usage_themes.light_theme,
+            id: feature_usage_themes.light_theme, name: Light Theme}, {axisId: feature_usage_themes.non_customized,
+            id: feature_usage_themes.non_customized, name: Non Customized}], showLabels: true,
+        showValues: true, maxValue: 5, minValue: 0, unpinAxis: false, tickDensity: default,
+        tickDensityCustom: 5, type: linear}]
+    series_types: {}
+    series_colors:
+      feature_usage_themes.non_customized: "#12B5CB"
+      feature_usage_themes.light_theme: "#FF8168"
+      feature_usage_themes.dark_theme: "#9334E6"
+      feature_usage_themes.alpenglow_theme: "#F9AB00"
+    defaults_version: 1
+    listen:
+      Desktop OS: feature_usage_themes.Desktop_OS
+      Country: feature_usage_themes.country
+    row: 152
+    col: 16
+    width: 8
+    height: 8
+  - name: " (12)"
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: "# COMING SOON: Mobile Metric 1"
-    row: 170
-    col: 0
+    body_text: ''
+    row: 160
+    col: 16
     width: 8
     height: 6
+  - title: Actions from Tabtray (Android)
+    name: Actions from Tabtray (Android)
+    model: duet
+    explore: tabtray_android
+    type: looker_column
+    fields: [tabtray_android.submission_date, tabtray_android.dau, tabtray_android.tabtray_opened_privatetab_cc,
+      tabtray_android.tabtray_opened_newtab_cc]
+    fill_fields: [tabtray_android.submission_date]
+    filters:
+      tabtray_android.submission_date: after 2021/05/18
+    sorts: [tabtray_android.submission_date desc]
+    limit: 500
+    dynamic_fields: [{_kind_hint: measure, table_calculation: opened_newtab_from_tabtray,
+        _type_hint: number, category: table_calculation, expression: "\n\n${tabtray_android.tabtray_opened_newtab_cc}\
+          \ / ${tabtray_android.dau} * 100", label: Opened Newtab (From Tabtray),
+        value_format: "#.##", value_format_name: !!null ''}, {_kind_hint: measure,
+        table_calculation: opened_private_tab_from_tabtray, _type_hint: number, category: table_calculation,
+        expression: "\n\n${tabtray_android.tabtray_opened_privatetab_cc} / ${tabtray_android.dau}\
+          \ * 100", label: Opened Private Tab (From Tabtray), value_format: "#.##",
+        value_format_name: !!null ''}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    y_axes: [{label: '', orientation: left, series: [{axisId: opened_newtab_from_tabtray,
+            id: opened_newtab_from_tabtray, name: Opened Newtab (From Tabtray)}, {
+            axisId: opened_private_tab_from_tabtray, id: opened_private_tab_from_tabtray,
+            name: Opened Private Tab (From Tabtray)}], showLabels: true, showValues: true,
+        maxValue: 20, minValue: 0, valueFormat: '##.#"%"', unpinAxis: false, tickDensity: default,
+        tickDensityCustom: 5, type: linear}]
+    limit_displayed_rows_values:
+      show_hide: hide
+      first_last: first
+      num_rows: 0
+    series_types: {}
+    series_colors:
+      opened_newtab_from_tabtray: "#E52592"
+      opened_private_tab_from_tabtray: "#9334E6"
+    x_axis_datetime_label: "%m-%d"
+    show_dropoff: false
+    show_null_points: true
+    interpolation: linear
+    defaults_version: 1
+    hidden_fields: [tabtray_android.dau, tabtray_android.tabtray_opened_privatetab_cc,
+      tabtray_android.tabtray_opened_newtab_cc]
+    listen:
+      Country: tabtray_android.country
+    row: 177
+    col: 0
+    width: 12
+    height: 7
+  - title: Tabtray Opens (Android)
+    name: Tabtray Opens (Android)
+    model: duet
+    explore: tabtray_android
+    type: looker_column
+    fields: [tabtray_android.submission_date, tabtray_android.tabtray_opened_cc, tabtray_android.dau]
+    fill_fields: [tabtray_android.submission_date]
+    filters:
+      tabtray_android.submission_date: after 2021/05/18
+    sorts: [opened_tabtray desc]
+    limit: 500
+    dynamic_fields: [{_kind_hint: measure, table_calculation: opened_tabtray, _type_hint: number,
+        category: table_calculation, expression: "\n\n${tabtray_android.tabtray_opened_cc}",
+        label: Opened Tabtray, value_format: !!null '', value_format_name: !!null ''},
+      {_kind_hint: measure, table_calculation: didnt_open_tabtray, _type_hint: number,
+        category: table_calculation, expression: "${tabtray_android.dau} - ${tabtray_android.tabtray_opened_cc}",
+        label: Didn't Open Tabtray, value_format: !!null '', value_format_name: !!null ''}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: percent
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    series_types:
+      opened_tabtray: scatter
+    show_null_points: true
+    interpolation: linear
+    defaults_version: 1
+    hidden_fields: [tabtray_android.dau, tabtray_android.tabtray_opened_cc]
+    listen:
+      Country: tabtray_android.country
+    row: 170
+    col: 0
+    width: 12
+    height: 7
+  - title: Tabtray Opens (iOS)
+    name: Tabtray Opens (iOS)
+    model: duet
+    explore: tabtray_ios
+    type: looker_column
+    fields: [tabtray_ios.submission_date, tabtray_ios.tabtray_opened_cc, tabtray_ios.dau]
+    fill_fields: [tabtray_ios.submission_date]
+    filters:
+      tabtray_ios.submission_date: after 2021/05/18
+    sorts: [opened_tabtray desc]
+    limit: 500
+    dynamic_fields: [{_kind_hint: measure, table_calculation: opened_tabtray, _type_hint: number,
+        category: table_calculation, expression: "${tabtray_ios.tabtray_opened_cc}",
+        label: Opened Tabtray, value_format: !!null '', value_format_name: !!null ''},
+      {_kind_hint: measure, table_calculation: didnt_open_tabtray, _type_hint: number,
+        category: table_calculation, expression: "${tabtray_ios.dau} - ${tabtray_ios.tabtray_opened_cc}",
+        label: Didn't Open Tabtray, value_format: !!null '', value_format_name: !!null ''}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: percent
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    series_types: {}
+    show_null_points: true
+    interpolation: linear
+    defaults_version: 1
+    hidden_fields: [tabtray_ios.tabtray_opened_cc, tabtray_ios.dau]
+    listen:
+      Country: tabtray_ios.country
+    row: 170
+    col: 12
+    width: 12
+    height: 7
+  - name: Actions from Tabtray (iOS)
+    type: text
+    title_text: Actions from Tabtray (iOS)
+    subtitle_text: 'Unavailable: No Telemetry '
+    body_text: ''
+    row: 177
+    col: 12
+    width: 12
+    height: 7
+  - name: Tabs Opened Per User - All Methods (Android)
+    type: text
+    title_text: Tabs Opened Per User - All Methods (Android)
+    subtitle_text: 'Unavailable: No Telemetry'
+    body_text: ''
+    row: 184
+    col: 0
+    width: 12
+    height: 7
+  - title: Tabs Opened Per User - All Methods (iOS)
+    name: Tabs Opened Per User - All Methods (iOS)
+    model: duet
+    explore: tabs_overall_ios
+    type: looker_line
+    fields: [tabs_overall_ios.submission_date, tabs_overall_ios.dau, tabs_overall_ios.normal_tabcount_total,
+      tabs_overall_ios.private_tabcount_total, tabs_overall_ios.tabcount_total]
+    fill_fields: [tabs_overall_ios.submission_date]
+    filters:
+      tabs_overall_ios.submission_date: after 2021/05/18
+    sorts: [tabs_overall_ios.submission_date desc]
+    limit: 500
+    dynamic_fields: [{_kind_hint: measure, table_calculation: avg_tabs_total, _type_hint: number,
+        category: table_calculation, expression: "\n\n${tabs_overall_ios.tabcount_total}\
+          \ / ${tabs_overall_ios.dau}", label: Avg Tabs (Total), value_format: !!null '',
+        value_format_name: !!null ''}, {_kind_hint: measure, table_calculation: avg_tabs_non_private,
+        _type_hint: number, category: table_calculation, expression: "\n\n${tabs_overall_ios.normal_tabcount_total}/\
+          \ ${tabs_overall_ios.dau}", label: Avg Tabs (Non-private), value_format: !!null '',
+        value_format_name: !!null ''}, {_kind_hint: measure, table_calculation: avg_tabs_private,
+        _type_hint: number, category: table_calculation, expression: "\n\n ${tabs_overall_ios.private_tabcount_total}/\
+          \ ${tabs_overall_ios.dau}", label: Avg Tabs (Private), value_format: !!null '',
+        value_format_name: !!null ''}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: circle
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    defaults_version: 1
+    hidden_fields: [tabs_overall_ios.dau, tabs_overall_ios.normal_tabcount_total,
+      tabs_overall_ios.private_tabcount_total, tabs_overall_ios.tabcount_total]
+    listen:
+      Country: tabs_overall_ios.country
+    row: 184
+    col: 12
+    width: 12
+    height: 7
+  - title: Searches Per User - SAP (Android)
+    name: Searches Per User - SAP (Android)
+    model: duet
+    explore: search_mobile
+    type: looker_line
+    fields: [search_mobile.submission_date, search_mobile.dau, search_mobile.SAP_clients,
+      search_mobile.SAP_total]
+    fill_fields: [search_mobile.submission_date]
+    filters:
+      search_mobile.canonical_name: Firefox for Android (Fenix)
+      search_mobile.submission_date: after 2021/05/18
+    sorts: [search_mobile.submission_date desc]
+    limit: 500
+    dynamic_fields: [{_kind_hint: measure, table_calculation: avg_sap_searches, _type_hint: number,
+        category: table_calculation, expression: "\n\n${search_mobile.SAP_total}/${search_mobile.dau}",
+        label: Avg SAP Searches, value_format: !!null '', value_format_name: !!null ''}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: circle
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    hidden_fields: [search_mobile.dau, search_mobile.SAP_clients, search_mobile.SAP_total]
+    defaults_version: 1
+    listen:
+      Country: search_mobile.country
+    row: 205
+    col: 0
+    width: 12
+    height: 7
+  - title: Searches Per User - SAP (iOS)
+    name: Searches Per User - SAP (iOS)
+    model: duet
+    explore: search_mobile
+    type: looker_line
+    fields: [search_mobile.submission_date, search_mobile.dau, search_mobile.SAP_clients,
+      search_mobile.SAP_total]
+    fill_fields: [search_mobile.submission_date]
+    filters:
+      search_mobile.canonical_name: Firefox for iOS
+      search_mobile.submission_date: after 2021/05/18
+    sorts: [search_mobile.submission_date desc]
+    limit: 500
+    dynamic_fields: [{_kind_hint: measure, table_calculation: avg_sap_searches, _type_hint: number,
+        category: table_calculation, expression: "\n\n${search_mobile.SAP_total}/${search_mobile.dau}",
+        label: Avg SAP Searches, value_format: !!null '', value_format_name: !!null ''}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: circle
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    hidden_fields: [search_mobile.dau, search_mobile.SAP_clients, search_mobile.SAP_total]
+    defaults_version: 1
+    listen:
+      Country: search_mobile.country
+    row: 205
+    col: 12
+    width: 12
+    height: 7
+  - name: Synced Tab Opens (iOS)
+    type: text
+    title_text: Synced Tab Opens (iOS)
+    subtitle_text: 'Unavailable: Telemetry Expired'
+    body_text: ''
+    row: 191
+    col: 0
+    width: 12
+    height: 7
+  - title: Searches - SAP (Android)
+    name: Searches - SAP (Android)
+    model: duet
+    explore: search_mobile
+    type: looker_column
+    fields: [search_mobile.submission_date, search_mobile.dau, search_mobile.SAP_clients]
+    fill_fields: [search_mobile.submission_date]
+    filters:
+      search_mobile.canonical_name: Firefox for Android (Fenix)
+      search_mobile.submission_date: after 2021/05/18
+    sorts: [search_mobile.submission_date desc]
+    limit: 500
+    dynamic_fields: [{_kind_hint: measure, table_calculation: non_sap_search_clients,
+        _type_hint: number, category: table_calculation, expression: "${search_mobile.dau}\
+          \ - ${search_mobile.SAP_clients}", label: Non (SAP) Search Clients, value_format: !!null '',
+        value_format_name: !!null ''}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: percent
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: circle
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    series_types: {}
+    show_null_points: true
+    interpolation: linear
+    hidden_fields: [search_mobile.dau]
+    defaults_version: 1
+    listen:
+      Country: search_mobile.country
+    row: 198
+    col: 0
+    width: 12
+    height: 7
+  - title: Synced Tab Opens (iOS)
+    name: Synced Tab Opens (iOS) (2)
+    model: duet
+    explore: synced_tabs_ios
+    type: looker_column
+    fields: [synced_tabs_ios.submission_date, synced_tabs_ios.dau, synced_tabs_ios.sync_tab_opened_cc]
+    fill_fields: [synced_tabs_ios.submission_date]
+    filters:
+      synced_tabs_ios.submission_date: after 2021/05/18
+    sorts: [opened_synced_tab desc]
+    limit: 500
+    dynamic_fields: [{_kind_hint: measure, table_calculation: opened_synced_tab, _type_hint: number,
+        category: table_calculation, expression: "\n\n${synced_tabs_ios.sync_tab_opened_cc}",
+        label: Opened Synced Tab, value_format: !!null '', value_format_name: !!null ''},
+      {_kind_hint: measure, table_calculation: didnt_open_synced_tab, _type_hint: number,
+        category: table_calculation, expression: "\n\n${synced_tabs_ios.dau} - ${synced_tabs_ios.sync_tab_opened_cc}",
+        label: Didn't Open Synced Tab, value_format: !!null '', value_format_name: !!null ''}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: percent
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    series_types: {}
+    show_null_points: true
+    interpolation: linear
+    defaults_version: 1
+    hidden_fields: [synced_tabs_ios.dau, synced_tabs_ios.sync_tab_opened_cc]
+    listen:
+      Country: synced_tabs_ios.country
+    row: 191
+    col: 12
+    width: 12
+    height: 7
+  - title: Searches - SAP (iOS)
+    name: Searches - SAP (iOS)
+    model: duet
+    explore: search_mobile
+    type: looker_column
+    fields: [search_mobile.submission_date, search_mobile.dau, search_mobile.SAP_clients]
+    fill_fields: [search_mobile.submission_date]
+    filters:
+      search_mobile.canonical_name: Firefox for iOS
+      search_mobile.submission_date: after 2021/05/18
+    sorts: [search_mobile.submission_date desc]
+    limit: 500
+    dynamic_fields: [{_kind_hint: measure, table_calculation: non_sap_search_clients,
+        _type_hint: number, category: table_calculation, expression: "${search_mobile.dau}\
+          \ - ${search_mobile.SAP_clients}", label: Non (SAP) Search Clients, value_format: !!null '',
+        value_format_name: !!null ''}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: percent
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: circle
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    series_types: {}
+    show_null_points: true
+    interpolation: linear
+    hidden_fields: [search_mobile.dau]
+    defaults_version: 1
+    listen:
+      Country: search_mobile.country
+    row: 198
+    col: 12
+    width: 12
+    height: 7
   filters:
   - name: Desktop OS
     title: Desktop OS

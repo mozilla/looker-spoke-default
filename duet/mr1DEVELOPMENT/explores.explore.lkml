@@ -96,3 +96,35 @@ explore: forecast_ios_installs {
   hidden: yes
   from: forecast_ios_installs
 }
+
+
+explore: feature_usage_themes {
+  hidden: yes
+  from: feature_usage_themes
+}
+
+
+explore: tabtray_android {
+  hidden: yes
+  from: tabtray_android
+}
+
+explore: tabtray_ios {
+  hidden: yes
+  from: tabtray_ios
+}
+
+explore: tabs_overall_ios {
+  hidden: yes
+  from: tabs_overall_ios
+}
+
+explore: synced_tabs_ios {
+  hidden: yes
+  from: synced_tabs_ios
+}
+
+explore: search_mobile {
+  hidden: yes
+  from: search_mobile
+}
