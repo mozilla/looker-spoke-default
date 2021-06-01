@@ -1,5 +1,6 @@
 include: "../views/*.view.lkml"
 
+# view used to ensure duplicate entries are only counted once.
 view: distinct_new_profiles {
   derived_table: {
     sql:
@@ -41,6 +42,8 @@ view: distinct_new_profiles {
   }
 
   dimension: rn {
+    description: "Row number. Used to prevent counting duplicates."
+    hidden: yes
     type: number
     sql: ${TABLE}.rn ;;
   }
