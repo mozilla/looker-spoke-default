@@ -1,15 +1,13 @@
 view: version_uplift {
   derived_table: {
-    sql: SELECT submission_date,
-       CASE
-           WHEN os IN ('Darwin',
-                       'Linux') THEN os
-           WHEN os = 'Windows_NT'
-                AND os_version = '10.0' THEN 'Windows 10'
-           WHEN os = 'Windows_NT'
-                AND os_version != '10.0' THEN 'Windows Older'
-           ELSE 'other'
-       END AS os_type,
+    sql:
+    SELECT submission_date,
+          CASE
+           WHEN os = 'Darwin' THEN 'Mac'
+           WHEN os = 'Linux' THEN 'Linux'
+           WHEN os = 'Windows_NT' THEN 'Windows'
+           ELSE 'Other'
+       END AS Desktop_OS,
        CASE
            WHEN country IN ('AR',
                             'PH',
@@ -33,17 +31,18 @@ view: version_uplift {
                             'MX') THEN country
            ELSE 'ROW'
        END AS country,
+       date('2021-06-01') as release_date,
        count(DISTINCT client_id) AS cc,
        count(DISTINCT CASE
-                          WHEN substr(app_version, 1, 2) >= '87' THEN client_id
+                          WHEN substr(app_version, 1, 2) >= '89' THEN client_id
                           ELSE NULL
-                      END) AS cc_latest,
+                      END) AS Updated,
        count(DISTINCT CASE
-                          WHEN NOT substr(app_version, 1, 2) >= '87' THEN client_id
+                          WHEN NOT substr(app_version, 1, 2) >= '89' THEN client_id
                           ELSE NULL
-                      END) AS cc_older
-FROM telemetry.clients_daily
-WHERE submission_date >= '2021-03-23' -- change this to real release date
+                      END) AS Non_updated
+FROM `moz-fx-data-shared-prod.telemetry.clients_daily`
+WHERE submission_date >= '2021-05-18' -- change this to real release date
 
   AND normalized_channel = 'release'
 GROUP BY 1,
@@ -61,9 +60,9 @@ GROUP BY 1,
     sql: ${TABLE}.submission_date ;;
   }
 
-  dimension: os_type {
+  dimension: desktop_OS {
     type: string
-    sql: ${TABLE}.os_type ;;
+    sql: ${TABLE}.desktop_OS ;;
   }
 
   dimension: country {
@@ -71,37 +70,179 @@ GROUP BY 1,
     sql: ${TABLE}.country ;;
   }
 
+  dimension: release_date {
+    type: date
+    datatype: date
+    sql: ${TABLE}.release_date ;;
+  }
+
 ######################################################
 
   measure: cc {
-    type: sum
+    type:sum
     sql: ${TABLE}.cc;;
-    drill_fields: [detail*]
   }
 
-  measure: cc_latest {
+  measure: Updated {
     type: sum
-    sql: ${TABLE}.cc_latest;;
-    drill_fields: [detail*]
+    sql: ${TABLE}.Updated;;
   }
 
-  measure: cc_older {
+  measure: Non_updated {
     type: sum
-    sql: ${TABLE}.cc_older;;
-    drill_fields: [detail*]
+    sql: ${TABLE}.Non_updated;;
   }
 
   measure: uplift {
     type: number
-    sql: ${cc_latest} / ${cc} * 100;;
-    drill_fields: [detail*]
+    sql: ${Updated} / ${cc} * 100;;
   }
 
 
 ######################################################
 
+}
 
-  set: detail {
-    fields: [submission_date, os_type, country]
+
+
+
+view: version_uplift_mobile {
+  derived_table: {
+    sql:WITH android AS
+        (SELECT submission_date,
+                CASE
+                 WHEN country IN ('AR',
+                                  'PH',
+                                  'TR',
+                                  'CO',
+                                  'US',
+                                  'DE',
+                                  'FR',
+                                  'CN',
+                                  'PL',
+                                  'IN',
+                                  'RU',
+                                  'BR',
+                                  'IT',
+                                  'ID',
+                                  'GB',
+                                  'ES',
+                                  'JP',
+                                  'CA',
+                                  'VN',
+                                  'MX') THEN country
+                 ELSE 'ROW'
+             END AS country,
+                canonical_name,
+                count(DISTINCT client_id) AS cc,
+                count(DISTINCT CASE
+                                   WHEN SUBSTR(app_version, 1, 2) >= '89' THEN client_id
+                                   ELSE NULL
+                               END) AS Updated,
+                count(DISTINCT CASE
+                                   WHEN NOT SUBSTR(app_version, 1, 2) >= '89' THEN client_id
+                                   ELSE NULL
+                               END) AS Non_updated
+         FROM telemetry.nondesktop_clients_last_seen
+         WHERE submission_date >= '2021-05-18'
+           AND days_since_seen = 0
+           AND canonical_name IN ('Firefox for Android (Fennec)',
+                                  'Firefox for Android (Fenix)')
+           AND normalized_channel = 'release'
+         GROUP BY 1,
+                  2,
+                  3),
+           IOS AS
+        (SELECT submission_date,
+                CASE
+                 WHEN country IN ('AR',
+                                  'PH',
+                                  'TR',
+                                  'CO',
+                                  'US',
+                                  'DE',
+                                  'FR',
+                                  'CN',
+                                  'PL',
+                                  'IN',
+                                  'RU',
+                                  'BR',
+                                  'IT',
+                                  'ID',
+                                  'GB',
+                                  'ES',
+                                  'JP',
+                                  'CA',
+                                  'VN',
+                                  'MX') THEN country
+                 ELSE 'ROW'
+             END AS country,
+                canonical_name,
+                count(DISTINCT client_id) AS cc,
+                count(DISTINCT CASE
+                                   WHEN SUBSTR(app_version, 1, 2) >= '34' THEN client_id
+                                   ELSE NULL
+                               END) AS Updated,
+                count(DISTINCT CASE
+                                   WHEN NOT SUBSTR(app_version, 1, 2) >= '34' THEN client_id
+                                   ELSE NULL
+                               END) AS Non_updated
+         FROM telemetry.nondesktop_clients_last_seen
+         WHERE submission_date >= '2021-05-18'
+           AND days_since_seen = 0
+           AND canonical_name IN ('Firefox for iOS')
+           AND normalized_channel = 'release'
+         GROUP BY 1,
+                  2,
+                  3)
+      SELECT *
+      FROM
+        (SELECT *
+         FROM android)
+      UNION ALL
+        (SELECT *
+         FROM IOS)
+             ;;
+  }
+
+
+######################################################
+
+  dimension: submission_date {
+    type: date
+    datatype: date
+    sql: ${TABLE}.submission_date ;;
+  }
+
+  dimension: country {
+    type: string
+    sql: ${TABLE}.country ;;
+  }
+
+  dimension: canonical_name {
+    type: string
+    sql: ${TABLE}.canonical_name ;;
+  }
+
+######################################################
+
+  measure: cc {
+    type:sum
+    sql: ${TABLE}.cc;;
+  }
+
+  measure: Updated {
+    type: sum
+    sql: ${TABLE}.Updated;;
+  }
+
+  measure: Non_updated {
+    type: sum
+    sql: ${TABLE}.Non_updated;;
+  }
+
+  measure: uplift {
+    type: number
+    sql: ${Updated} / ${cc} * 100;;
   }
 }
