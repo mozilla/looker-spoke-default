@@ -3,7 +3,7 @@
   layout: newspaper
   preferred_viewer: dashboards-next
   load_configuration: wait
-  refresh: 2147484 seconds
+  refresh: 1 day
   elements:
   - title: Uplift Desktop
     name: Uplift Desktop
