@@ -1,3 +1,4 @@
+# needs review
 view: mozblogs_ga {
   derived_table: {
     sql: SELECT date, blog,
