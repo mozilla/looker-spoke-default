@@ -47,9 +47,15 @@
         tickDensityCustom: 5, type: linear}]
     label_value_format: ''
     series_types: {}
+    series_colors:
+      version_uplift.Updated: "#1A73E8"
+      version_uplift.Non_updated: "#12B5CB"
     show_null_points: true
     interpolation: linear
     defaults_version: 1
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Desktop OS, Country'
     listen:
       Desktop OS: version_uplift.desktop_OS
       Country: version_uplift.country
@@ -86,6 +92,9 @@
     series_types: {}
     defaults_version: 1
     hidden_fields: [version_uplift.submission_date]
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Desktop OS, Country'
     listen:
       Desktop OS: version_uplift.desktop_OS
       Country: version_uplift.country
@@ -98,10 +107,13 @@
     title_text: ''
     subtitle_text: ''
     body_text: |-
-      -------------------------
+      ----------------------
+
       # Upgrade Adoption
 
-      Release Date: 2021-06-01
+      Percentage of population updated to MR1 version. [Read more here](https://docs.google.com/document/d/1pQv5dB28AZOkkR2DZGGPNK93cwPoOnOQHjPH94f4518/edit#heading=h.cb6b0bv77uwm)
+
+      5/28: iOS Release, 6/1: Desktop and Fenix (Android) Release
     row: 0
     col: 0
     width: 24
@@ -126,8 +138,11 @@
     show_view_names: false
     defaults_version: 1
     series_types: {}
+    note_state: collapsed
+    note_display: hover
+    note_text: No Filters
     listen: {}
-    row: 48
+    row: 50
     col: 9
     width: 8
     height: 5
@@ -173,8 +188,11 @@
     show_null_points: true
     defaults_version: 1
     series_types: {}
+    note_state: collapsed
+    note_display: hover
+    note_text: No Filters
     listen: {}
-    row: 48
+    row: 50
     col: 0
     width: 9
     height: 5
@@ -182,14 +200,18 @@
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: |+
-      ---------------------------------------------------------------------------------
-      # Happiness Survey
-
+    body_text: "---------------------------------------------------------------------------------\n\
+      \n# Happiness Survey\n\nTo measure user feedback to the changes in MR1, we are\
+      \ launching a series of surveys in our Desktop user population. \n\nA baseline\
+      \ survey was run previously to peg user sentiment previous to the release (link\
+      \ below), and our first MR1 survey runs June 4th. [Read more here](https://docs.google.com/document/d/1pQv5dB28AZOkkR2DZGGPNK93cwPoOnOQHjPH94f4518/edit#heading=h.dv3dmnq8mwfg)\n\
+      \nNote - the below metrics track how many survey prompts were served and accepted,\
+      \ however, doesn't include how many were finished (which is done in a 3rd party\
+      \ platform)\n"
     row: 45
     col: 0
     width: 24
-    height: 3
+    height: 5
   - name: " (3)"
     type: text
     title_text: ''
@@ -198,7 +220,7 @@
       \ metrics for Proton](https://docs.google.com/presentation/d/1H_Ml_E6-v8P00FMJ5xux7kmvzSx7Z-9NKEPKhnHGGP8/edit#slide=id.gbd50516360_0_140)\n\
       \n#### Proton Happiness Survey: \n* data collection for FX 89 June 4- June 10\n\
       \n#### Proton Happiness Survey \n* data collection for FX 90 July 2- July 8"
-    row: 48
+    row: 50
     col: 17
     width: 7
     height: 5
@@ -246,6 +268,9 @@
         margin_value: mean, margin_bottom: deviation, label_position: center, color: "#7CB342",
         line_value: '0', label: At Forecast}]
     defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: No filters
     listen: {}
     row: 23
     col: 0
@@ -255,11 +280,10 @@
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: |-
-      -----------------------------
-      # KPI - Desktop cDOU
-
-      Cumulative Days of Use
+    body_text: "-----------------------------\n\n# KPI - Desktop cDOU\n\nCumulative\
+      \ Days of Use, the sum of all DAU from January 1st. Our goal is to meet or beat\
+      \ our forecast projections based on last years data. [Read more here](https://docs.google.com/document/d/1pQv5dB28AZOkkR2DZGGPNK93cwPoOnOQHjPH94f4518/edit#heading=h.gx5hos203hgb)\n\
+      \nThe various charts below track how we are doing against our forecast target. "
     row: 14
     col: 0
     width: 24
@@ -268,11 +292,10 @@
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: |+
-      ---------------------------------
-      # Desktop Comparisons
-
-    row: 53
+    body_text: "-------------------------------\n\n# Desktop Comparisons\nComparisons for\
+      \ DAU, New Profiles, and Downloads against previous year as well as the recent trend\
+      \ (up till release date). [Read more here](https://docs.google.com/document/d/1pQv5dB28AZOkkR2DZGGPNK93cwPoOnOQHjPH94f4518/edit#heading=h.ipqlsjd7z3ds)"
+    row: 55
     col: 0
     width: 24
     height: 4
@@ -331,10 +354,13 @@
     interpolation: linear
     defaults_version: 1
     hidden_fields:
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Desktop OS, Country'
     listen:
       Desktop OS: feature_usage.Desktop_OS
       Country: feature_usage.country
-    row: 152
+    row: 162
     col: 8
     width: 8
     height: 7
@@ -393,10 +419,13 @@
     interpolation: linear
     defaults_version: 1
     hidden_fields:
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Desktop OS, Country'
     listen:
       Desktop OS: feature_usage.Desktop_OS
       Country: feature_usage.country
-    row: 152
+    row: 162
     col: 0
     width: 8
     height: 7
@@ -464,10 +493,13 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country, Visiting Browser'
     listen:
       Visiting Browser: mozorg_ga.browser
       Country: mozorg_ga.country
-    row: 97
+    row: 101
     col: 0
     width: 12
     height: 6
@@ -475,29 +507,49 @@
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: |-
-      ---------------------------------
-
-      # Marketing
-    row: 81
+    body_text: "---------------------------------\n\n# Marketing\n\nOur marketing\
+      \ effort for this release is focusing on earned media through a series of blog\
+      \ posts and activating journalists and influencers. [Read more here](https://docs.google.com/document/d/1pQv5dB28AZOkkR2DZGGPNK93cwPoOnOQHjPH94f4518/edit#heading=h.3527yucn8c8y)\n\
+      \nWe can evaluate the impact by looking at: \n\n* 3rd party publications writing\
+      \ about Mozilla\n* Traffic to our blogs\n* Traffic to our website"
+    row: 83
     col: 0
     width: 24
-    height: 3
+    height: 5
   - name: " (7)"
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: |+
-      # Earned media
-
-      #### What They're Saying!
-
-      Laptop Mag  (2021-05-01): [Mozilla Firefox update is making me abandon Chrome — Here's why](https://www.laptopmag.com/news/mozilla-firefox-update-is-making-me-abandon-chrome-heres-why)
-
-    row: 84
+    body_text: "# Earned media\n\n#### What They're Saying!\n\n2021-06-01:\t[Chip\
+      \ (Germany)](https://www.chip.de/news/Fertig-zum-Download-Firefox-89-mit-komplett-neuem-Design_183260455.html)\n\
+      \n2021-05-31:\t[Deskmodder (Germany)](https://www.deskmodder.de/blog/2021/05/31/firefox-89-steht-schon-zum-download-bereit-78-11-esr-folgt/)\n\
+      \n2021-05-31:\t[Bulgarisches (Germany)](Wirtschaftsblatt\thttps://www.wirtschaftsblatt-bg.com/technik/mozilla-stimmt-sich-auf-den-neuen-look-ein/)\n\
+      \n2021-05-31:\t[Sören Hentzschel (Germany)](https://www.soeren-hentzschel.at/firefox/proton-design-vorstellung/)\n\
+      \n2021-05-28:\t[Next INpact (France)](https://www.nextinpact.com/lebrief/47248/mozilla-tease-larrivee-nouveau-firefox-pour-1er-juin)\n\
+      \n2021-05-28:\t[Numerama (France)](https://www.numerama.com/tech/715012-pourquoi-vous-navez-pas-encore-pu-recuperer-la-nouvelle-version-de-firefox.html)\n\
+      \n2021-05-27:\t[Buffed (Germany)](https://www.buffed.de/Internet-Thema-34041/Videos/Hinter-dem-Design-Firefox-neuer-Look-1372680/)\n\
+      \n2021-05-26:\t[Too Linux (France)](https://www.toolinux.com/?le-tout-nouveau-firefox-arrivera-le-1er-juin)\n\
+      \n2021-05-26:\t[PC Games Hardware (Germany)](https://www.pcgameshardware.de/Internet-Thema-34041/News/Firefox-Mozilla-stellt-die-Aenderungen-im-Video-vor-1372677/)\n\
+      \n2021-05-26:\t[PC Games Hardware (Germany)](https://www.pcgameshardware.de/Internet-Thema-34041/Videos/Hinter-dem-Design-Firefox-neuer-Look-1372680/)\n\
+      \n2021-05-26:\t[Klaus Ahrens (Germany)](https://www.allofus.de/naechste-woche-kommt-der-neue-firefox/68769)\n\
+      \n2021-05-26:\t[Chip (Germany)](https://www.chip.de/news/Firefox-Browser-kommt-mit-komplett-neuem-Design_183260455.html)\n\
+      \n2021-05-26:\t[tsecurity.de (Germany)](https://tsecurity.de/de/1484138/Downloads/Firefox-Browser-kommt-mit-komplett-neuem-Design-So-k%C3%B6nnen-Sie-es-schon-jetzt-ausprobieren/)\n\
+      \n2021-05-26:\t[tweakpc (Germany)](https://www.tweakpc.de/news/47703/mozilla-stellt-neues-design-des-firefox-vor/)\n\
+      \n2021-05-26:\t[Swiss (Switzerland)](IT Magazine\thttps://www.itmagazine.ch/Artikel/74708/Mozilla_verpasst_Firefox_eine_neue_Optik.html)\n\
+      \n2021-05-25:\t[PC Welt (Germany)](https://www.pcwelt.de/news/Firefox-mit-neuem-Look-ab-1.-Juni-erster-Blick-11033659.html)\n\
+      \n2021-05-25:\t[Golem (Germany)](https://www.golem.de/news/browser-mozilla-firefox-wird-optisch-ueberarbeitet-und-aufpoliert-2105-156737.html)\n\
+      \n2021-05-25:\t[Caschys Blog (Germany)](https://stadt-bremerhaven.de/firefox-mozilla-stimmt-auf-das-neuen-design-ein/)\n\
+      \n2021-05-25:\t[WinFuture (Germany)](https://winfuture.de/videos/Software/Mozilla-Naechste-Woche-zeigt-sich-Firefox-in-erneuertem-Design-22720.html)\n\
+      \n2021-05-25:\t[MSN Deutschland (Germany)](https://www.msn.com/de-de/nachrichten/digital/newssplitter-einige-wichtige-firefox-news-der-vergangenen-tage-im-%C3%BCberblick/ar-AAKkbnE)\n\
+      \n2021-05-24:\t[Dr. Windows (Germany)](https://www.drwindows.de/news/newssplitter-einige-wichtige-firefox-news-der-vergangenen-tage-im-ueberblick)\n\
+      \n2021-05-20:\t[India Today (US)](https://www.indiatoday.in/technology/news/story/mozilla-set-to-launch-all-new-firefox-in-june-1804362-2021-05-19)\n\
+      \n2021-05-19:\t[Clubic (France)](https://www.clubic.com/navigateur-internet/mozilla-firefox/actualite-371912-mozilla-tease-une-toute-nouvelle-version-de-firefox-pour-le-1er-juin.html)\n\
+      \n2021-05-11:\t[TechRadar (US)](https://www.techradar.com/news/firefoxs-proton-redesign-waves-goodbye-to-some-ui-elements)\n\
+      \n2021-05-03:\t[laptopmagazine (US)](https://www.laptopmag.com/news/mozilla-firefox-update-is-making-me-abandon-chrome-heres-why)\n"
+    row: 88
     col: 0
     width: 8
-    height: 6
+    height: 13
   - title: blogmozilla Visits (By Blog)
     name: blogmozilla Visits (By Blog)
     model: duet
@@ -565,11 +617,14 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country, Visiting Browser, Traffic Type'
     listen:
       Traffic Type: mozblogs_ga.traffic_type
       Visiting Browser: mozblogs_ga.browser
       Country: mozblogs_ga.country
-    row: 84
+    row: 88
     col: 8
     width: 16
     height: 7
@@ -627,8 +682,11 @@
       forecast_desktopDAU.lower_bound: diamond
     reference_lines: []
     defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: No Filters
     listen: {}
-    row: 57
+    row: 59
     col: 12
     width: 12
     height: 6
@@ -692,8 +750,11 @@
     defaults_version: 1
     hidden_fields: [forecast_desktopDAU.lower_diff_pct, forecast_desktopDAU.upper_diff_pct,
       forecast_desktopDAU.submission_date, deltarange]
+    note_state: collapsed
+    note_display: hover
+    note_text: No Filters
     listen: {}
-    row: 63
+    row: 65
     col: 12
     width: 12
     height: 2
@@ -752,8 +813,11 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     hidden_fields:
+    note_state: collapsed
+    note_display: hover
+    note_text: No Filters
     listen: {}
-    row: 65
+    row: 67
     col: 12
     width: 12
     height: 6
@@ -798,7 +862,13 @@
     show_silhouette: false
     totals_color: "#808080"
     series_types: {}
+    series_colors:
+      version_uplift_mobile.Updated: "#1A73E8"
+      version_uplift_mobile.Non_updated: "#12B5CB"
     defaults_version: 1
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country'
     listen:
       Country: version_uplift_mobile.country
     row: 6
@@ -856,6 +926,9 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country'
     listen:
       Country: version_uplift_mobile.country
     row: 4
@@ -914,6 +987,9 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country'
     listen:
       Country: version_uplift_mobile.country
     row: 4
@@ -966,6 +1042,9 @@
       version_uplift_mobile.Non_updated: "#12B5CB"
       version_uplift_mobile.Updated: "#1A73E8"
     defaults_version: 1
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country'
     listen:
       Country: version_uplift_mobile.country
     row: 6
@@ -1017,6 +1096,9 @@
         margin_value: mean, margin_bottom: deviation, label_position: center, color: "#7CB342",
         line_value: '0', label: At Forecast}]
     defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: No filters
     listen: {}
     row: 38
     col: 0
@@ -1084,6 +1166,9 @@
     interpolation: linear
     defaults_version: 1
     series_types: {}
+    note_state: collapsed
+    note_display: hover
+    note_text: No filters
     listen: {}
     row: 19
     col: 0
@@ -1151,6 +1236,9 @@
     interpolation: linear
     defaults_version: 1
     series_types: {}
+    note_state: collapsed
+    note_display: hover
+    note_text: No filters
     listen: {}
     row: 19
     col: 8
@@ -1164,7 +1252,7 @@
     fields: [firefox_desktop_usage_2021.date, firefox_desktop_usage_2021.delta_from_forecast]
     fill_fields: [firefox_desktop_usage_2021.date]
     filters:
-      firefox_desktop_usage_2021.date: 2021/05/18
+      firefox_desktop_usage_2021.date: 2021/06/01
     sorts: [firefox_desktop_usage_2021.date desc]
     limit: 500
     custom_color_enabled: true
@@ -1225,7 +1313,8 @@
     defaults_version: 1
     series_types: {}
     note_state: collapsed
-    note_display: above
+    note_display: hover
+    note_text: No filters
     listen: {}
     row: 21
     col: 16
@@ -1299,6 +1388,9 @@
     interpolation: linear
     defaults_version: 1
     series_types: {}
+    note_state: collapsed
+    note_display: hover
+    note_text: No filters
     listen: {}
     row: 19
     col: 16
@@ -1308,11 +1400,10 @@
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: |
-      -----------------------------
-      # KPI - Mobile cDOU
-
-      Cumulative Days of Use
+    body_text: "-----------------------------\n\n# KPI - Mobile cDOU\n\nCumulative\
+      \ Days of Use, the sum of all DAU from January 1st. Our goal is to meet or beat\
+      \ our forecast projections based on last years data. [Read more here](https://docs.google.com/document/d/1pQv5dB28AZOkkR2DZGGPNK93cwPoOnOQHjPH94f4518/edit#heading=h.gx5hos203hgb)\n\
+      \nThe various charts below track how we are doing against our forecast target. "
     row: 30
     col: 0
     width: 24
@@ -1378,6 +1469,9 @@
         line_value: '0', label: At Forecast}]
     defaults_version: 1
     series_types: {}
+    note_state: collapsed
+    note_display: hover
+    note_text: No filters
     listen: {}
     row: 34
     col: 16
@@ -1391,7 +1485,7 @@
     fields: [mobile_usage_2021.date, mobile_usage_2021.delta_from_forecast]
     fill_fields: [mobile_usage_2021.date]
     filters:
-      mobile_usage_2021.date: 2021/05/18
+      mobile_usage_2021.date: 2021/06/01
     sorts: [mobile_usage_2021.date desc]
     limit: 500
     custom_color_enabled: true
@@ -1444,6 +1538,9 @@
         line_value: '0', label: At Forecast}]
     defaults_version: 1
     series_types: {}
+    note_state: collapsed
+    note_display: hover
+    note_text: No filters
     listen: {}
     row: 36
     col: 16
@@ -1504,6 +1601,9 @@
         line_value: '0', label: At Forecast}]
     defaults_version: 1
     series_types: {}
+    note_state: collapsed
+    note_display: hover
+    note_text: No filters
     listen: {}
     row: 34
     col: 0
@@ -1564,6 +1664,9 @@
         line_value: '0', label: At Forecast}]
     defaults_version: 1
     series_types: {}
+    note_state: collapsed
+    note_display: hover
+    note_text: No filters
     listen: {}
     row: 34
     col: 8
@@ -1591,8 +1694,11 @@
     series_types: {}
     defaults_version: 1
     hidden_fields: [forecast_desktopNP.submission_date]
+    note_state: collapsed
+    note_display: hover
+    note_text: No Filters
     listen: {}
-    row: 71
+    row: 73
     col: 12
     width: 12
     height: 2
@@ -1637,10 +1743,13 @@
     series_point_styles:
       dau_desktop.new_profiles_2020: diamond
     defaults_version: 1
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Desktop OS, Country'
     listen:
       Desktop OS: dau_desktop.desktop_OS
       Country: dau_desktop.country
-    row: 65
+    row: 67
     col: 0
     width: 12
     height: 8
@@ -1685,10 +1794,13 @@
     series_point_styles:
       dau_desktop.DAU_2020: diamond
     defaults_version: 1
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Desktop OS, Country'
     listen:
       Desktop OS: dau_desktop.desktop_OS
       Country: dau_desktop.country
-    row: 57
+    row: 59
     col: 0
     width: 12
     height: 8
@@ -1734,12 +1846,15 @@
     series_point_styles:
       mozorg_ga.non_fx_downloads_2020: diamond
     defaults_version: 1
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Desktop OS, Country, Traffic Type'
     listen:
       Traffic Type: mozorg_ga.traffic_type
       Visiting Browser: mozorg_ga.browser
       Desktop OS: mozorg_ga.Desktop_OS
       Country: mozorg_ga.country
-    row: 73
+    row: 75
     col: 0
     width: 12
     height: 8
@@ -1787,8 +1902,11 @@
       forecast_dls.upper_bound: diamond
       forecast_dls.lower_bound: diamond
     defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: No Filters
     listen: {}
-    row: 73
+    row: 75
     col: 12
     width: 12
     height: 6
@@ -1845,8 +1963,11 @@
     interpolation: linear
     defaults_version: 1
     hidden_fields: [forecast_dls.submission_date]
+    note_state: collapsed
+    note_display: hover
+    note_text: No Filters
     listen: {}
-    row: 79
+    row: 81
     col: 12
     width: 12
     height: 2
@@ -1913,10 +2034,13 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country, Visiting Browser'
     listen:
       Visiting Browser: mozblogs_ga.browser
       Country: mozblogs_ga.country
-    row: 91
+    row: 95
     col: 8
     width: 16
     height: 6
@@ -1984,10 +2108,13 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country, Visiting Browser'
     listen:
       Visiting Browser: mozorg_ga.browser
       Country: mozorg_ga.country
-    row: 97
+    row: 101
     col: 12
     width: 12
     height: 6
@@ -2061,13 +2188,16 @@
     totals_color: "#808080"
     defaults_version: 1
     hidden_fields: []
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country, Visiting Browser'
     listen:
       Visiting Browser: mozorg_ga.browser
       Country: mozorg_ga.country
-    row: 103
+    row: 107
     col: 12
     width: 12
-    height: 6
+    height: 7
   - title: mozillaorg Desktop Visits (By Traffic Type)
     name: mozillaorg Desktop Visits (By Traffic Type)
     model: duet
@@ -2138,25 +2268,28 @@
     totals_color: "#808080"
     defaults_version: 1
     hidden_fields: []
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country, Visiting Browser'
     listen:
       Visiting Browser: mozorg_ga.browser
       Country: mozorg_ga.country
-    row: 103
+    row: 107
     col: 0
     width: 12
-    height: 6
+    height: 7
   - name: " (9)"
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: |-
-      ---------------------------------
-
-      # Mobile Comparisons
-    row: 109
+    body_text: "---------------------------------\n\n# Mobile Comparisons\n\nComparisons\
+      \ for DAU, and Installs against previous year as well as the recent trend (up\
+      \ till release date). [Read more here](https://docs.google.com/document/d/1pQv5dB28AZOkkR2DZGGPNK93cwPoOnOQHjPH94f4518/edit#heading=h.ipqlsjd7z3ds)\n\
+      \nNote: install data might be a bit delayed. "
+    row: 114
     col: 0
     width: 24
-    height: 2
+    height: 4
   - title: Android DAU vs 2020
     name: Android DAU vs 2020
     model: duet
@@ -2203,9 +2336,12 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country'
     listen:
       Country: dau_mobile.country
-    row: 111
+    row: 118
     col: 0
     width: 12
     height: 9
@@ -2254,9 +2390,12 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country'
     listen:
       Country: dau_mobile.country
-    row: 111
+    row: 118
     col: 12
     width: 12
     height: 9
@@ -2311,8 +2450,11 @@
       forecast_mobile_dau.upper_bound: diamond
       forecast_mobile_dau.lower_bound: diamond
     defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: No Filters
     listen: {}
-    row: 120
+    row: 127
     col: 0
     width: 12
     height: 8
@@ -2370,8 +2512,11 @@
     interpolation: linear
     defaults_version: 1
     hidden_fields: [forecast_mobile_dau.submission_date]
+    note_state: collapsed
+    note_display: hover
+    note_text: No Filters
     listen: {}
-    row: 128
+    row: 135
     col: 0
     width: 12
     height: 2
@@ -2426,8 +2571,11 @@
       forecast_mobile_dau.upper_bound: diamond
       forecast_mobile_dau.lower_bound: diamond
     defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: No Filters
     listen: {}
-    row: 120
+    row: 127
     col: 12
     width: 12
     height: 8
@@ -2485,8 +2633,11 @@
     interpolation: linear
     defaults_version: 1
     hidden_fields: [forecast_mobile_dau.submission_date]
+    note_state: collapsed
+    note_display: hover
+    note_text: No Filters
     listen: {}
-    row: 128
+    row: 135
     col: 12
     width: 12
     height: 2
@@ -2532,9 +2683,12 @@
     series_point_styles:
       install_android.device_installs_2020: diamond
     defaults_version: 1
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country'
     listen:
       Country: install_android.country
-    row: 130
+    row: 137
     col: 0
     width: 12
     height: 8
@@ -2582,8 +2736,11 @@
       forecast_android_installs.upper_bound: diamond
       forecast_android_installs.lower_bound: diamond
     defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: No Filters
     listen: {}
-    row: 138
+    row: 145
     col: 0
     width: 12
     height: 9
@@ -2640,8 +2797,11 @@
     interpolation: linear
     defaults_version: 1
     hidden_fields: [forecast_android_installs.submission_date]
+    note_state: collapsed
+    note_display: hover
+    note_text: No Filters
     listen: {}
-    row: 147
+    row: 154
     col: 0
     width: 12
     height: 2
@@ -2683,9 +2843,12 @@
     series_colors:
       install_ios.installations_opt_in_2021: "#F9AB00"
     defaults_version: 1
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country'
     listen:
       Country: install_ios.country
-    row: 130
+    row: 137
     col: 12
     width: 12
     height: 8
@@ -2733,8 +2896,11 @@
       forecast_ios_installs.upper_bound: diamond
       forecast_ios_installs.lower_bound: diamond
     defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: No Filters
     listen: {}
-    row: 138
+    row: 145
     col: 12
     width: 12
     height: 9
@@ -2791,8 +2957,11 @@
     interpolation: linear
     defaults_version: 1
     hidden_fields: [forecast_ios_installs.submission_date]
+    note_state: collapsed
+    note_display: hover
+    note_text: No Filters
     listen: {}
-    row: 147
+    row: 154
     col: 12
     width: 12
     height: 2
@@ -2852,10 +3021,13 @@
     interpolation: linear
     defaults_version: 1
     hidden_fields:
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Desktop OS, Country'
     listen:
       Desktop OS: feature_usage.Desktop_OS
       Country: feature_usage.country
-    row: 159
+    row: 169
     col: 0
     width: 8
     height: 7
@@ -2915,10 +3087,13 @@
     interpolation: linear
     defaults_version: 1
     hidden_fields:
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Desktop OS, Country'
     listen:
       Desktop OS: feature_usage.Desktop_OS
       Country: feature_usage.country
-    row: 159
+    row: 169
     col: 8
     width: 8
     height: 7
@@ -2927,9 +3102,17 @@
     title_text: ''
     subtitle_text: ''
     body_text: |-
-      ---------------------------------------------------------------------------------------------
+      ------------------------------------------------------------------------------------------
+
       # Feature Usage (Mobile)
-    row: 166
+
+
+      Tracking adoption and usage of features that are updated in MR1. Changes to Android (Fenix) were minimal, but there were a number of significant changes to iOS, roughly:
+
+      * Changes to behavior and layout of tabstray
+      * Changes to search / urlbar UI
+      * Changes to Synced Tabs accessing
+    row: 176
     col: 0
     width: 24
     height: 4
@@ -2937,13 +3120,17 @@
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: |-
-      ---------------------------------------------------------------------------------------------
-      # Feature Usage (Desktop)
-    row: 149
+    body_text: "---------------------------------------------------------------------------------------------\n\
+      \n# Feature Usage (Desktop)\n\nTracking adoption and usage of features that\
+      \ are being promoted in the new onboarding for new users, as well as the update\
+      \ prompt being shown to all existing users: \n\n* Pin to OS taskbar (measured\
+      \ in Windows only) \n* Browser set as default \n* Non-standard theme adoption\
+      \ (data might lag a day behind) \n\nMeasure are tracked for total release population,\
+      \ and in new users (within first day of activity). "
+    row: 156
     col: 0
     width: 24
-    height: 3
+    height: 6
   - title: Themes (Overall)
     name: Themes (Overall)
     model: duet
@@ -2997,10 +3184,13 @@
       feature_usage_themes.dark_theme: "#9334E6"
       feature_usage_themes.alpenglow_theme: "#F9AB00"
     defaults_version: 1
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Desktop OS, Country'
     listen:
       Desktop OS: feature_usage_themes.Desktop_OS
       Country: feature_usage_themes.country
-    row: 152
+    row: 162
     col: 16
     width: 8
     height: 8
@@ -3009,7 +3199,7 @@
     title_text: ''
     subtitle_text: ''
     body_text: ''
-    row: 160
+    row: 170
     col: 16
     width: 8
     height: 6
@@ -3081,9 +3271,12 @@
     defaults_version: 1
     hidden_fields: [tabtray_android.dau, tabtray_android.tabtray_opened_privatetab_cc,
       tabtray_android.tabtray_opened_newtab_cc]
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country'
     listen:
       Country: tabtray_android.country
-    row: 177
+    row: 187
     col: 0
     width: 12
     height: 7
@@ -3137,9 +3330,12 @@
     interpolation: linear
     defaults_version: 1
     hidden_fields: [tabtray_android.dau, tabtray_android.tabtray_opened_cc]
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country'
     listen:
       Country: tabtray_android.country
-    row: 170
+    row: 180
     col: 0
     width: 12
     height: 7
@@ -3192,9 +3388,12 @@
     interpolation: linear
     defaults_version: 1
     hidden_fields: [tabtray_ios.tabtray_opened_cc, tabtray_ios.dau]
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country'
     listen:
       Country: tabtray_ios.country
-    row: 170
+    row: 180
     col: 12
     width: 12
     height: 7
@@ -3203,7 +3402,7 @@
     title_text: Actions from Tabtray (iOS)
     subtitle_text: 'Unavailable: No Telemetry '
     body_text: ''
-    row: 177
+    row: 187
     col: 12
     width: 12
     height: 7
@@ -3212,7 +3411,7 @@
     title_text: Tabs Opened Per User - All Methods (Android)
     subtitle_text: 'Unavailable: No Telemetry'
     body_text: ''
-    row: 184
+    row: 194
     col: 0
     width: 12
     height: 7
@@ -3265,9 +3464,12 @@
     defaults_version: 1
     hidden_fields: [tabs_overall_ios.dau, tabs_overall_ios.normal_tabcount_total,
       tabs_overall_ios.private_tabcount_total, tabs_overall_ios.tabcount_total]
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country'
     listen:
       Country: tabs_overall_ios.country
-    row: 184
+    row: 194
     col: 12
     width: 12
     height: 7
@@ -3313,9 +3515,12 @@
     interpolation: linear
     hidden_fields: [search_mobile.dau, search_mobile.SAP_clients, search_mobile.SAP_total]
     defaults_version: 1
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country'
     listen:
       Country: search_mobile.country
-    row: 205
+    row: 215
     col: 0
     width: 12
     height: 7
@@ -3361,9 +3566,12 @@
     interpolation: linear
     hidden_fields: [search_mobile.dau, search_mobile.SAP_clients, search_mobile.SAP_total]
     defaults_version: 1
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country'
     listen:
       Country: search_mobile.country
-    row: 205
+    row: 215
     col: 12
     width: 12
     height: 7
@@ -3372,7 +3580,7 @@
     title_text: Synced Tab Opens (iOS)
     subtitle_text: 'Unavailable: Telemetry Expired'
     body_text: ''
-    row: 191
+    row: 201
     col: 0
     width: 12
     height: 7
@@ -3424,9 +3632,12 @@
     interpolation: linear
     hidden_fields: [search_mobile.dau]
     defaults_version: 1
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country'
     listen:
       Country: search_mobile.country
-    row: 198
+    row: 208
     col: 0
     width: 12
     height: 7
@@ -3479,9 +3690,12 @@
     interpolation: linear
     defaults_version: 1
     hidden_fields: [synced_tabs_ios.dau, synced_tabs_ios.sync_tab_opened_cc]
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country'
     listen:
       Country: synced_tabs_ios.country
-    row: 191
+    row: 201
     col: 12
     width: 12
     height: 7
@@ -3533,9 +3747,12 @@
     interpolation: linear
     hidden_fields: [search_mobile.dau]
     defaults_version: 1
+    note_state: expanded
+    note_display: below
+    note_text: 'Filter Options: Country'
     listen:
       Country: search_mobile.country
-    row: 198
+    row: 208
     col: 12
     width: 12
     height: 7
