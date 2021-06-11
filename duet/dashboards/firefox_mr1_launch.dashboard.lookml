@@ -3176,7 +3176,7 @@
             id: feature_usage_themes.dark_theme, name: Dark Theme}, {axisId: feature_usage_themes.light_theme,
             id: feature_usage_themes.light_theme, name: Light Theme}, {axisId: feature_usage_themes.non_customized,
             id: feature_usage_themes.non_customized, name: Non Customized}], showLabels: true,
-        showValues: true, maxValue: 5, minValue: 0, unpinAxis: false, tickDensity: default,
+        showValues: true, maxValue: 15, minValue: 0, unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
     series_types: {}
     series_colors:

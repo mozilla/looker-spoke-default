@@ -139,7 +139,6 @@ view: feature_usage_themes {
                                      'MX') THEN country
                     ELSE 'ROW'
                 END AS country,
-                active_theme.addon_id,
                 count(DISTINCT CASE
                                    WHEN active_theme.addon_id = "default-theme@mozilla.org" THEN client_id
                                    ELSE NULL
@@ -172,8 +171,7 @@ view: feature_usage_themes {
            AND normalized_channel = 'release'
          GROUP BY 1,
                   2,
-                  3,
-                  4),
+                  3),
            baseline AS
         (SELECT submission_date,
                 CASE
