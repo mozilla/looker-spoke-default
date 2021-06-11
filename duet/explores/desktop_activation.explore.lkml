@@ -21,8 +21,8 @@ explore: desktop_activation {
         DATE(DATE_ADD(
           DATE({% date_end desktop_activation.date %}), INTERVAL DATE_DIFF(DATE({% date_start desktop_activation.date %}), DATE({% date_end desktop_activation.date %}), DAY) DAY)),
           DATE({% date_end desktop_activation.date %})),
-      -- if the most recent week is to be ignored, shift date range by 8 days
-      INTERVAL IF({% parameter desktop_activation.ignore_most_recent_week %}, 8, 0) DAY)
+      -- if the most recent week is to be ignored, shift date range by 9 days
+      INTERVAL IF({% parameter desktop_activation.ignore_most_recent_week %}, 9, 0) DAY)
     AND
     DATE(${submission_timestamp_date}) > DATE_SUB(
       IF({% parameter desktop_activation.previous_time_period %},
@@ -31,8 +31,8 @@ explore: desktop_activation {
       DATE(DATE_ADD(
         DATE({% date_start desktop_activation.date %}), INTERVAL DATE_DIFF(DATE({% date_start desktop_activation.date %}), DATE({% date_end desktop_activation.date %}), DAY) DAY)),
         DATE({% date_start desktop_activation.date %})),
-      -- if the most recent week is to be ignored, shift date range by 8 days
-      INTERVAL IF({% parameter desktop_activation.ignore_most_recent_week %}, 8, 0) DAY);;
+      -- if the most recent week is to be ignored, shift date range by 9 days
+      INTERVAL IF({% parameter desktop_activation.ignore_most_recent_week %}, 9, 0) DAY);;
   join: country_buckets {
     type: cross
     relationship: many_to_one
