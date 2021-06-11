@@ -31,19 +31,10 @@ def sync_dashboards(sdk: methods.Looker31SDK, config: dict) -> None:
         try:
             dashboard = sdk.dashboard(str(dashboard_id))
             sdk.dashboard_lookml(lookml_dashboard_id)
-            if dashboard.lookml_link_id is None:
-                sdk.update_dashboard(
-                    str(dashboard_id),
-                    models.WriteDashboard(lookml_link_id=lookml_dashboard_id),
-                )
-            elif dashboard.lookml_link_id != lookml_dashboard_id:
-                logging.warning(
-                    f"Dashboard {dashboard_id} lookml_link_id changing from {dashboard.lookml_link_id} to {lookml_dashboard_id}"
-                )
-                sdk.update_dashboard(
-                    str(dashboard_id),
-                    models.WriteDashboard(lookml_link_id=lookml_dashboard_id),
-                )
+            sdk.update_dashboard(
+                str(dashboard_id),
+                models.WriteDashboard(lookml_link_id=lookml_dashboard_id),
+            )
 
             sdk.sync_lookml_dashboard(lookml_dashboard_id, models.WriteDashboard())
             logging.info(
