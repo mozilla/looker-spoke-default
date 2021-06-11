@@ -1,9 +1,7 @@
-# needs review
 - dashboard: firefox_mr1_launch
   title: Firefox MR1 Launch
   layout: newspaper
   preferred_viewer: dashboards-next
-  load_configuration: wait
   refresh: 1 day
   elements:
   - title: Uplift Desktop
@@ -108,8 +106,7 @@
     title_text: ''
     subtitle_text: ''
     body_text: |-
-      ----------------------
-
+      -------------------
       # Upgrade Adoption
 
       Percentage of population updated to MR1 version. [Read more here](https://docs.google.com/document/d/1pQv5dB28AZOkkR2DZGGPNK93cwPoOnOQHjPH94f4518/edit#heading=h.cb6b0bv77uwm)
@@ -293,9 +290,10 @@
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: "-------------------------------\n\n# Desktop Comparisons\nComparisons for\
-      \ DAU, New Profiles, and Downloads against previous year as well as the recent trend\
-      \ (up till release date). [Read more here](https://docs.google.com/document/d/1pQv5dB28AZOkkR2DZGGPNK93cwPoOnOQHjPH94f4518/edit#heading=h.ipqlsjd7z3ds)"
+    body_text: |-
+      ----------------------------
+      # Desktop Comparisons
+      Comparisons for DAU, New Profiles, and Downloads against previous year as well as the recent trend (up till release date). [Read more here](https://docs.google.com/document/d/1pQv5dB28AZOkkR2DZGGPNK93cwPoOnOQHjPH94f4518/edit#heading=h.ipqlsjd7z3ds)
     row: 55
     col: 0
     width: 24
@@ -3103,8 +3101,7 @@
     title_text: ''
     subtitle_text: ''
     body_text: |-
-      ------------------------------------------------------------------------------------------
-
+      ---------------------------------------------------------------------------------------
       # Feature Usage (Mobile)
 
 
