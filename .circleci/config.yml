@@ -1,5 +1,8 @@
 ---
-version: 2
+version: 2.1
+orbs:
+  python: circleci/python@1.4.0
+
 jobs:
   deploy-prod:
     docker:
@@ -16,6 +19,16 @@ jobs:
       - image: cimg/base:2020.01
     steps:
       - run: curl https://mozilladev.cloud.looker.com/webhooks/projects/spoke-default/deploy
+  sync-dashboards-prod:
+    executor: python/default
+    steps:
+      - checkout
+      - python/install-packages:
+          pip-dependency-file: src/sync_dashboards/requirements.txt
+          pkg-manager: pip
+      - run:
+          command: |
+            python ./src/sync_dashboards/main.py lookml_dashboards.yaml
 workflows:
   version: 2
   build:
@@ -36,5 +49,14 @@ workflows:
           filters:
             branches:
               only: main-nonprod
+            tags:
+              only: /.*/
+      - sync-dashboards-prod:
+          context: data-eng-looker
+          requires:
+            - deploy-prod
+          filters:
+            branches:
+              only: main
             tags:
               only: /.*/
