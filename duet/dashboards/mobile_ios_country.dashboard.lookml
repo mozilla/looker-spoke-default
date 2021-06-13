@@ -3,14 +3,22 @@
   layout: newspaper
   preferred_viewer: dashboards-next
   elements:
-  - name: Attribution Funnel for iOS
+  - name: Mobile Acquisition Funnel for iOS
     type: text
-    title_text: Attribution Funnel for iOS
+    title_text: Mobile Acquisition Funnel for iOS
     subtitle_text: ''
-    body_text: |-
-      This dashboard contains figures for new installations of Firefox products on iOS.
+    body_text: |
+      The purpose of this dashboard is to provide insight into the mobile acquisition funnel for some of our iOS products, namely Firefox for iOS and Focus. It does not behave like a normal funnel due to the fact that the aggregated data originates from multiple sources. It’s important to understand each source before taking these numbers at face value.
 
-      Data is source from the Apple Store and the clients last seen tables for the respective applications. See [DS-1541](https://jira.mozilla.com/browse/DS-1541) for tracking.
+      Apple App Store data is the source for the first 3 steps of the funnel. An important distinction for some data (step 3)  is that Apple only reports on an opt-in basis. Others (steps 1 and 2) are recorded in the App Store and therefore fall outside of this requirement. This discrepancy can lead to unexpected behavior in the funnel.
+
+      * Step 1 reports on how many times our Apple App Store page was viewed
+      * Step 2 is a measure of when a user taps the ‘Get’ button in the App Store for the first time. It’s close to a measure of first time installs.
+      * Step 3 is more nuanced than the first 2 steps, mainly due to the fact that it’s reporting an installation event count but only for users who opt-in to sharing data. It also measures first-time opening of the app on the device.
+
+      If many users download the app and never open it, we could see step 2 > step 3. If they do open the app but have opted out of data sharing, we could see a similar effect.
+
+      Our internal telemetry is responsible for the final 2 steps, which provide acquisition (first seen) and activation counts. A new profile is activated if seen 5 out of 7 days in the first week. Both of these steps may be lower than step 3 primarily due to the fact that metrics are aggregated and counted differently between Apple and Mozilla's internal telemetry.
     row: 0
     col: 0
     width: 24
@@ -107,6 +115,9 @@
     interpolation: linear
     defaults_version: 1
     series_types: {}
+    note_state: collapsed
+    note_display: above
+    note_text: The latest date for which we have Apple App Store data.
     listen:
       History Days: mobile_ios_country.history_days
       App Name: mobile_ios_country.app_name
@@ -122,7 +133,6 @@
     type: looker_column
     fields: [mobile_ios_country.product_page_views, mobile_ios_country.first_time_installs,
       mobile_ios_country.installations_opt_in, mobile_ios_country.first_seen, mobile_ios_country.activated]
-    filters: {}
     sorts: [mobile_ios_country.first_time_installs desc]
     limit: 500
     x_axis_gridlines: false
@@ -201,6 +211,9 @@
     height: 8
   - name: Product Page Views
     title: Product Page Views
+    note_state: collapsed
+    note_display: above
+    note_text: The count of page views for the app on the Apple App Store.
     merged_queries:
     - model: duet
       explore: mobile_ios_country
@@ -253,6 +266,10 @@
     height: 3
   - name: First Time Installs
     title: First Time Installs
+    note_state: collapsed
+    note_display: above
+    note_text: A count of the number of times users press the 'Get' button in the
+      Apple App Store for the first time.
     merged_queries:
     - model: duet
       explore: mobile_ios_country
@@ -306,6 +323,10 @@
     height: 3
   - name: Installation Opt-In
     title: Installation Opt-In
+    note_state: collapsed
+    note_display: above
+    note_text: Installation events as reported by Apple, only for users who have opted
+      in to sharing their device data with Apple.
     merged_queries:
     - model: duet
       explore: mobile_ios_country
@@ -359,6 +380,9 @@
     height: 3
   - name: First Seen
     title: First Seen
+    note_state: collapsed
+    note_display: above
+    note_text: The count of client IDs seen for the first time in the given time period.
     merged_queries:
     - model: duet
       explore: mobile_ios_country
@@ -411,6 +435,10 @@
     height: 3
   - name: Activated
     title: Activated
+    note_state: collapsed
+    note_display: hover
+    note_text: A new profile is considered activated if seen 5 out of their first
+      7 days.
     merged_queries:
     - model: duet
       explore: mobile_ios_country
