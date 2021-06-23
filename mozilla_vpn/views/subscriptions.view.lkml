@@ -28,7 +28,6 @@ view: +subscriptions {
 
   dimension: canceled_for_customer_at {
     hidden: yes
-    sql: CAST(NULL AS STRING);;
   }
 
   dimension_group: cancel_at {
