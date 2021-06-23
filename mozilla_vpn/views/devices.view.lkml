@@ -1,35 +1,17 @@
-view: devices {
-  sql_table_name: `mozdata.mozilla_vpn.devices`;;
+include: "//looker-hub/mozilla_vpn/views/devices.view"
 
+view: +devices {
   dimension: id {
-    type: number
     primary_key: yes
     hidden: yes
-    sql: ${TABLE}.id;;
   }
 
-  dimension_group: created {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.created_at;;
+  # this field is renamed to make the meaning more clear in context
+  dimension_group: updated_at {
+    hidden: yes
   }
-
-  dimension: platform {
-    type: string
-    sql: ${TABLE}.platform;;
-  }
-
   dimension_group: modified {
-    # this field is renamed to make the meaning more clean in context
-    sql: ${TABLE}.updated_at;;
+    sql: ${updated_at_raw};;
     type: time
     timeframes: [
       raw,
@@ -43,15 +25,7 @@ view: devices {
   }
 
   dimension: user_id {
-    type: number
     hidden: yes
-    sql: ${TABLE}.user_id;;
-  }
-
-  dimension: useragent {
-    label: "User Agent"
-    type: string
-    sql: ${TABLE}.useragent;;
   }
 
   measure: count {

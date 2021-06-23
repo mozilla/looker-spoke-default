@@ -1,189 +1,75 @@
-include: "../views/*.view"
+include: "../views/subscriptions.view"
+include: "../views/devices.view"
 
 explore: subscriptions {
-  always_join: [
-    stripe_subscriptions
-  ]
-
-  view_name: apple_subscriptions
-  # hide all fields, this is only for building all_subscriptions
-  fields: [
-    ALL_FIELDS*,
-    -apple_subscriptions*
-  ]
-
-  join: stripe_subscriptions {
-    # hide all fields, this is only for building all_subscriptions
-    fields: []
-    type: full_outer
-    # stripe susbscriptions go in separate rows
-    sql_on: FALSE;;
-    relationship: one_to_one
-  }
-
-  join: stripe_customers {
-    # hide all fields this is only for joining users to stripe subscriptions
-    fields: []
-    relationship: many_to_one
-    foreign_key: stripe_subscriptions.customer
-  }
-  join: stripe_users {
-    from: users
-    # hide all fields this is only for joining users to stripe subscriptions
-    fields: []
-    relationship: many_to_one
-    sql_on: ${stripe_users.fxa_uid} = ${stripe_customers.fxa_uid};;
-  }
-  join: users {
-    relationship: many_to_one
-    sql_on: COALESCE(${apple_subscriptions.user_id}, ${stripe_users.id}) = ${users.id};;
-  }
 
   join: devices {
     relationship: many_to_one
-    sql_on: ${devices.user_id} = ${users.id};;
+    sql_on: ${devices.user_id} = ${user_id};;
   }
 
-  join: all_subscriptions {
-    relationship: one_to_one
-    sql: LEFT JOIN UNNEST(
-      [
-        IF(
-          ${stripe_subscriptions.id} IS NOT NULL,
-          -- stripe subscription
-          STRUCT(
-            "FXA" AS provider,
-            -- hide trials, which are currently only used for dev work
-            ${stripe_subscriptions.start_date} AS start_date,
-            ${stripe_subscriptions.end_date} AS end_date,
-            -- differentiate start dates
-            ${stripe_subscriptions.customer_start_date} AS user_start_date,
-            -- differentiate end dates
-            IF(
-              ${stripe_subscriptions.cancelled_by_customer},
-              "Cancelled by Customer",
-              "Payment Failed"
-            ) AS cancel_reason
-          ),
-          -- apple subscription conditions
-          STRUCT(
-            "APPLE" AS provider,
-            ${apple_subscriptions.apple_receipt__start_date} AS start_date,
-            ${apple_subscriptions.apple_receipt__end_date} AS end_date,
-            -- differentiate start dates
-            ${apple_subscriptions.user_start_date} AS user_start_date,
-            -- differentiate end dates
-            "Cancelled by IAP" AS cancel_reason
-          )
-        )
-      ]
-    ) AS all_subscriptions;;
-    # only show subscriptions that start before they end
-    sql_where: ${all_subscriptions.start_raw} < ${all_subscriptions.end_raw};;
+  join: active_subscriptions {
+    view_label: "Active Subscriptions"
+    sql: LEFT JOIN UNNEST(${subscriptions.active_dates}) AS active_subscriptions;;
+    relationship: one_to_many
+    sql_where: ${active_subscriptions.active_raw} BETWEEN DATE "2020-07-01" AND CURRENT_DATE - 1;;
   }
 
-  join: all_subscriptions__active {
-    view_label: "All Subscriptions: Active"
-    sql: LEFT JOIN UNNEST(${all_subscriptions.active}) AS all_subscriptions__active;;
-    relationship:  one_to_many
-    sql_where: ${all_subscriptions__active.active_raw} BETWEEN DATE "2020-07-01" AND CURRENT_DATE - 1;;
+  join: subscription_events {
+    view_label: "Subscription Events"
+    sql: CROSS JOIN UNNEST(${subscriptions.events}) AS subscription_events;;
+    relationship: one_to_many
+    sql_where: ${subscription_events.event_raw} BETWEEN DATE "2020-07-01" AND CURRENT_DATE - 1;;
   }
 
-  join: all_subscriptions__events {
-    view_label: "All Subscriptions: Events"
-    sql: CROSS JOIN UNNEST(${all_subscriptions.events}) AS all_subscriptions__events;;
-    relationship:  one_to_many
-    sql_where: ${all_subscriptions__events.event_raw} BETWEEN DATE "2020-07-01" AND CURRENT_DATE - 1;;
+  join: retention {
+    view_label: "Retention"
+    sql: CROSS JOIN UNNEST(${subscriptions.retention}) AS retention;;
+    relationship: one_to_many
+    sql_where: ${retention.period_end_date} < CURRENT_DATE - ${subscriptions.billing_grace_period};;
+  }
+
+  join: retention_period_end_7_day_aggregate {
+    view_label: "Retention Period End Date: 7-day Aggregate"
+    sql: CROSS JOIN UNNEST(${retention.period_end_7_day_window}) AS retention_period_end_7_day_aggregate;;
+    relationship: one_to_many
+    sql_where: ${retention_period_end_7_day_aggregate.aggregate_raw} BETWEEN "2020-07-01" AND CURRENT_DATE;;
   }
 }
 
-view: all_subscriptions {
-  dimension: id {
+view: +subscriptions {
+
+  dimension: active_dates {
     hidden: yes
-    primary_key: yes
-    sql: COALESCE(
-      ${stripe_subscriptions.id},
-      CAST(${apple_subscriptions.id} AS STRING)
-    );;
+    sql: GENERATE_DATE_ARRAY(${subscription_start_date}, ${end_date} - 1);;
   }
-  dimension: provider {
-    type: string
-    sql: ${TABLE}.provider;;
-  }
-  dimension_group: start {
-    type: time
-    timeframes: [
-      raw,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.start_date;;
-    convert_tz: no
-    datatype: date
-  }
-  dimension_group: end {
-    type: time
-    timeframes: [
-      raw,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.end_date;;
-    convert_tz: no
-    datatype: date
-  }
-  dimension: cancel_reason {
-    type: string
-    sql: ${TABLE}.cancel_reason;;
-  }
-  dimension_group: user_start {
-    type: time
-    timeframes: [
-      raw,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.user_start_date;;
-    convert_tz: no
-    datatype: date
-  }
-  dimension: active {
-    hidden: yes
-    sql: GENERATE_DATE_ARRAY(${start_raw}, ${end_raw} - 1);;
-  }
+
   dimension: events {
     hidden: yes
     sql:
       [
         STRUCT(
-          ${start_raw} AS date,
+          ${subscription_start_date} AS date,
           "New" AS type,
-          IF(${start_date} = ${user_start_date}, "New", "Resurrected") AS granular_type,
+          IF(${subscription_start_date} = ${customer_start_date}, "New", "Resurrected") AS granular_type,
           1 AS delta
         ),
         STRUCT(
-          ${end_raw} AS date,
+          ${end_date} AS date,
           "Cancelled" AS type,
           ${cancel_reason} AS granular_type,
           -1 AS delta
         )
       ];;
   }
-  measure: count {
-    type: count
+
+  dimension: retention {
+    hidden: yes
+    sql: GENERATE_ARRAY(0, ${months_retained});;
   }
 }
 
-view: all_subscriptions__active {
+view: active_subscriptions {
   dimension_group: active {
     type: time
     timeframes: [
@@ -198,13 +84,9 @@ view: all_subscriptions__active {
     convert_tz: no
     datatype: date
   }
-
-  measure: count {
-    type: count
-  }
 }
 
-view: all_subscriptions__events {
+view: subscription_events {
   dimension_group: event {
     type: time
     timeframes: [
@@ -233,5 +115,90 @@ view: all_subscriptions__events {
   measure: delta {
     type: sum
     sql: ${TABLE}.delta;;
+  }
+}
+
+view: retention {
+  dimension: retention_month {
+    type: number
+    sql: ${TABLE};;
+  }
+
+  dimension_group: period_start {
+    sql: TIMESTAMP(
+      DATETIME_ADD(
+        DATETIME(${subscriptions.subscription_start_raw}, ${subscriptions.plan_interval_timezone}),
+        INTERVAL ${retention_month} MONTH
+      ),
+      ${subscriptions.plan_interval_timezone}
+    );;
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year,
+    ]
+  }
+
+  dimension_group: period_end {
+    sql: TIMESTAMP(
+      DATETIME_ADD(
+        DATETIME(${subscriptions.subscription_start_raw}, ${subscriptions.plan_interval_timezone}),
+        INTERVAL ${retention_month} + 1 MONTH
+      ),
+      ${subscriptions.plan_interval_timezone}
+    );;
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year,
+    ]
+  }
+
+  dimension: retention_type {
+    sql:
+    IF(${retention_month} = 0, 'first month', 'subsequent months');;
+  }
+
+  dimension: period_end_7_day_window {
+    hidden: yes
+    sql: GENERATE_DATE_ARRAY(${period_end_date}, ${period_end_date} + 6);;
+  }
+
+  measure: retained {
+    type: number
+    sql: COUNTIF(${retention_month} < ${subscriptions.months_retained});;
+  }
+
+  measure: retention_rate {
+    value_format: "0.00%"
+    type: number
+    sql: ${retained}/${subscriptions.count};;
+  }
+}
+
+view: retention_period_end_7_day_aggregate {
+  dimension_group: aggregate {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE};;
+    convert_tz: no
+    datatype: date
   }
 }
