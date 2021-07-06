@@ -137,7 +137,7 @@ view: mobile_prediction {
       avg(dau_forecast_upper) over window_7day as dau_forecast_upper_7day_ma
     FROM
       mozdata.analysis.mobile_dou_forecasts
-    WHERE -- Also requires ${mobile_insert_stmnt.SQL_TABLE_NAME}
+    WHERE
       key = ARRAY_TO_STRING(REGEXP_EXTRACT_ALL("""
       {% condition mobile_usage_2021.campaign %} campaign {% endcondition %}
       {% condition mobile_usage_2021.channel %} channel {% endcondition %}
