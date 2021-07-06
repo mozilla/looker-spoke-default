@@ -11,11 +11,11 @@
     type: single_value
     fields:
     - subscriptions.count
-    - active_subscriptions.active_date
+    - subscriptions__active.active_date
     fill_fields:
-    - active_subscriptions.active_date
+    - subscriptions__active.active_date
     sorts:
-    - active_subscriptions.active_date desc
+    - subscriptions__active.active_date desc
     limit: 1
     defaults_version: 1
     listen: &listen
@@ -31,11 +31,11 @@
     type: looker_line
     fields:
     - subscriptions.count
-    - active_subscriptions.active_date
+    - subscriptions__active.active_date
     fill_fields:
-    - active_subscriptions.active_date
+    - subscriptions__active.active_date
     sorts:
-    - active_subscriptions.active_date desc
+    - subscriptions__active.active_date desc
     limit: 500
     color_application: &color_application
       collection_id: 5591d8d1-6b49-4f8e-bafa-b874d82f8eb7
@@ -57,15 +57,15 @@
     type: looker_line
     fields:
     - subscriptions.count
-    - active_subscriptions.active_date
+    - subscriptions__active.active_date
     - subscriptions.subscription_start_month
     pivots:
     - subscriptions.subscription_start_month
     fill_fields:
-    - active_subscriptions.active_date
+    - subscriptions__active.active_date
     - subscriptions.subscription_start_month
     sorts:
-    - active_subscriptions.active_date desc
+    - subscriptions__active.active_date desc
     - subscriptions.subscription_start_month
     limit: 500
     color_application: *color_application
@@ -81,29 +81,29 @@
     explore: subscriptions
     type: looker_line
     fields:
-    - subscription_events.event_date
-    - subscription_events.type
-    - subscription_events.delta
+    - subscriptions__events.event_date
+    - subscriptions__events.type
+    - subscriptions__events.delta
     pivots:
-    - subscription_events.type
+    - subscriptions__events.type
     fill_fields:
-    - subscription_events.event_date
+    - subscriptions__events.event_date
     sorts:
-    - subscription_events.event_date
-    - subscription_events.type
+    - subscriptions__events.event_date
+    - subscriptions__events.type
     limit: 500
     row_total: right
     dynamic_fields:
     - table_calculation: 7_day_sum
       label: 7-day Sum
-      expression: sum(offset_list(${subscription_events.delta}, -6, 7))
+      expression: sum(offset_list(${subscriptions__events.delta}, -6, 7))
       value_format:
       value_format_name:
       _kind_hint: measure
       _type_hint: number
     - table_calculation: net_7_day_sum
       label: Net Paid Subscriptions - 7-day Sum
-      expression: sum(offset_list(${subscription_events.delta:row_total}, -6,
+      expression: sum(offset_list(${subscriptions__events.delta:row_total}, -6,
         7))
       value_format:
       value_format_name:
@@ -116,7 +116,7 @@
       net_7_day_sum: "#3D52B9"
     defaults_version: 1
     hidden_fields:
-    - subscription_events.delta
+    - subscriptions__events.delta
     listen: *listen
     row: 9
     col: 0
@@ -128,25 +128,25 @@
     explore: subscriptions
     type: looker_line
     fields:
-    - subscription_events.event_date
-    - subscription_events.delta
-    - subscription_events.type
+    - subscriptions__events.event_date
+    - subscriptions__events.delta
+    - subscriptions__events.type
     pivots:
-    - subscription_events.type
+    - subscriptions__events.type
     fill_fields:
-    - subscription_events.event_date
+    - subscriptions__events.event_date
     sorts:
-    - subscription_events.event_date desc
-    - subscription_events.type
+    - subscriptions__events.event_date desc
+    - subscriptions__events.type
     limit: 500
     row_total: right
     color_application: *color_application
     series_colors:
-      New - subscription_events.delta: "#08B248"
-      Cancelled - subscription_events.delta: "#FC2E31"
-      Row Total - subscription_events.delta: "#3D52B9"
+      New - subscriptions__events.delta: "#08B248"
+      Cancelled - subscriptions__events.delta: "#FC2E31"
+      Row Total - subscriptions__events.delta: "#3D52B9"
     series_labels:
-      Row Total - subscription_events.delta: Net Paid Subscriptions
+      Row Total - subscriptions__events.delta: Net Paid Subscriptions
     defaults_version: 1
     listen: *listen
     row: 9
@@ -257,28 +257,28 @@
     explore: subscriptions
     type: looker_line
     fields:
-    - subscription_events.event_date
-    - subscription_events.delta
-    - subscription_events.granular_type
+    - subscriptions__events.event_date
+    - subscriptions__events.delta
+    - subscriptions__events.granular_type
     pivots:
-    - subscription_events.granular_type
+    - subscriptions__events.granular_type
     fill_fields:
-    - subscription_events.event_date
+    - subscriptions__events.event_date
     sorts:
-    - subscription_events.event_date desc
-    - subscription_events.granular_type
+    - subscriptions__events.event_date desc
+    - subscriptions__events.granular_type
     limit: 500
     row_total: right
     color_application: *color_application
     series_colors:
-      New - subscription_events.delta: "#08B248"
-      Resurrected - subscription_events.delta: "#C9DC10"
-      Cancelled by Customer - subscription_events.delta: "#FC2E31"
-      Cancelled by IAP - subscription_events.delta: "#FA2F90"
-      Payment Failed = subscription_events.delta: "#FA9200"
-      Row Total - subscription_events.delta: "#3D52B9"
+      New - subscriptions__events.delta: "#08B248"
+      Resurrected - subscriptions__events.delta: "#C9DC10"
+      Cancelled by Customer - subscriptions__events.delta: "#FC2E31"
+      Cancelled by IAP - subscriptions__events.delta: "#FA2F90"
+      Payment Failed = subscriptions__events.delta: "#FA9200"
+      Row Total - subscriptions__events.delta: "#3D52B9"
     series_labels:
-      Row Total - subscription_events.delta: Net Paid Subscriptions
+      Row Total - subscriptions__events.delta: Net Paid Subscriptions
     defaults_version: 1
     listen: *listen
     row: 18
@@ -291,24 +291,24 @@
     explore: subscriptions
     type: looker_line
     fields:
-    - subscription_events.event_date
-    - subscription_events.delta
+    - subscriptions__events.event_date
+    - subscriptions__events.delta
     - subscriptions.attribution_category
     pivots:
     - subscriptions.attribution_category
     fill_fields:
-    - subscription_events.event_date
+    - subscriptions__events.event_date
     filters:
-      subscription_events.type: New
+      subscriptions__events.type: New
     sorts:
-    - subscription_events.event_date
+    - subscriptions__events.event_date
     - subscriptions.attribution_category
     limit: 500
     column_limit: 50
     dynamic_fields:
     - table_calculation: 28_day_sum
       label: 28-day Sum
-      expression: sum(offset_list(${subscription_events.delta}, -27, 28))
+      expression: sum(offset_list(${subscriptions__events.delta}, -27, 28))
       value_format:
       value_format_name:
       _kind_hint: measure
@@ -330,24 +330,24 @@
     explore: subscriptions
     type: looker_line
     fields:
-    - subscription_events.event_date
-    - subscription_events.delta
+    - subscriptions__events.event_date
+    - subscriptions__events.delta
     - subscriptions.coarse_attribution_category
     pivots:
     - subscriptions.coarse_attribution_category
     fill_fields:
-    - subscription_events.event_date
+    - subscriptions__events.event_date
     filters:
-      subscription_events.type: New
+      subscriptions__events.type: New
     sorts:
-    - subscription_events.event_date
+    - subscriptions__events.event_date
     - subscriptions.coarse_attribution_category
     limit: 500
     column_limit: 50
     dynamic_fields:
     - table_calculation: 28_day_sum
       label: 28-day Sum
-      expression: sum(offset_list(${subscription_events.delta}, -27, 28))
+      expression: sum(offset_list(${subscriptions__events.delta}, -27, 28))
       value_format:
       value_format_name:
       _kind_hint: measure
@@ -366,14 +366,14 @@
     type: looker_line
     fields:
     - subscriptions.count
-    - active_subscriptions.active_date
+    - subscriptions__active.active_date
     - subscriptions.attribution_category
     pivots:
     - subscriptions.attribution_category
     fill_fields:
-    - active_subscriptions.active_date
+    - subscriptions__active.active_date
     sorts:
-    - active_subscriptions.active_date desc
+    - subscriptions__active.active_date desc
     - subscriptions.attribution_category
     limit: 500
     column_limit: 50
@@ -390,13 +390,13 @@
     explore: subscriptions
     type: looker_line
     fields:
-    - active_subscriptions.active_date
+    - subscriptions__active.active_date
     - subscriptions.count
     - devices.count
     fill_fields:
-    - active_subscriptions.active_date
+    - subscriptions__active.active_date
     sorts:
-    - active_subscriptions.active_date desc
+    - subscriptions__active.active_date desc
     dynamic_fields:
     - table_calculation: average_devices_per_user
       label: Average Devices per User
@@ -451,14 +451,14 @@
     explore: subscriptions
     type: looker_column
     fields:
-    - subscription_events.delta
-    - subscription_events.event_month
+    - subscriptions__events.delta
+    - subscriptions__events.event_month
     fill_fields:
-    - subscription_events.event_month
+    - subscriptions__events.event_month
     filters:
-      subscription_events.type: New
+      subscriptions__events.type: New
     sorts:
-    - subscription_events.event_month desc
+    - subscriptions__events.event_month desc
     limit: 500
     column_limit: 50
     color_application: *color_application
