@@ -416,22 +416,22 @@
     explore: subscriptions
     type: looker_line
     fields:
-    - retention.retention_type
+    - subscriptions__retention.retention_type
     - retention_period_end_7_day_aggregate.aggregate_date
     - subscriptions.count
-    - retention.retained
+    - subscriptions__retention.retained
     pivots:
-    - retention.retention_type
+    - subscriptions__retention.retention_type
     fill_fields:
     - retention_period_end_7_day_aggregate.aggregate_date
     sorts:
     - retention_period_end_7_day_aggregate.aggregate_date desc
-    - retention.retention_type
+    - subscriptions__retention.retention_type
     limit: 500
     dynamic_fields:
     - table_calculation: retention_rate
       label: Retention Rate
-      expression: "${retention.retained}/${subscriptions.count}"
+      expression: "${subscriptions__retention.retained}/${subscriptions.count}"
     color_application: *color_application
     series_colors:
       first month - retention_rate: "#FC2E31"
@@ -439,7 +439,7 @@
     defaults_version: 1
     hidden_fields:
     - subscriptions.count
-    - retention.retained
+    - subscriptions__retention.retained
     listen: *listen
     row: 45
     col: 0
