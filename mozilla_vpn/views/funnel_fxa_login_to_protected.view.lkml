@@ -10,63 +10,39 @@ view: +funnel_fxa_login_to_protected {
     primary_key: yes
   }
 
+  dimension: completed_login {
+    label: "Stage 1 Completed Login"
+    description: "completed login within 2 days of first login attempt"
+  }
+
+  # this field is renamed to make the meaning more clear in context
+  dimension: registered_user {
+    hidden: yes
+  }
+  dimension: returned_from_login {
+    label: "Stage 2 Returned from FxA Login"
+    description: "completed previous stages and returned from login within 2 days of first login attempt"
+    sql: ${registered_user};;
+    type: yesno
+  }
+
+  dimension: paid_for_subscription {
+    label: "Stage 3 Completed Login"
+    description: "completed previous stages and paid for a subscription within 2 days of first login attempt"
+  }
+
+  dimension: registered_device {
+    label: "Stage 4 Completed Login"
+    description: "completed previous stages and registered a device within 2 days of first login attempt"
+  }
+
+  dimension: protected {
+    label: "Stage 5 Protected"
+    description: "completed previous stages and was protected by the product within 2 days of first login attempt"
+  }
+
   measure: count {
-    label: "Login Attempts"
+    label: "First Login Attempts"
     type: count
-  }
-
-  measure: completed_login_count {
-    type: count
-    filters: [completed_login: "yes"]
-  }
-
-  measure: registered_user_count {
-    type: count
-    filters: [registered_user: "yes"]
-  }
-
-  measure: paid_for_subscription_count {
-    type: count
-    filters: [paid_for_subscription: "yes"]
-  }
-
-  measure: registered_device_count {
-    type: count
-    filters: [registered_device: "yes"]
-  }
-
-  measure: protected_count {
-    type: count
-    filters: [protected: "yes"]
-  }
-
-  measure: frac_completed_login {
-    description: "Fraction of first login attempts that completed login"
-    type: number
-    sql: ${completed_login_count}/${count};;
-  }
-
-  measure: frac_registered_user {
-    description: "Fraction of first login attempts that returned to the product after login"
-    type: number
-    sql: ${registered_user_count}/${count};;
-  }
-
-  measure: frac_paid_for_subscription {
-    description: "Fraction of first login attempts that paid for a subscription"
-    type: number
-    sql: ${paid_for_subscription_count}/${count};;
-  }
-
-  measure: frac_registered_device {
-    description: "Fraction of first login attempts that added a device to their account"
-    type: number
-    sql: ${registered_device_count}/${count};;
-  }
-
-  measure: frac_protected {
-    description: "Fraction of first login attempts that protected a device (i.e. turned on the product)"
-    type: number
-    sql: ${protected_count}/${count};;
   }
 }

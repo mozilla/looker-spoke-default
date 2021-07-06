@@ -161,11 +161,11 @@
     fields:
     - funnel_fxa_login_to_protected.start_date
     - funnel_fxa_login_to_protected.count
-    - funnel_fxa_login_to_protected.frac_completed_login
-    - funnel_fxa_login_to_protected.frac_registered_user
-    - funnel_fxa_login_to_protected.frac_paid_for_subscription
-    - funnel_fxa_login_to_protected.frac_registered_device
-    - funnel_fxa_login_to_protected.frac_protected
+    - stage_1_completed_login
+    - stage_2_returned_from_login
+    - stage_3_paid_for_subscription
+    - stage_4_registered_device
+    - stage_5_protected
     fill_fields:
     - funnel_fxa_login_to_protected.start_date
     filters:
@@ -173,25 +173,56 @@
     sorts:
     - funnel_fxa_login_to_protected.start_date desc
     limit: 500
+    dynamic_fields:
+    - measure: stage_1_completed_login
+      based_on: funnel_fxa_login_to_protected.count
+      filters: {funnel_fxa_login_to_protected.completed_login: "yes"}
+    - measure: stage_2_returned_from_login
+      based_on: funnel_fxa_login_to_protected.count
+      filters: {funnel_fxa_login_to_protected.returned_from_login: "yes"}
+    - measure: stage_3_paid_for_subscription
+      based_on: funnel_fxa_login_to_protected.count
+      filters: {funnel_fxa_login_to_protected.paid_for_subscription: "yes"}
+    - measure: stage_4_registered_device
+      based_on: funnel_fxa_login_to_protected.count
+      filters: {funnel_fxa_login_to_protected.registered_device: "yes"}
+    - measure: stage_5_protected
+      based_on: funnel_fxa_login_to_protected.count
+      filters: {funnel_fxa_login_to_protected.protected: "yes"}
+    - table_calculation: stage_1_completed_login_percent
+      label: Stage 1 Completed Login % of Total
+      expression: "${stage_1_completed_login}/${funnel_fxa_login_to_protected.count}"
+      value_format: "0.00%"
+    - table_calculation: stage_2_returned_from_login_percent
+      label: Stage 2 Returned from Login % of Total
+      expression: "${stage_2_returned_from_login}/${funnel_fxa_login_to_protected.count}"
+      value_format: "0.00%"
+    - table_calculation: stage_3_paid_for_subscription_percent
+      label: Stage 3 Paid for Subscription % of Total
+      expression: "${stage_3_paid_for_subscription}/${funnel_fxa_login_to_protected.count}"
+      value_format: "0.00%"
+    - table_calculation: stage_4_registered_device_percent
+      label: Stage 4 Registered Device % of Total
+      expression: "${stage_4_registered_device}/${funnel_fxa_login_to_protected.count}"
+      value_format: "0.00%"
+    - table_calculation: stage_5_protected_percent
+      label: Stage 5 Protected by Product % of Total
+      expression: "${stage_5_protected}/${funnel_fxa_login_to_protected.count}"
+      value_format: "0.00%"
     y_axes:
-    - label: ''
+    - label: ""
       orientation: left
       series:
-      - axisId: funnel_fxa_login_to_protected.frac_completed_login
-        id: funnel_fxa_login_to_protected.frac_completed_login
-        name: Frac Completed Login
-      - axisId: funnel_fxa_login_to_protected.frac_registered_user
-        id: funnel_fxa_login_to_protected.frac_registered_user
-        name: Frac Registered User
-      - axisId: funnel_fxa_login_to_protected.frac_paid_for_subscription
-        id: funnel_fxa_login_to_protected.frac_paid_for_subscription
-        name: Frac Subscribed
-      - axisId: funnel_fxa_login_to_protected.frac_protected
-        id: funnel_fxa_login_to_protected.frac_protected
-        name: Frac Protected
-      - axisId: funnel_fxa_login_to_protected.frac_registered_device
-        id: funnel_fxa_login_to_protected.frac_registered_device
-        name: Frac Registered Device
+      - axisId: stage_1_completed_login_percent
+        id: stage_1_completed_login_percent
+      - axisId: stage_2_returned_from_login_percent
+        id: stage_2_returned_from_login_percent
+      - axisId: stage_3_paid_for_subscription_percent
+        id: stage_3_paid_for_subscription_percent
+      - axisId: stage_4_registered_device_percent
+        id: stage_4_registered_device_percent
+      - axisId: stage_5_protected_percent
+        id: stage_5_protected_percent
       showLabels: true
       showValues: true
       unpinAxis: false
@@ -203,7 +234,6 @@
       series:
       - axisId: funnel_fxa_login_to_protected.count
         id: funnel_fxa_login_to_protected.count
-        name: Login Attempts
       showLabels: true
       showValues: true
       unpinAxis: false
@@ -211,6 +241,12 @@
       tickDensityCustom: 5
       type: linear
     defaults_version: 1
+    hidden_fields:
+    - stage_1_completed_login
+    - stage_2_returned_from_login
+    - stage_3_paid_for_subscription
+    - stage_4_registered_device
+    - stage_5_protected
     row: 18
     col: 0
     width: 12
@@ -365,10 +401,6 @@
     - table_calculation: average_devices_per_user
       label: Average Devices per User
       expression: "${devices.count}/${subscriptions.count}"
-      value_format:
-      value_format_name:
-      _kind_hint: measure
-      _type_hint: number
     defaults_version: 1
     hidden_fields:
     - subscriptions.count
@@ -386,7 +418,8 @@
     fields:
     - retention.retention_type
     - retention_period_end_7_day_aggregate.aggregate_date
-    - retention.retention_rate
+    - subscriptions.count
+    - retention.retained
     pivots:
     - retention.retention_type
     fill_fields:
@@ -395,11 +428,18 @@
     - retention_period_end_7_day_aggregate.aggregate_date desc
     - retention.retention_type
     limit: 500
+    dynamic_fields:
+    - table_calculation: retention_rate
+      label: Retention Rate
+      expression: "${retention.retained}/${subscriptions.count}"
     color_application: *color_application
     series_colors:
-      first month - retention.retention_rate: "#FC2E31"
-      subsequent months - retention.retention_rate: "#3D52B9"
+      first month - retention_rate: "#FC2E31"
+      subsequent months - retention_rate: "#3D52B9"
     defaults_version: 1
+    hidden_fields:
+    - subscriptions.count
+    - retention.retained
     listen: *listen
     row: 45
     col: 0
