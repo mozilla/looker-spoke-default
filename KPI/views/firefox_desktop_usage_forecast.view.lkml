@@ -215,7 +215,7 @@ view: prediction {
       avg(new_profiles_forecast_upper) over window_7day as new_profiles_forecast_upper_7day_ma
     FROM
       mozdata.analysis.dou_forecasts
-    WHERE -- Also requires ${insert_stmnt.SQL_TABLE_NAME}
+    WHERE
       key = ARRAY_TO_STRING(REGEXP_EXTRACT_ALL("""
       {% condition firefox_desktop_usage_2021.activity_segment %} activity_segment {% endcondition %}
       {% condition firefox_desktop_usage_2021.campaign %} campaign {% endcondition %}
