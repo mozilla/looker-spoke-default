@@ -3,9 +3,8 @@ connection: "telemetry"
 include: "views/*.view.lkml"                # include all views in the views/ folder in this project
 # include: "dashboards/*.dashboard"
 
-explore: firefox_desktop_cohorts {
+explore: firefox_desktop_last_seen {
   label: "Firefox Dekstop Clients Last Seen"
-  group_label: "Firefox Desktop"
   from: clients_last_seen
-  hidden: no
+  hidden: yes
 }
