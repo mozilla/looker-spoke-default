@@ -8,11 +8,6 @@ view: client_counts {
     filters: [days_since_created_profile: "<=0"]
   }
 
-  measure: dau_first_seen {
-    type: count
-    filters: [days_since_first_seen: "<=0"]
-  }
-
   measure: dau_had_8_active_ticks {
     type: count
     filters: [days_since_had_8_active_ticks: "<=0"]
