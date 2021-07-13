@@ -6,7 +6,6 @@
   - name: Mobile Acquisition Funnel for Android
     type: text
     title_text: Mobile Acquisition Funnel for Android
-    subtitle_text: ''
     body_text: |
       The purpose of this dashboard is to provide insight into the mobile acquisition funnel for some of our Android products, namely Fenix and Focus. It does not behave like a normal funnel due to the fact that the aggregated data originates from multiple sources, and it's important to understand each source before taking these numbers at face value.
 
@@ -21,7 +20,7 @@
     row: 0
     col: 0
     width: 24
-    height: 4
+    height: 7
   - title: Android Funnel Per Day
     name: Android Funnel Per Day
     model: duet
@@ -61,7 +60,7 @@
       History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
       Bucket: country_buckets.bucket
-    row: 12
+    row: 15
     col: 12
     width: 12
     height: 8
@@ -121,7 +120,7 @@
       History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
       Bucket: country_buckets.bucket
-    row: 4
+    row: 7
     col: 0
     width: 12
     height: 2
@@ -188,7 +187,7 @@
       History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
       Bucket: country_buckets.bucket
-    row: 12
+    row: 15
     col: 0
     width: 12
     height: 8
@@ -245,7 +244,7 @@
     - History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
       Bucket: country_buckets.bucket
-    row: 6
+    row: 9
     col: 0
     width: 12
     height: 3
@@ -302,7 +301,7 @@
     - History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
       Bucket: country_buckets.bucket
-    row: 6
+    row: 9
     col: 12
     width: 12
     height: 3
@@ -358,7 +357,7 @@
     - History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
       Bucket: country_buckets.bucket
-    row: 9
+    row: 12
     col: 0
     width: 12
     height: 3
@@ -413,7 +412,7 @@
     - History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
       Bucket: country_buckets.bucket
-    row: 9
+    row: 12
     col: 12
     width: 12
     height: 3
@@ -469,7 +468,7 @@
       History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
       Bucket: country_buckets.bucket
-    row: 4
+    row: 7
     col: 12
     width: 12
     height: 2

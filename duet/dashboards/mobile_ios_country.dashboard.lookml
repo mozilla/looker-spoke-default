@@ -6,7 +6,6 @@
   - name: Mobile Acquisition Funnel for iOS
     type: text
     title_text: Mobile Acquisition Funnel for iOS
-    subtitle_text: ''
     body_text: |
       The purpose of this dashboard is to provide insight into the mobile acquisition funnel for some of our iOS products, namely Firefox for iOS and Focus. It does not behave like a normal funnel due to the fact that the aggregated data originates from multiple sources. It’s important to understand each source before taking these numbers at face value.
 
@@ -22,7 +21,7 @@
     row: 0
     col: 0
     width: 24
-    height: 4
+    height: 7
   - title: iOS Funnel Per Day
     name: iOS Funnel Per Day
     model: duet
@@ -63,7 +62,7 @@
       History Days: mobile_ios_country.history_days
       App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
-    row: 15
+    row: 18
     col: 12
     width: 12
     height: 8
@@ -122,7 +121,7 @@
       History Days: mobile_ios_country.history_days
       App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
-    row: 4
+    row: 7
     col: 0
     width: 12
     height: 2
@@ -205,7 +204,7 @@
       History Days: mobile_ios_country.history_days
       App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
-    row: 15
+    row: 18
     col: 0
     width: 12
     height: 8
@@ -260,7 +259,7 @@
     - History Days: mobile_ios_country.history_days
       App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
-    row: 6
+    row: 9
     col: 0
     width: 12
     height: 3
@@ -317,7 +316,7 @@
     - History Days: mobile_ios_country.history_days
       App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
-    row: 6
+    row: 9
     col: 12
     width: 12
     height: 3
@@ -374,7 +373,7 @@
     - History Days: mobile_ios_country.history_days
       App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
-    row: 9
+    row: 12
     col: 0
     width: 12
     height: 3
@@ -429,7 +428,7 @@
     - History Days: mobile_ios_country.history_days
       App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
-    row: 9
+    row: 12
     col: 12
     width: 12
     height: 3
@@ -485,7 +484,7 @@
     - History Days: mobile_ios_country.history_days
       App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
-    row: 12
+    row: 15
     col: 0
     width: 12
     height: 3
@@ -541,16 +540,15 @@
       History Days: mobile_ios_country.history_days
       App Name: mobile_ios_country.app_name
       Bucket: country_buckets.bucket
-    row: 4
+    row: 7
     col: 12
     width: 12
     height: 2
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: ''
-    row: 12
+    row: 15
     col: 12
     width: 12
     height: 3
