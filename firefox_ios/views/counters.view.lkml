@@ -108,7 +108,6 @@ view: counters {
     suggest_dimension: metrics_sample.normalized_os_version
   }
 
-
   dimension: android_sdk_version {
     type: string
     sql: ${TABLE}.android_sdk_version ;;
@@ -131,10 +130,21 @@ view: counters {
   }
 
   dimension: app_display_version {
+    hidden: yes
     type: string
     sql: ${TABLE}.app_display_version ;;
     suggest_explore: metrics_sample
     suggest_dimension: metrics_sample.app_display_version
+  }
+
+  dimension: app_display_major_version {
+    type: number
+    sql: mozfun.norm.truncate_version(${app_display_version}, "major") ;;
+  }
+
+  dimension: app_display_major_minor_version {
+    type: number
+    sql: mozfun.norm.truncate_version(${app_display_version}, "minor") ;;
   }
 
   dimension: architecture {
@@ -173,10 +183,21 @@ view: counters {
   }
 
   dimension: os_version {
+    hidden: yes
     type: string
     sql: ${TABLE}.os_version ;;
     suggest_explore: metrics_sample
     suggest_dimension: metrics_sample.os_version
+  }
+
+  dimension: os_major_version {
+    type: number
+    sql: mozfun.norm.truncate_version(${os_version}, "major") ;;
+  }
+
+  dimension: os_major_minor_version {
+    type: number
+    sql: mozfun.norm.truncate_version(${os_version}, "minor") ;;
   }
 
   dimension: telemetry_sdk_build {

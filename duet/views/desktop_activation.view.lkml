@@ -10,31 +10,65 @@ view: desktop_activation {
               IF({% parameter previous_time_period %},
                 DATE(DATE_ADD(DATE({% date_end date %}), INTERVAL DATE_DIFF(DATE({% date_start date %}), DATE({% date_end date %}), DAY) DAY)),
                 DATE({% date_end date %})
-          ), INTERVAL IF({% parameter ignore_most_recent_week %}, 8, 0) DAY), INTERVAL 6 DAY)
+          ), INTERVAL IF({% parameter ignore_most_recent_week %}, 9, 0) DAY), INTERVAL 6 DAY)
           AND
           submission_date >= DATE_ADD(
             DATE_SUB(
               IF({% parameter previous_time_period %},
                 DATE(DATE_ADD(DATE({% date_start date %}), INTERVAL DATE_DIFF(DATE({% date_start date %}), DATE({% date_end date %}), DAY) DAY)),
                 DATE({% date_start date %})
-          ), INTERVAL IF({% parameter ignore_most_recent_week %}, 8, 0) DAY), INTERVAL 6 DAY)
+          ), INTERVAL IF({% parameter ignore_most_recent_week %}, 9, 0) DAY), INTERVAL 6 DAY)
+      ),
+      pop AS (
+        SELECT
+          ROW_NUMBER() OVER (PARTITION BY new_profile.client_id) AS rn,
+          new_profile.client_id,
+          normalized_country_code,
+          normalized_channel AS channel,
+          application.build_id AS build_id,
+          normalized_os AS os,
+          mozfun.norm.truncate_version(normalized_os_version, "minor") AS os_version,
+          environment.settings.attribution.source AS attribution_source,
+          environment.partner.distribution_id AS distribution_id,
+          coalesce(environment.settings.attribution.ua, '') AS attribution_ua,
+          payload.processes.parent.scalars.startup_profile_selection_reason AS startup_profile_selection_reason,
+          submission_timestamp,
+          coalesce(BIT_COUNT(clients_last_seen.days_seen_bits & 0x7F), 0) >= 5 AS activated
+        FROM `mozdata.telemetry.new_profile` AS new_profile
+        LEFT JOIN clients_last_seen
+        ON clients_last_seen.client_id = new_profile.client_id AND
+          DATE_ADD(DATE(new_profile.submission_timestamp), INTERVAL 6 DAY) = clients_last_seen.submission_date
+        WHERE
+            payload.processes.parent.scalars.startup_profile_selection_reason = 'firstrun-created-default'  AND
+            DATE(submission_timestamp) <= DATE_SUB(
+              IF({% parameter desktop_activation.previous_time_period %},
+                -- if the data for the previous time period is requested,
+                -- shift dates by the date range provided via the 'date' filter
+                DATE(DATE_ADD(
+                  DATE({% date_end desktop_activation.date %}),
+                  INTERVAL DATE_DIFF(DATE({% date_start desktop_activation.date %}), DATE({% date_end desktop_activation.date %}), DAY) DAY)),
+                DATE({% date_end desktop_activation.date %})),
+              -- if the most recent week is to be ignored, shift date range by 9 days
+              INTERVAL IF({% parameter desktop_activation.ignore_most_recent_week %}, 9, 0) DAY)
+            AND
+            DATE(submission_timestamp) > DATE_SUB(
+              IF({% parameter desktop_activation.previous_time_period %},
+                -- if the data for the previous time period is requested,
+                -- shift dates by the date range provided via the 'date' filter
+                DATE(DATE_ADD(
+                  DATE({% date_start desktop_activation.date %}),
+                  INTERVAL DATE_DIFF(DATE({% date_start desktop_activation.date %}), DATE({% date_end desktop_activation.date %}), DAY) DAY)),
+                DATE({% date_start desktop_activation.date %})),
+              -- if the most recent week is to be ignored, shift date range by 9 days
+              INTERVAL IF({% parameter desktop_activation.ignore_most_recent_week %}, 9, 0) DAY)
       )
+      -- make sure that we only get one entry per client
       SELECT
-        new_profile.client_id,
-        submission_timestamp,
-        normalized_country_code,
-        environment.settings.attribution.source AS attribution_source,
-        environment.partner.distribution_id AS distribution_id,
-        coalesce(environment.settings.attribution.ua, "") AS attribution_ua,
-        normalized_channel AS channel,
-        application.build_id AS build_id,
-        normalized_os AS os,
-        payload.processes.parent.scalars.startup_profile_selection_reason AS startup_profile_selection_reason,
-        coalesce(BIT_COUNT(clients_last_seen.days_seen_bits & 0x7F), 0) >= 5 AS activated
-      FROM `mozdata.telemetry.new_profile` AS new_profile
-      LEFT JOIN clients_last_seen
-      ON clients_last_seen.client_id = new_profile.client_id AND
-        DATE_ADD(DATE(new_profile.submission_timestamp), INTERVAL 6 DAY) = clients_last_seen.submission_date
+        * EXCEPT (rn)
+      FROM
+        pop
+      WHERE
+        rn = 1
       ;;
   }
 

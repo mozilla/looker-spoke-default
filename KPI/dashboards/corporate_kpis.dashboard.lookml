@@ -59,11 +59,11 @@
       prediction.dau_forecast_lower_7day_ma: "#80868B"
       prediction.dau_forecast_upper_7day_ma: "#80868B"
     series_labels:
-      firefox_desktop_usage_2021.dau_7day_ma: DAU (7 Day MA)
-      prediction.dau_forecast_7day_ma: DAU Forecast (7 Day MA)
+      firefox_desktop_usage_2021.dau_7day_ma: DAU (7 Day Moving Average)
+      prediction.dau_forecast_7day_ma: DAU Forecast (7 Day Moving Average)
       prediction.dau_forecast_lower_7day_ma: DAU Forecast Lower Bound
       prediction.dau_forecast_upper_7day_ma: DAU Forecast Upper Bound
-      firefox_desktop_usage_2021.year_over_year_dau_7day_ma: 2020 DAU MA
+      firefox_desktop_usage_2021.year_over_year_dau_7day_ma: 2020 DAU Moving Average
     series_point_styles:
       prediction.dau_forecast_lower: triangle
       prediction.dau_forecast_upper: triangle-down
@@ -80,9 +80,9 @@
       determining if the actuals are truly starting to differ from the forecast. '
     listen:
       Date: firefox_desktop_usage_2021.date
-    row: 16
-    col: 0
-    width: 24
+    row: 7
+    col: 12
+    width: 12
     height: 9
   - title: Destkop Cumulative Days of Use (CDOU)
     name: Destkop Cumulative Days of Use (CDOU)
@@ -137,8 +137,8 @@
       and the +5% Target Pace.
     listen:
       Date: firefox_desktop_usage_2021.date
-    row: 7
-    col: 12
+    row: 46
+    col: 0
     width: 12
     height: 9
   - name: ''
@@ -147,7 +147,7 @@
     subtitle_text: ''
     body_text: |-
       <h1 style="margin-top:0px; padding: 5px; border-bottom: solid 1px #412399; height: 50px; color: #412399; text-align: left;" id="dou">Desktop Days of Use and DAU</h1>
-      <div><a style="font-weight: bold;" href="https://mozilla.cloud.looker.com/dashboards-next/88?Date=after%202021%2F01%2F01&Channel=&Activity%20Segment=&OS=&Attributed%20(Yes%20%2F%20No)=&Country%20Name=">☰
+      <div><a style="font-weight: bold;" href="https://mozilla.cloud.looker.com/dashboards-next/kpi::desktop_kr_dashboard?Date=after+2021%2F01%2F01&Channel=&Activity+Segment=&OS=&Attributed+%28Yes+%2F+No%29=&Country+Name=">☰
 
             Go Here for a More Detail on Desktop KPIs</a></div>
     row: 0
@@ -220,8 +220,7 @@
     model: kpi
     explore: firefox_desktop_usage_2021
     type: single_value
-    fields: [firefox_desktop_usage_2021.recent_cdou, firefox_desktop_usage_2021.recent_cdou_2020]
-    sorts: [firefox_desktop_usage_2021.recent_cdou_2020 desc]
+    fields: [firefox_desktop_usage_2021.year_over_year_cdou_delta_percent, firefox_desktop_usage_2021.recent_cdou]
     limit: 500
     custom_color_enabled: true
     show_single_value_title: true
@@ -232,9 +231,9 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    single_value_title: ''
+    single_value_title: Year Over Year Change in CDOU
     value_format: ''
-    comparison_label: At this time in 2020
+    comparison_label: Cumulative Days of Use in 2021
     series_types: {}
     defaults_version: 1
     listen:
@@ -317,10 +316,10 @@
     subtitle_text: ''
     body_text: |-
       <h1 style="margin-top:0px; padding: 5px; border-bottom: solid 1px #412399; height: 50px; color: #412399; text-align: left;" id="dou">Mobile Days of Use and DAU</h1>
-      <div><a style="font-weight: bold;" href="https://mozilla.cloud.looker.com/dashboards-next/89?Date=after%202021%2F01%2F01&Country=">☰
+      <div><a style="font-weight: bold;" href="https://mozilla.cloud.looker.com/dashboards-next/kpi::mobile_kr_dashboard?Date=after+2021%2F01%2F01&Country=">☰
 
             Go Here for a Breakdown of Mobile Products</a></div>
-    row: 25
+    row: 19
     col: 0
     width: 24
     height: 4
@@ -329,25 +328,26 @@
     model: kpi
     explore: mobile_usage_2021
     type: single_value
-    fields: [mobile_usage_2021.dau]
-    filters: {}
+    fields: [mobile_usage_2021.year_over_year_cdou_delta_percent, mobile_usage_2021.dau,
+      mobile_usage_2021.year_over_year_cdou_delta_count, mobile_usage_2021.year_over_year_dau]
     limit: 500
     custom_color_enabled: true
     show_single_value_title: true
-    show_comparison: false
+    show_comparison: true
     comparison_type: value
     comparison_reverse_colors: false
     show_comparison_label: true
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    single_value_title: Total Mobile Cumualtive Days of Use
-    value_format: 0.000,,, "Billion"
+    single_value_title: Year Over Year Change in CDOU
+    value_format: ''
+    comparison_label: Mobile Cumulative Days of Use in 2021
     series_types: {}
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
-    row: 29
+    row: 23
     col: 0
     width: 8
     height: 4
@@ -375,7 +375,7 @@
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
-    row: 29
+    row: 23
     col: 8
     width: 8
     height: 4
@@ -403,7 +403,7 @@
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
-    row: 29
+    row: 23
     col: 16
     width: 8
     height: 4
@@ -415,7 +415,6 @@
     fields: [mobile_usage_2021.delta_from_forecast_count, mobile_usage_2021.delta_from_target_count,
       mobile_usage_2021.date]
     fill_fields: [mobile_usage_2021.date]
-    filters: {}
     sorts: [mobile_usage_2021.date desc]
     limit: 500
     x_axis_gridlines: false
@@ -452,19 +451,18 @@
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
-    row: 33
+    row: 27
     col: 0
     width: 12
     height: 9
-  - title: Mobile CDOU Burn-Up
-    name: Mobile CDOU Burn-Up
+  - title: Mobile Cumulative Days of Use (CDOU)
+    name: Mobile Cumulative Days of Use (CDOU)
     model: kpi
     explore: mobile_usage_2021
     type: looker_line
     fields: [mobile_usage_2021.date, mobile_usage_2021.cdou, mobile_prediction.cdou_forecast,
       mobile_prediction.cdou_target]
     fill_fields: [mobile_usage_2021.date]
-    filters: {}
     sorts: [mobile_usage_2021.date desc]
     limit: 500
     x_axis_gridlines: false
@@ -498,7 +496,7 @@
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
-    row: 33
+    row: 46
     col: 12
     width: 12
     height: 9
@@ -508,9 +506,9 @@
     explore: mobile_usage_2021
     type: looker_line
     fields: [mobile_usage_2021.date, mobile_usage_2021.dau_7day_ma, mobile_prediction.dau_forecast_7day_ma,
-      mobile_prediction.dau_forecast_lower_7day_ma, mobile_prediction.dau_forecast_upper_7day_ma]
+      mobile_prediction.dau_forecast_lower_7day_ma, mobile_prediction.dau_forecast_upper_7day_ma,
+      mobile_usage_2021.year_over_year_dau_7day_ma]
     fill_fields: [mobile_usage_2021.date]
-    filters: {}
     sorts: [mobile_usage_2021.date desc]
     limit: 500
     x_axis_gridlines: false
@@ -550,15 +548,16 @@
       mobile_prediction.dau_forecast_upper_7day_ma: "#80868B"
     series_labels:
       mobile_usage_2021.dau_7day_ma: DAU (7 Day Moving Average)
-      mobile_prediction.dau_forecast_7day_ma: DAU Forecast (7 Day MA)
+      mobile_prediction.dau_forecast_7day_ma: DAU Forecast (7 Day Moving Average)
       mobile_prediction.dau_forecast_lower_7day_ma: Forecast Lower Bound
       mobile_prediction.dau_forecast_upper_7day_ma: Forecast Upper Bound
+      mobile_usage_2021.year_over_year_dau_7day_ma: 2020 DAU Moving Average
     defaults_version: 1
     listen:
       Date: mobile_usage_2021.date
-    row: 42
-    col: 0
-    width: 24
+    row: 27
+    col: 12
+    width: 12
     height: 9
   - name: " (3)"
     type: text
@@ -567,7 +566,7 @@
     body_text: '<h1 style="margin-top:20px; padding: 5px; border-bottom: solid 1px
       #412399; height: 50px; color: #412399; text-align: left;" id="dou">Quarterly
       Numbers</h1>'
-    row: 51
+    row: 39
     col: 0
     width: 24
     height: 3
@@ -655,7 +654,7 @@
     defaults_version: 1
     series_types: {}
     listen: {}
-    row: 54
+    row: 42
     col: 0
     width: 12
     height: 4
@@ -745,10 +744,60 @@
     defaults_version: 1
     series_types: {}
     listen: {}
-    row: 54
+    row: 42
     col: 12
     width: 12
     height: 4
+  - name: " (4)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: A daily active user is a profile (client_id) that sends a ping on a
+      given day. This means that they are NOT required to browse at least 1 URI to
+      count towards the total.  The two gray lines are the 80% confidence intervals
+      for the forecast.
+    row: 16
+    col: 12
+    width: 12
+    height: 2
+  - name: " (5)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: A daily active user is a profile (client_id) that sends a ping on a
+      given day. This means that they are NOT required to browse at least 1 URI to
+      count towards the total.  The two gray lines are the 80% confidence intervals
+      for the forecast.
+    row: 36
+    col: 12
+    width: 12
+    height: 3
+  - name: " (6)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: "\"Cumulative Difference vs Forecast\" reflects the difference in current\
+      \ CDOU versus expectation from our beginning-of-year forecast. When we are above\
+      \ the 0 line, we are tracking above forecast. \n\n\"Cumulative Difference vs\
+      \ Target\" reflects the difference in current CDOU versus our +1.24% stretch\
+      \ goal. When we are above the 0 line, we are on track to the stretch goal.\n"
+    row: 36
+    col: 0
+    width: 12
+    height: 3
+  - name: " (7)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: "\"Cumulative Difference vs Forecast\" reflects the difference in current\
+      \ CDOU versus expectation from our beginning-of-year forecast. When we are above\
+      \ the 0 line, we are tracking above forecast. \n\n\"Cumulative Difference vs\
+      \ Target\" reflects the difference in current CDOU versus our +5% stretch goal.\
+      \ When we are above the 0 line, we are on track to the stretch goal.\n"
+    row: 16
+    col: 0
+    width: 12
+    height: 3
   filters:
   - name: Date
     title: Date

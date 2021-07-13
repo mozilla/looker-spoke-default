@@ -12,8 +12,8 @@ explore: desktop_session {
           DATE({% date_end desktop_session.date %}),
           INTERVAL DATE_DIFF(DATE({% date_start desktop_session.date %}), DATE({% date_end desktop_session.date %}), DAY) DAY)),
         DATE({% date_end desktop_session.date %})),
-      -- if the most recent week is to be ignored, shift date range by 8 days
-      INTERVAL IF({% parameter desktop_session.ignore_most_recent_week %}, 8, 0) DAY)
+      -- if the most recent week is to be ignored, shift date range by 9 days
+      INTERVAL IF({% parameter desktop_session.ignore_most_recent_week %}, 9, 0) DAY)
     AND
     DATE(${desktop_session.date_date}) > DATE_SUB(
       IF({% parameter desktop_session.previous_time_period %},
@@ -22,8 +22,8 @@ explore: desktop_session {
         DATE(DATE_ADD(DATE({% date_start desktop_session.date %}),
         INTERVAL DATE_DIFF(DATE({% date_start desktop_session.date %}), DATE({% date_end desktop_session.date %}), DAY) DAY)),
       DATE({% date_start desktop_session.date %})),
-    -- if the most recent week is to be ignored, shift date range by 8 days
-    INTERVAL IF({% parameter desktop_session.ignore_most_recent_week %}, 8, 0) DAY);;
+    -- if the most recent week is to be ignored, shift date range by 9 days
+    INTERVAL IF({% parameter desktop_session.ignore_most_recent_week %}, 9, 0) DAY);;
   join: country_buckets {
     type: cross
     relationship: many_to_one
@@ -40,7 +40,7 @@ explore: desktop_session {
       (${country_buckets.code} = "MX" AND ${desktop_session.standardized_country_name} = "Mexico") OR
       (${country_buckets.code} = "CN" AND ${desktop_session.standardized_country_name} = "China") OR
       (
-        ${desktop_session.standardized_country_name} NOT IN ("USA", "Germany", "United Kingdom", "France", "Canada", "Mexico", "China", "Brazil") AND
+        ${desktop_session.standardized_country_name} NOT IN ("Germany", "USA", "United Kingdom", "France", "Canada", "Mexico", "China", "Brazil") AND
         ${country_buckets.bucket} IN ("non-tier-1", "Overall") AND ${country_buckets.code} = "OTHER" )
       );;
   }
