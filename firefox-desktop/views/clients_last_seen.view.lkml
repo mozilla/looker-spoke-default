@@ -55,7 +55,7 @@ view: client_counts {
 
   measure: new_profiles_core_active {
     type: count
-    filters: [days_since_first_seen: "=27", is_core_active_v1: "True"]
+    filters: [days_since_first_seen: "=27", is_core_active_v1: "true"]
   }
 
 }
