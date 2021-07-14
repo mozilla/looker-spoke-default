@@ -2,6 +2,7 @@ connection: "telemetry"
 label: "Firefox for iOS"
 
 include: "//looker-hub/firefox_ios/views/*.view.lkml"
+include: "//looker-hub/firefox_ios/explores/*.explore.lkml"
 include: "views/*.view.lkml"
 include: "dashboards/*.dashboard"
 
@@ -47,7 +48,7 @@ explore: counters {
   }
 }
 
-explore: client_counts {
+explore: +client_counts {
   description: "Client counts across dimensions and cohorts."
   always_filter: {
     filters: [

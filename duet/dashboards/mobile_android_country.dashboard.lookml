@@ -3,18 +3,24 @@
   layout: newspaper
   preferred_viewer: dashboards-next
   elements:
-  - name: Attribution Funnel for Android
+  - name: Mobile Acquisition Funnel for Android
     type: text
-    title_text: Attribution Funnel for Android
-    subtitle_text: ''
-    body_text: |-
-      This dashboard contains figures for new installations of Firefox products on Android.
+    title_text: Mobile Acquisition Funnel for Android
+    body_text: |
+      The purpose of this dashboard is to provide insight into the mobile acquisition funnel for some of our Android products, namely Fenix and Focus. It does not behave like a normal funnel due to the fact that the aggregated data originates from multiple sources, and it's important to understand each source before taking these numbers at face value.
 
-      Data is source from the Google Play Store and the clients last seen tables for the respective applications. See [DS-1541](https://jira.mozilla.com/browse/DS-1541) for tracking and the [Android Mobile Funnel Documentation](https://docs.google.com/document/d/1fRdgPRJK8sNz_5_DicxY49TO9Q7I3QS6LpyIgvGIbns) for more details.
+      Google Play Store data informs the first 2 steps of the funnel. The reason that step 2 (event installs) is greater than step 1 (first time visitor counts) comes down to how they’re defined.
+
+      * Step 1 is the count of unique users who visited the app listing in the Play Store but haven’t ever previously installed the app. Google’s definition of a user is not the same as our own, and this definition also restricts the count to essentially brand new visitors. There are no additional Play Store page view metrics available.
+      * Step 2 is the count of times the app was installed. A user can download an app multiple times, over multiple devices, repeatedly. This is the best measure of each time that install event happens. Assuming each install generates a client ID, we may expect these counts to behave closest to our internal new profile measures.
+
+      Note that there may appear to be delays in the data (“Last Play Store Update” or “Most Recent Submission Date for Analysis”) due to the fact that Google does not make Play Store data available for export every day. It’s usually exported every 7-14 days.
+
+      Our internal telemetry is responsible for the final 2 steps, which provide acquisition (first seen) and activation counts. A new profile is activated if seen 5 out of 7 days in the first week. Both of these steps may be lower than step 2 primarily due to the fact that metrics are aggregated and counted differently between Google Play Store and Mozilla's internal telemetry.
     row: 0
     col: 0
     width: 24
-    height: 4
+    height: 7
   - title: Android Funnel Per Day
     name: Android Funnel Per Day
     model: duet
@@ -54,7 +60,7 @@
       History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
       Bucket: country_buckets.bucket
-    row: 12
+    row: 15
     col: 12
     width: 12
     height: 8
@@ -106,11 +112,15 @@
     interpolation: linear
     defaults_version: 1
     series_types: {}
+    note_state: collapsed
+    note_display: hover
+    note_text: This date may be delayed because Google does not make Play Store data
+      available every day (usually every 7-14 days).
     listen:
       History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
       Bucket: country_buckets.bucket
-    row: 4
+    row: 7
     col: 0
     width: 12
     height: 2
@@ -177,12 +187,17 @@
       History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
       Bucket: country_buckets.bucket
-    row: 12
+    row: 15
     col: 0
     width: 12
     height: 8
   - name: First Time Visitor Count
     title: First Time Visitor Count
+    note_state: collapsed
+    note_display: hover
+    note_text: The number of first time visitor counts to the app's Play Store page.
+      See notes above for context on how this number is calculated and reported on
+      by Google.
     merged_queries:
     - model: duet
       explore: mobile_android_country
@@ -229,12 +244,16 @@
     - History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
       Bucket: country_buckets.bucket
-    row: 6
+    row: 9
     col: 0
     width: 12
     height: 3
   - name: Event Installs
     title: Event Installs
+    note_state: collapsed
+    note_display: above
+    note_text: The count of install events as reported in the Play Store. It includes
+      re-installs but not pre-installs on Google devices.
     merged_queries:
     - model: duet
       explore: mobile_android_country
@@ -282,12 +301,16 @@
     - History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
       Bucket: country_buckets.bucket
-    row: 6
+    row: 9
     col: 12
     width: 12
     height: 3
   - name: First Seen
     title: First Seen
+    note_state: collapsed
+    note_display: hover
+    note_text: The number of client IDs seen for the first time in the given time
+      period.
     merged_queries:
     - model: duet
       explore: mobile_android_country
@@ -334,12 +357,15 @@
     - History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
       Bucket: country_buckets.bucket
-    row: 9
+    row: 12
     col: 0
     width: 12
     height: 3
   - name: Activated
     title: Activated
+    note_state: collapsed
+    note_display: above
+    note_text: A new profile is activated if seen in 5 out of their first 7 days.
     merged_queries:
     - model: duet
       explore: mobile_android_country
@@ -386,7 +412,7 @@
     - History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
       Bucket: country_buckets.bucket
-    row: 9
+    row: 12
     col: 12
     width: 12
     height: 3
@@ -442,7 +468,7 @@
       History Days: mobile_android_country.history_days
       App ID: mobile_android_country.app_id
       Bucket: country_buckets.bucket
-    row: 4
+    row: 7
     col: 12
     width: 12
     height: 2
