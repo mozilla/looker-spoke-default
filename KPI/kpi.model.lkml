@@ -57,3 +57,17 @@ explore: mobile_usage_2021 {
 explore: mobile_usage_fields {
   hidden: yes
 }
+
+explore: h2_desktop_actuals {
+  label: "H2 Desktop"
+  group_label: "KPIs"
+  from: h2_desktop_actuals
+  join: h2_desktop_forecast {
+    view_label: "H2 Forecast"
+    type: left_outer
+    sql_on: ${h2_desktop_actuals.date} = ${h2_desktop_forecast.date} ;;
+    relationship: one_to_one
+  }
+  hidden: no
+  # sql_always_where: ${date} >= "2021-07-01" ;;
+}
