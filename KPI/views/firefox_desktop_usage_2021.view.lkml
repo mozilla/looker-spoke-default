@@ -163,9 +163,10 @@ derived_table: {
 
   measure: new_profiles_7day_ma {
     type: sum
+    label: "New Profiles (7 Day Moving Average)"
     value_format: "#,##0"
     sql: ${TABLE}.new_profiles_7day_ma ;;
-    hidden: yes
+    hidden: no
   }
 
   measure: new_profiles_cumulative {
