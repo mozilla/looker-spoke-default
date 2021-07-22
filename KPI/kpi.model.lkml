@@ -59,7 +59,7 @@ explore: mobile_usage_fields {
 }
 
 explore: h2_desktop_actuals {
-  label: "H2 Desktop"
+  label: "H2 Desktop (Preliminary)"
   group_label: "KPIs"
   hidden: no
   from: h2_desktop_actuals
