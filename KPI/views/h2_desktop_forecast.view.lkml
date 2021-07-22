@@ -8,7 +8,10 @@ view: h2_desktop_forecast {
         AVG(yhat) OVER window_7day AS dau_forecast_7day_ma,
         AVG(yhat * 1.05) OVER window_7day AS dau_target_7day_ma,
         AVG(yhat_lower) OVER window_7day AS dau_forecast_lower_7day_ma,
-        AVG(yhat_upper) OVER window_7day AS dau_forecast_upper_7day_ma
+        AVG(yhat_upper) OVER window_7day AS dau_forecast_upper_7day_ma,
+        AVG(jan_dau_forecast) OVER window_7day AS jan_forecast_7day_ma,
+        AVG(jan_dau_forecast_upper) OVER window_7day AS jan_forecast_upper_7day_ma,
+        AVG(jan_dau_forecast_lower) OVER window_7day AS jan_forecast_lower_7day_ma
       FROM `mozdata.analysis.loines_desktop_dau_forecast_2021-06-30`
       WINDOW window_7day AS (order by date rows between 6 preceding and current row)
       ;;
@@ -38,16 +41,16 @@ view: h2_desktop_forecast {
     hidden: no
   }
 
+  measure: yhat_cumulative {
+    type: number
+    label: "CDOU Forecast"
+    sql: ANY_VALUE(${TABLE}.yhat_cumulative) ;;
+  }
+
   measure: cdou_target {
     type: number
     label: "CDOU Target"
     sql: ANY_VALUE(${TABLE}.cdou_target) ;;
-  }
-
-  measure: yhat_cumulative {
-    type: number
-    label: "CDOU Forecast (H2)"
-    sql: ANY_VALUE(${TABLE}.yhat_cumulative) ;;
   }
 
   measure: dau_forecast_7day_ma {
@@ -68,6 +71,27 @@ view: h2_desktop_forecast {
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.dau_forecast_upper_7day_ma) ;;
+    hidden: no
+  }
+
+  measure: jan_forecast_7day_ma {
+    type: number
+    value_format: "#,##0"
+    sql: ANY_VALUE(${TABLE}.jan_forecast_7day_ma) ;;
+    hidden: no
+  }
+
+  measure: jan_forecast_lower_7day_ma {
+    type: number
+    value_format: "#,##0"
+    sql: ANY_VALUE(${TABLE}.jan_forecast_lower_7day_ma) ;;
+    hidden: no
+  }
+
+  measure: jan_forecast_upper_7day_ma {
+    type: number
+    value_format: "#,##0"
+    sql: ANY_VALUE(${TABLE}.jan_forecast_upper_7day_ma) ;;
     hidden: no
   }
 
@@ -97,6 +121,26 @@ view: h2_desktop_forecast {
     type: number
     label: "CDOU Forecast Upper Bound"
     sql: ANY_VALUE(${TABLE}.yhat_upper_cumulative) ;;
+  }
+
+  measure: recent_cdou_forecast {
+    type: max
+    value_format: "0.00,,, \"Billion\""
+    sql: ${TABLE}.yhat_cumulative ;;
+    filters: [
+      date: "after 2021-01-01"
+    ]
+    hidden: no
+  }
+
+  measure: recent_cdou_target {
+    type: max
+    value_format: "0.00,,, \"Billion\""
+    sql: ${TABLE}.cdou_target ;;
+    filters: [
+      date: "after 2021-01-01"
+    ]
+    hidden: no
   }
 
 }

@@ -61,6 +61,7 @@ explore: mobile_usage_fields {
 explore: h2_desktop_actuals {
   label: "H2 Desktop"
   group_label: "KPIs"
+  hidden: no
   from: h2_desktop_actuals
   join: h2_desktop_forecast {
     view_label: "H2 Forecast"
@@ -68,6 +69,13 @@ explore: h2_desktop_actuals {
     sql_on: ${h2_desktop_actuals.date} = ${h2_desktop_forecast.date} ;;
     relationship: one_to_one
   }
-  hidden: no
+  join: h2_desktop_actuals_2020 {
+    from: h2_desktop_actuals
+    fields: []
+    view_label: "H2 Desktop 2020"
+    type: left_outer
+    sql_on: DATE_SUB(${h2_desktop_actuals.date}, INTERVAL 1 YEAR) = ${h2_desktop_actuals_2020.date} ;;
+    relationship: one_to_one
   # sql_always_where: ${date} >= "2021-07-01" ;;
+  }
 }
