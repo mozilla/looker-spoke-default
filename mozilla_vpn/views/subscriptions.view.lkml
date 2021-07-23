@@ -22,6 +22,14 @@ view: +subscriptions {
     primary_key: yes
   }
 
+  dimension: user_id {
+    hidden: yes
+  }
+
+  dimension: country {
+    hidden: yes
+  }
+
   dimension: cancel_at_period_end {
     hidden: yes
   }
@@ -36,6 +44,58 @@ view: +subscriptions {
 
   dimension_group: canceled_at {
     hidden: yes
+  }
+
+  dimension: normalized_source {
+    group_label: "Attribution"
+  }
+
+  dimension: normalized_medium {
+    group_label: "Attribution"
+  }
+
+  dimension: normalized_campaign {
+    group_label: "Attribution"
+  }
+
+  dimension: normalized_content {
+    group_label: "Attribution"
+  }
+
+  dimension: utm_source {
+    group_label: "Attribution"
+  }
+
+  dimension: utm_medium {
+    group_label: "Attribution"
+  }
+
+  dimension: utm_campaign {
+    group_label: "Attribution"
+  }
+
+  dimension: utm_content {
+    group_label: "Attribution"
+  }
+
+  dimension: normalized_acquisition_channel {
+    group_label: "Attribution"
+  }
+
+  dimension: website_channel_group {
+    group_label: "Attribution"
+  }
+
+  dimension: website_channel_group {
+    group_label: "Attribution"
+  }
+
+  dimension: attribution_category {
+    group_label: "Attribution"
+  }
+
+  dimension: coarse_attribution_category {
+    group_label: "Attribution"
   }
 
   dimension: canceled_for_customer {
