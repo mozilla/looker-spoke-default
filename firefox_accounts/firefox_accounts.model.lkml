@@ -1,0 +1,7 @@
+connection: "telemetry"
+label: "Firefox Accounts"
+include: "//looker-hub/firefox_accounts/explores/*"
+include: "//looker-hub/firefox_accounts/dashboards/*"
+include: "views/*"
+include: "explores/*"
+include: "dashboards/*"
