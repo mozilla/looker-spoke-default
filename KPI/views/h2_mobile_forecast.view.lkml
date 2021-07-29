@@ -1,12 +1,14 @@
+
+
 view: h2_mobile_forecast {
   derived_table: {
     sql:
       SELECT
         *,
-        yhat * 1.0429 AS dau_target,
-        yhat_cumulative * 1.0429 AS cdou_target,
+        yhat * 1.05 AS dau_target,
+        yhat_cumulative * 1.05 AS cdou_target,
         AVG(yhat) OVER window_7day AS dau_forecast_7day_ma,
-        AVG(yhat * 1.0429) OVER window_7day AS dau_target_7day_ma,
+        AVG(yhat * 1.05) OVER window_7day AS dau_target_7day_ma,
         AVG(yhat_lower) OVER window_7day AS dau_forecast_lower_7day_ma,
         AVG(yhat_upper) OVER window_7day AS dau_forecast_upper_7day_ma,
         AVG(jan_dau_forecast) OVER window_7day AS jan_forecast_7day_ma,
