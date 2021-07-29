@@ -79,3 +79,25 @@ explore: h2_desktop_actuals {
   # sql_always_where: ${date} >= "2021-07-01" ;;
   }
 }
+
+explore: h2_mobile_actuals {
+  label: "H2 Mobile (Preliminary)"
+  group_label: "KPIs"
+  hidden: no
+  from: h2_mobile_actuals
+  join: h2_mobile_forecast {
+    view_label: "H2 Forecast"
+    type: left_outer
+    sql_on: ${h2_mobile_actuals.date} = ${h2_mobile_forecast.date} AND ${h2_mobile_actuals.app_name} = ${h2_mobile_forecast.app_name};;
+    relationship: one_to_one
+  }
+  join: h2_mobile_actuals_2020 {
+    from: h2_mobile_actuals
+    fields: []
+    view_label: "H2 mobile 2020"
+    type: left_outer
+    sql_on: DATE_SUB(${h2_mobile_actuals.date}, INTERVAL 1 YEAR) = ${h2_mobile_actuals_2020.date} AND ${h2_mobile_actuals.app_name} = ${h2_mobile_actuals_2020.app_name};;
+    relationship: one_to_one
+    # sql_always_where: ${date} >= "2021-07-01" ;;
+  }
+}
