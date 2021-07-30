@@ -4,7 +4,7 @@
   preferred_viewer: dashboards-next
   refresh: 2147484 seconds
   elements:
-  - title: Desktop Daily Active Users (DAU)
+  - title: Desktop Daily Active Users Test (DAU)
     name: Desktop Daily Active Users (DAU)
     model: kpi
     explore: firefox_desktop_usage_2021
