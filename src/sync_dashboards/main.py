@@ -109,12 +109,23 @@ def load_config(filename: str) -> dict:
 @click.option("--client_id", envvar="LOOKER_API_CLIENT_ID", required=True)
 @click.option("--client_secret", envvar="LOOKER_API_CLIENT_SECRET", required=True)
 @click.option("--instance_uri", envvar="LOOKER_INSTANCE_URI", required=True)
-@click.argument("config", type=click.Path(exists=True))
-def main(client_id: str, client_secret: str, instance_uri: str, config: str):
+@click.option("--config", type=click.Path(exists=True))
+@click.argument("operation", default="currernt_mappings")
+def main(
+    client_id: str, client_secret: str, instance_uri: str, config: str, operation: str
+):
     sdk = setup_sdk(client_id, client_secret, instance_uri)
-    mappings = load_config(config)
-    remote_mappings = get_all_linked_dashboards(sdk)
-    sync_dashboards(sdk, mappings, remote_mappings)
+    if operation == "sync":
+        mappings = load_config(config)
+        remote_mappings = get_all_linked_dashboards(sdk)
+        sync_dashboards(sdk, mappings, remote_mappings)
+    elif operation == "currernt_mappings":
+        remote_mappings = get_all_linked_dashboards(sdk)
+        for lookml_dashboard_id, dashboard_ids in remote_mappings.items():
+            for dashboard_id in dashboard_ids:
+                print(f"{dashboard_id}: {lookml_dashboard_id}")
+    else:
+        raise NotImplementedError()
 
 
 if __name__ == "__main__":

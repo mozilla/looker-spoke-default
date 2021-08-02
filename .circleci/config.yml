@@ -28,7 +28,7 @@ jobs:
           pkg-manager: pip
       - run:
           command: |
-            python ./src/sync_dashboards/main.py lookml_dashboards.yaml
+            python ./src/sync_dashboards/main.py --config lookml_dashboards.yaml sync
 workflows:
   version: 2
   build:
