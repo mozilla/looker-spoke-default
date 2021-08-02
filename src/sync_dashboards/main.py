@@ -1,3 +1,4 @@
+import collections
 import logging
 import os
 import yaml
@@ -33,13 +34,10 @@ def lookml_uud_mapping(config: dict) -> dict:
     {"lookml_link_id": ["dashboard_id1", "dashboard_id2"]}
 
     """
-    mappings = {}
+    mappings = collections.defaultdict(list)
 
     for dashboard_id, lookml_dashboard_id in config.items():
-        if mappings.get(lookml_dashboard_id):
-            mappings[lookml_dashboard_id].append(str(dashboard_id))
-        else:
-            mappings[lookml_dashboard_id] = [str(dashboard_id)]
+        mappings[lookml_dashboard_id].append(str(dashboard_id))
 
     return mappings
 
@@ -48,15 +46,15 @@ def get_all_linked_dashboards(sdk: methods.Looker31SDK) -> dict:
     """
     Get all dashboards that contain a lookml_link_id.
     """
-    config = {}
+    remote_config = {}
 
     dashboards = sdk.search_dashboards(deleted=False)
 
     for dashboard in dashboards:
         if dashboard.model is None and dashboard.lookml_link_id:
-            config[dashboard.id] = dashboard.lookml_link_id
+            remote_config[dashboard.id] = dashboard.lookml_link_id
 
-    remote_mappings = lookml_uud_mapping(config)
+    remote_mappings = lookml_uud_mapping(remote_config)
 
     return remote_mappings
 
@@ -105,28 +103,36 @@ def load_config(filename: str) -> dict:
     return mappings
 
 
-@click.command()
+@click.group()
 @click.option("--client_id", envvar="LOOKER_API_CLIENT_ID", required=True)
 @click.option("--client_secret", envvar="LOOKER_API_CLIENT_SECRET", required=True)
 @click.option("--instance_uri", envvar="LOOKER_INSTANCE_URI", required=True)
-@click.option("--config", type=click.Path(exists=True))
-@click.argument("operation", default="currernt_mappings")
-def main(
-    client_id: str, client_secret: str, instance_uri: str, config: str, operation: str
-):
+@click.pass_context
+def cli(ctx: dict, client_id: str, client_secret: str, instance_uri: str):
     sdk = setup_sdk(client_id, client_secret, instance_uri)
-    if operation == "sync":
-        mappings = load_config(config)
-        remote_mappings = get_all_linked_dashboards(sdk)
-        sync_dashboards(sdk, mappings, remote_mappings)
-    elif operation == "currernt_mappings":
-        remote_mappings = get_all_linked_dashboards(sdk)
-        for lookml_dashboard_id, dashboard_ids in remote_mappings.items():
-            for dashboard_id in dashboard_ids:
-                print(f"{dashboard_id}: {lookml_dashboard_id}")
-    else:
-        raise NotImplementedError()
+    ctx.obj["SDK"] = sdk
+    pass
+
+
+@cli.command()
+@click.option("--config", type=click.Path(exists=True), required=True)
+@click.pass_context
+def sync(ctx: dict, config: str):
+    sdk = ctx.obj["SDK"]
+    mappings = load_config(config)
+    remote_mappings = get_all_linked_dashboards(sdk)
+    sync_dashboards(sdk, mappings, remote_mappings)
+
+
+@cli.command()
+@click.pass_context
+def current_mappings(ctx: dict):
+    sdk = ctx.obj["SDK"]
+    remote_mappings = get_all_linked_dashboards(sdk)
+    for lookml_dashboard_id, dashboard_ids in remote_mappings.items():
+        for dashboard_id in dashboard_ids:
+            print(f"{dashboard_id}: {lookml_dashboard_id}")
 
 
 if __name__ == "__main__":
-    main()
+    cli(obj={})
