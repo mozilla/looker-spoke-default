@@ -80,7 +80,7 @@ def sync_dashboards(
             # link and sync UUDs based on local mappings
             for dashboard_id in dashboard_ids:
                 dashboard = sdk.dashboard(dashboard_id)
-                sdk.dashboard_lookml(lookml_dashboard_id)
+                sdk.dashboard(lookml_dashboard_id)
                 sdk.update_dashboard(
                     str(dashboard_id),
                     models.WriteDashboard(lookml_link_id=lookml_dashboard_id),
