@@ -146,7 +146,7 @@
     title_text: ''
     subtitle_text: ''
     body_text: |-
-      <h1 style="margin-top:0px; padding: 5px; border-bottom: solid 1px #412399; height: 50px; color: #412399; text-align: left;" id="dou">Desktop Days of Use and DAU</h1>
+      <h1 style="margin-top:0px; padding: 5px; border-bottom: solid 1px #412399; height: 50px; color: #412399; text-align: left;" id="desktop_dou">Desktop Days of Use and DAU</h1>
       <div><a style="font-weight: bold;" href="https://mozilla.cloud.looker.com/dashboards-next/kpi::desktop_kr_dashboard?Date=after+2021%2F01%2F01&Channel=&Activity+Segment=&OS=&Attributed+%28Yes+%2F+No%29=&Country+Name=">☰
 
             Go Here for a More Detail on Desktop KPIs</a></div>
@@ -315,7 +315,7 @@
     title_text: ''
     subtitle_text: ''
     body_text: |-
-      <h1 style="margin-top:0px; padding: 5px; border-bottom: solid 1px #412399; height: 50px; color: #412399; text-align: left;" id="dou">Mobile Days of Use and DAU</h1>
+      <h1 style="margin-top:0px; padding: 5px; border-bottom: solid 1px #412399; height: 50px; color: #412399; text-align: left;" id="mobile_dou">Mobile Days of Use and DAU</h1>
       <div><a style="font-weight: bold;" href="https://mozilla.cloud.looker.com/dashboards-next/kpi::mobile_kr_dashboard?Date=after+2021%2F01%2F01&Country=">☰
 
             Go Here for a Breakdown of Mobile Products</a></div>
