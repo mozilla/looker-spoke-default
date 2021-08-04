@@ -117,12 +117,29 @@ view: +subscriptions {
     sql: 1;;
   }
 
-  dimension: months_retained {
+  dimension: months_active {
     type: number
+    # month is timezone sensitive, so use localized datetime to calculate months
     sql: mozfun.norm.subscription_months_renewed(
-      -- month is timezone sensitive, so use localized datetime to calculate monthly retention
       DATETIME(${subscription_start_raw}, ${plan_interval_timezone}),
       DATETIME(${end_raw}, ${plan_interval_timezone}),
+      ${billing_grace_period}
+    );;
+  }
+
+  dimension: current_timestamp_limit {
+    hidden: yes
+    description: "Maximum possible timestamp for which data is available. Assumes ETL is complete up to CURRENT_DATE."
+    sql: DATETIME_SUB(TIMESTAMP(CURRENT_DATE), INTERVAL 1 MICROSECOND);;
+  }
+
+  dimension: current_age_in_months {
+    description: "Number of months since subscription start date for which data is available. Assumes ETL is complete up to CURRENT_DATE."
+    type: number
+    # month is timezone sensitive, so use localized datetime to calculate months
+    sql: mozfun.norm.subscription_months_renewed(
+      DATETIME(${subscription_start_raw}, ${plan_interval_timezone}),
+      DATETIME(${current_timestamp_limit}, ${plan_interval_timezone}),
       ${billing_grace_period}
     );;
   }
@@ -153,7 +170,7 @@ view: +subscriptions {
 
   dimension: retention {
     hidden: yes
-    sql: GENERATE_ARRAY(0, ${months_retained});;
+    sql: GENERATE_ARRAY(0, ${current_age_in_months});;
   }
 
   measure: count {
@@ -212,7 +229,8 @@ view: subscriptions__events {
 }
 
 view: subscriptions__retention {
-  dimension: retention_month {
+  dimension: age_in_months {
+    description: "months since subscription start date"
     type: number
     sql: ${TABLE};;
   }
@@ -221,7 +239,7 @@ view: subscriptions__retention {
     sql: TIMESTAMP(
       DATETIME_ADD(
         DATETIME(${subscriptions.subscription_start_raw}, ${subscriptions.plan_interval_timezone}),
-        INTERVAL ${retention_month} MONTH
+        INTERVAL ${age_in_months} MONTH
       ),
       ${subscriptions.plan_interval_timezone}
     );;
@@ -241,7 +259,7 @@ view: subscriptions__retention {
     sql: TIMESTAMP(
       DATETIME_ADD(
         DATETIME(${subscriptions.subscription_start_raw}, ${subscriptions.plan_interval_timezone}),
-        INTERVAL ${retention_month} + 1 MONTH
+        INTERVAL ${age_in_months} + 1 MONTH
       ),
       ${subscriptions.plan_interval_timezone}
     );;
@@ -257,19 +275,13 @@ view: subscriptions__retention {
     ]
   }
 
-  dimension: retention_type {
-    sql:
-    IF(${retention_month} = 0, "first month", "subsequent months");;
-  }
-
-  dimension: period_end_7_day_window {
+  dimension: primary_key {
+    primary_key: yes
     hidden: yes
-    sql: GENERATE_DATE_ARRAY(${period_end_date}, ${period_end_date} + 6);;
+    sql: ${subscriptions.subscription_id} || ${age_in_months};;
   }
 
-  measure: retained {
-    description: "Subscriptions retained past the end of the 0-based retention_month"
-    type: number
-    sql: COUNTIF(${retention_month} < ${subscriptions.months_retained});;
+  measure: count {
+    type: count
   }
 }
