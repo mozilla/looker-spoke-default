@@ -118,6 +118,7 @@ view: +subscriptions {
   }
 
   dimension: months_active {
+    description: "Number of months after subscription start date where the subscription was active."
     type: number
     # month is timezone sensitive, so use localized datetime to calculate months
     sql: mozfun.norm.subscription_months_renewed(
@@ -134,7 +135,7 @@ view: +subscriptions {
   }
 
   dimension: current_age_in_months {
-    description: "Number of months since subscription start date for which data is available. Assumes ETL is complete up to CURRENT_DATE."
+    description: "Number of months after subscription start date, regardless of whether the subscription was active or not."
     type: number
     # month is timezone sensitive, so use localized datetime to calculate months
     sql: mozfun.norm.subscription_months_renewed(
