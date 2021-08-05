@@ -22,4 +22,9 @@ view: +events {
     type: count_distinct
     sql: ${user_id} ;;
   }
+
+  measure: flow_count {
+    type: count_distinct
+    sql: ${flow_id} ;;
+  }
 }
