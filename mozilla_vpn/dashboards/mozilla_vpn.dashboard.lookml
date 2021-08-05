@@ -20,6 +20,14 @@
     defaults_version: 1
     listen: &listen
       Provider: subscriptions.provider
+      Pricing Plan: subscriptions.pricing_plan
+      Country: subscriptions.country_name
+      Source: subscriptions.normalized_source
+      Medium: subscriptions.normalized_medium
+      Campaign: subscriptions.normalized_campaign
+      Content: subscriptions.normalized_content
+      Acquisition Channel: subscriptions.normalized_acquisition_channel
+      Website Channel Group: subscriptions.website_channel_group
     row: 0
     col: 0
     width: 12
@@ -410,36 +418,58 @@
     col: 12
     width: 12
     height: 9
-  - title: 7-day Average of Retention Rate
-    name: 7-day Average of Retention Rate
+  - title: Churn Rate 7-day Average
+    name: Churn Rate 7-day Average
     model: mozilla_vpn
     explore: subscriptions
     type: looker_line
     fields:
-    - subscriptions__retention.retention_type
-    - retention_period_end_7_day_aggregate.aggregate_date
-    - subscriptions.count
-    - subscriptions__retention.retained
+    - subscriptions__retention.period_start_date
+    - churn_type
+    - previously_retained
+    - churned
+    filters:
+      subscriptions__retention.period_start_date: after 2020/07/01
     pivots:
-    - subscriptions__retention.retention_type
+    - churn_type
     fill_fields:
-    - retention_period_end_7_day_aggregate.aggregate_date
+    - subscriptions__retention.period_start_date
     sorts:
-    - retention_period_end_7_day_aggregate.aggregate_date desc
-    - subscriptions__retention.retention_type
-    limit: 500
+    - subscriptions__retention.period_start_date
+    - churn_type
     dynamic_fields:
-    - table_calculation: retention_rate
-      label: Retention Rate
-      expression: "${subscriptions__retention.retained}/${subscriptions.count}"
+    - dimension: churn_type
+      label: Churn Type
+      expression: 'if(${subscriptions__retention.age_in_months} = 1, "first month", "subsequent months")'
+    - measure: previously_retained
+      label: Previously Retained
+      based_on: subscriptions__retention.count
+      filter_expression: |-
+        ${subscriptions__retention.age_in_months} <= ${subscriptions.months_active}
+        OR ${subscriptions__retention.age_in_months} = ${subscriptions.months_active} + 1
+    - measure: churned
+      label: Churned
+      based_on: subscriptions__retention.count
+      filter_expression: |-
+        ${subscriptions__retention.age_in_months} = ${subscriptions.months_active} + 1
+    - table_calculation: churn_rate_7_day_average
+      label: Churn Rate 7-day Average
+      expression: |-
+        sum(offset_list(${churned}, -6, 7)) / sum(offset_list(${previously_retained}, -6, 7))
+    show_null_points: false
     color_application: *color_application
+    limit_displayed_rows_values:
+      show_hide: hide
+      first_last: first
+      num_rows: 6
     series_colors:
-      first month - retention_rate: "#FC2E31"
-      subsequent months - retention_rate: "#3D52B9"
+      first month - churn_rate_7_day_average: "#FC2E31"
+      subsequent months - churn_rate_7_day_average: "#3D52B9"
+    discontinuous_nulls: true
     defaults_version: 1
     hidden_fields:
-    - subscriptions.count
-    - subscriptions__retention.retained
+    - previously_retained
+    - churned
     listen: *listen
     row: 45
     col: 0
@@ -475,7 +505,7 @@
     allow_multiple_values: true
     required: false
     ui_config:
-      type: button_group
+      type: checkboxes
       display: popover
       options: []
     model: mozilla_vpn
@@ -488,7 +518,7 @@
     allow_multiple_values: true
     required: false
     ui_config:
-      type: button_group
+      type: checkboxes
       display: popover
       options: []
     model: mozilla_vpn
@@ -501,7 +531,7 @@
     allow_multiple_values: true
     required: false
     ui_config:
-      type: button_group
+      type: checkboxes
       display: popover
       options: []
     model: mozilla_vpn
@@ -514,7 +544,7 @@
     allow_multiple_values: true
     required: false
     ui_config:
-      type: button_group
+      type: checkboxes
       display: popover
       options: []
     model: mozilla_vpn
@@ -527,7 +557,7 @@
     allow_multiple_values: true
     required: false
     ui_config:
-      type: button_group
+      type: checkboxes
       display: popover
       options: []
     model: mozilla_vpn
@@ -540,7 +570,7 @@
     allow_multiple_values: true
     required: false
     ui_config:
-      type: button_group
+      type: checkboxes
       display: popover
       options: []
     model: mozilla_vpn
@@ -553,7 +583,7 @@
     allow_multiple_values: true
     required: false
     ui_config:
-      type: button_group
+      type: checkboxes
       display: popover
       options: []
     model: mozilla_vpn
@@ -566,7 +596,7 @@
     allow_multiple_values: true
     required: false
     ui_config:
-      type: button_group
+      type: checkboxes
       display: popover
       options: []
     model: mozilla_vpn
@@ -579,7 +609,7 @@
     allow_multiple_values: true
     required: false
     ui_config:
-      type: button_group
+      type: checkboxes
       display: popover
       options: []
     model: mozilla_vpn
