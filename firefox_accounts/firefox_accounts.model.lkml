@@ -20,4 +20,5 @@ explore: +event_counts {
   always_filter: {
     filters: [events.submission_date: "14 days"]
   }
+  sql_always_where: timestamp > "2010-01-01" ;;
 }
