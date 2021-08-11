@@ -58,25 +58,24 @@ explore: mobile_usage_fields {
   hidden: yes
 }
 
-explore: h2_desktop_actuals {
-  label: "H2 Desktop (Preliminary)"
+explore: recent_desktop_forecast {
+  label: "Desktop Days of Use KRs"
+  view_label: "Recent Desktop Forecast"
   group_label: "KPIs"
   hidden: no
-  from: h2_desktop_actuals
-  join: h2_desktop_forecast {
-    view_label: "H2 Forecast"
+  from: recent_desktop_forecast
+  always_filter: {filters: [recent_desktop_forecast.forecast_recency: "1"]}
+  join: original_desktop_forecast {
+    view_label: "Desktop KPI Targets"
     type: left_outer
-    sql_on: ${h2_desktop_actuals.date} = ${h2_desktop_forecast.date} ;;
+    sql_on: ${recent_desktop_forecast.date} = ${original_desktop_forecast.date};;
     relationship: one_to_one
   }
-  join: h2_desktop_actuals_2020 {
-    from: h2_desktop_actuals
-    fields: []
-    view_label: "H2 Desktop 2020"
+  join: desktop_dau_actuals {
+    view_label: "Desktop Days of Use Actuals"
     type: left_outer
-    sql_on: DATE_SUB(${h2_desktop_actuals.date}, INTERVAL 1 YEAR) = ${h2_desktop_actuals_2020.date} ;;
-    relationship: one_to_one
-  # sql_always_where: ${date} >= "2021-07-01" ;;
+    sql_on: ${recent_desktop_forecast.date} = ${desktop_dau_actuals.date};;
+    relationship: one_to_many
   }
 }
 

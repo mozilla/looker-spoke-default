@@ -1,59 +1,58 @@
-view: h2_desktop_forecast {
+view: recent_desktop_forecast {
   derived_table: {
     sql:
       SELECT
         *,
-        yhat * 1.05 AS dau_target,
-        yhat_cumulative * 1.05 AS cdou_target,
         AVG(yhat) OVER window_7day AS dau_forecast_7day_ma,
         AVG(yhat * 1.05) OVER window_7day AS dau_target_7day_ma,
         AVG(yhat_lower) OVER window_7day AS dau_forecast_lower_7day_ma,
         AVG(yhat_upper) OVER window_7day AS dau_forecast_upper_7day_ma,
-        AVG(jan_dau_forecast) OVER window_7day AS jan_forecast_7day_ma,
-        AVG(jan_dau_forecast_upper) OVER window_7day AS jan_forecast_upper_7day_ma,
-        AVG(jan_dau_forecast_lower) OVER window_7day AS jan_forecast_lower_7day_ma
-      FROM `mozdata.analysis.loines_desktop_dau_forecast_2021-06-30`
-      WINDOW window_7day AS (order by date rows between 6 preceding and current row)
+        DENSE_RANK() OVER (ORDER BY DATE(forecast_run_date) DESC) AS forecast_recency
+      FROM `mozdata.analysis.loines_desktop_cdou_forecasts`
+      WINDOW window_7day AS (PARTITION BY forecast_run_date ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)
       ;;
   }
 
   dimension: date {
     type: date
+    primary_key: yes
     convert_tz: no
     sql: CAST(${TABLE}.date AS TIMESTAMP) ;;
   }
 
-  measure: yhat {
+  dimension: forecast_recency {
     type: number
-    label: "DAU Forecast"
+    label: "Forecast Recency (1 = Most Recent)"
+    sql: ${TABLE}.forecast_recency ;;
+  }
+
+  dimension: date_forecast_created {
+    type: string
+    sql: ANY_VALUE(CAST(${TABLE}.forecast_run_date AS TIMESTAMP)) ;;
+  }
+
+  measure: recent_dau_forecast {
+    type: number
+    label: "Recent DAU Forecast"
     sql: ANY_VALUE(${TABLE}.yhat) ;;
   }
 
-  measure: dau_target {
+  measure: cdou_year {
     type: number
-    label: "DAU Target"
-    sql: ANY_VALUE(${TABLE}.dau_target) ;;
-  }
-
-  measure: dau_target_7day_ma {
-    type: number
-    sql: ANY_VALUE(${TABLE}.dau_target_7day_ma) ;;
-    hidden: no
-  }
-
-  measure: yhat_cumulative {
-    type: number
-    label: "CDOU Forecast"
+    label: "Recent CDOU Forecast For Year"
+    description: "Starts Counting on Jan 1st"
     sql: ANY_VALUE(${TABLE}.yhat_cumulative) ;;
   }
 
-  measure: cdou_target {
-    type: number
-    label: "CDOU Target"
-    sql: ANY_VALUE(${TABLE}.cdou_target) ;;
+  measure: cdou {
+    type: running_total
+    label: "Recent CDOU Forecast"
+    description: "Starts Counting on the First Day of Result"
+    sql: ANY_VALUE(${TABLE}.yhat) ;;
   }
 
   measure: dau_forecast_7day_ma {
+    label: "Recent DAU Forecast (Moving Average)"
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.dau_forecast_7day_ma) ;;
@@ -61,6 +60,7 @@ view: h2_desktop_forecast {
   }
 
   measure: dau_forecast_lower_7day_ma {
+    label: "Recent DAU Forecast Lower Bound (Moving Average)"
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.dau_forecast_lower_7day_ma) ;;
@@ -68,35 +68,15 @@ view: h2_desktop_forecast {
   }
 
   measure: dau_forecast_upper_7day_ma {
+    label: "Recent DAU Forecast Upper Bound (Moving Average)"
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.dau_forecast_upper_7day_ma) ;;
     hidden: no
   }
 
-  measure: jan_forecast_7day_ma {
-    type: number
-    value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.jan_forecast_7day_ma) ;;
-    hidden: no
-  }
-
-  measure: jan_forecast_lower_7day_ma {
-    type: number
-    value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.jan_forecast_lower_7day_ma) ;;
-    hidden: no
-  }
-
-  measure: jan_forecast_upper_7day_ma {
-    type: number
-    value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.jan_forecast_upper_7day_ma) ;;
-    hidden: no
-  }
-
   measure: yhat_lower {
-    label: "DAU Forecast Lower Bound"
+    label: "Recent DAU Forecast Lower Bound"
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.yhat_lower) ;;
@@ -104,7 +84,7 @@ view: h2_desktop_forecast {
   }
 
   measure: yhat_upper {
-    label: "DAU Forecast Upper Bound"
+    label: "Recent DAU Forecast Upper Bound"
     type: number
     value_format: "#,##0"
     sql: ANY_VALUE(${TABLE}.yhat_upper) ;;
@@ -113,13 +93,13 @@ view: h2_desktop_forecast {
 
   measure: yhat_lower_cumulative {
     type: number
-    label: "CDOU Forecast Lower Bound"
+    label: "Recent CDOU Forecast Lower Bound"
     sql: ANY_VALUE(${TABLE}.yhat_lower_cumulative) ;;
   }
 
   measure: yhat_upper_cumulative {
     type: number
-    label: "CDOU Forecast Upper Bound"
+    label: "Recent CDOU Forecast Upper Bound"
     sql: ANY_VALUE(${TABLE}.yhat_upper_cumulative) ;;
   }
 
@@ -128,19 +108,9 @@ view: h2_desktop_forecast {
     value_format: "0.00,,, \"Billion\""
     sql: ${TABLE}.yhat_cumulative ;;
     filters: [
-      date: "after 2021-01-01"
+      date: "1 day ago"
     ]
-    hidden: no
-  }
-
-  measure: recent_cdou_target {
-    type: max
-    value_format: "0.00,,, \"Billion\""
-    sql: ${TABLE}.cdou_target ;;
-    filters: [
-      date: "after 2021-01-01"
-    ]
-    hidden: no
+    hidden: yes
   }
 
 }
