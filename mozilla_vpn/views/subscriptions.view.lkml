@@ -113,35 +113,30 @@ view: +subscriptions {
   }
 
   dimension: billing_grace_period {
-    type: number
-    sql: 1;;
+    description: "Interval after billing before a subscription is cancelled due to nonpayment."
+    sql: ${TABLE}.billing_grace_period;;
   }
 
-  dimension: months_active {
-    description: "Number of months after subscription start date where the subscription was active."
+  dimension: months_retained {
+    description: "Number of months between subscription start date and end date, minus billing grace period."
     type: number
-    # month is timezone sensitive, so use localized datetime to calculate months
-    sql: mozfun.norm.subscription_months_renewed(
-      DATETIME(${subscription_start_raw}, ${plan_interval_timezone}),
-      DATETIME(${end_raw}, ${plan_interval_timezone}),
-      ${billing_grace_period}
-    );;
+    sql: ${TABLE}.months_retained;;
   }
 
-  dimension: current_timestamp_limit {
-    hidden: yes
-    description: "Maximum possible timestamp for which data is available. Assumes ETL is complete up to CURRENT_DATE."
-    sql: DATETIME_SUB(TIMESTAMP(CURRENT_DATE), INTERVAL 1 MICROSECOND);;
+  dimension: current_months_since_subscription_start {
+    description: "Number of months between subscription start date and the table's last modified date, minus billing grace period."
+    type: number
+    sql: ${TABLE}.current_months_since_subscription_start;;
   }
 
-  dimension: current_age_in_months {
-    description: "Number of months after subscription start date, regardless of whether the subscription was active or not."
+  dimension: current_months_since_cohort_complete {
+    description: "Smallest possible value of current_months_since_subscription_start for this cohort (subscription start month). Used to only count complete cohorts."
     type: number
-    # month is timezone sensitive, so use localized datetime to calculate months
-    sql: mozfun.norm.subscription_months_renewed(
-      DATETIME(${subscription_start_raw}, ${plan_interval_timezone}),
-      DATETIME(${current_timestamp_limit}, ${plan_interval_timezone}),
-      ${billing_grace_period}
+    sql: mozfun.norm.diff_months(
+      start => LAST_DAY(DATE(${subscriptions.subscription_start_raw}), MONTH),
+      `end` => DATE(${metadata.last_modified_date}),
+      grace_period => ${subscriptions.billing_grace_period},
+      inclusive => FALSE
     );;
   }
 
@@ -171,7 +166,7 @@ view: +subscriptions {
 
   dimension: retention {
     hidden: yes
-    sql: GENERATE_ARRAY(0, ${current_age_in_months});;
+    sql: GENERATE_ARRAY(0, ${current_months_since_subscription_start});;
   }
 
   measure: count {
@@ -230,18 +225,18 @@ view: subscriptions__events {
 }
 
 view: subscriptions__retention {
-  dimension: age_in_months {
-    description: "months since subscription start date"
+  dimension: months_since_subscription_start {
+    description: "Months since subscription start date"
     type: number
     sql: ${TABLE};;
   }
 
   dimension_group: period_start {
     sql: TIMESTAMP(
-      DATETIME_ADD(
-        DATETIME(${subscriptions.subscription_start_raw}, ${subscriptions.plan_interval_timezone}),
-        INTERVAL ${age_in_months} MONTH
-      ),
+      DATETIME(
+        ${subscriptions.subscription_start_raw},
+        ${subscriptions.plan_interval_timezone}
+      ) + INTERVAL ${months_since_subscription_start} MONTH,
       ${subscriptions.plan_interval_timezone}
     );;
     type: time
@@ -258,10 +253,10 @@ view: subscriptions__retention {
 
   dimension_group: period_end {
     sql: TIMESTAMP(
-      DATETIME_ADD(
-        DATETIME(${subscriptions.subscription_start_raw}, ${subscriptions.plan_interval_timezone}),
-        INTERVAL ${age_in_months} + 1 MONTH
-      ),
+      DATETIME(
+        ${subscriptions.subscription_start_raw},
+        ${subscriptions.plan_interval_timezone}
+      ) + INTERVAL ${months_since_subscription_start} + 1 MONTH,
       ${subscriptions.plan_interval_timezone}
     );;
     type: time
@@ -279,10 +274,11 @@ view: subscriptions__retention {
   dimension: primary_key {
     primary_key: yes
     hidden: yes
-    sql: ${subscriptions.subscription_id} || ${age_in_months};;
+    sql: ${subscriptions.subscription_id} || ${months_since_subscription_start};;
   }
 
   measure: count {
+    description: "Count subscriptions once for each months_since_subscription_start. Used to calculate average churn per month. DO NOT USE FOR RETENTION RATE, because it is cumulative and should not be averaged."
     type: count
   }
 }
