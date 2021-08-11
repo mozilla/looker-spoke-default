@@ -81,7 +81,7 @@
     defaults_version: 1
     series_types: {}
     listen: {}
-    row: 3
+    row: 6
     col: 0
     width: 12
     height: 5
@@ -90,8 +90,8 @@
     model: kpi
     explore: recent_desktop_forecast
     type: looker_grid
-    fields: [desktop_dau_actuals.date_parts_quarter_of_year, desktop_dau_actuals.dau, original_desktop_forecast.dau_forecast,
-      original_desktop_forecast.dau_target]
+    fields: [desktop_dau_actuals.date_parts_quarter_of_year, desktop_dau_actuals.dau,
+      original_desktop_forecast.dau_forecast, original_desktop_forecast.dau_target]
     fill_fields: [desktop_dau_actuals.date_parts_quarter_of_year]
     filters:
       desktop_dau_actuals.date: after 2021/01/01
@@ -194,7 +194,7 @@
     defaults_version: 1
     series_types: {}
     listen: {}
-    row: 3
+    row: 6
     col: 12
     width: 12
     height: 5
@@ -220,7 +220,7 @@
     series_types: {}
     defaults_version: 1
     listen: {}
-    row: 25
+    row: 28
     col: 20
     width: 4
     height: 2
@@ -262,16 +262,16 @@
     show_null_points: true
     interpolation: linear
     series_labels:
-      desktop_dau_actuals.delta_from_target_count_year: 'CDOU: Absolute Delta From Stretch
-        Goal'
-      desktop_dau_actuals.delta_from_forecast_count_year: 'CDOU: Absolute Delta From KPI
-        Target'
+      desktop_dau_actuals.delta_from_target_count_year: 'CDOU: Absolute Delta From
+        Stretch Goal'
+      desktop_dau_actuals.delta_from_forecast_count_year: 'CDOU: Absolute Delta From
+        KPI Target'
     reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
         margin_value: mean, margin_bottom: deviation, label_position: right, color: "#000000",
         line_value: '0', label: At Forecast / Stretch Goal}]
     defaults_version: 1
     listen: {}
-    row: 8
+    row: 11
     col: 12
     width: 12
     height: 7
@@ -339,16 +339,15 @@
     discontinuous_nulls: false
     defaults_version: 1
     listen: {}
-    row: 15
+    row: 18
     col: 12
     width: 12
     height: 10
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: "*Please ignore how the actuals drop to 0 on the most recent date*\n"
-    row: 25
+    row: 28
     col: 12
     width: 8
     height: 2
@@ -357,7 +356,8 @@
     model: kpi
     explore: recent_desktop_forecast
     type: looker_line
-    fields: [desktop_dau_actuals.dau_7day_ma, desktop_dau_actuals.date_parts_year, desktop_dau_actuals.date_parts_day_of_year]
+    fields: [desktop_dau_actuals.dau_7day_ma, desktop_dau_actuals.date_parts_year,
+      desktop_dau_actuals.date_parts_day_of_year]
     pivots: [desktop_dau_actuals.date_parts_year]
     fill_fields: [desktop_dau_actuals.date_parts_year, desktop_dau_actuals.date_parts_day_of_year]
     filters:
@@ -406,14 +406,14 @@
     trend_lines: []
     discontinuous_nulls: true
     defaults_version: 1
-    row: 8
+    listen: {}
+    row: 11
     col: 0
     width: 12
     height: 7
   - name: " (2)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <h1 style="margin-top:0px; padding: 5px; border-bottom: solid 1px #412399; height: 50px; color: #412399; text-align: left;" id="desktop_dou">Desktop Days of Use and DAU</h1>
       <div><a style="font-weight: bold;" href="https://mozilla.cloud.looker.com/dashboards-next/kpi::desktop_kr_dashboard?Date=after+2021%2F01%2F01&Channel=&Activity+Segment=&OS=&Attributed+%28Yes+%2F+No%29=&Country+Name=">☰
@@ -423,12 +423,85 @@
     col: 0
     width: 24
     height: 3
-  - name: " (3)"
+  - name: Important Note For the YoY Comparisons In this Column
     type: text
-    title_text: ''
+    title_text: Important Note For the YoY Comparisons In this Column
     subtitle_text: ''
-    body_text: "*Q2 2019 and dates affected by Armagaddon have been removed.*\n"
-    row: 15
+    body_text: "*Q2 2019 and dates affected by Armagaddon have been removed. This\
+      \ means that the yearly comparison to 2019 will be wrong.*\n"
+    row: 3
     col: 0
     width: 12
-    height: 2
+    height: 3
+  - name: Explanations of Terms Used Below
+    type: text
+    title_text: Explanations of Terms Used Below
+    subtitle_text: ''
+    body_text: "* KPI Target = Original KPI target set by Jan 2021 Forecast. \n* Stretch\
+      \ Goal = Set in January to be +5% Over the Target\n* Recent Forecast = Updated\
+      \ Forecast based on recent trends, using data up to the date shown at the bottom\
+      \ of the page\n"
+    row: 3
+    col: 12
+    width: 12
+    height: 3
+  - title: Daily Core Actives YoY Comparison
+    name: Daily Core Actives YoY Comparison
+    model: kpi
+    explore: recent_desktop_forecast
+    type: looker_line
+    fields: [desktop_dau_actuals.dau_7day_ma, desktop_dau_actuals.date_parts_year,
+      desktop_dau_actuals.date_parts_day_of_year]
+    pivots: [desktop_dau_actuals.date_parts_year]
+    fill_fields: [desktop_dau_actuals.date_parts_year, desktop_dau_actuals.date_parts_day_of_year]
+    filters:
+      desktop_dau_actuals.date: before 2019/05/04,after 2019/06/08
+      recent_desktop_forecast.forecast_recency: '1'
+      desktop_dau_actuals.activity_segment: '"core_user"'
+    sorts: [desktop_dau_actuals.dau_7day_ma desc 0, desktop_dau_actuals.date_parts_year]
+    limit: 500
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: false
+    interpolation: linear
+    y_axes: [{label: '', orientation: left, series: [{axisId: desktop_dau_actuals.dau_7day_ma,
+            id: 2017 - desktop_dau_actuals.dau_7day_ma, name: '2017'}, {axisId: desktop_dau_actuals.dau_7day_ma,
+            id: 2018 - desktop_dau_actuals.dau_7day_ma, name: '2018'}, {axisId: desktop_dau_actuals.dau_7day_ma,
+            id: 2019 - desktop_dau_actuals.dau_7day_ma, name: '2019'}, {axisId: desktop_dau_actuals.dau_7day_ma,
+            id: 2020 - desktop_dau_actuals.dau_7day_ma, name: '2020'}, {axisId: desktop_dau_actuals.dau_7day_ma,
+            id: 2021 - desktop_dau_actuals.dau_7day_ma, name: '2021'}], showLabels: true,
+        showValues: true, minValue: !!null '', valueFormat: '', unpinAxis: false,
+        tickDensity: default, tickDensityCustom: 5, type: linear}]
+    x_axis_label: Day of Year
+    hidden_series: [desktop_dau_actuals.dau]
+    series_colors:
+      original_desktop_forecast.dau_forecast_lower_7day_ma: "#80868B"
+      original_desktop_forecast.dau_forecast_upper_7day_ma: "#80868B"
+      desktop_dau_actuals.dau_7day_ma: "#000000"
+    trend_lines: []
+    discontinuous_nulls: true
+    defaults_version: 1
+    row: 18
+    col: 0
+    width: 12
+    height: 10

@@ -59,20 +59,20 @@ explore: mobile_usage_fields {
 }
 
 explore: recent_desktop_forecast {
-  label: "Desktop Days of Use KRs"
-  view_label: "Recent Desktop Forecast"
+  label: "Desktop Days of Use KRs (Work In Progress)"
+  view_label: "Recent Desktop Forecast (Work in Progress)"
   group_label: "KPIs"
   hidden: no
   from: recent_desktop_forecast
   always_filter: {filters: [recent_desktop_forecast.forecast_recency: "1"]}
   join: original_desktop_forecast {
-    view_label: "Desktop KPI Targets"
+    view_label: "Desktop KPI Targets (Work in Progress)"
     type: left_outer
     sql_on: ${recent_desktop_forecast.date} = ${original_desktop_forecast.date};;
     relationship: one_to_one
   }
   join: desktop_dau_actuals {
-    view_label: "Desktop Days of Use Actuals"
+    view_label: "Desktop Days of Use Actuals (Work in Progress)"
     type: left_outer
     sql_on: ${recent_desktop_forecast.date} = ${desktop_dau_actuals.date};;
     relationship: one_to_many

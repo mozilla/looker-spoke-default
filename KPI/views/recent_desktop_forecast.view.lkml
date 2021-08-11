@@ -26,8 +26,8 @@ view: recent_desktop_forecast {
     sql: ${TABLE}.forecast_recency ;;
   }
 
-  dimension: date_forecast_created {
-    type: string
+  measure: date_forecast_created {
+    type: date
     sql: ANY_VALUE(CAST(${TABLE}.forecast_run_date AS TIMESTAMP)) ;;
   }
 
