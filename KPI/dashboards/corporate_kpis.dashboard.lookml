@@ -144,9 +144,8 @@
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
-      <h1 style="margin-top:0px; padding: 5px; border-bottom: solid 1px #412399; height: 50px; color: #412399; text-align: left;" id="dou">Desktop Days of Use and DAU</h1>
+      <h1 style="margin-top:0px; padding: 5px; border-bottom: solid 1px #412399; height: 50px; color: #412399; text-align: left;" id="desktop_dou">Desktop Days of Use and DAU</h1>
       <div><a style="font-weight: bold;" href="https://mozilla.cloud.looker.com/dashboards-next/kpi::desktop_kr_dashboard?Date=after+2021%2F01%2F01&Channel=&Activity+Segment=&OS=&Attributed+%28Yes+%2F+No%29=&Country+Name=">☰
 
             Go Here for a More Detail on Desktop KPIs</a></div>
@@ -313,9 +312,8 @@
   - name: " (2)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
-      <h1 style="margin-top:0px; padding: 5px; border-bottom: solid 1px #412399; height: 50px; color: #412399; text-align: left;" id="dou">Mobile Days of Use and DAU</h1>
+      <h1 style="margin-top:0px; padding: 5px; border-bottom: solid 1px #412399; height: 50px; color: #412399; text-align: left;" id="mobile_dou">Mobile Days of Use and DAU</h1>
       <div><a style="font-weight: bold;" href="https://mozilla.cloud.looker.com/dashboards-next/kpi::mobile_kr_dashboard?Date=after+2021%2F01%2F01&Country=">☰
 
             Go Here for a Breakdown of Mobile Products</a></div>
@@ -562,7 +560,6 @@
   - name: " (3)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: '<h1 style="margin-top:20px; padding: 5px; border-bottom: solid 1px
       #412399; height: 50px; color: #412399; text-align: left;" id="dou">Quarterly
       Numbers</h1>'
@@ -666,7 +663,7 @@
     fields: [quarter, mobile_usage_2021.dau, mobile_prediction.dau_forecast, mobile_prediction.dau_target]
     filters:
       mobile_usage_2021.date: after 2021/01/01
-    sorts: [mobile_usage_2021.dau desc]
+    sorts: [quarter]
     limit: 500
     dynamic_fields: [{dimension: quarter, _kind_hint: dimension, _type_hint: string,
         category: dimension, expression: 'if(extract_months(${mobile_usage_2021.date})
@@ -743,6 +740,7 @@
     totals_color: "#808080"
     defaults_version: 1
     series_types: {}
+    column_order: {}
     listen: {}
     row: 42
     col: 12
@@ -751,7 +749,6 @@
   - name: " (4)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: A daily active user is a profile (client_id) that sends a ping on a
       given day. This means that they are NOT required to browse at least 1 URI to
       count towards the total.  The two gray lines are the 80% confidence intervals
@@ -763,7 +760,6 @@
   - name: " (5)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: A daily active user is a profile (client_id) that sends a ping on a
       given day. This means that they are NOT required to browse at least 1 URI to
       count towards the total.  The two gray lines are the 80% confidence intervals
@@ -775,7 +771,6 @@
   - name: " (6)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: "\"Cumulative Difference vs Forecast\" reflects the difference in current\
       \ CDOU versus expectation from our beginning-of-year forecast. When we are above\
       \ the 0 line, we are tracking above forecast. \n\n\"Cumulative Difference vs\
@@ -788,7 +783,6 @@
   - name: " (7)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: "\"Cumulative Difference vs Forecast\" reflects the difference in current\
       \ CDOU versus expectation from our beginning-of-year forecast. When we are above\
       \ the 0 line, we are tracking above forecast. \n\n\"Cumulative Difference vs\

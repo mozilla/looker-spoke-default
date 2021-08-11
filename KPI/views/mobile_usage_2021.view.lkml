@@ -165,7 +165,7 @@ view: mobile_usage_2021 {
     type: sum
     value_format: "#,##0"
     sql: ${TABLE}.new_profiles_7day_ma ;;
-    hidden: yes
+    hidden: no
   }
 
   measure: recent_cdou {

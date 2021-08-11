@@ -9,6 +9,7 @@ view: firefox_desktop_usage_fields {
   dimension: campaign {
     type: string
     sql: ${TABLE}.campaign ;;
+
   }
 
   dimension: channel {
