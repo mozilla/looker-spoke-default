@@ -100,14 +100,6 @@ measure: cdou_kpi_target_year {
   description: "Stretch Goal for Cumulative Days of Use. Starts Counting on Jan 1 2021."
 }
 
-measure: cdou_kr_target_half {
-  type: running_total
-  label: "CDOU KR Goal for Half"
-  value_format: "#,##0"
-  sql: ${dau_kr_target} ;;
-  description: "CDOU KR for H2 2021: 5% YoY. Starts Counting on First Day of Result."
-}
-
 measure: dau_forecast {
   type: sum_distinct
   label: "DAU KPI Baseline Forecast (+2.9% YoY)"
@@ -122,14 +114,6 @@ measure: dau_kpi_target {
   value_format: "#,##0"
   sql: ${TABLE}.dau_kpi_target ;;
   description: "Stretch Goal Pace for KPI Set in January"
-}
-
-measure: dau_kr_target {
-  type: sum_distinct
-  label: "DAU KR Pace (5% YoY)"
-  value_format: "#,##0"
-  sql: ${TABLE}.dau_kr_target ;;
-  description: "On-Target Pace for H2 KR (5% Over Forecast)"
 }
 
 measure: dau_forecast_7day_ma {
@@ -182,15 +166,6 @@ measure: dau_kpi_target_7day_ma {
   sql: ${TABLE}.dau_kpi_target_7day_ma ;;
   hidden: no
   description: "Stretch Goal Pace for KPI Set in January"
-}
-
-measure: dau_kr_target_7day_ma {
-  type: sum_distinct
-  label: "DAU KR Pace (Moving Average)"
-  value_format: "#,##0"
-  sql: ${TABLE}.dau_kr_target_7day_ma ;;
-  hidden: no
-  description: "Stretch Goal Pace for H2 KR"
 }
 
 measure: recent_cdou_forecast {
