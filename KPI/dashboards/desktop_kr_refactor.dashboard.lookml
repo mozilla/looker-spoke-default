@@ -220,7 +220,7 @@
     series_types: {}
     defaults_version: 1
     listen: {}
-    row: 32
+    row: 35
     col: 20
     width: 4
     height: 2
@@ -271,7 +271,7 @@
         line_value: '0', label: At Forecast / Stretch Goal}]
     defaults_version: 1
     listen: {}
-    row: 11
+    row: 14
     col: 12
     width: 12
     height: 7
@@ -339,7 +339,7 @@
     discontinuous_nulls: false
     defaults_version: 1
     listen: {}
-    row: 18
+    row: 21
     col: 12
     width: 12
     height: 10
@@ -347,7 +347,7 @@
     type: text
     title_text: ''
     body_text: "*Please ignore how the actuals drop to 0 on the most recent date*\n"
-    row: 32
+    row: 35
     col: 12
     width: 8
     height: 2
@@ -580,7 +580,7 @@
     note_display: hover
     note_text: This is equivalent to a quarterly sum of the pink line above.
     listen: {}
-    row: 28
+    row: 31
     col: 12
     width: 12
     height: 4
@@ -619,7 +619,119 @@
     series_cell_visualizations: {}
     defaults_version: 1
     series_types: {}
-    row: 34
+    row: 37
     col: 12
     width: 12
     height: 4
+  - title: 2021 Performance Against H2 Forecast and KR
+    name: 2021 Performance Against H2 Forecast and KR
+    model: kpi
+    explore: recent_desktop_forecast
+    type: looker_grid
+    fields: [desktop_dau_actuals.date_parts_quarter_of_year, desktop_dau_actuals.dau,
+      recent_desktop_forecast.recent_dau_forecast]
+    filters:
+      desktop_dau_actuals.date: after 2021/07/01
+      recent_desktop_forecast.date: after 2021/07/01
+      recent_desktop_forecast.forecast_recency: '3'
+      desktop_dau_actuals.date_parts_quarter_of_year: Q3,Q4
+      recent_desktop_forecast.date_parts_quarter_of_year: Q3,Q4
+    sorts: [desktop_dau_actuals.date_parts_quarter_of_year]
+    limit: 500
+    dynamic_fields: [{category: table_calculation, expression: "${desktop_dau_actuals.dau}/${recent_desktop_forecast.recent_dau_forecast}-1",
+        label: Relative Difference From Forecast, value_format: 0.000%, value_format_name: !!null '',
+        _kind_hint: measure, table_calculation: relative_difference_from_forecast,
+        _type_hint: number}, {category: table_calculation, expression: "${desktop_dau_actuals.dau}/(${recent_desktop_forecast.recent_dau_forecast}*1.05)\
+          \ -1", label: Relative Difference From +5% KR, value_format: 0.000%, value_format_name: !!null '',
+        _kind_hint: measure, table_calculation: relative_difference_from_5_kr, _type_hint: number}]
+    show_view_names: false
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    limit_displayed_rows: false
+    enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: '12'
+    rows_font_size: '12'
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    show_sql_query_menu_options: false
+    show_totals: true
+    show_row_totals: true
+    series_labels:
+      desktop_dau_actuals.dau: CDOU
+      desktop_dau_actuals.date_parts_quarter_of_year: Quarter
+      desktop_dau_actuals.date_parts_year: Year
+      original_desktop_forecast.dau_forecast: KPI Target
+      original_desktop_forecast.dau_target: Stretch Goal
+      relative_difference_from_forecast: Relative Difference from H2 Forecast
+      recent_desktop_forecast.recent_dau_forecast: H2 CDOU Forecast
+    series_column_widths:
+      desktop_dau_actuals.date_parts_quarter_of_year: 77
+      original_desktop_forecast.dau_forecast: 181
+      original_desktop_forecast.dau_target: 200
+      desktop_dau_actuals.dau: 119
+      relative_difference_from_forecast: 218
+      relative_difference_from_stretch_goal_1: 237
+    series_cell_visualizations:
+      desktop_dau_actuals.dau:
+        is_active: false
+      relative_difference_from_forecast:
+        is_active: false
+        palette:
+          palette_id: 8d5ca487-7a41-19eb-b0dc-d2b22308fe60
+          collection_id: mozilla
+          custom_colors:
+          - "#FF7139"
+          - "#FFFFFF"
+      relative_difference_from_target:
+        is_active: false
+        palette:
+          palette_id: 378fd842-80c0-ed9e-281e-0c89d916abd7
+          collection_id: mozilla
+          custom_colors:
+          - "#FF7139"
+          - "#FFFFFF"
+    header_background_color: "#FFFFFF"
+    conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#3FE1B0",
+        font_color: !!null '', color_application: {collection_id: mozilla, palette_id: mozilla-diverging-0,
+          options: {constraints: {min: {type: minimum}, mid: {type: number, value: 0},
+              max: {type: maximum}}, mirror: true, reverse: false, stepped: false}},
+        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
+    series_value_format:
+      original_desktop_forecast.dau_forecast: 0.00,,, "Billion"
+      original_desktop_forecast.dau_target: 0.00,,, "Billion"
+      desktop_dau_actuals.dau: 0.00,,, "Billion"
+      recent_desktop_forecast.recent_dau_forecast: 0.00,,, "Billion"
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    defaults_version: 1
+    series_types: {}
+    row: 11
+    col: 12
+    width: 12
+    height: 3
