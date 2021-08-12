@@ -1,7 +1,5 @@
 view: desktop_dau_actuals {
   derived_table: {
-    increment_key: "date"
-    increment_offset: 1
     sql_trigger_value: SELECT CURRENT_DATE() ;;
     sql:
         WITH base AS (
