@@ -440,18 +440,18 @@
     dynamic_fields:
     - dimension: churn_type
       label: Churn Type
-      expression: 'if(${subscriptions__retention.age_in_months} = 1, "first month", "subsequent months")'
+      expression: 'if(${subscriptions__retention.months_since_subscription_start} = 1, "first month", "subsequent months")'
     - measure: previously_retained
       label: Previously Retained
       based_on: subscriptions__retention.count
       filter_expression: |-
-        ${subscriptions__retention.age_in_months} <= ${subscriptions.months_active}
-        OR ${subscriptions__retention.age_in_months} = ${subscriptions.months_active} + 1
+        ${subscriptions__retention.months_since_subscription_start} <= ${subscriptions.months_retained}
+        OR ${subscriptions__retention.months_since_subscription_start} = ${subscriptions.months_retained} + 1
     - measure: churned
       label: Churned
       based_on: subscriptions__retention.count
       filter_expression: |-
-        ${subscriptions__retention.age_in_months} = ${subscriptions.months_active} + 1
+        ${subscriptions__retention.months_since_subscription_start} = ${subscriptions.months_retained} + 1
     - table_calculation: churn_rate_7_day_average
       label: Churn Rate 7-day Average
       expression: |-
