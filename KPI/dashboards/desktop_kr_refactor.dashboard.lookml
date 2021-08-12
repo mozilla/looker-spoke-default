@@ -220,7 +220,7 @@
     series_types: {}
     defaults_version: 1
     listen: {}
-    row: 28
+    row: 32
     col: 20
     width: 4
     height: 2
@@ -347,7 +347,7 @@
     type: text
     title_text: ''
     body_text: "*Please ignore how the actuals drop to 0 on the most recent date*\n"
-    row: 28
+    row: 32
     col: 12
     width: 8
     height: 2
@@ -505,3 +505,82 @@
     col: 0
     width: 12
     height: 10
+  - title: Projected CDOU By Quarter According to Recent Forecast
+    name: Projected CDOU By Quarter According to Recent Forecast
+    model: kpi
+    explore: recent_desktop_forecast
+    type: looker_grid
+    fields: [recent_desktop_forecast.date_parts_quarter_of_year, recent_desktop_forecast.recent_dau_forecast,
+      recent_desktop_forecast.yhat_lower, recent_desktop_forecast.yhat_upper]
+    fill_fields: [recent_desktop_forecast.date_parts_quarter_of_year]
+    filters:
+      recent_desktop_forecast.date: after 2021/01/01
+      recent_desktop_forecast.forecast_recency: '1'
+    sorts: [recent_desktop_forecast.recent_dau_forecast desc]
+    limit: 500
+    total: true
+    show_view_names: false
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    limit_displayed_rows: false
+    enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: '12'
+    rows_font_size: '12'
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    show_sql_query_menu_options: false
+    show_totals: true
+    show_row_totals: true
+    series_labels:
+      recent_desktop_forecast.date_parts_quarter_of_year: Quarter
+      recent_desktop_forecast.recent_dau_forecast: Forecast Median
+      recent_desktop_forecast.yhat_lower: Forecast 10th Percentile
+      recent_desktop_forecast.yhat_upper: Forecast 90th Percentile
+    series_cell_visualizations:
+      recent_desktop_forecast.recent_dau_forecast:
+        is_active: false
+    series_value_format:
+      recent_desktop_forecast.recent_dau_forecast: 0.00,,, "Billion"
+      recent_desktop_forecast.yhat_upper: 0.00,,, "Billion"
+      recent_desktop_forecast.yhat_lower: 0.00,,, "Billion"
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    series_types: {}
+    note_state: collapsed
+    note_display: hover
+    note_text: This is equivalent to a quarterly sum of the pink line above.
+    listen: {}
+    row: 28
+    col: 12
+    width: 12
+    height: 4

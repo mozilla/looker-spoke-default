@@ -40,11 +40,19 @@ view: original_desktop_forecast {
     hidden: no
   }
 
+  dimension_group: date_parts {
+    type: time
+    timeframes: [day_of_year, week_of_year, week, month_name, month_num, quarter, quarter_of_year, year]
+    sql: ${TABLE}.date ;;
+    datatype: date
+    convert_tz: no
+  }
+
   measure: cdou_forecast_year {
     label: "CDOU KPI Target for Year"
-    type: number
+    type: sum_distinct
     value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.cdou_forecast) ;;
+    sql: ${TABLE}.cdou_forecast;;
     description: "Starts Counting on Jan 1st"
   }
 
@@ -57,10 +65,10 @@ view: original_desktop_forecast {
   }
 
   measure: cdou_target_year {
-    type: number
+    type: sum_distinct
     label: "CDOU Stretch Goal for Year"
     value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.cdou_target) ;;
+    sql: ${TABLE}.cdou_target ;;
     description: "Stretch for Cumulative Days of Use. Only relevant for 2021."
   }
 
@@ -73,25 +81,25 @@ view: original_desktop_forecast {
   }
 
   measure: cum_new_profiles_forecast {
-    type: number
+    type: sum_distinct
     label: "Original Cumulative New Profiles Forecast"
     value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.cum_new_profiles_forecast) ;;
+    sql: ${TABLE}.cum_new_profiles_forecast ;;
     description: "Forecasted value for Cumulative New Profiles. Only relevant for 2021."
     hidden: yes
   }
 
   measure: cum_new_profiles_target {
-    type: number
+    type: sum_distinct
     label: "Cumulative New Profiles Target"
     value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.cum_new_profiles_target) ;;
+    sql: ${TABLE}.cum_new_profiles_target ;;
     description: "Targeted value for Cumulative New Profiles. Only relevant for 2021."
     hidden: yes
   }
 
   measure: dau_forecast {
-    type: sum
+    type: sum_distinct
     label: "DAU KPI Target"
     value_format: "#,##0"
     sql: ${TABLE}.dau_forecast ;;
@@ -99,47 +107,47 @@ view: original_desktop_forecast {
   }
 
   measure: dau_forecast_7day_ma {
-    type: number
+    type: sum_distinct
     label: "DAU KPI Target (Moving Average)"
     value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.dau_forecast_7day_ma) ;;
+    sql: ${TABLE}.dau_forecast_7day_ma ;;
     hidden: no
   }
 
   measure: dau_forecast_lower {
-    type: number
+    type: sum_distinct
     label: "DAU KPI Target Lower Bound"
     value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.dau_forecast_lower) ;;
+    sql: ${TABLE}.dau_forecast_lower ;;
     description: "Lower bound (10th percentile) of forecasted value for Cumulative Days of Use. Only relevant for 2021."
   }
 
   measure: dau_forecast_lower_7day_ma {
-    type: number
+    type: sum_distinct
     label: "DAU KPI Target Lower Bound (Moving Average)"
     value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.dau_forecast_lower_7day_ma) ;;
+    sql: ${TABLE}.dau_forecast_lower_7day_ma ;;
     hidden: no
   }
 
   measure: dau_forecast_upper {
-    type: number
+    type: sum_distinct
     label: "DAU KPI Target Upper Bound"
     value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.dau_forecast_upper) ;;
+    sql: ${TABLE}.dau_forecast_upper ;;
     description: "Upper bound (90th percentile) of forecasted value for Cumulative Days of Use. Only relevant for 2021."
   }
 
   measure: dau_forecast_upper_7day_ma {
-    type: number
+    type: sum_distinct
     label: "DAU KPI Target (Moving Average)"
     value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.dau_forecast_upper_7day_ma) ;;
+    sql: ${TABLE}.dau_forecast_upper_7day_ma;;
     hidden: no
   }
 
   measure: dau_target {
-    type: sum
+    type: sum_distinct
     label: "DAU Stretch Goal Pace"
     value_format: "#,##0"
     sql: ${TABLE}.dau_target ;;
@@ -147,78 +155,78 @@ view: original_desktop_forecast {
   }
 
   measure: dau_target_7day_ma {
-    type: number
+    type: sum_distinct
     label: "DAU Stretch Goal Pace (Moving Average)"
     value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.dau_target_7day_ma) ;;
+    sql: ${TABLE}.dau_target_7day_ma ;;
     hidden: no
   }
 
   measure: new_profiles_forecast {
-    type: number
+    type: sum_distinct
     label: "Original New Profiles Forecast"
     value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.new_profiles_forecast) ;;
+    sql: ${TABLE}.new_profiles_forecast ;;
     description: "Forecasted value for New Profiles. Only relevant for 2021."
     hidden: yes
   }
 
   measure: new_profiles_forecast_7day_ma {
-    type: number
+    type: sum_distinct
     label: "Original New Profiles Forecast (Moving Average)"
     value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.new_profiles_forecast_7day_ma) ;;
+    sql: ${TABLE}.new_profiles_forecast_7day_ma ;;
     hidden: yes
   }
 
   measure: new_profiles_forecast_lower {
     label: "New Profiles Forecast Lower Bound"
-    type: number
+    type: sum_distinct
     value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.new_profiles_forecast_lower) ;;
+    sql: ${TABLE}.new_profiles_forecast_lower;;
     description: "Lower bound (10th percentile) value for Forecasted New Profiles. Only relevant for 2021."
     hidden: yes
   }
 
   measure: new_profiles_forecast_lower_7day_ma {
     label: "New Profiles Forecast Lower Bound (Moving Average)"
-    type: number
+    type: sum_distinct
     value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.new_profiles_forecast_lower_7day_ma) ;;
+    sql: ${TABLE}.new_profiles_forecast_lower_7day_ma ;;
     hidden: yes
   }
 
   measure: new_profiles_forecast_upper {
     label: "New Profiles Forecast Upper Bound"
-    type: number
+    type: sum_distinct
     value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.new_profiles_forecast_upper) ;;
+    sql: ${TABLE}.new_profiles_forecast_upper ;;
     description: "Upper bound (90th percentile) value for Forecasted New Profiles. Only relevant for 2021."
     hidden: yes
   }
 
   measure: new_profiles_forecast_upper_7day_ma {
     label: "New Profiles Forecast Upper Bound (Moving Average)"
-    type: number
+    type: sum_distinct
     value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.new_profiles_forecast_upper_7day_ma) ;;
+    sql: ${TABLE}.new_profiles_forecast_upper_7day_ma ;;
     hidden: yes
   }
 
   measure: new_profiles_target {
     label: "New Profiles Target"
-    type: number
+    type: sum_distinct
     value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.new_profiles_target) ;;
+    sql: ${TABLE}.new_profiles_target;;
     description: "Targeted value for New Profiles. Only relevant for 2021."
     hidden: yes
   }
 
   measure: new_profiles_target_7day_ma {
     label: "New Profiles Target (Moving Average)"
-    type: number
+    type: sum_distinct
     value_format: "#,##0"
-    sql: ANY_VALUE(${TABLE}.new_profiles_target_7day_ma) ;;
+    sql: ${TABLE}.new_profiles_target_7day_ma ;;
     hidden: yes
   }
 

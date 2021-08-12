@@ -1,21 +1,25 @@
-view: recent_desktop_forecast {
+
+
+view: recent_mobile_forecast {
   derived_table: {
     sql:
       SELECT
         *,
+        case when app_name = "fennec_fenix" then "Firefox for Android (Fennec + Fenix)"
+          when app_name = "firefox_ios" then "Firefox for iOS"
+          when app_name = "focus_ios" then "Firefox Focus for iOS"
+          when app_name = "focus_android" then "Firefox Focus for Android" end as canonical_app_name,
         AVG(yhat) OVER window_7day AS dau_forecast_7day_ma,
-        AVG(yhat * 1.05) OVER window_7day AS dau_target_7day_ma,
         AVG(yhat_lower) OVER window_7day AS dau_forecast_lower_7day_ma,
         AVG(yhat_upper) OVER window_7day AS dau_forecast_upper_7day_ma,
         DENSE_RANK() OVER (ORDER BY DATE(forecast_run_date) DESC) AS forecast_recency
-      FROM `mozdata.analysis.loines_desktop_cdou_forecasts`
-      WINDOW window_7day AS (PARTITION BY forecast_run_date ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)
+      FROM `mozdata.analysis.loines_mobile_cdou_forecasts`
+      WINDOW window_7day AS (partition by app_name order by date rows between 6 preceding and current row)
       ;;
   }
 
   dimension: date {
     type: date
-    primary_key: yes
     convert_tz: no
     sql: CAST(${TABLE}.date AS TIMESTAMP) ;;
   }
@@ -28,15 +32,32 @@ view: recent_desktop_forecast {
     convert_tz: no
   }
 
-  dimension: forecast_recency {
-    type: number
-    label: "Forecast Recency (1 = Most Recent)"
-    sql: ${TABLE}.forecast_recency ;;
+  dimension: app_name {
+    type: string
+    sql: ${TABLE}.app_name ;;
+    hidden: yes
+  }
+
+  dimension: primary_key {
+    primary_key: yes
+    sql: CONCAT(${TABLE}.date, ${TABLE}.app_name) ;;
+    hidden: yes
+  }
+
+  dimension: canonical_app_name {
+    type: string
+    sql: ${TABLE}.canonical_app_name ;;
   }
 
   measure: date_forecast_created {
     type: date
     sql: ANY_VALUE(CAST(${TABLE}.forecast_run_date AS TIMESTAMP)) ;;
+  }
+
+  measure: forecast_recency {
+    type: number
+    label: "Forecast Recency (1 = Most Recent)"
+    sql: ANY_VALUE(${TABLE}.forecast_recency) ;;
   }
 
   measure: recent_dau_forecast {
@@ -47,7 +68,7 @@ view: recent_desktop_forecast {
 
   measure: cdou_year {
     type: sum_distinct
-    label: "Recent CDOU Forecast For Year"
+    label: "Recent CDOU Forecast for Year"
     description: "Starts Counting on Jan 1st"
     sql: ${TABLE}.yhat_cumulative ;;
   }
@@ -56,30 +77,30 @@ view: recent_desktop_forecast {
     type: running_total
     label: "Recent CDOU Forecast"
     description: "Starts Counting on the First Day of Result"
-    sql: ANY_VALUE(${TABLE}.yhat) ;;
+    sql: ${recent_dau_forecast} ;;
   }
 
   measure: dau_forecast_7day_ma {
-    label: "Recent DAU Forecast (Moving Average)"
     type: sum_distinct
     value_format: "#,##0"
+    label:"Recent DAU Forecast (Moving Average)"
     sql: ${TABLE}.dau_forecast_7day_ma ;;
     hidden: no
   }
 
   measure: dau_forecast_lower_7day_ma {
-    label: "Recent DAU Forecast Lower Bound (Moving Average)"
     type: sum_distinct
     value_format: "#,##0"
     sql: ${TABLE}.dau_forecast_lower_7day_ma ;;
+    label:"Recent DAU Forecast Lower Bound (Moving Average)"
     hidden: no
   }
 
   measure: dau_forecast_upper_7day_ma {
-    label: "Recent DAU Forecast Upper Bound (Moving Average)"
     type: sum_distinct
     value_format: "#,##0"
     sql: ${TABLE}.dau_forecast_upper_7day_ma ;;
+    label:"Recent DAU Forecast Upper Bound (Moving Average)"
     hidden: no
   }
 
@@ -109,16 +130,6 @@ view: recent_desktop_forecast {
     type: sum_distinct
     label: "Recent CDOU Forecast Upper Bound"
     sql: ${TABLE}.yhat_upper_cumulative ;;
-  }
-
-  measure: recent_cdou_forecast {
-    type: max
-    value_format: "0.00,,, \"Billion\""
-    sql: ${TABLE}.yhat_cumulative ;;
-    filters: [
-      date: "1 day ago"
-    ]
-    hidden: yes
   }
 
 }

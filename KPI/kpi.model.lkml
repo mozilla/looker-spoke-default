@@ -79,24 +79,23 @@ explore: recent_desktop_forecast {
   }
 }
 
-explore: h2_mobile_actuals {
-  label: "H2 Mobile (Preliminary)"
+explore: recent_mobile_forecast {
+  label: "Mobile Days of Use KRs (Work In Progress)"
+  view_label: "Recent Mobile Forecast (Work in Progress)"
   group_label: "KPIs"
   hidden: no
-  from: h2_mobile_actuals
-  join: h2_mobile_forecast {
-    view_label: "H2 Forecast"
+  from: recent_mobile_forecast
+  always_filter: {filters: [recent_mobile_forecast.forecast_recency: "1"]}
+  join: original_mobile_forecast {
+    view_label: "Mobile KR/KPI Targets (Work in Progress)"
     type: left_outer
-    sql_on: ${h2_mobile_actuals.date} = ${h2_mobile_forecast.date} AND ${h2_mobile_actuals.app_name} = ${h2_mobile_forecast.app_name};;
+    sql_on: ${recent_mobile_forecast.primary_key} = ${original_mobile_forecast.primary_key};;
     relationship: one_to_one
   }
-  join: h2_mobile_actuals_2020 {
-    from: h2_mobile_actuals
-    fields: []
-    view_label: "H2 mobile 2020"
+  join: mobile_dau_actuals {
+    view_label: "Mobile Days of Use Actuals (Work in Progress)"
     type: left_outer
-    sql_on: DATE_SUB(${h2_mobile_actuals.date}, INTERVAL 1 YEAR) = ${h2_mobile_actuals_2020.date} AND ${h2_mobile_actuals.app_name} = ${h2_mobile_actuals_2020.app_name};;
-    relationship: one_to_one
-    # sql_always_where: ${date} >= "2021-07-01" ;;
+    sql_on: ${recent_mobile_forecast.primary_key} = ${mobile_dau_actuals.primary_key};;
+    relationship: one_to_many
   }
 }
