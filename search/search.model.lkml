@@ -1,0 +1,7 @@
+connection: "telemetry"
+label: "Search"
+include: "//looker-hub/search/explores/*"
+include: "//looker-hub/search/dashboards/*"
+include: "views/*"
+include: "explores/*"
+include: "dashboards/*"
