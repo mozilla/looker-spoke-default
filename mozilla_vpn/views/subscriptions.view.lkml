@@ -148,20 +148,28 @@ view: +subscriptions {
   dimension: events {
     hidden: yes
     sql:
-      [
-        STRUCT(
-          ${subscription_start_date} AS date,
-          "New" AS type,
-          IF(${subscription_start_date} = ${customer_start_date}, "New", "Resurrected") AS granular_type,
-          1 AS delta
-        ),
-        STRUCT(
-          ${end_date} AS date,
-          "Cancelled" AS type,
-          ${cancel_reason} AS granular_type,
-          -1 AS delta
+      ARRAY_CONCAT(
+        [
+          STRUCT(
+            ${subscription_start_date} AS date,
+            "New" AS type,
+            IF(${subscription_start_date} = ${customer_start_date}, "New", "Resurrected") AS granular_type,
+            1 AS delta
+          )
+        ],
+        IF(
+          ${end_date} < DATE(${metadata.last_modified_date}),
+          [
+            STRUCT(
+              ${end_date} AS date,
+              "Cancelled" AS type,
+              ${cancel_reason} AS granular_type,
+              -1 AS delta
+            )
+          ],
+          []
         )
-      ];;
+      );;
   }
 
   dimension: retention {
