@@ -1,7 +1,3 @@
 connection: "telemetry"
 label: "Firefox Klar for Android"
 include: "//looker-hub/klar_android/explores/*"
-include: "//looker-hub/klar_android/dashboards/*"
-include: "views/*"
-include: "explores/*"
-include: "dashboards/*"
