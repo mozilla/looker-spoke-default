@@ -38,7 +38,7 @@ view: mobile_android_country {
           period
         WHERE
           Date BETWEEN start_date AND end_date
-          AND Package_name IN ('org.mozilla.{% parameter.app_id %}'')
+          AND Package_name IN ('org.mozilla.{% parameter.app_id %}')
         GROUP BY
           1, 2
       ),
