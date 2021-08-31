@@ -11,6 +11,7 @@ view: countries {
     type: string
     sql: ${TABLE}.code ;;
     description: "ISO 3166 alpha-2 country code"
+    primary_key: yes
   }
 
   dimension: tier {
@@ -18,8 +19,8 @@ view: countries {
     sql:
       CASE
       WHEN
-        ${TABLE}.code IN ('US', 'CA', 'DE', 'FR', 'GB') THEN 'tier-1'
-      ELSE 'non-tier-1'
+        ${TABLE}.code IN ('US', 'CA', 'DE', 'FR', 'GB') THEN 'Tier 1'
+      ELSE 'Other'
       END ;;
     description: "Country tier"
   }
