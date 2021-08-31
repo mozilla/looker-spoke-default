@@ -22,6 +22,6 @@ view: countries {
         ${TABLE}.code IN ('US', 'CA', 'DE', 'FR', 'GB') THEN 'Tier 1'
       ELSE 'Other'
       END ;;
-    description: "Country tier"
+    description: "Country tier. The specific meaning of may Tier 1 vary across different products."
   }
 }
