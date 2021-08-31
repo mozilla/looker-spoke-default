@@ -1,3 +1,4 @@
+
 view: mobile_android_country {
   derived_table: {
     sql: with last_updated as (
@@ -25,9 +26,22 @@ view: mobile_android_country {
         ) as end_date
       from last_updated
     ),
-      -- `moz-fx-data-marketing-prod.google_play_store.Retained_installers_country_v1` has not been
-      -- updated since 2021-06-04, so set some default values for migrating away from this data source.
-      -- See DS-1666 for details,
+      play_store_performance as (
+        SELECT
+          Date AS submission_date,
+          COALESCE(IF(Country_region = "Other", NULL, Country_region), "OTHER") AS country,
+            sum(Store_listing_visitors) as first_time_visitor_count,
+            sum(Store_listing_acquisitions) as first_time_installs,
+        FROM
+          `moz-fx-data-marketing-prod.google_play_store.Store_Performance_country_v1`
+        CROSS JOIN
+          period
+        WHERE
+          Date BETWEEN start_date AND end_date
+          AND Package_name IN ('org.mozilla.{% parameter.app_id %}'')
+        GROUP BY
+          1, 2
+      ),
       play_store_installs as (
           SELECT
           Date AS submission_date,
@@ -86,14 +100,16 @@ view: mobile_android_country {
           max(play_store_updated) as play_store_updated,
           max(latest_date) as latest_date,
           -- NOTE: DS-1666 values from the defunct user acquisition tables
-          0 as first_time_visitor_count,
-          0 as first_time_installs,
+          sum(first_time_visitor_count) as first_time_visitor_count,
+          sum(first_time_installs) as first_time_installs,
           sum(device_installs) as device_installs,
           sum(user_installs) as user_installs,
           sum(event_installs) as event_installs,
           sum(first_seen) as first_seen,
           sum(activated) as activated
       from play_store_installs
+      full join play_store_performance
+      using (submission_date, country)
       full join last_seen
       using (submission_date, country)
       cross join period
