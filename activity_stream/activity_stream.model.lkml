@@ -1,0 +1,7 @@
+connection: "telemetry"
+label: "Activity Stream"
+include: "//looker-hub/activity_stream/explores/*"
+include: "//looker-hub/activity_stream/dashboards/*"
+include: "views/*"
+include: "explores/*"
+include: "dashboards/*"
