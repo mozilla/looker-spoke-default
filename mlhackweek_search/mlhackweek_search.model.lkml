@@ -1,0 +1,7 @@
+connection: "telemetry"
+label: "ML Hack Week Search App"
+include: "//looker-hub/mlhackweek_search/explores/*"
+include: "//looker-hub/mlhackweek_search/dashboards/*"
+include: "views/*"
+include: "explores/*"
+include: "dashboards/*"
