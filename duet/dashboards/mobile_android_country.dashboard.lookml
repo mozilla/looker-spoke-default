@@ -10,7 +10,7 @@
     body_text: |-
       The purpose of this dashboard is to provide insight into the mobile acquisition funnel for some of our Android products, namely Fenix and Focus. It does not behave like a normal funnel due to the fact that the aggregated data originates from multiple sources, and it's important to understand each source and the caveats that may come with the data.
 
-      Google Play Store data informs the first 2 steps of the funnel. In normal funnel behavior we would expect step 2 to be less than step 1, but that is not the case in this funnel. The reason for that comes down to how they're defined - step 1 counts users whereas step 2 counts events. The circumstances under which they are reported are also different.
+      Google Play Store data informs the first 2 steps of the funnel. These first two steps provide insight primarily into the new user visitor group in the Play Store app. A new user is one that does not have Firefox installed on any of their Google devices.
 
       Our internal telemetry is responsible for the final 2 steps, which provide acquisition (first seen) and activation counts. A new profile is activated if seen 5 out of 7 days in the first week. Both of these steps may be lower than step 2 primarily due to the fact that metrics are aggregated and counted differently between Google Play Store and Mozilla's internal telemetry.
     row: 0
@@ -127,7 +127,6 @@
     type: looker_column
     fields: [mobile_android_country.first_time_visitor_count, mobile_android_country.event_installs,
       mobile_android_country.first_seen, mobile_android_country.activated]
-    filters: {}
     sorts: [mobile_android_country.event_installs desc]
     limit: 500
     x_axis_gridlines: false
@@ -249,31 +248,33 @@
     title: Event Installs
     note_state: collapsed
     note_display: above
+    note_text: The count of install events as reported in the Play Store. It includes
+      re-installs but not pre-installs on Google devices.
     merged_queries:
     - model: duet
       explore: mobile_android_country
       type: table
-      fields: [mobile_android_country.join_field, mobile_android_country.event_installs]
+      fields: [mobile_android_country.join_field, mobile_android_country.first_time_installs]
       fill_fields: [mobile_android_country.join_field]
       filters:
         mobile_android_country.period_offset: '0'
-      sorts: [mobile_android_country.event_installs desc]
+        country_buckets.bucket: ''
+      sorts: [mobile_android_country.first_time_installs desc]
       limit: 500
       join_fields: []
     - model: duet
       explore: mobile_android_country
       type: table
-      fields: [mobile_android_country.join_field, mobile_android_country.event_installs]
+      fields: [mobile_android_country.join_field, mobile_android_country.first_time_installs]
       fill_fields: [mobile_android_country.join_field]
       filters:
         mobile_android_country.period_offset: '1'
-      sorts: [mobile_android_country.event_installs desc]
+        country_buckets.bucket: ''
+      sorts: [mobile_android_country.first_time_installs desc]
       limit: 500
       join_fields:
       - field_name: mobile_android_country.join_field
         source_field_name: mobile_android_country.join_field
-    note_text: The count of install events as reported in the Play Store. It includes
-      re-installs but not pre-installs on Google devices.
     custom_color_enabled: true
     show_single_value_title: true
     single_value_title: Event Installs
@@ -362,6 +363,7 @@
     title: Activated
     note_state: collapsed
     note_display: above
+    note_text: A new profile is activated if seen in 5 out of their first 7 days.
     merged_queries:
     - model: duet
       explore: mobile_android_country
@@ -384,7 +386,6 @@
       join_fields:
       - field_name: mobile_android_country.join_field
         source_field_name: mobile_android_country.join_field
-    note_text: A new profile is activated if seen in 5 out of their first 7 days.
     custom_color_enabled: true
     show_single_value_title: true
     single_value_title: 7 Day Activated
@@ -469,15 +470,14 @@
     col: 18
     width: 6
     height: 2
-  - name: 'Step 2: Google Play Store Install Events'
+  - name: 'Step 2: Google Play Store First Time Installs'
     type: text
-    title_text: 'Step 2: Google Play Store Install Events'
-    subtitle_text: How many installs did we get from the Google Play Store?
-    body_text: The number of times the Firefox app was installed, including devices
-      on which the app was installed previously. A user can download an app multiple
-      times, over multiple devices, repeatedly. This is the best measure of each time
-      that install event happens. Assuming each install generates a client ID, we
-      may expect these counts to behave closest to our internal new profile measures.
+    title_text: 'Step 2: Google Play Store First Time Installs'
+    subtitle_text: How many first time installs did we get from the Google Play Store?
+    body_text: This metric is a follow-on from Step 1 - out of the first time page
+      visits in the Google Play Store, how many first time installations did we get?
+      This measurement helps us determine, in conjunction with Step 1, how well we
+      are converting new visitors.
     row: 20
     col: 0
     width: 12
@@ -489,7 +489,6 @@
     type: looker_line
     fields: [mobile_android_country.submission_date, mobile_android_country.first_time_visitor_count]
     fill_fields: [mobile_android_country.submission_date]
-    filters: {}
     sorts: [mobile_android_country.submission_date desc]
     limit: 500
     x_axis_gridlines: false
@@ -532,7 +531,6 @@
   - name: 'Step 3: First Seen in Internal Telemetry'
     type: text
     title_text: 'Step 3: First Seen in Internal Telemetry'
-    subtitle_text: ''
     body_text: The count of new client IDs measured in our internal telemetry. This
       is our internal indication of how many acquisitions we have gotten during the
       time period of interest. The jump from Step 2 to Step 3 is the installation
@@ -562,7 +560,7 @@
     model: duet
     explore: mobile_android_country
     type: looker_line
-    fields: [mobile_android_country.submission_date, mobile_android_country.event_installs]
+    fields: [mobile_android_country.submission_date, mobile_android_country.first_time_installs]
     fill_fields: [mobile_android_country.submission_date]
     filters: {}
     sorts: [mobile_android_country.submission_date desc]
@@ -611,7 +609,6 @@
     type: looker_line
     fields: [mobile_android_country.submission_date, mobile_android_country.first_seen]
     fill_fields: [mobile_android_country.submission_date]
-    filters: {}
     sorts: [mobile_android_country.submission_date desc]
     limit: 500
     x_axis_gridlines: false
@@ -670,7 +667,6 @@
     type: looker_line
     fields: [mobile_android_country.submission_date, mobile_android_country.activated]
     fill_fields: [mobile_android_country.submission_date]
-    filters: {}
     sorts: [mobile_android_country.submission_date desc]
     limit: 500
     x_axis_gridlines: false
@@ -713,7 +709,6 @@
   - name: Important Dates
     type: text
     title_text: Important Dates
-    subtitle_text: ''
     body_text: The dates for which we receive the latest data for Google and internally
       usually do not match up. This is due to the fact that Google does not make Play
       Store data available for export every day, instead it's usually exported every
