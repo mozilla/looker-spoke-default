@@ -8,7 +8,7 @@ explore: subscriptions {
     from: information_schema_partitions
     view_label: "Metadata"
     sql_on: ${metadata.table_name} = "all_subscriptions_v1" AND ${metadata.partition_id} IS NULL;;
-    relationship: many_to_one
+    relationship: one_to_one
   }
 
   join: devices {
