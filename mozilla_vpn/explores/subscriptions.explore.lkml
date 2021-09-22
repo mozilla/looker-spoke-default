@@ -1,6 +1,7 @@
 include: "../views/subscriptions.view"
 include: "../views/devices.view"
 include: "../views/information_schema_partitions.view"
+include: "../views/vat_rates.view"
 
 explore: subscriptions {
 
@@ -35,5 +36,17 @@ explore: subscriptions {
     view_label: "Retention"
     sql: CROSS JOIN UNNEST(${subscriptions.retention}) AS subscriptions__retention;;
     relationship: one_to_many
+  }
+
+  join: vat_rates {
+    view_label: "VAT Rates"
+    fields: [vat]
+    sql_on: LOWER(${subscriptions.country}) = LOWER(${vat_rates.country_code})
+    AND (
+      ${subscriptions__active.active_raw} BETWEEN ${vat_rates.effective_raw} AND ${vat_rates.next_effective_raw} - 1
+      OR (${subscriptions__active.active_raw} < ${vat_rates.effective_raw} AND ${vat_rates.prev_effective_raw} IS NULL)
+      OR (${subscriptions__active.active_raw} >= ${vat_rates.effective_raw} AND ${vat_rates.next_effective_raw} IS NULL)
+    );;
+    relationship: one_to_one
   }
 }
