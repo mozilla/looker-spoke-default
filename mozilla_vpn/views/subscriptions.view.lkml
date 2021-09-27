@@ -148,20 +148,28 @@ view: +subscriptions {
   dimension: events {
     hidden: yes
     sql:
-      [
-        STRUCT(
-          ${subscription_start_date} AS date,
-          "New" AS type,
-          IF(${subscription_start_date} = ${customer_start_date}, "New", "Resurrected") AS granular_type,
-          1 AS delta
-        ),
-        STRUCT(
-          ${end_date} AS date,
-          "Cancelled" AS type,
-          ${cancel_reason} AS granular_type,
-          -1 AS delta
+      ARRAY_CONCAT(
+        [
+          STRUCT(
+            ${subscription_start_date} AS date,
+            "New" AS type,
+            IF(${subscription_start_date} = ${customer_start_date}, "New", "Resurrected") AS granular_type,
+            1 AS delta
+          )
+        ],
+        IF(
+          ${end_date} < DATE(${metadata.last_modified_date}),
+          [
+            STRUCT(
+              ${end_date} AS date,
+              "Cancelled" AS type,
+              ${cancel_reason} AS granular_type,
+              -1 AS delta
+            )
+          ],
+          []
         )
-      ];;
+      );;
   }
 
   dimension: retention {
@@ -171,6 +179,22 @@ view: +subscriptions {
 
   measure: count {
     type: count
+  }
+
+  measure: annual_recurring_revenue {
+    description: "Annual Recurring Revenue"
+    type: sum_distinct
+    sql_distinct_key: ${subscription_id};;
+    sql: CASE
+    WHEN
+      ${plan_interval} = "year"
+    THEN
+      1 / ${plan_interval_count}
+    WHEN
+      ${plan_interval} = "month"
+    THEN
+      12 / ${plan_interval_count}
+    END * ${plan_amount} * (1 - IFNULL(${vat_rates.vat}, 0)) / 100;;
   }
 }
 
