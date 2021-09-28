@@ -11,6 +11,7 @@ explore: firefox_desktop_last_seen {
 }
 
 explore: +client_counts {
+  label: "Client Counts (Telemetry)"
   always_filter: {
     filters: [
       client_counts.submission_date: "7 days",
@@ -20,6 +21,7 @@ explore: +client_counts {
 }
 
 explore: +event_counts {
+  label: "Event Counts (Telemetry)"
   always_filter: {
     filters: [
       events.submission_date: "7 days",
@@ -29,6 +31,7 @@ explore: +event_counts {
 }
 
 explore: +funnel_analysis {
+  label: "Funnel Analysis (Telemetry)"
   always_filter: {
     filters: [
       funnel_analysis.submission_date: "7 days",
@@ -38,6 +41,7 @@ explore: +funnel_analysis {
 }
 
 explore: +growth_accounting {
+  label: "Growth Accounting (Telemetry)"
   always_filter: {
     filters: [
       growth_accounting.submission_date: "7 days",
@@ -47,6 +51,7 @@ explore: +growth_accounting {
 }
 
 explore: +baseline {
+  label: "Baseline (Glean)"
   always_filter: {
     filters: [
       baseline.submission_date: "7 days",
@@ -56,6 +61,7 @@ explore: +baseline {
 }
 
 explore: +metrics {
+  label: "Metrics (Glean)"
   always_filter: {
     filters: [
       metrics.submission_date: "7 days",
