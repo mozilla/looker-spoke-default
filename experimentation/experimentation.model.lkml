@@ -1,7 +1,3 @@
 connection: "telemetry"
 label: "Experimentation"
-include: "//looker-hub/experimentation/explores/*"
-include: "//looker-hub/experimentation/dashboards/*"
-include: "views/*"
-include: "explores/*"
-include: "dashboards/*"
+include: "//looker-hub/experimentation/views/*"
