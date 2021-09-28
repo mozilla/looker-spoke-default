@@ -60,6 +60,18 @@ explore: +baseline {
   }
 }
 
+explore: feature_usage {
+  view_name: feature_usage_table
+  label: "Feature Usage (Telemetry)"
+  description: "A daily aggregation of specific browser feature usages by 1% of Firefox desktop client."
+
+  always_filter: {
+    filters: [
+      feature_usage_table.submission_date: "7 days"
+    ]
+  }
+}
+
 explore: +metrics {
   label: "Metrics (Glean)"
   always_filter: {
