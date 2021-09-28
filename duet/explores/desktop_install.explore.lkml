@@ -5,8 +5,8 @@ explore: desktop_install  {
   sql_always_where:
     ${submission_date} > date(2020, 7 ,1) AND
     (${silent} = FALSE OR ${silent} IS NULL) AND
-    ${succeeded} AND
     ${build_channel} = "release" AND
+    ${succeeded} AND
     DATE_DIFF(  -- Only use builds from the last month
         ${submission_date},
         SAFE.PARSE_DATE('%Y%m%d', SUBSTR(${build_id}, 0, 8)),
