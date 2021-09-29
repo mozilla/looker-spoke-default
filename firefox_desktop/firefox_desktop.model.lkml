@@ -31,7 +31,7 @@ explore: +event_counts {
 }
 
 explore: +funnel_analysis {
-  label: "Funnel Analysis (Telemetry)"
+  label: "Funnel Analysis (Legacy Telemetry)"
   always_filter: {
     filters: [
       funnel_analysis.submission_date: "7 days",
