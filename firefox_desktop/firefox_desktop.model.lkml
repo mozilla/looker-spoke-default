@@ -62,7 +62,7 @@ explore: +baseline {
 
 explore: feature_usage {
   view_name: feature_usage_table
-  label: "Feature Usage (Telemetry)"
+  label: "Feature Usage (Legacy Telemetry)"
   description: "A daily aggregation of specific browser feature usages by 1% of Firefox desktop client."
 
   always_filter: {
