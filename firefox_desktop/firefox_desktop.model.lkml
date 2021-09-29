@@ -21,7 +21,7 @@ explore: +client_counts {
 }
 
 explore: +event_counts {
-  label: "Event Counts (Telemetry)"
+  label: "Event Counts (Legacy Telemetry)"
   always_filter: {
     filters: [
       events.submission_date: "7 days",
