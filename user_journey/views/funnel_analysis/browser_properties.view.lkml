@@ -1,7 +1,7 @@
-include: "//looker-hub/firefox_desktop/views/clients_last_seen.view.lkml"
+include: "//looker-hub/firefox_desktop/views/clients_last_seen_table.view.lkml"
 
 view: browser_properties {
-  extends: [clients_last_seen]
+  extends: [clients_last_seen_table]
 
   parameter: diff_days {
     label: "Days from Event"
