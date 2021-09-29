@@ -11,7 +11,7 @@ explore: firefox_desktop_last_seen {
 }
 
 explore: +client_counts {
-  label: "Client Counts (Telemetry)"
+  label: "Client Counts (Legacy Telemetry)"
   always_filter: {
     filters: [
       client_counts.submission_date: "7 days",
