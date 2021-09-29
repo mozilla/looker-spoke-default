@@ -41,7 +41,7 @@ explore: +funnel_analysis {
 }
 
 explore: +growth_accounting {
-  label: "Growth Accounting (Telemetry)"
+  label: "Growth Accounting (Legacy Telemetry)"
   always_filter: {
     filters: [
       growth_accounting.submission_date: "7 days",
