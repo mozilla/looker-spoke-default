@@ -271,6 +271,10 @@ explore: experiment_search_aggregates_live {
     {% condition experiment_search_aggregates_live.timeframe %} TIMESTAMP(${window_start_time}) {% endcondition %};;
 }
 
+explore: experiment_enrollment_daily_active_population {
+  hidden: yes
+}
+
 view: +events {
   dimension: reason {
     type: string
