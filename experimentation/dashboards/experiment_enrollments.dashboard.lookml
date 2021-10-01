@@ -943,7 +943,7 @@
   - name: Time Range
     title: Time Range
     type: field_filter
-    default_value: 30 day
+    default_value: 28 day
     allow_multiple_values: true
     required: false
     ui_config:

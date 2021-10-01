@@ -4,6 +4,8 @@ include: "//looker-hub/experimentation/views/*"
 include: "//looker-hub/firefox_desktop/views/events.view.lkml"
 include: "views/*"
 
+# View customizations
+
 view: +experiment_enrollment_daily_active_population {
   dimension: experiment {
     suggest_explore: experimenter_experiments
@@ -190,6 +192,9 @@ view: +experiment_search_aggregates_live {
   }
 }
 
+
+# Explores
+
 explore: experiment_cumulative_ad_clicks {
   hidden: yes
   sql_always_where:
@@ -238,10 +243,6 @@ explore: experiment_enrollment_cumulative_population_estimate {
      DATE_DIFF(DATE({% date_end experiment_enrollment_cumulative_population_estimate.timeframe %}), DATE({% date_start experiment_enrollment_cumulative_population_estimate.timeframe %}), DAY) < 5) ;;
 }
 
-explore: experiment_enrollment_daily_active_population {
-  hidden: yes
-}
-
 explore: experiment_enrollment_other_events_overall {
   hidden: yes
   sql_always_where:
@@ -250,14 +251,14 @@ explore: experiment_enrollment_other_events_overall {
 }
 
 explore: experiment_enrollment_overall {
-  hidden: no
+  hidden: yes
   sql_always_where:
     ${branch} IS NOT NULL AND
     {% condition experiment_enrollment_overall.timeframe %} TIMESTAMP(${time_time}) {% endcondition %};;
 }
 
 explore: experiment_unenrollment_overall {
-  hidden: no
+  hidden: yes
   sql_always_where:
     ${branch} IS NOT NULL AND
     {% condition experiment_unenrollment_overall.timeframe %} TIMESTAMP(${time_time}) {% endcondition %};;
@@ -311,5 +312,5 @@ explore: task_profiling_logs {
 }
 
 explore: experimenter_experiments {
-  hidden: no
+  hidden: yes
 }
