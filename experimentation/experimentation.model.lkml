@@ -157,6 +157,41 @@ view: +experiment_unenrollment_overall {
   }
 }
 
+view: +experiment_search_aggregates_live {
+  dimension: experiment {
+    suggest_explore: experimenter_experiments
+    suggest_dimension: experimenter_experiments.normandy_slug
+  }
+
+  dimension: timestamp {
+    type: date_time
+    sql: CASE
+        WHEN DATE_DIFF(DATE({% date_end timeframe %}), DATE({% date_start timeframe %}), DAY) BETWEEN 5 AND 30 THEN TIMESTAMP_TRUNC(TIMESTAMP(${window_start_time}), HOUR)
+        WHEN DATE_DIFF(DATE({% date_end timeframe %}), DATE({% date_start timeframe %}), DAY) >= 30 THEN TIMESTAMP_TRUNC(TIMESTAMP(${window_start_time}), DAY)
+        ELSE TIMESTAMP(${window_start_time})
+      END;;
+  }
+
+  measure: total_search_count {
+    type: number
+    sql: SUM(${search_count}) ;;
+  }
+
+  measure: total_ad_clicks {
+    type: number
+    sql: SUM(${ad_clicks_count}) ;;
+  }
+
+  measure: total_searches_with_ads {
+    type: number
+    sql: SUM(${search_with_ads_count}) ;;
+  }
+
+  filter: timeframe {
+    type: date
+  }
+}
+
 explore: experiment_cumulative_ad_clicks {
   sql_always_where:
         ${branch} IS NOT NULL AND
@@ -219,6 +254,12 @@ explore: experiment_unenrollment_overall {
   sql_always_where:
     ${branch} IS NOT NULL AND
     {% condition experiment_unenrollment_overall.timeframe %} TIMESTAMP(${time_time}) {% endcondition %};;
+}
+
+explore: experiment_search_aggregates_live {
+  sql_always_where:
+    ${branch} IS NOT NULL AND
+    {% condition experiment_search_aggregates_live.timeframe %} TIMESTAMP(${window_start_time}) {% endcondition %};;
 }
 
 view: +events {

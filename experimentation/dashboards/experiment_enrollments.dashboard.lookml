@@ -229,8 +229,8 @@
     listen:
       Experiment: experiment_cumulative_ad_clicks.experiment
       Time Range: experiment_cumulative_ad_clicks.timeframe
-    row: 44
-    col: 0
+    row: 51
+    col: 12
     width: 12
     height: 7
   - title: Cumulative Search Count by Branch
@@ -280,8 +280,8 @@
     listen:
       Experiment: experiment_cumulative_search_count.experiment
       Time Range: experiment_cumulative_search_count.timeframe
-    row: 51
-    col: 0
+    row: 44
+    col: 12
     width: 12
     height: 7
   - title: Cumulative Seach Count with Ads by Branch
@@ -329,7 +329,7 @@
       Experiment: experiment_cumulative_search_with_ads_count.experiment
       Time Range: experiment_cumulative_search_with_ads_count.timeframe
     row: 58
-    col: 0
+    col: 12
     width: 12
     height: 7
   - title: Unenrollment Overall
@@ -710,11 +710,173 @@
     col: 0
     width: 24
     height: 2
+  - title: Search Count by Branch
+    name: Search Count by Branch
+    model: experimentation
+    explore: experiment_search_aggregates_live
+    type: looker_column
+    fields: [experiment_search_aggregates_live.timestamp, experiment_search_aggregates_live.total_search_count,
+      experiment_search_aggregates_live.branch]
+    pivots: [experiment_search_aggregates_live.branch]
+    filters: {}
+    sorts: [experiment_search_aggregates_live.timestamp desc]
+    limit: 500
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: normal
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    y_axes: [{label: Total, orientation: left, series: [{axisId: experiment_search_aggregates_live.total_search_count,
+            id: experiment_search_aggregates_live.total_search_count, name: Total
+              Search Count}], showLabels: true, showValues: true, unpinAxis: false,
+        tickDensity: default, tickDensityCustom: 5, type: linear}]
+    x_axis_label: Time
+    series_types: {}
+    show_null_points: true
+    interpolation: linear
+    defaults_version: 1
+    listen:
+      Experiment: experiment_search_aggregates_live.experiment
+      Time Range: experiment_search_aggregates_live.timeframe
+    row: 44
+    col: 0
+    width: 12
+    height: 7
+  - title: Ad Clicks by Branch
+    name: Ad Clicks by Branch
+    model: experimentation
+    explore: experiment_search_aggregates_live
+    type: looker_column
+    fields: [experiment_search_aggregates_live.timestamp, experiment_search_aggregates_live.branch,
+      experiment_search_aggregates_live.total_ad_clicks]
+    pivots: [experiment_search_aggregates_live.branch]
+    filters: {}
+    sorts: [experiment_search_aggregates_live.timestamp desc]
+    limit: 500
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: normal
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    y_axes: [{label: Total, orientation: left, series: [{axisId: experiment_search_aggregates_live.total_search_count,
+            id: experiment_search_aggregates_live.total_search_count, name: Total
+              Search Count}], showLabels: true, showValues: true, unpinAxis: false,
+        tickDensity: default, tickDensityCustom: 5, type: linear}]
+    x_axis_label: Time
+    series_types: {}
+    show_null_points: true
+    interpolation: linear
+    defaults_version: 1
+    listen:
+      Experiment: experiment_search_aggregates_live.experiment
+      Time Range: experiment_search_aggregates_live.timeframe
+    row: 51
+    col: 0
+    width: 12
+    height: 7
+  - title: Search Count with Ads by Branch
+    name: Search Count with Ads by Branch
+    model: experimentation
+    explore: experiment_search_aggregates_live
+    type: looker_column
+    fields: [experiment_search_aggregates_live.timestamp, experiment_search_aggregates_live.branch,
+      experiment_search_aggregates_live.total_searches_with_ads]
+    pivots: [experiment_search_aggregates_live.branch]
+    filters: {}
+    sorts: [experiment_search_aggregates_live.timestamp desc]
+    limit: 500
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: normal
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    y_axes: [{label: Total, orientation: left, series: [{axisId: experiment_search_aggregates_live.total_search_count,
+            id: experiment_search_aggregates_live.total_search_count, name: Total
+              Search Count}], showLabels: true, showValues: true, unpinAxis: false,
+        tickDensity: default, tickDensityCustom: 5, type: linear}]
+    x_axis_label: Time
+    series_types: {}
+    show_null_points: true
+    interpolation: linear
+    defaults_version: 1
+    listen:
+      Experiment: experiment_search_aggregates_live.experiment
+      Time Range: experiment_search_aggregates_live.timeframe
+    row: 58
+    col: 0
+    width: 12
+    height: 7
   filters:
   - name: Experiment
     title: Experiment
     type: field_filter
-    default_value: activity-stream-cfr-pinned-tabs-holdback-1536650
+    default_value: bug-1727596-pref-search-experiment-measuring-the-impacts-of-diffe-release-79-96
     allow_multiple_values: true
     required: false
     ui_config:
@@ -728,7 +890,7 @@
   - name: Time Range
     title: Time Range
     type: field_filter
-    default_value: 12 month
+    default_value: 2 month
     allow_multiple_values: true
     required: false
     ui_config:
