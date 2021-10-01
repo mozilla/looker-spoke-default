@@ -45,9 +45,9 @@
     x_axis_label: Time
     defaults_version: 1
     listen:
-      Experiment: experiment_enrollment_daily_active_population.experiment
       Time Range: experiment_enrollment_daily_active_population.time_time
-    row: 0
+      Experiment: experiment_enrollment_daily_active_population.experiment
+    row: 2
     col: 12
     width: 12
     height: 8
@@ -87,9 +87,9 @@
     x_axis_label: Time
     defaults_version: 1
     listen:
-      Experiment: experiment_enrollment_daily_active_population.experiment
       Time Range: experiment_enrollment_daily_active_population.time_time
-    row: 0
+      Experiment: experiment_enrollment_daily_active_population.experiment
+    row: 2
     col: 0
     width: 12
     height: 8
@@ -129,9 +129,9 @@
     x_axis_label: Time
     defaults_version: 1
     listen:
-      Experiment: experiment_enrollment_cumulative_population_estimate.experiment
       Time Range: experiment_enrollment_cumulative_population_estimate.timeframe
-    row: 8
+      Experiment: experiment_enrollment_cumulative_population_estimate.experiment
+    row: 10
     col: 0
     width: 12
     height: 7
@@ -179,9 +179,9 @@
     x_axis_label: Time
     defaults_version: 1
     listen:
-      Experiment: experiment_enrollment_cumulative_population_estimate.experiment
       Time Range: experiment_enrollment_cumulative_population_estimate.timeframe
-    row: 8
+      Experiment: experiment_enrollment_cumulative_population_estimate.experiment
+    row: 10
     col: 12
     width: 12
     height: 7
@@ -227,9 +227,9 @@
     x_axis_label: Time
     defaults_version: 1
     listen:
-      Experiment: experiment_cumulative_ad_clicks.experiment
       Time Range: experiment_cumulative_ad_clicks.timeframe
-    row: 51
+      Experiment: experiment_cumulative_ad_clicks.experiment
+    row: 53
     col: 12
     width: 12
     height: 7
@@ -278,9 +278,9 @@
     series_types: {}
     defaults_version: 1
     listen:
-      Experiment: experiment_cumulative_search_count.experiment
       Time Range: experiment_cumulative_search_count.timeframe
-    row: 44
+      Experiment: experiment_cumulative_search_count.experiment
+    row: 46
     col: 12
     width: 12
     height: 7
@@ -326,9 +326,9 @@
     x_axis_label: Time
     defaults_version: 1
     listen:
-      Experiment: experiment_cumulative_search_with_ads_count.experiment
       Time Range: experiment_cumulative_search_with_ads_count.timeframe
-    row: 58
+      Experiment: experiment_cumulative_search_with_ads_count.experiment
+    row: 60
     col: 12
     width: 12
     height: 7
@@ -374,9 +374,9 @@
     interpolation: linear
     defaults_version: 1
     listen:
-      Experiment: experiment_unenrollment_overall.experiment
       Time Range: experiment_unenrollment_overall.timeframe
-    row: 22
+      Experiment: experiment_unenrollment_overall.experiment
+    row: 24
     col: 0
     width: 12
     height: 7
@@ -433,9 +433,9 @@
     interpolation: linear
     defaults_version: 1
     listen:
-      Experiment: experiment_unenrollment_overall.experiment
       Time Range: experiment_unenrollment_overall.timeframe
-    row: 22
+      Experiment: experiment_unenrollment_overall.experiment
+    row: 24
     col: 12
     width: 12
     height: 7
@@ -483,9 +483,9 @@
     series_types: {}
     defaults_version: 1
     listen:
-      Experiment: experiment_enrollment_overall.experiment
       Time Range: experiment_enrollment_overall.timeframe
-    row: 15
+      Experiment: experiment_enrollment_overall.experiment
+    row: 17
     col: 0
     width: 12
     height: 7
@@ -535,9 +535,9 @@
     series_types: {}
     defaults_version: 1
     listen:
-      Experiment: experiment_enrollment_overall.experiment
       Time Range: experiment_enrollment_overall.timeframe
-    row: 15
+      Experiment: experiment_enrollment_overall.experiment
+    row: 17
     col: 12
     width: 12
     height: 7
@@ -584,9 +584,9 @@
     interpolation: linear
     defaults_version: 1
     listen:
-      Experiment: experiment_enrollment_other_events_overall.experiment
       Time Range: experiment_enrollment_other_events_overall.timeframe
-    row: 29
+      Experiment: experiment_enrollment_other_events_overall.experiment
+    row: 31
     col: 0
     width: 12
     height: 7
@@ -637,9 +637,9 @@
     interpolation: linear
     defaults_version: 1
     listen:
-      Experiment: experiment_enrollment_other_events_overall.experiment
       Time Range: experiment_enrollment_other_events_overall.timeframe
-    row: 29
+      Experiment: experiment_enrollment_other_events_overall.experiment
+    row: 31
     col: 12
     width: 12
     height: 7
@@ -695,9 +695,9 @@
     defaults_version: 1
     series_types: {}
     listen:
-      Experiment: events.event_string_value
       Time Range: events.submission_date
-    row: 36
+      Experiment: events.event_string_value
+    row: 38
     col: 0
     width: 24
     height: 6
@@ -706,7 +706,7 @@
     title_text: Search Metrics
     subtitle_text: ''
     body_text: ''
-    row: 42
+    row: 44
     col: 0
     width: 24
     height: 2
@@ -758,9 +758,9 @@
     interpolation: linear
     defaults_version: 1
     listen:
-      Experiment: experiment_search_aggregates_live.experiment
       Time Range: experiment_search_aggregates_live.timeframe
-    row: 44
+      Experiment: experiment_search_aggregates_live.experiment
+    row: 46
     col: 0
     width: 12
     height: 7
@@ -812,9 +812,9 @@
     interpolation: linear
     defaults_version: 1
     listen:
-      Experiment: experiment_search_aggregates_live.experiment
       Time Range: experiment_search_aggregates_live.timeframe
-    row: 51
+      Experiment: experiment_search_aggregates_live.experiment
+    row: 53
     col: 0
     width: 12
     height: 7
@@ -866,12 +866,65 @@
     interpolation: linear
     defaults_version: 1
     listen:
-      Experiment: experiment_search_aggregates_live.experiment
       Time Range: experiment_search_aggregates_live.timeframe
-    row: 58
+      Experiment: experiment_search_aggregates_live.experiment
+    row: 60
     col: 0
     width: 12
     height: 7
+  - title: Enrollment Status
+    name: Enrollment Status
+    model: experimentation
+    explore: enrollment_status
+    type: single_value
+    fields: [enrollment_status.message, enrollment_status.experiment]
+    sorts: [enrollment_status.message]
+    limit: 1
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    hidden_fields: [enrollment_status.experiment]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    series_types: {}
+    listen:
+      Experiment: enrollment_status.experiment
+    row: 0
+    col: 0
+    width: 24
+    height: 2
   filters:
   - name: Experiment
     title: Experiment
@@ -890,7 +943,7 @@
   - name: Time Range
     title: Time Range
     type: field_filter
-    default_value: 2 month
+    default_value: 30 day
     allow_multiple_values: true
     required: false
     ui_config:

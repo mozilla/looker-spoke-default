@@ -2,6 +2,7 @@ connection: "telemetry"
 label: "Experimentation"
 include: "//looker-hub/experimentation/views/*"
 include: "//looker-hub/firefox_desktop/views/events.view.lkml"
+include: "views/*"
 
 view: +experiment_enrollment_daily_active_population {
   dimension: experiment {
@@ -30,7 +31,6 @@ view: +experiment_enrollment_cumulative_population_estimate {
     type: date
   }
 }
-
 
 view: +experiment_cumulative_ad_clicks {
   dimension: experiment {
@@ -250,14 +250,14 @@ explore: experiment_enrollment_other_events_overall {
 }
 
 explore: experiment_enrollment_overall {
-  hidden: yes
+  hidden: no
   sql_always_where:
     ${branch} IS NOT NULL AND
     {% condition experiment_enrollment_overall.timeframe %} TIMESTAMP(${time_time}) {% endcondition %};;
 }
 
 explore: experiment_unenrollment_overall {
-  hidden: yes
+  hidden: no
   sql_always_where:
     ${branch} IS NOT NULL AND
     {% condition experiment_unenrollment_overall.timeframe %} TIMESTAMP(${time_time}) {% endcondition %};;
@@ -292,6 +292,8 @@ explore: unenrollment_reasons {
   }
 }
 
+explore: enrollment_status {}
+
 explore: logs {
   hidden: yes
 }
@@ -309,5 +311,5 @@ explore: task_profiling_logs {
 }
 
 explore: experimenter_experiments {
-  hidden: yes
+  hidden: no
 }
