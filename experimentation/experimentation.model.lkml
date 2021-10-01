@@ -3,8 +3,6 @@ label: "Experimentation"
 include: "//looker-hub/experimentation/views/*"
 include: "//looker-hub/firefox_desktop/views/events.view.lkml"
 
-# todo: mark explores as hidden
-
 view: +experiment_enrollment_daily_active_population {
   dimension: experiment {
     suggest_explore: experimenter_experiments
@@ -193,6 +191,7 @@ view: +experiment_search_aggregates_live {
 }
 
 explore: experiment_cumulative_ad_clicks {
+  hidden: yes
   sql_always_where:
         ${branch} IS NOT NULL AND
     {% condition experiment_cumulative_ad_clicks.timeframe %} TIMESTAMP(${time_time}) {% endcondition %} AND
@@ -204,6 +203,7 @@ explore: experiment_cumulative_ad_clicks {
 }
 
 explore: experiment_cumulative_search_count {
+  hidden: yes
   sql_always_where:
   ${branch} IS NOT NULL AND
   {% condition experiment_cumulative_search_count.timeframe %} TIMESTAMP(${time_time}) {% endcondition %} AND
@@ -215,6 +215,7 @@ explore: experiment_cumulative_search_count {
 }
 
 explore: experiment_cumulative_search_with_ads_count {
+  hidden: yes
   sql_always_where:
   ${branch} IS NOT NULL AND
   {% condition experiment_cumulative_search_with_ads_count.timeframe %} TIMESTAMP(${time_time}) {% endcondition %} AND
@@ -226,6 +227,7 @@ explore: experiment_cumulative_search_with_ads_count {
 }
 
 explore: experiment_enrollment_cumulative_population_estimate {
+  hidden: yes
   sql_always_where:
     ${branch} IS NOT NULL AND
     {% condition experiment_enrollment_cumulative_population_estimate.timeframe %} TIMESTAMP(${time_time}) {% endcondition %} AND
@@ -236,27 +238,33 @@ explore: experiment_enrollment_cumulative_population_estimate {
      DATE_DIFF(DATE({% date_end experiment_enrollment_cumulative_population_estimate.timeframe %}), DATE({% date_start experiment_enrollment_cumulative_population_estimate.timeframe %}), DAY) < 5) ;;
 }
 
-explore: experiment_enrollment_daily_active_population {}
+explore: experiment_enrollment_daily_active_population {
+  hidden: yes
+}
 
 explore: experiment_enrollment_other_events_overall {
+  hidden: yes
   sql_always_where:
   ${branch} IS NOT NULL AND
   {% condition experiment_enrollment_other_events_overall.timeframe %} TIMESTAMP(${time_time}) {% endcondition %};;
 }
 
 explore: experiment_enrollment_overall {
+  hidden: yes
   sql_always_where:
     ${branch} IS NOT NULL AND
     {% condition experiment_enrollment_overall.timeframe %} TIMESTAMP(${time_time}) {% endcondition %};;
 }
 
 explore: experiment_unenrollment_overall {
+  hidden: yes
   sql_always_where:
     ${branch} IS NOT NULL AND
     {% condition experiment_unenrollment_overall.timeframe %} TIMESTAMP(${time_time}) {% endcondition %};;
 }
 
 explore: experiment_search_aggregates_live {
+  hidden: yes
   sql_always_where:
     ${branch} IS NOT NULL AND
     {% condition experiment_search_aggregates_live.timeframe %} TIMESTAMP(${window_start_time}) {% endcondition %};;
@@ -271,6 +279,7 @@ view: +events {
 
 explore: unenrollment_reasons {
   view_name: events
+  hidden: yes
 
   sql_always_where:
     ${events.event_method} LIKE "unenroll%" AND
@@ -283,12 +292,22 @@ explore: unenrollment_reasons {
   }
 }
 
-explore: logs {}
+explore: logs {
+  hidden: yes
+}
 
-explore: query_cost {}
+explore: query_cost {
+  hidden: yes
+}
 
-explore: task_monitoring_logs {}
+explore: task_monitoring_logs {
+  hidden: yes
+}
 
-explore: task_profiling_logs {}
+explore: task_profiling_logs {
+  hidden: yes
+}
 
-explore: experimenter_experiments {}
+explore: experimenter_experiments {
+  hidden: yes
+}
