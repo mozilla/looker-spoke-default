@@ -1,6 +1,7 @@
 connection: "telemetry"
 label: "Experimentation"
 include: "//looker-hub/experimentation/views/*"
+include: "//looker-hub/firefox_desktop/views/events.view.lkml"
 
 # todo: mark explores as hidden
 
@@ -218,6 +219,27 @@ explore: experiment_unenrollment_overall {
   sql_always_where:
     ${branch} IS NOT NULL AND
     {% condition experiment_unenrollment_overall.timeframe %} TIMESTAMP(${time_time}) {% endcondition %};;
+}
+
+view: +events {
+  dimension: reason {
+    type: string
+    sql: mozfun.map.get_key(event_map_values, 'reason') ;;
+  }
+}
+
+explore: unenrollment_reasons {
+  view_name: events
+
+  sql_always_where:
+    ${events.event_method} LIKE "unenroll%" AND
+    ${events.event_category} = "normandy";;
+
+  always_filter: {
+    filters: [
+      events.submission_date: "7 days"
+    ]
+  }
 }
 
 explore: logs {}
