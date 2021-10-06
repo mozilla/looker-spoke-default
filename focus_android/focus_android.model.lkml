@@ -9,8 +9,7 @@ explore: usage {
       submission_date: "26 weeks",
     ]
   }
-  sql_always_where: submission_date >= "2020-01-01" ;;
- 
+
   aggregate_table: rollup__new_profile_activated__submission_date {
     query: {
       dimensions: [new_profile_activated, submission_date]
@@ -52,7 +51,7 @@ explore: usage {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
   }
-}  
+}
 
 explore: focus_launch_new_profile_forecasts {
   sql_always_where: date >= "2020-01-01" ;;

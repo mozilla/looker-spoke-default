@@ -14,7 +14,7 @@ view: usage {
         locale
       FROM `telemetry.nondesktop_clients_last_seen`
       WHERE product = 'Focus iOS'
-      AND submission_date >= DATE(2019,1,1);;
+      AND submission_date >= "2020-01-01";;
   }
 
   dimension_group: submission {
