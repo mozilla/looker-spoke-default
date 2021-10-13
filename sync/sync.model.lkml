@@ -1,7 +1,3 @@
 connection: "telemetry"
 label: "Sync"
 include: "//looker-hub/sync/explores/*"
-include: "//looker-hub/sync/dashboards/*"
-include: "views/*"
-include: "explores/*"
-include: "dashboards/*"
