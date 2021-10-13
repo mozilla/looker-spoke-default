@@ -1,7 +1,0 @@
-connection: "telemetry"
-label: "Pocket"
-# include: "//looker-hub/pocket/explores/*"
-# include: "//looker-hub/pocket/dashboards/*"
-# include: "views/*"
-# include: "explores/*"
-# include: "dashboards/*"
