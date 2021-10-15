@@ -47,7 +47,7 @@
     listen:
       Time Range: experiment_enrollment_daily_active_population.time_time
       Experiment: experiment_enrollment_daily_active_population.experiment
-    row: 2
+    row: 4
     col: 12
     width: 12
     height: 8
@@ -89,7 +89,7 @@
     listen:
       Time Range: experiment_enrollment_daily_active_population.time_time
       Experiment: experiment_enrollment_daily_active_population.experiment
-    row: 2
+    row: 4
     col: 0
     width: 12
     height: 8
@@ -131,7 +131,7 @@
     listen:
       Time Range: experiment_enrollment_cumulative_population_estimate.timeframe
       Experiment: experiment_enrollment_cumulative_population_estimate.experiment
-    row: 10
+    row: 12
     col: 0
     width: 12
     height: 7
@@ -181,7 +181,7 @@
     listen:
       Time Range: experiment_enrollment_cumulative_population_estimate.timeframe
       Experiment: experiment_enrollment_cumulative_population_estimate.experiment
-    row: 10
+    row: 12
     col: 12
     width: 12
     height: 7
@@ -229,7 +229,7 @@
     listen:
       Time Range: experiment_cumulative_ad_clicks.timeframe
       Experiment: experiment_cumulative_ad_clicks.experiment
-    row: 53
+    row: 55
     col: 12
     width: 12
     height: 7
@@ -280,7 +280,7 @@
     listen:
       Time Range: experiment_cumulative_search_count.timeframe
       Experiment: experiment_cumulative_search_count.experiment
-    row: 46
+    row: 48
     col: 12
     width: 12
     height: 7
@@ -328,7 +328,7 @@
     listen:
       Time Range: experiment_cumulative_search_with_ads_count.timeframe
       Experiment: experiment_cumulative_search_with_ads_count.experiment
-    row: 60
+    row: 62
     col: 12
     width: 12
     height: 7
@@ -376,7 +376,7 @@
     listen:
       Time Range: experiment_unenrollment_overall.timeframe
       Experiment: experiment_unenrollment_overall.experiment
-    row: 24
+    row: 26
     col: 0
     width: 12
     height: 7
@@ -435,7 +435,7 @@
     listen:
       Time Range: experiment_unenrollment_overall.timeframe
       Experiment: experiment_unenrollment_overall.experiment
-    row: 24
+    row: 26
     col: 12
     width: 12
     height: 7
@@ -485,7 +485,7 @@
     listen:
       Time Range: experiment_enrollment_overall.timeframe
       Experiment: experiment_enrollment_overall.experiment
-    row: 17
+    row: 19
     col: 0
     width: 12
     height: 7
@@ -537,7 +537,7 @@
     listen:
       Time Range: experiment_enrollment_overall.timeframe
       Experiment: experiment_enrollment_overall.experiment
-    row: 17
+    row: 19
     col: 12
     width: 12
     height: 7
@@ -586,7 +586,7 @@
     listen:
       Time Range: experiment_enrollment_other_events_overall.timeframe
       Experiment: experiment_enrollment_other_events_overall.experiment
-    row: 31
+    row: 33
     col: 0
     width: 12
     height: 7
@@ -639,7 +639,7 @@
     listen:
       Time Range: experiment_enrollment_other_events_overall.timeframe
       Experiment: experiment_enrollment_other_events_overall.experiment
-    row: 31
+    row: 33
     col: 12
     width: 12
     height: 7
@@ -697,7 +697,7 @@
     listen:
       Time Range: events.submission_date
       Experiment: events.event_string_value
-    row: 38
+    row: 40
     col: 0
     width: 24
     height: 6
@@ -706,7 +706,7 @@
     title_text: Search Metrics
     subtitle_text: ''
     body_text: ''
-    row: 44
+    row: 46
     col: 0
     width: 24
     height: 2
@@ -760,7 +760,7 @@
     listen:
       Time Range: experiment_search_aggregates_live.timeframe
       Experiment: experiment_search_aggregates_live.experiment
-    row: 46
+    row: 48
     col: 0
     width: 12
     height: 7
@@ -814,7 +814,7 @@
     listen:
       Time Range: experiment_search_aggregates_live.timeframe
       Experiment: experiment_search_aggregates_live.experiment
-    row: 53
+    row: 55
     col: 0
     width: 12
     height: 7
@@ -868,7 +868,7 @@
     listen:
       Time Range: experiment_search_aggregates_live.timeframe
       Experiment: experiment_search_aggregates_live.experiment
-    row: 60
+    row: 62
     col: 0
     width: 12
     height: 7
@@ -924,6 +924,105 @@
     row: 0
     col: 0
     width: 24
+    height: 2
+  - title: New Tile
+    name: New Tile
+    model: experimentation
+    explore: sample_ratio_mismatch
+    type: single_value
+    fields: [sample_ratio_mismatch.message, sample_ratio_mismatch.p_value]
+    filters:
+      sample_ratio_mismatch.metric: enrollments
+    sorts: [sample_ratio_mismatch.message]
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: Enrollments
+    comparison_label: "(P-Value)"
+    conditional_formatting: [{type: greater than, value: 0.01, background_color: "#7de08a",
+        font_color: !!null '', color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
+        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
+    show_view_names: false
+    defaults_version: 1
+    series_types: {}
+    listen:
+      Experiment: sample_ratio_mismatch.experiment
+    row: 2
+    col: 0
+    width: 8
+    height: 2
+  - title: New Tile
+    name: New Tile (2)
+    model: experimentation
+    explore: sample_ratio_mismatch
+    type: single_value
+    fields: [sample_ratio_mismatch.message, sample_ratio_mismatch.p_value]
+    filters:
+      sample_ratio_mismatch.metric: unenrollments
+    sorts: [sample_ratio_mismatch.message]
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: Unenrollments
+    comparison_label: "(P-Value)"
+    conditional_formatting: [{type: greater than, value: 0.01, background_color: "#7de08a",
+        font_color: !!null '', color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
+        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
+    show_view_names: false
+    defaults_version: 1
+    series_types: {}
+    listen:
+      Experiment: sample_ratio_mismatch.experiment
+    row: 2
+    col: 8
+    width: 8
+    height: 2
+  - title: New Tile
+    name: New Tile (3)
+    model: experimentation
+    explore: sample_ratio_mismatch
+    type: single_value
+    fields: [sample_ratio_mismatch.message, sample_ratio_mismatch.p_value]
+    filters:
+      sample_ratio_mismatch.metric: daily^_active^_clients
+    sorts: [sample_ratio_mismatch.message]
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: Daily Active Clients
+    comparison_label: "(P-Value)"
+    conditional_formatting: [{type: greater than, value: 0.01, background_color: "#7de08a",
+        font_color: !!null '', color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
+        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
+    show_view_names: false
+    defaults_version: 1
+    series_types: {}
+    listen:
+      Experiment: sample_ratio_mismatch.experiment
+    row: 2
+    col: 16
+    width: 8
     height: 2
   filters:
   - name: Experiment
