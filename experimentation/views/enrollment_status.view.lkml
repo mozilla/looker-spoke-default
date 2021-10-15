@@ -52,6 +52,7 @@ view: enrollment_status {
   dimension: message {
     type: string
     sql: ${TABLE}.message ;;
+    html: <p style="font-size: 25px"> {{ value }} </p> ;;
   }
 
   dimension: experiment {
