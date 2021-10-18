@@ -47,7 +47,7 @@
     listen:
       Time Range: experiment_enrollment_daily_active_population.time_time
       Experiment: experiment_enrollment_daily_active_population.experiment
-    row: 4
+    row: 12
     col: 12
     width: 12
     height: 8
@@ -89,7 +89,7 @@
     listen:
       Time Range: experiment_enrollment_daily_active_population.time_time
       Experiment: experiment_enrollment_daily_active_population.experiment
-    row: 4
+    row: 12
     col: 0
     width: 12
     height: 8
@@ -131,7 +131,7 @@
     listen:
       Time Range: experiment_enrollment_cumulative_population_estimate.timeframe
       Experiment: experiment_enrollment_cumulative_population_estimate.experiment
-    row: 12
+    row: 20
     col: 0
     width: 12
     height: 7
@@ -181,7 +181,7 @@
     listen:
       Time Range: experiment_enrollment_cumulative_population_estimate.timeframe
       Experiment: experiment_enrollment_cumulative_population_estimate.experiment
-    row: 12
+    row: 20
     col: 12
     width: 12
     height: 7
@@ -229,7 +229,7 @@
     listen:
       Time Range: experiment_cumulative_ad_clicks.timeframe
       Experiment: experiment_cumulative_ad_clicks.experiment
-    row: 55
+    row: 63
     col: 12
     width: 12
     height: 7
@@ -280,7 +280,7 @@
     listen:
       Time Range: experiment_cumulative_search_count.timeframe
       Experiment: experiment_cumulative_search_count.experiment
-    row: 48
+    row: 56
     col: 12
     width: 12
     height: 7
@@ -328,7 +328,7 @@
     listen:
       Time Range: experiment_cumulative_search_with_ads_count.timeframe
       Experiment: experiment_cumulative_search_with_ads_count.experiment
-    row: 62
+    row: 70
     col: 12
     width: 12
     height: 7
@@ -376,7 +376,7 @@
     listen:
       Time Range: experiment_unenrollment_overall.timeframe
       Experiment: experiment_unenrollment_overall.experiment
-    row: 26
+    row: 34
     col: 0
     width: 12
     height: 7
@@ -384,7 +384,7 @@
     name: Unenrollment Overall by Branch
     model: experimentation
     explore: experiment_unenrollment_overall
-    type: looker_column
+    type: looker_line
     fields: [experiment_unenrollment_overall.timestamp, experiment_unenrollment_overall.Total,
       experiment_unenrollment_overall.branch]
     pivots: [experiment_unenrollment_overall.branch]
@@ -405,19 +405,16 @@
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
-    stacking: normal
+    stacking: ''
     limit_displayed_rows: false
     legend_position: center
-    point_style: circle
+    point_style: none
     show_value_labels: false
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
+    show_null_points: true
+    interpolation: step
     y_axes: [{label: Total, orientation: left, series: [{axisId: control - experiment_unenrollment_overall.Total,
             id: control - experiment_unenrollment_overall.Total, name: control}, {
             axisId: treatment-admarketplace-12 - experiment_unenrollment_overall.Total,
@@ -429,13 +426,16 @@
         tickDensityCustom: 5, type: linear}]
     x_axis_label: Time
     series_types: {}
-    show_null_points: true
-    interpolation: linear
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
     defaults_version: 1
     listen:
       Time Range: experiment_unenrollment_overall.timeframe
       Experiment: experiment_unenrollment_overall.experiment
-    row: 26
+    row: 34
     col: 12
     width: 12
     height: 7
@@ -485,7 +485,7 @@
     listen:
       Time Range: experiment_enrollment_overall.timeframe
       Experiment: experiment_enrollment_overall.experiment
-    row: 19
+    row: 27
     col: 0
     width: 12
     height: 7
@@ -493,7 +493,7 @@
     name: Enrollment Overall by Branch
     model: experimentation
     explore: experiment_enrollment_overall
-    type: looker_column
+    type: looker_line
     fields: [experiment_enrollment_overall.timestamp, experiment_enrollment_overall.Total,
       experiment_enrollment_overall.branch]
     pivots: [experiment_enrollment_overall.branch]
@@ -514,7 +514,7 @@
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
-    stacking: normal
+    stacking: ''
     limit_displayed_rows: false
     legend_position: center
     point_style: none
@@ -522,22 +522,25 @@
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
+    show_null_points: true
+    interpolation: step
     y_axes: [{label: Total, orientation: left, series: [{axisId: experiment_enrollment_overall.Total,
             id: experiment_enrollment_overall.Total, name: Total}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
         type: linear}]
     x_axis_label: Time
+    hidden_series: [fission-disabled - experiment_enrollment_overall.Total]
     series_types: {}
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
     defaults_version: 1
     listen:
       Time Range: experiment_enrollment_overall.timeframe
       Experiment: experiment_enrollment_overall.experiment
-    row: 19
+    row: 27
     col: 12
     width: 12
     height: 7
@@ -586,7 +589,7 @@
     listen:
       Time Range: experiment_enrollment_other_events_overall.timeframe
       Experiment: experiment_enrollment_other_events_overall.experiment
-    row: 33
+    row: 41
     col: 0
     width: 12
     height: 7
@@ -639,7 +642,7 @@
     listen:
       Time Range: experiment_enrollment_other_events_overall.timeframe
       Experiment: experiment_enrollment_other_events_overall.experiment
-    row: 33
+    row: 41
     col: 12
     width: 12
     height: 7
@@ -697,7 +700,7 @@
     listen:
       Time Range: events.submission_date
       Experiment: events.event_string_value
-    row: 40
+    row: 48
     col: 0
     width: 24
     height: 6
@@ -706,7 +709,7 @@
     title_text: Search Metrics
     subtitle_text: ''
     body_text: ''
-    row: 46
+    row: 54
     col: 0
     width: 24
     height: 2
@@ -714,12 +717,12 @@
     name: Search Count by Branch
     model: experimentation
     explore: experiment_search_aggregates_live
-    type: looker_column
+    type: looker_line
     fields: [experiment_search_aggregates_live.timestamp, experiment_search_aggregates_live.total_search_count,
       experiment_search_aggregates_live.branch]
     pivots: [experiment_search_aggregates_live.branch]
     filters: {}
-    sorts: [experiment_search_aggregates_live.timestamp desc]
+    sorts: [experiment_search_aggregates_live.timestamp desc, experiment_search_aggregates_live.branch]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -735,7 +738,7 @@
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
-    stacking: normal
+    stacking: ''
     limit_displayed_rows: false
     legend_position: center
     point_style: none
@@ -743,24 +746,24 @@
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
+    show_null_points: true
+    interpolation: step
     y_axes: [{label: Total, orientation: left, series: [{axisId: experiment_search_aggregates_live.total_search_count,
             id: experiment_search_aggregates_live.total_search_count, name: Total
               Search Count}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Time
     series_types: {}
-    show_null_points: true
-    interpolation: linear
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
     defaults_version: 1
     listen:
       Time Range: experiment_search_aggregates_live.timeframe
       Experiment: experiment_search_aggregates_live.experiment
-    row: 48
+    row: 56
     col: 0
     width: 12
     height: 7
@@ -768,12 +771,12 @@
     name: Ad Clicks by Branch
     model: experimentation
     explore: experiment_search_aggregates_live
-    type: looker_column
+    type: looker_line
     fields: [experiment_search_aggregates_live.timestamp, experiment_search_aggregates_live.branch,
       experiment_search_aggregates_live.total_ad_clicks]
     pivots: [experiment_search_aggregates_live.branch]
     filters: {}
-    sorts: [experiment_search_aggregates_live.timestamp desc]
+    sorts: [experiment_search_aggregates_live.timestamp desc, experiment_search_aggregates_live.branch]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -789,7 +792,7 @@
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
-    stacking: normal
+    stacking: ''
     limit_displayed_rows: false
     legend_position: center
     point_style: none
@@ -797,24 +800,24 @@
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
+    show_null_points: true
+    interpolation: step
     y_axes: [{label: Total, orientation: left, series: [{axisId: experiment_search_aggregates_live.total_search_count,
             id: experiment_search_aggregates_live.total_search_count, name: Total
               Search Count}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Time
     series_types: {}
-    show_null_points: true
-    interpolation: linear
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
     defaults_version: 1
     listen:
       Time Range: experiment_search_aggregates_live.timeframe
       Experiment: experiment_search_aggregates_live.experiment
-    row: 55
+    row: 63
     col: 0
     width: 12
     height: 7
@@ -822,7 +825,7 @@
     name: Search Count with Ads by Branch
     model: experimentation
     explore: experiment_search_aggregates_live
-    type: looker_column
+    type: looker_line
     fields: [experiment_search_aggregates_live.timestamp, experiment_search_aggregates_live.branch,
       experiment_search_aggregates_live.total_searches_with_ads]
     pivots: [experiment_search_aggregates_live.branch]
@@ -843,7 +846,7 @@
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
-    stacking: normal
+    stacking: ''
     limit_displayed_rows: false
     legend_position: center
     point_style: none
@@ -851,24 +854,24 @@
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
+    show_null_points: true
+    interpolation: step
     y_axes: [{label: Total, orientation: left, series: [{axisId: experiment_search_aggregates_live.total_search_count,
             id: experiment_search_aggregates_live.total_search_count, name: Total
               Search Count}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Time
     series_types: {}
-    show_null_points: true
-    interpolation: linear
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
     defaults_version: 1
     listen:
       Time Range: experiment_search_aggregates_live.timeframe
       Experiment: experiment_search_aggregates_live.experiment
-    row: 62
+    row: 70
     col: 0
     width: 12
     height: 7
@@ -921,7 +924,7 @@
     series_types: {}
     listen:
       Experiment: enrollment_status.experiment
-    row: 0
+    row: 2
     col: 0
     width: 24
     height: 2
@@ -954,7 +957,7 @@
     series_types: {}
     listen:
       Experiment: sample_ratio_mismatch.experiment
-    row: 2
+    row: 4
     col: 0
     width: 8
     height: 2
@@ -987,7 +990,7 @@
     series_types: {}
     listen:
       Experiment: sample_ratio_mismatch.experiment
-    row: 2
+    row: 4
     col: 8
     width: 8
     height: 2
@@ -1020,8 +1023,77 @@
     series_types: {}
     listen:
       Experiment: sample_ratio_mismatch.experiment
-    row: 2
+    row: 4
     col: 16
+    width: 8
+    height: 2
+  - name: ''
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: "This dashboard will replace the [Grafana dashboard for monitoring\
+      \ experiments](https://grafana.telemetry.mozilla.org/d/XspgvdxZz/experiment-enrollment).\
+      \ \nFeedback and questions are very welcome: [#ask-experimenter](https://mozilla.slack.com/archives/CF94YGE03)"
+    row: 0
+    col: 0
+    width: 24
+    height: 2
+  - name: " (2)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: More information about errors encountered during the analysis is available
+      on the [Experiment Analysis Error dashboard](https://mozilla.cloud.looker.com/dashboards-next/246)
+    row: 8
+    col: 8
+    width: 16
+    height: 2
+  - name: Population
+    type: text
+    title_text: Population
+    subtitle_text: ''
+    body_text: ''
+    row: 10
+    col: 0
+    width: 24
+    height: 2
+  - name: Analysis Errors
+    type: text
+    title_text: Analysis Errors
+    subtitle_text: ''
+    body_text: ''
+    row: 6
+    col: 0
+    width: 24
+    height: 2
+  - title: Analysis Errors (last 3 days)
+    name: Analysis Errors (last 3 days)
+    model: experimentation
+    explore: logs
+    type: single_value
+    fields: [error_count]
+    filters:
+      logs.timestamp_date: 3 days
+      logs.exception_type: "-EndedException,-NoEnrollmentPeriodException,-HighPopulationException,-EnrollmentLongerThanAnalysisException,-ExplicitSkipException,-NoStartDateException"
+      logs.log_level: ERROR
+      logs.message: "-%Error while computing statistic%"
+    limit: 500
+    dynamic_fields: [{category: measure, expression: '', label: Error Count, based_on: logs.timestamp_time,
+        _kind_hint: measure, measure: error_count, type: count_distinct, _type_hint: number}]
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    defaults_version: 1
+    listen:
+      Experiment: logs.experiment
+    row: 8
+    col: 0
     width: 8
     height: 2
   filters:
