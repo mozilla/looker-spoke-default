@@ -1,4 +1,4 @@
-- dashboard: experiment_errors
+- dashboard: experiment_analysis_errors
   title: Experiment Analysis Errors
   layout: newspaper
   preferred_viewer: dashboards-next
@@ -149,7 +149,7 @@
     model: experimentation
     explore: logs
     type: single_value
-    fields: [count_of_timestamp_time]
+    fields: [error_count]
     filters:
       logs.exception_type: "-EndedException,-NoEnrollmentPeriodException,-HighPopulationException,-EnrollmentLongerThanAnalysisException,-ExplicitSkipException,-NoStartDateException"
       logs.log_level: ERROR
@@ -159,9 +159,9 @@
         value_format_name: !!null '', based_on: logs.message, _kind_hint: measure,
         measure: count, type: count_distinct, _type_hint: number}, {measure: count_of_timestamp_date,
         based_on: logs.timestamp_date, expression: '', label: Count of Timestamp Date,
-        type: count_distinct, _kind_hint: measure, _type_hint: number}, {measure: count_of_timestamp_time,
-        based_on: logs.timestamp_time, expression: '', label: Count of Timestamp Time,
-        type: count_distinct, _kind_hint: measure, _type_hint: number}]
+        type: count_distinct, _kind_hint: measure, _type_hint: number}, {category: measure,
+        expression: '', label: Error Count, based_on: logs.timestamp_time, _kind_hint: measure,
+        measure: error_count, type: count_distinct, _type_hint: number}]
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -228,7 +228,7 @@
     model: experimentation
     explore: logs
     type: single_value
-    fields: [count_of_timestamp_time]
+    fields: [warning_count]
     filters:
       logs.log_level: ERROR,WARNING
       logs.exception_type: EndedException,NoEnrollmentPeriodException,HighPopulationException,EnrollmentLongerThanAnalysisException,ExplicitSkipException,NoStartDateException,null
@@ -240,9 +240,9 @@
         value_format_name: !!null '', _kind_hint: dimension, table_calculation: total,
         _type_hint: number, is_disabled: true}, {measure: count_of_timestamp_date,
         based_on: logs.timestamp_date, expression: '', label: Count of Timestamp Date,
-        type: count_distinct, _kind_hint: measure, _type_hint: number}, {measure: count_of_timestamp_time,
-        based_on: logs.timestamp_time, expression: '', label: Count of Timestamp Time,
-        type: count_distinct, _kind_hint: measure, _type_hint: number}]
+        type: count_distinct, _kind_hint: measure, _type_hint: number}, {category: measure,
+        expression: '', label: Warning Count, based_on: logs.timestamp_time, _kind_hint: measure,
+        measure: warning_count, type: count_distinct, _type_hint: number}]
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
