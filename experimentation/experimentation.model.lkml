@@ -297,7 +297,13 @@ explore: unenrollment_reasons {
   }
 }
 
-explore: enrollment_status {}
+explore: enrollment_status {
+  hidden: yes
+}
+
+explore: sample_ratio_mismatch {
+  hidden: yes
+}
 
 explore: logs {
   hidden: yes
