@@ -182,7 +182,7 @@ view: +subscriptions {
   }
 
   measure: annual_recurring_revenue {
-    description: "Annual Recurring Revenue"
+    description: "Annual Recurring Revenue in USD"
     type: sum_distinct
     sql_distinct_key: ${subscription_id};;
     sql: CASE
@@ -194,7 +194,7 @@ view: +subscriptions {
       ${plan_interval} = "month"
     THEN
       12 / ${plan_interval_count}
-    END * ${plan_amount} * (1 - IFNULL(${vat_rates.vat}, 0)) / 100;;
+    END * ${plan_amount} * (1 - IFNULL(${vat_rates.vat}, 0)) * IFNULL(${exchange_rates_table.price}, 1) / 100;;
   }
 }
 
@@ -213,17 +213,17 @@ view: subscriptions__active {
     convert_tz: no
     datatype: date
   }
-  
+
   dimension: is_end_of_month {
     type: yesno
     sql: ${active_raw} = LAST_DAY(${active_raw}, MONTH) OR ${active_raw} = DATE(${metadata.last_modified_date}) - 1;;
   }
-  
+
   dimension: is_end_of_quarter {
     type: yesno
     sql: ${active_raw} = LAST_DAY(${active_raw}, QUARTER) OR ${active_raw} = DATE(${metadata.last_modified_date}) - 1;;
   }
-  
+
   dimension: is_end_of_year {
     type: yesno
     sql: ${active_raw} = LAST_DAY(${active_raw}, YEAR) OR ${active_raw} = DATE(${metadata.last_modified_date}) - 1;;
