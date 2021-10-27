@@ -228,6 +228,18 @@ view: subscriptions__active {
     type: yesno
     sql: ${active_raw} = LAST_DAY(${active_raw}, YEAR) OR ${active_raw} = DATE(${metadata.last_modified_date}) - 1;;
   }
+
+  dimension: max_active_date {
+    description: "Get max active date from end date in active date filter.  If null, use last modified date."
+    hidden: yes
+    type: date
+    sql: COALESCE({% date_end active_date %}, ${metadata.last_modified_date})-1;;
+  }
+
+  dimension: is_max_active_date {
+    type: yesno
+    sql:  ${active_raw}=${max_active_date};;
+  }
 }
 
 view: subscriptions__events {
