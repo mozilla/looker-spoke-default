@@ -1391,7 +1391,7 @@
 
         <img style="color: #efefef; padding: 5px 15px; float: left; height: 40px;" src="https://wwwstatic.lookercdn.com/logos/looker_all_white.svg"/>
 
-        <a style="color: #efefef; padding: 5px 15px; float: left; line-height: 40px; font-weight: bold;" href="#home">
+        <a style="color: #efefef; padding: 5px 15px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="#home">
 
        Subscriptions</a>
 
