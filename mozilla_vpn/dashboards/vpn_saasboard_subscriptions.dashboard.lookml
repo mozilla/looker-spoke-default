@@ -129,8 +129,8 @@
       \ the current state and monthly trend of active and new subscriptions.\n<br>\n\
       <br>\n* Active subscriptions are paid subscriptions at a moment in time.  \n\
       <br>\n* New subscriptions are subscriptions that started at a particular date.\n\
-      <br>\n<br>\n\nIf you have any questions, please contact @wichan or @relud on\
-      \ Slack\n</p>"
+      <br>\n<br>\n\nPlease submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
+      >mozilla-vpn-data</a></b> channel on Slack for @wichan or @relud. \n\n</p>"
     row: 2
     col: 3
     width: 16
