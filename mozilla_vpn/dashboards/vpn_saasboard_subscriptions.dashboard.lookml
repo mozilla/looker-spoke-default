@@ -133,7 +133,7 @@
       \ Slack\n</p>"
     row: 2
     col: 3
-    width: 17
+    width: 16
     height: 4
   - title: Current Active Date
     name: Current Active Date
@@ -191,8 +191,8 @@
       Country: subscriptions.country_name
       Active Date: subscriptions__active.active_date
     row: 2
-    col: 20
-    width: 4
+    col: 19
+    width: 5
     height: 4
   - title: Monthly Active Subscriptions (by Country)
     name: Monthly Active Subscriptions (by Country)
