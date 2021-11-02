@@ -330,3 +330,183 @@ explore: +subscriptions {
     }
   }
 }
+
+# Add aggregate tables lookML from VPN SaaSboard - retention
+
+# Place in `mozilla_vpn` model
+explore: +subscriptions {
+  aggregate_table: rollup__subscription_start_month__subscriptions__retention_months_since_subscription_start__0 {
+    query: {
+      dimensions: [subscription_start_month, subscriptions__retention.months_since_subscription_start]
+      measures: [count, subscriptions__retention.retained]
+      filters: [
+        # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+        subscriptions.subscription_start_month: "2020/07/20 to today",
+        subscriptions__retention.is_cohort_complete: "Yes"
+      ]
+    }
+
+    # Please specify a datagroup_trigger or sql_trigger_value
+    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__subscription_start_month__subscriptions__retention_months_since_subscription_start__1 {
+    query: {
+      dimensions: [subscription_start_month, subscriptions__retention.months_since_subscription_start]
+      measures: [count, subscriptions__retention.retained]
+      filters: [
+        # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+        subscriptions.subscription_start_month: "2020/07/20 to today",
+        subscriptions__retention.is_cohort_complete: "Yes"
+      ]
+    }
+
+    # Please specify a datagroup_trigger or sql_trigger_value
+    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__subscription_start_month__subscriptions__retention_months_since_subscription_start__2 {
+    query: {
+      dimensions: [subscription_start_month, subscriptions__retention.months_since_subscription_start]
+      measures: [count, subscriptions__retention.retained]
+      filters: [
+        # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+        subscriptions.subscription_start_month: "2020/07/20 to today",
+        subscriptions__retention.is_cohort_complete: "Yes"
+      ]
+    }
+
+    # Please specify a datagroup_trigger or sql_trigger_value
+    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__subscription_start_month__3 {
+    query: {
+      dimensions: [subscription_start_month]
+      measures: [count, subscriptions__retention.retained]
+      filters: [
+        # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+        subscriptions.subscription_start_month: "2020/07/20 to today",
+        subscriptions__retention.is_current_months_since_subscription_start: "Yes"
+      ]
+    }
+
+    # Please specify a datagroup_trigger or sql_trigger_value
+    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__subscriptions__retention_months_since_subscription_start__4 {
+    query: {
+      dimensions: [subscriptions__retention.months_since_subscription_start]
+      measures: [count, subscriptions__retention.retained]
+      filters: [
+        # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+        subscriptions.subscription_start_month: "2020/07/20 to today",
+        subscriptions__retention.is_cohort_complete: "Yes"
+      ]
+    }
+
+    # Please specify a datagroup_trigger or sql_trigger_value
+    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__subscription_start_date__5 {
+    query: {
+      dimensions: [subscription_start_date]
+      filters: [
+        # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+        subscriptions.subscription_start_month: "2020/07/20 to today"
+      ]
+    }
+
+    # Please specify a datagroup_trigger or sql_trigger_value
+    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__pricing_plan__subscriptions__retention_months_since_subscription_start__6 {
+    query: {
+      dimensions: [pricing_plan, subscriptions__retention.months_since_subscription_start]
+      measures: [count, subscriptions__retention.retained]
+      filters: [
+        # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+        subscriptions.subscription_start_month: "2020/07/20 to today"
+      ]
+    }
+
+    # Please specify a datagroup_trigger or sql_trigger_value
+    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__pricing_plan__subscriptions__retention_months_since_subscription_start__7 {
+    query: {
+      dimensions: [pricing_plan, subscriptions__retention.months_since_subscription_start]
+      measures: [count, subscriptions__retention.retained]
+      filters: [
+        # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+        subscriptions.subscription_start_month: "2020/07/20 to today"
+      ]
+    }
+
+    # Please specify a datagroup_trigger or sql_trigger_value
+    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__pricing_plan__subscriptions__retention_months_since_subscription_start__8 {
+    query: {
+      dimensions: [pricing_plan, subscriptions__retention.months_since_subscription_start]
+      measures: [count, subscriptions__retention.retained]
+      filters: [
+        # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+        subscriptions.subscription_start_month: "2020/07/20 to today"
+      ]
+    }
+
+    # Please specify a datagroup_trigger or sql_trigger_value
+    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__country_name__subscriptions__retention_months_since_subscription_start__9 {
+    query: {
+      dimensions: [country_name, subscriptions__retention.months_since_subscription_start]
+      measures: [count, subscriptions__retention.retained]
+      filters: [
+        subscriptions.subscription_start_month: "2020/07/20 to today",
+        subscriptions__retention.is_cohort_complete: "Yes",
+        subscriptions__retention.months_since_subscription_start: "1,3,6,9,12,0"
+      ]
+    }
+
+    # Please specify a datagroup_trigger or sql_trigger_value
+    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+}
