@@ -328,6 +328,28 @@ view: subscriptions__retention {
     sql: ${subscriptions.subscription_id} || ${months_since_subscription_start};;
   }
 
+  dimension:  is_cohort_complete{
+    description: "For filtering out incomplete cohorts in current month"
+    type: yesno
+    sql: ${subscriptions__retention.months_since_subscription_start} <= ${subscriptions.current_months_since_cohort_complete} ;;
+  }
+
+  dimension:  is_current_months_since_subscription_start{
+    description: "For filtering subscriptions in current month since subscription start"
+    type: yesno
+    sql: ${subscriptions__retention.months_since_subscription_start} = ${subscriptions.current_months_since_subscription_start} ;;
+  }
+
+  measure: retained {
+    description: "Count subscriptions retained for each months_since_subscription_start. It is a cumulative count and used to calculate retention rate."
+    type: count_distinct
+    sql:
+    CASE WHEN ${subscriptions__retention.months_since_subscription_start} <= ${subscriptions.months_retained}
+    THEN ${subscriptions.subscription_id}
+    ELSE NULL
+    END ;;
+  }
+
   measure: count {
     description: "Count subscriptions once for each months_since_subscription_start. Used to calculate average churn per month. DO NOT USE FOR RETENTION RATE, because it is cumulative and should not be averaged."
     type: count
