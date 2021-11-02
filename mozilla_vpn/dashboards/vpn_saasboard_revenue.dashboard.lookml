@@ -1,5 +1,5 @@
-- dashboard: vpn_saasboard_revenue
-  title: Vpn Saasboard - Revenue (Restricted Access)
+- dashboard: vpn_saasboard__revenue_restricted_access
+  title: VPN Saasboard - Revenue (Restricted Access)
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
@@ -15,13 +15,13 @@
       subscriptions__active.is_end_of_month: 'Yes'
     sorts: [subscriptions__active.active_month]
     limit: 500
-    dynamic_fields: [{_kind_hint: measure, table_calculation: active_subscribers,
-        _type_hint: number, category: table_calculation, expression: "${subscriptions.count}\
-          \ / offset(${subscriptions.count}, -1) -1", label: Active Subscribers, value_format: !!null '',
-        value_format_name: percent_1, is_disabled: false}, {category: table_calculation,
+    dynamic_fields: [{category: table_calculation, expression: "${subscriptions.count}\
+          \ / offset(${subscriptions.count}, -1) -1", label: Active Subscriptions,
+        value_format: !!null '', value_format_name: percent_1, _kind_hint: measure,
+        table_calculation: active_subscriptions, _type_hint: number}, {category: table_calculation,
         expression: "${sum_of_annual_recurring_revenue} / offset(${sum_of_annual_recurring_revenue},\
-          \ -1) -1", label: ARR, value_format: !!null '', value_format_name: percent_1,
-        _kind_hint: measure, table_calculation: arr, _type_hint: number, is_disabled: false},
+          \ -1) -1", label: Annual Recurring Revenue, value_format: !!null '', value_format_name: percent_1,
+        _kind_hint: measure, table_calculation: annual_recurring_revenue_1, _type_hint: number},
       {category: dimension, expression: "case(\n  when(\n    ${subscriptions.plan_interval}\
           \ = \"year\",\n    1/${subscriptions.plan_interval_count}\n  ),\n  when(\n\
           \    ${subscriptions.plan_interval} = \"month\",\n    12/${subscriptions.plan_interval_count}\n\
@@ -67,6 +67,8 @@
       new_calculation: "#0060E0"
       active_subscribers: "#0060E0"
       arr: "#FF505F"
+      active_subscriptions: "#0060E0"
+      annual_recurring_revenue_1: "#ff3825"
     x_axis_datetime_label: ''
     ordering: none
     show_null_labels: false
@@ -77,18 +79,16 @@
     hidden_fields: [subscriptions.count, subscriptions.sum_revenue, sum_of_annual_recurring_revenue]
     listen:
       Active Date: subscriptions__active.active_date
-      Plan Currency: subscriptions.plan_currency
-    row: 4
-    col: 16
-    width: 8
+    row: 15
+    col: 0
+    width: 12
     height: 9
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: <img src="https://www.mozilla.org/media/img/logos/vpn/logo-with-wordmark.c1659f9e6dd6.svg"
       style="width:160px;height:50px;">
-    row: 0
+    row: 2
     col: 0
     width: 3
     height: 4
@@ -96,12 +96,11 @@
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: "## **⚠️ Warning ⚠️  This dashboard is under development and not ready\
-      \ for use.**\n\n<font color=\"5E488C\" size=\"3\">This visualization captures\
-      \ the <b>annual reccuring revenue</b> \n</font>\n\n [**TODO**]  net revenue\
-      \ is net of sales taxes/VAT \n [**TODO**]  ARR By Month\n\nIf you have any questions,\
-      \ please contact @wichan or @relud on Slack."
-    row: 0
+    body_text: "<p style='background-color: #ffffdd; padding: 5px 10px; border: solid\
+      \ 3px #ededed; border-radius: 5px; height:150px'>\n\nThis dashboard captures\
+      \ revenue.\n\n<br>\n<br>\nPlease submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
+      >mozilla-vpn-data</a></b> channel on Slack for @wichan or @relud. \n\n</p>"
+    row: 2
     col: 3
     width: 15
     height: 4
@@ -183,10 +182,9 @@
       Country Name: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Active Date: subscriptions__active.active_date
-      Plan Currency: subscriptions.plan_currency
-    row: 4
+    row: 6
     col: 0
-    width: 8
+    width: 12
     height: 9
   - title: Annual Recurring Revenue (By Plan)
     name: Annual Recurring Revenue (By Plan)
@@ -262,29 +260,19 @@
       Country Name: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Active Date: subscriptions__active.active_date
-      Plan Currency: subscriptions.plan_currency
-    row: 4
-    col: 8
-    width: 8
+    row: 6
+    col: 12
+    width: 12
     height: 9
   - name: ARR by Month Graph - bar chart
     type: text
     title_text: ARR by Month Graph - bar chart
-    subtitle_text: Under Development - pending accounting support
+    subtitle_text: Under Development - pending finance/accounting support
     body_text: ''
-    row: 13
-    col: 0
-    width: 8
+    row: 15
+    col: 12
+    width: 12
     height: 9
-  - name: " (3)"
-    type: text
-    title_text: ''
-    subtitle_text: ''
-    body_text: "---------------------------\n\n"
-    row: 22
-    col: 0
-    width: 24
-    height: 18
   - title: Untitled
     name: Untitled
     model: mozilla_vpn
@@ -308,11 +296,44 @@
     defaults_version: 1
     listen:
       Active Date: subscriptions__active.active_date
-      Plan Currency: subscriptions.plan_currency
-    row: 0
+    row: 2
     col: 18
     width: 6
     height: 4
+  - name: " (3)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: |
+      <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px; color: red;">
+
+      <nav style="font-size: 20px;">
+
+        <img style="color: #efefef; padding: 5px 25px; float: left; height: 40px;" src="https://wwwstatic.lookercdn.com/logos/looker_all_white.svg"/>
+
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="#home">
+
+       Active Subscriptions</a>
+
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="#home">
+
+       Subscriptions Growth</a>
+
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="#news">Retention</a>
+
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="#contact">Churn</a>
+
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="#about">Revenue</a>
+
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1VtrTwm8Eqt9cPLZLaH1kjnM413gKtdaZArS29xcxXpA/edit?usp=sharing">Documentation</a>
+
+      </nav>
+
+      </div>
+    row: 0
+    col: 0
+    width: 24
+    height: 2
   filters:
   - name: Provider
     title: Provider
@@ -326,7 +347,7 @@
       options: []
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Plan Currency, Pricing Plan, Country Name]
+    listens_to_filters: [Pricing Plan, Country Name]
     field: subscriptions.provider
   - name: Pricing Plan
     title: Pricing Plan
@@ -340,22 +361,8 @@
       options: []
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Plan Currency, Provider, Country Name]
+    listens_to_filters: [Provider, Country Name]
     field: subscriptions.pricing_plan
-  - name: Plan Currency
-    title: Plan Currency
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: checkboxes
-      display: popover
-      options: []
-    model: mozilla_vpn
-    explore: subscriptions
-    listens_to_filters: [Provider, Pricing Plan, Country Name]
-    field: subscriptions.plan_currency
   - name: Country Name
     title: Country Name
     type: field_filter
@@ -368,7 +375,7 @@
       options: []
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Plan Currency, Provider, Pricing Plan]
+    listens_to_filters: [Provider, Pricing Plan]
     field: subscriptions.country_name
   - name: Active Date
     title: Active Date
