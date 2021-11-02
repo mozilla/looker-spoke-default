@@ -333,6 +333,7 @@ explore: +subscriptions {
 
 # Add aggregate tables lookML from VPN SaaSboard - retention
 
+# Place in `mozilla_vpn` model
 explore: +subscriptions {
   aggregate_table: rollup__subscription_start_month__subscriptions__retention_months_since_subscription_start__0 {
     query: {
@@ -501,8 +502,9 @@ explore: +subscriptions {
         subscriptions__retention.months_since_subscription_start: "1,3,6,9,12,0"
       ]
     }
-      # Please specify a datagroup_trigger or sql_trigger_value
-      # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
+
+    # Please specify a datagroup_trigger or sql_trigger_value
+    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }

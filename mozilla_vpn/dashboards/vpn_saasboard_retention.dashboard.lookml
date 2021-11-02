@@ -1,5 +1,5 @@
 - dashboard: vpn_saasboard__retention
-  title: VPN Saasboard - Retention
+  title: VPN SaaSboard - Retention
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
@@ -28,7 +28,7 @@
       <br>\nA cohort refers to a group of subscriptions that started their subscriptions\
       \ in a particular month.\n<br>\n<br>\nPlease submit any questions in  <b><a\
       \ href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\">mozilla-vpn-data</a></b>\
-      \ channel on Slack for @wichan or @relud. \n\n</p>\n\n"
+      \ channel on Slack for @wichan or @relud. \n\n</p>\n\n\nTODO: fix nav links"
     row: 2
     col: 3
     width: 16
@@ -39,7 +39,10 @@
     subtitle_text: ''
     body_text: |2-
 
-      ## **Retention Rate**
+
+      <div style="border-top: solid 2px #e0e0e0;">
+
+      <h3><b>Retention Rate</b></h3>
     row: 7
     col: 0
     width: 24
@@ -574,10 +577,6 @@
     column_group_spacing_ratio: 0.3
     defaults_version: 1
     hidden_fields: [subscriptions.count]
-    note_state: expanded
-    note_display: above
-    note_text: Subscriptions are counted in every month less than or equal to their
-      current months since subscription started
     show_row_numbers: true
     transpose: false
     truncate_text: true
@@ -734,9 +733,13 @@
   - name: " (4)"
     type: text
     title_text: ''
+    subtitle_text: ''
     body_text: |2-
 
-      ## **Retention by Cohort**
+
+      <div style="border-top: solid 2px #e0e0e0;">
+
+      <h3><b>Retention by Cohort</b></h3>
     row: 39
     col: 0
     width: 24
@@ -744,8 +747,13 @@
   - name: " (5)"
     type: text
     title_text: ''
-    body_text: |-
-      ---------------------      ## **Retention by Plan**
+    subtitle_text: ''
+    body_text: |2-
+
+
+      <div style="border-top: solid 2px #e0e0e0;">
+
+      <h3><b>Retention by Plan</b></h3>
     row: 20
     col: 0
     width: 24
@@ -959,8 +967,13 @@
   - name: " (6)"
     type: text
     title_text: ''
-    body_text: |-
-      ---------------------      ## **Retention by Country**
+    subtitle_text: ''
+    body_text: |2-
+
+
+      <div style="border-top: solid 2px #e0e0e0;">
+
+      <h3><b>Retention by Country</b></h3>
     row: 57
     col: 0
     width: 24
@@ -1054,25 +1067,28 @@
     type: text
     title_text: ''
     subtitle_text: ''
-    #TODO: Adjust height of nav bar and fix nav links
     body_text: |
-      <div style="border-radius: 5px; padding: 10px 10px; background: #412399; height: 100px; color: red;">
+      <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px; color: red;">
 
       <nav style="font-size: 20px;">
 
-        <img style="color: #efefef; padding: 5px 15px; float: left; height: 40px;" src="https://wwwstatic.lookercdn.com/logos/looker_all_white.svg"/>
+        <img style="color: #efefef; padding: 5px 25px; float: left; height: 40px;" src="https://wwwstatic.lookercdn.com/logos/looker_all_white.svg"/>
 
-        <a style="color: #efefef; padding: 5px 15px; float: left; line-height: 40px;" href="#home">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="#home">
 
-       Subscriptions</a>
+       Active Subscriptions</a>
 
-        <a style="color: #efefef; padding: 5px 15px; float: left; line-height: 40px; font-weight: bold; text-decoration:underline;" href="#news">Retention</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="#home">
 
-      <a style="color: #efefef; padding: 5px 15px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/167?Subscription%20Start%20Date=2020%2F07%2F20%20to%20today&Provider=&Pricing%20Plan=&Country=">Churn</a>
+       Subscriptions Growth</a>
 
-        <a style="color: #efefef; padding: 5px 15px; float: left; line-height: 40px;" href="#about">Revenue</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="#news">Retention</a>
 
-        <a style="color: #efefef; padding: 5px 15px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1VtrTwm8Eqt9cPLZLaH1kjnM413gKtdaZArS29xcxXpA/edit?usp=sharing">Documentation</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="#contact">Churn</a>
+
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="#about">Revenue</a>
+
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1VtrTwm8Eqt9cPLZLaH1kjnM413gKtdaZArS29xcxXpA/edit?usp=sharing">Documentation</a>
 
       </nav>
 
