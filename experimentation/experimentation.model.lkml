@@ -19,14 +19,134 @@ view: +experiment_enrollment_daily_active_population {
 }
 
 view: +experiment_enrollment_cumulative_population_estimate {
-  dimension: experiment {
-    suggest_explore: experimenter_experiments
+  # Resource exceeded when querying mozdata.telemetry.experiment_enrollment_cumulative_population_estimate
+  derived_table: {
+    sql:
+      WITH all_branches AS (
+        -- We need to determine all available branches for this experiment
+        SELECT DISTINCT
+          branch,
+          experiment
+        FROM
+          `moz-fx-data-shared-prod.telemetry_derived.experiment_enrollment_aggregates_live_v1`
+        WHERE experiment = {% parameter experiment_slug %}
+      ),
+      non_null_branches AS (
+        -- We need to determine if the experiment is a rollout. Rollouts do not have any branches,
+        -- so unlike other experiments, null branches cannot be ignored.
+        -- To determine if an experiment is a rollout, we can simply determine the number of non-null
+        -- branches. If that number is 0, then we have a rollout.
+        SELECT
+          experiment,
+          COUNTIF(branch IS NOT NULL) AS non_null_count
+        FROM
+          all_branches
+        GROUP BY
+          experiment
+      ),
+      branches AS (
+        SELECT
+          experiment,
+          IF(
+            all_branches.branch IS NULL,
+            IF(non_null_count = 0, 'null', all_branches.branch),
+            all_branches.branch
+          ) AS branch
+        FROM
+          all_branches
+        LEFT JOIN
+          non_null_branches
+        USING
+          (experiment)
+      ),
+      cumulative_populations AS (
+        SELECT
+          window_start,
+          branch,
+          experiment,
+          SUM(COALESCE(enroll_count, 0)) OVER previous_rows_window AS cumulative_enroll_count,
+          SUM(COALESCE(unenroll_count, 0)) OVER previous_rows_window AS cumulative_unenroll_count,
+          SUM(COALESCE(graduate_count, 0)) OVER previous_rows_window AS cumulative_graduate_count
+        FROM (
+          SELECT
+            branch,
+            window_start,
+            experiment,
+            enroll_count,
+            unenroll_count,
+            graduate_count
+          FROM `moz-fx-data-shared-prod.telemetry_derived.experiment_enrollment_aggregates_live_v1`
+          WHERE experiment = {% parameter experiment_slug %}
+        )
+        WINDOW
+          previous_rows_window AS (
+            PARTITION BY
+              experiment,
+              branch
+            ORDER BY
+              window_start
+            ROWS BETWEEN
+              UNBOUNDED PRECEDING
+              AND CURRENT ROW
+          )
+      )
+      SELECT
+        `time`,
+        experiment,
+        branch,
+        (SELECT COUNT(branch) FROM all_branches) AS total_branches,
+        sum(cumulative_population) AS value
+      FROM
+        (
+          SELECT
+            window_start AS `time`,
+            branch,
+            experiment,
+            min(`cumulative_enroll_count`) - min(`cumulative_unenroll_count`) - min(
+              `cumulative_graduate_count`
+            ) AS cumulative_population
+          FROM
+            cumulative_populations
+          GROUP BY
+            1,
+            2,
+            3
+          ORDER BY
+            1
+        )
+      GROUP BY
+        1,
+        2,
+        3,
+        4;;
+  }
+
+  dimension: total_branches {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.total_branches ;;
+  }
+
+  parameter: experiment_slug {
+    type: string
     suggest_dimension: experimenter_experiments.normandy_slug
+    suggest_explore: experimenter_experiments
+  }
+
+  parameter: by_branch {
+    type: yesno
+    default_value: "no"
+  }
+
+  measure: branch_count {
+    hidden: yes
+    type: number
+    sql: COUNT(DISTINCT ${branch}) ;;
   }
 
   measure: Total {
     type: number
-    sql: SUM(${value}) ;;
+    sql: IF((${branch_count} < MAX(${total_branches}) AND NOT {% parameter by_branch %}), NULL, SUM(${value})) ;;
   }
 
   filter: timeframe {
