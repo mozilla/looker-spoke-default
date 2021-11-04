@@ -1,5 +1,5 @@
 - dashboard: vpn_saasboard__revenue_restricted_access
-  title: VPN Saasboard - Revenue (Restricted Access)
+  title: VPN SaaSboard - Revenue (Restricted Access)
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
