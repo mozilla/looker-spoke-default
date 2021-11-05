@@ -30,6 +30,12 @@ view: +subscriptions {
     hidden: yes
   }
 
+  dimension: country_name {
+    description: "Add placeholder string for null values.  This is to allow selection of Null values in country name checkbox filters in dashboards"
+    sql: COALESCE(${TABLE}.country_name, 'Null') ;;
+    type: string
+  }
+
   dimension: cancel_at_period_end {
     hidden: yes
   }
@@ -338,6 +344,30 @@ view: subscriptions__retention {
     description: "For filtering subscriptions in current month since subscription start"
     type: yesno
     sql: ${subscriptions__retention.months_since_subscription_start} = ${subscriptions.current_months_since_subscription_start} ;;
+  }
+
+  measure: churned {
+    description: "Count subscriptions churned on each months_since_subscription_start. It is used to calculate churn rate."
+    type: sum
+    sql:
+    CASE WHEN ${subscriptions__retention.months_since_subscription_start} = ${subscriptions.months_retained} + 1
+    THEN 1
+    ELSE NULL
+    END ;;
+  }
+
+  measure: previously_retained {
+    description: "Count subscriptions previously retained on each months_since_subscription_start. It is used to calculate churn rate."
+    type: sum
+    sql:
+    CASE WHEN if(
+  ${subscriptions__retention.months_since_subscription_start} > 0,
+  ${subscriptions__retention.months_since_subscription_start} <= ${subscriptions.months_retained} + 1,
+  null
+  )
+    THEN 1
+    ELSE NULL
+    END ;;
   }
 
   measure: retained {

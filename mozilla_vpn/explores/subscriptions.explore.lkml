@@ -62,7 +62,6 @@ explore: subscriptions {
 
 # Add aggregate tables lookML from VPN SaaSboard - Subscriptions
 
-# Place in `mozilla_vpn` model
 explore: +subscriptions {
   aggregate_table: rollup__subscriptions__active_active_date__0 {
     query: {
@@ -333,7 +332,6 @@ explore: +subscriptions {
 
 # Add aggregate tables lookML from VPN SaaSboard - retention
 
-# Place in `mozilla_vpn` model
 explore: +subscriptions {
   aggregate_table: rollup__subscription_start_month__subscriptions__retention_months_since_subscription_start__0 {
     query: {
@@ -500,6 +498,140 @@ explore: +subscriptions {
         subscriptions.subscription_start_month: "2020/07/20 to today",
         subscriptions__retention.is_cohort_complete: "Yes",
         subscriptions__retention.months_since_subscription_start: "1,3,6,9,12,0"
+      ]
+    }
+
+    # Please specify a datagroup_trigger or sql_trigger_value
+    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+}
+
+# Add aggregate tables lookML from VPN SaaSboard - churn
+
+explore: +subscriptions {
+  aggregate_table: rollup__country_name__pricing_plan__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__0 {
+    query: {
+      dimensions: [country_name, pricing_plan, provider, subscription_start_date, subscriptions__retention.months_since_subscription_start]
+      measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
+      filters: [
+        subscriptions__retention.is_cohort_complete: "Yes",
+        subscriptions__retention.months_since_subscription_start: ">0"
+      ]
+    }
+
+    # Please specify a datagroup_trigger or sql_trigger_value
+    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__country_name__pricing_plan__provider__subscription_start_date__1 {
+    query: {
+      dimensions: [country_name, pricing_plan, provider, subscription_start_date]
+      measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
+      filters: [
+        subscriptions__retention.is_cohort_complete: "Yes",
+        subscriptions__retention.months_since_subscription_start: ">0"
+      ]
+    }
+
+    # Please specify a datagroup_trigger or sql_trigger_value
+    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__country_name__pricing_plan__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__2 {
+    query: {
+      dimensions: [country_name, pricing_plan, provider, subscription_start_date, subscriptions__retention.months_since_subscription_start]
+      measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
+      filters: [subscriptions__retention.is_cohort_complete: "Yes"]
+    }
+
+    # Please specify a datagroup_trigger or sql_trigger_value
+    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__country_name__pricing_plan__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__3 {
+    query: {
+      dimensions: [country_name, pricing_plan, provider, subscription_start_date, subscriptions__retention.months_since_subscription_start]
+      measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
+      filters: [
+        subscriptions__retention.is_cohort_complete: "Yes",
+        subscriptions__retention.months_since_subscription_start: ">0"
+      ]
+    }
+
+    # Please specify a datagroup_trigger or sql_trigger_value
+    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__country_name__pricing_plan__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__4 {
+    query: {
+      dimensions: [country_name, pricing_plan, provider, subscription_start_date, subscriptions__retention.months_since_subscription_start]
+      measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
+      filters: [subscriptions__retention.months_since_subscription_start: ">0"]
+    }
+
+    # Please specify a datagroup_trigger or sql_trigger_value
+    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__country_name__pricing_plan__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__5 {
+    query: {
+      dimensions: [country_name, pricing_plan, provider, subscription_start_date, subscriptions__retention.months_since_subscription_start]
+      measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
+      filters: [
+        subscriptions__retention.is_cohort_complete: "Yes",
+        subscriptions__retention.months_since_subscription_start: ">0"
+      ]
+    }
+
+    # Please specify a datagroup_trigger or sql_trigger_value
+    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__country_name__pricing_plan__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__6 {
+    query: {
+      dimensions: [country_name, pricing_plan, provider, subscription_start_date, subscriptions__retention.months_since_subscription_start]
+      measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
+      filters: [
+        subscriptions__retention.is_cohort_complete: "Yes",
+        subscriptions__retention.months_since_subscription_start: ">0"
+      ]
+    }
+
+    # Please specify a datagroup_trigger or sql_trigger_value
+    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__country_name__pricing_plan__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__7 {
+    query: {
+      dimensions: [country_name, pricing_plan, provider, subscription_start_date, subscriptions__retention.months_since_subscription_start]
+      measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
+      filters: [
+        subscriptions__retention.is_cohort_complete: "Yes",
+        subscriptions__retention.months_since_subscription_start: ">0"
       ]
     }
 
