@@ -30,6 +30,12 @@ view: +subscriptions {
     hidden: yes
   }
 
+  dimension: country_name {
+    description: "Add placeholder string for null values.  This is to allow selection of Null values in country name checkbox filters in dashboards"
+    sql: COALESCE(${TABLE}.country_name, 'Null') ;;
+    type: string
+  }
+
   dimension: cancel_at_period_end {
     hidden: yes
   }
@@ -326,6 +332,52 @@ view: subscriptions__retention {
     primary_key: yes
     hidden: yes
     sql: ${subscriptions.subscription_id} || ${months_since_subscription_start};;
+  }
+
+  dimension:  is_cohort_complete{
+    description: "For filtering out incomplete cohorts in current month"
+    type: yesno
+    sql: ${subscriptions__retention.months_since_subscription_start} <= ${subscriptions.current_months_since_cohort_complete} ;;
+  }
+
+  dimension:  is_current_months_since_subscription_start{
+    description: "For filtering subscriptions in current month since subscription start"
+    type: yesno
+    sql: ${subscriptions__retention.months_since_subscription_start} = ${subscriptions.current_months_since_subscription_start} ;;
+  }
+
+  measure: churned {
+    description: "Count subscriptions churned on each months_since_subscription_start. It is used to calculate churn rate."
+    type: sum
+    sql:
+    CASE WHEN ${subscriptions__retention.months_since_subscription_start} = ${subscriptions.months_retained} + 1
+    THEN 1
+    ELSE NULL
+    END ;;
+  }
+
+  measure: previously_retained {
+    description: "Count subscriptions previously retained on each months_since_subscription_start. It is used to calculate churn rate."
+    type: sum
+    sql:
+    CASE WHEN if(
+  ${subscriptions__retention.months_since_subscription_start} > 0,
+  ${subscriptions__retention.months_since_subscription_start} <= ${subscriptions.months_retained} + 1,
+  null
+  )
+    THEN 1
+    ELSE NULL
+    END ;;
+  }
+
+  measure: retained {
+    description: "Count subscriptions retained for each months_since_subscription_start. It is a cumulative count and used to calculate retention rate."
+    type: count_distinct
+    sql:
+    CASE WHEN ${subscriptions__retention.months_since_subscription_start} <= ${subscriptions.months_retained}
+    THEN ${subscriptions.subscription_id}
+    ELSE NULL
+    END ;;
   }
 
   measure: count {

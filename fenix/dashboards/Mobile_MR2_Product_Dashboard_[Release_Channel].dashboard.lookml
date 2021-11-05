@@ -1,5 +1,5 @@
-- dashboard: android_beta_mobile_mr2_product_dashboard
-  title: Android Beta Mobile MR2 Product Dashboard
+- dashboard: android_release_mobile_mr2_product_dashboard
+  title: Android Release Mobile MR2 Product Dashboard
   layout: newspaper
   preferred_viewer: dashboards-next
   elements:
@@ -12,7 +12,7 @@
       metrics.clients]
     pivots: [metrics.metrics__string__metrics_close_tab_setting]
     filters:
-      metrics.channel: mozdata.org^_mozilla^_firefox^_beta.metrics
+      metrics.channel: mozdata.fenix.metrics
       metrics.submission_date: 28 days
     sorts: [metrics.submission_date desc, metrics.metrics__string__metrics_close_tab_setting]
     x_axis_gridlines: false
@@ -58,7 +58,7 @@
     pivots: [client_counts.app_display_version]
     fill_fields: [client_counts.submission_date]
     filters:
-      client_counts.channel: mozdata.org^_mozilla^_firefox^_beta.baseline^_clients^_daily
+      client_counts.channel: mozdata.fenix.baseline^_clients^_daily
       client_counts.submission_date: 28 days
       client_counts.app_display_version: 9%
     sorts: [client_counts.submission_date desc, client_counts.app_display_version]
@@ -108,7 +108,7 @@
       events.submission_date: 28 days
       events.event_category: events
       events.event_name: '"recently_closed_tabs_opened"'
-      events.normalized_channel: beta
+      events.normalized_channel: release
     sorts: [events.submission_date desc]
     limit: 500
     column_limit: 50
@@ -157,7 +157,7 @@
       events.submission_date: 28 days
       events.event_category: '"start_on_home",events'
       events.event_name: '"enter_home_screen","browser_toolbar_home_tapped","search_bar_tapped"'
-      events.normalized_channel: beta
+      events.normalized_channel: release
     sorts: [events.submission_date desc, events.event_name]
     limit: 500
     x_axis_gridlines: false
@@ -213,7 +213,7 @@
     pivots: [metrics.metrics__boolean__metrics_default_browser]
     fill_fields: [metrics.submission_date, metrics.metrics__boolean__metrics_default_browser]
     filters:
-      metrics.channel: mozdata.org^_mozilla^_firefox^_beta.metrics
+      metrics.channel: mozdata.fenix.metrics
       metrics.submission_date: 28 days
     sorts: [metrics.submission_date desc, metrics.metrics__boolean__metrics_default_browser]
     limit: 500
@@ -276,7 +276,7 @@
       events.submission_date: 28 days
       events.event_category: awesomebar
       events.event_name: '"search_suggestion_clicked","search_action_clicked","history_suggestion_clicked","bookmark_suggestion_clicked","opened_tab_suggestion_clicked","clipboard_suggestion_clicked"'
-      events.normalized_channel: beta
+      events.normalized_channel: release
     sorts: [events.submission_date desc, events.event_name]
     limit: 500
     x_axis_gridlines: false
@@ -337,7 +337,7 @@
       events.submission_date: 28 days
       events.event_category: '"top_sites"'
       events.event_name: '"open_default","open_frecency","open_google_search_attribution","open_baidu_search_attribution"'
-      events.normalized_channel: beta
+      events.normalized_channel: release
     sorts: [events.submission_date desc, events.event_name]
     limit: 500
     x_axis_gridlines: false
@@ -408,7 +408,7 @@
     pivots: [events.event_name]
     fill_fields: [events.submission_date]
     filters:
-      events.normalized_channel: beta
+      events.normalized_channel: release
       events.event_name: open,copied,edited,"folder_add","folder_remove",moved,"multi_removed","open_in_new_tab","open_in_new_tabs","open_in_private_tab","open_in_private_tabs",removed,shared
       events.event_category: '"bookmarks_management"'
       events.submission_date: 56 days
@@ -475,7 +475,7 @@
     fill_fields: [mobile_search_clients_engines_sources_daily.submission_date]
     filters:
       mobile_search_clients_engines_sources_daily.submission_date: 28 days
-      mobile_search_clients_engines_sources_daily.channel: beta
+      mobile_search_clients_engines_sources_daily.channel: release
     sorts: [mobile_search_clients_engines_sources_daily.submission_date desc]
     limit: 500
     x_axis_gridlines: false
@@ -517,7 +517,7 @@
     title_text: Product Dashboard
     subtitle_text: For questions or feedback, @kimmy on slack.
     body_text: |-
-      This dashboard focuses on metrics that track product changes made during the launch of MR2 for Android, primarily for the BETA channel. The release channel will have its own dashboard. There are a few primary sections for these metrics
+      This dashboard focuses on metrics that track product changes made during the launch of MR2 for Android, primarily for the release channel. There is a separate dashboard for the Beta channel. There are a few primary sections for these metrics
 
       1. Overall Product Metrics
       2. Home Screen Metrics
@@ -553,7 +553,7 @@
       step_1.event: '"enter_home_screen"'
       step_2.category: '"recent_tabs"'
       step_2.event: '"recent_tab_opened"'
-      funnel_analysis.app_channel: beta
+      funnel_analysis.app_channel: release
     sorts: [funnel_analysis.submission_date desc]
     limit: 500
     x_axis_gridlines: false
@@ -608,7 +608,7 @@
       step_1.event: '"enter_home_screen"'
       step_2.category: '"recent_tabs"'
       step_2.event: '"show_all_clicked"'
-      funnel_analysis.app_channel: beta
+      funnel_analysis.app_channel: release
     sorts: [funnel_analysis.submission_date desc]
     limit: 500
     x_axis_gridlines: false
@@ -650,15 +650,15 @@
     col: 12
     width: 12
     height: 7
-  - title: Count of Recent Bookmark Clicked from Home
-    name: Count of Recent Bookmark Clicked from Home
+  - title: Count of Users Clicking Recent Bookmarks from Home
+    name: Count of Users Clicking Recent Bookmarks from Home
     model: fenix
     explore: metrics
     type: looker_line
     fields: [metrics.submission_date, metrics.recent_bookmarks_bookmark_clicked_client_count]
     fill_fields: [metrics.submission_date]
     filters:
-      metrics.channel: mozdata.org^_mozilla^_firefox^_beta.metrics
+      metrics.channel: mozdata.fenix.metrics
       metrics.submission_date: 28 days
     sorts: [metrics.submission_date desc]
     limit: 500
@@ -716,7 +716,7 @@
       events.submission_date: 28 days
       events.event_category: events
       events.event_name: '"app_opened"'
-      events.normalized_channel: beta
+      events.normalized_channel: release
     sorts: [events.submission_date desc]
     limit: 500
     x_axis_gridlines: false
@@ -765,7 +765,7 @@
       step_1.event: '"enter_home_screen"'
       step_2.category: '"start_on_home"'
       step_2.event: '"open_tabs_tray"'
-      funnel_analysis.app_channel: beta
+      funnel_analysis.app_channel: release
     sorts: [funnel_analysis.submission_date desc]
     limit: 500
     x_axis_gridlines: false
@@ -820,7 +820,7 @@
       step_1.event: opened
       step_2.category: '"tabs_tray"'
       step_2.event: '"new_tab_tapped"'
-      funnel_analysis.app_channel: beta
+      funnel_analysis.app_channel: release
     sorts: [funnel_analysis.submission_date desc]
     limit: 500
     x_axis_gridlines: false
@@ -990,7 +990,7 @@
       step_1.event: opened
       step_2.category: '"tabs_tray"'
       step_2.event: '"inactive_tabs_expanded"'
-      funnel_analysis.app_channel: beta
+      funnel_analysis.app_channel: release
     sorts: [funnel_analysis.submission_date desc]
     limit: 500
     x_axis_gridlines: false
@@ -1027,6 +1027,7 @@
     note_display: above
     note_text: Percentage of tabs tray visits that also expand inactive tabs. Multiply
       by 100 for percentages.
+    listen: {}
     row: 83
     col: 0
     width: 12
@@ -1044,7 +1045,7 @@
       step_1.event: '"app_opened"'
       step_2.category: '"customize_home"'
       step_2.event: '"preference_toggled"'
-      funnel_analysis.app_channel: beta
+      funnel_analysis.app_channel: release
     sorts: [funnel_analysis.submission_date desc]
     limit: 500
     x_axis_gridlines: false
@@ -1082,6 +1083,7 @@
     note_text: Percentage of daily users that toggled a preference regarding customizing
       the home page (jump back in, most visited sites, recently saved, recently visited,
       pocket). Multiply by 100 for percentages.
+    listen: {}
     row: 37
     col: 0
     width: 12
@@ -1099,7 +1101,7 @@
       step_1.event: '"app_opened"'
       step_2.category: preferences
       step_2.event: '"inactive_tabs_enabled"'
-      funnel_analysis.app_channel: beta
+      funnel_analysis.app_channel: release
     sorts: [funnel_analysis.submission_date desc]
     limit: 500
     x_axis_gridlines: false
@@ -1154,7 +1156,7 @@
       step_1.event: opened
       step_2.category: '"tabs_tray"'
       step_2.event: '"inactive_tabs_collapsed"'
-      funnel_analysis.app_channel: beta
+      funnel_analysis.app_channel: release
     sorts: [funnel_analysis.submission_date desc]
     limit: 500
     x_axis_gridlines: false
@@ -1191,6 +1193,7 @@
     note_display: above
     note_text: Percentage of tabs tray visits that also expand inactive tabs. Multiply
       by 100 for percentages.
+    listen: {}
     row: 83
     col: 12
     width: 12
@@ -1208,7 +1211,7 @@
       step_1.event: '"enter_home_screen"'
       step_2.category: '"recent_bookmarks"'
       step_2.event: '"bookmark_clicked"'
-      funnel_analysis.app_channel: beta
+      funnel_analysis.app_channel: release
     sorts: [funnel_analysis.submission_date desc]
     limit: 500
     x_axis_gridlines: false
@@ -1245,6 +1248,7 @@
     note_display: above
     note_text: Percentage of users that opened a recent tab from the home screen Jump
       Back In section. Multiply by 100 for percentages.
+    listen: {}
     row: 67
     col: 0
     width: 12
