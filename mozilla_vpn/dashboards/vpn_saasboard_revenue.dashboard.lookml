@@ -98,7 +98,7 @@
     subtitle_text: ''
     body_text: "<p style='background-color: #ffffdd; padding: 5px 10px; border: solid\
       \ 3px #ededed; border-radius: 5px; height:150px'>\n\nThis dashboard captures\
-      \ revenue.\n\n<br>\n<br>\nPlease submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
+      \ <strong>revenue</strong>.\n\n<br>\n<br>\nPlease submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
       >mozilla-vpn-data</a></b> channel on Slack for @wichan or @relud. \n\n</p>"
     row: 2
     col: 3

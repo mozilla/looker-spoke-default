@@ -20,7 +20,7 @@
     title_text: ''
     body_text: "<p style='background-color: #ffffdd; padding: 5px 10px; border: solid\
       \ 3px #ededed; border-radius: 5px; height:150px'>\n\nThis dashboard captures\
-      \ the current state and monthly trend of new subscriptions.\n<br>\n\
+      \ the current state and monthly trend of <strong>new subscriptions</strong>.\n<br>\n\
       <br>\n* New subscriptions are subscriptions that started at a particular date.\n\
       <br>\n<br>\n\nPlease submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
       >mozilla-vpn-data</a></b> channel on Slack for @wichan or @relud. \n\n</p>"

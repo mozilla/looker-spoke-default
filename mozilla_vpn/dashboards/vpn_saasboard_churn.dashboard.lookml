@@ -19,7 +19,7 @@
     subtitle_text: ''
     body_text: "<div style='background-color: #ffffdd; padding: 5px 10px; border:\
       \ solid 3px #ededed; border-radius: 5px; height:220px'>\n\nThis dashboard capture\
-      \ subscription churn.\n\n<ul>\n  <li>A cohort refers to the group of subscriptions\
+      \ <strong>subscription churn</strong>.\n\n<ul>\n  <li>A cohort refers to the group of subscriptions\
       \ that started in a particular month.  For example, cohort 07-2020 includes\
       \ all subscriptions that started in the month of July 2020.</li>\n  <li>Churn\
       \ rate is the percentage of not-retained subscriptions out of the number retained\
