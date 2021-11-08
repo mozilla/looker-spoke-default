@@ -19,7 +19,7 @@
     subtitle_text: ''
     body_text: "<div style='background-color: #ffffdd; padding: 5px 10px; border:\
       \ solid 3px #ededed; border-radius: 5px; height:220px'>\n\nThis dashboard capture\
-      \ subscription churn.\n\n<ul>\n  <li>A cohort refers to the group of subscriptions\
+      \ <strong>subscription churn</strong>.\n\n<ul>\n  <li>A cohort refers to the group of subscriptions\
       \ that started in a particular month.  For example, cohort 07-2020 includes\
       \ all subscriptions that started in the month of July 2020.</li>\n  <li>Churn\
       \ rate is the percentage of not-retained subscriptions out of the number retained\
@@ -977,15 +977,15 @@
 
        Active Subs</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="#home">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__subs_growth?Provider=&Pricing+Plan=&Country=&Event+Date=2020%2F07%2F20+to+today">
 
        Subs Growth</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="#news">Retention</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__retention?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=2020%2F07%2F20+to+today">Retention</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="#contact">Churn</a>
+        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__churn?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=2020%2F07%2F20+to+today">Churn</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; " href="#about">Revenue</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; " href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__revenue_restricted_access?Provider=&Pricing+Plan=&Country+Name=&Active+Date=2020%2F07%2F01+to+today">Revenue</a>
 
         <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1VtrTwm8Eqt9cPLZLaH1kjnM413gKtdaZArS29xcxXpA/edit?usp=sharing">Docs</a>
 

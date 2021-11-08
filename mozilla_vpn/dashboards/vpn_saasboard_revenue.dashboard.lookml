@@ -98,7 +98,7 @@
     subtitle_text: ''
     body_text: "<p style='background-color: #ffffdd; padding: 5px 10px; border: solid\
       \ 3px #ededed; border-radius: 5px; height:150px'>\n\nThis dashboard captures\
-      \ revenue.\n\n<br>\n<br>\nPlease submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
+      \ <strong>revenue</strong>.\n\n<br>\n<br>\nPlease submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
       >mozilla-vpn-data</a></b> channel on Slack for @wichan or @relud. \n\n</p>"
     row: 2
     col: 3
@@ -313,19 +313,19 @@
 
         <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="#home">
 
-       Active Subscriptions</a>
+       Active Subs</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="#home">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__subs_growth?Provider=&Pricing+Plan=&Country=&Event+Date=2020%2F07%2F20+to+today">
 
-       Subscriptions Growth</a>
+       Subs Growth</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="#news">Retention</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__retention?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=2020%2F07%2F20+to+today">Retention</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="#contact">Churn</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__churn?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=2020%2F07%2F20+to+today">Churn</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="#about">Revenue</a>
+        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__revenue_restricted_access?Provider=&Pricing+Plan=&Country+Name=&Active+Date=2020%2F07%2F01+to+today">Revenue</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1VtrTwm8Eqt9cPLZLaH1kjnM413gKtdaZArS29xcxXpA/edit?usp=sharing">Documentation</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1VtrTwm8Eqt9cPLZLaH1kjnM413gKtdaZArS29xcxXpA/edit?usp=sharing">Docs</a>
 
       </nav>
 
