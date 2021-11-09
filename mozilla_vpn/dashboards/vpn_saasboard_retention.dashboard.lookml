@@ -444,7 +444,8 @@
         _kind_hint: measure, table_calculation: retention_rate, _type_hint: number},
       {category: table_calculation, expression: "${subscriptions.count}-${subscriptions__retention.retained}",
         label: Not Retained, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: measure, table_calculation: not_retained, _type_hint: number}]
+        _kind_hint: measure, table_calculation: not_retained, _type_hint: number,
+        is_disabled: true}]
     x_axis_gridlines: true
     y_axis_gridlines: true
     show_view_names: false
@@ -525,7 +526,8 @@
         _kind_hint: measure, table_calculation: retention_rate, _type_hint: number},
       {category: table_calculation, expression: "${subscriptions.count}-${subscriptions__retention.retained}",
         label: Not Retained, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: measure, table_calculation: not_retained, _type_hint: number}]
+        _kind_hint: measure, table_calculation: not_retained, _type_hint: number,
+        is_disabled: true}]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
