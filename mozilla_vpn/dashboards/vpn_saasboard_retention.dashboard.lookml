@@ -17,18 +17,18 @@
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: "<p style='background-color: #ffffdd; padding: 5px 10px; border: solid\
-      \ 3px #ededed; border-radius: 5px; height:220px'>\n\nThese visualizations capture\
-      \ <strong>subscription retention</strong>.\n<br>\n<br>\nRetention rate is the\
-      \ percentage of active subscriptions out of all subscriptions. \nSubscriptions\
-      \ are counted in every month less than or equal to their current months since\
-      \ subscription started.\n<br>\n<br>\nRetention rate must not be aggregated over\
-      \ multiple months because it is cumulative. Therefore, when Months Since Subscription\
-      \ Start not shown, the retention rate shows data for the current month.\n<br>\n\
-      <br>\nA cohort refers to a group of subscriptions that started their subscriptions\
-      \ in a particular month.\n<br>\n<br>\nPlease submit any questions in  <b><a\
-      \ href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\">mozilla-vpn-data</a></b>\
-      \ channel on Slack for @wichan or @relud. \n\n</p>\n\n\nTODO: fix nav links"
+    body_text: "<div style='background-color: #ffffdd; padding: 5px 10px; border:\
+    \ solid 3px #ededed; border-radius: 5px; height:220px'>\n\nThese visualizations\
+    \ capture <strong>subscription retention</strong>.\n<ul>\n<li>Retention rate\
+    \ is the percentage of active subscriptions out of all subscriptions. </li>\n\
+    <li>Subscriptions are counted in every month less than or equal to their current\
+    \ months since subscription started.</li>\n\n<li>Retention rate must not be\
+    \ aggregated over multiple months because it is cumulative. Therefore, when\
+    \ Months Since Subscription Start not shown, the retention rate shows data for\
+    \ the current month.</li>\n\n<li>A cohort refers to a group of subscriptions\
+    \ that started their subscriptions in a particular month.</li>\n</ul>\n<br>\n\
+    Please submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
+    >mozilla-vpn-data</a></b> channel on Slack for @wichan or @relud. \n</div>"
     row: 2
     col: 3
     width: 16

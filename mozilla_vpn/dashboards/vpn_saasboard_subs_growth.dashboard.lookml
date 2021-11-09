@@ -18,12 +18,13 @@
   - name: " (2)"
     type: text
     title_text: ''
-    body_text: "<p style='background-color: #ffffdd; padding: 5px 10px; border: solid\
-      \ 3px #ededed; border-radius: 5px; height:150px'>\n\nThis dashboard captures\
-      \ the current state and monthly trend of <strong>new subscriptions</strong>.\n<br>\n\
-      <br>\n* New subscriptions are subscriptions that started at a particular date.\n\
-      <br>\n<br>\n\nPlease submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
-      >mozilla-vpn-data</a></b> channel on Slack for @wichan or @relud. \n\n</p>"
+    body_text: "<div style='background-color: #ffffdd; padding: 5px 10px; border:\
+    \ solid 3px #ededed; border-radius: 5px; height:150px'>\n\nThis dashboard captures\
+    \ the current state and monthly trend of <strong>new subscriptions</strong>.\n\
+    <ul>\n<li>\nNew subscriptions are subscriptions that started at a particular\
+    \ date.\n</li>\n</ul>\n<br>\n\nPlease submit any questions in  <b><a href=\"\
+    https://mozilla.slack.com/messages/mozilla-vpn-data/\">mozilla-vpn-data</a></b>\
+    \ channel on Slack for @wichan or @relud. \n\n</div>"
     row: 2
     col: 3
     width: 16
@@ -33,9 +34,9 @@
     model: mozilla_vpn
     explore: subscriptions
     type: single_value
-    fields: [subscriptions__active.active_date]
-    fill_fields: [subscriptions__active.active_date]
-    sorts: [subscriptions__active.active_date desc]
+    fields: [subscriptions__events.event_date]
+    fill_fields: [subscriptions__events.event_date]
+    sorts: [subscriptions__events.event_date desc]
     limit: 1
     custom_color_enabled: true
     show_single_value_title: true
