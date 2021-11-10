@@ -60,8 +60,7 @@ explore: subscriptions {
   }
 }
 
-# Add aggregate tables lookML from VPN SaaSboard - Subscriptions
-
+# Add aggregate tables lookML from VPN SaaSboard - Active Subscriptions
 explore: +subscriptions {
   aggregate_table: rollup__subscriptions__active_active_date__0 {
     query: {
@@ -73,11 +72,9 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
-    }
+      }
   }
 
   aggregate_table: rollup__subscriptions__active_active_date__1 {
@@ -90,11 +87,9 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
-    }
+      }
   }
 
   aggregate_table: rollup__country_name__pricing_plan__provider__subscriptions__active_active_date__2 {
@@ -102,8 +97,6 @@ explore: +subscriptions {
       dimensions: [country_name, pricing_plan, provider, subscriptions__active.active_date]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
@@ -120,8 +113,6 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
@@ -138,8 +129,6 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
@@ -156,109 +145,12 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
   }
 
-  aggregate_table: rollup__country_name__subscriptions__events_event_month__6 {
-    query: {
-      dimensions: [country_name, subscriptions__events.event_month]
-      measures: [count]
-      filters: [
-        # "subscriptions__events.event_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions__events.event_date: "2020/07/20 to today",
-        subscriptions__events.type: "New"
-      ]
-    }
-
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
-    materialization: {
-      sql_trigger_value: SELECT CURRENT_DATE();;
-    }
-  }
-
-  aggregate_table: rollup__pricing_plan__subscriptions__events_event_month__7 {
-    query: {
-      dimensions: [pricing_plan, subscriptions__events.event_month]
-      measures: [count]
-      filters: [
-        # "subscriptions__events.event_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions__events.event_date: "2020/07/20 to today",
-        subscriptions__events.type: "New"
-      ]
-    }
-
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
-    materialization: {
-      sql_trigger_value: SELECT CURRENT_DATE();;
-    }
-  }
-
-  aggregate_table: rollup__country_name__pricing_plan__provider__subscriptions__events_event_date__subscriptions__events_granular_type__8 {
-    query: {
-      dimensions: [country_name, pricing_plan, provider, subscriptions__events.event_date, subscriptions__events.granular_type]
-      measures: [subscriptions__events.delta]
-      filters: [subscriptions__events.type: "New"]
-    }
-
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
-    materialization: {
-      sql_trigger_value: SELECT CURRENT_DATE();;
-    }
-  }
-
-  aggregate_table: rollup__country_name__pricing_plan__provider__subscriptions__events_event_date__subscriptions__events_granular_type__9 {
-    query: {
-      dimensions: [country_name, pricing_plan, provider, subscriptions__events.event_date, subscriptions__events.granular_type]
-      measures: [subscriptions__events.delta]
-      filters: [subscriptions__events.type: "Cancelled"]
-    }
-
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
-    materialization: {
-      sql_trigger_value: SELECT CURRENT_DATE();;
-    }
-  }
-
-  aggregate_table: rollup__country_name__pricing_plan__provider__subscriptions__events_event_date__subscriptions__events_type__10 {
-    query: {
-      dimensions: [country_name, pricing_plan, provider, subscriptions__events.event_date, subscriptions__events.type]
-      measures: [subscriptions__events.delta]
-    }
-
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
-    materialization: {
-      sql_trigger_value: SELECT CURRENT_DATE();;
-    }
-  }
-
-  aggregate_table: rollup__provider__subscriptions__events_event_month__11 {
-    query: {
-      dimensions: [provider, subscriptions__events.event_month]
-      measures: [count]
-      filters: [
-        # "subscriptions__events.event_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions__events.event_date: "2020/07/20 to today",
-        subscriptions__events.type: "New"
-      ]
-    }
-
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
-    materialization: {
-      sql_trigger_value: SELECT CURRENT_DATE();;
-    }
-  }
-
-  aggregate_table: rollup__subscriptions__active_active_date__12 {
+  aggregate_table: rollup__subscriptions__active_active_date__6 {
     query: {
       dimensions: [subscriptions__active.active_date]
       measures: [count]
@@ -268,14 +160,12 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
   }
 
-  aggregate_table: rollup__country_name__13 {
+  aggregate_table: rollup__country_name__7 {
     query: {
       dimensions: [country_name]
       measures: [count]
@@ -286,14 +176,12 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
   }
 
-  aggregate_table: rollup__pricing_plan__14 {
+  aggregate_table: rollup__pricing_plan__8 {
     query: {
       dimensions: [pricing_plan]
       measures: [count]
@@ -304,14 +192,12 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
   }
 
-  aggregate_table: rollup__provider__15 {
+  aggregate_table: rollup__provider__9 {
     query: {
       dimensions: [provider]
       measures: [count]
@@ -322,13 +208,109 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
   }
 }
+
+# Add aggregate tables lookML from VPN SaaSboard - Subscriptions Growth
+
+explore: +subscriptions {
+  aggregate_table: rollup__country_name__pricing_plan__provider__subscriptions__active_active_date__subscriptions__events_event_date__0 {
+    query: {
+      dimensions: [country_name, pricing_plan, provider, subscriptions__active.active_date, subscriptions__events.event_date]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__country_name__subscriptions__events_event_month__1 {
+    query: {
+      dimensions: [country_name, subscriptions__events.event_month]
+      measures: [count]
+      filters: [
+        # "subscriptions__events.event_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+        subscriptions__events.event_date: "2020/07/20 to today",
+        subscriptions__events.type: "New"
+      ]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__pricing_plan__subscriptions__events_event_month__2 {
+    query: {
+      dimensions: [pricing_plan, subscriptions__events.event_month]
+      measures: [count]
+      filters: [
+        # "subscriptions__events.event_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+        subscriptions__events.event_date: "2020/07/20 to today",
+        subscriptions__events.type: "New"
+      ]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__country_name__pricing_plan__provider__subscriptions__events_event_date__subscriptions__events_granular_type__3 {
+    query: {
+      dimensions: [country_name, pricing_plan, provider, subscriptions__events.event_date, subscriptions__events.granular_type]
+      measures: [subscriptions__events.delta]
+      filters: [subscriptions__events.type: "New"]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__country_name__pricing_plan__provider__subscriptions__events_event_date__subscriptions__events_granular_type__4 {
+    query: {
+      dimensions: [country_name, pricing_plan, provider, subscriptions__events.event_date, subscriptions__events.granular_type]
+      measures: [subscriptions__events.delta]
+      filters: [subscriptions__events.type: "Cancelled"]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__country_name__pricing_plan__provider__subscriptions__events_event_date__subscriptions__events_type__5 {
+    query: {
+      dimensions: [country_name, pricing_plan, provider, subscriptions__events.event_date, subscriptions__events.type]
+      measures: [subscriptions__events.delta]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__provider__subscriptions__events_event_month__6 {
+    query: {
+      dimensions: [provider, subscriptions__events.event_month]
+      measures: [count]
+      filters: [
+        # "subscriptions__events.event_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+        subscriptions__events.event_date: "2020/07/20 to today",
+        subscriptions__events.type: "New"
+      ]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+}
+
 
 # Add aggregate tables lookML from VPN SaaSboard - retention
 
@@ -344,26 +326,22 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
   }
 
-  aggregate_table: rollup__subscription_start_month__subscriptions__retention_months_since_subscription_start__1 {
+  aggregate_table: rollup__subscription_start_month__1 {
     query: {
-      dimensions: [subscription_start_month, subscriptions__retention.months_since_subscription_start]
+      dimensions: [subscription_start_month]
       measures: [count, subscriptions__retention.retained]
       filters: [
         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
         subscriptions.subscription_start_month: "2020/07/20 to today",
-        subscriptions__retention.is_cohort_complete: "Yes"
+        subscriptions__retention.is_current_months_since_subscription_start: "Yes"
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
@@ -380,8 +358,6 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
@@ -398,8 +374,6 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
@@ -416,8 +390,6 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
@@ -432,8 +404,6 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
@@ -449,8 +419,6 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
@@ -466,8 +434,6 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
@@ -483,8 +449,6 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
@@ -501,8 +465,6 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
@@ -522,8 +484,6 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
@@ -539,8 +499,6 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
@@ -553,8 +511,6 @@ explore: +subscriptions {
       filters: [subscriptions__retention.is_cohort_complete: "Yes"]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
@@ -570,8 +526,6 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
@@ -584,8 +538,6 @@ explore: +subscriptions {
       filters: [subscriptions__retention.months_since_subscription_start: ">0"]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
@@ -601,8 +553,6 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
@@ -618,8 +568,6 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
@@ -635,8 +583,6 @@ explore: +subscriptions {
       ]
     }
 
-    # Please specify a datagroup_trigger or sql_trigger_value
-    # See https://looker.com/docs/r/lookml/types/aggregate_table/materialization
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
