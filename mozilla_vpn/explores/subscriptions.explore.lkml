@@ -88,8 +88,8 @@ explore: +subscriptions {
     }
 
     materialization: {
-      sql_trigger_value:  v
-    }
+      sql_trigger_value: SELECT CURRENT_DATE();;
+      }
   }
 
   aggregate_table: rollup__country_name__pricing_plan__provider__subscriptions__active_active_date__2 {
