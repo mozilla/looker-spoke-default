@@ -74,7 +74,7 @@ explore: +subscriptions {
 
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
-      }
+    }
   }
 
   aggregate_table: rollup__subscriptions__active_active_date__1 {
