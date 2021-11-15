@@ -73,7 +73,12 @@ explore: +subscriptions {
     }
 
     materialization: {
-      sql_trigger_value: SELECT CURRENT_DATE();;
+      sql_trigger_value: SELECT
+        MAX(last_modified_time)
+      FROM
+        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+      WHERE
+        table_name = "all_subscriptions_v1";;
     }
   }
 
