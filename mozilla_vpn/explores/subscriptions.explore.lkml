@@ -73,7 +73,14 @@ explore: +subscriptions {
     }
 
     materialization: {
-      sql_trigger_value: SELECT CURRENT_DATE();;
+      sql_trigger_value: SELECT (subscriptions__active) AS subscriptions__active_active_date,COUNT(DISTINCT subscriptions.subscription_id ) AS subscriptions_count
+      FROM `mozdata.mozilla_vpn.all_subscriptions`  AS subscriptions
+      LEFT JOIN UNNEST((GENERATE_DATE_ARRAY((DATE(subscriptions.subscription_start_date )), (DATE(subscriptions.end_date )) - 1))) AS subscriptions__active
+      GROUP BY
+          1
+      ORDER BY
+          1 DESC
+      LIMIT 1;;
     }
   }
 
