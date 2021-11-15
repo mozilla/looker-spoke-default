@@ -39,18 +39,25 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
+    y_axes: [{label: '', orientation: left, series: [{axisId: metrics.clients, id: MANUAL
+              - metrics.clients, name: MANUAL}, {axisId: metrics.clients, id: ONE_DAY
+              - metrics.clients, name: ONE_DAY}, {axisId: metrics.clients, id: ONE_MONTH
+              - metrics.clients, name: ONE_MONTH}, {axisId: metrics.clients, id: ONE_WEEK
+              - metrics.clients, name: ONE_WEEK}, {axisId: metrics.clients, id: metrics.metrics__string__metrics_close_tab_setting___null
+              - metrics.clients, name: "∅"}], showLabels: true, showValues: true,
+        unpinAxis: true, tickDensity: default, tickDensityCustom: 5, type: linear}]
     defaults_version: 1
     note_state: collapsed
     note_display: above
     note_text: Counts for how many users have opted for the different settings available
       for closing tabs.
     listen: {}
-    row: 90
+    row: 96
     col: 12
     width: 12
     height: 7
-  - title: DAU by Version for 90s
-    name: DAU by Version for 90s
+  - title: v94 DAU
+    name: v94 DAU
     model: fenix
     explore: client_counts
     type: looker_line
@@ -60,7 +67,7 @@
     filters:
       client_counts.channel: mozdata.fenix.baseline^_clients^_daily
       client_counts.submission_date: 28 days
-      client_counts.app_display_version: 9%
+      client_counts.app_display_version: 94%
     sorts: [client_counts.submission_date desc, client_counts.app_display_version]
     limit: 500
     x_axis_gridlines: false
@@ -141,7 +148,7 @@
         unpinAxis: true, tickDensity: default, tickDensityCustom: 5, type: linear}]
     defaults_version: 1
     listen: {}
-    row: 76
+    row: 82
     col: 12
     width: 12
     height: 7
@@ -461,12 +468,12 @@
     totals_color: "#808080"
     defaults_version: 1
     listen: {}
-    row: 90
+    row: 96
     col: 0
     width: 12
     height: 7
-  - title: Total Searches
-    name: Total Searches
+  - title: Search Metrics
+    name: Search Metrics
     model: search
     explore: mobile_search_counts
     type: looker_line
@@ -476,6 +483,7 @@
     filters:
       mobile_search_clients_engines_sources_daily.submission_date: 28 days
       mobile_search_clients_engines_sources_daily.channel: release
+      mobile_search_clients_engines_sources_daily.normalized_app_name: Fenix
     sorts: [mobile_search_clients_engines_sources_daily.submission_date desc]
     limit: 500
     x_axis_gridlines: false
@@ -583,13 +591,13 @@
     y_axes: [{label: "% Recent Tab Opened from Home", orientation: left, series: [
           {axisId: funnel_analysis.fraction_completed_step_2, id: funnel_analysis.fraction_completed_step_2,
             name: Fraction Completed Step 2}], showLabels: true, showValues: true,
-        valueFormat: '', unpinAxis: true, tickDensity: default, tickDensityCustom: 5,
+        valueFormat: 0.00%, unpinAxis: true, tickDensity: default, tickDensityCustom: 5,
         type: linear}]
     defaults_version: 1
     note_state: expanded
     note_display: above
     note_text: Percentage of users that opened a recent tab from the home screen Jump
-      Back In section. Multiply by 100 for percentages.
+      Back In section.
     listen: {}
     row: 60
     col: 0
@@ -638,7 +646,7 @@
     y_axes: [{label: "% Show All Clicks from Home", orientation: left, series: [{
             axisId: funnel_analysis.fraction_completed_step_2, id: funnel_analysis.fraction_completed_step_2,
             name: Fraction Completed Step 2}], showLabels: true, showValues: true,
-        valueFormat: '', unpinAxis: true, tickDensity: default, tickDensityCustom: 5,
+        valueFormat: 0.00%, unpinAxis: true, tickDensity: default, tickDensityCustom: 5,
         type: linear}]
     defaults_version: 1
     note_state: expanded
@@ -655,7 +663,8 @@
     model: fenix
     explore: metrics
     type: looker_line
-    fields: [metrics.submission_date, metrics.recent_bookmarks_bookmark_clicked_client_count]
+    fields: [metrics.submission_date, metrics.recent_bookmarks_bookmark_clicked_client_count,
+      metrics.recent_bookmarks_bookmark_clicked]
     fill_fields: [metrics.submission_date]
     filters:
       metrics.channel: mozdata.fenix.metrics
@@ -702,15 +711,15 @@
     note_text: How often was a recently bookmarked item opened from the home screen?
     listen: {}
     row: 67
-    col: 12
-    width: 12
+    col: 0
+    width: 24
     height: 7
   - title: Daily Count of App Opens
     name: Daily Count of App Opens
     model: fenix
     explore: event_counts
     type: looker_line
-    fields: [events.submission_date, events.event_count]
+    fields: [events.submission_date, events.event_count, events.client_count]
     fill_fields: [events.submission_date]
     filters:
       events.submission_date: 28 days
@@ -747,6 +756,10 @@
             id: events.event_count, name: Event Count}], showLabels: true, showValues: true,
         unpinAxis: true, tickDensity: default, tickDensityCustom: 5, type: linear}]
     defaults_version: 1
+    hidden_series: [events.client_count]
+    note_state: collapsed
+    note_display: above
+    note_text: The number of times (and clients) that open the browser from cold start.
     listen: {}
     row: 12
     col: 12
@@ -795,13 +808,13 @@
     y_axes: [{label: "% Opened Tabs Tray from Home Screen", orientation: left, series: [
           {axisId: funnel_analysis.fraction_completed_step_2, id: funnel_analysis.fraction_completed_step_2,
             name: Fraction Completed Step 2}], showLabels: true, showValues: true,
-        valueFormat: '', unpinAxis: true, tickDensity: default, tickDensityCustom: 5,
+        valueFormat: 0.00%, unpinAxis: true, tickDensity: default, tickDensityCustom: 5,
         type: linear}]
     defaults_version: 1
     note_state: expanded
     note_display: above
     note_text: Percentage of users that opened the tabs tray after landing on the
-      home page upon opening Firefox. Multiply by 100 for percentages.
+      home page upon opening Firefox.
     listen: {}
     row: 37
     col: 12
@@ -850,15 +863,14 @@
     y_axes: [{label: "% New Tab Clicked from Tabs Tray", orientation: left, series: [
           {axisId: funnel_analysis.fraction_completed_step_2, id: funnel_analysis.fraction_completed_step_2,
             name: Fraction Completed Step 2}], showLabels: true, showValues: true,
-        valueFormat: '', unpinAxis: true, tickDensity: default, tickDensityCustom: 5,
+        valueFormat: 0.00%, unpinAxis: true, tickDensity: default, tickDensityCustom: 5,
         type: linear}]
     defaults_version: 1
     note_state: expanded
     note_display: above
-    note_text: Percentage of users visiting tabs tray that also open a new tab. Multiply
-      by 100 for percentages.
+    note_text: Percentage of users visiting tabs tray that also open a new tab.
     listen: {}
-    row: 76
+    row: 82
     col: 0
     width: 12
     height: 7
@@ -1020,15 +1032,14 @@
     y_axes: [{label: "% Expand Inactive Tabs from Tabs Tray", orientation: left, series: [
           {axisId: funnel_analysis.fraction_completed_step_2, id: funnel_analysis.fraction_completed_step_2,
             name: Fraction Completed Step 2}], showLabels: true, showValues: true,
-        valueFormat: '', unpinAxis: true, tickDensity: default, tickDensityCustom: 5,
+        valueFormat: 0.00%, unpinAxis: true, tickDensity: default, tickDensityCustom: 5,
         type: linear}]
     defaults_version: 1
     note_state: expanded
     note_display: above
-    note_text: Percentage of tabs tray visits that also expand inactive tabs. Multiply
-      by 100 for percentages.
+    note_text: Percentage of tabs tray visits that also expand inactive tabs.
     listen: {}
-    row: 83
+    row: 89
     col: 0
     width: 12
     height: 7
@@ -1102,6 +1113,7 @@
       step_2.category: preferences
       step_2.event: '"inactive_tabs_enabled"'
       funnel_analysis.app_channel: release
+      funnel_analysis.sample_id: '10'
     sorts: [funnel_analysis.submission_date desc]
     limit: 500
     x_axis_gridlines: false
@@ -1139,7 +1151,7 @@
     note_text: Current there is no data for this preference - investigating why but
       leaving the graph available for now.
     listen: {}
-    row: 97
+    row: 103
     col: 0
     width: 12
     height: 8
@@ -1186,32 +1198,173 @@
     y_axes: [{label: "% Collapse Inactive Tabs from Tabs Tray", orientation: left,
         series: [{axisId: funnel_analysis.fraction_completed_step_2, id: funnel_analysis.fraction_completed_step_2,
             name: Fraction Completed Step 2}], showLabels: true, showValues: true,
-        valueFormat: '', unpinAxis: true, tickDensity: default, tickDensityCustom: 5,
+        valueFormat: 0.00%, unpinAxis: true, tickDensity: default, tickDensityCustom: 5,
         type: linear}]
     defaults_version: 1
     note_state: expanded
     note_display: above
-    note_text: Percentage of tabs tray visits that also expand inactive tabs. Multiply
-      by 100 for percentages.
+    note_text: Percentage of tabs tray visits that also expand inactive tabs.
     listen: {}
-    row: 83
+    row: 89
     col: 12
     width: 12
     height: 7
-  - title: Home Screen to Recent Bookmark Opened
-    name: Home Screen to Recent Bookmark Opened
+  - title: 'Count of New Tabs Opened and Clients Opening New Tabs '
+    name: 'Count of New Tabs Opened and Clients Opening New Tabs '
+    model: fenix
+    explore: event_counts
+    type: looker_line
+    fields: [events.submission_date, events.client_count, events.event_count]
+    fill_fields: [events.submission_date]
+    filters:
+      events.submission_date: 28 days
+      events.event_category: '"tabs_tray"'
+      events.event_name: '"new_tab_tapped"'
+    sorts: [events.submission_date desc]
+    limit: 500
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: false
+    interpolation: linear
+    y_axes: [{label: '', orientation: left, series: [{axisId: events.client_count,
+            id: events.client_count, name: Client Count}, {axisId: events.event_count,
+            id: events.event_count, name: Event Count}], showLabels: true, showValues: true,
+        unpinAxis: true, tickDensity: default, tickDensityCustom: 5, type: linear}]
+    defaults_version: 1
+    row: 76
+    col: 0
+    width: 24
+    height: 6
+  - title: Pocket Recommendations - Category Clicked
+    name: Pocket Recommendations - Category Clicked
+    model: fenix
+    explore: event_counts
+    type: looker_line
+    fields: [events.submission_date, events.event_count]
+    fill_fields: [events.submission_date]
+    filters:
+      events.submission_date: 28 days
+      events.event_category: pocket
+      events.event_name: '"home_recs_category_clicked"'
+      events.client_info__app_channel: release
+    sorts: [events.submission_date desc]
+    limit: 500
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: false
+    interpolation: linear
+    y_axes: [{label: '', orientation: left, series: [{axisId: events.event_count,
+            id: events.event_count, name: Event Count}], showLabels: true, showValues: true,
+        unpinAxis: true, tickDensity: default, tickDensityCustom: 5, type: linear}]
+    defaults_version: 1
+    note_state: expanded
+    note_display: above
+    note_text: The count of times a Pocket stories category is clicked.
+    row: 114
+    col: 12
+    width: 12
+    height: 7
+  - title: Pocket Recommendations - Story Clicked
+    name: Pocket Recommendations - Story Clicked
+    model: fenix
+    explore: event_counts
+    type: looker_line
+    fields: [events.event_count, events.client_count, events.submission_date]
+    fill_fields: [events.submission_date]
+    filters:
+      events.submission_date: 28 days
+      events.event_category: pocket
+      events.event_name: '"home_recs_story_clicked"'
+    sorts: [events.submission_date desc]
+    limit: 500
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: false
+    interpolation: linear
+    y_axes: [{label: '', orientation: left, series: [{axisId: events.event_count,
+            id: events.event_count, name: Event Count}, {axisId: events.client_count,
+            id: events.client_count, name: Client Count}], showLabels: true, showValues: true,
+        unpinAxis: true, tickDensity: default, tickDensityCustom: 5, type: linear}]
+    defaults_version: 1
+    row: 114
+    col: 0
+    width: 12
+    height: 7
+  - title: "% of App Opens to Pocket Category Clicks"
+    name: "% of App Opens to Pocket Category Clicks"
     model: fenix
     explore: funnel_analysis
     type: looker_line
-    fields: [funnel_analysis.submission_date, funnel_analysis.fraction_completed_step_2]
+    fields: [funnel_analysis.fraction_completed_step_2, funnel_analysis.submission_date]
     fill_fields: [funnel_analysis.submission_date]
     filters:
-      funnel_analysis.submission_date: 28 days
-      step_1.category: '"start_on_home"'
-      step_1.event: '"enter_home_screen"'
-      step_2.category: '"recent_bookmarks"'
-      step_2.event: '"bookmark_clicked"'
+      funnel_analysis.submission_date: 14 days
+      step_1.category: events
+      step_1.event: '"app_opened"'
+      step_2.category: pocket
+      step_2.event: '"home_recs_category_clicked"'
       funnel_analysis.app_channel: release
+      funnel_analysis.sample_id: "<=10"
     sorts: [funnel_analysis.submission_date desc]
     limit: 500
     x_axis_gridlines: false
@@ -1238,18 +1391,121 @@
     y_axis_combined: true
     show_null_points: false
     interpolation: linear
-    y_axes: [{label: "% Recent Tab Opened from Home", orientation: left, series: [
+    y_axes: [{label: Daily % App Opened to Category Click, orientation: left, series: [
           {axisId: funnel_analysis.fraction_completed_step_2, id: funnel_analysis.fraction_completed_step_2,
             name: Fraction Completed Step 2}], showLabels: true, showValues: true,
-        valueFormat: '', unpinAxis: true, tickDensity: default, tickDensityCustom: 5,
+        valueFormat: 0.00%, unpinAxis: true, tickDensity: default, tickDensityCustom: 5,
         type: linear}]
+    hidden_series: [funnel_analysis.count_completed_step_1, funnel_analysis.count_completed_step_2]
     defaults_version: 1
-    note_state: expanded
-    note_display: above
-    note_text: Percentage of users that opened a recent tab from the home screen Jump
-      Back In section. Multiply by 100 for percentages.
     listen: {}
-    row: 67
+    row: 121
     col: 0
+    width: 12
+    height: 7
+  - name: Pocket
+    type: text
+    title_text: Pocket
+    subtitle_text: ''
+    body_text: ''
+    row: 111
+    col: 0
+    width: 24
+    height: 3
+  - title: Count of Inactive Tabs Opened
+    name: Count of Inactive Tabs Opened
+    model: fenix
+    explore: metrics
+    type: looker_line
+    fields: [metrics.tabs_tray_open_inactive_tab, metrics.submission_date]
+    fill_fields: [metrics.submission_date]
+    filters:
+      metrics.channel: mozdata.fenix.metrics
+      metrics.submission_date: 28 days
+    sorts: [metrics.submission_date desc]
+    limit: 500
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: false
+    interpolation: linear
+    y_axes: [{label: '', orientation: left, series: [{axisId: metrics.tabs_tray_open_inactive_tab,
+            id: metrics.tabs_tray_open_inactive_tab, name: Tabs Tray Open Inactive
+              Tab}], showLabels: true, showValues: true, unpinAxis: true, tickDensity: default,
+        tickDensityCustom: 5, type: linear}]
+    defaults_version: 1
+    row: 103
+    col: 12
+    width: 12
+    height: 8
+  - title: "% of App Opens to Pocket Story Clicks"
+    name: "% of App Opens to Pocket Story Clicks"
+    model: fenix
+    explore: funnel_analysis
+    type: looker_line
+    fields: [funnel_analysis.fraction_completed_step_2, funnel_analysis.submission_date]
+    fill_fields: [funnel_analysis.submission_date]
+    filters:
+      funnel_analysis.submission_date: 14 days
+      step_1.category: events
+      step_1.event: '"app_opened"'
+      step_2.category: pocket
+      step_2.event: '"home_recs_story_clicked"'
+      funnel_analysis.app_channel: release
+      funnel_analysis.sample_id: '10'
+    sorts: [funnel_analysis.submission_date desc]
+    limit: 500
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: false
+    interpolation: linear
+    y_axes: [{label: Daily % App Opened to Category Click, orientation: left, series: [
+          {axisId: funnel_analysis.fraction_completed_step_2, id: funnel_analysis.fraction_completed_step_2,
+            name: Fraction Completed Step 2}], showLabels: true, showValues: true,
+        valueFormat: 0.00%, unpinAxis: true, tickDensity: default, tickDensityCustom: 5,
+        type: linear}]
+    hidden_series: [funnel_analysis.count_completed_step_1, funnel_analysis.count_completed_step_2]
+    defaults_version: 1
+    row: 121
+    col: 12
     width: 12
     height: 7
