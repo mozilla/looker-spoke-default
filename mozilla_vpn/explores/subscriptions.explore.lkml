@@ -68,7 +68,7 @@ explore: +subscriptions {
       measures: [count]
       filters: [
         # "subscriptions__active.active_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions__active.active_date: "2020/07/20 to today"
+        subscriptions__active.active_date: "after 2020/07/20"
       ]
     }
 
@@ -88,13 +88,18 @@ explore: +subscriptions {
       measures: [count]
       filters: [
         # "subscriptions__active.active_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions__active.active_date: "2020/07/20 to today"
+        subscriptions__active.active_date: "after 2020/07/20"
       ]
     }
 
     materialization: {
-      sql_trigger_value: SELECT CURRENT_DATE();;
-      }
+      sql_trigger_value: SELECT
+        MAX(last_modified_time)
+      FROM
+        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+      WHERE
+        table_name = "all_subscriptions_v1";;
+    }
   }
 
   aggregate_table: rollup__country_name__pricing_plan__provider__subscriptions__active_active_date__2 {
@@ -103,7 +108,12 @@ explore: +subscriptions {
     }
 
     materialization: {
-      sql_trigger_value: SELECT CURRENT_DATE();;
+      sql_trigger_value: SELECT
+        MAX(last_modified_time)
+      FROM
+        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+      WHERE
+        table_name = "all_subscriptions_v1";;
     }
   }
 
@@ -113,13 +123,18 @@ explore: +subscriptions {
       measures: [count]
       filters: [
         # "subscriptions__active.active_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions__active.active_date: "2020/07/20 to today",
+        subscriptions__active.active_date: "after 2020/07/20",
         subscriptions__active.is_end_of_month: "Yes"
       ]
     }
 
     materialization: {
-      sql_trigger_value: SELECT CURRENT_DATE();;
+      sql_trigger_value: SELECT
+        MAX(last_modified_time)
+      FROM
+        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+      WHERE
+        table_name = "all_subscriptions_v1";;
     }
   }
 
@@ -129,13 +144,18 @@ explore: +subscriptions {
       measures: [count]
       filters: [
         # "subscriptions__active.active_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions__active.active_date: "2020/07/20 to today",
+        subscriptions__active.active_date: "after 2020/07/20",
         subscriptions__active.is_end_of_month: "Yes"
       ]
     }
 
     materialization: {
-      sql_trigger_value: SELECT CURRENT_DATE();;
+      sql_trigger_value: SELECT
+        MAX(last_modified_time)
+      FROM
+        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+      WHERE
+        table_name = "all_subscriptions_v1";;
     }
   }
 
@@ -145,13 +165,18 @@ explore: +subscriptions {
       measures: [count]
       filters: [
         # "subscriptions__active.active_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions__active.active_date: "2020/07/20 to today",
+        subscriptions__active.active_date: "after 2020/07/20",
         subscriptions__active.is_end_of_month: "Yes"
       ]
     }
 
     materialization: {
-      sql_trigger_value: SELECT CURRENT_DATE();;
+      sql_trigger_value: SELECT
+        MAX(last_modified_time)
+      FROM
+        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+      WHERE
+        table_name = "all_subscriptions_v1";;
     }
   }
 
@@ -161,12 +186,17 @@ explore: +subscriptions {
       measures: [count]
       filters: [
         # "subscriptions__active.active_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions__active.active_date: "2020/07/20 to today"
+        subscriptions__active.active_date: "after 2020/07/20"
       ]
     }
 
     materialization: {
-      sql_trigger_value: SELECT CURRENT_DATE();;
+      sql_trigger_value: SELECT
+        MAX(last_modified_time)
+      FROM
+        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+      WHERE
+        table_name = "all_subscriptions_v1";;
     }
   }
 
@@ -176,13 +206,18 @@ explore: +subscriptions {
       measures: [count]
       filters: [
         # "subscriptions__active.active_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions__active.active_date: "2020/07/20 to today",
+        subscriptions__active.active_date: "after 2020/07/20",
         subscriptions__active.is_max_active_date: "Yes"
       ]
     }
 
     materialization: {
-      sql_trigger_value: SELECT CURRENT_DATE();;
+      sql_trigger_value: SELECT
+        MAX(last_modified_time)
+      FROM
+        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+      WHERE
+        table_name = "all_subscriptions_v1";;
     }
   }
 
@@ -192,13 +227,18 @@ explore: +subscriptions {
       measures: [count]
       filters: [
         # "subscriptions__active.active_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions__active.active_date: "2020/07/20 to today",
+        subscriptions__active.active_date: "after 2020/07/20",
         subscriptions__active.is_max_active_date: "Yes"
       ]
     }
 
     materialization: {
-      sql_trigger_value: SELECT CURRENT_DATE();;
+      sql_trigger_value: SELECT
+        MAX(last_modified_time)
+      FROM
+        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+      WHERE
+        table_name = "all_subscriptions_v1";;
     }
   }
 
@@ -208,13 +248,18 @@ explore: +subscriptions {
       measures: [count]
       filters: [
         # "subscriptions__active.active_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions__active.active_date: "2020/07/20 to today",
+        subscriptions__active.active_date: "after 2020/07/20",
         subscriptions__active.is_max_active_date: "Yes"
       ]
     }
 
     materialization: {
-      sql_trigger_value: SELECT CURRENT_DATE();;
+      sql_trigger_value: SELECT
+        MAX(last_modified_time)
+      FROM
+        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+      WHERE
+        table_name = "all_subscriptions_v1";;
     }
   }
 }

@@ -1,4 +1,4 @@
-- dashboard: vpn_saasboard__active_subs
+- dashboard: vpn_saasboard__active_subscriptions
   title: VPN SaaSboard - Active Subscriptions
   layout: newspaper
   preferred_viewer: dashboards-next
@@ -124,11 +124,11 @@
     type: text
     title_text: ''
     body_text: "<div style='background-color: #ffffdd; padding: 5px 10px; border:\
-    \ solid 3px #ededed; border-radius: 5px; height:150px'>\n\nThis dashboard captures\
-    \ the current state and monthly trend of <strong>active subscriptions</strong>.\n\
-    \n<ul>\n<li>\nActive subscriptions are paid subscriptions at a moment in time.\
-    \  \n</li>\n</ul>\n<br>\n\nPlease submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
-    >mozilla-vpn-data</a></b> channel on Slack for @wichan or @relud. \n\n</div>"
+      \ solid 3px #ededed; border-radius: 5px; height:150px'>\n\nThis dashboard captures\
+      \ the current state and monthly trend of <strong>active subscriptions</strong>.\n\
+      \n<ul>\n<li>\nActive subscriptions are paid subscriptions at a moment in time.\
+      \  \n</li>\n</ul>\n<br>\n\nPlease submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
+      >mozilla-vpn-data</a></b> channel on Slack for @wichan or @relud. \n\n</div>"
     row: 2
     col: 3
     width: 16
@@ -812,7 +812,6 @@
   - name: " (4)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |
       <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px; color: red;">
 
@@ -911,7 +910,7 @@
   - name: Active Date
     title: Active Date
     type: field_filter
-    default_value: 2020/07/20 to today
+    default_value: after 2020/07/20
     allow_multiple_values: true
     required: false
     ui_config:

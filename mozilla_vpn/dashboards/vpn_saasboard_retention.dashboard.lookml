@@ -16,19 +16,18 @@
   - name: " (2)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: "<div style='background-color: #ffffdd; padding: 5px 10px; border:\
-    \ solid 3px #ededed; border-radius: 5px; height:220px'>\n\nThese visualizations\
-    \ capture <strong>subscription retention</strong>.\n<ul>\n<li>Retention rate\
-    \ is the percentage of active subscriptions out of all subscriptions. </li>\n\
-    <li>Subscriptions are counted in every month less than or equal to their current\
-    \ months since subscription started.</li>\n\n<li>Retention rate must not be\
-    \ aggregated over multiple months because it is cumulative. Therefore, when\
-    \ Months Since Subscription Start not shown, the retention rate shows data for\
-    \ the current month.</li>\n\n<li>A cohort refers to a group of subscriptions\
-    \ that started their subscriptions in a particular month.</li>\n</ul>\n<br>\n\
-    Please submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
-    >mozilla-vpn-data</a></b> channel on Slack for @wichan or @relud. \n</div>"
+      \ solid 3px #ededed; border-radius: 5px; height:220px'>\n\nThese visualizations\
+      \ capture <strong>subscription retention</strong>.\n<ul>\n<li>Retention rate\
+      \ is the percentage of active subscriptions out of all subscriptions. </li>\n\
+      <li>Subscriptions are counted in every month less than or equal to their current\
+      \ months since subscription started.</li>\n\n<li>Retention rate must not be\
+      \ aggregated over multiple months because it is cumulative. Therefore, when\
+      \ Months Since Subscription Start not shown, the retention rate shows data for\
+      \ the current month.</li>\n\n<li>A cohort refers to a group of subscriptions\
+      \ that started their subscriptions in a particular month.</li>\n</ul>\n<br>\n\
+      Please submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
+      >mozilla-vpn-data</a></b> channel on Slack for @wichan or @relud. \n</div>"
     row: 2
     col: 3
     width: 16
@@ -36,7 +35,6 @@
   - name: " (3)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |2-
 
 
@@ -169,10 +167,10 @@
     hidden_fields: [subscriptions.count, subscriptions__retention.retained]
     series_types: {}
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
       Country: subscriptions.country_name
       Subscription Start Date: subscriptions.subscription_start_month
+      Pricing Plan: subscriptions.pricing_plan
+      Provider: subscriptions.provider
     row: 41
     col: 12
     width: 12
@@ -299,10 +297,10 @@
     hide_totals: false
     hide_row_totals: false
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
       Country: subscriptions.country_name
       Subscription Start Date: subscriptions.subscription_start_month
+      Pricing Plan: subscriptions.pricing_plan
+      Provider: subscriptions.provider
     row: 41
     col: 0
     width: 12
@@ -422,10 +420,10 @@
     hidden_fields: [subscriptions.count, retention_rate]
     series_types: {}
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
       Country: subscriptions.country_name
       Subscription Start Date: subscriptions.subscription_start_month
+      Pricing Plan: subscriptions.pricing_plan
+      Provider: subscriptions.provider
     row: 49
     col: 12
     width: 12
@@ -503,10 +501,10 @@
     note_state: expanded
     note_display: below
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
       Country: subscriptions.country_name
       Subscription Start Date: subscriptions.subscription_start_month
+      Pricing Plan: subscriptions.pricing_plan
+      Provider: subscriptions.provider
     row: 10
     col: 12
     width: 12
@@ -542,7 +540,7 @@
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
-    stacking: normal
+    stacking: ''
     limit_displayed_rows: false
     legend_position: center
     point_style: circle_outline
@@ -562,11 +560,10 @@
         steps: 5
     y_axes: [{label: '', orientation: left, series: [{axisId: retention_rate, id: retention_rate,
             name: Retention Rate}], showLabels: true, showValues: true, unpinAxis: false,
-        tickDensity: default, tickDensityCustom: 5, type: linear}, {label: Subscription
-          Counts, orientation: right, series: [{axisId: retained, id: retained, name: Retained},
-          {axisId: not_retained, id: not_retained, name: Not Retained}], showLabels: true,
-        showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
-        type: linear}]
+        tickDensity: default, tickDensityCustom: 5, type: linear}, {label: Subs Retained,
+        orientation: right, series: [{axisId: subscriptions__retention.retained, id: subscriptions__retention.retained,
+            name: Retained}], showLabels: true, showValues: true, unpinAxis: false,
+        tickDensity: default, type: linear}]
     x_axis_label: Months Since Subscription Start
     series_types:
       retention_rate: line
@@ -593,10 +590,10 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
       Country: subscriptions.country_name
       Subscription Start Date: subscriptions.subscription_start_month
+      Pricing Plan: subscriptions.pricing_plan
+      Provider: subscriptions.provider
     row: 10
     col: 0
     width: 12
@@ -623,7 +620,10 @@
     series_types: {}
     defaults_version: 1
     listen:
+      Country: subscriptions.country_name
       Subscription Start Date: subscriptions.subscription_start_month
+      Pricing Plan: subscriptions.pricing_plan
+      Provider: subscriptions.provider
     row: 2
     col: 19
     width: 5
@@ -724,10 +724,10 @@
       total_subscribers, subscriptions__retention.retained]
     series_types: {}
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
       Country: subscriptions.country_name
       Subscription Start Date: subscriptions.subscription_start_month
+      Pricing Plan: subscriptions.pricing_plan
+      Provider: subscriptions.provider
     row: 22
     col: 12
     width: 12
@@ -735,7 +735,6 @@
   - name: " (4)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |2-
 
 
@@ -749,7 +748,6 @@
   - name: " (5)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |2-
 
 
@@ -854,10 +852,10 @@
       total_subscribers, retention_rate]
     series_types: {}
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
       Country: subscriptions.country_name
       Subscription Start Date: subscriptions.subscription_start_month
+      Pricing Plan: subscriptions.pricing_plan
+      Provider: subscriptions.provider
     row: 31
     col: 12
     width: 12
@@ -958,10 +956,10 @@
       pricing_plan_for_sorting, total_subscriptions, total_subscriptions_for_sorting,
       total_subscribers, subscriptions__retention.retained]
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
       Country: subscriptions.country_name
       Subscription Start Date: subscriptions.subscription_start_month
+      Pricing Plan: subscriptions.pricing_plan
+      Provider: subscriptions.provider
     row: 22
     col: 0
     width: 12
@@ -969,7 +967,6 @@
   - name: " (6)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |2-
 
 
@@ -989,10 +986,6 @@
       subscriptions.country_name, subscriptions__retention.retained]
     pivots: [subscriptions.country_name]
     filters:
-      subscriptions.provider: ''
-      subscriptions.pricing_plan: ''
-      subscriptions.country_name: ''
-      subscriptions.subscription_start_month: 2020/07/20 to today
       subscriptions__retention.months_since_subscription_start: '1,3,6,9,12,0'
       subscriptions__retention.is_cohort_complete: 'Yes'
     sorts: [subscriptions.count desc 0, subscriptions.country_name desc]
@@ -1060,7 +1053,11 @@
     note_state: collapsed
     note_display: hover
     note_text: Country is based on customer billing address.
-    listen: {}
+    listen:
+      Country: subscriptions.country_name
+      Subscription Start Date: subscriptions.subscription_start_month
+      Pricing Plan: subscriptions.pricing_plan
+      Provider: subscriptions.provider
     row: 60
     col: 0
     width: 24
@@ -1068,7 +1065,6 @@
   - name: " (7)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |
       <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px; color: red;">
 
