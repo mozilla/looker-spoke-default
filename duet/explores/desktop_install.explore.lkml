@@ -10,8 +10,8 @@ explore: desktop_install  {
     DATE_DIFF(  -- Only use builds from the last month
         ${submission_date},
         SAFE.PARSE_DATE('%Y%m%d', SUBSTR(${build_id}, 0, 8)),
-        MONTH
-    ) <= 1 AND
+        WEEK
+    ) <= 6 AND
     ${attribution} IN ("chrome", "ie", "edge") AND
     DATE(${submission_date}) <= DATE_SUB(
       IF({% parameter desktop_install.previous_time_period %},

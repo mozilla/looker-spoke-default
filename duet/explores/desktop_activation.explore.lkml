@@ -7,8 +7,8 @@ explore: desktop_activation {
     DATE_DIFF(  -- Only use builds from the last month
       ${submission_timestamp_date},
       SAFE.PARSE_DATE('%Y%m%d', SUBSTR(${build_id}, 0, 8)),
-      MONTH
-    ) <= 1 AND
+      WEEK
+    ) <= 6 AND
     ${os} = "Windows" AND
     ${attribution_source} IS NOT NULL AND
     ${distribution_id} IS NULL AND

@@ -63,8 +63,8 @@ explore: desktop_new_profile {
     DATE_DIFF(  -- Only use builds from the last month
       ${submission_date},
       SAFE.PARSE_DATE('%Y%m%d', SUBSTR(${application__build_id}, 0, 8)),
-      MONTH
-    ) <= 1 AND
+      WEEK
+    ) <= 6 AND
     ${environment__settings__attribution__source} IS NOT NULL AND
     ${normalized_os} = "Windows" AND
     ${environment__partner__distribution_id} IS NULL AND
