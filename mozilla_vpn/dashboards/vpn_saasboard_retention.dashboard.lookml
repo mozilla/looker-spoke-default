@@ -540,7 +540,7 @@
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
-    stacking: normal
+    stacking: ''
     limit_displayed_rows: false
     legend_position: center
     point_style: circle_outline
@@ -560,11 +560,10 @@
         steps: 5
     y_axes: [{label: '', orientation: left, series: [{axisId: retention_rate, id: retention_rate,
             name: Retention Rate}], showLabels: true, showValues: true, unpinAxis: false,
-        tickDensity: default, tickDensityCustom: 5, type: linear}, {label: Subscription
-          Counts, orientation: right, series: [{axisId: retained, id: retained, name: Retained},
-          {axisId: not_retained, id: not_retained, name: Not Retained}], showLabels: true,
-        showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
-        type: linear}]
+        tickDensity: default, tickDensityCustom: 5, type: linear}, {label: Subs Retained,
+        orientation: right, series: [{axisId: subscriptions__retention.retained, id: subscriptions__retention.retained,
+            name: Retained}], showLabels: true, showValues: true, unpinAxis: false,
+        tickDensity: default, type: linear}]
     x_axis_label: Months Since Subscription Start
     series_types:
       retention_rate: line
