@@ -16,15 +16,14 @@
   - name: " (2)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: "<div style='background-color: #ffffdd; padding: 5px 10px; border:\
       \ solid 3px #ededed; border-radius: 5px; height:220px'>\n\nThis dashboard capture\
-      \ <strong>subscription churn</strong>.\n\n<ul>\n  <li>A cohort refers to the group of subscriptions\
-      \ that started in a particular month.  For example, cohort 07-2020 includes\
-      \ all subscriptions that started in the month of July 2020.</li>\n  <li>Churn\
-      \ rate is the percentage of not-retained subscriptions out of the number retained\
-      \ from the previous month. </li>\n  <li>Churn rate can be aggregated to get\
-      \ the average churn per month by not specifying <b>Months Since Subscription\
+      \ <strong>subscription churn</strong>.\n\n<ul>\n  <li>A cohort refers to the\
+      \ group of subscriptions that started in a particular month.  For example, cohort\
+      \ 07-2020 includes all subscriptions that started in the month of July 2020.</li>\n\
+      \  <li>Churn rate is the percentage of not-retained subscriptions out of the\
+      \ number retained from the previous month. </li>\n  <li>Churn rate can be aggregated\
+      \ to get the average churn per month by not specifying <b>Months Since Subscription\
       \ Start</b>. This differs from retention rate, which is cumulative and therefore\
       \ must not be aggregated.</li>\n  <li>Churn Rate is not defined for 0 months\
       \ since subscription started, because there is no previous month.</li>\n</ul>\n\
@@ -37,7 +36,6 @@
   - name: " (3)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |2-
 
 
@@ -129,7 +127,7 @@
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Subscription Start Date: subscriptions.subscription_start_date
+      Active Date: subscriptions.subscription_start_date
     row: 10
     col: 0
     width: 13
@@ -211,7 +209,7 @@
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Subscription Start Date: subscriptions.subscription_start_date
+      Active Date: subscriptions.subscription_start_date
     row: 10
     col: 13
     width: 11
@@ -309,7 +307,7 @@
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Subscription Start Date: subscriptions.subscription_start_date
+      Active Date: subscriptions.subscription_start_date
     row: 45
     col: 0
     width: 13
@@ -411,7 +409,7 @@
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Subscription Start Date: subscriptions.subscription_start_date
+      Active Date: subscriptions.subscription_start_date
     row: 45
     col: 13
     width: 11
@@ -427,6 +425,7 @@
     fill_fields: [subscriptions.subscription_start_month]
     filters:
       subscriptions__retention.months_since_subscription_start: ">0"
+      subscriptions__retention.is_cohort_complete: 'Yes'
     sorts: [subscriptions.subscription_start_month, subscriptions__retention.months_since_subscription_start]
     total: true
     dynamic_fields: [{category: measure, expression: "if(\n  ${subscriptions__retention.months_since_subscription_start}\
@@ -525,7 +524,7 @@
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Subscription Start Date: subscriptions.subscription_start_date
+      Active Date: subscriptions.subscription_start_date
     row: 58
     col: 13
     width: 11
@@ -576,7 +575,7 @@
     defaults_version: 1
     series_types: {}
     listen:
-      Subscription Start Date: subscriptions.subscription_start_date
+      Active Date: subscriptions.subscription_start_date
     row: 3
     col: 19
     width: 5
@@ -584,7 +583,6 @@
   - name: " (4)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |2-
 
 
@@ -712,7 +710,7 @@
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Subscription Start Date: subscriptions.subscription_start_date
+      Active Date: subscriptions.subscription_start_date
     row: 21
     col: 13
     width: 11
@@ -720,7 +718,6 @@
   - name: " (5)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |2-
 
 
@@ -837,7 +834,7 @@
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Subscription Start Date: subscriptions.subscription_start_date
+      Active Date: subscriptions.subscription_start_date
     row: 32
     col: 13
     width: 11
@@ -957,7 +954,7 @@
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Subscription Start Date: subscriptions.subscription_start_date
+      Active Date: subscriptions.subscription_start_date
     row: 21
     col: 0
     width: 13
@@ -965,7 +962,6 @@
   - name: " (6)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |
       <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px; color: red;">
 
@@ -1008,7 +1004,7 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Subscription Start Date, Provider, Pricing Plan, Country]
+    listens_to_filters: [Active Date, Provider, Pricing Plan, Country]
     field: subscriptions.provider
   - name: Pricing Plan
     title: Pricing Plan
@@ -1021,7 +1017,7 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Subscription Start Date, Provider, Pricing Plan, Country]
+    listens_to_filters: [Active Date, Provider, Pricing Plan, Country]
     field: subscriptions.pricing_plan
   - name: Country
     title: Country
@@ -1034,12 +1030,12 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Subscription Start Date, Provider, Pricing Plan, Country]
+    listens_to_filters: [Active Date, Provider, Pricing Plan, Country]
     field: subscriptions.country_name
-  - name: Subscription Start Date
-    title: Subscription Start Date
+  - name: Active Date
+    title: Active Date
     type: field_filter
-    default_value: 2020/07/20 to today
+    default_value: after 2020/07/20
     allow_multiple_values: true
     required: false
     ui_config:
@@ -1047,5 +1043,5 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Subscription Start Date, Provider, Pricing Plan, Country]
+    listens_to_filters: [Active Date, Provider, Pricing Plan, Country]
     field: subscriptions.subscription_start_date
