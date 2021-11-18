@@ -283,7 +283,7 @@ explore: +subscriptions {
       measures: [count]
       filters: [
         # "subscriptions__events.event_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions__events.event_date: "2020/07/20 to today",
+        subscriptions__events.event_date: "after 2020/07/20",
         subscriptions__events.type: "New"
       ]
     }
@@ -299,7 +299,7 @@ explore: +subscriptions {
       measures: [count]
       filters: [
         # "subscriptions__events.event_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions__events.event_date: "2020/07/20 to today",
+        subscriptions__events.event_date: "after 2020/07/20",
         subscriptions__events.type: "New"
       ]
     }
@@ -350,7 +350,7 @@ explore: +subscriptions {
       measures: [count]
       filters: [
         # "subscriptions__events.event_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions__events.event_date: "2020/07/20 to today",
+        subscriptions__events.event_date: "after 2020/07/20",
         subscriptions__events.type: "New"
       ]
     }
@@ -371,7 +371,7 @@ explore: +subscriptions {
       measures: [count, subscriptions__retention.retained]
       filters: [
         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "2020/07/20 to today",
+        subscriptions.subscription_start_month: "after 2020/07/20",
         subscriptions__retention.is_cohort_complete: "Yes"
       ]
     }
@@ -387,7 +387,7 @@ explore: +subscriptions {
       measures: [count, subscriptions__retention.retained]
       filters: [
         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "2020/07/20 to today",
+        subscriptions.subscription_start_month: "after 2020/07/20",
         subscriptions__retention.is_current_months_since_subscription_start: "Yes"
       ]
     }
@@ -403,7 +403,7 @@ explore: +subscriptions {
       measures: [count, subscriptions__retention.retained]
       filters: [
         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "2020/07/20 to today",
+        subscriptions.subscription_start_month: "after 2020/07/20",
         subscriptions__retention.is_cohort_complete: "Yes"
       ]
     }
@@ -419,7 +419,7 @@ explore: +subscriptions {
       measures: [count, subscriptions__retention.retained]
       filters: [
         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "2020/07/20 to today",
+        subscriptions.subscription_start_month: "after 2020/07/20",
         subscriptions__retention.is_current_months_since_subscription_start: "Yes"
       ]
     }
@@ -435,7 +435,7 @@ explore: +subscriptions {
       measures: [count, subscriptions__retention.retained]
       filters: [
         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "2020/07/20 to today",
+        subscriptions.subscription_start_month: "after 2020/07/20",
         subscriptions__retention.is_cohort_complete: "Yes"
       ]
     }
@@ -450,7 +450,7 @@ explore: +subscriptions {
       dimensions: [subscription_start_date]
       filters: [
         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "2020/07/20 to today"
+        subscriptions.subscription_start_month: "after 2020/07/20"
       ]
     }
 
@@ -465,7 +465,8 @@ explore: +subscriptions {
       measures: [count, subscriptions__retention.retained]
       filters: [
         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "2020/07/20 to today"
+        subscriptions.subscription_start_month: "after 2020/07/20",
+        subscriptions__retention.is_cohort_complete: "Yes"
       ]
     }
 
@@ -480,7 +481,7 @@ explore: +subscriptions {
       measures: [count, subscriptions__retention.retained]
       filters: [
         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "2020/07/20 to today"
+        subscriptions.subscription_start_month: "after 2020/07/20"
       ]
     }
 
@@ -495,7 +496,7 @@ explore: +subscriptions {
       measures: [count, subscriptions__retention.retained]
       filters: [
         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "2020/07/20 to today"
+        subscriptions.subscription_start_month: "after 2020/07/20"
       ]
     }
 
@@ -509,7 +510,7 @@ explore: +subscriptions {
       dimensions: [country_name, subscriptions__retention.months_since_subscription_start]
       measures: [count, subscriptions__retention.retained]
       filters: [
-        subscriptions.subscription_start_month: "2020/07/20 to today",
+        subscriptions.subscription_start_month: "after 2020/07/20",
         subscriptions__retention.is_cohort_complete: "Yes",
         subscriptions__retention.months_since_subscription_start: "1,3,6,9,12,0"
       ]
@@ -631,6 +632,16 @@ explore: +subscriptions {
         subscriptions__retention.is_cohort_complete: "Yes",
         subscriptions__retention.months_since_subscription_start: ">0"
       ]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
+  aggregate_table: rollup__subscription_start_date {
+    query: {
+      dimensions: [subscription_start_date]
     }
 
     materialization: {

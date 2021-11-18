@@ -16,6 +16,7 @@
   - name: " (2)"
     type: text
     title_text: ''
+    subtitle_text: ''
     body_text: "<div style='background-color: #ffffdd; padding: 5px 10px; border:\
       \ solid 3px #ededed; border-radius: 5px; height:220px'>\n\nThese visualizations\
       \ capture <strong>subscription retention</strong>.\n<ul>\n<li>Retention rate\
@@ -25,8 +26,9 @@
       \ aggregated over multiple months because it is cumulative. Therefore, when\
       \ Months Since Subscription Start not shown, the retention rate shows data for\
       \ the current month.</li>\n\n<li>A cohort refers to a group of subscriptions\
-      \ that started their subscriptions in a particular month.</li>\n</ul>\n<br>\n\
-      Please submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
+      \ that started their subscriptions in a particular month.  For example, cohort\
+      \ 07-2020 includes all subscriptions that started in the month of July 2020.</li>\n\
+      </ul>\n<br>\nPlease submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
       >mozilla-vpn-data</a></b> channel on Slack for @wichan or @relud. \n</div>"
     row: 2
     col: 3
@@ -168,9 +170,9 @@
     series_types: {}
     listen:
       Country: subscriptions.country_name
-      Subscription Start Date: subscriptions.subscription_start_month
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
+      Subscription Start Date: subscriptions.subscription_start_month
     row: 41
     col: 12
     width: 12
@@ -298,9 +300,9 @@
     hide_row_totals: false
     listen:
       Country: subscriptions.country_name
-      Subscription Start Date: subscriptions.subscription_start_month
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
+      Subscription Start Date: subscriptions.subscription_start_month
     row: 41
     col: 0
     width: 12
@@ -421,9 +423,9 @@
     series_types: {}
     listen:
       Country: subscriptions.country_name
-      Subscription Start Date: subscriptions.subscription_start_month
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
+      Subscription Start Date: subscriptions.subscription_start_month
     row: 49
     col: 12
     width: 12
@@ -502,9 +504,9 @@
     note_display: below
     listen:
       Country: subscriptions.country_name
-      Subscription Start Date: subscriptions.subscription_start_month
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
+      Subscription Start Date: subscriptions.subscription_start_month
     row: 10
     col: 12
     width: 12
@@ -591,9 +593,9 @@
     conditional_formatting_include_nulls: false
     listen:
       Country: subscriptions.country_name
-      Subscription Start Date: subscriptions.subscription_start_month
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
+      Subscription Start Date: subscriptions.subscription_start_month
     row: 10
     col: 0
     width: 12
@@ -621,9 +623,9 @@
     defaults_version: 1
     listen:
       Country: subscriptions.country_name
-      Subscription Start Date: subscriptions.subscription_start_month
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
+      Subscription Start Date: subscriptions.subscription_start_month
     row: 2
     col: 19
     width: 5
@@ -636,6 +638,8 @@
     fields: [subscriptions.pricing_plan, subscriptions.count, subscriptions__retention.months_since_subscription_start,
       subscriptions__retention.retained]
     pivots: [subscriptions__retention.months_since_subscription_start]
+    filters:
+      subscriptions__retention.is_cohort_complete: 'Yes'
     sorts: [subscriptions.pricing_plan 0, subscriptions__retention.months_since_subscription_start]
     column_limit: 50
     total: true
@@ -725,9 +729,9 @@
     series_types: {}
     listen:
       Country: subscriptions.country_name
-      Subscription Start Date: subscriptions.subscription_start_month
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
+      Subscription Start Date: subscriptions.subscription_start_month
     row: 22
     col: 12
     width: 12
@@ -766,6 +770,8 @@
     fields: [subscriptions.count, subscriptions__retention.months_since_subscription_start,
       subscriptions.pricing_plan, subscriptions__retention.retained]
     pivots: [subscriptions__retention.months_since_subscription_start]
+    filters:
+      subscriptions__retention.is_cohort_complete: 'Yes'
     sorts: [subscriptions.pricing_plan 0, subscriptions__retention.months_since_subscription_start]
     column_limit: 50
     total: true
@@ -853,9 +859,9 @@
     series_types: {}
     listen:
       Country: subscriptions.country_name
-      Subscription Start Date: subscriptions.subscription_start_month
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
+      Subscription Start Date: subscriptions.subscription_start_month
     row: 31
     col: 12
     width: 12
@@ -868,6 +874,8 @@
     fields: [subscriptions.pricing_plan, subscriptions.count, subscriptions__retention.months_since_subscription_start,
       subscriptions__retention.retained]
     pivots: [subscriptions.pricing_plan]
+    filters:
+      subscriptions__retention.is_cohort_complete: 'Yes'
     sorts: [subscriptions__retention.months_since_subscription_start, subscriptions.pricing_plan,
       months_since_plan_start desc, total_subscribers desc 0]
     limit: 1000
@@ -957,9 +965,9 @@
       total_subscribers, subscriptions__retention.retained]
     listen:
       Country: subscriptions.country_name
-      Subscription Start Date: subscriptions.subscription_start_month
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
+      Subscription Start Date: subscriptions.subscription_start_month
     row: 22
     col: 0
     width: 12
@@ -993,10 +1001,7 @@
     column_limit: 50
     dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
         label: Retention Rate, value_format: !!null '', value_format_name: percent_1,
-        _kind_hint: measure, table_calculation: retention_rate, _type_hint: number},
-      {category: table_calculation, expression: "${subscriptions.count}-${subscriptions__retention.retained}",
-        label: Not Retained, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: measure, table_calculation: not_retained, _type_hint: number}]
+        _kind_hint: measure, table_calculation: retention_rate, _type_hint: number}]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -1055,9 +1060,9 @@
     note_text: Country is based on customer billing address.
     listen:
       Country: subscriptions.country_name
-      Subscription Start Date: subscriptions.subscription_start_month
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
+      Subscription Start Date: subscriptions.subscription_start_month
     row: 60
     col: 0
     width: 24
@@ -1107,7 +1112,7 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Provider, Pricing Plan, Country]
+    listens_to_filters: [Provider, Pricing Plan, Country, Subscription Start Date]
     field: subscriptions.provider
   - name: Pricing Plan
     title: Pricing Plan
@@ -1120,7 +1125,7 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Provider, Pricing Plan, Country]
+    listens_to_filters: [Provider, Pricing Plan, Country, Subscription Start Date]
     field: subscriptions.pricing_plan
   - name: Country
     title: Country
@@ -1133,12 +1138,12 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Provider, Pricing Plan, Country]
+    listens_to_filters: [Provider, Pricing Plan, Country, Subscription Start Date]
     field: subscriptions.country_name
   - name: Subscription Start Date
     title: Subscription Start Date
     type: field_filter
-    default_value: 2020/07/20 to today
+    default_value: after 2020/07/20
     allow_multiple_values: true
     required: false
     ui_config:

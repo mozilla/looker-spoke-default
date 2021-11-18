@@ -1,5 +1,5 @@
-- dashboard: vpn_saasboard__revenue_restricted_access
-  title: VPN SaaSboard - Revenue (Restricted Access)
+- dashboard: vpn_saasboard__revenue
+  title: VPN SaaSboard - Revenue
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
@@ -79,6 +79,7 @@
     hidden_fields: [subscriptions.count, subscriptions.sum_revenue, sum_of_annual_recurring_revenue]
     listen:
       Active Date: subscriptions__active.active_date
+      Provider: subscriptions.provider
     row: 15
     col: 0
     width: 12
@@ -95,11 +96,11 @@
   - name: " (2)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: "<p style='background-color: #ffffdd; padding: 5px 10px; border: solid\
       \ 3px #ededed; border-radius: 5px; height:150px'>\n\nThis dashboard captures\
-      \ <strong>revenue</strong>.\n\n<br>\n<br>\nPlease submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
-      >mozilla-vpn-data</a></b> channel on Slack for @wichan or @relud. \n\n</p>"
+      \ <strong>revenue</strong>.\n\n<br>\n<br>\nPlease submit any questions in  <b><a\
+      \ href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\">mozilla-vpn-data</a></b>\
+      \ channel on Slack for @wichan or @relud. \n\n</p>"
     row: 2
     col: 3
     width: 15
@@ -178,10 +179,10 @@
     note_display: hover
     note_text: Country is based on customer billing address.
     listen:
-      Provider: subscriptions.provider
-      Country Name: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Active Date: subscriptions__active.active_date
+      Country: subscriptions.country_name
+      Provider: subscriptions.provider
     row: 6
     col: 0
     width: 12
@@ -256,10 +257,10 @@
     interpolation: linear
     defaults_version: 1
     listen:
-      Provider: subscriptions.provider
-      Country Name: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Active Date: subscriptions__active.active_date
+      Country: subscriptions.country_name
+      Provider: subscriptions.provider
     row: 6
     col: 12
     width: 12
@@ -296,6 +297,7 @@
     defaults_version: 1
     listen:
       Active Date: subscriptions__active.active_date
+      Provider: subscriptions.provider
     row: 2
     col: 18
     width: 6
@@ -303,7 +305,6 @@
   - name: " (3)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |
       <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px; color: red;">
 
@@ -347,7 +348,7 @@
       options: []
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Pricing Plan, Country Name]
+    listens_to_filters: [Pricing Plan, Country, Active Date]
     field: subscriptions.provider
   - name: Pricing Plan
     title: Pricing Plan
@@ -361,10 +362,10 @@
       options: []
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Provider, Country Name]
+    listens_to_filters: [Provider, Country, Active Date]
     field: subscriptions.pricing_plan
-  - name: Country Name
-    title: Country Name
+  - name: Country
+    title: Country
     type: field_filter
     default_value: ''
     allow_multiple_values: true
@@ -375,12 +376,12 @@
       options: []
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Provider, Pricing Plan]
+    listens_to_filters: [Provider, Pricing Plan, Active Date]
     field: subscriptions.country_name
   - name: Active Date
     title: Active Date
     type: field_filter
-    default_value: 2020/07/01 to today
+    default_value: after 2020/07/20
     allow_multiple_values: true
     required: false
     ui_config:
