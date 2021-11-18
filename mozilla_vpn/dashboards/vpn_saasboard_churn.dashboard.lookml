@@ -127,7 +127,7 @@
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Active Date: subscriptions.subscription_start_date
+      Subscription Start Date: subscriptions.subscription_start_date
     row: 10
     col: 0
     width: 13
@@ -209,7 +209,7 @@
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Active Date: subscriptions.subscription_start_date
+      Subscription Start Date: subscriptions.subscription_start_date
     row: 10
     col: 13
     width: 11
@@ -307,7 +307,7 @@
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Active Date: subscriptions.subscription_start_date
+      Subscription Start Date: subscriptions.subscription_start_date
     row: 45
     col: 0
     width: 13
@@ -409,7 +409,7 @@
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Active Date: subscriptions.subscription_start_date
+      Subscription Start Date: subscriptions.subscription_start_date
     row: 45
     col: 13
     width: 11
@@ -524,7 +524,7 @@
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Active Date: subscriptions.subscription_start_date
+      Subscription Start Date: subscriptions.subscription_start_date
     row: 58
     col: 13
     width: 11
@@ -575,7 +575,7 @@
     defaults_version: 1
     series_types: {}
     listen:
-      Active Date: subscriptions.subscription_start_date
+      Subscription Start Date: subscriptions.subscription_start_date
     row: 3
     col: 19
     width: 5
@@ -710,7 +710,7 @@
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Active Date: subscriptions.subscription_start_date
+      Subscription Start Date: subscriptions.subscription_start_date
     row: 21
     col: 13
     width: 11
@@ -834,7 +834,7 @@
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Active Date: subscriptions.subscription_start_date
+      Subscription Start Date: subscriptions.subscription_start_date
     row: 32
     col: 13
     width: 11
@@ -954,7 +954,7 @@
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Active Date: subscriptions.subscription_start_date
+      Subscription Start Date: subscriptions.subscription_start_date
     row: 21
     col: 0
     width: 13
@@ -1004,7 +1004,7 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Active Date, Provider, Pricing Plan, Country]
+    listens_to_filters: [Subscription Start Date, Provider, Pricing Plan, Country]
     field: subscriptions.provider
   - name: Pricing Plan
     title: Pricing Plan
@@ -1017,7 +1017,7 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Active Date, Provider, Pricing Plan, Country]
+    listens_to_filters: [Subscription Start Date, Provider, Pricing Plan, Country]
     field: subscriptions.pricing_plan
   - name: Country
     title: Country
@@ -1030,10 +1030,10 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Active Date, Provider, Pricing Plan, Country]
+    listens_to_filters: [Subscription Start Date, Provider, Pricing Plan, Country]
     field: subscriptions.country_name
-  - name: Active Date
-    title: Active Date
+  - name: Subscription Start Date
+    title: Subscription Start Date
     type: field_filter
     default_value: after 2020/07/20
     allow_multiple_values: true
@@ -1043,5 +1043,5 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Active Date, Provider, Pricing Plan, Country]
+    listens_to_filters: [Subscription Start Date, Provider, Pricing Plan, Country]
     field: subscriptions.subscription_start_date
