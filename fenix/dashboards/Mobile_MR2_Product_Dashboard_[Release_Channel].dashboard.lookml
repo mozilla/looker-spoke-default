@@ -1057,6 +1057,7 @@
       step_2.category: '"customize_home"'
       step_2.event: '"preference_toggled"'
       funnel_analysis.app_channel: release
+      funnel_analysis.sample_id: '1'
     sorts: [funnel_analysis.submission_date desc]
     limit: 500
     x_axis_gridlines: false
@@ -1091,9 +1092,9 @@
     defaults_version: 1
     note_state: expanded
     note_display: above
-    note_text: Percentage of daily users that toggled a preference regarding customizing
+    note_text: Percentage of sampled daily users that toggled a preference regarding customizing
       the home page (jump back in, most visited sites, recently saved, recently visited,
-      pocket). Multiply by 100 for percentages.
+      pocket). Multiply by 10,000 for percentages.
     listen: {}
     row: 37
     col: 0
@@ -1113,7 +1114,7 @@
       step_2.category: preferences
       step_2.event: '"inactive_tabs_enabled"'
       funnel_analysis.app_channel: release
-      funnel_analysis.sample_id: '10'
+      funnel_analysis.sample_id: '1'
     sorts: [funnel_analysis.submission_date desc]
     limit: 500
     x_axis_gridlines: false
