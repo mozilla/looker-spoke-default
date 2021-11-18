@@ -1,0 +1,6 @@
+connection: "telemetry"
+label: "RegretsReporter"
+include: "//looker-hub/regrets_reporter/explores/*"
+include: "//looker-hub/regrets_reporter/dashboards/*"
+include: "views/*"
+include: "explores/*"
