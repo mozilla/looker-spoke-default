@@ -414,12 +414,11 @@
     limit: 3
     column_limit: 50
     dynamic_fields: [{category: table_calculation, expression: "(${subscriptions.count}-offset(${subscriptions.count},\
-          \ 1)) / offset(${subscriptions.count}, 1)", label: delta_1_day, value_format: !!null '',
-        value_format_name: percent_1, _kind_hint: measure, table_calculation: delta_1_day,
-        _type_hint: number}]
+          \ 1))", label: delta_1_day, value_format: !!null '', value_format_name: '',
+        _kind_hint: measure, table_calculation: delta_1_day, _type_hint: number}]
     custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
+    show_single_value_title: false
+    show_comparison: true
     comparison_type: progress
     comparison_reverse_colors: false
     show_comparison_label: true
@@ -428,7 +427,7 @@
     conditional_formatting_include_nulls: false
     single_value_title: delta 1 day
     value_format: ''
-    comparison_label: change since 7 days
+    comparison_label: change since 1 day ago
     conditional_formatting: [{type: less than, value: 0, background_color: '', font_color: "#FF505F",
         color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
         bold: false, italic: false, strikethrough: false, fields: !!null ''}, {type: greater
@@ -492,12 +491,11 @@
     limit: 10
     column_limit: 50
     dynamic_fields: [{category: table_calculation, expression: "(${subscriptions.count}-offset(${subscriptions.count},\
-          \ 7)) / offset(${subscriptions.count}, 7)", label: delta_7_days, value_format: !!null '',
-        value_format_name: percent_1, _kind_hint: measure, table_calculation: delta_7_days,
-        _type_hint: number}]
+          \ 7))", label: delta_7_days, value_format: !!null '', value_format_name: '',
+        _kind_hint: measure, table_calculation: delta_7_days, _type_hint: number}]
     custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
+    show_single_value_title: false
+    show_comparison: true
     comparison_type: progress
     comparison_reverse_colors: false
     show_comparison_label: true
@@ -506,7 +504,7 @@
     conditional_formatting_include_nulls: false
     single_value_title: delta 7 days
     value_format: ''
-    comparison_label: change since 7 days
+    comparison_label: change since 7 days ago
     conditional_formatting: [{type: less than, value: 0, background_color: '', font_color: "#FF505F",
         color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
         bold: false, italic: false, strikethrough: false, fields: !!null ''}, {type: greater
