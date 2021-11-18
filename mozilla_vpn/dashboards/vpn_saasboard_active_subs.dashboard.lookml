@@ -875,7 +875,7 @@
       options: []
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: []
+    listens_to_filters: [Active Date, Country, Pricing Plan]
     field: subscriptions.provider
   - name: Pricing Plan
     title: Pricing Plan
@@ -889,7 +889,7 @@
       options: []
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: []
+    listens_to_filters: [Active Date, Country, Provider]
     field: subscriptions.pricing_plan
   - name: Country
     title: Country
@@ -903,7 +903,7 @@
       options: []
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: []
+    listens_to_filters: [Active Date, Pricing Plan, Provider]
     field: subscriptions.country_name
   - name: Active Date
     title: Active Date

@@ -79,6 +79,7 @@
     hidden_fields: [subscriptions.count, subscriptions.sum_revenue, sum_of_annual_recurring_revenue]
     listen:
       Active Date: subscriptions__active.active_date
+      Provider: subscriptions.provider
     row: 15
     col: 0
     width: 12
@@ -178,10 +179,10 @@
     note_display: hover
     note_text: Country is based on customer billing address.
     listen:
-      Provider: subscriptions.provider
-      Country Name: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Active Date: subscriptions__active.active_date
+      Country: subscriptions.country_name
+      Provider: subscriptions.provider
     row: 6
     col: 0
     width: 12
@@ -256,10 +257,10 @@
     interpolation: linear
     defaults_version: 1
     listen:
-      Provider: subscriptions.provider
-      Country Name: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Active Date: subscriptions__active.active_date
+      Country: subscriptions.country_name
+      Provider: subscriptions.provider
     row: 6
     col: 12
     width: 12
@@ -296,6 +297,7 @@
     defaults_version: 1
     listen:
       Active Date: subscriptions__active.active_date
+      Provider: subscriptions.provider
     row: 2
     col: 18
     width: 6
@@ -346,7 +348,7 @@
       options: []
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Pricing Plan, Country Name]
+    listens_to_filters: [Pricing Plan, Country, Active Date]
     field: subscriptions.provider
   - name: Pricing Plan
     title: Pricing Plan
@@ -360,10 +362,10 @@
       options: []
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Provider, Country Name]
+    listens_to_filters: [Provider, Country, Active Date]
     field: subscriptions.pricing_plan
-  - name: Country Name
-    title: Country Name
+  - name: Country
+    title: Country
     type: field_filter
     default_value: ''
     allow_multiple_values: true
@@ -374,7 +376,7 @@
       options: []
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Provider, Pricing Plan]
+    listens_to_filters: [Provider, Pricing Plan, Active Date]
     field: subscriptions.country_name
   - name: Active Date
     title: Active Date

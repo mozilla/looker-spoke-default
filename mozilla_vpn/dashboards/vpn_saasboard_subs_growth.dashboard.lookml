@@ -725,7 +725,7 @@
       options: []
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: []
+    listens_to_filters: [Pricing Plan, Country, Event Date]
     field: subscriptions.provider
   - name: Pricing Plan
     title: Pricing Plan
@@ -739,7 +739,7 @@
       options: []
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: []
+    listens_to_filters: [Provider, Country, Event Date]
     field: subscriptions.pricing_plan
   - name: Country
     title: Country
@@ -753,7 +753,7 @@
       options: []
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: []
+    listens_to_filters: [Provider, Pricing Plan, Event Date]
     field: subscriptions.country_name
   - name: Event Date
     title: Event Date

@@ -1017,7 +1017,7 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Subscription Start Date, Provider, Pricing Plan, Country]
+    listens_to_filters: [Subscription Start Date, Pricing Plan, Provider, Country]
     field: subscriptions.pricing_plan
   - name: Country
     title: Country
@@ -1030,7 +1030,7 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Subscription Start Date, Provider, Pricing Plan, Country]
+    listens_to_filters: [Subscription Start Date, Country, Provider, Pricing Plan]
     field: subscriptions.country_name
   - name: Subscription Start Date
     title: Subscription Start Date
@@ -1043,5 +1043,5 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Subscription Start Date, Provider, Pricing Plan, Country]
+    listens_to_filters: [Subscription Start Date]
     field: subscriptions.subscription_start_date
