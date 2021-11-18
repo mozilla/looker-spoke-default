@@ -1,5 +1,5 @@
-- dashboard: vpn_saasboard__revenue_restricted_access
-  title: VPN SaaSboard - Revenue (Restricted Access)
+- dashboard: vpn_saasboard__revenue
+  title: VPN SaaSboard - Revenue
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
@@ -95,11 +95,11 @@
   - name: " (2)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: "<p style='background-color: #ffffdd; padding: 5px 10px; border: solid\
       \ 3px #ededed; border-radius: 5px; height:150px'>\n\nThis dashboard captures\
-      \ <strong>revenue</strong>.\n\n<br>\n<br>\nPlease submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
-      >mozilla-vpn-data</a></b> channel on Slack for @wichan or @relud. \n\n</p>"
+      \ <strong>revenue</strong>.\n\n<br>\n<br>\nPlease submit any questions in  <b><a\
+      \ href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\">mozilla-vpn-data</a></b>\
+      \ channel on Slack for @wichan or @relud. \n\n</p>"
     row: 2
     col: 3
     width: 15
@@ -303,7 +303,6 @@
   - name: " (3)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |
       <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px; color: red;">
 
@@ -380,7 +379,7 @@
   - name: Active Date
     title: Active Date
     type: field_filter
-    default_value: 2020/07/01 to today
+    default_value: after 2020/07/20
     allow_multiple_values: true
     required: false
     ui_config:
