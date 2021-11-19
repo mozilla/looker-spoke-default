@@ -17,3 +17,49 @@ explore: +mobile_search_counts {
     SAP, and organic searches are those that occur directly on a search webpage (e.g. www.google.com).
     Warning: Firefox iOS is not able to implement all metrics, like ad clicks."
 }
+
+explore: +desktop_search_counts {
+  aggregate_table: rollup__search_clients_engines_sources_daily_submission_date__0 {
+    query: {
+      dimensions: [search_clients_engines_sources_daily.submission_date]
+      measures: [search_clients_engines_sources_daily.total_searches]
+      filters: [
+        search_clients_engines_sources_daily.source: "newtab",
+        search_clients_engines_sources_daily.submission_date: "28 days"
+      ]
+    }
+
+    materialization: {
+      sql_trigger_value: "SELECT CURRENT_DATE()" ;;
+    }
+  }
+
+  aggregate_table: rollup__search_clients_engines_sources_daily_normalized_engine__search_clients_engines_sources_daily_submission_date__1 {
+    query: {
+      dimensions: [search_clients_engines_sources_daily.normalized_engine, search_clients_engines_sources_daily.submission_date]
+      measures: [search_clients_engines_sources_daily.total_searches]
+      filters: [
+        search_clients_engines_sources_daily.source: "%newtab%",
+        search_clients_engines_sources_daily.submission_date: "28 days"
+      ]
+    }
+
+    materialization: {
+      sql_trigger_value: "SELECT CURRENT_DATE()" ;;
+    }
+  }
+
+  aggregate_table: rollup__search_clients_engines_sources_daily_total_searches__2 {
+    query: {
+      measures: [search_clients_engines_sources_daily.total_searches]
+      filters: [
+        search_clients_engines_sources_daily.source: "%newtab%",
+        search_clients_engines_sources_daily.submission_date: "7 days"
+      ]
+    }
+
+    materialization: {
+      sql_trigger_value: "SELECT CURRENT_DATE()" ;;
+    }
+  }
+}
