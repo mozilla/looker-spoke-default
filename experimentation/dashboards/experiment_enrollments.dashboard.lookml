@@ -130,7 +130,7 @@
     defaults_version: 1
     listen:
       Time Range: experiment_enrollment_cumulative_population_estimate.timeframe
-      Experiment: experiment_enrollment_cumulative_population_estimate.experiment_slug
+      Experiment: experiment_enrollment_cumulative_population_estimate.experiment
     row: 18
     col: 0
     width: 12
@@ -140,11 +140,10 @@
     model: experimentation
     explore: experiment_enrollment_cumulative_population_estimate
     type: looker_line
-    fields: [experiment_enrollment_cumulative_population_estimate.Total, experiment_enrollment_cumulative_population_estimate.time_time,
-      experiment_enrollment_cumulative_population_estimate.branch]
+    fields: [experiment_enrollment_cumulative_population_estimate.time_time, experiment_enrollment_cumulative_population_estimate.branch,
+      experiment_enrollment_cumulative_population_estimate.Total]
     pivots: [experiment_enrollment_cumulative_population_estimate.branch]
-    filters:
-      experiment_enrollment_cumulative_population_estimate.by_branch: 'Yes'
+    filters: {}
     sorts: [experiment_enrollment_cumulative_population_estimate.time_time desc, experiment_enrollment_cumulative_population_estimate.branch]
     limit: 500
     x_axis_gridlines: false
@@ -181,7 +180,7 @@
     defaults_version: 1
     listen:
       Time Range: experiment_enrollment_cumulative_population_estimate.timeframe
-      Experiment: experiment_enrollment_cumulative_population_estimate.experiment_slug
+      Experiment: experiment_enrollment_cumulative_population_estimate.experiment
     row: 18
     col: 12
     width: 12
