@@ -817,11 +817,11 @@
 
         <img style="color: #efefef; padding: 5px 25px; float: left; height: 40px;" src="https://wwwstatic.lookercdn.com/logos/looker_all_white.svg"/>
 
-        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="#home">
+        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__active_subscriptions?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">
 
        Active Subs</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__subs_growth?Provider=&Pricing+Plan=&Country=&Event+Date=2020%2F07%2F20+to+today">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__subscriptions_growth?Provider=&Pricing+Plan=&Country=&Event+Date=after+2020%2F07%2F20">
 
        Subs Growth</a>
 
