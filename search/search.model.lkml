@@ -19,13 +19,13 @@ explore: +mobile_search_counts {
 }
 
 explore: +desktop_search_counts {
-  aggregate_table: rollup__search_clients_engines_sources_daily_submission_date__0 {
+  aggregate_table: rollup__search_clients_engines_sources_daily_submission_date {
     query: {
       dimensions: [search_clients_engines_sources_daily.submission_date]
       measures: [search_clients_engines_sources_daily.total_searches]
       filters: [
         search_clients_engines_sources_daily.source: "newtab",
-        search_clients_engines_sources_daily.submission_date: "28 days"
+        search_clients_engines_sources_daily.submission_date: "28 days ago for 28 days"
       ]
     }
 
@@ -34,13 +34,13 @@ explore: +desktop_search_counts {
     }
   }
 
-  aggregate_table: rollup__search_clients_engines_sources_daily_normalized_engine__search_clients_engines_sources_daily_submission_date__1 {
+  aggregate_table: rollup__search_clients_engines_sources_daily_normalized_engine__search_clients_engines_sources_daily_submission_date {
     query: {
       dimensions: [search_clients_engines_sources_daily.normalized_engine, search_clients_engines_sources_daily.submission_date]
       measures: [search_clients_engines_sources_daily.total_searches]
       filters: [
         search_clients_engines_sources_daily.source: "%newtab%",
-        search_clients_engines_sources_daily.submission_date: "28 days"
+        search_clients_engines_sources_daily.submission_date: "28 days ago for 28 days"
       ]
     }
 
