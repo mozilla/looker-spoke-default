@@ -112,7 +112,7 @@
       subscriptions__retention.churned: "#FF7139"
     series_labels:
       subscriptions__retention.churned: Churn Counts
-    label_color: [transparent, black, transparent]
+    label_color: []
     x_axis_datetime_label: ''
     column_group_spacing_ratio: 0.3
     hidden_fields: [subscriptions__retention.previously_retained]
