@@ -589,7 +589,7 @@
     note_state: expanded
     note_display: above
     note_text: Percentage of users that opened a recent tab from the home screen Jump
-      Back In section. Multiply by 100 for percentages.
+      Back In section.
     listen: {}
     row: 60
     col: 0
@@ -644,7 +644,7 @@
     note_state: expanded
     note_display: above
     note_text: Percentage of users that opted to show all tabs from the recent tabs
-      section on the home screen. Multiply by 100 for percentages.
+      section on the home screen.
     listen: {}
     row: 60
     col: 12
@@ -801,7 +801,7 @@
     note_state: expanded
     note_display: above
     note_text: Percentage of users that opened the tabs tray after landing on the
-      home page upon opening Firefox. Multiply by 100 for percentages.
+      home page upon opening Firefox.
     listen: {}
     row: 37
     col: 12
@@ -855,8 +855,7 @@
     defaults_version: 1
     note_state: expanded
     note_display: above
-    note_text: Percentage of users visiting tabs tray that also open a new tab. Multiply
-      by 100 for percentages.
+    note_text: Percentage of users visiting tabs tray that also open a new tab.
     listen: {}
     row: 76
     col: 0
@@ -1025,8 +1024,7 @@
     defaults_version: 1
     note_state: expanded
     note_display: above
-    note_text: Percentage of tabs tray visits that also expand inactive tabs. Multiply
-      by 100 for percentages.
+    note_text: Percentage of tabs tray visits that also expand inactive tabs.
     row: 83
     col: 0
     width: 12
@@ -1081,7 +1079,7 @@
     note_display: above
     note_text: Percentage of daily users that toggled a preference regarding customizing
       the home page (jump back in, most visited sites, recently saved, recently visited,
-      pocket). Multiply by 100 for percentages.
+      pocket).
     row: 37
     col: 0
     width: 12
@@ -1189,8 +1187,7 @@
     defaults_version: 1
     note_state: expanded
     note_display: above
-    note_text: Percentage of tabs tray visits that also expand inactive tabs. Multiply
-      by 100 for percentages.
+    note_text: Percentage of tabs tray visits that also expand inactive tabs.
     row: 83
     col: 12
     width: 12
@@ -1244,7 +1241,7 @@
     note_state: expanded
     note_display: above
     note_text: Percentage of users that opened a recent tab from the home screen Jump
-      Back In section. Multiply by 100 for percentages.
+      Back In section.
     row: 67
     col: 0
     width: 12
