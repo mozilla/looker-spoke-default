@@ -1,7 +1,3 @@
 connection: "telemetry"
 label: "Accessibility"
 include: "//looker-hub/accessibility/explores/*"
-include: "//looker-hub/accessibility/dashboards/*"
-include: "views/*"
-include: "explores/*"
-include: "dashboards/*"
