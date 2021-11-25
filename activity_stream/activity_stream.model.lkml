@@ -9,7 +9,6 @@ explore: +session_counts {
     query: {
       dimensions: [sessions.submission_date]
       measures: [sessions.clients]
-      filters: [sessions.submission_date: "28 days ago for 28 days"]
     }
 
     materialization: {
@@ -21,7 +20,6 @@ explore: +session_counts {
     query: {
       dimensions: [sessions.submission_date]
       measures: [sessions.clients]
-      filters: [sessions.submission_date: "28 days"]
     }
 
     materialization: {
@@ -33,7 +31,6 @@ explore: +session_counts {
     query: {
       dimensions: [sessions.submission_date]
       measures: [sessions.session_count]
-      filters: [sessions.submission_date: "28 days"]
     }
 
     materialization: {
@@ -44,7 +41,6 @@ explore: +session_counts {
   aggregate_table: rollup__sessions_session_count__2 {
     query: {
       measures: [sessions.session_count]
-      filters: [sessions.submission_date: "7 days"]
     }
 
     materialization: {
@@ -58,7 +54,6 @@ explore: +pocket_tile_impressions {
     query: {
       dimensions: [impression_stats_flat.submission_date]
       measures: [impression_stats_flat.impression_count]
-      filters: [impression_stats_flat.submission_date: "28 days ago for 28 days"]
     }
 
     materialization: {
@@ -70,7 +65,6 @@ explore: +pocket_tile_impressions {
     query: {
       dimensions: [impression_stats_flat.submission_date]
       measures: [impression_stats_flat.click_count]
-      filters: [impression_stats_flat.submission_date: "28 days ago for 28 days"]
     }
 
     materialization: {
@@ -82,7 +76,6 @@ explore: +pocket_tile_impressions {
     query: {
       dimensions: [impression_stats_flat.submission_date]
       measures: [impression_stats_flat.click_count, impression_stats_flat.impression_count, impression_stats_flat.loaded_count, impression_stats_flat.pocketed_count]
-      filters: [impression_stats_flat.submission_date: "28 days ago for 28 days"]
     }
 
     materialization: {
@@ -95,7 +88,6 @@ explore: +pocket_tile_impressions {
       dimensions: [impression_stats_flat.submission_date]
       measures: [impression_stats_flat.click_count]
       filters: [
-        impression_stats_flat.submission_date: "28 days ago for 28 days",
         impression_stats_flat.tile_type: "spoc"
       ]
     }
@@ -110,7 +102,6 @@ explore: +pocket_tile_impressions {
       dimensions: [impression_stats_flat.submission_date]
       measures: [impression_stats_flat.impression_count]
       filters: [
-        impression_stats_flat.submission_date: "28 days ago for 28 days",
         impression_stats_flat.tile_type: "spoc"
       ]
     }
