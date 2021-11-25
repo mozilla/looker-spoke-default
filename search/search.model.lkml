@@ -19,13 +19,26 @@ explore: +mobile_search_counts {
 }
 
 explore: +desktop_search_counts {
-  aggregate_table: rollup__search_clients_engines_sources_daily_submission_date {
+  aggregate_table: rollup__search_clients_engines_sources_daily_submission_date_0 {
+    query: {
+      dimensions: [search_clients_engines_sources_daily.submission_date]
+      measures: [search_clients_engines_sources_daily.clients, search_clients_engines_sources_daily.total_searches]
+      filters: [
+        search_clients_engines_sources_daily.source: "%newtab%",
+      ]
+    }
+
+    materialization: {
+      sql_trigger_value: "SELECT CURRENT_DATE()" ;;
+    }
+  }
+
+  aggregate_table: rollup__search_clients_engines_sources_daily_submission_date_1 {
     query: {
       dimensions: [search_clients_engines_sources_daily.submission_date]
       measures: [search_clients_engines_sources_daily.total_searches]
       filters: [
         search_clients_engines_sources_daily.source: "newtab",
-        search_clients_engines_sources_daily.submission_date: "28 days ago for 28 days"
       ]
     }
 
@@ -40,7 +53,6 @@ explore: +desktop_search_counts {
       measures: [search_clients_engines_sources_daily.total_searches]
       filters: [
         search_clients_engines_sources_daily.source: "%newtab%",
-        search_clients_engines_sources_daily.submission_date: "28 days ago for 28 days"
       ]
     }
 
@@ -54,7 +66,6 @@ explore: +desktop_search_counts {
       measures: [search_clients_engines_sources_daily.total_searches]
       filters: [
         search_clients_engines_sources_daily.source: "%newtab%",
-        search_clients_engines_sources_daily.submission_date: "7 days"
       ]
     }
 
