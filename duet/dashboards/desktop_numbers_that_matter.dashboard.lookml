@@ -1,4 +1,4 @@
-- dashboard: desktop_number_that_matter
+- dashboard: desktop_numbers_that_matter
   title: Desktop Number That Matter
   layout: newspaper
   preferred_viewer: dashboards-next
