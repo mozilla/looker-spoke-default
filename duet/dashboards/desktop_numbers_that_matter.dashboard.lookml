@@ -1,4 +1,4 @@
-- dashboard: desktop_numbers_that_matter
+- dashboard: desktop_number_that_matter
   title: Desktop Number That Matter
   layout: newspaper
   preferred_viewer: dashboards-next
@@ -22,18 +22,6 @@
       limit: 500
       join_fields:
       - field_name: desktop_new_profile.submission_date
-        source_field_name: desktop_install.submission_date
-      - field_name: country_buckets.bucket
-        source_field_name: country_buckets.bucket
-    - model: duet
-      explore: desktop_activation
-      type: table
-      fields: [desktop_activation.activations, desktop_activation.submission_timestamp_date,
-        country_buckets.bucket]
-      sorts: [desktop_activation.submission_timestamp_date desc]
-      limit: 500
-      join_fields:
-      - field_name: desktop_activation.submission_timestamp_date
         source_field_name: desktop_install.submission_date
       - field_name: country_buckets.bucket
         source_field_name: country_buckets.bucket
@@ -64,16 +52,31 @@
         source_field_name: country_buckets.bucket
       - field_name: desktop_session.date_date
         source_field_name: desktop_install.submission_date
+    - model: duet
+      explore: desktop_activation_aggregates
+      type: table
+      fields: [desktop_activation_aggregates.activations, country_buckets.bucket,
+        desktop_activation_aggregates.submission_timestamp_date]
+      filters:
+        desktop_activation_aggregates.date: 28 days
+        desktop_activation_aggregates.ignore_most_recent_week: 'Yes'
+        desktop_activation_aggregates.join_field: 'yes'
+      limit: 500
+      join_fields:
+      - field_name: country_buckets.bucket
+        source_field_name: country_buckets.bucket
+      - field_name: desktop_activation_aggregates.submission_timestamp_date
+        source_field_name: desktop_install.submission_date
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
     y_axes: [{label: '', orientation: left, series: [{axisId: desktop_install.new_installs,
             id: desktop_install.new_installs, name: New Installs}, {axisId: desktop_new_profile.new_profiles,
-            id: desktop_new_profile.new_profiles, name: New Profiles}, {axisId: desktop_session.total_non_fx_downloads,
-            id: desktop_session.total_non_fx_downloads, name: Total Non Fx Downloads},
-          {axisId: desktop_session.total_non_fx_sessions, id: desktop_session.total_non_fx_sessions,
-            name: Total Non Fx Sessions}, {axisId: desktop_activation.activations,
-            id: desktop_activation.activations, name: Activations}], showLabels: true,
+            id: desktop_new_profile.new_profiles, name: New Profiles}, {axisId: desktop_session.total_non_fx_sessions,
+            id: desktop_session.total_non_fx_sessions, name: Total Non Fx Sessions},
+          {axisId: desktop_session.total_non_fx_downloads, id: desktop_session.total_non_fx_downloads,
+            name: Total Non Fx Downloads}, {axisId: desktop_activation_aggregates.activations,
+            id: desktop_activation_aggregates.activations, name: Activations}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
         type: linear}, {label: !!null '', orientation: right, series: [{axisId: release,
             id: release, name: Release}], showLabels: false, showValues: false, unpinAxis: false,
@@ -98,6 +101,7 @@
       desktop_session.total_non_fx_downloads: line
       desktop_session.total_non_fx_sessions: line
       desktop_activation.activations: line
+      desktop_activation_aggregates.activations: line
     point_style: none
     series_colors:
       release: "#909494"
@@ -106,6 +110,7 @@
       desktop_session.total_non_fx_downloads: "#12B5CB"
       desktop_session.total_non_fx_sessions: "#1A73E8"
       desktop_activation.activations: "#F9AB00"
+      desktop_activation_aggregates.activations: "#FFA537"
     show_value_labels: true
     label_density: 25
     label_color: [transparent, transparent, transparent, transparent, transparent,
@@ -133,15 +138,11 @@
     - Countries: country_buckets.bucket
       Ignore Most Recent Week: desktop_install.ignore_most_recent_week
       Date Range: desktop_install.date
-    - Countries: country_buckets.bucket
-      Ignore Most Recent Week: desktop_new_profile.ignore_most_recent_week
-      Date Range: desktop_new_profile.date
-    - Countries: country_buckets.bucket
-      Ignore Most Recent Week: desktop_activation.ignore_most_recent_week
-      Date Range: desktop_activation.date
     -
     -
-    row: 15
+    -
+    -
+    row: 19
     col: 8
     width: 13
     height: 7
@@ -162,13 +163,12 @@
       fields: [desktop_install.join_field, desktop_install.paveovers, desktop_install.new_installs]
       limit: 500
       dynamic_fields: [{_kind_hint: measure, table_calculation: re_installs_new_installs,
-      _type_hint: number, category: table_calculation, expression: "${desktop_install.paveovers}\
-      \ + ${desktop_install.new_installs}", label: Re-Installs + New Installs,
-      value_format: !!null '', value_format_name: decimal_0}, {_kind_hint: measure,
-      table_calculation: new_installs, _type_hint: number, category: table_calculation,
-      expression: "\n\n${desktop_install.new_installs}", label: New Installs,
-      value_format: !!null '', value_format_name: decimal_0}]
-      hidden_fields: [desktop_install.paveovers, desktop_install.new_installs]
+          _type_hint: number, category: table_calculation, expression: "${desktop_install.paveovers}\
+            \ + ${desktop_install.new_installs}", label: Re-Installs + New Installs,
+          value_format: !!null '', value_format_name: decimal_0}, {_kind_hint: measure,
+          table_calculation: new_installs, _type_hint: number, category: table_calculation,
+          expression: "\n\n${desktop_install.new_installs}", label: New Installs,
+          value_format: !!null '', value_format_name: decimal_0}]
       join_fields:
       - field_name: desktop_install.join_field
         source_field_name: desktop_session.join_field
@@ -181,12 +181,16 @@
       - field_name: desktop_new_profile.join_field
         source_field_name: desktop_session.join_field
     - model: duet
-      explore: desktop_activation
+      explore: desktop_activation_aggregates
       type: table
-      fields: [desktop_activation.activations, desktop_activation.join_field]
+      fields: [desktop_activation_aggregates.activations, desktop_activation_aggregates.join_field]
+      filters:
+        desktop_activation_aggregates.date: 28 days
+        desktop_activation_aggregates.ignore_most_recent_week: 'Yes'
+        desktop_activation_aggregates.join_field: 'yes'
       limit: 500
       join_fields:
-      - field_name: desktop_activation.join_field
+      - field_name: desktop_activation_aggregates.join_field
         source_field_name: desktop_session.join_field
     leftAxisLabelVisible: false
     leftAxisLabel: ''
@@ -222,7 +226,8 @@
     valuePosition: right
     labelColorEnabled: false
     labelColor: "#FFF"
-    hidden_fields: [join_field, desktop_session.join_field, desktop_install.paveovers, desktop_install.new_installs]
+    hidden_fields: [join_field, desktop_session.join_field, desktop_install.paveovers,
+      desktop_install.new_installs]
     type: looker_funnel
     series_types: {}
     column_limit: 50
@@ -231,15 +236,9 @@
       Ignore Most Recent Week: desktop_session.ignore_most_recent_week
       Date Range: desktop_session.date
     - Countries: country_buckets.bucket
-      Ignore Most Recent Week: desktop_install.ignore_most_recent_week
-      Date Range: desktop_install.date
     - Countries: country_buckets.bucket
-      Ignore Most Recent Week: desktop_new_profile.ignore_most_recent_week
-      Date Range: desktop_new_profile.date
-    - Countries: country_buckets.bucket
-      Ignore Most Recent Week: desktop_activation.ignore_most_recent_week
-      Date Range: desktop_activation.date
-    row: 15
+    -
+    row: 19
     col: 0
     width: 8
     height: 14
@@ -297,7 +296,7 @@
     - Countries: country_buckets.bucket
       Ignore Most Recent Week: desktop_install.ignore_most_recent_week
       Date Range: desktop_install.date
-    row: 5
+    row: 9
     col: 14
     width: 7
     height: 4
@@ -344,7 +343,7 @@
     - Countries: country_buckets.bucket
       Ignore Most Recent Week: desktop_install.ignore_most_recent_week
       Date Range: desktop_install.date
-    row: 9
+    row: 13
     col: 0
     width: 7
     height: 4
@@ -393,7 +392,7 @@
     - Countries: country_buckets.bucket
       Ignore Most Recent Week: desktop_new_profile.ignore_most_recent_week
       Date Range: desktop_new_profile.date
-    row: 9
+    row: 13
     col: 7
     width: 7
     height: 4
@@ -441,7 +440,7 @@
     - Countries: country_buckets.bucket
       Ignore Most Recent Week: desktop_session.ignore_most_recent_week
       Date Range: desktop_session.date
-    row: 5
+    row: 9
     col: 7
     width: 7
     height: 4
@@ -489,56 +488,8 @@
     - Countries: country_buckets.bucket
       Ignore Most Recent Week: desktop_session.ignore_most_recent_week
       Date Range: desktop_session.date
-    row: 5
-    col: 0
-    width: 7
-    height: 4
-  - name: 7 Day Activated
-    title: 7 Day Activated
-    merged_queries:
-    - model: duet
-      explore: desktop_activation
-      type: table
-      fields: [desktop_activation.activations, desktop_activation.join_field]
-      limit: 500
-      join_fields: []
-    - model: duet
-      explore: desktop_activation
-      type: table
-      fields: [desktop_activation.join_field, desktop_activation.activations]
-      filters:
-        desktop_activation.previous_time_period: 'Yes'
-      limit: 500
-      join_fields:
-      - field_name: desktop_activation.join_field
-        source_field_name: desktop_activation.join_field
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: true
-    comparison_type: change
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    comparison_label: "% From Previous Time Period"
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    hidden_fields: [q1_desktop_activation.join_field, q1_desktop_activation.activations]
-    series_types: {}
-    type: single_value
-    column_limit: 50
-    dynamic_fields: [{table_calculation: from_previous, label: From Previous, expression: 'round((1
-          - ${q1_desktop_activation.activations} / ${desktop_activation.activations})
-          * 100, 1)', value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
-        _type_hint: number}]
-    listen:
-    - Countries: country_buckets.bucket
-      Ignore Most Recent Week: desktop_activation.ignore_most_recent_week
-      Date Range: desktop_activation.date
-    - Countries: country_buckets.bucket
-      Ignore Most Recent Week: desktop_activation.ignore_most_recent_week
-      Date Range: desktop_activation.date
     row: 9
-    col: 14
+    col: 0
     width: 7
     height: 4
   - name: Rates
@@ -565,19 +516,6 @@
       - field_name: country_buckets.bucket
         source_field_name: country_buckets.bucket
       - field_name: desktop_new_profile.submission_date
-        source_field_name: desktop_install.submission_date
-    - model: duet
-      explore: desktop_activation
-      type: table
-      fields: [desktop_activation.submission_timestamp_date, desktop_activation.activations,
-        country_buckets.bucket]
-      filters:
-        desktop_activation.join_field: 'yes'
-      limit: 500
-      join_fields:
-      - field_name: country_buckets.bucket
-        source_field_name: country_buckets.bucket
-      - field_name: desktop_activation.submission_timestamp_date
         source_field_name: desktop_install.submission_date
     - model: duet
       explore: releases
@@ -608,6 +546,21 @@
       - field_name: country_buckets.bucket
         source_field_name: country_buckets.bucket
       - field_name: desktop_session.date_date
+        source_field_name: desktop_install.submission_date
+    - model: duet
+      explore: desktop_activation_aggregates
+      type: table
+      fields: [desktop_activation_aggregates.activations, desktop_activation_aggregates.submission_timestamp_date,
+        country_buckets.bucket]
+      filters:
+        desktop_activation_aggregates.date: 28 days
+        desktop_activation_aggregates.ignore_most_recent_week: 'Yes'
+        desktop_activation_aggregates.join_field: 'yes'
+      limit: 500
+      join_fields:
+      - field_name: country_buckets.bucket
+        source_field_name: country_buckets.bucket
+      - field_name: desktop_activation_aggregates.submission_timestamp_date
         source_field_name: desktop_install.submission_date
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -666,13 +619,14 @@
     interpolation: linear
     hidden_fields: [desktop_new_profile.new_profiles, desktop_activation.activations,
       releases.version, country_buckets.bucket, desktop_session.total_non_fx_downloads,
-      desktop_install.paveovers, desktop_install.new_installs, desktop_session.total_non_fx_sessions]
+      desktop_install.paveovers, desktop_install.new_installs, desktop_session.total_non_fx_sessions,
+      desktop_activation_aggregates.activations]
     type: looker_column
     sorts: [desktop_install.submission_date desc]
     column_limit: 50
-    dynamic_fields: [{table_calculation: activation_rate, label: Activation Rate,
-        expression: "${desktop_activation.activations} / ${desktop_session.total_non_fx_sessions}",
-        value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
+    dynamic_fields: [{category: table_calculation, expression: "${desktop_activation_aggregates.activations}\
+          \ / ${desktop_session.total_non_fx_sessions}", label: Activation Rate, value_format: !!null '',
+        value_format_name: !!null '', _kind_hint: measure, table_calculation: activation_rate,
         _type_hint: number}, {_kind_hint: measure, table_calculation: release, _type_hint: number,
         category: table_calculation, expression: 'if(is_null(${releases.version}),
           null, ${desktop_install.new_installs} / ${desktop_install.new_installs}
@@ -691,16 +645,11 @@
     - Countries: country_buckets.bucket
       Ignore Most Recent Week: desktop_install.ignore_most_recent_week
       Date Range: desktop_install.date
-    - Countries: country_buckets.bucket
-      Ignore Most Recent Week: desktop_new_profile.ignore_most_recent_week
-      Date Range: desktop_new_profile.date
-    - Countries: country_buckets.bucket
-      Ignore Most Recent Week: desktop_activation.ignore_most_recent_week
-      Date Range: desktop_activation.date
     -
-    - Countries: country_buckets.bucket
-      Ignore Most Recent Week: desktop_session.ignore_most_recent_week
-    row: 22
+    -
+    -
+    -
+    row: 26
     col: 8
     width: 13
     height: 7
@@ -709,23 +658,21 @@
     title_text: mozilla.org Attributed Funnel
     subtitle_text: Windows-only, non-Firefox users
     body_text: ''
-    row: 3
+    row: 7
     col: 0
     width: 21
     height: 2
   - name: Details
     type: text
     title_text: Details
-    subtitle_text: ''
     body_text: ''
-    row: 13
+    row: 17
     col: 0
     width: 21
     height: 2
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       This dashboard models the user journey of new Firefox (desktop) users acquired from mozilla.org. It is restricted to mozilla.org visits and downloads from a browser other than Firefox on Windows only (i.e., it excludes Mac and Linux), and also excludes new users coming from other sources (FTP, partners, etc.). Users can download Firefox from several different touchpoints on mozilla.org (e.g., [landing](https://www.mozilla.org/en-US/firefox/new/) [pages](https://www.mozilla.org/en-US/firefox/unfck/), navigation, banners), and this dashboard currently aggregates downloads across all these touchpoints.
 
@@ -739,7 +686,7 @@
     merged_queries:
     - model: duet
       explore: desktop_install
-      type: single_value
+      type: table
       fields: [desktop_install.submission_date, desktop_install.join_field]
       filters:
         desktop_install.join_field: 'yes'
@@ -755,70 +702,10 @@
           expression: 'add_days(max(diff_days(now(), ${desktop_install.submission_date})),
             now())', label: End Date, value_format: !!null '', value_format_name: !!null '',
           is_disabled: true}]
-      custom_color_enabled: true
-      show_single_value_title: true
-      show_comparison: false
-      comparison_type: value
-      comparison_reverse_colors: false
-      show_comparison_label: true
-      enable_conditional_formatting: false
-      conditional_formatting_include_totals: false
-      conditional_formatting_include_nulls: false
-      single_value_title: Date range for data shown
-      conditional_formatting: [{type: equal to, value: !!null '', background_color: "#3FE1B0",
-          font_color: !!null '', color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
-          bold: false, italic: false, strikethrough: false, fields: !!null ''}]
-      show_sql_query_menu_options: false
-      show_totals: true
-      show_row_totals: true
-      show_view_names: false
-      show_row_numbers: false
-      transpose: false
-      truncate_text: true
-      size_to_fit: true
-      table_theme: white
-      limit_displayed_rows: true
-      limit_displayed_rows_values:
-        show_hide: show
-        first_last: first
-        num_rows: '1'
-      header_font_color: "#fffefa"
-      header_text_alignment: left
-      header_font_size: '12'
-      rows_font_size: '12'
-      x_axis_gridlines: false
-      y_axis_gridlines: true
-      show_y_axis_labels: true
-      show_y_axis_ticks: true
-      y_axis_tick_density: default
-      y_axis_tick_density_custom: 5
-      show_x_axis_label: true
-      show_x_axis_ticks: true
-      y_axis_scale_mode: linear
-      x_axis_reversed: false
-      y_axis_reversed: false
-      plot_size_by_field: false
-      trellis: ''
-      stacking: ''
-      legend_position: center
-      point_style: none
-      show_value_labels: false
-      label_density: 25
-      x_axis_scale: auto
-      y_axis_combined: true
-      ordering: none
-      show_null_labels: false
-      show_totals_labels: false
-      show_silhouette: false
-      totals_color: "#808080"
-      defaults_version: 1
-      hidden_fields: [desktop_install.submission_date]
-      series_types: {}
-      hide_totals: false
-      hide_row_totals: false
+      join_fields: []
     - model: duet
       explore: desktop_install
-      type: looker_line
+      type: table
       fields: [desktop_install.submission_date, desktop_install.join_field]
       filters:
         desktop_install.join_field: 'yes'
@@ -831,32 +718,6 @@
             \ now())), 0, 10),\n  \" to \", \n  substring(\n    to_string(\n  add_days(max(diff_days(now(),\
             \ ${desktop_install.submission_date})), now())), 0, 10))", label: Date
             Range, value_format: !!null '', value_format_name: !!null ''}]
-      x_axis_gridlines: false
-      y_axis_gridlines: true
-      show_view_names: false
-      show_y_axis_labels: true
-      show_y_axis_ticks: true
-      y_axis_tick_density: default
-      y_axis_tick_density_custom: 5
-      show_x_axis_label: true
-      show_x_axis_ticks: true
-      y_axis_scale_mode: linear
-      x_axis_reversed: false
-      y_axis_reversed: false
-      plot_size_by_field: false
-      trellis: ''
-      stacking: ''
-      limit_displayed_rows: false
-      legend_position: center
-      point_style: none
-      show_value_labels: false
-      label_density: 25
-      x_axis_scale: auto
-      y_axis_combined: true
-      show_null_points: true
-      interpolation: linear
-      hidden_fields: [desktop_install.submission_date]
-      defaults_version: 1
       join_fields:
       - field_name: desktop_install.join_field
         source_field_name: desktop_install.join_field
@@ -874,24 +735,75 @@
     hidden_fields: [desktop_install.submission_date, desktop_install.join_field, q1_desktop_install.submission_date]
     type: single_value
     series_types: {}
+    column_limit: 50
     listen:
-    - Date Range: desktop_install.date
-      Ignore Most Recent Week: desktop_install.ignore_most_recent_week
-    - Date Range: desktop_install.date
-      Ignore Most Recent Week: desktop_install.ignore_most_recent_week
-    row: 2
+    - Ignore Most Recent Week: desktop_install.ignore_most_recent_week
+      Date Range: desktop_install.date
+    - Ignore Most Recent Week: desktop_install.ignore_most_recent_week
+      Date Range: desktop_install.date
+    row: 5
     col: 6
     width: 9
     height: 2
   - name: Time Period (2)
     type: text
     title_text: Time Period
-    subtitle_text: ''
     body_text: ''
-    row: 2
+    row: 3
     col: 0
     width: 21
     height: 2
+  - name: 7 Day Activated
+    title: 7 Day Activated
+    merged_queries:
+    - model: duet
+      explore: desktop_activation_aggregates
+      type: table
+      fields: [desktop_activation_aggregates.activations, desktop_activation_aggregates.join_field]
+      sorts: [desktop_activation_aggregates.activations]
+      limit: 500
+      join_fields: []
+    - model: duet
+      explore: desktop_activation_aggregates
+      type: table
+      fields: [desktop_activation_aggregates.activations, desktop_activation_aggregates.join_field]
+      filters:
+        desktop_activation_aggregates.previous_time_period: 'Yes'
+      sorts: [desktop_activation_aggregates.activations]
+      limit: 500
+      join_fields:
+      - field_name: desktop_activation_aggregates.join_field
+        source_field_name: desktop_activation_aggregates.join_field
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: change
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    comparison_label: "% From Previous Time Period"
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    hidden_fields: [q1_desktop_activation.join_field, q1_desktop_activation.activations,
+      desktop_activation.activations, desktop_activation_aggregates.join_field, q1_desktop_activation_aggregates.activations]
+    series_types: {}
+    type: single_value
+    column_limit: 50
+    dynamic_fields: [{category: table_calculation, expression: 'round((1 - ${q1_desktop_activation_aggregates.activations}
+          / ${desktop_activation_aggregates.activations}) * 100, 1)', label: From
+          Previous, value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
+        table_calculation: from_previous, _type_hint: number}]
+    listen:
+    - Countries: country_buckets.bucket
+      Ignore Most Recent Week: desktop_activation_aggregates.ignore_most_recent_week
+      Date Range: desktop_activation_aggregates.date
+    - Countries: country_buckets.bucket
+      Ignore Most Recent Week: desktop_activation_aggregates.ignore_most_recent_week
+      Date Range: desktop_activation_aggregates.date
+    row: 13
+    col: 14
+    width: 7
+    height: 4
   filters:
   - name: Date Range
     title: Date Range
