@@ -16,7 +16,6 @@
   - name: " (2)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: "<div style='background-color: #ffffdd; padding: 5px 10px; border:\
       \ solid 3px #ededed; border-radius: 5px; height:220px'>\n\nThese visualizations\
       \ capture <strong>subscription retention</strong>.\n<ul>\n<li>Retention rate\
@@ -460,7 +459,7 @@
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
-    stacking: normal
+    stacking: ''
     limit_displayed_rows: false
     legend_position: center
     point_style: circle_outline
@@ -494,7 +493,7 @@
       churned: "#F9CB67"
       not_retained: "#F9CB67"
       subscriptions__retention.retained: "#0060E0"
-    label_color: [transparent, black, transparent]
+    label_color: []
     x_axis_datetime_label: "%m-%Y"
     x_axis_label_rotation: -45
     column_group_spacing_ratio: 0.3
@@ -574,7 +573,7 @@
       churned: "#ffa993"
       retained: "#0060E0"
       not_retained: "#F9CB67"
-    label_color: [transparent, black, transparent]
+    label_color: []
     column_group_spacing_ratio: 0.3
     defaults_version: 1
     hidden_fields: [subscriptions.count]
@@ -992,13 +991,14 @@
     type: looker_column
     fields: [subscriptions.count, subscriptions__retention.months_since_subscription_start,
       subscriptions.country_name, subscriptions__retention.retained]
-    pivots: [subscriptions.country_name]
+    pivots: [subscriptions__retention.months_since_subscription_start]
     filters:
       subscriptions__retention.months_since_subscription_start: '1,3,6,9,12,0'
       subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [subscriptions.count desc 0, subscriptions.country_name desc]
+    sorts: [subscriptions.count desc 0, subscriptions.country_name desc, subscriptions__retention.months_since_subscription_start]
     limit: 1000
     column_limit: 50
+    total: true
     dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
         label: Retention Rate, value_format: !!null '', value_format_name: percent_1,
         _kind_hint: measure, table_calculation: retention_rate, _type_hint: number}]
@@ -1015,7 +1015,7 @@
     x_axis_reversed: false
     y_axis_reversed: false
     plot_size_by_field: false
-    trellis: pivot
+    trellis: row
     stacking: ''
     limit_displayed_rows: false
     legend_position: left
@@ -1030,8 +1030,8 @@
     show_silhouette: false
     totals_color: "#808080"
     color_application:
-      collection_id: legacy
-      palette_id: looker_classic
+      collection_id: mozilla
+      palette_id: mozilla-categorical-0
       options:
         steps: 5
     y_axes: [{label: '', orientation: left, series: [{axisId: retention_rate, id: retention_rate,
@@ -1077,19 +1077,19 @@
 
         <img style="color: #efefef; padding: 5px 25px; float: left; height: 40px;" src="https://wwwstatic.lookercdn.com/logos/looker_all_white.svg"/>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="#home">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__active_subscriptions?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">
 
        Active Subs</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__subs_growth?Provider=&Pricing+Plan=&Country=&Event+Date=2020%2F07%2F20+to+today">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__subscriptions_growth?Provider=&Pricing+Plan=&Country=&Event+Date=after+2020%2F07%2F20">
 
        Subs Growth</a>
 
-        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__retention?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=2020%2F07%2F20+to+today">Retention</a>
+        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__retention?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Retention</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__churn?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=2020%2F07%2F20+to+today">Churn</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__churn?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Churn</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__revenue_restricted_access?Provider=&Pricing+Plan=&Country+Name=&Active+Date=2020%2F07%2F01+to+today">Revenue</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__revenue?Provider=&Pricing%20Plan=&Country=&Active%20Date=after%202020%2F07%2F20">Revenue</a>
 
         <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1VtrTwm8Eqt9cPLZLaH1kjnM413gKtdaZArS29xcxXpA/edit?usp=sharing">Docs</a>
 
