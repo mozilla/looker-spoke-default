@@ -30,6 +30,12 @@ view: +subscriptions {
     hidden: yes
   }
 
+  dimension: country_name {
+    description: "Add placeholder string for null values.  This is to allow selection of Null values in country name checkbox filters in dashboards"
+    sql: COALESCE(${TABLE}.country_name, 'Null') ;;
+    type: string
+  }
+
   dimension: cancel_at_period_end {
     hidden: yes
   }
@@ -182,7 +188,7 @@ view: +subscriptions {
   }
 
   measure: annual_recurring_revenue {
-    description: "Annual Recurring Revenue"
+    description: "Annual Recurring Revenue in USD"
     type: sum_distinct
     sql_distinct_key: ${subscription_id};;
     sql: CASE
@@ -194,7 +200,7 @@ view: +subscriptions {
       ${plan_interval} = "month"
     THEN
       12 / ${plan_interval_count}
-    END * ${plan_amount} * (1 - IFNULL(${vat_rates.vat}, 0)) / 100;;
+    END * ${plan_amount} * (1 - IFNULL(${vat_rates.vat}, 0)) * IFNULL(${exchange_rates_table.price}, 1) / 100;;
   }
 }
 
@@ -213,20 +219,32 @@ view: subscriptions__active {
     convert_tz: no
     datatype: date
   }
-  
+
   dimension: is_end_of_month {
     type: yesno
     sql: ${active_raw} = LAST_DAY(${active_raw}, MONTH) OR ${active_raw} = DATE(${metadata.last_modified_date}) - 1;;
   }
-  
+
   dimension: is_end_of_quarter {
     type: yesno
     sql: ${active_raw} = LAST_DAY(${active_raw}, QUARTER) OR ${active_raw} = DATE(${metadata.last_modified_date}) - 1;;
   }
-  
+
   dimension: is_end_of_year {
     type: yesno
     sql: ${active_raw} = LAST_DAY(${active_raw}, YEAR) OR ${active_raw} = DATE(${metadata.last_modified_date}) - 1;;
+  }
+
+  dimension: max_active_date {
+    description: "Get max active date from end date in active date filter.  If null, use last modified date."
+    hidden: yes
+    type: date
+    sql: COALESCE({% date_end active_date %}, ${metadata.last_modified_date})-1;;
+  }
+
+  dimension: is_max_active_date {
+    type: yesno
+    sql:  ${active_raw}=${max_active_date};;
   }
 }
 
@@ -314,6 +332,52 @@ view: subscriptions__retention {
     primary_key: yes
     hidden: yes
     sql: ${subscriptions.subscription_id} || ${months_since_subscription_start};;
+  }
+
+  dimension:  is_cohort_complete{
+    description: "For filtering out incomplete cohorts in current month"
+    type: yesno
+    sql: ${subscriptions__retention.months_since_subscription_start} <= ${subscriptions.current_months_since_cohort_complete} ;;
+  }
+
+  dimension:  is_current_months_since_subscription_start{
+    description: "For filtering subscriptions in current month since subscription start"
+    type: yesno
+    sql: ${subscriptions__retention.months_since_subscription_start} = ${subscriptions.current_months_since_subscription_start} ;;
+  }
+
+  measure: churned {
+    description: "Count subscriptions churned on each months_since_subscription_start. It is used to calculate churn rate."
+    type: sum
+    sql:
+    CASE WHEN ${subscriptions__retention.months_since_subscription_start} = ${subscriptions.months_retained} + 1
+    THEN 1
+    ELSE NULL
+    END ;;
+  }
+
+  measure: previously_retained {
+    description: "Count subscriptions previously retained on each months_since_subscription_start. It is used to calculate churn rate."
+    type: sum
+    sql:
+    CASE WHEN if(
+  ${subscriptions__retention.months_since_subscription_start} > 0,
+  ${subscriptions__retention.months_since_subscription_start} <= ${subscriptions.months_retained} + 1,
+  null
+  )
+    THEN 1
+    ELSE NULL
+    END ;;
+  }
+
+  measure: retained {
+    description: "Count subscriptions retained for each months_since_subscription_start. It is a cumulative count and used to calculate retention rate."
+    type: count_distinct
+    sql:
+    CASE WHEN ${subscriptions__retention.months_since_subscription_start} <= ${subscriptions.months_retained}
+    THEN ${subscriptions.subscription_id}
+    ELSE NULL
+    END ;;
   }
 
   measure: count {

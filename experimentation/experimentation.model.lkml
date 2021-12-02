@@ -20,13 +20,13 @@ view: +experiment_enrollment_daily_active_population {
 
 view: +experiment_enrollment_cumulative_population_estimate {
   dimension: experiment {
-    suggest_explore: experimenter_experiments
     suggest_dimension: experimenter_experiments.normandy_slug
+    suggest_explore: experimenter_experiments
   }
 
   measure: Total {
     type: number
-    sql: SUM(${value}) ;;
+    sql: SUM(${value});;
   }
 
   filter: timeframe {
@@ -290,37 +290,37 @@ explore: unenrollment_reasons {
     ${events.event_method} LIKE "unenroll%" AND
     ${events.event_category} = "normandy";;
 
-  always_filter: {
-    filters: [
-      events.submission_date: "7 days"
-    ]
+    always_filter: {
+      filters: [
+        events.submission_date: "7 days"
+      ]
+    }
   }
-}
 
-explore: enrollment_status {
-  hidden: yes
-}
+  explore: enrollment_status {
+    hidden: yes
+  }
 
-explore: sample_ratio_mismatch {
-  hidden: yes
-}
+  explore: sample_ratio_mismatch {
+    hidden: yes
+  }
 
-explore: logs {
-  hidden: yes
-}
+  explore: logs {
+    hidden: yes
+  }
 
-explore: query_cost {
-  hidden: yes
-}
+  explore: query_cost {
+    hidden: yes
+  }
 
-explore: task_monitoring_logs {
-  hidden: yes
-}
+  explore: task_monitoring_logs {
+    hidden: yes
+  }
 
-explore: task_profiling_logs {
-  hidden: yes
-}
+  explore: task_profiling_logs {
+    hidden: yes
+  }
 
-explore: experimenter_experiments {
-  hidden: yes
-}
+  explore: experimenter_experiments {
+    hidden: yes
+  }

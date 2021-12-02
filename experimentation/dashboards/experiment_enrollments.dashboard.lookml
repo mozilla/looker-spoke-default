@@ -42,12 +42,12 @@
             id: control - experiment_enrollment_daily_active_population.Total, name: control}],
         showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
-    x_axis_label: Time
+    x_axis_label: Time [UTC]
     defaults_version: 1
     listen:
       Time Range: experiment_enrollment_daily_active_population.time_time
       Experiment: experiment_enrollment_daily_active_population.experiment
-    row: 12
+    row: 10
     col: 12
     width: 12
     height: 8
@@ -84,12 +84,12 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
-    x_axis_label: Time
+    x_axis_label: Time [UTC]
     defaults_version: 1
     listen:
       Time Range: experiment_enrollment_daily_active_population.time_time
       Experiment: experiment_enrollment_daily_active_population.experiment
-    row: 12
+    row: 10
     col: 0
     width: 12
     height: 8
@@ -124,14 +124,14 @@
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
-    show_null_points: true
+    show_null_points: false
     interpolation: linear
-    x_axis_label: Time
+    x_axis_label: Time [UTC]
     defaults_version: 1
     listen:
       Time Range: experiment_enrollment_cumulative_population_estimate.timeframe
       Experiment: experiment_enrollment_cumulative_population_estimate.experiment
-    row: 20
+    row: 18
     col: 0
     width: 12
     height: 7
@@ -140,8 +140,8 @@
     model: experimentation
     explore: experiment_enrollment_cumulative_population_estimate
     type: looker_line
-    fields: [experiment_enrollment_cumulative_population_estimate.Total, experiment_enrollment_cumulative_population_estimate.time_time,
-      experiment_enrollment_cumulative_population_estimate.branch]
+    fields: [experiment_enrollment_cumulative_population_estimate.time_time, experiment_enrollment_cumulative_population_estimate.branch,
+      experiment_enrollment_cumulative_population_estimate.Total]
     pivots: [experiment_enrollment_cumulative_population_estimate.branch]
     filters: {}
     sorts: [experiment_enrollment_cumulative_population_estimate.time_time desc, experiment_enrollment_cumulative_population_estimate.branch]
@@ -168,7 +168,7 @@
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
-    show_null_points: true
+    show_null_points: false
     interpolation: linear
     y_axes: [{label: Total, orientation: left, series: [{axisId: experiment_enrollment_cumulative_population_estimate.Total,
             id: control - experiment_enrollment_cumulative_population_estimate.Total,
@@ -176,12 +176,12 @@
             id: treatment-admarketplace - experiment_enrollment_cumulative_population_estimate.Total,
             name: treatment-admarketplace}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
-    x_axis_label: Time
+    x_axis_label: Time [UTC]
     defaults_version: 1
     listen:
       Time Range: experiment_enrollment_cumulative_population_estimate.timeframe
       Experiment: experiment_enrollment_cumulative_population_estimate.experiment
-    row: 20
+    row: 18
     col: 12
     width: 12
     height: 7
@@ -224,12 +224,12 @@
             id: variant - experiment_cumulative_ad_clicks.Total, name: variant}],
         showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
-    x_axis_label: Time
+    x_axis_label: Time [UTC]
     defaults_version: 1
     listen:
       Time Range: experiment_cumulative_ad_clicks.timeframe
       Experiment: experiment_cumulative_ad_clicks.experiment
-    row: 63
+    row: 61
     col: 12
     width: 12
     height: 7
@@ -274,13 +274,13 @@
               - experiment_cumulative_search_count.Total, name: debugging-enabled}],
         showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
-    x_axis_label: Time
+    x_axis_label: Time [UTC]
     series_types: {}
     defaults_version: 1
     listen:
       Time Range: experiment_cumulative_search_count.timeframe
       Experiment: experiment_cumulative_search_count.experiment
-    row: 56
+    row: 54
     col: 12
     width: 12
     height: 7
@@ -323,12 +323,12 @@
             id: only-branch - experiment_cumulative_search_with_ads_count.Total, name: only-branch}],
         showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
-    x_axis_label: Time
+    x_axis_label: Time [UTC]
     defaults_version: 1
     listen:
       Time Range: experiment_cumulative_search_with_ads_count.timeframe
       Experiment: experiment_cumulative_search_with_ads_count.experiment
-    row: 70
+    row: 68
     col: 12
     width: 12
     height: 7
@@ -368,7 +368,7 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    x_axis_label: Time
+    x_axis_label: Time [UTC]
     series_types: {}
     show_null_points: true
     interpolation: linear
@@ -376,7 +376,7 @@
     listen:
       Time Range: experiment_unenrollment_overall.timeframe
       Experiment: experiment_unenrollment_overall.experiment
-    row: 34
+    row: 32
     col: 0
     width: 12
     height: 7
@@ -424,7 +424,7 @@
               - experiment_unenrollment_overall.Total, name: treatment-admarketplace-78}],
         showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
-    x_axis_label: Time
+    x_axis_label: Time [UTC]
     series_types: {}
     ordering: none
     show_null_labels: false
@@ -435,7 +435,7 @@
     listen:
       Time Range: experiment_unenrollment_overall.timeframe
       Experiment: experiment_unenrollment_overall.experiment
-    row: 34
+    row: 32
     col: 12
     width: 12
     height: 7
@@ -479,13 +479,13 @@
             id: experiment_enrollment_overall.Total, name: Total}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
         type: linear}]
-    x_axis_label: Time
+    x_axis_label: Time [UTC]
     series_types: {}
     defaults_version: 1
     listen:
       Time Range: experiment_enrollment_overall.timeframe
       Experiment: experiment_enrollment_overall.experiment
-    row: 27
+    row: 25
     col: 0
     width: 12
     height: 7
@@ -528,7 +528,7 @@
             id: experiment_enrollment_overall.Total, name: Total}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
         type: linear}]
-    x_axis_label: Time
+    x_axis_label: Time [UTC]
     hidden_series: [fission-disabled - experiment_enrollment_overall.Total]
     series_types: {}
     ordering: none
@@ -540,7 +540,7 @@
     listen:
       Time Range: experiment_enrollment_overall.timeframe
       Experiment: experiment_enrollment_overall.experiment
-    row: 27
+    row: 25
     col: 12
     width: 12
     height: 7
@@ -581,7 +581,7 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    x_axis_label: Time
+    x_axis_label: Time [UTC]
     series_types: {}
     show_null_points: true
     interpolation: linear
@@ -589,7 +589,7 @@
     listen:
       Time Range: experiment_enrollment_other_events_overall.timeframe
       Experiment: experiment_enrollment_other_events_overall.experiment
-    row: 41
+    row: 39
     col: 0
     width: 12
     height: 7
@@ -634,7 +634,7 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    x_axis_label: Time
+    x_axis_label: Time [UTC]
     series_types: {}
     show_null_points: true
     interpolation: linear
@@ -642,7 +642,7 @@
     listen:
       Time Range: experiment_enrollment_other_events_overall.timeframe
       Experiment: experiment_enrollment_other_events_overall.experiment
-    row: 41
+    row: 39
     col: 12
     width: 12
     height: 7
@@ -700,7 +700,7 @@
     listen:
       Time Range: events.submission_date
       Experiment: events.event_string_value
-    row: 48
+    row: 46
     col: 0
     width: 24
     height: 6
@@ -709,7 +709,7 @@
     title_text: Search Metrics
     subtitle_text: ''
     body_text: ''
-    row: 54
+    row: 52
     col: 0
     width: 24
     height: 2
@@ -752,7 +752,7 @@
             id: experiment_search_aggregates_live.total_search_count, name: Total
               Search Count}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
-    x_axis_label: Time
+    x_axis_label: Time [UTC]
     series_types: {}
     ordering: none
     show_null_labels: false
@@ -763,7 +763,7 @@
     listen:
       Time Range: experiment_search_aggregates_live.timeframe
       Experiment: experiment_search_aggregates_live.experiment
-    row: 56
+    row: 54
     col: 0
     width: 12
     height: 7
@@ -806,7 +806,7 @@
             id: experiment_search_aggregates_live.total_search_count, name: Total
               Search Count}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
-    x_axis_label: Time
+    x_axis_label: Time [UTC]
     series_types: {}
     ordering: none
     show_null_labels: false
@@ -817,7 +817,7 @@
     listen:
       Time Range: experiment_search_aggregates_live.timeframe
       Experiment: experiment_search_aggregates_live.experiment
-    row: 63
+    row: 61
     col: 0
     width: 12
     height: 7
@@ -860,7 +860,7 @@
             id: experiment_search_aggregates_live.total_search_count, name: Total
               Search Count}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
-    x_axis_label: Time
+    x_axis_label: Time [UTC]
     series_types: {}
     ordering: none
     show_null_labels: false
@@ -871,7 +871,7 @@
     listen:
       Time Range: experiment_search_aggregates_live.timeframe
       Experiment: experiment_search_aggregates_live.experiment
-    row: 70
+    row: 68
     col: 0
     width: 12
     height: 7
@@ -924,7 +924,7 @@
     series_types: {}
     listen:
       Experiment: enrollment_status.experiment
-    row: 2
+    row: 0
     col: 0
     width: 24
     height: 2
@@ -957,7 +957,7 @@
     series_types: {}
     listen:
       Experiment: sample_ratio_mismatch.experiment
-    row: 4
+    row: 2
     col: 0
     width: 8
     height: 2
@@ -990,7 +990,7 @@
     series_types: {}
     listen:
       Experiment: sample_ratio_mismatch.experiment
-    row: 4
+    row: 2
     col: 8
     width: 8
     height: 2
@@ -1023,7 +1023,7 @@
     series_types: {}
     listen:
       Experiment: sample_ratio_mismatch.experiment
-    row: 4
+    row: 2
     col: 16
     width: 8
     height: 2
@@ -1031,20 +1031,9 @@
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: "This dashboard will replace the [Grafana dashboard for monitoring\
-      \ experiments](https://grafana.telemetry.mozilla.org/d/XspgvdxZz/experiment-enrollment).\
-      \ \nFeedback and questions are very welcome: [#ask-experimenter](https://mozilla.slack.com/archives/CF94YGE03)"
-    row: 0
-    col: 0
-    width: 24
-    height: 2
-  - name: " (2)"
-    type: text
-    title_text: ''
-    subtitle_text: ''
     body_text: More information about errors encountered during the analysis is available
       on the [Experiment Analysis Error dashboard](https://mozilla.cloud.looker.com/dashboards-next/246)
-    row: 8
+    row: 6
     col: 8
     width: 16
     height: 2
@@ -1053,7 +1042,7 @@
     title_text: Population
     subtitle_text: ''
     body_text: ''
-    row: 10
+    row: 8
     col: 0
     width: 24
     height: 2
@@ -1062,7 +1051,7 @@
     title_text: Analysis Errors
     subtitle_text: ''
     body_text: ''
-    row: 6
+    row: 4
     col: 0
     width: 24
     height: 2
@@ -1092,7 +1081,7 @@
     defaults_version: 1
     listen:
       Experiment: logs.experiment
-    row: 8
+    row: 6
     col: 0
     width: 8
     height: 2

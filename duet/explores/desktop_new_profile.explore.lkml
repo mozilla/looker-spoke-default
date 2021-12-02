@@ -58,15 +58,15 @@ view: distinct_new_profiles {
 explore: desktop_new_profile {
   description: "First runs of a new installation of Firefox (for installs downloaded from the website on a non-Firefox browser)."
   sql_always_where:
-    ${submission_date} > date(2020, 7 ,1) AND
+    ${submission_date} > date(2020, 7, 1) AND
     ${normalized_channel} = "release" AND
     DATE_DIFF(  -- Only use builds from the last month
       ${submission_date},
       SAFE.PARSE_DATE('%Y%m%d', SUBSTR(${application__build_id}, 0, 8)),
-      MONTH
-    ) <= 1 AND
-    ${environment__settings__attribution__source} IS NOT NULL AND
+      WEEK
+    ) <= 6 AND
     ${normalized_os} = "Windows" AND
+    ${environment__settings__attribution__source} IS NOT NULL AND
     ${environment__partner__distribution_id} IS NULL AND
     COALESCE(${environment__settings__attribution__ua}, "") != "firefox" AND
     ${payload__processes__parent__scalars__startup_profile_selection_reason} = "firstrun-created-default" AND
