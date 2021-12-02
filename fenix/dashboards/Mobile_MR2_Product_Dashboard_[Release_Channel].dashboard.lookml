@@ -652,7 +652,7 @@
     note_state: expanded
     note_display: above
     note_text: Percentage of users that opted to show all tabs from the recent tabs
-      section on the home screen. Multiply by 100 for percentages.
+      section on the home screen.
     listen: {}
     row: 60
     col: 12
@@ -1094,7 +1094,7 @@
     note_display: above
     note_text: Percentage of sampled daily users that toggled a preference regarding customizing
       the home page (jump back in, most visited sites, recently saved, recently visited,
-      pocket). Multiply by 10,000 for percentages.
+      pocket).
     listen: {}
     row: 37
     col: 0

@@ -25,8 +25,9 @@
       \ aggregated over multiple months because it is cumulative. Therefore, when\
       \ Months Since Subscription Start not shown, the retention rate shows data for\
       \ the current month.</li>\n\n<li>A cohort refers to a group of subscriptions\
-      \ that started their subscriptions in a particular month.</li>\n</ul>\n<br>\n\
-      Please submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
+      \ that started their subscriptions in a particular month.  For example, cohort\
+      \ 07-2020 includes all subscriptions that started in the month of July 2020.</li>\n\
+      </ul>\n<br>\nPlease submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
       >mozilla-vpn-data</a></b> channel on Slack for @wichan or @relud. \n</div>"
     row: 2
     col: 3
@@ -168,9 +169,9 @@
     series_types: {}
     listen:
       Country: subscriptions.country_name
-      Subscription Start Date: subscriptions.subscription_start_month
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
+      Subscription Start Date: subscriptions.subscription_start_month
     row: 41
     col: 12
     width: 12
@@ -298,9 +299,9 @@
     hide_row_totals: false
     listen:
       Country: subscriptions.country_name
-      Subscription Start Date: subscriptions.subscription_start_month
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
+      Subscription Start Date: subscriptions.subscription_start_month
     row: 41
     col: 0
     width: 12
@@ -421,9 +422,9 @@
     series_types: {}
     listen:
       Country: subscriptions.country_name
-      Subscription Start Date: subscriptions.subscription_start_month
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
+      Subscription Start Date: subscriptions.subscription_start_month
     row: 49
     col: 12
     width: 12
@@ -458,7 +459,7 @@
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
-    stacking: normal
+    stacking: ''
     limit_displayed_rows: false
     legend_position: center
     point_style: circle_outline
@@ -492,7 +493,7 @@
       churned: "#F9CB67"
       not_retained: "#F9CB67"
       subscriptions__retention.retained: "#0060E0"
-    label_color: [transparent, black, transparent]
+    label_color: []
     x_axis_datetime_label: "%m-%Y"
     x_axis_label_rotation: -45
     column_group_spacing_ratio: 0.3
@@ -502,9 +503,9 @@
     note_display: below
     listen:
       Country: subscriptions.country_name
-      Subscription Start Date: subscriptions.subscription_start_month
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
+      Subscription Start Date: subscriptions.subscription_start_month
     row: 10
     col: 12
     width: 12
@@ -572,7 +573,7 @@
       churned: "#ffa993"
       retained: "#0060E0"
       not_retained: "#F9CB67"
-    label_color: [transparent, black, transparent]
+    label_color: []
     column_group_spacing_ratio: 0.3
     defaults_version: 1
     hidden_fields: [subscriptions.count]
@@ -591,9 +592,9 @@
     conditional_formatting_include_nulls: false
     listen:
       Country: subscriptions.country_name
-      Subscription Start Date: subscriptions.subscription_start_month
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
+      Subscription Start Date: subscriptions.subscription_start_month
     row: 10
     col: 0
     width: 12
@@ -621,9 +622,9 @@
     defaults_version: 1
     listen:
       Country: subscriptions.country_name
-      Subscription Start Date: subscriptions.subscription_start_month
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
+      Subscription Start Date: subscriptions.subscription_start_month
     row: 2
     col: 19
     width: 5
@@ -636,6 +637,8 @@
     fields: [subscriptions.pricing_plan, subscriptions.count, subscriptions__retention.months_since_subscription_start,
       subscriptions__retention.retained]
     pivots: [subscriptions__retention.months_since_subscription_start]
+    filters:
+      subscriptions__retention.is_cohort_complete: 'Yes'
     sorts: [subscriptions.pricing_plan 0, subscriptions__retention.months_since_subscription_start]
     column_limit: 50
     total: true
@@ -725,9 +728,9 @@
     series_types: {}
     listen:
       Country: subscriptions.country_name
-      Subscription Start Date: subscriptions.subscription_start_month
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
+      Subscription Start Date: subscriptions.subscription_start_month
     row: 22
     col: 12
     width: 12
@@ -766,6 +769,8 @@
     fields: [subscriptions.count, subscriptions__retention.months_since_subscription_start,
       subscriptions.pricing_plan, subscriptions__retention.retained]
     pivots: [subscriptions__retention.months_since_subscription_start]
+    filters:
+      subscriptions__retention.is_cohort_complete: 'Yes'
     sorts: [subscriptions.pricing_plan 0, subscriptions__retention.months_since_subscription_start]
     column_limit: 50
     total: true
@@ -853,9 +858,9 @@
     series_types: {}
     listen:
       Country: subscriptions.country_name
-      Subscription Start Date: subscriptions.subscription_start_month
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
+      Subscription Start Date: subscriptions.subscription_start_month
     row: 31
     col: 12
     width: 12
@@ -868,6 +873,8 @@
     fields: [subscriptions.pricing_plan, subscriptions.count, subscriptions__retention.months_since_subscription_start,
       subscriptions__retention.retained]
     pivots: [subscriptions.pricing_plan]
+    filters:
+      subscriptions__retention.is_cohort_complete: 'Yes'
     sorts: [subscriptions__retention.months_since_subscription_start, subscriptions.pricing_plan,
       months_since_plan_start desc, total_subscribers desc 0]
     limit: 1000
@@ -957,9 +964,9 @@
       total_subscribers, subscriptions__retention.retained]
     listen:
       Country: subscriptions.country_name
-      Subscription Start Date: subscriptions.subscription_start_month
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
+      Subscription Start Date: subscriptions.subscription_start_month
     row: 22
     col: 0
     width: 12
@@ -984,19 +991,17 @@
     type: looker_column
     fields: [subscriptions.count, subscriptions__retention.months_since_subscription_start,
       subscriptions.country_name, subscriptions__retention.retained]
-    pivots: [subscriptions.country_name]
+    pivots: [subscriptions__retention.months_since_subscription_start]
     filters:
       subscriptions__retention.months_since_subscription_start: '1,3,6,9,12,0'
       subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [subscriptions.count desc 0, subscriptions.country_name desc]
+    sorts: [subscriptions.count desc 0, subscriptions.country_name desc, subscriptions__retention.months_since_subscription_start]
     limit: 1000
     column_limit: 50
+    total: true
     dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
         label: Retention Rate, value_format: !!null '', value_format_name: percent_1,
-        _kind_hint: measure, table_calculation: retention_rate, _type_hint: number},
-      {category: table_calculation, expression: "${subscriptions.count}-${subscriptions__retention.retained}",
-        label: Not Retained, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: measure, table_calculation: not_retained, _type_hint: number}]
+        _kind_hint: measure, table_calculation: retention_rate, _type_hint: number}]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -1010,7 +1015,7 @@
     x_axis_reversed: false
     y_axis_reversed: false
     plot_size_by_field: false
-    trellis: pivot
+    trellis: row
     stacking: ''
     limit_displayed_rows: false
     legend_position: left
@@ -1025,8 +1030,8 @@
     show_silhouette: false
     totals_color: "#808080"
     color_application:
-      collection_id: legacy
-      palette_id: looker_classic
+      collection_id: mozilla
+      palette_id: mozilla-categorical-0
       options:
         steps: 5
     y_axes: [{label: '', orientation: left, series: [{axisId: retention_rate, id: retention_rate,
@@ -1055,9 +1060,9 @@
     note_text: Country is based on customer billing address.
     listen:
       Country: subscriptions.country_name
-      Subscription Start Date: subscriptions.subscription_start_month
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
+      Subscription Start Date: subscriptions.subscription_start_month
     row: 60
     col: 0
     width: 24
@@ -1072,19 +1077,19 @@
 
         <img style="color: #efefef; padding: 5px 25px; float: left; height: 40px;" src="https://wwwstatic.lookercdn.com/logos/looker_all_white.svg"/>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="#home">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__active_subscriptions?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">
 
        Active Subs</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__subs_growth?Provider=&Pricing+Plan=&Country=&Event+Date=2020%2F07%2F20+to+today">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__subscriptions_growth?Provider=&Pricing+Plan=&Country=&Event+Date=after+2020%2F07%2F20">
 
        Subs Growth</a>
 
-        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__retention?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=2020%2F07%2F20+to+today">Retention</a>
+        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__retention?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Retention</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__churn?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=2020%2F07%2F20+to+today">Churn</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__churn?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Churn</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__revenue_restricted_access?Provider=&Pricing+Plan=&Country+Name=&Active+Date=2020%2F07%2F01+to+today">Revenue</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__revenue?Provider=&Pricing%20Plan=&Country=&Active%20Date=after%202020%2F07%2F20">Revenue</a>
 
         <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1VtrTwm8Eqt9cPLZLaH1kjnM413gKtdaZArS29xcxXpA/edit?usp=sharing">Docs</a>
 
@@ -1107,7 +1112,7 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Provider, Pricing Plan, Country]
+    listens_to_filters: [Provider, Pricing Plan, Country, Subscription Start Date]
     field: subscriptions.provider
   - name: Pricing Plan
     title: Pricing Plan
@@ -1120,7 +1125,7 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Provider, Pricing Plan, Country]
+    listens_to_filters: [Provider, Pricing Plan, Country, Subscription Start Date]
     field: subscriptions.pricing_plan
   - name: Country
     title: Country
@@ -1133,12 +1138,12 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Provider, Pricing Plan, Country]
+    listens_to_filters: [Provider, Pricing Plan, Country, Subscription Start Date]
     field: subscriptions.country_name
   - name: Subscription Start Date
     title: Subscription Start Date
     type: field_filter
-    default_value: 2020/07/20 to today
+    default_value: after 2020/07/20
     allow_multiple_values: true
     required: false
     ui_config:

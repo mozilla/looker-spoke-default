@@ -16,15 +16,14 @@
   - name: " (2)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: "<div style='background-color: #ffffdd; padding: 5px 10px; border:\
       \ solid 3px #ededed; border-radius: 5px; height:220px'>\n\nThis dashboard capture\
-      \ <strong>subscription churn</strong>.\n\n<ul>\n  <li>A cohort refers to the group of subscriptions\
-      \ that started in a particular month.  For example, cohort 07-2020 includes\
-      \ all subscriptions that started in the month of July 2020.</li>\n  <li>Churn\
-      \ rate is the percentage of not-retained subscriptions out of the number retained\
-      \ from the previous month. </li>\n  <li>Churn rate can be aggregated to get\
-      \ the average churn per month by not specifying <b>Months Since Subscription\
+      \ <strong>subscription churn</strong>.\n\n<ul>\n  <li>A cohort refers to the\
+      \ group of subscriptions that started in a particular month.  For example, cohort\
+      \ 07-2020 includes all subscriptions that started in the month of July 2020.</li>\n\
+      \  <li>Churn rate is the percentage of not-retained subscriptions out of the\
+      \ number retained from the previous month. </li>\n  <li>Churn rate can be aggregated\
+      \ to get the average churn per month by not specifying <b>Months Since Subscription\
       \ Start</b>. This differs from retention rate, which is cumulative and therefore\
       \ must not be aggregated.</li>\n  <li>Churn Rate is not defined for 0 months\
       \ since subscription started, because there is no previous month.</li>\n</ul>\n\
@@ -37,7 +36,6 @@
   - name: " (3)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |2-
 
 
@@ -114,7 +112,7 @@
       subscriptions__retention.churned: "#FF7139"
     series_labels:
       subscriptions__retention.churned: Churn Counts
-    label_color: [transparent, black, transparent]
+    label_color: []
     x_axis_datetime_label: ''
     column_group_spacing_ratio: 0.3
     hidden_fields: [subscriptions__retention.previously_retained]
@@ -427,6 +425,7 @@
     fill_fields: [subscriptions.subscription_start_month]
     filters:
       subscriptions__retention.months_since_subscription_start: ">0"
+      subscriptions__retention.is_cohort_complete: 'Yes'
     sorts: [subscriptions.subscription_start_month, subscriptions__retention.months_since_subscription_start]
     total: true
     dynamic_fields: [{category: measure, expression: "if(\n  ${subscriptions__retention.months_since_subscription_start}\
@@ -584,7 +583,6 @@
   - name: " (4)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |2-
 
 
@@ -720,7 +718,6 @@
   - name: " (5)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |2-
 
 
@@ -965,7 +962,6 @@
   - name: " (6)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |
       <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px; color: red;">
 
@@ -973,19 +969,19 @@
 
         <img style="color: #efefef; padding: 5px 25px; float: left; height: 40px;" src="https://wwwstatic.lookercdn.com/logos/looker_all_white.svg"/>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="#home">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__active_subscriptions?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">
 
        Active Subs</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__subs_growth?Provider=&Pricing+Plan=&Country=&Event+Date=2020%2F07%2F20+to+today">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__subscriptions_growth?Provider=&Pricing+Plan=&Country=&Event+Date=after+2020%2F07%2F20">
 
        Subs Growth</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__retention?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=2020%2F07%2F20+to+today">Retention</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__retention?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Retention</a>
 
-        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__churn?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=2020%2F07%2F20+to+today">Churn</a>
+        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__churn?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Churn</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; " href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__revenue_restricted_access?Provider=&Pricing+Plan=&Country+Name=&Active+Date=2020%2F07%2F01+to+today">Revenue</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; " href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__revenue?Provider=&Pricing%20Plan=&Country=&Active%20Date=after%202020%2F07%2F20">Revenue</a>
 
         <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1VtrTwm8Eqt9cPLZLaH1kjnM413gKtdaZArS29xcxXpA/edit?usp=sharing">Docs</a>
 
@@ -1021,7 +1017,7 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Subscription Start Date, Provider, Pricing Plan, Country]
+    listens_to_filters: [Subscription Start Date, Pricing Plan, Provider, Country]
     field: subscriptions.pricing_plan
   - name: Country
     title: Country
@@ -1034,12 +1030,12 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Subscription Start Date, Provider, Pricing Plan, Country]
+    listens_to_filters: [Subscription Start Date, Country, Provider, Pricing Plan]
     field: subscriptions.country_name
   - name: Subscription Start Date
     title: Subscription Start Date
     type: field_filter
-    default_value: 2020/07/20 to today
+    default_value: after 2020/07/20
     allow_multiple_values: true
     required: false
     ui_config:
@@ -1047,5 +1043,5 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Subscription Start Date, Provider, Pricing Plan, Country]
+    listens_to_filters: [Subscription Start Date]
     field: subscriptions.subscription_start_date

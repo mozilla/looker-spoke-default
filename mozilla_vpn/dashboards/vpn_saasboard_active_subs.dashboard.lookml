@@ -414,12 +414,11 @@
     limit: 3
     column_limit: 50
     dynamic_fields: [{category: table_calculation, expression: "(${subscriptions.count}-offset(${subscriptions.count},\
-          \ 1)) / offset(${subscriptions.count}, 1)", label: delta_1_day, value_format: !!null '',
-        value_format_name: percent_1, _kind_hint: measure, table_calculation: delta_1_day,
-        _type_hint: number}]
+          \ 1))", label: delta_1_day, value_format: !!null '', value_format_name: '',
+        _kind_hint: measure, table_calculation: delta_1_day, _type_hint: number}]
     custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
+    show_single_value_title: false
+    show_comparison: true
     comparison_type: progress
     comparison_reverse_colors: false
     show_comparison_label: true
@@ -428,7 +427,7 @@
     conditional_formatting_include_nulls: false
     single_value_title: delta 1 day
     value_format: ''
-    comparison_label: change since 7 days
+    comparison_label: change since 1 day ago
     conditional_formatting: [{type: less than, value: 0, background_color: '', font_color: "#FF505F",
         color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
         bold: false, italic: false, strikethrough: false, fields: !!null ''}, {type: greater
@@ -492,12 +491,11 @@
     limit: 10
     column_limit: 50
     dynamic_fields: [{category: table_calculation, expression: "(${subscriptions.count}-offset(${subscriptions.count},\
-          \ 7)) / offset(${subscriptions.count}, 7)", label: delta_7_days, value_format: !!null '',
-        value_format_name: percent_1, _kind_hint: measure, table_calculation: delta_7_days,
-        _type_hint: number}]
+          \ 7))", label: delta_7_days, value_format: !!null '', value_format_name: '',
+        _kind_hint: measure, table_calculation: delta_7_days, _type_hint: number}]
     custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
+    show_single_value_title: false
+    show_comparison: true
     comparison_type: progress
     comparison_reverse_colors: false
     show_comparison_label: true
@@ -506,7 +504,7 @@
     conditional_formatting_include_nulls: false
     single_value_title: delta 7 days
     value_format: ''
-    comparison_label: change since 7 days
+    comparison_label: change since 7 days ago
     conditional_formatting: [{type: less than, value: 0, background_color: '', font_color: "#FF505F",
         color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
         bold: false, italic: false, strikethrough: false, fields: !!null ''}, {type: greater
@@ -819,19 +817,19 @@
 
         <img style="color: #efefef; padding: 5px 25px; float: left; height: 40px;" src="https://wwwstatic.lookercdn.com/logos/looker_all_white.svg"/>
 
-        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="#home">
+        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__active_subscriptions?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">
 
        Active Subs</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__subs_growth?Provider=&Pricing+Plan=&Country=&Event+Date=2020%2F07%2F20+to+today">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__subscriptions_growth?Provider=&Pricing+Plan=&Country=&Event+Date=after+2020%2F07%2F20">
 
        Subs Growth</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__retention?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=2020%2F07%2F20+to+today">Retention</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__retention?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Retention</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__churn?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=2020%2F07%2F20+to+today">Churn</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__churn?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Churn</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__revenue_restricted_access?Provider=&Pricing+Plan=&Country+Name=&Active+Date=2020%2F07%2F01+to+today">Revenue</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__revenue?Provider=&Pricing%20Plan=&Country=&Active%20Date=after%202020%2F07%2F20">Revenue</a>
 
         <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1VtrTwm8Eqt9cPLZLaH1kjnM413gKtdaZArS29xcxXpA/edit?usp=sharing">Docs</a>
 
@@ -877,7 +875,7 @@
       options: []
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: []
+    listens_to_filters: [Active Date, Country, Pricing Plan]
     field: subscriptions.provider
   - name: Pricing Plan
     title: Pricing Plan
@@ -891,7 +889,7 @@
       options: []
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: []
+    listens_to_filters: [Active Date, Country, Provider]
     field: subscriptions.pricing_plan
   - name: Country
     title: Country
@@ -905,7 +903,7 @@
       options: []
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: []
+    listens_to_filters: [Active Date, Pricing Plan, Provider]
     field: subscriptions.country_name
   - name: Active Date
     title: Active Date
