@@ -62,7 +62,7 @@
     dimension_group: start{
       description: "date of event"
       type: time
-      sql: ${TABLE}.partition_date ;;
+      sql: timestamp(${TABLE}.partition_date) ;;
     }
     measure: VPN_site_hits{
       type: sum
@@ -87,6 +87,10 @@
     measure: New_FxA_payment_setup_start {
       type: sum
       sql: ${TABLE}.New_FxA_payment_setup_start ;;
+    }
+    measure: New_FxA_payment_setup_engage {
+      type: sum
+      sql: ${TABLE}.New_FxA_payment_setup_engage ;;
     }
     measure: New_FxA_payment_complete {
       type: sum
@@ -132,6 +136,10 @@
     measure:  Existing_FxA_paymet_setup_start{
       type: sum
       sql: ${TABLE}.Existing_FxA_payment_setup_start ;;
+    }
+    measure:  Existing_FxA_paymet_setup_engage{
+      type: sum
+      sql: ${TABLE}.Existing_FxA_payment_setup_engage ;;
     }
     measure:  Existing_FxA_payment_complete{
       type: sum

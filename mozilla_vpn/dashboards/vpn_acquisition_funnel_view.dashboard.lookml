@@ -12,8 +12,8 @@
     col: 0
     width: 24
     height: 2
-  - title: 'Exisiting FxA '
-    name: 'Exisiting FxA '
+  - title: 'Exisiting users '
+    name: 'Exisiting users '
     model: mozilla_vpn
     explore: newfunnel_from08252021
     type: looker_line
@@ -62,8 +62,8 @@
     col: 16
     width: 8
     height: 6
-  - title: 'New FxA conversion '
-    name: 'New FxA conversion '
+  - title: 'New FxA users '
+    name: 'New FxA users '
     model: mozilla_vpn
     explore: newfunnel_from08252021
     type: looker_line

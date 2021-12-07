@@ -63,7 +63,7 @@ view: newfunnel_from08252021 {
     dimension_group: start{
       description: "date of event"
       type: time
-      sql: ${TABLE}.partition_date ;;
+      sql: timestamp(${TABLE}.partition_date) ;;
     }
 
     measure: VPN_site_hits{
