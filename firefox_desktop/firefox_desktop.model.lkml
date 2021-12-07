@@ -2,6 +2,7 @@ connection: "telemetry"
 
 include: "//looker-hub/firefox_desktop/views/*.view.lkml"
 include: "//looker-hub/firefox_desktop/explores/*.explore.lkml"
+include: "explores/*.explore.lkml"
 # include: "dashboards/*.dashboard"
 
 explore: firefox_desktop_last_seen {
