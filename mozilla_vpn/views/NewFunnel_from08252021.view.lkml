@@ -79,10 +79,10 @@ view: newfunnel_from08252021 {
       type: sum
       sql: ${TABLE}.New_FxA_payment_setup_engage ;;
     }
-    measure: New_FxA_pament_setup_complete {
+    measure: New_FxA_payment_setup_complete {
       type: sum
       #need to fix the typo later when the table is renewed
-      sql: ${TABLE}.New_FxA_pamenty_setup_complete ;;
+      sql: ${TABLE}.New_FxA_payment_setup_complete ;;
     }
 
 
@@ -94,7 +94,7 @@ view: newfunnel_from08252021 {
     measure: total_payment_setup_complete {
       type: sum
       #need to fix this to total_payment_setup_complete when the table is renewed
-      sql: ${TABLE}.total_pay_setup_complete ;;
+      sql: ${TABLE}.total_payment_setup_complete ;;
     }
 
 
