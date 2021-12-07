@@ -11,54 +11,54 @@
       type: string
       sql: ${TABLE}.utm_medium ;;
     }
-    # filter: UTM_source {
-    #   type: string
-    #   sql: {% condition %} ${TABLE}.utm_source {% endcondition %} ;;
-    # }
-    # filter: UTM_campaign {
-    #   type: string
-    #   sql: {% condition %} ${TABLE}.utm_campaign {% endcondition %} ;;
-    # }
-    # filter: UTM_content {
-    #   type: string
-    #   sql: {% condition %} ${TABLE}.utm_content {% endcondition %} ;;
-    # }
-    # filter: UTM_term {
-    #   type: string
-    #   sql: {% condition %} ${TABLE}.utm_term {% endcondition %} ;;
-    # }
-    # filter: entrypoint_experiment {
-    #   type: string
-    #   sql: {% condition %} ${TABLE}.entrypoint_experiment {% endcondition %} ;;
-    # }
-    # filter: entrypoint_variation {
-    #   type: string
-    #   sql: {% condition %} ${TABLE}.entrypoint_variation {% endcondition %};;
-    # }
-    # filter: ua_browser {
-    #   type: string
-    #   sql: {% condition %} ${TABLE}.ua_browser {% endcondition %} ;;
-    # }
-    # filter: ua_version {
-    #   type: string
-    #   sql: {% condition %} ${TABLE}.ua_version {% endcondition %} ;;
-    # }
-    # filter: OS_name {
-    #   type: string
-    #   sql: {% condition %} ${TABLE}.os_name {% endcondition %} ;;
-    # }
-    # filter: OS_version {
-    #   type: string
-    #   sql: {% condition %} ${TABLE}.os_version {% endcondition %} ;;
-    # }
-    # filter: pricing_plan {
-    #   type: string
-    #   sql: {% condition %} ${TABLE}.pricing_plan {% endcondition %} ;;
-    # }
-    # filter: plan_name {
-    #   type: string
-    #   sql: {% condition %} ${TABLE}.plan_name {% endcondition %} ;;
-    # }
+    dimension: UTM_source {
+      type: string
+      sql:  ${TABLE}.utm_source ;;
+    }
+    dimension: UTM_campaign {
+      type: string
+      sql:  ${TABLE}.utm_campaign  ;;
+    }
+    dimension: UTM_content {
+      type: string
+      sql: ${TABLE}.utm_content  ;;
+    }
+    dimension: UTM_term {
+      type: string
+      sql:  ${TABLE}.utm_term ;;
+    }
+    dimension: entrypoint_experiment {
+      type: string
+      sql:  ${TABLE}.entrypoint_experiment  ;;
+    }
+    dimension: entrypoint_variation {
+      type: string
+      sql:  ${TABLE}.entrypoint_variation ;;
+    }
+    dimension: ua_browser {
+      type: string
+      sql:  ${TABLE}.ua_browser  ;;
+    }
+    dimension: ua_version {
+      type: string
+      sql:  ${TABLE}.ua_version  ;;
+    }
+    dimension: OS_name {
+      type: string
+      sql:  ${TABLE}.os_name  ;;
+    }
+    dimension: OS_version {
+      type: string
+      sql:  ${TABLE}.os_version  ;;
+    }
+    dimension: pricing_plan {
+      type: string
+      sql:  ${TABLE}.pricing_plan  ;;
+    }
+    dimension: plan_name {
+      type: string
+      sql:  ${TABLE}.plan_name  ;;
+    }
           # plan_id,
           # product_id,
     dimension_group: start{
@@ -67,7 +67,7 @@
       datatype: date
       convert_tz: no
       timeframes: [raw,date,week, month, quarter, year]
-      sql: timestamp(${TABLE}.partition_date) ;;
+      sql:${TABLE}.partition_date ;;
     }
     measure: VPN_site_hits{
       type: sum

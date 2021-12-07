@@ -2,69 +2,72 @@ view: newfunnel_from08252021 {
 
     sql_table_name: mozdata.tmp.yeonjoo_new_funnel  ;;#temp table created to speed up loading
 
-    filter: country {
+    dimension: country {
       type: string
       sql: ${TABLE}.country ;;
     }
-    filter: UTM_medium {
+    dimension: UTM_medium {
       type: string
-      sql: {% condition %} ${TABLE}.utm_medium {% endcondition %};;
+      sql:  ${TABLE}.utm_medium ;;
     }
-    filter: UTM_source {
+    dimension: UTM_source {
       type: string
-      sql: {% condition %} ${TABLE}.utm_source {% endcondition %} ;;
+      sql:  ${TABLE}.utm_source  ;;
     }
-    filter: UTM_campaign {
+    dimension: UTM_campaign {
       type: string
-      sql: {% condition %} ${TABLE}.utm_campaign {% endcondition %} ;;
+      sql:  ${TABLE}.utm_campaign  ;;
     }
-    filter: UTM_content {
+    dimension: UTM_content {
       type: string
-      sql: {% condition %} ${TABLE}.utm_content {% endcondition %} ;;
+      sql:  ${TABLE}.utm_content  ;;
     }
-    filter: UTM_term {
+    dimension: UTM_term {
       type: string
-      sql: {% condition %} ${TABLE}.utm_term {% endcondition %} ;;
+      sql:  ${TABLE}.utm_term  ;;
     }
-    filter: entrypoint_experiment {
+    dimension: entrypoint_experiment {
       type: string
-      sql: {% condition %} ${TABLE}.entrypoint_experiment {% endcondition %} ;;
+      sql:  ${TABLE}.entrypoint_experiment  ;;
     }
-    filter: entrypoint_variation {
+    dimension: entrypoint_variation {
       type: string
-      sql: {% condition %} ${TABLE}.entrypoint_variation {% endcondition %};;
+      sql:  ${TABLE}.entrypoint_variation ;;
     }
-    filter: ua_browser {
+    dimension: ua_browser {
       type: string
-      sql: {% condition %} ${TABLE}.ua_browser {% endcondition %} ;;
+      sql:  ${TABLE}.ua_browser  ;;
     }
-    filter: ua_version {
+    dimension: ua_version {
       type: string
-      sql: {% condition %} ${TABLE}.ua_version {% endcondition %} ;;
+      sql:  ${TABLE}.ua_version  ;;
     }
-    filter: OS_name {
+    dimension: OS_name {
       type: string
-      sql: {% condition %} ${TABLE}.os_name {% endcondition %} ;;
+      sql:  ${TABLE}.os_name  ;;
     }
-    filter: OS_version {
+    dimension: OS_version {
       type: string
-      sql: {% condition %} ${TABLE}.os_version {% endcondition %} ;;
+      sql:  ${TABLE}.os_version  ;;
     }
-    filter: pricing_plan {
+    dimension: pricing_plan {
       type: string
-      sql: {% condition %} ${TABLE}.pricing_plan {% endcondition %} ;;
+      sql:  ${TABLE}.pricing_plan  ;;
     }
-    filter: plan_name {
+    dimension: plan_name {
       type: string
-      sql: {% condition %} ${TABLE}.plan_name {% endcondition %} ;;
+      sql:  ${TABLE}.plan_name  ;;
     }
     # plan_id,
     # product_id,
-    dimension_group: start{
-      description: "date of event"
-      type: time
-      sql: timestamp(${TABLE}.partition_date) ;;
-    }
+  dimension_group: start{
+    description: "date of event"
+    type: time
+    datatype: date
+    convert_tz: no
+    timeframes: [raw,date,week, month, quarter, year]
+    sql:${TABLE}.partition_date ;;
+  }
 
     measure: VPN_site_hits{
       type: sum
