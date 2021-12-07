@@ -1,5 +1,6 @@
-  view: oldfunnel_before08252021 {
-    sql_table_name: mozdata.tmp.yeonjoo_old_funnel  ;;#temp table created to speed up loading
+view: newfunnel_from08252021 {
+
+    sql_table_name: mozdata.tmp.yeonjoo_new_funnel  ;;#temp table created to speed up loading
 
     filter: country {
       type: string
@@ -57,93 +58,86 @@
       type: string
       sql: {% condition %} ${TABLE}.plan_name {% endcondition %} ;;
     }
-          # plan_id,
-          # product_id,
+    # plan_id,
+    # product_id,
     dimension_group: start{
       description: "date of event"
       type: time
       sql: ${TABLE}.partition_date ;;
     }
+
     measure: VPN_site_hits{
       type: sum
       sql: ${TABLE}.VPN_site_hits ;;
     }
-    measure: New_FxA_reg_start  {
+
+    measure: New_FxA_user_input_emails  {
       type: sum
-      sql: ${TABLE}.New_FxA_reg_view ;;
+      sql: ${TABLE}.New_FxA_user_input_emails ;;
     }
-    measure: New_FxA_account_create {
+    measure: New_FxA_payment_setup_engage {
       type: sum
-      sql: ${TABLE}.New_FxA_account_created ;;
+      sql: ${TABLE}.New_FxA_payment_setup_engage ;;
     }
-    measure: New_FxA_reg_complete {
+    measure: New_FxA_pament_setup_complete {
       type: sum
-      sql: ${TABLE}.New_FxA_reg_complete ;;
-    }
-    measure: New_FxA_login_complete {
-      type: sum
-      sql: ${TABLE}.New_FxA_login_complete ;;
-    }
-    measure: New_FxA_payment_setup_start {
-      type: sum
-      sql: ${TABLE}.New_FxA_payment_setup_start ;;
-    }
-    measure: New_FxA_payment_complete {
-      type: sum
-      sql: ${TABLE}.New_FxA_payment_complete;;
+      #need to fix the typo later when the table is renewed
+      sql: ${TABLE}.New_FxA_pamenty_setup_complete ;;
     }
 
-    measure: total_login_complete {
+
+    measure: total_payment_setup_engage {
       type: sum
-      sql: ${TABLE}.total_login_complete ;;
+      #need to fix this to total_payment_setup_engage when the table is renewed
+      sql: ${TABLE}.total_payment_setup_engage ;;
     }
-    measure: total_payment_setup_start {
+    measure: total_payment_setup_complete {
       type: sum
-      sql: ${TABLE}.total_payment_setup_start ;;
-    }
-    measure: total_payment_complete {
-      type: sum
-      sql: ${TABLE}.total_payment_complete ;;
-    }
-    measure:  Existing_FxA_SignedIN_login_view{
-      type: sum
-      sql: ${TABLE}.Existing_FxA_SignedIN_login_view ;;
-    }
-    measure:  Existing_FxA_SignedIN_login_complete{
-      type: sum
-      sql: ${TABLE}.Existing_FxA_SignedIN_login_complete ;;
-    }
-    measure:  Existing_FxA_SignedOFF_login_view{
-      type: sum
-      sql: ${TABLE}.Existing_FxA_SignedOff_login_view ;;
-    }
-    measure:  Existing_FxA_SignedOFF_login_complete{
-      type: sum
-      sql: ${TABLE}.Existing_FxA_SignedOff_login_complete ;;
-    }
-    measure:  Existing_FxA_login_view{
-      type: sum
-      sql: ${TABLE}.Existing_FxA_login_view ;;
-    }
-    measure:  Existing_FxA_login_complete{
-      type: sum
-      sql: ${TABLE}.Existing_FxA_login_complete ;;
-    }
-    measure:  Existing_FxA_paymet_setup_start{
-      type: sum
-      sql: ${TABLE}.Existing_FxA_payment_setup_start ;;
-    }
-    measure:  Existing_FxA_payment_complete{
-      type: sum
-      sql: ${TABLE}.Existing_FxA_payment_complete ;;
-    }
-    measure: Unknown_payment_setup_start{
-      type: sum
-      sql:  ${TABLE}.Unknown_payment_setup_start ;;
-    }
-    measure: Unknown_payment_complete{
-      type: sum
-      sql:  ${TABLE}.Unknown_payment_complete ;;
+      #need to fix this to total_payment_setup_complete when the table is renewed
+      sql: ${TABLE}.total_pay_setup_complete ;;
     }
 
-  }
+
+    measure:  Existing_FxA_SignedIn_payment_setup_view{
+      type: sum
+      sql: ${TABLE}.Existing_FxA_SignedIn_payment_setup_view ;;
+    }
+    measure:  Existing_FxA_SignedIn_payment_setup_engage{
+      type: sum
+      sql: ${TABLE}.Existing_FxA_SignedIn_payment_setup_engage ;;
+    }
+    measure:  Existing_FxA_SignedIn_payment_setup_complete{
+      type: sum
+      sql: ${TABLE}.Existing_FxA_SignedIn_payment_setup_complete ;;
+    }
+
+    measure:  Existing_FxA_SignedOff_signin_CTA_click{
+      type: sum
+      sql: ${TABLE}.Existing_FxA_SignedOff_signin_CTA_click_top ;;
+    }
+    measure:  Existing_SignedOff_FxA_payment_setup_view{
+      type: sum
+      sql: ${TABLE}.Existing_SignedOff_FxA_payment_setup_view ;;
+    }
+    measure:  Existing_FxA_SignedOff_payment_setup_engage{
+      type: sum
+      sql: ${TABLE}.Existing_FxA_SignedOff_payment_setup_engage ;;
+    }
+    measure:  Existing_FxA_SignedOff_payment_setup_complete{
+      type: sum
+      sql: ${TABLE}.Existing_FxA_SignedOff_payment_setup_complete ;;
+    }
+    measure:  Existing_FxA_payment_setup_view{
+      type: sum
+      sql: ${TABLE}.Existing_FxA_payment_setup_view ;;
+    }
+    measure:  Existing_FxA_payment_setup_engage{
+      type: sum
+      sql: ${TABLE}.Existing_FxA_payment_setup_engage ;;
+    }
+    measure: Existing_FxA_pay_setup_complete{
+      type: sum
+      sql: ${TABLE}.Existing_FxA_pay_setup_complete ;;
+    }
+
+}
