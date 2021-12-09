@@ -1,0 +1,7 @@
+connection: "telemetry"
+label: "Rally Facebook Pixel Hunt"
+include: "//looker-hub/rally_markup_fb_pixel_hunt/explores/*"
+include: "//looker-hub/rally_markup_fb_pixel_hunt/dashboards/*"
+include: "views/*"
+include: "explores/*"
+include: "dashboards/*"
