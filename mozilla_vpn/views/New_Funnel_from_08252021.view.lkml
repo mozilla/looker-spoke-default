@@ -1,4 +1,4 @@
-view: newfunnel_from08252021 {
+view: new_funnel_from_08252021 {
 
     sql_table_name: mozdata.tmp.yeonjoo_new_funnel  ;;#temp table created to speed up loading
 
