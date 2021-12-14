@@ -69,11 +69,6 @@ view: new_funnel_from_08252021 {
     sql:${TABLE}.partition_date ;;
   }
 
-    measure: VPN_site_hits{
-      type: sum
-      sql: ${TABLE}.VPN_site_hits ;;
-    }
-
     measure: New_FxA_user_input_emails  {
       type: sum
       sql: ${TABLE}.New_FxA_user_input_emails ;;
@@ -87,11 +82,34 @@ view: new_funnel_from_08252021 {
       #need to fix the typo later when the table is renewed
       sql: ${TABLE}.New_FxA_payment_setup_complete ;;
     }
+  measure: overall_New_FxA_user_input_emails  {
+    type: average
+    sql: ${TABLE}.overall_New_FxA_user_input_emails ;;
+  }
+  measure: overall_New_FxA_payment_setup_complete {
+    type: average
+    #need to fix the typo later when the table is renewed
+    sql: ${TABLE}.overall_New_FxA_payment_setup_complete ;;
+  }
 
+    measure: CVR_new_from_payment_account_setup_to_payment_setup_complete {
+      type: average
+      sql: CASE WHEN ${TABLE}.New_FxA_user_input_emails = 0 then 0
+            ELSE round(cast(${TABLE}.New_FxA_payment_setup_complete/${TABLE}.New_FxA_user_input_emails *100 AS Float64))
+            END;;
+    }
 
+  measure: VPN_site_hits{
+    type: sum
+    sql: ${TABLE}.VPN_site_hits ;;
+  }
+    measure: total_acquisition_process_start {
+      type:  sum
+      #pay_account_setup_view +Existing_FxA_SignedIn_pay_setup_view
+      sql: ${TABLE}.total_acquisition_process_start ;;
+    }
     measure: total_payment_setup_engage {
       type: sum
-      #need to fix this to total_payment_setup_engage when the table is renewed
       sql: ${TABLE}.total_payment_setup_engage ;;
     }
     measure: total_payment_setup_complete {
@@ -99,7 +117,55 @@ view: new_funnel_from_08252021 {
       #need to fix this to total_payment_setup_complete when the table is renewed
       sql: ${TABLE}.total_payment_setup_complete ;;
     }
-
+  measure: overall_VPN_site_hits{
+    type: average
+    sql: ${TABLE}.overall_total_VPN_site_hits ;;
+  }
+  measure: overall_total_acquisition_process_start {
+    type:  average
+    #type needs to be fixed
+    sql: ${TABLE}.overall_total_total_acquisition_process_start ;;
+  }
+  measure: overall_total_payment_setup_complete {
+    type: average
+    sql: ${TABLE}.overall_total_payment_setup_complete ;;
+  }
+    measure: CTR_from_VPN_site_hits_to_enter_the_funnel {
+      type: average
+      sql: CASE WHEN ${TABLE}.VPN_site_hits = 0 then 0
+            ELSE round(cast(${TABLE}.total_acquisition_process_start/${TABLE}.VPN_site_hits *100 AS Float64))
+            END;;
+    }
+    measure:CVR_from_VPN_site_hits_to_payment_complete {
+      type: average
+      sql:CASE WHEN ${TABLE}.VPN_site_hits = 0 then 0
+            ELSE round(cast(${TABLE}.total_payment_setup_complete/${TABLE}.VPN_site_hits *100 AS Float64))
+            END;;
+    }
+    measure: CVR_from_payment_site_hits_to_payment_complete {
+      type: average
+      sql:CASE WHEN ${TABLE}.total_acquisition_process_start = 0 then 0
+      ELSE round(cast(${TABLE}.total_payment_setup_complete/${TABLE}.total_acquisition_process_start *100 AS Float64))
+      END;;
+    }
+    measure: overall_CTR_from_VPN_site_hits_to_enter_the_funnel {
+      type: average
+      sql: CASE WHEN ${TABLE}.overall_total_VPN_site_hits = 0 then 0
+            ELSE round(cast(${TABLE}.overall_total_total_acquisition_process_start/${TABLE}.overall_total_VPN_site_hits *100 AS Float64))
+            END;;
+    }
+  measure:overall_CVR_from_VPN_site_hits_to_payment_complete {
+    type: average
+    sql:CASE WHEN ${TABLE}.overall_VPN_site_hits = 0 then 0
+            ELSE round(cast(${TABLE}.overall_total_payment_setup_complete/${TABLE}.overall_VPN_site_hits *100 AS Float64))
+            END;;
+  }
+  measure: overall_CVR_from_payment_site_hits_to_payment_complete {
+    type: average
+    sql:CASE WHEN ${TABLE}.overall_total_total_acquisition_process_start = 0 then 0
+      ELSE round(cast(${TABLE}.overall_total_payment_setup_complete/${TABLE}.overall_total_total_acquisition_process_start *100 AS Float64))
+      END;;
+  }
 
     measure:  Existing_FxA_SignedIn_payment_setup_view{
       type: sum
@@ -112,6 +178,12 @@ view: new_funnel_from_08252021 {
     measure:  Existing_FxA_SignedIn_payment_setup_complete{
       type: sum
       sql: ${TABLE}.Existing_FxA_SignedIn_payment_setup_complete ;;
+    }
+    measure: CVR_Existing_Fxa_SignedIn_from_payment_site_hit_to_payment_setup_complete {
+      type: average
+      sql:CASE WHEN ${TABLE}.Existing_FxA_SignedIn_payment_setup_view = 0 then 0
+      ELSE round(cast(${TABLE}.Existing_FxA_SignedIn_payment_setup_complete/${TABLE}.Existing_FxA_SignedIn_payment_setup_view *100 AS Float64))
+      END;;
     }
 
     measure:  Existing_FxA_SignedOff_signin_CTA_click{
@@ -130,6 +202,12 @@ view: new_funnel_from_08252021 {
       type: sum
       sql: ${TABLE}.Existing_FxA_SignedOff_payment_setup_complete ;;
     }
+  measure: CVR_Existing_Fxa_Signed_Off_from_CTA_click_to_Sign_in_to_payment_setup_complete {
+    type: average
+    sql:CASE WHEN ${TABLE}.Existing_FxA_SignedOff_signin_CTA_click_top = 0 then 0
+      ELSE round(cast(${TABLE}.Existing_FxA_SignedOff_payment_setup_complete/${TABLE}.Existing_FxA_SignedOff_signin_CTA_click_top *100 AS Float64))
+      END;;
+  }
     measure:  Existing_FxA_payment_setup_view{
       type: sum
       sql: ${TABLE}.Existing_FxA_payment_setup_view ;;
@@ -140,7 +218,7 @@ view: new_funnel_from_08252021 {
     }
     measure: Existing_FxA_pay_setup_complete{
       type: sum
-      sql: ${TABLE}.Existing_FxA_pay_setup_complete ;;
+      sql: ${TABLE}.Existing_FxA_payment_setup_complete ;;
     }
 
 }

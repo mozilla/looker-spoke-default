@@ -1,34 +1,5 @@
 view: new_subscriptions {
-    derived_table: {
-      sql:
-        SELECT
-            DATE(subscription_start_date) AS partition_date,
-            country_name,
-            utm_medium,
-            utm_source,
-            utm_campaign,
-            utm_content,
-            utm_term,
-            entrypoint_experiment,
-            entrypoint_variation,
-            pricing_plan,
-            website_channel_group,
-            provider,
-            count(distinct subscription_id) as new_subscriptions
-         FROM `moz-fx-data-shared-prod`.mozilla_vpn_derived.all_subscriptions_v1
-         GROUP BY 1,
-                  2,
-                  3,
-                  4,
-                  5,
-                  6,
-                  7,
-                  8,
-                  9,
-                  10,
-                  11,
-                  12 ;;
-    }
+       sql_table_name: mozdata.tmp.yeonjoo_new_subscriptions  ;;
     # sql_table_name: mozdata.tmp.yeonjoo_new_funnel  ;;#temp table created to speed up loading
     # DATE(subscription_start_date) AS partition_date,
     #         country_name,
@@ -98,6 +69,11 @@ view: new_subscriptions {
     measure: New_Subscriptions{
       type: sum
       sql: ${TABLE}.new_subscriptions ;;
+    }
+
+    measure: Daily_New_Subscriptions {
+      type: average
+      sql: ${TABLE}.daily_new_subscriptions ;;
     }
 
 }
