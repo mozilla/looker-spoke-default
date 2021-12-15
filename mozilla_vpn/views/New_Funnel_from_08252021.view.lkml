@@ -92,11 +92,17 @@ view: new_funnel_from_08252021 {
     sql: ${TABLE}.overall_New_FxA_payment_setup_complete ;;
   }
 
-    measure: CVR_new_from_payment_account_setup_to_payment_setup_complete {
-      type: average
-      sql: CASE WHEN ${TABLE}.New_FxA_user_input_emails = 0 then 0
-            ELSE round(cast(${TABLE}.New_FxA_payment_setup_complete/${TABLE}.New_FxA_user_input_emails *100 AS Float64))
+    measure: New_FxA_CVR {
+      type: number
+      sql: CASE WHEN SUM(${TABLE}.New_FxA_user_input_emails) = 0 then 0
+            ELSE round(cast(SUM(${TABLE}.New_FxA_payment_setup_complete)/SUM(${TABLE}.New_FxA_user_input_emails) *100 AS Float64))
             END;;
+    }
+    measure: overall_New_FxA_CVR {
+      type: number
+      sql: CASE WHEN ${TABLE}.overall_New_FxA_user_input_emails = 0 then 0
+      ELSE ROUND(CAST(${TABLE}.overall_New_FxA_payment_setup_complet/${TABLE}.overall_New_FxA_user_input_emails *100 AS Float64))
+      END;;
     }
 
   measure: VPN_site_hits{
@@ -124,16 +130,16 @@ view: new_funnel_from_08252021 {
   measure: overall_total_acquisition_process_start {
     type:  average
     #type needs to be fixed
-    sql: ${TABLE}.overall_total_total_acquisition_process_start ;;
+    sql: ${TABLE}.overall_total_acquisition_process_start ;;
   }
   measure: overall_total_payment_setup_complete {
     type: average
     sql: ${TABLE}.overall_total_payment_setup_complete ;;
   }
     measure: CTR_from_VPN_site_hits_to_enter_the_funnel {
-      type: average
-      sql: CASE WHEN ${TABLE}.VPN_site_hits = 0 then 0
-            ELSE round(cast(${TABLE}.total_acquisition_process_start/${TABLE}.VPN_site_hits *100 AS Float64))
+      type: number
+      sql: CASE WHEN SUM(${TABLE}.VPN_site_hits)= 0 then 0
+            ELSE round(cast(SUM(${TABLE}.total_acquisition_process_start)/SUM(${TABLE}.VPN_site_hits) *100 AS Float64))
             END;;
     }
     measure:CVR_from_VPN_site_hits_to_payment_complete {
@@ -143,27 +149,30 @@ view: new_funnel_from_08252021 {
             END;;
     }
     measure: CVR_from_payment_site_hits_to_payment_complete {
-      type: average
-      sql:CASE WHEN ${TABLE}.total_acquisition_process_start = 0 then 0
-      ELSE round(cast(${TABLE}.total_payment_setup_complete/${TABLE}.total_acquisition_process_start *100 AS Float64))
+      type: number
+      sql:CASE WHEN SUM(${TABLE}.total_acquisition_process_start)= 0 then 0
+      ELSE round(cast(SUM(${TABLE}.total_payment_setup_complete)/SUM(${TABLE}.total_acquisition_process_start) *100 AS Float64))
       END;;
+      # CASE WHEN SUM(new_funnel_from_08252021.total_acquisition_process_start ) >0
+      # THEN ROUND(CAST(SUM(new_funnel_from_08252021.total_payment_setup_complete)/SUM(new_funnel_from_08252021.total_acquisition_process_start )*100 AS FLOAT64))
+      # ELSE 0 END AS CVR
     }
     measure: overall_CTR_from_VPN_site_hits_to_enter_the_funnel {
       type: average
       sql: CASE WHEN ${TABLE}.overall_total_VPN_site_hits = 0 then 0
-            ELSE round(cast(${TABLE}.overall_total_total_acquisition_process_start/${TABLE}.overall_total_VPN_site_hits *100 AS Float64))
+            ELSE round(cast(${TABLE}.overall_total_acquisition_process_start/${TABLE}.overall_total_VPN_site_hits *100 AS Float64))
             END;;
     }
   measure:overall_CVR_from_VPN_site_hits_to_payment_complete {
     type: average
     sql:CASE WHEN ${TABLE}.overall_VPN_site_hits = 0 then 0
-            ELSE round(cast(${TABLE}.overall_total_payment_setup_complete/${TABLE}.overall_VPN_site_hits *100 AS Float64))
+            ELSE round(cast(${TABLE}.overall_total_payment_setup_complete)/${TABLE}.overall_VPN_site_hits *100 AS Float64))
             END;;
   }
   measure: overall_CVR_from_payment_site_hits_to_payment_complete {
     type: average
-    sql:CASE WHEN ${TABLE}.overall_total_total_acquisition_process_start = 0 then 0
-      ELSE round(cast(${TABLE}.overall_total_payment_setup_complete/${TABLE}.overall_total_total_acquisition_process_start *100 AS Float64))
+    sql:CASE WHEN ${TABLE}.overall_total_acquisition_process_start = 0 then 0
+      ELSE round(cast(${TABLE}.overall_total_payment_setup_complete/${TABLE}.overall_total_acquisition_process_start *100 AS Float64))
       END;;
   }
 
@@ -179,13 +188,27 @@ view: new_funnel_from_08252021 {
       type: sum
       sql: ${TABLE}.Existing_FxA_SignedIn_payment_setup_complete ;;
     }
-    measure: CVR_Existing_Fxa_SignedIn_from_payment_site_hit_to_payment_setup_complete {
-      type: average
-      sql:CASE WHEN ${TABLE}.Existing_FxA_SignedIn_payment_setup_view = 0 then 0
-      ELSE round(cast(${TABLE}.Existing_FxA_SignedIn_payment_setup_complete/${TABLE}.Existing_FxA_SignedIn_payment_setup_view *100 AS Float64))
+  measure:  overall_Existing_FxA_SignedIn_payment_setup_view{
+    type: average
+    sql: ${TABLE}.overall_Existing_FxA_SignedIn_payment_setup_view ;;
+  }
+  measure:  overall_Existing_FxA_SignedIn_payment_setup_complete{
+    type: average
+    sql: ${TABLE}.overall_Existing_FxA_SignedIn_payment_setup_complete ;;
+  }
+    measure: Existing_Fxa_SignedIn_CVR {
+      type: number
+      sql:CASE WHEN SUM(${TABLE}.Existing_FxA_SignedIn_payment_setup_view) = 0 then 0
+      ELSE round(cast(SUM(${TABLE}.Existing_FxA_SignedIn_payment_setup_complete)/SUM(${TABLE}.Existing_FxA_SignedIn_payment_setup_view) *100 AS Float64))
       END;;
     }
-
+    measure: overall_Existing_Fxa_SignedIn_CVR {
+      type: average
+      sql: CASE WHEN ${TABLE}.overall_Existing_FxA_SignedIn_payment_setup_view = 0
+                THEN 0
+                ELSE ROUND(CAST(${TABLE}.overall_Existing_FxA_SignedIn_payment_setup_complete/${TABLE}.overall_Existing_FxA_SignedIn_payment_setup_view
+                END;;
+    }
     measure:  Existing_FxA_SignedOff_signin_CTA_click{
       type: sum
       sql: ${TABLE}.Existing_FxA_SignedOff_signin_CTA_click_top ;;
@@ -202,9 +225,23 @@ view: new_funnel_from_08252021 {
       type: sum
       sql: ${TABLE}.Existing_FxA_SignedOff_payment_setup_complete ;;
     }
-  measure: CVR_Existing_Fxa_Signed_Off_from_CTA_click_to_Sign_in_to_payment_setup_complete {
+    measure:  overall_Existing_SignedOff_FxA_payment_setup_view{
+      type: average
+      sql: ${TABLE}.overall_Existing_SignedOff_FxA_payment_setup_view ;;
+    }
+  measure:  overall_Existing_FxA_SignedOff_payment_setup_complete{
     type: average
-    sql:CASE WHEN ${TABLE}.Existing_FxA_SignedOff_signin_CTA_click_top = 0 then 0
+    sql: ${TABLE}.overall_Existing_FxA_SignedOff_payment_setup_complete ;;
+  }
+  measure: Existing_Fxa_SignedOff_CVR {
+    type: number
+    sql:CASE WHEN SUM(${TABLE}.Existing_FxA_SignedOff_signin_CTA_click_top) = 0 then 0
+      ELSE round(cast(SUM(${TABLE}.Existing_FxA_SignedOff_payment_setup_complete)/SUM(${TABLE}.Existing_FxA_SignedOff_signin_CTA_click_top) *100 AS Float64))
+      END;;
+  }
+  measure: overall_Existing_Fxa_SignedOff_CVR {
+    type: average
+    sql:CASE WHEN ${TABLE}.overall_Existing_FxA_SignedOff_signin_CTA_click_top = 0 then 0
       ELSE round(cast(${TABLE}.Existing_FxA_SignedOff_payment_setup_complete/${TABLE}.Existing_FxA_SignedOff_signin_CTA_click_top *100 AS Float64))
       END;;
   }
