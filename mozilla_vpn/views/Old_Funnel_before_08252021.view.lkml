@@ -73,6 +73,18 @@
       type: sum
       sql: ${TABLE}.VPN_site_hits ;;
     }
+    measure: total_login_complete {
+      type: sum
+      sql: ${TABLE}.total_login_complete ;;
+    }
+    measure: total_payment_setup_start {
+      type: sum
+      sql: ${TABLE}.total_payment_setup_start ;;
+    }
+    measure: total_payment_complete {
+      type: sum
+      sql: ${TABLE}.total_payment_complete ;;
+    }
     measure: New_FxA_reg_start  {
       type: sum
       sql: ${TABLE}.New_FxA_reg_view ;;
@@ -102,18 +114,7 @@
       sql: ${TABLE}.New_FxA_payment_complete;;
     }
 
-    measure: total_login_complete {
-      type: sum
-      sql: ${TABLE}.total_login_complete ;;
-    }
-    measure: total_payment_setup_start {
-      type: sum
-      sql: ${TABLE}.total_payment_setup_start ;;
-    }
-    measure: total_payment_complete {
-      type: sum
-      sql: ${TABLE}.total_payment_complete ;;
-    }
+
     measure:  Existing_FxA_SignedIN_login_view{
       type: sum
       sql: ${TABLE}.Existing_FxA_SignedIN_login_view ;;
@@ -138,11 +139,11 @@
       type: sum
       sql: ${TABLE}.Existing_FxA_login_complete ;;
     }
-    measure:  Existing_FxA_paymet_setup_start{
+    measure:  Existing_FxA_payment_setup_start{
       type: sum
       sql: ${TABLE}.Existing_FxA_payment_setup_start ;;
     }
-    measure:  Existing_FxA_paymet_setup_engage{
+    measure:  Existing_FxA_payment_setup_engage{
       type: sum
       sql: ${TABLE}.Existing_FxA_payment_setup_engage ;;
     }
