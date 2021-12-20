@@ -20,13 +20,14 @@ explore: distinct_docids {
   "
 
   join: non_matching {
-    relationship: one_to_one
+    relationship: one_to_many
     sql: LEFT JOIN non_matching USING(submission_date) ;;
   }
 
   always_filter: {
     filters: [
-      submission_date: "28 days",
+      submission_date: "3 years",
+      non_matching.non_matching_count: "> 0",
     ]
   }
 }

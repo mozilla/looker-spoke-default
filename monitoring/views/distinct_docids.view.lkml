@@ -25,26 +25,6 @@ view: distinct_docids {
     ;;
   }
 
-  dimension: decoded {
-    sql: ${TABLE}.decoded ;;
-    type: number
-  }
-
-  dimension: doc_type {
-    sql: ${TABLE}.doc_type ;;
-    type: string
-  }
-
-  dimension: live {
-    sql: ${TABLE}.live ;;
-    type: number
-  }
-
-  dimension: stable {
-    sql: ${TABLE}.stable ;;
-    type: number
-  }
-
   dimension_group: submission {
     sql: ${TABLE}.submission_date ;;
     type: time
@@ -59,6 +39,33 @@ view: distinct_docids {
     convert_tz: no
     datatype: date
   }
+
+  dimension: namespace {
+    sql: ${TABLE}.namespace ;;
+    type: string
+  }
+
+  dimension: doc_type {
+    sql: ${TABLE}.doc_type ;;
+    type: string
+  }
+
+  dimension: decoded {
+    sql: ${TABLE}.decoded ;;
+    type: number
+  }
+
+  dimension: live {
+    sql: ${TABLE}.live ;;
+    type: number
+  }
+
+  dimension: stable {
+    sql: ${TABLE}.stable ;;
+    type: number
+  }
+
+
 }
 
 view: non_matching {
