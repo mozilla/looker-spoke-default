@@ -58,6 +58,10 @@ view: new_funnel_from_08252021 {
       type: string
       sql:  ${TABLE}.plan_name  ;;
     }
+    dimension: Channel_group {
+      type: string
+      sql: ${TABLE}.channel_group ;;
+    }
     # plan_id,
     # product_id,
   dimension_group: start{

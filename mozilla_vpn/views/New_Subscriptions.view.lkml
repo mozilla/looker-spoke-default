@@ -57,6 +57,10 @@ view: new_subscriptions {
     type: string
     sql:  ${TABLE}.provider  ;;
   }
+  dimension: Channel_group {
+    type: string
+    sql: ${TABLE}.channel_group ;;
+  }
     dimension_group: start{
       description: "date of event"
       type: time
@@ -76,6 +80,13 @@ view: new_subscriptions {
       sql: ${TABLE}.daily_new_subscriptions ;;
     }
 
+  measure: channel_group_proportion {
+    type: average
+    sql:${TABLE}.ch_group_prop;;
+      # CASE WHEN SUM(new_funnel_from_08252021.total_acquisition_process_start ) >0
+      # THEN ROUND(CAST(SUM(new_funnel_from_08252021.total_payment_setup_complete)/SUM(new_funnel_from_08252021.total_acquisition_process_start )*100 AS FLOAT64))
+      # ELSE 0 END AS CVR
+    }
 }
 
 # view: newsubscriptions {
