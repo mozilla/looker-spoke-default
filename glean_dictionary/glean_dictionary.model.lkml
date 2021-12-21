@@ -1,0 +1,7 @@
+connection: "telemetry"
+label: "Glean Dictionary"
+# include: "//looker-hub/glean_dictionary/explores/*"
+# include: "//looker-hub/glean_dictionary/dashboards/*"
+# include: "views/*"
+# include: "explores/*"
+# include: "dashboards/*"
