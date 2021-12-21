@@ -3,7 +3,6 @@ include: "../views/distinct_docids.view.lkml"
 
 explore: distinct_docids {
   sql_always_where: ${distinct_docids.submission_date} >= '2010-01-01' ;;
-  # view_name: distinct_docids
   description:
   "
   The table lists all doctypes where the number

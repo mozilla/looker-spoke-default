@@ -1,7 +1,3 @@
-# include: "//looker-hub/monitoring/views/structured_distinct_docids.view.lkml"
-# include: "//looker-hub/monitoring/views/telemetry_distinct_docids.view.lkml"
-
-
 view: distinct_docids {
   derived_table: {
     sql:
