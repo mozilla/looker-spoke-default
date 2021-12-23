@@ -49,10 +49,6 @@ view: new_subscriptions {
       type: string
       sql:  ${TABLE}.pricing_plan  ;;
     }
-    dimension: website_channel_group {
-      type: string
-      sql:  ${TABLE}.website_channel_group  ;;
-    }
   dimension: provider {
     type: string
     sql:  ${TABLE}.provider  ;;
