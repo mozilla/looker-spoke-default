@@ -1,44 +1,17 @@
-view: column_size_differences{
-  dimension: byte_size {
-    sql: ${TABLE}.byte_size ;;
-    type: number
+include: "//looker-hub/monitoring/views/column_size.view.lkml"
+
+explore: column_size_differences{
+  view_name: column_size
+
+  join: column_size_last_week {
+    type: inner
+    from:  column_size
+    sql_on:
+      ${column_size.submission_date} = DATE_ADD(${column_size_last_week.submission_date}, INTERVAL 7 DAY)
+      AND ${column_size.dataset_id} = ${column_size_last_week.dataset_id}
+      AND ${column_size.column_name} = ${column_size_last_week.column_name}
+      AND (${column_size.byte_size} - ${column_size_last_week.byte_size})  / 1024 / 1024 / 1024 > 100;;
+      relationship: one_to_one
   }
 
-  dimension: column_name {
-    primary_key: yes
-    sql: ${TABLE}.column_name ;;
-    type: string
-  }
-
-  dimension: dataset_id {
-    sql: ${TABLE}.dataset_id ;;
-    type: string
-  }
-
-  dimension: table_id {
-    sql: ${TABLE}.table_id ;;
-    type: string
-  }
-
-  dimension_group: submission {
-    sql: ${TABLE}.submission_date ;;
-    type: time
-    timeframes: [
-      raw,
-      date,
-      week,
-      month,
-      quarter,
-      year,
-    ]
-    convert_tz: no
-    datatype: date
-  }
-
-  dimension: submission_date_previous_week {
-    sql: add_date(${TABLE}.submission_date_previous_week, -7) ;;
-    datatype: date
-  }
-
-  sql_table_name: `mozdata.monitoring.column_size_differences` ;;
 }
