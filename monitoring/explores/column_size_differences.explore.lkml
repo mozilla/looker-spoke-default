@@ -35,8 +35,18 @@ view: column_size_differences{
     datatype: date
   }
 
-  dimension: submission_previous_week {
+  dimension_group: submission_previous_week {
     sql: add_date(${TABLE}.submission_date_previous_week, -7) ;;
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year,
+    ]
+    convert_tz: no
     datatype: date
   }
 
