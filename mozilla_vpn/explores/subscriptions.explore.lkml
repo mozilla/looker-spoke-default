@@ -1,15 +1,15 @@
 include: "../views/subscriptions.view"
 include: "../views/devices.view"
-include: "../views/information_schema_partitions.view"
+include: "../views/table_metadata.view"
 include: "../views/vat_rates.view"
 include: "//looker-hub/mozilla_vpn/views/exchange_rates_table.view"
 
 explore: subscriptions {
 
   join: metadata {
-    from: information_schema_partitions
+    from: table_metadata
     view_label: "Metadata"
-    sql_on: ${metadata.table_name} = "all_subscriptions_v1" AND ${metadata.partition_id} IS NULL;;
+    sql_on: ${metadata.table_name} = "all_subscriptions_v1";;
     # Using a one_to_one relationship here, instead of the technically correct many_to_one, makes
     # Looker understand that this join does not impact aggregation, which only works because this
     # view does not contain any aggregates.
