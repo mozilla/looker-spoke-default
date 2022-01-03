@@ -50,5 +50,5 @@ view: column_size_differences{
     datatype: date
   }
 
-  sql_table_name: `mozdata.monitoring.column_size_previous_week ;;
+  sql_table_name: `mozdata.monitoring.column_size_previous_week` ;;
 }
