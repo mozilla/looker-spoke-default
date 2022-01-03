@@ -5,6 +5,7 @@ view: column_size_differences{
   }
 
   dimension: column_name {
+    primary_key: yes
     sql: ${TABLE}.column_name ;;
     type: string
   }
@@ -39,5 +40,5 @@ view: column_size_differences{
     datatype: date
   }
 
-  sql_table_name: `mozdata.monitoring.column_size` ;;
+  sql_table_name: `mozdata.monitoring.column_size_previous_week ;;
 }
