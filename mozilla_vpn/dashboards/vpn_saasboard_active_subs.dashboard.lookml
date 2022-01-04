@@ -7,11 +7,11 @@
   - title: Active Subscriptions (Daily)
     name: Active Subscriptions (Daily)
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     type: looker_line
-    fields: [subscriptions__active.active_date, subscriptions.count]
-    fill_fields: [subscriptions__active.active_date]
-    sorts: [subscriptions__active.active_date desc]
+    fields: [active_subscriptions.active_date, active_subscriptions.count_sum]
+    fill_fields: [active_subscriptions.active_date]
+    sorts: [active_subscriptions.active_date desc]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -43,10 +43,10 @@
     x_axis_datetime_label: "%d-%b-'%y"
     defaults_version: 1
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
-      Country: subscriptions.country_name
-      Active Date: subscriptions__active.active_date
+      Provider: active_subscriptions.provider
+      Pricing Plan: active_subscriptions.pricing_plan
+      Country: active_subscriptions.country_name
+      Active Date: active_subscriptions.active_date
     row: 8
     col: 8
     width: 16
@@ -54,11 +54,11 @@
   - title: Current Active Subscriptions
     name: Current Active Subscriptions
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     type: single_value
-    fields: [subscriptions.count, subscriptions__active.active_date]
-    fill_fields: [subscriptions__active.active_date]
-    sorts: [subscriptions__active.active_date desc]
+    fields: [active_subscriptions.count_sum, active_subscriptions.active_date]
+    fill_fields: [active_subscriptions.active_date]
+    sorts: [active_subscriptions.active_date desc]
     limit: 1
     custom_color_enabled: true
     show_single_value_title: true
@@ -101,10 +101,10 @@
     interpolation: linear
     defaults_version: 1
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
-      Country: subscriptions.country_name
-      Active Date: subscriptions__active.active_date
+      Provider: active_subscriptions.provider
+      Pricing Plan: active_subscriptions.pricing_plan
+      Country: active_subscriptions.country_name
+      Active Date: active_subscriptions.active_date
     row: 8
     col: 0
     width: 8
@@ -136,11 +136,11 @@
   - title: Current Active Date
     name: Current Active Date
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     type: single_value
-    fields: [subscriptions__active.active_date]
-    fill_fields: [subscriptions__active.active_date]
-    sorts: [subscriptions__active.active_date desc]
+    fields: [active_subscriptions.active_date]
+    fill_fields: [active_subscriptions.active_date]
+    sorts: [active_subscriptions.active_date desc]
     limit: 1
     custom_color_enabled: true
     show_single_value_title: true
@@ -184,10 +184,10 @@
     note_state: collapsed
     note_display: below
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
-      Country: subscriptions.country_name
-      Active Date: subscriptions__active.active_date
+      Provider: active_subscriptions.provider
+      Pricing Plan: active_subscriptions.pricing_plan
+      Country: active_subscriptions.country_name
+      Active Date: active_subscriptions.active_date
     row: 2
     col: 19
     width: 5
@@ -195,14 +195,14 @@
   - title: Monthly Active Subscriptions (by Country)
     name: Monthly Active Subscriptions (by Country)
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     type: looker_column
-    fields: [subscriptions.count, subscriptions.country_name, subscriptions__active.active_month]
-    pivots: [subscriptions.country_name]
-    fill_fields: [subscriptions__active.active_month]
+    fields: [active_subscriptions.count_sum, active_subscriptions.country_name, active_subscriptions.active_month]
+    pivots: [active_subscriptions.country_name]
+    fill_fields: [active_subscriptions.active_month]
     filters:
-      subscriptions__active.is_end_of_month: 'Yes'
-    sorts: [subscriptions.country_name desc, subscriptions.count desc 0]
+      active_subscriptions.is_end_of_month: 'Yes'
+    sorts: [active_subscriptions.country_name desc, active_subscriptions.count_sum desc 0]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -239,7 +239,7 @@
     x_axis_label: Month
     series_types: {}
     series_colors:
-      USA - subscriptions.count: "#347be3"
+      USA - active_subscriptions.count_sum: "#347be3"
     defaults_version: 1
     note_state: collapsed
     note_display: hover
@@ -247,10 +247,10 @@
       \ on month end dates except for most current month which may not have reached\
       \ month end. "
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
-      Country: subscriptions.country_name
-      Active Date: subscriptions__active.active_date
+      Provider: active_subscriptions.provider
+      Pricing Plan: active_subscriptions.pricing_plan
+      Country: active_subscriptions.country_name
+      Active Date: active_subscriptions.active_date
     row: 31
     col: 0
     width: 8
@@ -258,14 +258,14 @@
   - title: Monthly Active Subscriptions (by Plan)
     name: Monthly Active Subscriptions (by Plan)
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     type: looker_column
-    fields: [subscriptions.count, subscriptions.pricing_plan, subscriptions__active.active_month]
-    pivots: [subscriptions.pricing_plan]
-    fill_fields: [subscriptions__active.active_month]
+    fields: [active_subscriptions.count_sum, active_subscriptions.pricing_plan, active_subscriptions.active_month]
+    pivots: [active_subscriptions.pricing_plan]
+    fill_fields: [active_subscriptions.active_month]
     filters:
-      subscriptions__active.is_end_of_month: 'Yes'
-    sorts: [subscriptions__active.active_month desc, subscriptions.pricing_plan]
+      active_subscriptions.is_end_of_month: 'Yes'
+    sorts: [active_subscriptions.active_month desc, active_subscriptions.pricing_plan]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -302,18 +302,18 @@
     x_axis_label: Month
     series_types: {}
     series_colors:
-      1-month-usd-4.99 - subscriptions.count: "#7363A9"
-      6-month-chf-47.94 - subscriptions.count: "#82a6a8"
+      1-month-usd-4.99 - active_subscriptions.count_sum: "#7363A9"
+      6-month-chf-47.94 - active_subscriptions.count_sum: "#82a6a8"
     defaults_version: 1
     note_state: collapsed
     note_display: hover
     note_text: 'Subscription counts on month end dates except for most current month
       which may not have reached month end. '
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
-      Country: subscriptions.country_name
-      Active Date: subscriptions__active.active_date
+      Provider: active_subscriptions.provider
+      Pricing Plan: active_subscriptions.pricing_plan
+      Country: active_subscriptions.country_name
+      Active Date: active_subscriptions.active_date
     row: 31
     col: 8
     width: 8
@@ -345,14 +345,14 @@
   - title: Monthly Active Subscriptions (by Provider)
     name: Monthly Active Subscriptions (by Provider)
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     type: looker_column
-    fields: [subscriptions.count, subscriptions__active.active_month, subscriptions.provider]
-    pivots: [subscriptions.provider]
-    fill_fields: [subscriptions__active.active_month]
+    fields: [active_subscriptions.count_sum, active_subscriptions.active_month, active_subscriptions.provider]
+    pivots: [active_subscriptions.provider]
+    fill_fields: [active_subscriptions.active_month]
     filters:
-      subscriptions__active.is_end_of_month: 'Yes'
-    sorts: [subscriptions.count desc 0, subscriptions.provider desc]
+      active_subscriptions.is_end_of_month: 'Yes'
+    sorts: [active_subscriptions.count_sum desc 0, active_subscriptions.provider desc]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -395,10 +395,10 @@
     note_text: 'Subscription counts on month end dates except for most current month
       which may not have reached month end. '
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
-      Country: subscriptions.country_name
-      Active Date: subscriptions__active.active_date
+      Provider: active_subscriptions.provider
+      Pricing Plan: active_subscriptions.pricing_plan
+      Country: active_subscriptions.country_name
+      Active Date: active_subscriptions.active_date
     row: 31
     col: 16
     width: 8
@@ -406,14 +406,14 @@
   - title: New Tile
     name: New Tile
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     type: single_value
-    fields: [subscriptions.count, subscriptions__active.active_date]
-    fill_fields: [subscriptions__active.active_date]
-    sorts: [subscriptions__active.active_date desc]
+    fields: [active_subscriptions.count_sum, active_subscriptions.active_date]
+    fill_fields: [active_subscriptions.active_date]
+    sorts: [active_subscriptions.active_date desc]
     limit: 3
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "(${subscriptions.count}-offset(${subscriptions.count},\
+    dynamic_fields: [{category: table_calculation, expression: "(${active_subscriptions.count_sum}-offset(${active_subscriptions.count_sum},\
           \ 1))", label: delta_1_day, value_format: !!null '', value_format_name: '',
         _kind_hint: measure, table_calculation: delta_1_day, _type_hint: number}]
     custom_color_enabled: true
@@ -470,12 +470,12 @@
     header_text_alignment: left
     header_font_size: 12
     rows_font_size: 12
-    hidden_fields: [subscriptions.count]
+    hidden_fields: [active_subscriptions.count_sum]
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
-      Country: subscriptions.country_name
-      Active Date: subscriptions__active.active_date
+      Provider: active_subscriptions.provider
+      Pricing Plan: active_subscriptions.pricing_plan
+      Country: active_subscriptions.country_name
+      Active Date: active_subscriptions.active_date
     row: 15
     col: 0
     width: 4
@@ -483,14 +483,14 @@
   - title: New Tile
     name: New Tile (2)
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     type: single_value
-    fields: [subscriptions.count, subscriptions__active.active_date]
-    fill_fields: [subscriptions__active.active_date]
-    sorts: [subscriptions__active.active_date desc]
+    fields: [active_subscriptions.count_sum, active_subscriptions.active_date]
+    fill_fields: [active_subscriptions.active_date]
+    sorts: [active_subscriptions.active_date desc]
     limit: 10
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "(${subscriptions.count}-offset(${subscriptions.count},\
+    dynamic_fields: [{category: table_calculation, expression: "(${active_subscriptions.count_sum}-offset(${active_subscriptions.count_sum},\
           \ 7))", label: delta_7_days, value_format: !!null '', value_format_name: '',
         _kind_hint: measure, table_calculation: delta_7_days, _type_hint: number}]
     custom_color_enabled: true
@@ -547,12 +547,12 @@
     header_text_alignment: left
     header_font_size: 12
     rows_font_size: 12
-    hidden_fields: [subscriptions.count]
+    hidden_fields: [active_subscriptions.count_sum]
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
-      Country: subscriptions.country_name
-      Active Date: subscriptions__active.active_date
+      Provider: active_subscriptions.provider
+      Pricing Plan: active_subscriptions.pricing_plan
+      Country: active_subscriptions.country_name
+      Active Date: active_subscriptions.active_date
     row: 15
     col: 4
     width: 4
@@ -560,12 +560,12 @@
   - title: Current Active Subscriptions (by Country)
     name: Current Active Subscriptions (by Country)
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     type: looker_pie
-    fields: [subscriptions.count, subscriptions.country_name]
+    fields: [active_subscriptions.count_sum, active_subscriptions.country_name]
     filters:
-      subscriptions__active.is_max_active_date: 'Yes'
-    sorts: [subscriptions.country_name desc]
+      active_subscriptions.is_max_active_date: 'Yes'
+    sorts: [active_subscriptions.country_name desc]
     limit: 1000
     column_limit: 50
     value_labels: labels
@@ -634,10 +634,10 @@
     note_display: hover
     note_text: Country is based on customer billing address.
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
-      Country: subscriptions.country_name
-      Active Date: subscriptions__active.active_date
+      Provider: active_subscriptions.provider
+      Pricing Plan: active_subscriptions.pricing_plan
+      Country: active_subscriptions.country_name
+      Active Date: active_subscriptions.active_date
     row: 22
     col: 0
     width: 8
@@ -645,12 +645,12 @@
   - title: Current Active Subscriptions (by Plan)
     name: Current Active Subscriptions (by Plan)
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     type: looker_pie
-    fields: [subscriptions.pricing_plan, subscriptions.count]
+    fields: [active_subscriptions.pricing_plan, active_subscriptions.count_sum]
     filters:
-      subscriptions__active.is_max_active_date: 'Yes'
-    sorts: [subscriptions.pricing_plan]
+      active_subscriptions.is_max_active_date: 'Yes'
+    sorts: [active_subscriptions.pricing_plan]
     limit: 1000
     column_limit: 50
     value_labels: labels
@@ -661,8 +661,8 @@
       options:
         steps: 5
     series_colors:
-      1-month-usd-4.99 - subscriptions.count: "#7363A9"
-      6-month-chf-47.94 - subscriptions.count: "#82a6a8"
+      1-month-usd-4.99 - active_subscriptions.count_sum: "#7363A9"
+      6-month-chf-47.94 - active_subscriptions.count_sum: "#82a6a8"
       1-month-usd-4.99: "#7363A9"
       1-year-chf-71.88: "#D5C679"
     show_value_labels: true
@@ -718,10 +718,10 @@
     show_comparison_label: true
     hidden_fields: []
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
-      Country: subscriptions.country_name
-      Active Date: subscriptions__active.active_date
+      Provider: active_subscriptions.provider
+      Pricing Plan: active_subscriptions.pricing_plan
+      Country: active_subscriptions.country_name
+      Active Date: active_subscriptions.active_date
     row: 22
     col: 8
     width: 8
@@ -729,12 +729,12 @@
   - title: Current Active Subscriptions (by Provider)
     name: Current Active Subscriptions (by Provider)
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     type: looker_pie
-    fields: [subscriptions.count, subscriptions.provider]
+    fields: [active_subscriptions.count_sum, active_subscriptions.provider]
     filters:
-      subscriptions__active.is_max_active_date: 'Yes'
-    sorts: [subscriptions.provider desc]
+      active_subscriptions.is_max_active_date: 'Yes'
+    sorts: [active_subscriptions.provider desc]
     limit: 1000
     column_limit: 50
     value_labels: labels
@@ -799,10 +799,10 @@
     show_comparison_label: true
     hidden_fields: []
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
-      Country: subscriptions.country_name
-      Active Date: subscriptions__active.active_date
+      Provider: active_subscriptions.provider
+      Pricing Plan: active_subscriptions.pricing_plan
+      Country: active_subscriptions.country_name
+      Active Date: active_subscriptions.active_date
     row: 22
     col: 16
     width: 8
@@ -874,9 +874,9 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     listens_to_filters: [Active Date, Country, Pricing Plan]
-    field: subscriptions.provider
+    field: active_subscriptions.provider
   - name: Pricing Plan
     title: Pricing Plan
     type: field_filter
@@ -888,9 +888,9 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     listens_to_filters: [Active Date, Country, Provider]
-    field: subscriptions.pricing_plan
+    field: active_subscriptions.pricing_plan
   - name: Country
     title: Country
     type: field_filter
@@ -902,9 +902,9 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     listens_to_filters: [Active Date, Pricing Plan, Provider]
-    field: subscriptions.country_name
+    field: active_subscriptions.country_name
   - name: Active Date
     title: Active Date
     type: field_filter
@@ -916,6 +916,6 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     listens_to_filters: []
-    field: subscriptions__active.active_date
+    field: active_subscriptions.active_date
