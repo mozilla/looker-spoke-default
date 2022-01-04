@@ -1,6 +1,7 @@
 connection: "telemetry"
 label: "Search"
 include: "//looker-hub/search/explores/*"
+include: "//looker-hub/search/views/desktop_search_alert_latest_daily.view.lkml"
 include: "views/*"
 
 explore: +desktop_search_counts {
@@ -17,6 +18,8 @@ explore: +mobile_search_counts {
     SAP, and organic searches are those that occur directly on a search webpage (e.g. www.google.com).
     Warning: Firefox iOS is not able to implement all metrics, like ad clicks."
 }
+
+explore: desktop_search_alert_latest_daily {}
 
 explore: +desktop_search_counts {
   aggregate_table: rollup__search_clients_engines_sources_daily_submission_date_0 {
