@@ -433,7 +433,6 @@
         telemetry_missing_columns.document_version, telemetry_missing_columns.path,
         sum_of_path_count_last_7_days]
       filters:
-        telemetry_missing_columns.submission_date: 7 days
         sum_of_path_count_last_7_days: ">10"
       sorts: [sum_of_path_count_last_7_days desc]
       limit: 500
@@ -880,8 +879,6 @@
       fields: [structured_missing_columns.document_namespace, structured_missing_columns.document_type,
         structured_missing_columns.document_version, structured_missing_columns.path,
         sum_of_path_count_last_7_days]
-      filters:
-        structured_missing_columns.submission_date: 7 days
       sorts: [sum_of_path_count_last_7_days desc]
       limit: 500
       column_limit: 50
