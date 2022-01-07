@@ -47,7 +47,7 @@
     defaults_version: 1
     listen:
       Submission Date: client_counts.submission_date
-    row: 2
+    row: 5
     col: 0
     width: 12
     height: 6
@@ -56,7 +56,7 @@
     title_text: OS and Geo Distributions
     subtitle_text: ''
     body_text: ''
-    row: 0
+    row: 3
     col: 0
     width: 23
     height: 2
@@ -107,7 +107,7 @@
     defaults_version: 1
     listen:
       Submission Date: client_counts.submission_date
-    row: 8
+    row: 11
     col: 12
     width: 12
     height: 6
@@ -165,7 +165,7 @@
     totals_color: "#808080"
     listen:
       Submission Date: client_counts.submission_date
-    row: 2
+    row: 5
     col: 12
     width: 12
     height: 6
@@ -230,7 +230,7 @@
     defaults_version: 1
     listen:
       Submission Date: client_counts.submission_date
-    row: 14
+    row: 17
     col: 0
     width: 12
     height: 6
@@ -304,7 +304,7 @@
     defaults_version: 1
     listen:
       Submission Date: client_counts.submission_date
-    row: 20
+    row: 23
     col: 0
     width: 12
     height: 6
@@ -365,7 +365,7 @@
     totals_color: "#808080"
     listen:
       Submission Date: client_counts.submission_date
-    row: 14
+    row: 17
     col: 12
     width: 12
     height: 6
@@ -410,7 +410,7 @@
     defaults_version: 1
     listen:
       Submission Date: baseline.submission_date
-    row: 8
+    row: 11
     col: 0
     width: 12
     height: 6
@@ -419,7 +419,7 @@
     title_text: Missing Columns
     subtitle_text: ''
     body_text: ''
-    row: 26
+    row: 29
     col: 0
     width: 24
     height: 2
@@ -866,7 +866,7 @@
     listen:
     - Submission Date: telemetry_missing_columns.submission_date
     -
-    row: 28
+    row: 31
     col: 0
     width: 24
     height: 6
@@ -1275,7 +1275,7 @@
     listen:
     - Submission Date: structured_missing_columns.submission_date
     -
-    row: 34
+    row: 37
     col: 0
     width: 24
     height: 6
@@ -1308,7 +1308,7 @@
     defaults_version: 1
     listen:
       Submission Date: distinct_docids.submission_date
-    row: 58
+    row: 61
     col: 0
     width: 24
     height: 4
@@ -1319,7 +1319,7 @@
       to live tables.
     body_text: <center> <a href="https://earthangel-b40313e5.influxcloud.net/d/bZHv1mUMk/pipeline-latency?orgId=1&from=now-7d&to=now&var-realm=prod&var-family=telemetry">
       Grafana Dashboard</a> </center>
-    row: 98
+    row: 101
     col: 0
     width: 24
     height: 4
@@ -1399,7 +1399,7 @@
     defaults_version: 1
     listen:
       Submission Date: payload_bytes_error_all.submission_date
-    row: 80
+    row: 83
     col: 0
     width: 13
     height: 8
@@ -1467,7 +1467,7 @@
     defaults_version: 1
     listen:
       Submission Date: payload_bytes_error_all.submission_date
-    row: 88
+    row: 91
     col: 0
     width: 13
     height: 7
@@ -1549,7 +1549,7 @@
     defaults_version: 1
     listen:
       Submission Date: payload_bytes_error_all.submission_date
-    row: 80
+    row: 83
     col: 13
     width: 11
     height: 8
@@ -1609,7 +1609,7 @@
     hidden_fields: [column_size.byte_size, column_size_last_week.byte_size]
     listen:
       Submission Date: column_size.submission_date
-    row: 130
+    row: 133
     col: 0
     width: 24
     height: 7
@@ -1699,7 +1699,7 @@
     defaults_version: 1
     listen:
       Submission Date: stable_table_sizes.submission_date
-    row: 104
+    row: 107
     col: 0
     width: 24
     height: 9
@@ -1789,7 +1789,7 @@
     defaults_version: 1
     listen:
       Submission Date: stable_table_sizes.submission_date
-    row: 113
+    row: 116
     col: 0
     width: 24
     height: 8
@@ -1863,7 +1863,7 @@
     defaults_version: 1
     listen:
       Submission Date: stable_table_sizes.submission_date
-    row: 121
+    row: 124
     col: 0
     width: 24
     height: 7
@@ -1872,7 +1872,7 @@
     title_text: Stable Table Partition Sizes
     subtitle_text: ''
     body_text: ''
-    row: 102
+    row: 105
     col: 0
     width: 23
     height: 2
@@ -1882,7 +1882,7 @@
     subtitle_text: ''
     body_text: Shows the differences in column sizes compared to the size of 7 days
       ago. This explains where increases in partition sizes could come from.
-    row: 128
+    row: 131
     col: 0
     width: 24
     height: 2
@@ -1896,7 +1896,7 @@
       to a direct `COUNT(DISTINCT document_id)` on the relevant table partition. Prior
       to adding this filtering, document types under `org_mozilla_fenix` would consistently
       show mismatches due to test pings present in the decoded and live tables.
-    row: 54
+    row: 57
     col: 0
     width: 24
     height: 4
@@ -2028,7 +2028,7 @@
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     defaults_version: 1
     listen: {}
-    row: 42
+    row: 45
     col: 0
     width: 24
     height: 8
@@ -2037,7 +2037,7 @@
     title_text: Main Ping Schema Errors
     subtitle_text: ''
     body_text: ''
-    row: 40
+    row: 43
     col: 0
     width: 24
     height: 2
@@ -2049,7 +2049,7 @@
       Todo: migrate to Looker
 
       [Redash Dashboard](https://sql.telemetry.mozilla.org/dashboard/all-schema-errors)
-    row: 50
+    row: 53
     col: 0
     width: 24
     height: 4
@@ -2082,7 +2082,7 @@
     conditional_formatting_include_nulls: false
     defaults_version: 1
     listen: {}
-    row: 64
+    row: 67
     col: 0
     width: 24
     height: 6
@@ -2115,7 +2115,7 @@
     conditional_formatting_include_nulls: false
     defaults_version: 1
     listen: {}
-    row: 72
+    row: 75
     col: 0
     width: 24
     height: 6
@@ -2126,7 +2126,7 @@
     body_text: 'Add unknown namespaces to [MessageScrubber](https://github.com/mozilla/gcp-ingestion/blob/b86c6f491ec23bea8c57fc182eb3ccd3b62527be/ingestion-beam/src/main/java/com/mozilla/telemetry/decoder/MessageScrubber.java#L22)
       if threshold exceeds 10,000. Different variation of existing products are due
       to fuzzing. '
-    row: 62
+    row: 65
     col: 0
     width: 24
     height: 2
@@ -2135,7 +2135,7 @@
     title_text: Missing Doctypes/Versions
     subtitle_text: ''
     body_text: ''
-    row: 70
+    row: 73
     col: 0
     width: 24
     height: 2
@@ -2144,7 +2144,7 @@
     title_text: 'Overall # of Errors per `error_type`'
     subtitle_text: Errors encountered during ingestion
     body_text: ''
-    row: 78
+    row: 81
     col: 0
     width: 24
     height: 2
@@ -2156,7 +2156,17 @@
       Todo: migrate to Looker
 
       [Redash Dashboard](https://sql.telemetry.mozilla.org/queries/76766/source)
-    row: 95
+    row: 98
+    col: 0
+    width: 24
+    height: 3
+  - name: Open Issues
+    type: text
+    title_text: Open Issues
+    subtitle_text: All open issues tagged with [data-quality], P1-P3
+    body_text: <center> <a href="https://bugzilla.mozilla.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=NEW&bug_status=ASSIGNED&bug_status=REOPENED&classification=Client%20Software&classification=Developer%20Infrastructure&classification=Components&classification=Server%20Software&classification=Other&priority=P1&priority=P2&priority=P3&priority=--&resolution=---&status_whiteboard=[data-quality]&status_whiteboard_type=allwordssubstr&list_id=15652480">
+      Bugzilla</a> </center>
+    row: 0
     col: 0
     width: 24
     height: 3
