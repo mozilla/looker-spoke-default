@@ -60,7 +60,7 @@ explore: subscriptions {
   }
 }
 
-# # Add aggregate tables lookML from VPN SaaSboard - retention
+# Add aggregate tables lookML from VPN SaaSboard - retention
 
 explore: +subscriptions {
   aggregate_table: rollup__subscription_start_month__subscriptions__retention_months_since_subscription_start__0 {
