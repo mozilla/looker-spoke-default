@@ -39,7 +39,7 @@ explore: active_subscriptions {
   }
 }
 
-# # Add aggregate tables lookML from VPN SaaSboard - Active Subscriptions
+# Add aggregate tables lookML from VPN SaaSboard - Active Subscriptions
 
 explore: +active_subscriptions {
   aggregate_table: rollup__active_date__country_name__pricing_plan__provider__0 {

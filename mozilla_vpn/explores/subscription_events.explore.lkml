@@ -16,7 +16,7 @@ explore: subscription_events {
   }
 }
 
-# # Add aggregate tables lookML from VPN SaaSboard - Subscriptions Growth
+# Add aggregate tables lookML from VPN SaaSboard - Subscriptions Growth
 
 explore: +subscription_events {
   aggregate_table: rollup__country_name__event_date__pricing_plan__provider__0 {
