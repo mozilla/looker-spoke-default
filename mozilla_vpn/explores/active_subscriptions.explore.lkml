@@ -42,6 +42,58 @@ explore: active_subscriptions {
 # Add aggregate tables lookML from VPN SaaSboard - Active Subscriptions
 
 explore: +active_subscriptions {
+
+  aggregate_table: rollup__active_date__country_name__pricing_plan__provider__0max {
+    query: {
+      dimensions: [active_date, country_name, pricing_plan, provider]
+      measures: [count_sum]
+      filters: [active_subscriptions.is_max_active_date: "Yes"]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT
+        MAX(last_modified_time)
+      FROM
+        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+      WHERE
+        table_name = "all_subscriptions_v1";;
+    }
+  }
+
+  aggregate_table: rollup__active_date__country_name__pricing_plan__provider__1max {
+    query: {
+      dimensions: [active_date, country_name, pricing_plan, provider]
+      measures: [count_sum]
+      filters: [active_subscriptions.is_max_active_date: "Yes"]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT
+        MAX(last_modified_time)
+      FROM
+        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+      WHERE
+        table_name = "all_subscriptions_v1";;
+    }
+  }
+
+  aggregate_table: rollup__active_date__country_name__pricing_plan__provider__2max {
+    query: {
+      dimensions: [active_date, country_name, pricing_plan, provider]
+      measures: [count_sum]
+      filters: [active_subscriptions.is_max_active_date: "Yes"]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT
+        MAX(last_modified_time)
+      FROM
+        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+      WHERE
+        table_name = "all_subscriptions_v1";;
+    }
+  }
+
   aggregate_table: rollup__active_date__country_name__pricing_plan__provider__0 {
     query: {
       dimensions: [active_date, country_name, pricing_plan, provider]
