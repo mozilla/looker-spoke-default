@@ -32,11 +32,11 @@
   - title: Current Active Date
     name: Current Active Date
     model: mozilla_vpn
-    explore: subscriptions
+    explore: subscription_events
     type: single_value
-    fields: [subscriptions__events.event_date]
-    fill_fields: [subscriptions__events.event_date]
-    sorts: [subscriptions__events.event_date desc]
+    fields: [subscription_events.event_date]
+    fill_fields: [subscription_events.event_date]
+    sorts: [subscription_events.event_date desc]
     limit: 1
     custom_color_enabled: true
     show_single_value_title: true
@@ -80,10 +80,10 @@
     note_state: collapsed
     note_display: below
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
-      Country: subscriptions.country_name
-      Event Date: subscriptions__events.event_date
+      Provider: subscription_events.provider
+      Pricing Plan: subscription_events.pricing_plan
+      Country: subscription_events.country_name
+      Event Date: subscription_events.event_date
     row: 2
     col: 19
     width: 5
@@ -91,14 +91,14 @@
   - title: New Subscriptions (By Country)
     name: New Subscriptions (By Country)
     model: mozilla_vpn
-    explore: subscriptions
+    explore: subscription_events
     type: looker_column
-    fields: [subscriptions__events.event_month, subscriptions.country_name, subscriptions.count]
-    pivots: [subscriptions.country_name]
-    fill_fields: [subscriptions__events.event_month]
+    fields: [subscription_events.event_month, subscription_events.country_name, subscription_events.delta]
+    pivots: [subscription_events.country_name]
+    fill_fields: [subscription_events.event_month]
     filters:
-      subscriptions__events.type: New
-    sorts: [subscriptions__events.event_month desc, subscriptions.country_name desc]
+      subscription_events.event_type: New
+    sorts: [subscription_events.event_month desc, subscription_events.country_name desc]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -133,26 +133,26 @@
       options:
         steps: 5
         reverse: false
-    y_axes: [{label: Subscriptions, orientation: left, series: [{axisId: USA - subscriptions.count,
-            id: USA - subscriptions.count, name: USA}, {axisId: United Kingdom - subscriptions.count,
-            id: United Kingdom - subscriptions.count, name: United Kingdom}, {axisId: Switzerland
-              - subscriptions.count, id: Switzerland - subscriptions.count, name: Switzerland},
-          {axisId: Spain - subscriptions.count, id: Spain - subscriptions.count, name: Spain},
-          {axisId: Singapore - subscriptions.count, id: Singapore - subscriptions.count,
-            name: Singapore}, {axisId: Puerto Rico - subscriptions.count, id: Puerto
-              Rico - subscriptions.count, name: Puerto Rico}, {axisId: New Zealand
-              - subscriptions.count, id: New Zealand - subscriptions.count, name: New
-              Zealand}, {axisId: Malaysia - subscriptions.count, id: Malaysia - subscriptions.count,
-            name: Malaysia}, {axisId: Italy - subscriptions.count, id: Italy - subscriptions.count,
-            name: Italy}, {axisId: Guam - subscriptions.count, id: Guam - subscriptions.count,
-            name: Guam}, {axisId: Germany - subscriptions.count, id: Germany - subscriptions.count,
-            name: Germany}, {axisId: France - subscriptions.count, id: France - subscriptions.count,
-            name: France}, {axisId: Canada - subscriptions.count, id: Canada - subscriptions.count,
-            name: Canada}, {axisId: Belgium - subscriptions.count, id: Belgium - subscriptions.count,
-            name: Belgium}, {axisId: Austria - subscriptions.count, id: Austria -
-              subscriptions.count, name: Austria}, {axisId: American Samoa - subscriptions.count,
-            id: American Samoa - subscriptions.count, name: American Samoa}, {axisId: subscriptions.country_name___null
-              - subscriptions.count, id: subscriptions.country_name___null - subscriptions.count,
+    y_axes: [{label: Subscriptions, orientation: left, series: [{axisId: USA - subscription_events.delta,
+            id: USA - subscription_events.delta, name: USA}, {axisId: United Kingdom - subscription_events.delta,
+            id: United Kingdom - subscription_events.delta, name: United Kingdom}, {axisId: Switzerland
+              - subscription_events.delta, id: Switzerland - subscription_events.delta, name: Switzerland},
+          {axisId: Spain - subscription_events.delta, id: Spain - subscription_events.delta, name: Spain},
+          {axisId: Singapore - subscription_events.delta, id: Singapore - subscription_events.delta,
+            name: Singapore}, {axisId: Puerto Rico - subscription_events.delta, id: Puerto
+              Rico - subscription_events.delta, name: Puerto Rico}, {axisId: New Zealand
+              - subscription_events.delta, id: New Zealand - subscription_events.delta, name: New
+              Zealand}, {axisId: Malaysia - subscription_events.delta, id: Malaysia - subscription_events.delta,
+            name: Malaysia}, {axisId: Italy - subscription_events.delta, id: Italy - subscription_events.delta,
+            name: Italy}, {axisId: Guam - subscription_events.delta, id: Guam - subscription_events.delta,
+            name: Guam}, {axisId: Germany - subscription_events.delta, id: Germany - subscription_events.delta,
+            name: Germany}, {axisId: France - subscription_events.delta, id: France - subscription_events.delta,
+            name: France}, {axisId: Canada - subscription_events.delta, id: Canada - subscription_events.delta,
+            name: Canada}, {axisId: Belgium - subscription_events.delta, id: Belgium - subscription_events.delta,
+            name: Belgium}, {axisId: Austria - subscription_events.delta, id: Austria -
+              subscription_events.delta, name: Austria}, {axisId: American Samoa - subscription_events.delta,
+            id: American Samoa - subscription_events.delta, name: American Samoa}, {axisId: subscription_events.country_name___null
+              - subscription_events.delta, id: subscription_events.country_name___null - subscription_events.delta,
             name: "∅"}], showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
     x_axis_label: Month
@@ -163,7 +163,7 @@
     font_size: ''
     series_types: {}
     series_colors:
-      USA - subscriptions.count: "#347be3"
+      USA - subscription_events.delta: "#347be3"
     x_axis_datetime_label: ''
     show_sql_query_menu_options: false
     show_totals: true
@@ -173,7 +173,7 @@
     truncate_text: true
     size_to_fit: true
     series_cell_visualizations:
-      subscriptions__events.delta:
+      subscription_events.delta:
         is_active: true
     table_theme: gray
     enable_conditional_formatting: false
@@ -192,10 +192,10 @@
     note_display: hover
     note_text: Country is based on customer billing address.
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
-      Country: subscriptions.country_name
-      Event Date: subscriptions__events.event_date
+      Provider: subscription_events.provider
+      Pricing Plan: subscription_events.pricing_plan
+      Country: subscription_events.country_name
+      Event Date: subscription_events.event_date
     row: 8
     col: 0
     width: 8
@@ -203,14 +203,14 @@
   - title: New Subscriptions (By Plan)
     name: New Subscriptions (By Plan)
     model: mozilla_vpn
-    explore: subscriptions
+    explore: subscription_events
     type: looker_column
-    fields: [subscriptions__events.event_month, subscriptions.pricing_plan, subscriptions.count]
-    pivots: [subscriptions.pricing_plan]
-    fill_fields: [subscriptions__events.event_month]
+    fields: [subscription_events.event_month, subscription_events.pricing_plan, subscription_events.delta]
+    pivots: [subscription_events.pricing_plan]
+    fill_fields: [subscription_events.event_month]
     filters:
-      subscriptions__events.type: New
-    sorts: [subscriptions__events.event_month desc, subscriptions.pricing_plan]
+      subscription_events.event_type: New
+    sorts: [subscription_events.event_month desc, subscription_events.pricing_plan]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -245,26 +245,26 @@
       options:
         steps: 5
         reverse: false
-    y_axes: [{label: '', orientation: left, series: [{axisId: 1-month-apple - subscriptions.count,
-            id: 1-month-apple - subscriptions.count, name: 1-month-apple}, {axisId: 1-month-chf-10.99
-              - subscriptions.count, id: 1-month-chf-10.99 - subscriptions.count,
-            name: 1-month-chf-10.99}, {axisId: 1-month-eur-9.99 - subscriptions.count,
-            id: 1-month-eur-9.99 - subscriptions.count, name: 1-month-eur-9.99}, {
-            axisId: 1-month-usd-4.99 - subscriptions.count, id: 1-month-usd-4.99 -
-              subscriptions.count, name: 1-month-usd-4.99}, {axisId: 1-month-usd-9.99
-              - subscriptions.count, id: 1-month-usd-9.99 - subscriptions.count, name: 1-month-usd-9.99},
-          {axisId: 1-year-apple - subscriptions.count, id: 1-year-apple - subscriptions.count,
-            name: 1-year-apple}, {axisId: 1-year-chf-71.88 - subscriptions.count,
-            id: 1-year-chf-71.88 - subscriptions.count, name: 1-year-chf-71.88}, {
-            axisId: 1-year-eur-59.88 - subscriptions.count, id: 1-year-eur-59.88 -
-              subscriptions.count, name: 1-year-eur-59.88}, {axisId: 1-year-usd-59.88
-              - subscriptions.count, id: 1-year-usd-59.88 - subscriptions.count, name: 1-year-usd-59.88},
-          {axisId: 6-month-apple - subscriptions.count, id: 6-month-apple - subscriptions.count,
-            name: 6-month-apple}, {axisId: 6-month-chf-47.94 - subscriptions.count,
-            id: 6-month-chf-47.94 - subscriptions.count, name: 6-month-chf-47.94},
-          {axisId: 6-month-eur-41.94 - subscriptions.count, id: 6-month-eur-41.94
-              - subscriptions.count, name: 6-month-eur-41.94}, {axisId: 6-month-usd-47.94
-              - subscriptions.count, id: 6-month-usd-47.94 - subscriptions.count,
+    y_axes: [{label: '', orientation: left, series: [{axisId: 1-month-apple - subscription_events.delta,
+            id: 1-month-apple - subscription_events.delta, name: 1-month-apple}, {axisId: 1-month-chf-10.99
+              - subscription_events.delta, id: 1-month-chf-10.99 - subscription_events.delta,
+            name: 1-month-chf-10.99}, {axisId: 1-month-eur-9.99 - subscription_events.delta,
+            id: 1-month-eur-9.99 - subscription_events.delta, name: 1-month-eur-9.99}, {
+            axisId: 1-month-usd-4.99 - subscription_events.delta, id: 1-month-usd-4.99 -
+              subscription_events.delta, name: 1-month-usd-4.99}, {axisId: 1-month-usd-9.99
+              - subscription_events.delta, id: 1-month-usd-9.99 - subscription_events.delta, name: 1-month-usd-9.99},
+          {axisId: 1-year-apple - subscription_events.delta, id: 1-year-apple - subscription_events.delta,
+            name: 1-year-apple}, {axisId: 1-year-chf-71.88 - subscription_events.delta,
+            id: 1-year-chf-71.88 - subscription_events.delta, name: 1-year-chf-71.88}, {
+            axisId: 1-year-eur-59.88 - subscription_events.delta, id: 1-year-eur-59.88 -
+              subscription_events.delta, name: 1-year-eur-59.88}, {axisId: 1-year-usd-59.88
+              - subscription_events.delta, id: 1-year-usd-59.88 - subscription_events.delta, name: 1-year-usd-59.88},
+          {axisId: 6-month-apple - subscription_events.delta, id: 6-month-apple - subscription_events.delta,
+            name: 6-month-apple}, {axisId: 6-month-chf-47.94 - subscription_events.delta,
+            id: 6-month-chf-47.94 - subscription_events.delta, name: 6-month-chf-47.94},
+          {axisId: 6-month-eur-41.94 - subscription_events.delta, id: 6-month-eur-41.94
+              - subscription_events.delta, name: 6-month-eur-41.94}, {axisId: 6-month-usd-47.94
+              - subscription_events.delta, id: 6-month-usd-47.94 - subscription_events.delta,
             name: 6-month-usd-47.94}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Month
@@ -275,8 +275,8 @@
     font_size: ''
     series_types: {}
     series_colors:
-      1-month-usd-4.99 - subscriptions.count: "#7363A9"
-      6-month-chf-47.94 - subscriptions.count: "#82a6a8"
+      1-month-usd-4.99 - subscription_events.delta: "#7363A9"
+      6-month-chf-47.94 - subscription_events.delta: "#82a6a8"
     x_axis_datetime_label: ''
     show_sql_query_menu_options: false
     show_totals: true
@@ -286,7 +286,7 @@
     truncate_text: true
     size_to_fit: true
     series_cell_visualizations:
-      subscriptions__events.delta:
+      subscription_events.delta:
         is_active: true
     table_theme: gray
     enable_conditional_formatting: false
@@ -304,10 +304,10 @@
     note_state: collapsed
     note_display: hover
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
-      Country: subscriptions.country_name
-      Event Date: subscriptions__events.event_date
+      Provider: subscription_events.provider
+      Pricing Plan: subscription_events.pricing_plan
+      Country: subscription_events.country_name
+      Event Date: subscription_events.event_date
     row: 8
     col: 8
     width: 8
@@ -315,15 +315,15 @@
   - title: New vs Returning Subscriptions
     name: New vs Returning Subscriptions
     model: mozilla_vpn
-    explore: subscriptions
+    explore: subscription_events
     type: looker_column
-    fields: [subscriptions__events.event_month, subscriptions__events.granular_type,
-      subscriptions__events.delta]
-    pivots: [subscriptions__events.granular_type]
-    fill_fields: [subscriptions__events.event_month]
+    fields: [subscription_events.event_month, subscription_events.granular_event_type,
+      subscription_events.delta]
+    pivots: [subscription_events.granular_event_type]
+    fill_fields: [subscription_events.event_month]
     filters:
-      subscriptions__events.type: New
-    sorts: [subscriptions__events.event_month desc, subscriptions__events.granular_type]
+      subscription_events.event_type: New
+    sorts: [subscription_events.event_month desc, subscription_events.granular_event_type]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -364,14 +364,14 @@
       num_rows: 0
     hide_legend: false
     series_types:
-      Row Total - subscriptions__events.delta: line
+      Row Total - subscription_events.delta: line
     series_colors:
-      Resurrected - subscriptions.count: "#47f5bf"
-      New - subscriptions.count: "#80ab62"
-      New - subscriptions__events.delta: "#80ab62"
-      Resurrected - subscriptions__events.delta: "#47f5bf"
+      Resurrected - subscription_events.delta: "#47f5bf"
+      New - subscription_events.delta: "#80ab62"
+      New - subscription_events.delta: "#80ab62"
+      Resurrected - subscription_events.delta: "#47f5bf"
     series_labels:
-      Resurrected - subscriptions.count: Returning
+      Resurrected - subscription_events.delta: Returning
     show_null_points: true
     interpolation: linear
     defaults_version: 1
@@ -380,10 +380,10 @@
     note_text: Returning subscriptions are new subscriptions from customers that previously
       held a subscription.
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
-      Country: subscriptions.country_name
-      Event Date: subscriptions__events.event_date
+      Provider: subscription_events.provider
+      Pricing Plan: subscription_events.pricing_plan
+      Country: subscription_events.country_name
+      Event Date: subscription_events.event_date
     row: 23
     col: 8
     width: 8
@@ -391,15 +391,15 @@
   - title: Subscription Cancellations
     name: Subscription Cancellations
     model: mozilla_vpn
-    explore: subscriptions
+    explore: subscription_events
     type: looker_column
-    fields: [subscriptions__events.event_month, subscriptions__events.granular_type,
-      subscriptions__events.delta]
-    pivots: [subscriptions__events.granular_type]
-    fill_fields: [subscriptions__events.event_month]
+    fields: [subscription_events.event_month, subscription_events.granular_event_type,
+      subscription_events.delta]
+    pivots: [subscription_events.granular_event_type]
+    fill_fields: [subscription_events.event_month]
     filters:
-      subscriptions__events.type: Cancelled
-    sorts: [subscriptions__events.event_month desc, subscriptions__events.granular_type]
+      subscription_events.event_type: Cancelled
+    sorts: [subscription_events.event_month desc, subscription_events.granular_event_type]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -441,21 +441,20 @@
     hide_legend: false
     series_types: {}
     series_colors:
-      Cancelled by IAP - subscriptions.count: "#AEC8C1"
-      Cancelled by Customer - subscriptions.count: "#f56776"
-      Payment Failed - subscriptions.count: "#ffdec2"
-      Cancelled by Customer - subscriptions__events.delta: "#ffdac4"
+      Cancelled by IAP - subscription_events.delta: "#7CC8FA"
+      Cancelled by Customer - subscription_events.delta: "#FFDAC4"
+      Payment Failed - subscription_events.delta: "#F56776"
     series_labels:
-      Resurrected - subscriptions.count: Returning
-      Cancelled by IAP - subscriptions.count: Not reported (Apple IAP)
+      Resurrected - subscription_events.delta: Returning
+      Cancelled by IAP - subscription_events.delta: Not reported (Apple IAP)
     show_null_points: true
     interpolation: linear
     defaults_version: 1
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
-      Country: subscriptions.country_name
-      Event Date: subscriptions__events.event_date
+      Provider: subscription_events.provider
+      Pricing Plan: subscription_events.pricing_plan
+      Country: subscription_events.country_name
+      Event Date: subscription_events.event_date
     row: 23
     col: 16
     width: 8
@@ -463,15 +462,15 @@
   - title: Net New Subscriptions
     name: Net New Subscriptions
     model: mozilla_vpn
-    explore: subscriptions
+    explore: subscription_events
     type: looker_column
-    fields: [subscriptions__events.type, subscriptions__events.delta, subscriptions__events.event_month]
-    pivots: [subscriptions__events.type]
-    fill_fields: [subscriptions__events.event_month]
-    sorts: [subscriptions__events.event_month desc, subscriptions__events.type]
+    fields: [subscription_events.event_type, subscription_events.delta, subscription_events.event_month]
+    pivots: [subscription_events.event_type]
+    fill_fields: [subscription_events.event_month]
+    sorts: [subscription_events.event_month desc, subscription_events.event_type]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: 'sum(pivot_row(${subscriptions__events.delta}))',
+    dynamic_fields: [{category: table_calculation, expression: 'sum(pivot_row(${subscription_events.delta}))',
         label: Net Subscriptions, value_format: !!null '', value_format_name: !!null '',
         _kind_hint: supermeasure, table_calculation: net_subscriptions, _type_hint: number}]
     x_axis_gridlines: true
@@ -507,9 +506,9 @@
       options:
         steps: 5
     y_axes: [{label: Subscriptions, orientation: left, series: [{axisId: Cancelled
-              - subscriptions__events.delta, id: Cancelled - subscriptions__events.delta,
-            name: Cancelled}, {axisId: New - subscriptions__events.delta, id: New
-              - subscriptions__events.delta, name: New}, {axisId: net_subscriptions,
+              - subscription_events.delta, id: Cancelled - subscription_events.delta,
+            name: Cancelled}, {axisId: New - subscription_events.delta, id: New
+              - subscription_events.delta, name: New}, {axisId: net_subscriptions,
             id: net_subscriptions, name: Net Subscriptions}], showLabels: true, showValues: true,
         unpinAxis: false, tickDensity: default, tickDensityCustom: 4, type: linear}]
     x_axis_label: Month
@@ -519,26 +518,26 @@
       num_rows: 0
     hide_legend: false
     series_types:
-      Row Total - subscriptions__events.delta: line
+      Row Total - subscription_events.delta: line
       net_subscriptions: line
     series_colors:
-      Row Total - subscriptions__events.delta: "#3D52B9"
-      New - subscriptions__events.delta: "#08B248"
-      Cancelled - subscriptions__events.delta: "#FC2E31"
+      Row Total - subscription_events.delta: "#3D52B9"
+      New - subscription_events.delta: "#08B248"
+      Cancelled - subscription_events.delta: "#FC2E31"
       net_subscriptions: "#3D52B9"
     series_labels:
-      Row Total - subscriptions__events.delta: Net Paid Subscriptions
-      Cancelled - subscriptions__events.delta: Cancelled
-      New - subscriptions__events.delta: New
+      Row Total - subscription_events.delta: Net Paid Subscriptions
+      Cancelled - subscription_events.delta: Cancelled
+      New - subscription_events.delta: New
     label_color: []
     show_null_points: true
     interpolation: linear
     defaults_version: 1
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
-      Country: subscriptions.country_name
-      Event Date: subscriptions__events.event_date
+      Provider: subscription_events.provider
+      Pricing Plan: subscription_events.pricing_plan
+      Country: subscription_events.country_name
+      Event Date: subscription_events.event_date
     row: 23
     col: 0
     width: 8
@@ -546,14 +545,14 @@
   - title: New Subscriptions (By Provider)
     name: New Subscriptions (By Provider)
     model: mozilla_vpn
-    explore: subscriptions
+    explore: subscription_events
     type: looker_column
-    fields: [subscriptions__events.event_month, subscriptions.count, subscriptions.provider]
-    pivots: [subscriptions.provider]
-    fill_fields: [subscriptions__events.event_month]
+    fields: [subscription_events.event_month, subscription_events.delta, subscription_events.provider]
+    pivots: [subscription_events.provider]
+    fill_fields: [subscription_events.event_month]
     filters:
-      subscriptions__events.type: New
-    sorts: [subscriptions__events.event_month desc, subscriptions.provider desc]
+      subscription_events.event_type: New
+    sorts: [subscription_events.event_month desc, subscription_events.provider desc]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -588,26 +587,26 @@
       options:
         steps: 5
         reverse: false
-    y_axes: [{label: '', orientation: left, series: [{axisId: 1-month-apple - subscriptions.count,
-            id: 1-month-apple - subscriptions.count, name: 1-month-apple}, {axisId: 1-month-chf-10.99
-              - subscriptions.count, id: 1-month-chf-10.99 - subscriptions.count,
-            name: 1-month-chf-10.99}, {axisId: 1-month-eur-9.99 - subscriptions.count,
-            id: 1-month-eur-9.99 - subscriptions.count, name: 1-month-eur-9.99}, {
-            axisId: 1-month-usd-4.99 - subscriptions.count, id: 1-month-usd-4.99 -
-              subscriptions.count, name: 1-month-usd-4.99}, {axisId: 1-month-usd-9.99
-              - subscriptions.count, id: 1-month-usd-9.99 - subscriptions.count, name: 1-month-usd-9.99},
-          {axisId: 1-year-apple - subscriptions.count, id: 1-year-apple - subscriptions.count,
-            name: 1-year-apple}, {axisId: 1-year-chf-71.88 - subscriptions.count,
-            id: 1-year-chf-71.88 - subscriptions.count, name: 1-year-chf-71.88}, {
-            axisId: 1-year-eur-59.88 - subscriptions.count, id: 1-year-eur-59.88 -
-              subscriptions.count, name: 1-year-eur-59.88}, {axisId: 1-year-usd-59.88
-              - subscriptions.count, id: 1-year-usd-59.88 - subscriptions.count, name: 1-year-usd-59.88},
-          {axisId: 6-month-apple - subscriptions.count, id: 6-month-apple - subscriptions.count,
-            name: 6-month-apple}, {axisId: 6-month-chf-47.94 - subscriptions.count,
-            id: 6-month-chf-47.94 - subscriptions.count, name: 6-month-chf-47.94},
-          {axisId: 6-month-eur-41.94 - subscriptions.count, id: 6-month-eur-41.94
-              - subscriptions.count, name: 6-month-eur-41.94}, {axisId: 6-month-usd-47.94
-              - subscriptions.count, id: 6-month-usd-47.94 - subscriptions.count,
+    y_axes: [{label: '', orientation: left, series: [{axisId: 1-month-apple - subscription_events.delta,
+            id: 1-month-apple - subscription_events.delta, name: 1-month-apple}, {axisId: 1-month-chf-10.99
+              - subscription_events.delta, id: 1-month-chf-10.99 - subscription_events.delta,
+            name: 1-month-chf-10.99}, {axisId: 1-month-eur-9.99 - subscription_events.delta,
+            id: 1-month-eur-9.99 - subscription_events.delta, name: 1-month-eur-9.99}, {
+            axisId: 1-month-usd-4.99 - subscription_events.delta, id: 1-month-usd-4.99 -
+              subscription_events.delta, name: 1-month-usd-4.99}, {axisId: 1-month-usd-9.99
+              - subscription_events.delta, id: 1-month-usd-9.99 - subscription_events.delta, name: 1-month-usd-9.99},
+          {axisId: 1-year-apple - subscription_events.delta, id: 1-year-apple - subscription_events.delta,
+            name: 1-year-apple}, {axisId: 1-year-chf-71.88 - subscription_events.delta,
+            id: 1-year-chf-71.88 - subscription_events.delta, name: 1-year-chf-71.88}, {
+            axisId: 1-year-eur-59.88 - subscription_events.delta, id: 1-year-eur-59.88 -
+              subscription_events.delta, name: 1-year-eur-59.88}, {axisId: 1-year-usd-59.88
+              - subscription_events.delta, id: 1-year-usd-59.88 - subscription_events.delta, name: 1-year-usd-59.88},
+          {axisId: 6-month-apple - subscription_events.delta, id: 6-month-apple - subscription_events.delta,
+            name: 6-month-apple}, {axisId: 6-month-chf-47.94 - subscription_events.delta,
+            id: 6-month-chf-47.94 - subscription_events.delta, name: 6-month-chf-47.94},
+          {axisId: 6-month-eur-41.94 - subscription_events.delta, id: 6-month-eur-41.94
+              - subscription_events.delta, name: 6-month-eur-41.94}, {axisId: 6-month-usd-47.94
+              - subscription_events.delta, id: 6-month-usd-47.94 - subscription_events.delta,
             name: 6-month-usd-47.94}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Month
@@ -627,7 +626,7 @@
     truncate_text: true
     size_to_fit: true
     series_cell_visualizations:
-      subscriptions__events.delta:
+      subscription_events.delta:
         is_active: true
     table_theme: gray
     enable_conditional_formatting: false
@@ -645,10 +644,10 @@
     note_state: collapsed
     note_display: hover
     listen:
-      Provider: subscriptions.provider
-      Pricing Plan: subscriptions.pricing_plan
-      Country: subscriptions.country_name
-      Event Date: subscriptions__events.event_date
+      Provider: subscription_events.provider
+      Pricing Plan: subscription_events.pricing_plan
+      Country: subscription_events.country_name
+      Event Date: subscription_events.event_date
     row: 8
     col: 16
     width: 8
@@ -724,9 +723,9 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: subscriptions
+    explore: subscription_events
     listens_to_filters: [Pricing Plan, Country, Event Date]
-    field: subscriptions.provider
+    field: subscription_events.provider
   - name: Pricing Plan
     title: Pricing Plan
     type: field_filter
@@ -738,9 +737,9 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: subscriptions
+    explore: subscription_events
     listens_to_filters: [Provider, Country, Event Date]
-    field: subscriptions.pricing_plan
+    field: subscription_events.pricing_plan
   - name: Country
     title: Country
     type: field_filter
@@ -752,9 +751,9 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: subscriptions
+    explore: subscription_events
     listens_to_filters: [Provider, Pricing Plan, Event Date]
-    field: subscriptions.country_name
+    field: subscription_events.country_name
   - name: Event Date
     title: Event Date
     type: field_filter
@@ -766,6 +765,6 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: subscriptions
+    explore: subscription_events
     listens_to_filters: []
-    field: subscriptions__events.event_date
+    field: subscription_events.event_date
