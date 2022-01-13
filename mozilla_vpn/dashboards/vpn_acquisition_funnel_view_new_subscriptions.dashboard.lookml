@@ -11,32 +11,6 @@
     model: mozilla_vpn
     explore: new_subscriptions
     type: single_value
-    fields: [new_subscriptions.start_date, new_subscriptions.Daily_New_Subscriptions]
-    sorts: [new_subscriptions.start_date desc]
-    limit: 2
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    series_types: {}
-    defaults_version: 1
-    hidden_fields: [new_subscriptions.Daily_New_Subscriptions]
-    refresh: 1 day
-    listen: {}
-    row: 0
-    col: 0
-    width: 7
-    height: 3
-  - title: Daily New Subscriptions
-    name: Daily New Subscriptions
-    model: mozilla_vpn
-    explore: new_subscriptions
-    type: single_value
     fields: [new_subscriptions.start_date, new_subscriptions.New_Subscriptions]
     sorts: [new_subscriptions.start_date desc]
     limit: 2
@@ -51,22 +25,61 @@
     conditional_formatting_include_nulls: false
     series_types: {}
     defaults_version: 1
+    hidden_fields: [new_subscriptions.New_Subscriptions]
+    refresh: 1 day
+    listen: {}
+    row: 0
+    col: 0
+    width: 7
+    height: 4
+  - title: Daily New Subscriptions
+    name: Daily New Subscriptions
+    model: mozilla_vpn
+    explore: new_subscriptions
+    type: single_value
+    fields: [new_subscriptions.start_date, new_subscriptions.New_Subscriptions, new_subscriptions]
+    sorts: [new_subscriptions.start_date desc]
+    limit: 2
+    dynamic_fields: [{category: measure, expression: !!null '', label: New Subscriptions,
+        value_format: !!null '', value_format_name: !!null '', based_on: new_subscriptions.New_Subscriptions,
+        _kind_hint: measure, measure: new_subscriptions, type: sum, _type_hint: number},
+      {category: table_calculation, description: 'Difference between the current row’s
+          value and value of the row below, divided by the value of the row below.',
+        label: "% Change New Subs", value_format: !!null '', value_format_name: percent_0,
+        calculation_type: percent_difference_from_previous, table_calculation: change_new_subs,
+        args: [new_subscriptions], _kind_hint: measure, _type_hint: number}]
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: change
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: true
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    comparison_label: since the previous day
+    conditional_formatting: [{type: equal to, value: !!null '', background_color: "#3FE1B0",
+        font_color: !!null '', color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
+        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
+    series_types: {}
+    defaults_version: 1
+    hidden_fields: [new_subscriptions]
     refresh: 1 day
     listen:
-      UTM Content: new_subscriptions.UTM_content
       Country: new_subscriptions.country
       Channel Group: new_subscriptions.Channel_group
       Provider: new_subscriptions.provider
       Pricing Plan: new_subscriptions.pricing_plan
       UTM Medium: new_subscriptions.UTM_medium
       UTM Source: new_subscriptions.UTM_source
+      UTM Campaign: new_subscriptions.UTM_campaign
+      UTM Content: new_subscriptions.UTM_content
       Entrypoint Experiment: new_subscriptions.entrypoint_experiment
       Entrypoint Variation: new_subscriptions.entrypoint_variation
-      UTM Campaign: new_subscriptions.UTM_campaign
     row: 0
     col: 7
     width: 8
-    height: 3
+    height: 4
   - title: New Subscriptions by Pricing Plan
     name: New Subscriptions by Pricing Plan
     model: mozilla_vpn
@@ -108,7 +121,6 @@
     defaults_version: 1
     refresh: 1 day
     listen:
-      UTM Content: new_subscriptions.UTM_content
       Start Date: new_subscriptions.start_date
       Country: new_subscriptions.country
       Channel Group: new_subscriptions.Channel_group
@@ -116,10 +128,11 @@
       Pricing Plan: new_subscriptions.pricing_plan
       UTM Medium: new_subscriptions.UTM_medium
       UTM Source: new_subscriptions.UTM_source
+      UTM Campaign: new_subscriptions.UTM_campaign
+      UTM Content: new_subscriptions.UTM_content
       Entrypoint Experiment: new_subscriptions.entrypoint_experiment
       Entrypoint Variation: new_subscriptions.entrypoint_variation
-      UTM Campaign: new_subscriptions.UTM_campaign
-    row: 3
+    row: 4
     col: 12
     width: 12
     height: 6
@@ -137,7 +150,6 @@
     defaults_version: 1
     refresh: 1 day
     listen:
-      UTM Content: new_subscriptions.UTM_content
       Start Date: new_subscriptions.start_date
       Country: new_subscriptions.country
       Channel Group: new_subscriptions.Channel_group
@@ -145,10 +157,11 @@
       Pricing Plan: new_subscriptions.pricing_plan
       UTM Medium: new_subscriptions.UTM_medium
       UTM Source: new_subscriptions.UTM_source
+      UTM Campaign: new_subscriptions.UTM_campaign
+      UTM Content: new_subscriptions.UTM_content
       Entrypoint Experiment: new_subscriptions.entrypoint_experiment
       Entrypoint Variation: new_subscriptions.entrypoint_variation
-      UTM Campaign: new_subscriptions.UTM_campaign
-    row: 3
+    row: 4
     col: 0
     width: 12
     height: 6
@@ -164,7 +177,7 @@
       \ logging system missing a part or all or attributions. If the rates of those\
       \ two groups increase, then it can be a sign of a problem for the system passing\
       \ the data. "
-    row: 25
+    row: 32
     col: 0
     width: 24
     height: 4
@@ -189,7 +202,7 @@
       \ be that some of the attribution parameters got lost or attributions that were\
       \ not well documented.\n\n* For more detailed explanation for the categorization\
       \ of the channel groups, please refer to [this documentation](https://docs.google.com/document/d/1ojf1XHb3Iu5GNzMfozDcxWhEw6d9A4QuiaoAm-gDIrk/edit?usp=sharing). "
-    row: 9
+    row: 16
     col: 0
     width: 24
     height: 9
@@ -203,6 +216,18 @@
     pivots: [new_subscriptions.Channel_group]
     sorts: [new_subscriptions.start_date, new_subscriptions.Channel_group]
     limit: 500
+    dynamic_fields: [{category: measure, expression: !!null '', label: New Subscriptions,
+        value_format: !!null '', value_format_name: !!null '', based_on: new_subscriptions.New_Subscriptions,
+        _kind_hint: measure, measure: new_subscriptions, type: sum, _type_hint: number},
+      {category: table_calculation, description: 'Difference between the current row’s
+          value and value of the row below, divided by the value of the row below.',
+        label: "% Change New Subs", value_format: !!null '', value_format_name: percent_1,
+        calculation_type: percent_difference_from_previous, table_calculation: change_new_subs,
+        args: [new_subscriptions], _kind_hint: dimension, _type_hint: number, is_disabled: true},
+      {category: table_calculation, description: Cumulative sum of this row and all
+          previous rows in the column, label: Running row total New Subs, value_format: !!null '',
+        value_format_name: Default formatting, calculation_type: running_total, table_calculation: running_row_total_new_subs,
+        args: [new_subscriptions], _kind_hint: dimension, _type_hint: number, is_disabled: true}]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -239,7 +264,6 @@
         tickDensityCustom: 94, type: linear}]
     defaults_version: 1
     listen:
-      UTM Content: new_subscriptions.UTM_content
       Start Date: new_subscriptions.start_date
       Country: new_subscriptions.country
       Channel Group: new_subscriptions.Channel_group
@@ -247,10 +271,11 @@
       Pricing Plan: new_subscriptions.pricing_plan
       UTM Medium: new_subscriptions.UTM_medium
       UTM Source: new_subscriptions.UTM_source
+      UTM Campaign: new_subscriptions.UTM_campaign
+      UTM Content: new_subscriptions.UTM_content
       Entrypoint Experiment: new_subscriptions.entrypoint_experiment
       Entrypoint Variation: new_subscriptions.entrypoint_variation
-      UTM Campaign: new_subscriptions.UTM_campaign
-    row: 29
+    row: 36
     col: 3
     width: 19
     height: 7
@@ -264,6 +289,20 @@
       new_subscriptions.UTM_content]
     sorts: [new_subscriptions.New_Subscriptions desc]
     limit: 10
+    dynamic_fields: [{category: measure, expression: !!null '', label: New Subscriptions,
+        value_format: !!null '', value_format_name: !!null '', based_on: new_subscriptions.New_Subscriptions,
+        _kind_hint: measure, measure: new_subscriptions, type: sum, _type_hint: number},
+      {category: table_calculation, description: "% change of the previous row \n\
+          Difference between the current row’s value and value of the row below, divided\
+          \ by the value of the row below.", label: "% Change New Subs", value_format: !!null '',
+        value_format_name: percent_1, calculation_type: percent_difference_from_previous,
+        table_calculation: change_new_subs, args: [new_subscriptions], _kind_hint: dimension,
+        _type_hint: number, is_disabled: true}, {category: table_calculation, description: Cumulative
+          sum of this row and all previous rows in the column, label: Running Total
+          New Subs, value_format: !!null '', value_format_name: Default formatting,
+        calculation_type: running_total, table_calculation: running_total_new_subs,
+        args: [new_subscriptions.New_Subscriptions], _kind_hint: measure, _type_hint: number,
+        is_disabled: true}]
     show_view_names: false
     show_row_numbers: true
     transpose: false
@@ -287,8 +326,8 @@
         is_active: true
     series_types: {}
     defaults_version: 1
+    hidden_fields: []
     listen:
-      UTM Content: new_subscriptions.UTM_content
       Start Date: new_subscriptions.start_date
       Country: new_subscriptions.country
       Channel Group: new_subscriptions.Channel_group
@@ -296,13 +335,14 @@
       Pricing Plan: new_subscriptions.pricing_plan
       UTM Medium: new_subscriptions.UTM_medium
       UTM Source: new_subscriptions.UTM_source
+      UTM Campaign: new_subscriptions.UTM_campaign
+      UTM Content: new_subscriptions.UTM_content
       Entrypoint Experiment: new_subscriptions.entrypoint_experiment
       Entrypoint Variation: new_subscriptions.entrypoint_variation
-      UTM Campaign: new_subscriptions.UTM_campaign
-    row: 36
+    row: 43
     col: 3
     width: 19
-    height: 6
+    height: 8
   - title: Subscriptions by Channel Group
     name: Subscriptions by Channel Group
     model: mozilla_vpn
@@ -312,6 +352,18 @@
     pivots: [new_subscriptions.Channel_group]
     sorts: [new_subscriptions.start_date desc, new_subscriptions.Channel_group]
     limit: 500
+    dynamic_fields: [{category: measure, expression: !!null '', label: New Subscriptions,
+        value_format: !!null '', value_format_name: !!null '', based_on: new_subscriptions.New_Subscriptions,
+        _kind_hint: measure, measure: new_subscriptions, type: sum, _type_hint: number},
+      {category: table_calculation, description: Cumulative sum of this row and all
+          previous rows in the column, label: Running Total New Subs, value_format: !!null '',
+        value_format_name: Default formatting, calculation_type: running_total, table_calculation: running_total_new_subs,
+        args: [new_subscriptions], _kind_hint: dimension, _type_hint: number, is_disabled: true},
+      {category: table_calculation, description: 'Difference between the current row’s
+          value and value of the row below, divided by the value of the row below.',
+        label: "% Change New Subs", value_format: !!null '', value_format_name: percent_1,
+        calculation_type: percent_difference_from_previous, table_calculation: change_new_subs,
+        args: [new_subscriptions], _kind_hint: dimension, _type_hint: number, is_disabled: true}]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -354,7 +406,6 @@
     defaults_version: 1
     hidden_fields: []
     listen:
-      UTM Content: new_subscriptions.UTM_content
       Start Date: new_subscriptions.start_date
       Country: new_subscriptions.country
       Channel Group: new_subscriptions.Channel_group
@@ -362,10 +413,11 @@
       Pricing Plan: new_subscriptions.pricing_plan
       UTM Medium: new_subscriptions.UTM_medium
       UTM Source: new_subscriptions.UTM_source
+      UTM Campaign: new_subscriptions.UTM_campaign
+      UTM Content: new_subscriptions.UTM_content
       Entrypoint Experiment: new_subscriptions.entrypoint_experiment
       Entrypoint Variation: new_subscriptions.entrypoint_variation
-      UTM Campaign: new_subscriptions.UTM_campaign
-    row: 18
+    row: 25
     col: 3
     width: 19
     height: 7
@@ -395,18 +447,156 @@
       Pricing Plan: new_subscriptions.pricing_plan
       UTM Medium: new_subscriptions.UTM_medium
       UTM Source: new_subscriptions.UTM_source
+      UTM Campaign: new_subscriptions.UTM_campaign
+      UTM Content: new_subscriptions.UTM_content
       Entrypoint Experiment: new_subscriptions.entrypoint_experiment
       Entrypoint Variation: new_subscriptions.entrypoint_variation
-      UTM Campaign: new_subscriptions.UTM_campaign
     row: 0
     col: 15
     width: 7
-    height: 3
+    height: 4
+  - title: Accumulative Subscriptions
+    name: Accumulative Subscriptions
+    model: mozilla_vpn
+    explore: new_subscriptions
+    type: looker_line
+    fields: [new_subscriptions.start_date, new_subscriptions]
+    fill_fields: [new_subscriptions.start_date]
+    sorts: [new_subscriptions.start_date]
+    limit: 500
+    dynamic_fields: [{category: measure, expression: !!null '', label: New Subscriptions,
+        value_format: !!null '', value_format_name: !!null '', based_on: new_subscriptions.New_Subscriptions,
+        _kind_hint: measure, measure: new_subscriptions, type: sum, _type_hint: number},
+      {category: table_calculation, description: cumulative sum of new subscriptions,
+        label: Accumulative subscriptions, value_format: !!null '', value_format_name: Default
+          formatting, calculation_type: running_total, table_calculation: accumulative_subscriptions,
+        args: [new_subscriptions], _kind_hint: measure, _type_hint: number}, {category: table_calculation,
+        description: Current row’s value divided by the value of the row below., label: "%\
+          \ Change New Subs", value_format: !!null '', value_format_name: percent_0,
+        calculation_type: percent_of_previous, table_calculation: change_new_subs,
+        args: [new_subscriptions], _kind_hint: measure, _type_hint: number, is_disabled: true}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    y_axes: [{label: New Subscriptions, orientation: left, series: [{axisId: accumulative_subscriptions,
+            id: accumulative_subscriptions, name: Accumulative subscriptions}], showLabels: true,
+        showValues: true, unpinAxis: false, tickDensity: custom, tickDensityCustom: 100,
+        type: linear}, {label: !!null '', orientation: right, series: [{axisId: change_new_subs,
+            id: change_new_subs, name: "% Change New Subs"}], showLabels: true, showValues: true,
+        unpinAxis: false, tickDensity: custom, tickDensityCustom: 100, type: linear}]
+    trend_lines: []
+    defaults_version: 1
+    hidden_fields: [new_subscriptions]
+    listen:
+      Start Date: new_subscriptions.start_date
+      Country: new_subscriptions.country
+      Channel Group: new_subscriptions.Channel_group
+      Provider: new_subscriptions.provider
+      Pricing Plan: new_subscriptions.pricing_plan
+      UTM Medium: new_subscriptions.UTM_medium
+      UTM Source: new_subscriptions.UTM_source
+      UTM Campaign: new_subscriptions.UTM_campaign
+      UTM Content: new_subscriptions.UTM_content
+      Entrypoint Experiment: new_subscriptions.entrypoint_experiment
+      Entrypoint Variation: new_subscriptions.entrypoint_variation
+    row: 10
+    col: 12
+    width: 12
+    height: 6
+  - title: New Subscriptions
+    name: New Subscriptions
+    model: mozilla_vpn
+    explore: new_subscriptions
+    type: looker_line
+    fields: [new_subscriptions.start_date, new_subscriptions.New_Subscriptions]
+    fill_fields: [new_subscriptions.start_date]
+    sorts: [new_subscriptions.start_date desc]
+    limit: 500
+    dynamic_fields: [{category: measure, expression: !!null '', label: New Subscriptions,
+        value_format: !!null '', value_format_name: !!null '', based_on: new_subscriptions.New_Subscriptions,
+        _kind_hint: measure, measure: new_subscriptions, type: sum, _type_hint: number},
+      {category: table_calculation, description: Cumulative sum of this row and all
+          previous rows in the column, label: Running Total New Subs, value_format: !!null '',
+        value_format_name: Default formatting, calculation_type: running_total, table_calculation: running_total_new_subs,
+        args: [new_subscriptions.New_Subscriptions], _kind_hint: measure, _type_hint: number,
+        is_disabled: true}, {category: table_calculation, description: Current row’s
+          value divided by the value of the row below., label: "% Change New Subs",
+        value_format: !!null '', value_format_name: percent_1, calculation_type: percent_of_previous,
+        table_calculation: change_new_subs, args: [new_subscriptions.New_Subscriptions],
+        _kind_hint: measure, _type_hint: number, is_disabled: true}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    y_axes: [{label: '', orientation: left, series: [{axisId: new_subscriptions.New_Subscriptions,
+            id: new_subscriptions.New_Subscriptions, name: New Subscriptions}], showLabels: true,
+        showValues: true, unpinAxis: false, tickDensity: custom, tickDensityCustom: 100,
+        type: linear}, {label: !!null '', orientation: right, series: [{axisId: change_new_subs,
+            id: change_new_subs, name: "% Change New Subs"}], showLabels: true, showValues: true,
+        unpinAxis: false, tickDensity: custom, tickDensityCustom: 100, type: linear}]
+    defaults_version: 1
+    listen:
+      Start Date: new_subscriptions.start_date
+      Country: new_subscriptions.country
+      Channel Group: new_subscriptions.Channel_group
+      Provider: new_subscriptions.provider
+      Pricing Plan: new_subscriptions.pricing_plan
+      UTM Medium: new_subscriptions.UTM_medium
+      UTM Source: new_subscriptions.UTM_source
+      UTM Campaign: new_subscriptions.UTM_campaign
+      UTM Content: new_subscriptions.UTM_content
+      Entrypoint Experiment: new_subscriptions.entrypoint_experiment
+      Entrypoint Variation: new_subscriptions.entrypoint_variation
+    row: 10
+    col: 0
+    width: 12
+    height: 6
   filters:
   - name: Start Date
     title: Start Date
     type: field_filter
-    default_value: 14 day
+    default_value: 28 day
     allow_multiple_values: true
     required: false
     ui_config:
@@ -420,7 +610,7 @@
   - name: Country
     title: Country
     type: field_filter
-    default_value: USA
+    default_value: ''
     allow_multiple_values: true
     required: false
     ui_config:

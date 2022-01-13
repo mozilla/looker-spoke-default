@@ -13,7 +13,19 @@
     type: looker_line
     fields: [new_funnel_from_08252021.start_date, new_funnel_from_08252021.VPN_site_hits]
     sorts: [new_funnel_from_08252021.start_date desc]
-    limit: 7
+    total: true
+    dynamic_fields: [{category: measure, expression: !!null '', label: VPN Site Hits,
+        value_format: !!null '', value_format_name: !!null '', based_on: new_funnel_from_08252021.VPN_site_hits,
+        _kind_hint: measure, measure: vpn_site_hits, type: sum, _type_hint: number},
+      {category: table_calculation, description: Current row’s value divided by the
+          value of the row below., label: "% Change VPN Site Hits", value_format: !!null '',
+        value_format_name: percent_1, calculation_type: percent_of_previous, table_calculation: change_vpn_site_hits,
+        args: [vpn_site_hits], _kind_hint: dimension, _type_hint: number, is_disabled: true},
+      {category: table_calculation, description: Cumulative sum of this row and all
+          previous rows in the column, label: Running Total VPN Site Hits, value_format: !!null '',
+        value_format_name: Default formatting, calculation_type: running_total, table_calculation: running_total_vpn_site_hits,
+        args: [new_funnel_from_08252021.VPN_site_hits], _kind_hint: measure, _type_hint: number,
+        is_disabled: true}]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -51,7 +63,6 @@
     defaults_version: 1
     listen:
       Start Date: new_funnel_from_08252021.start_date
-      Country: new_funnel_from_08252021.country
       Channel Group: new_funnel_from_08252021.Channel_group
       UTM Medium: new_funnel_from_08252021.UTM_medium
       UTM Source: new_funnel_from_08252021.UTM_source
@@ -63,6 +74,7 @@
       Pricing Plan: new_funnel_from_08252021.pricing_plan
       OS Name: new_funnel_from_08252021.OS_name
       OS Version: new_funnel_from_08252021.OS_version
+      Country: new_funnel_from_08252021.country
     row: 6
     col: 13
     width: 11
@@ -159,7 +171,6 @@
     hidden_fields:
     listen:
       Start Date: new_funnel_from_08252021.start_date
-      Country: new_funnel_from_08252021.country
       Channel Group: new_funnel_from_08252021.Channel_group
       UTM Medium: new_funnel_from_08252021.UTM_medium
       UTM Source: new_funnel_from_08252021.UTM_source
@@ -171,6 +182,7 @@
       Pricing Plan: new_funnel_from_08252021.pricing_plan
       OS Name: new_funnel_from_08252021.OS_name
       OS Version: new_funnel_from_08252021.OS_version
+      Country: new_funnel_from_08252021.country
     row: 74
     col: 9
     width: 15
@@ -206,18 +218,31 @@
     model: mozilla_vpn
     explore: new_funnel_from_08252021
     type: single_value
-    fields: [new_funnel_from_08252021.start_date, new_funnel_from_08252021.VPN_site_hits]
+    fields: [new_funnel_from_08252021.start_date, new_funnel_from_08252021.VPN_site_hits,
+      vpn_site_hits]
     sorts: [new_funnel_from_08252021.start_date desc]
     limit: 2
+    dynamic_fields: [{category: measure, expression: !!null '', label: VPN Site Hits,
+        value_format: !!null '', value_format_name: !!null '', based_on: new_funnel_from_08252021.VPN_site_hits,
+        _kind_hint: measure, measure: vpn_site_hits, type: sum, _type_hint: number},
+      {category: table_calculation, description: 'Difference between the current row’s
+          value and value of the row below, divided by the value of the row below.',
+        label: "% Change VPN Site Hits", value_format: !!null '', value_format_name: percent_0,
+        calculation_type: percent_difference_from_previous, table_calculation: change_vpn_site_hits,
+        args: [vpn_site_hits], _kind_hint: measure, _type_hint: number}]
     custom_color_enabled: true
     show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
+    show_comparison: true
+    comparison_type: change
     comparison_reverse_colors: false
     show_comparison_label: true
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
+    comparison_label: since the previous day
+    conditional_formatting: [{type: equal to, value: !!null '', background_color: "#3FE1B0",
+        font_color: !!null '', color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
+        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -244,9 +269,9 @@
     interpolation: linear
     defaults_version: 1
     series_types: {}
+    hidden_fields: [vpn_site_hits]
     refresh: 1 day
     listen:
-      Country: new_funnel_from_08252021.country
       Channel Group: new_funnel_from_08252021.Channel_group
       UTM Medium: new_funnel_from_08252021.UTM_medium
       UTM Source: new_funnel_from_08252021.UTM_source
@@ -258,6 +283,7 @@
       Pricing Plan: new_funnel_from_08252021.pricing_plan
       OS Name: new_funnel_from_08252021.OS_name
       OS Version: new_funnel_from_08252021.OS_version
+      Country: new_funnel_from_08252021.country
     row: 0
     col: 8
     width: 8
@@ -322,7 +348,6 @@
     hidden_fields: [new_funnel_from_08252021.VPN_site_hits]
     listen:
       Start Date: new_funnel_from_08252021.start_date
-      Country: new_funnel_from_08252021.country
       Channel Group: new_funnel_from_08252021.Channel_group
       UTM Medium: new_funnel_from_08252021.UTM_medium
       UTM Source: new_funnel_from_08252021.UTM_source
@@ -334,6 +359,7 @@
       Pricing Plan: new_funnel_from_08252021.pricing_plan
       OS Name: new_funnel_from_08252021.OS_name
       OS Version: new_funnel_from_08252021.OS_version
+      Country: new_funnel_from_08252021.country
     row: 39
     col: 4
     width: 17
@@ -409,7 +435,6 @@
     hidden_fields: []
     listen:
       Start Date: new_funnel_from_08252021.start_date
-      Country: new_funnel_from_08252021.country
       Channel Group: new_funnel_from_08252021.Channel_group
       UTM Medium: new_funnel_from_08252021.UTM_medium
       UTM Source: new_funnel_from_08252021.UTM_source
@@ -421,6 +446,7 @@
       Pricing Plan: new_funnel_from_08252021.pricing_plan
       OS Name: new_funnel_from_08252021.OS_name
       OS Version: new_funnel_from_08252021.OS_version
+      Country: new_funnel_from_08252021.country
     row: 81
     col: 9
     width: 15
@@ -518,7 +544,6 @@
     defaults_version: 1
     listen:
       Start Date: new_funnel_from_08252021.start_date
-      Country: new_funnel_from_08252021.country
       Channel Group: new_funnel_from_08252021.Channel_group
       UTM Medium: new_funnel_from_08252021.UTM_medium
       UTM Source: new_funnel_from_08252021.UTM_source
@@ -530,6 +555,7 @@
       Pricing Plan: new_funnel_from_08252021.pricing_plan
       OS Name: new_funnel_from_08252021.OS_name
       OS Version: new_funnel_from_08252021.OS_version
+      Country: new_funnel_from_08252021.country
     row: 87
     col: 9
     width: 15
@@ -592,7 +618,6 @@
     defaults_version: 1
     listen:
       Start Date: new_funnel_from_08252021.start_date
-      Country: new_funnel_from_08252021.country
       Channel Group: new_funnel_from_08252021.Channel_group
       UTM Medium: new_funnel_from_08252021.UTM_medium
       UTM Source: new_funnel_from_08252021.UTM_source
@@ -604,6 +629,7 @@
       Pricing Plan: new_funnel_from_08252021.pricing_plan
       OS Name: new_funnel_from_08252021.OS_name
       OS Version: new_funnel_from_08252021.OS_version
+      Country: new_funnel_from_08252021.country
     row: 94
     col: 9
     width: 15
@@ -626,8 +652,8 @@
     col: 0
     width: 9
     height: 7
-  - title: "  the VPN Product Site Visits by Country"
-    name: "  the VPN Product Site Visits by Country"
+  - title: VPN Product Site Visits by Country
+    name: VPN Product Site Visits by Country
     model: mozilla_vpn
     explore: new_funnel_from_08252021
     type: looker_pie
@@ -683,7 +709,6 @@
     conditional_formatting_include_nulls: false
     listen:
       Start Date: new_funnel_from_08252021.start_date
-      Country: new_funnel_from_08252021.country
       Channel Group: new_funnel_from_08252021.Channel_group
       UTM Medium: new_funnel_from_08252021.UTM_medium
       UTM Source: new_funnel_from_08252021.UTM_source
@@ -695,6 +720,7 @@
       Pricing Plan: new_funnel_from_08252021.pricing_plan
       OS Name: new_funnel_from_08252021.OS_name
       OS Version: new_funnel_from_08252021.OS_version
+      Country: new_funnel_from_08252021.country
     row: 6
     col: 0
     width: 13
@@ -756,7 +782,6 @@
     defaults_version: 1
     listen:
       Start Date: new_funnel_from_08252021.start_date
-      Country: new_funnel_from_08252021.country
       Channel Group: new_funnel_from_08252021.Channel_group
       UTM Medium: new_funnel_from_08252021.UTM_medium
       UTM Source: new_funnel_from_08252021.UTM_source
@@ -768,12 +793,13 @@
       Pricing Plan: new_funnel_from_08252021.pricing_plan
       OS Name: new_funnel_from_08252021.OS_name
       OS Version: new_funnel_from_08252021.OS_version
+      Country: new_funnel_from_08252021.country
     row: 47
     col: 4
     width: 17
     height: 6
-  - title: the VPN Product Site Visits by Channel Group
-    name: the VPN Product Site Visits by Channel Group
+  - title: VPN Product Site Visits by Channel Group
+    name: VPN Product Site Visits by Channel Group
     model: mozilla_vpn
     explore: new_funnel_from_08252021
     type: looker_line
@@ -841,7 +867,6 @@
     defaults_version: 1
     listen:
       Start Date: new_funnel_from_08252021.start_date
-      Country: new_funnel_from_08252021.country
       Channel Group: new_funnel_from_08252021.Channel_group
       UTM Medium: new_funnel_from_08252021.UTM_medium
       UTM Source: new_funnel_from_08252021.UTM_source
@@ -853,6 +878,7 @@
       Pricing Plan: new_funnel_from_08252021.pricing_plan
       OS Name: new_funnel_from_08252021.OS_name
       OS Version: new_funnel_from_08252021.OS_version
+      Country: new_funnel_from_08252021.country
     row: 20
     col: 4
     width: 17
@@ -924,7 +950,6 @@
     defaults_version: 1
     listen:
       Start Date: new_funnel_from_08252021.start_date
-      Country: new_funnel_from_08252021.country
       Channel Group: new_funnel_from_08252021.Channel_group
       UTM Medium: new_funnel_from_08252021.UTM_medium
       UTM Source: new_funnel_from_08252021.UTM_source
@@ -936,6 +961,7 @@
       Pricing Plan: new_funnel_from_08252021.pricing_plan
       OS Name: new_funnel_from_08252021.OS_name
       OS Version: new_funnel_from_08252021.OS_version
+      Country: new_funnel_from_08252021.country
     row: 56
     col: 4
     width: 17
@@ -1030,6 +1056,7 @@
       Pricing Plan: new_funnel_from_08252021.pricing_plan
       OS Name: new_funnel_from_08252021.OS_name
       OS Version: new_funnel_from_08252021.OS_version
+      Country: new_funnel_from_08252021.country
     row: 27
     col: 4
     width: 17
@@ -1140,12 +1167,13 @@
       Pricing Plan: new_funnel_from_08252021.pricing_plan
       OS Name: new_funnel_from_08252021.OS_name
       OS Version: new_funnel_from_08252021.OS_version
+      Country: new_funnel_from_08252021.country
     row: 62
     col: 4
     width: 17
     height: 6
-  - title: Total VPN Site Hits
-    name: Total VPN Site Hits
+  - title: Total VPN Site Visits
+    name: Total VPN Site Visits
     model: mozilla_vpn
     explore: new_funnel_from_08252021
     type: single_value
@@ -1161,9 +1189,9 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
+    series_types: {}
     listen:
       Start Date: new_funnel_from_08252021.start_date
-      Country: new_funnel_from_08252021.country
       Channel Group: new_funnel_from_08252021.Channel_group
       UTM Medium: new_funnel_from_08252021.UTM_medium
       UTM Source: new_funnel_from_08252021.UTM_source
@@ -1175,6 +1203,7 @@
       Pricing Plan: new_funnel_from_08252021.pricing_plan
       OS Name: new_funnel_from_08252021.OS_name
       OS Version: new_funnel_from_08252021.OS_version
+      Country: new_funnel_from_08252021.country
     row: 0
     col: 16
     width: 8

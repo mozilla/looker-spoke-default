@@ -59,10 +59,10 @@ view: new_subscriptions {
       sql: ${TABLE}.new_subscriptions ;;
     }
 
-    measure: Daily_New_Subscriptions {
-      type: average
-      sql: ${TABLE}.daily_new_subscriptions ;;
-    }
+    # measure: Daily_New_Subscriptions {
+    #   type: average
+    #   sql: ${TABLE}.daily_new_subscriptions ;;
+    # }
 
     measure: channel_group_proportion {
       type: average
