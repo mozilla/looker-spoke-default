@@ -2,6 +2,7 @@ include: "../views/distinct_docids.view.lkml"
 
 
 explore: distinct_docids {
+  hidden: yes
   sql_always_where: ${distinct_docids.submission_date} >= '2010-01-01' ;;
   description:
   "
