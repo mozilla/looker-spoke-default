@@ -1,6 +1,7 @@
 include: "//looker-hub/monitoring/views/column_size.view.lkml"
 
 explore: column_size_differences{
+  hidden: yes
   view_name: column_size
 
   join: column_size_last_week {
