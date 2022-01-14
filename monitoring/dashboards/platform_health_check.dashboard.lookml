@@ -2,6 +2,7 @@
   title: Platform Health Check
   layout: newspaper
   preferred_viewer: dashboards-next
+  load_configuration: wait
   description: 'Weekly Health Checks for Data Platform
 
     '
@@ -54,7 +55,6 @@
   - name: OS and Geo Distributions
     type: text
     title_text: OS and Geo Distributions
-    subtitle_text: ''
     body_text: ''
     row: 3
     col: 0
@@ -417,7 +417,6 @@
   - name: Missing Columns
     type: text
     title_text: Missing Columns
-    subtitle_text: ''
     body_text: ''
     row: 29
     col: 0
@@ -428,7 +427,7 @@
     merged_queries:
     - model: monitoring
       explore: telemetry_missing_columns
-      type: looker_grid
+      type: table
       fields: [telemetry_missing_columns.document_namespace, telemetry_missing_columns.document_type,
         telemetry_missing_columns.document_version, telemetry_missing_columns.path,
         sum_of_path_count_last_7_days]
@@ -439,48 +438,7 @@
       dynamic_fields: [{category: measure, expression: '', label: Sum of Path Count
             (last 7 days), based_on: telemetry_missing_columns.path_count, _kind_hint: measure,
           measure: sum_of_path_count_last_7_days, type: sum, _type_hint: number}]
-      show_view_names: false
-      show_row_numbers: true
-      transpose: false
-      truncate_text: true
-      hide_totals: false
-      hide_row_totals: false
-      size_to_fit: true
-      table_theme: white
-      limit_displayed_rows: false
-      enable_conditional_formatting: false
-      header_text_alignment: left
-      header_font_size: 12
-      rows_font_size: 12
-      conditional_formatting_include_totals: false
-      conditional_formatting_include_nulls: false
-      x_axis_gridlines: false
-      y_axis_gridlines: true
-      show_y_axis_labels: true
-      show_y_axis_ticks: true
-      y_axis_tick_density: default
-      y_axis_tick_density_custom: 5
-      show_x_axis_label: true
-      show_x_axis_ticks: true
-      y_axis_scale_mode: linear
-      x_axis_reversed: false
-      y_axis_reversed: false
-      plot_size_by_field: false
-      trellis: ''
-      stacking: ''
-      legend_position: center
-      point_style: none
-      show_value_labels: false
-      label_density: 25
-      x_axis_scale: auto
-      y_axis_combined: true
-      ordering: none
-      show_null_labels: false
-      show_totals_labels: false
-      show_silhouette: false
-      totals_color: "#808080"
-      defaults_version: 1
-      series_types: {}
+      join_fields: []
     - model: monitoring
       explore: telemetry_missing_columns
       type: table
@@ -488,7 +446,6 @@
         telemetry_missing_columns.document_version, telemetry_missing_columns.path,
         sum_of_path_count_two_weeks_ago]
       filters:
-        telemetry_missing_columns.submission_date: 14 days
         sum_of_path_count_two_weeks_ago: ">10"
       limit: 500
       dynamic_fields: [{category: measure, expression: '', label: Sum of Path Count
@@ -863,9 +820,10 @@
       telemetry_missing_columns.document_version: 77
       telemetry_missing_columns.path: 363
     sorts: [sum_of_path_count_last_7_days desc]
+    column_limit: 50
     listen:
     - Submission Date: telemetry_missing_columns.submission_date
-    -
+    - Submission Date: telemetry_missing_columns.submission_date
     row: 31
     col: 0
     width: 24
@@ -885,14 +843,13 @@
       dynamic_fields: [{category: measure, expression: '', label: Sum of Path Count
             (last 7 days), based_on: structured_missing_columns.path_count, _kind_hint: measure,
           measure: sum_of_path_count_last_7_days, type: sum, _type_hint: number}]
+      join_fields: []
     - model: monitoring
       explore: structured_missing_columns
       type: table
       fields: [structured_missing_columns.document_namespace, structured_missing_columns.document_type,
         structured_missing_columns.document_version, structured_missing_columns.path,
         sum_of_path_count_two_weeks_ago]
-      filters:
-        structured_missing_columns.submission_date: 14 days
       sorts: [sum_of_path_count_two_weeks_ago desc]
       limit: 500
       dynamic_fields: [{category: measure, expression: '', label: Sum of Path Count
@@ -1272,9 +1229,10 @@
       sum_of_path_count_last_7_days:
         is_active: true
     sorts: [sum_of_path_count_last_7_days desc]
+    column_limit: 50
     listen:
     - Submission Date: structured_missing_columns.submission_date
-    -
+    - Submission Date: structured_missing_columns.submission_date
     row: 37
     col: 0
     width: 24
@@ -1319,7 +1277,7 @@
       to live tables.
     body_text: <center> <a href="https://earthangel-b40313e5.influxcloud.net/d/bZHv1mUMk/pipeline-latency?orgId=1&from=now-7d&to=now&var-realm=prod&var-family=telemetry">
       Grafana Dashboard</a> </center>
-    row: 101
+    row: 114
     col: 0
     width: 24
     height: 4
@@ -1609,7 +1567,7 @@
     hidden_fields: [column_size.byte_size, column_size_last_week.byte_size]
     listen:
       Submission Date: column_size.submission_date
-    row: 133
+    row: 146
     col: 0
     width: 24
     height: 7
@@ -1699,7 +1657,7 @@
     defaults_version: 1
     listen:
       Submission Date: stable_table_sizes.submission_date
-    row: 107
+    row: 120
     col: 0
     width: 24
     height: 9
@@ -1789,7 +1747,7 @@
     defaults_version: 1
     listen:
       Submission Date: stable_table_sizes.submission_date
-    row: 116
+    row: 129
     col: 0
     width: 24
     height: 8
@@ -1863,26 +1821,24 @@
     defaults_version: 1
     listen:
       Submission Date: stable_table_sizes.submission_date
-    row: 124
+    row: 137
     col: 0
     width: 24
     height: 7
   - name: Stable Table Partition Sizes
     type: text
     title_text: Stable Table Partition Sizes
-    subtitle_text: ''
     body_text: ''
-    row: 105
+    row: 118
     col: 0
     width: 23
     height: 2
   - name: Column Size Differences
     type: text
     title_text: Column Size Differences
-    subtitle_text: ''
     body_text: Shows the differences in column sizes compared to the size of 7 days
       ago. This explains where increases in partition sizes could come from.
-    row: 131
+    row: 144
     col: 0
     width: 24
     height: 2
@@ -2035,7 +1991,6 @@
   - name: Main Ping Schema Errors
     type: text
     title_text: Main Ping Schema Errors
-    subtitle_text: ''
     body_text: ''
     row: 43
     col: 0
@@ -2044,7 +1999,6 @@
   - name: All Schema Errors
     type: text
     title_text: All Schema Errors
-    subtitle_text: ''
     body_text: |-
       Todo: migrate to Looker
 
@@ -2122,7 +2076,6 @@
   - name: Missing Document Namespaces
     type: text
     title_text: Missing Document Namespaces
-    subtitle_text: ''
     body_text: 'Add unknown namespaces to [MessageScrubber](https://github.com/mozilla/gcp-ingestion/blob/b86c6f491ec23bea8c57fc182eb3ccd3b62527be/ingestion-beam/src/main/java/com/mozilla/telemetry/decoder/MessageScrubber.java#L22)
       if threshold exceeds 10,000. Different variation of existing products are due
       to fuzzing. '
@@ -2133,7 +2086,6 @@
   - name: Missing Doctypes/Versions
     type: text
     title_text: Missing Doctypes/Versions
-    subtitle_text: ''
     body_text: ''
     row: 73
     col: 0
@@ -2152,10 +2104,7 @@
     type: text
     title_text: Total Columns per Table
     subtitle_text: ''
-    body_text: |
-      Todo: migrate to Looker
-
-      [Redash Dashboard](https://sql.telemetry.mozilla.org/queries/76766/source)
+    body_text: ''
     row: 98
     col: 0
     width: 24
@@ -2170,6 +2119,220 @@
     col: 0
     width: 24
     height: 3
+  - title: Total Columns per Stable Table
+    name: Total Columns per Stable Table
+    model: monitoring
+    explore: stable_table_column_counts
+    type: paginated_table
+    fields: [stable_table_column_counts.submission_date, stable_table_column_counts.dataset,
+      stable_table_column_counts.table_name, stable_table_column_counts.total_columns]
+    filters: {}
+    sorts: [stable_table_column_counts.total_columns desc]
+    limit: 500
+    hidden_fields: []
+    hidden_points_if_no: []
+    series_labels: {}
+    show_view_names: false
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    defaults_version: 0
+    series_types: {}
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: 12
+    rows_font_size: 12
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    listen:
+      Submission Date: stable_table_column_counts.submission_date
+    row: 101
+    col: 0
+    width: 23
+    height: 7
+  - title: Total Columns per Stable Table over Time
+    name: Total Columns per Stable Table over Time
+    model: monitoring
+    explore: stable_table_column_counts
+    type: looker_line
+    fields: [stable_table_column_counts.submission_date, total_columns_sum, table]
+    pivots: [table]
+    fill_fields: [stable_table_column_counts.submission_date]
+    filters:
+      total_columns_sum: ">100"
+    sorts: [stable_table_column_counts.submission_date desc, table]
+    limit: 500
+    dynamic_fields: [{category: measure, expression: !!null '', label: Total Columns
+          Sum, value_format: !!null '', value_format_name: !!null '', based_on: stable_table_column_counts.total_columns,
+        _kind_hint: measure, measure: total_columns_sum, type: sum, _type_hint: number},
+      {category: dimension, expression: 'concat(${stable_table_column_counts.dataset},
+          ".", ${stable_table_column_counts.table_name})', label: Table, value_format: !!null '',
+        value_format_name: !!null '', dimension: table, _kind_hint: measure, _type_hint: string}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    y_axes: [{label: Total Columns, orientation: left, series: [{axisId: total_columns_sum,
+            id: action_v1 - mlhackweek_search_stable - total_columns_sum, name: action_v1
+              - mlhackweek_search_stable}, {axisId: total_columns_sum, id: bhr_v4
+              - telemetry_stable - total_columns_sum, name: bhr_v4 - telemetry_stable},
+          {axisId: total_columns_sum, id: crash_v4 - telemetry_stable - total_columns_sum,
+            name: crash_v4 - telemetry_stable}, {axisId: total_columns_sum, id: custom_v1
+              - org_mozilla_bergamot_stable - total_columns_sum, name: custom_v1 -
+              org_mozilla_bergamot_stable}, {axisId: total_columns_sum, id: dnssec_study_v1_v4
+              - telemetry_stable - total_columns_sum, name: dnssec_study_v1_v4 - telemetry_stable},
+          {axisId: total_columns_sum, id: event_v4 - telemetry_stable - total_columns_sum,
+            name: event_v4 - telemetry_stable}, {axisId: total_columns_sum, id: first_shutdown_v4
+              - telemetry_stable - total_columns_sum, name: first_shutdown_v4 - telemetry_stable},
+          {axisId: total_columns_sum, id: heartbeat_v4 - telemetry_stable - total_columns_sum,
+            name: heartbeat_v4 - telemetry_stable}, {axisId: total_columns_sum, id: main_v4
+              - telemetry_stable - total_columns_sum, name: main_v4 - telemetry_stable},
+          {axisId: total_columns_sum, id: metrics_v1 - firefox_desktop_stable - total_columns_sum,
+            name: metrics_v1 - firefox_desktop_stable}, {axisId: total_columns_sum,
+            id: metrics_v1 - org_mozilla_fenix_nightly_stable - total_columns_sum,
+            name: metrics_v1 - org_mozilla_fenix_nightly_stable}, {axisId: total_columns_sum,
+            id: metrics_v1 - org_mozilla_fenix_stable - total_columns_sum, name: metrics_v1
+              - org_mozilla_fenix_stable}, {axisId: total_columns_sum, id: metrics_v1
+              - org_mozilla_fennec_aurora_stable - total_columns_sum, name: metrics_v1
+              - org_mozilla_fennec_aurora_stable}, {axisId: total_columns_sum, id: metrics_v1
+              - org_mozilla_firefox_beta_stable - total_columns_sum, name: metrics_v1
+              - org_mozilla_firefox_beta_stable}, {axisId: total_columns_sum, id: metrics_v1
+              - org_mozilla_firefox_stable - total_columns_sum, name: metrics_v1 -
+              org_mozilla_firefox_stable}, {axisId: total_columns_sum, id: metrics_v1
+              - org_mozilla_focus_beta_stable - total_columns_sum, name: metrics_v1
+              - org_mozilla_focus_beta_stable}, {axisId: total_columns_sum, id: metrics_v1
+              - org_mozilla_focus_nightly_stable - total_columns_sum, name: metrics_v1
+              - org_mozilla_focus_nightly_stable}, {axisId: total_columns_sum, id: metrics_v1
+              - org_mozilla_focus_stable - total_columns_sum, name: metrics_v1 - org_mozilla_focus_stable},
+          {axisId: total_columns_sum, id: metrics_v1 - org_mozilla_ios_fennec_stable
+              - total_columns_sum, name: metrics_v1 - org_mozilla_ios_fennec_stable},
+          {axisId: total_columns_sum, id: metrics_v1 - org_mozilla_ios_firefox_stable
+              - total_columns_sum, name: metrics_v1 - org_mozilla_ios_firefox_stable},
+          {axisId: total_columns_sum, id: metrics_v1 - org_mozilla_ios_firefoxbeta_stable
+              - total_columns_sum, name: metrics_v1 - org_mozilla_ios_firefoxbeta_stable},
+          {axisId: total_columns_sum, id: metrics_v1 - org_mozilla_ios_focus_stable
+              - total_columns_sum, name: metrics_v1 - org_mozilla_ios_focus_stable},
+          {axisId: total_columns_sum, id: metrics_v1 - org_mozilla_ios_klar_stable
+              - total_columns_sum, name: metrics_v1 - org_mozilla_ios_klar_stable},
+          {axisId: total_columns_sum, id: metrics_v1 - org_mozilla_klar_stable - total_columns_sum,
+            name: metrics_v1 - org_mozilla_klar_stable}, {axisId: total_columns_sum,
+            id: metrics_v1 - org_mozilla_reference_browser_stable - total_columns_sum,
+            name: metrics_v1 - org_mozilla_reference_browser_stable}, {axisId: total_columns_sum,
+            id: metrics_v1 - org_mozilla_vrbrowser_stable - total_columns_sum, name: metrics_v1
+              - org_mozilla_vrbrowser_stable}, {axisId: total_columns_sum, id: migration_v1
+              - org_mozilla_fenix_nightly_stable - total_columns_sum, name: migration_v1
+              - org_mozilla_fenix_nightly_stable}, {axisId: total_columns_sum, id: migration_v1
+              - org_mozilla_fenix_stable - total_columns_sum, name: migration_v1 -
+              org_mozilla_fenix_stable}, {axisId: total_columns_sum, id: migration_v1
+              - org_mozilla_fennec_aurora_stable - total_columns_sum, name: migration_v1
+              - org_mozilla_fennec_aurora_stable}, {axisId: total_columns_sum, id: migration_v1
+              - org_mozilla_firefox_beta_stable - total_columns_sum, name: migration_v1
+              - org_mozilla_firefox_beta_stable}, {axisId: total_columns_sum, id: migration_v1
+              - org_mozilla_firefox_stable - total_columns_sum, name: migration_v1
+              - org_mozilla_firefox_stable}, {axisId: total_columns_sum, id: modules_v4
+              - telemetry_stable - total_columns_sum, name: modules_v4 - telemetry_stable},
+          {axisId: total_columns_sum, id: new_profile_v4 - telemetry_stable - total_columns_sum,
+            name: new_profile_v4 - telemetry_stable}, {axisId: total_columns_sum,
+            id: regrets_reporter_update_v1 - regrets_reporter_stable - total_columns_sum,
+            name: regrets_reporter_update_v1 - regrets_reporter_stable}, {axisId: total_columns_sum,
+            id: regrets_reporter_update_v4 - telemetry_stable - total_columns_sum,
+            name: regrets_reporter_update_v4 - telemetry_stable}, {axisId: total_columns_sum,
+            id: saved_session_v4 - telemetry_stable - total_columns_sum, name: saved_session_v4
+              - telemetry_stable}, {axisId: total_columns_sum, id: session_end_v1
+              - org_mozilla_vrbrowser_stable - total_columns_sum, name: session_end_v1
+              - org_mozilla_vrbrowser_stable}, {axisId: total_columns_sum, id: shield_icq_v1_v4
+              - telemetry_stable - total_columns_sum, name: shield_icq_v1_v4 - telemetry_stable},
+          {axisId: total_columns_sum, id: shield_study_addon_v3 - telemetry_stable
+              - total_columns_sum, name: shield_study_addon_v3 - telemetry_stable},
+          {axisId: total_columns_sum, id: shield_study_error_v3 - telemetry_stable
+              - total_columns_sum, name: shield_study_error_v3 - telemetry_stable},
+          {axisId: total_columns_sum, id: shield_study_v3 - telemetry_stable - total_columns_sum,
+            name: shield_study_v3 - telemetry_stable}, {axisId: total_columns_sum,
+            id: sync_v4 - telemetry_stable - total_columns_sum, name: sync_v4 - telemetry_stable},
+          {axisId: total_columns_sum, id: sync_v5 - telemetry_stable - total_columns_sum,
+            name: sync_v5 - telemetry_stable}, {axisId: total_columns_sum, id: testpilot_v4
+              - telemetry_stable - total_columns_sum, name: testpilot_v4 - telemetry_stable},
+          {axisId: total_columns_sum, id: third_party_modules_v4 - telemetry_stable
+              - total_columns_sum, name: third_party_modules_v4 - telemetry_stable},
+          {axisId: total_columns_sum, id: uninstall_v4 - telemetry_stable - total_columns_sum,
+            name: uninstall_v4 - telemetry_stable}, {axisId: total_columns_sum, id: untrusted_modules_v4
+              - telemetry_stable - total_columns_sum, name: untrusted_modules_v4 -
+              telemetry_stable}, {axisId: total_columns_sum, id: update_v4 - telemetry_stable
+              - total_columns_sum, name: update_v4 - telemetry_stable}, {axisId: total_columns_sum,
+            id: voice_v4 - telemetry_stable - total_columns_sum, name: voice_v4 -
+              telemetry_stable}], showLabels: true, showValues: true, unpinAxis: false,
+        tickDensity: default, tickDensityCustom: 5, type: linear}]
+    series_types: {}
+    series_labels: {}
+    defaults_version: 1
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: 12
+    rows_font_size: 12
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    hidden_fields: []
+    hidden_points_if_no: []
+    listen:
+      Submission Date: stable_table_column_counts.submission_date
+    row: 108
+    col: 0
+    width: 23
+    height: 6
   filters:
   - name: Submission Date
     title: Submission Date
