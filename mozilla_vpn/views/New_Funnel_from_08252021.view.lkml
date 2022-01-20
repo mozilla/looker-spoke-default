@@ -212,9 +212,9 @@ view: new_funnel_from_08252021 {
       type: sum
       sql: ${TABLE}.Existing_FxA_SignedOff_signin_CTA_click ;;
     }
-    measure:  Existing_SignedOff_FxA_payment_setup_view{
+    measure:  Existing_FxA_SignedOff_payment_setup_view{
       type: sum
-      sql: ${TABLE}.Existing_SignedOff_FxA_payment_setup_view ;;
+      sql: ${TABLE}.Existing_FxA_SignedOff_payment_setup_view ;;
     }
     measure:  Existing_FxA_SignedOff_payment_setup_engage{
       type: sum
@@ -232,7 +232,7 @@ view: new_funnel_from_08252021 {
     #   type: average
     #   sql: ${TABLE}.overall_Existing_FxA_SignedOff_payment_setup_complete ;;
     # }
-    measure: Existing_Fxa_SignedOff_CVR {
+    measure: Existing_FxA_SignedOff_CVR {
       type: number
       sql:CASE WHEN SUM(${TABLE}.Existing_FxA_SignedOff_signin_CTA_click) = 0 then 0
         ELSE round(cast(SUM(${TABLE}.Existing_FxA_SignedOff_payment_setup_complete)/SUM(${TABLE}.Existing_FxA_SignedOff_signin_CTA_click) *100 AS Float64))

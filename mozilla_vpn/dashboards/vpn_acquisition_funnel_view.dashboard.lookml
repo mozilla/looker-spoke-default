@@ -1,5 +1,5 @@
-- dashboard: vpn_acquisition_funnel_view__new_funnel
-  title: VPN Acquisition Funnel View - New Funnel
+- dashboard: vpn_acquisition_funnel_view
+  title: VPN Acquisition Funnel View
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
@@ -12,18 +12,19 @@
     explore: new_funnel_from_08252021
     type: looker_line
     fields: [new_funnel_from_08252021.start_date, new_funnel_from_08252021.VPN_site_hits]
-    sorts: [new_funnel_from_08252021.start_date desc]
+    sorts: [new_funnel_from_08252021.start_date]
     total: true
     dynamic_fields: [{category: measure, expression: !!null '', label: VPN Site Hits,
         value_format: !!null '', value_format_name: !!null '', based_on: new_funnel_from_08252021.VPN_site_hits,
         _kind_hint: measure, measure: vpn_site_hits, type: sum, _type_hint: number},
       {category: table_calculation, description: Current row’s value divided by the
           value of the row below., label: "% Change VPN Site Hits", value_format: !!null '',
-        value_format_name: percent_1, calculation_type: percent_of_previous, table_calculation: change_vpn_site_hits,
-        args: [vpn_site_hits], _kind_hint: dimension, _type_hint: number, is_disabled: true},
-      {category: table_calculation, description: Cumulative sum of this row and all
-          previous rows in the column, label: Running Total VPN Site Hits, value_format: !!null '',
-        value_format_name: Default formatting, calculation_type: running_total, table_calculation: running_total_vpn_site_hits,
+        value_format_name: percent_0, calculation_type: percent_difference_from_previous,
+        table_calculation: change_vpn_site_hits, args: [vpn_site_hits], _kind_hint: dimension,
+        _type_hint: number, is_disabled: true}, {category: table_calculation, description: Cumulative
+          sum of this row and all previous rows in the column, label: Running Total
+          VPN Site Hits, value_format: !!null '', value_format_name: Default formatting,
+        calculation_type: running_total, table_calculation: running_total_vpn_site_hits,
         args: [new_funnel_from_08252021.VPN_site_hits], _kind_hint: measure, _type_hint: number,
         is_disabled: true}]
     x_axis_gridlines: false
@@ -76,8 +77,8 @@
       OS Version: new_funnel_from_08252021.OS_version
       Country: new_funnel_from_08252021.country
     row: 6
-    col: 13
-    width: 11
+    col: 11
+    width: 13
     height: 6
   - name: ''
     type: text
@@ -211,10 +212,10 @@
     listen: {}
     row: 0
     col: 0
-    width: 8
+    width: 7
     height: 4
-  - title: Daily VPN Product Site Visits
-    name: Daily VPN Product Site Visits
+  - title: VPN Product Site Visits on the Last Updated Date
+    name: VPN Product Site Visits on the Last Updated Date
     model: mozilla_vpn
     explore: new_funnel_from_08252021
     type: single_value
@@ -285,8 +286,8 @@
       OS Version: new_funnel_from_08252021.OS_version
       Country: new_funnel_from_08252021.country
     row: 0
-    col: 8
-    width: 8
+    col: 7
+    width: 9
     height: 4
   - title: CTR from the VPN product Site to Enter the Funnel
     name: CTR from the VPN product Site to Enter the Funnel
@@ -298,6 +299,19 @@
       new_funnel_from_08252021.start_date]
     sorts: [new_funnel_from_08252021.start_date]
     limit: 500
+    dynamic_fields: [{category: measure, expression: !!null '', label: Total Acquisition
+          Process Start, value_format: !!null '', value_format_name: !!null '', based_on: new_funnel_from_08252021.total_acquisition_process_start,
+        _kind_hint: measure, measure: total_acquisition_process_start, type: sum,
+        _type_hint: number}, {category: table_calculation, label: "% Change Total\
+          \ Acquisition Process Start", value_format: !!null '', value_format_name: percent_1,
+        calculation_type: percent_difference_from_previous, table_calculation: change_total_acquisition_process_start,
+        args: [total_acquisition_process_start], _kind_hint: dimension, _type_hint: number,
+        is_disabled: true}, {category: table_calculation, description: Cumulative
+          sum of this row and all previous rows in the column, label: Running Total
+          Total Acquisition Process Start, value_format: !!null '', value_format_name: Default
+          formatting, calculation_type: running_total, table_calculation: running_total_total_acquisition_process_start,
+        args: [total_acquisition_process_start], _kind_hint: dimension, _type_hint: number,
+        is_disabled: true}]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -489,9 +503,9 @@
     model: mozilla_vpn
     explore: new_funnel_from_08252021
     type: looker_column
-    fields: [new_funnel_from_08252021.start_date, new_funnel_from_08252021.Existing_FxA_SignedOff_signin_CTA_click,
-      new_funnel_from_08252021.Existing_SignedOff_FxA_payment_setup_view, new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_engage,
-      new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_complete, new_funnel_from_08252021.Existing_Fxa_SignedOff_CVR]
+    fields: [new_funnel_from_08252021.start_date, new_funnel_from_08252021.Existing_FxA_SignedOff_CVR,
+      new_funnel_from_08252021.Existing_FxA_SignedOff_signin_CTA_click, new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_view,
+      new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_engage, new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_complete]
     sorts: [new_funnel_from_08252021.start_date]
     limit: 500
     x_axis_gridlines: false
@@ -523,21 +537,21 @@
     totals_color: "#808080"
     y_axes: [{label: Session Counts, orientation: left, series: [{axisId: new_funnel_from_08252021.Existing_FxA_SignedOff_signin_CTA_click,
             id: new_funnel_from_08252021.Existing_FxA_SignedOff_signin_CTA_click,
-            name: Existing FxA SignedOff Signin CTA Click}, {axisId: new_funnel_from_08252021.Existing_SignedOff_FxA_payment_setup_view,
-            id: new_funnel_from_08252021.Existing_SignedOff_FxA_payment_setup_view,
-            name: Existing SignedOff FxA Payment Setup View}, {axisId: new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_engage,
+            name: Existing FxA SignedOff Signin CTA Click}, {axisId: new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_view,
+            id: new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_view,
+            name: Existing FxA SignedOff Payment Setup View}, {axisId: new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_engage,
             id: new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_engage,
             name: Existing FxA SignedOff Payment Setup Engage}, {axisId: new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_complete,
             id: new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_complete,
             name: Existing FxA SignedOff Payment Setup Complete}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: custom, tickDensityCustom: 99,
-        type: linear}, {label: CVR(%), orientation: right, series: [{axisId: new_funnel_from_08252021.Existing_Fxa_SignedOff_CVR,
-            id: new_funnel_from_08252021.Existing_Fxa_SignedOff_CVR, name: Existing
-              Fxa SignedOff CVR}], showLabels: true, showValues: true, unpinAxis: false,
-        tickDensity: custom, tickDensityCustom: 74, type: linear}]
+        type: linear}, {label: '', orientation: right, series: [{axisId: new_funnel_from_08252021.Existing_FxA_SignedOff_CVR,
+            id: new_funnel_from_08252021.Existing_FxA_SignedOff_CVR, name: Existing
+              FxA SignedOff CVR}], showLabels: true, showValues: true, unpinAxis: false,
+        tickDensity: default, type: linear}]
+    hidden_series: []
     series_types:
-      new_funnel_from_08252021.Existing_Fxa_SignedOff_CVR: line
-      new_funnel_from_08252021.overall_Existing_Fxa_SignedOff_CVR: line
+      new_funnel_from_08252021.Existing_FxA_SignedOff_CVR: line
     show_null_points: false
     interpolation: linear
     discontinuous_nulls: false
@@ -723,7 +737,7 @@
       Country: new_funnel_from_08252021.country
     row: 6
     col: 0
-    width: 13
+    width: 11
     height: 6
   - title: Chosen Pricing Plan on the Top of the Funnel
     name: Chosen Pricing Plan on the Top of the Funnel
@@ -808,6 +822,19 @@
     pivots: [new_funnel_from_08252021.Channel_group]
     sorts: [new_funnel_from_08252021.VPN_site_hits desc 0, new_funnel_from_08252021.Channel_group]
     limit: 500
+    dynamic_fields: [{category: measure, expression: !!null '', label: VPN Site Hits,
+        value_format: !!null '', value_format_name: !!null '', based_on: new_funnel_from_08252021.VPN_site_hits,
+        _kind_hint: measure, measure: vpn_site_hits, type: sum, _type_hint: number},
+      {category: table_calculation, description: 'Difference between the current row’s
+          value and value of the row below, divided by the value of the row below.',
+        label: "% Change VPN Site Hits", value_format: !!null '', value_format_name: percent_1,
+        calculation_type: percent_difference_from_previous, table_calculation: change_vpn_site_hits,
+        args: [vpn_site_hits], _kind_hint: dimension, _type_hint: number, is_disabled: true},
+      {category: table_calculation, description: Cumulative sum of this row and all
+          previous rows in the column, label: Running Total VPN Site Hits, value_format: !!null '',
+        value_format_name: Default formatting, calculation_type: running_total, table_calculation: running_total_vpn_site_hits,
+        args: [new_funnel_from_08252021.VPN_site_hits], _kind_hint: measure, _type_hint: number,
+        is_disabled: true}]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -893,6 +920,19 @@
     pivots: [new_funnel_from_08252021.Channel_group]
     sorts: [new_funnel_from_08252021.start_date desc, new_funnel_from_08252021.Channel_group]
     limit: 500
+    dynamic_fields: [{category: measure, expression: !!null '', label: Total Acquisition
+          Process Start, value_format: !!null '', value_format_name: !!null '', based_on: new_funnel_from_08252021.total_acquisition_process_start,
+        _kind_hint: measure, measure: total_acquisition_process_start, type: sum,
+        _type_hint: number}, {category: table_calculation, description: Current row’s
+          value divided by the value of the row below., label: "% Change Total Acquisition\
+          \ Process Start", value_format: !!null '', value_format_name: percent_1,
+        calculation_type: percent_of_previous, table_calculation: change_total_acquisition_process_start,
+        args: [total_acquisition_process_start], _kind_hint: dimension, _type_hint: number,
+        is_disabled: true}, {category: table_calculation, label: Running Total Total
+          Acquisition Process Start, value_format: !!null '', value_format_name: Default
+          formatting, calculation_type: running_row_total, table_calculation: running_total_total_acquisition_process_start,
+        args: [total_acquisition_process_start], _kind_hint: measure, _type_hint: number,
+        is_disabled: true}]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false

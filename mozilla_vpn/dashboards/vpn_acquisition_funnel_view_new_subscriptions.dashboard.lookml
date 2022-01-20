@@ -32,8 +32,8 @@
     col: 0
     width: 7
     height: 4
-  - title: Daily New Subscriptions
-    name: Daily New Subscriptions
+  - title: New Subscriptions on the Last Updated Date
+    name: New Subscriptions on the Last Updated Date
     model: mozilla_vpn
     explore: new_subscriptions
     type: single_value
@@ -78,22 +78,60 @@
       Entrypoint Variation: new_subscriptions.entrypoint_variation
     row: 0
     col: 7
-    width: 8
+    width: 9
     height: 4
   - title: New Subscriptions by Pricing Plan
     name: New Subscriptions by Pricing Plan
     model: mozilla_vpn
     explore: new_subscriptions
     type: looker_pie
-    fields: [new_subscriptions.pricing_plan, new_subscriptions.New_Subscriptions]
+    fields: [new_subscriptions.New_Subscriptions, new_subscriptions.pricing_plan]
     sorts: [new_subscriptions.New_Subscriptions desc]
     limit: 500
     value_labels: labels
     label_type: labPer
-    series_types: {}
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
+    y_axes: [{label: '', orientation: left, series: [{axisId: new_subscriptions.New_Subscriptions,
+            id: 1-month-apple - new_subscriptions.New_Subscriptions, name: 1-month-apple},
+          {axisId: new_subscriptions.New_Subscriptions, id: 1-month-cad-12.99 - new_subscriptions.New_Subscriptions,
+            name: 1-month-cad-12.99}, {axisId: new_subscriptions.New_Subscriptions,
+            id: 1-month-chf-10.99 - new_subscriptions.New_Subscriptions, name: 1-month-chf-10.99},
+          {axisId: new_subscriptions.New_Subscriptions, id: 1-month-eur-9.99 - new_subscriptions.New_Subscriptions,
+            name: 1-month-eur-9.99}, {axisId: new_subscriptions.New_Subscriptions,
+            id: 1-month-gbp-8.49 - new_subscriptions.New_Subscriptions, name: 1-month-gbp-8.49},
+          {axisId: new_subscriptions.New_Subscriptions, id: 1-month-myr-44.99 - new_subscriptions.New_Subscriptions,
+            name: 1-month-myr-44.99}, {axisId: new_subscriptions.New_Subscriptions,
+            id: 1-month-nzd-15.99 - new_subscriptions.New_Subscriptions, name: 1-month-nzd-15.99},
+          {axisId: new_subscriptions.New_Subscriptions, id: 1-month-sgd-13.99 - new_subscriptions.New_Subscriptions,
+            name: 1-month-sgd-13.99}, {axisId: new_subscriptions.New_Subscriptions,
+            id: 1-month-usd-4.99 - new_subscriptions.New_Subscriptions, name: 1-month-usd-4.99},
+          {axisId: new_subscriptions.New_Subscriptions, id: 1-month-usd-9.99 - new_subscriptions.New_Subscriptions,
+            name: 1-month-usd-9.99}, {axisId: new_subscriptions.New_Subscriptions,
+            id: 1-year-apple - new_subscriptions.New_Subscriptions, name: 1-year-apple},
+          {axisId: new_subscriptions.New_Subscriptions, id: 1-year-cad-74.99 - new_subscriptions.New_Subscriptions,
+            name: 1-year-cad-74.99}, {axisId: new_subscriptions.New_Subscriptions,
+            id: 1-year-chf-71.88 - new_subscriptions.New_Subscriptions, name: 1-year-chf-71.88},
+          {axisId: new_subscriptions.New_Subscriptions, id: 1-year-eur-59.88 - new_subscriptions.New_Subscriptions,
+            name: 1-year-eur-59.88}, {axisId: new_subscriptions.New_Subscriptions,
+            id: 1-year-gbp-51.99 - new_subscriptions.New_Subscriptions, name: 1-year-gbp-51.99},
+          {axisId: new_subscriptions.New_Subscriptions, id: 1-year-myr-269.99 - new_subscriptions.New_Subscriptions,
+            name: 1-year-myr-269.99}, {axisId: new_subscriptions.New_Subscriptions,
+            id: 1-year-nzd-99.99 - new_subscriptions.New_Subscriptions, name: 1-year-nzd-99.99},
+          {axisId: new_subscriptions.New_Subscriptions, id: 1-year-sgd-86.98 - new_subscriptions.New_Subscriptions,
+            name: 1-year-sgd-86.98}, {axisId: new_subscriptions.New_Subscriptions,
+            id: 1-year-usd-59.88 - new_subscriptions.New_Subscriptions, name: 1-year-usd-59.88},
+          {axisId: new_subscriptions.New_Subscriptions, id: 6-month-apple - new_subscriptions.New_Subscriptions,
+            name: 6-month-apple}, {axisId: new_subscriptions.New_Subscriptions, id: 6-month-cad-59.99
+              - new_subscriptions.New_Subscriptions, name: 6-month-cad-59.99}, {axisId: new_subscriptions.New_Subscriptions,
+            id: 6-month-chf-47.94 - new_subscriptions.New_Subscriptions, name: 6-month-chf-47.94},
+          {axisId: new_subscriptions.New_Subscriptions, id: 6-month-eur-41.94 - new_subscriptions.New_Subscriptions,
+            name: 6-month-eur-41.94}, {axisId: new_subscriptions.New_Subscriptions,
+            id: 6-month-gbp-41.49 - new_subscriptions.New_Subscriptions, name: 6-month-gbp-41.49},
+          {axisId: new_subscriptions.New_Subscriptions, id: 6-month-usd-47.94 - new_subscriptions.New_Subscriptions,
+            name: 6-month-usd-47.94}], showLabels: true, showValues: true, unpinAxis: false,
+        tickDensity: custom, tickDensityCustom: 100, type: linear}]
     show_y_axis_labels: true
     show_y_axis_ticks: true
     y_axis_tick_density: default
@@ -108,11 +146,14 @@
     stacking: ''
     limit_displayed_rows: false
     legend_position: center
-    point_style: none
+    series_types: {}
+    point_style: circle
     show_value_labels: false
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
+    show_null_points: false
+    interpolation: linear
     ordering: none
     show_null_labels: false
     show_totals_labels: false
@@ -177,7 +218,7 @@
       \ logging system missing a part or all or attributions. If the rates of those\
       \ two groups increase, then it can be a sign of a problem for the system passing\
       \ the data. "
-    row: 32
+    row: 38
     col: 0
     width: 24
     height: 4
@@ -202,7 +243,7 @@
       \ be that some of the attribution parameters got lost or attributions that were\
       \ not well documented.\n\n* For more detailed explanation for the categorization\
       \ of the channel groups, please refer to [this documentation](https://docs.google.com/document/d/1ojf1XHb3Iu5GNzMfozDcxWhEw6d9A4QuiaoAm-gDIrk/edit?usp=sharing). "
-    row: 16
+    row: 22
     col: 0
     width: 24
     height: 9
@@ -275,7 +316,7 @@
       UTM Content: new_subscriptions.UTM_content
       Entrypoint Experiment: new_subscriptions.entrypoint_experiment
       Entrypoint Variation: new_subscriptions.entrypoint_variation
-    row: 36
+    row: 42
     col: 3
     width: 19
     height: 7
@@ -339,7 +380,7 @@
       UTM Content: new_subscriptions.UTM_content
       Entrypoint Experiment: new_subscriptions.entrypoint_experiment
       Entrypoint Variation: new_subscriptions.entrypoint_variation
-    row: 43
+    row: 49
     col: 3
     width: 19
     height: 8
@@ -386,7 +427,7 @@
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
-    show_null_points: true
+    show_null_points: false
     interpolation: linear
     y_axes: [{label: '', orientation: left, series: [{axisId: new_subscriptions.New_Subscriptions,
             id: Marketing Owned Media Channels - new_subscriptions.New_Subscriptions,
@@ -417,12 +458,12 @@
       UTM Content: new_subscriptions.UTM_content
       Entrypoint Experiment: new_subscriptions.entrypoint_experiment
       Entrypoint Variation: new_subscriptions.entrypoint_variation
-    row: 25
+    row: 31
     col: 3
     width: 19
     height: 7
-  - title: Total Subscriptions
-    name: Total Subscriptions
+  - title: Total New Subscriptions
+    name: Total New Subscriptions
     model: mozilla_vpn
     explore: new_subscriptions
     type: single_value
@@ -452,7 +493,7 @@
       Entrypoint Experiment: new_subscriptions.entrypoint_experiment
       Entrypoint Variation: new_subscriptions.entrypoint_variation
     row: 0
-    col: 15
+    col: 16
     width: 7
     height: 4
   - title: Accumulative Subscriptions
@@ -492,12 +533,12 @@
     stacking: ''
     limit_displayed_rows: false
     legend_position: center
-    point_style: none
+    point_style: circle
     show_value_labels: false
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
-    show_null_points: true
+    show_null_points: false
     interpolation: linear
     y_axes: [{label: New Subscriptions, orientation: left, series: [{axisId: accumulative_subscriptions,
             id: accumulative_subscriptions, name: Accumulative subscriptions}], showLabels: true,
@@ -562,12 +603,12 @@
     stacking: ''
     limit_displayed_rows: false
     legend_position: center
-    point_style: none
+    point_style: circle
     show_value_labels: false
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
-    show_null_points: true
+    show_null_points: false
     interpolation: linear
     y_axes: [{label: '', orientation: left, series: [{axisId: new_subscriptions.New_Subscriptions,
             id: new_subscriptions.New_Subscriptions, name: New Subscriptions}], showLabels: true,
@@ -589,6 +630,65 @@
       Entrypoint Experiment: new_subscriptions.entrypoint_experiment
       Entrypoint Variation: new_subscriptions.entrypoint_variation
     row: 10
+    col: 0
+    width: 12
+    height: 6
+  - title: New Subsctition by Provider
+    name: New Subsctition by Provider
+    model: mozilla_vpn
+    explore: new_subscriptions
+    type: looker_line
+    fields: [new_subscriptions.New_Subscriptions, new_subscriptions.provider, new_subscriptions.start_date]
+    pivots: [new_subscriptions.provider]
+    fill_fields: [new_subscriptions.start_date]
+    sorts: [new_subscriptions.start_date desc, new_subscriptions.provider]
+    limit: 500
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: circle
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: false
+    interpolation: linear
+    y_axes: [{label: '', orientation: left, series: [{axisId: new_subscriptions.New_Subscriptions,
+            id: Apple Store IAP - new_subscriptions.New_Subscriptions, name: Apple
+              Store IAP}, {axisId: new_subscriptions.New_Subscriptions, id: FxA Paypal
+              - new_subscriptions.New_Subscriptions, name: FxA Paypal}, {axisId: new_subscriptions.New_Subscriptions,
+            id: FxA Stripe - new_subscriptions.New_Subscriptions, name: FxA Stripe},
+          {axisId: new_subscriptions.New_Subscriptions, id: Google Play - new_subscriptions.New_Subscriptions,
+            name: Google Play}], showLabels: true, showValues: true, unpinAxis: false,
+        tickDensity: custom, tickDensityCustom: 100, type: linear}]
+    defaults_version: 1
+    listen:
+      Start Date: new_subscriptions.start_date
+      Country: new_subscriptions.country
+      Channel Group: new_subscriptions.Channel_group
+      Provider: new_subscriptions.provider
+      Pricing Plan: new_subscriptions.pricing_plan
+      UTM Medium: new_subscriptions.UTM_medium
+      UTM Source: new_subscriptions.UTM_source
+      UTM Campaign: new_subscriptions.UTM_campaign
+      UTM Content: new_subscriptions.UTM_content
+      Entrypoint Experiment: new_subscriptions.entrypoint_experiment
+      Entrypoint Variation: new_subscriptions.entrypoint_variation
+    row: 16
     col: 0
     width: 12
     height: 6
