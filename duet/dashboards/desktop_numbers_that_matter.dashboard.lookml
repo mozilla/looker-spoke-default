@@ -1,5 +1,5 @@
-- dashboard: desktop_number_that_matter
-  title: Desktop Number That Matter
+- dashboard: desktop_numbers_that_matter
+  title: Desktop Numbers That Matter
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
