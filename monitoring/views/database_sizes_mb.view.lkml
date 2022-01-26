@@ -12,22 +12,9 @@ view: database_sizes_mb {
       derived_column: database_size_tiers{
         sql: (metrics__memory_distribution__glean_database_size__sum)/1024/1024;;
         }
-
-      filters: {
-        field: metrics.channel
-        value: "mozdata.fenix.metrics"
-      }
-      filters: {
-        field: metrics.submission_date
-        value: "28 days"
-      }
-      filters: {
-        field: metrics.metrics__memory_distribution__glean_database_size__sum
-        value: "NOT NULL"
       }
     }
 
-    }
     dimension: metrics__memory_distribution__glean_database_size__sum {
       label: "Metrics Glean Database Size Sum"
       description: "The size of the database file at startup."
