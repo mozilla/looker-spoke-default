@@ -1,7 +1,8 @@
 - dashboard: desktop_numbers_that_matter
-  title: Desktop Number That Matter
+  title: Desktop Numbers That Matter
   layout: newspaper
   preferred_viewer: dashboards-next
+  description: ''
   elements:
   - name: Numbers
     title: Numbers
@@ -42,9 +43,7 @@
       fields: [desktop_session.total_non_fx_sessions, desktop_session.total_non_fx_downloads,
         desktop_session.date_date, country_buckets.bucket]
       filters:
-        desktop_session.date: 28 days
         desktop_session.join_field: 'yes'
-        desktop_session.ignore_most_recent_week: 'Yes'
       sorts: [desktop_session.date_date desc]
       limit: 500
       join_fields:
@@ -58,8 +57,6 @@
       fields: [desktop_activation_aggregates.activations, country_buckets.bucket,
         desktop_activation_aggregates.submission_timestamp_date]
       filters:
-        desktop_activation_aggregates.date: 28 days
-        desktop_activation_aggregates.ignore_most_recent_week: 'Yes'
         desktop_activation_aggregates.join_field: 'yes'
       limit: 500
       join_fields:
@@ -135,13 +132,19 @@
           * to_number(${releases.version}))', label: Release, value_format: !!null '',
         value_format_name: decimal_1}]
     listen:
-    - Countries: country_buckets.bucket
-      Ignore Most Recent Week: desktop_install.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
       Date Range: desktop_install.date
-    -
-    -
-    -
-    -
+      Ignore Most Recent Week: desktop_install.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
+      Date Range: desktop_new_profile.date
+      Ignore Most Recent Week: desktop_new_profile.ignore_most_recent_week
+    - Date Range: releases.date_date
+    - Bucket: country_buckets.bucket
+      Date Range: desktop_session.date
+      Ignore Most Recent Week: desktop_session.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
+      Date Range: desktop_activation_aggregates.date
+      Ignore Most Recent Week: desktop_activation_aggregates.ignore_most_recent_week
     row: 19
     col: 8
     width: 13
@@ -185,9 +188,8 @@
       type: table
       fields: [desktop_activation_aggregates.activations, desktop_activation_aggregates.join_field]
       filters:
-        desktop_activation_aggregates.date: 28 days
-        desktop_activation_aggregates.ignore_most_recent_week: 'Yes'
         desktop_activation_aggregates.join_field: 'yes'
+      sorts: [desktop_activation_aggregates.activations desc]
       limit: 500
       join_fields:
       - field_name: desktop_activation_aggregates.join_field
@@ -232,12 +234,18 @@
     series_types: {}
     column_limit: 50
     listen:
-    - Countries: country_buckets.bucket
-      Ignore Most Recent Week: desktop_session.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
       Date Range: desktop_session.date
-    - Countries: country_buckets.bucket
-    - Countries: country_buckets.bucket
-    -
+      Ignore Most Recent Week: desktop_session.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
+      Date Range: desktop_install.date
+      Ignore Most Recent Week: desktop_install.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
+      Date Range: desktop_new_profile.date
+      Ignore Most Recent Week: desktop_new_profile.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
+      Date Range: desktop_activation_aggregates.date
+      Ignore Most Recent Week: desktop_activation_aggregates.ignore_most_recent_week
     row: 19
     col: 0
     width: 8
@@ -290,12 +298,12 @@
           * 100, 1)', value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
         _type_hint: number}]
     listen:
-    - Countries: country_buckets.bucket
-      Ignore Most Recent Week: desktop_install.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
       Date Range: desktop_install.date
-    - Countries: country_buckets.bucket
       Ignore Most Recent Week: desktop_install.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
       Date Range: desktop_install.date
+      Ignore Most Recent Week: desktop_install.ignore_most_recent_week
     row: 9
     col: 14
     width: 7
@@ -337,12 +345,12 @@
           * 100, 1)', value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
         _type_hint: number}]
     listen:
-    - Countries: country_buckets.bucket
-      Ignore Most Recent Week: desktop_install.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
       Date Range: desktop_install.date
-    - Countries: country_buckets.bucket
       Ignore Most Recent Week: desktop_install.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
       Date Range: desktop_install.date
+      Ignore Most Recent Week: desktop_install.ignore_most_recent_week
     row: 13
     col: 0
     width: 7
@@ -386,12 +394,12 @@
           * 100, 1)', value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
         _type_hint: number}]
     listen:
-    - Countries: country_buckets.bucket
-      Ignore Most Recent Week: desktop_new_profile.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
       Date Range: desktop_new_profile.date
-    - Countries: country_buckets.bucket
       Ignore Most Recent Week: desktop_new_profile.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
       Date Range: desktop_new_profile.date
+      Ignore Most Recent Week: desktop_new_profile.ignore_most_recent_week
     row: 13
     col: 7
     width: 7
@@ -434,12 +442,12 @@
           * 100, 1)', value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
         _type_hint: number}]
     listen:
-    - Countries: country_buckets.bucket
-      Ignore Most Recent Week: desktop_session.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
       Date Range: desktop_session.date
-    - Countries: country_buckets.bucket
       Ignore Most Recent Week: desktop_session.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
       Date Range: desktop_session.date
+      Ignore Most Recent Week: desktop_session.ignore_most_recent_week
     row: 9
     col: 7
     width: 7
@@ -482,177 +490,16 @@
           * 100, 1)', value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
         _type_hint: number}]
     listen:
-    - Countries: country_buckets.bucket
-      Ignore Most Recent Week: desktop_session.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
       Date Range: desktop_session.date
-    - Countries: country_buckets.bucket
       Ignore Most Recent Week: desktop_session.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
       Date Range: desktop_session.date
+      Ignore Most Recent Week: desktop_session.ignore_most_recent_week
     row: 9
     col: 0
     width: 7
     height: 4
-  - name: Rates
-    title: Rates
-    merged_queries:
-    - model: duet
-      explore: desktop_install
-      type: table
-      fields: [desktop_install.paveovers, desktop_install.new_installs, desktop_install.submission_date,
-        country_buckets.bucket]
-      filters:
-        desktop_install.join_field: 'yes'
-        desktop_install.previous_time_period: 'No'
-      sorts: [desktop_install.submission_date desc]
-      limit: 500
-      join_fields: []
-    - model: duet
-      explore: desktop_new_profile
-      type: table
-      fields: [desktop_new_profile.new_profiles, desktop_new_profile.submission_date,
-        country_buckets.bucket]
-      limit: 500
-      join_fields:
-      - field_name: country_buckets.bucket
-        source_field_name: country_buckets.bucket
-      - field_name: desktop_new_profile.submission_date
-        source_field_name: desktop_install.submission_date
-    - model: duet
-      explore: releases
-      type: table
-      fields: [releases.version, releases.date_date]
-      filters:
-        releases.category: major
-        releases.date_date: 28 days
-      sorts: [releases.version]
-      limit: 500
-      join_fields:
-      - field_name: releases.date_date
-        source_field_name: desktop_install.submission_date
-    - model: duet
-      explore: desktop_session
-      type: table
-      fields: [desktop_session.date_date, desktop_session.total_non_fx_downloads,
-        country_buckets.bucket, desktop_session.total_non_fx_sessions]
-      filters:
-        desktop_session.date: 28 days
-        desktop_session.join_field: 'yes'
-      sorts: [desktop_session.date_date desc]
-      limit: 500
-      dynamic_fields: [{table_calculation: download_rate, label: Download Rate, expression: "${desktop_session.total_non_fx_downloads}\
-            \ / ${desktop_session.total_non_fx_sessions} ", value_format: !!null '',
-          value_format_name: !!null '', is_disabled: true, _kind_hint: measure, _type_hint: number}]
-      join_fields:
-      - field_name: country_buckets.bucket
-        source_field_name: country_buckets.bucket
-      - field_name: desktop_session.date_date
-        source_field_name: desktop_install.submission_date
-    - model: duet
-      explore: desktop_activation_aggregates
-      type: table
-      fields: [desktop_activation_aggregates.activations, desktop_activation_aggregates.submission_timestamp_date,
-        country_buckets.bucket]
-      filters:
-        desktop_activation_aggregates.date: 28 days
-        desktop_activation_aggregates.ignore_most_recent_week: 'Yes'
-        desktop_activation_aggregates.join_field: 'yes'
-      limit: 500
-      join_fields:
-      - field_name: country_buckets.bucket
-        source_field_name: country_buckets.bucket
-      - field_name: desktop_activation_aggregates.submission_timestamp_date
-        source_field_name: desktop_install.submission_date
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    y_axes: [{label: '', orientation: left, series: [{axisId: activation_rate, id: activation_rate,
-            name: Activation Rate}, {axisId: download_rate, id: download_rate, name: Download
-              Rate}, {axisId: first_run_rate, id: first_run_rate, name: First Run
-              Rate}, {axisId: new_installs, id: new_installs, name: New Installs}],
-        showLabels: true, showValues: true, maxValue: 1, valueFormat: "#%", unpinAxis: false,
-        tickDensity: default, type: linear}, {label: !!null '', orientation: right,
-        series: [{axisId: release, id: release, name: Release}], showLabels: false,
-        showValues: false, valueFormat: "#%", unpinAxis: false, tickDensity: default,
-        type: linear}]
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: true
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    hidden_series: [new_installs_rate]
-    legend_position: center
-    series_types:
-      first_run_rate: line
-      activation_rate: line
-      new_installs_rate: line
-      download_rate: line
-      new_installs: line
-    point_style: none
-    series_colors:
-      release: "#80868B"
-      download_rate: "#12B5CB"
-      installation_rate: "#E52592"
-      first_run_rate: "#E8710A"
-      activation_rate: "#F9AB00"
-      new_installs: "#E52592"
-      new_installs_rate: "#E52592"
-    show_value_labels: true
-    label_density: 25
-    label_color: [transparent, gray, transparent, transparent, transparent]
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    column_spacing_ratio: 1
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    show_null_points: true
-    interpolation: linear
-    hidden_fields: [desktop_new_profile.new_profiles, desktop_activation.activations,
-      releases.version, country_buckets.bucket, desktop_session.total_non_fx_downloads,
-      desktop_install.paveovers, desktop_install.new_installs, desktop_session.total_non_fx_sessions,
-      desktop_activation_aggregates.activations]
-    type: looker_column
-    sorts: [desktop_install.submission_date desc]
-    column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${desktop_activation_aggregates.activations}\
-          \ / ${desktop_session.total_non_fx_sessions}", label: Activation Rate, value_format: !!null '',
-        value_format_name: !!null '', _kind_hint: measure, table_calculation: activation_rate,
-        _type_hint: number}, {_kind_hint: measure, table_calculation: release, _type_hint: number,
-        category: table_calculation, expression: 'if(is_null(${releases.version}),
-          null, ${desktop_install.new_installs} / ${desktop_install.new_installs}
-          * to_number(${releases.version}))', label: Release, value_format: !!null '',
-        value_format_name: decimal_1}, {_kind_hint: measure, table_calculation: download_rate,
-        _type_hint: number, category: table_calculation, expression: "${desktop_session.total_non_fx_downloads}\
-          \ / ${desktop_session.total_non_fx_sessions}", label: Download Rate, value_format: !!null '',
-        value_format_name: !!null ''}, {_kind_hint: measure, table_calculation: first_run_rate,
-        _type_hint: number, category: table_calculation, expression: "${desktop_new_profile.new_profiles}\
-          \ / ${desktop_session.total_non_fx_sessions} ", label: First Run Rate, value_format: !!null '',
-        value_format_name: !!null ''}, {_kind_hint: measure, table_calculation: new_installs,
-        _type_hint: number, category: table_calculation, expression: "${desktop_install.new_installs}\
-          \ / ${desktop_session.total_non_fx_sessions}", label: New Installs, value_format: !!null '',
-        value_format_name: !!null ''}]
-    listen:
-    - Countries: country_buckets.bucket
-      Ignore Most Recent Week: desktop_install.ignore_most_recent_week
-      Date Range: desktop_install.date
-    -
-    -
-    -
-    -
-    row: 26
-    col: 8
-    width: 13
-    height: 7
   - name: mozillaorg Attributed Funnel
     type: text
     title_text: mozilla.org Attributed Funnel
@@ -737,10 +584,12 @@
     series_types: {}
     column_limit: 50
     listen:
-    - Ignore Most Recent Week: desktop_install.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
       Date Range: desktop_install.date
-    - Ignore Most Recent Week: desktop_install.ignore_most_recent_week
+      Ignore Most Recent Week: desktop_install.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
       Date Range: desktop_install.date
+      Ignore Most Recent Week: desktop_install.ignore_most_recent_week
     row: 5
     col: 6
     width: 9
@@ -794,16 +643,183 @@
           Previous, value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
         table_calculation: from_previous, _type_hint: number}]
     listen:
-    - Countries: country_buckets.bucket
-      Ignore Most Recent Week: desktop_activation_aggregates.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
       Date Range: desktop_activation_aggregates.date
-    - Countries: country_buckets.bucket
       Ignore Most Recent Week: desktop_activation_aggregates.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
       Date Range: desktop_activation_aggregates.date
+      Ignore Most Recent Week: desktop_activation_aggregates.ignore_most_recent_week
     row: 13
     col: 14
     width: 7
     height: 4
+  - name: Rates
+    title: Rates
+    merged_queries:
+    - model: duet
+      explore: desktop_install
+      type: table
+      fields: [desktop_install.paveovers, desktop_install.new_installs, desktop_install.submission_date,
+        country_buckets.bucket]
+      filters:
+        desktop_install.join_field: 'yes'
+        desktop_install.previous_time_period: 'No'
+      sorts: [desktop_install.submission_date desc]
+      limit: 500
+      join_fields: []
+    - model: duet
+      explore: desktop_new_profile
+      type: table
+      fields: [desktop_new_profile.new_profiles, desktop_new_profile.submission_date,
+        country_buckets.bucket]
+      limit: 500
+      join_fields:
+      - field_name: country_buckets.bucket
+        source_field_name: country_buckets.bucket
+      - field_name: desktop_new_profile.submission_date
+        source_field_name: desktop_install.submission_date
+    - model: duet
+      explore: releases
+      type: table
+      fields: [releases.version, releases.date_date]
+      filters:
+        releases.category: major
+      sorts: [releases.version]
+      limit: 500
+      join_fields:
+      - field_name: releases.date_date
+        source_field_name: desktop_install.submission_date
+    - model: duet
+      explore: desktop_session
+      type: table
+      fields: [desktop_session.date_date, desktop_session.total_non_fx_downloads,
+        country_buckets.bucket, desktop_session.total_non_fx_sessions]
+      filters:
+        desktop_session.join_field: 'yes'
+      sorts: [desktop_session.date_date desc]
+      limit: 500
+      dynamic_fields: [{table_calculation: download_rate, label: Download Rate, expression: "${desktop_session.total_non_fx_downloads}\
+            \ / ${desktop_session.total_non_fx_sessions} ", value_format: !!null '',
+          value_format_name: !!null '', is_disabled: true, _kind_hint: measure, _type_hint: number}]
+      join_fields:
+      - field_name: country_buckets.bucket
+        source_field_name: country_buckets.bucket
+      - field_name: desktop_session.date_date
+        source_field_name: desktop_install.submission_date
+    - model: duet
+      explore: desktop_activation_aggregates
+      type: table
+      fields: [desktop_activation_aggregates.activations, desktop_activation_aggregates.submission_timestamp_date,
+        country_buckets.bucket]
+      filters:
+        desktop_activation_aggregates.join_field: 'yes'
+      limit: 500
+      join_fields:
+      - field_name: country_buckets.bucket
+        source_field_name: country_buckets.bucket
+      - field_name: desktop_activation_aggregates.submission_timestamp_date
+        source_field_name: desktop_install.submission_date
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    y_axes: [{label: '', orientation: left, series: [{axisId: activation_rate, id: activation_rate,
+            name: Activation Rate}, {axisId: download_rate, id: download_rate, name: Download
+              Rate}, {axisId: first_run_rate, id: first_run_rate, name: First Run
+              Rate}, {axisId: new_installs, id: new_installs, name: New Installs}],
+        showLabels: true, showValues: true, maxValue: 1, valueFormat: "#%", unpinAxis: false,
+        tickDensity: default, type: linear}, {label: !!null '', orientation: right,
+        series: [{axisId: release, id: release, name: Release}], showLabels: false,
+        showValues: false, valueFormat: "#%", unpinAxis: false, tickDensity: default,
+        type: linear}]
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: true
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    limit_displayed_rows_values:
+      show_hide: hide
+      first_last: first
+      num_rows: 0
+    hidden_series: [new_installs_rate]
+    legend_position: center
+    series_types:
+      first_run_rate: line
+      activation_rate: line
+      new_installs_rate: line
+      download_rate: line
+      new_installs: line
+    point_style: none
+    series_colors:
+      release: "#80868B"
+      download_rate: "#12B5CB"
+      installation_rate: "#E52592"
+      first_run_rate: "#E8710A"
+      activation_rate: "#F9AB00"
+      new_installs: "#E52592"
+      new_installs_rate: "#E52592"
+    show_value_labels: true
+    label_density: 25
+    label_color: [transparent, gray, transparent, transparent, transparent]
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    column_spacing_ratio: 1
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    show_null_points: true
+    interpolation: linear
+    hidden_fields: [desktop_new_profile.new_profiles, desktop_activation.activations,
+      releases.version, country_buckets.bucket, desktop_session.total_non_fx_downloads,
+      desktop_install.paveovers, desktop_install.new_installs, desktop_session.total_non_fx_sessions,
+      desktop_activation_aggregates.activations]
+    type: looker_column
+    sorts: [desktop_install.submission_date desc]
+    column_limit: 50
+    dynamic_fields: [{category: table_calculation, expression: "${desktop_activation_aggregates.activations}\
+          \ / ${desktop_session.total_non_fx_sessions}", label: Activation Rate, value_format: !!null '',
+        value_format_name: !!null '', _kind_hint: measure, table_calculation: activation_rate,
+        _type_hint: number}, {_kind_hint: measure, table_calculation: release, _type_hint: number,
+        category: table_calculation, expression: 'if(is_null(${releases.version}),
+          null, ${desktop_install.new_installs} / ${desktop_install.new_installs}
+          * to_number(${releases.version}))', label: Release, value_format: !!null '',
+        value_format_name: decimal_1}, {_kind_hint: measure, table_calculation: download_rate,
+        _type_hint: number, category: table_calculation, expression: "${desktop_session.total_non_fx_downloads}\
+          \ / ${desktop_session.total_non_fx_sessions}", label: Download Rate, value_format: !!null '',
+        value_format_name: !!null ''}, {_kind_hint: measure, table_calculation: first_run_rate,
+        _type_hint: number, category: table_calculation, expression: "${desktop_new_profile.new_profiles}\
+          \ / ${desktop_session.total_non_fx_sessions} ", label: First Run Rate, value_format: !!null '',
+        value_format_name: !!null ''}, {_kind_hint: measure, table_calculation: new_installs,
+        _type_hint: number, category: table_calculation, expression: "${desktop_install.new_installs}\
+          \ / ${desktop_session.total_non_fx_sessions}", label: New Installs, value_format: !!null '',
+        value_format_name: !!null ''}]
+    listen:
+    - Bucket: country_buckets.bucket
+      Date Range: desktop_install.date
+      Ignore Most Recent Week: desktop_install.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
+      Date Range: desktop_new_profile.date
+      Ignore Most Recent Week: desktop_new_profile.ignore_most_recent_week
+    - Date Range: releases.date_date
+    - Bucket: country_buckets.bucket
+      Date Range: desktop_session.date
+      Ignore Most Recent Week: desktop_session.ignore_most_recent_week
+    - Bucket: country_buckets.bucket
+      Date Range: desktop_activation_aggregates.date
+      Ignore Most Recent Week: desktop_activation_aggregates.ignore_most_recent_week
+    row: 26
+    col: 8
+    width: 13
+    height: 7
   filters:
   - name: Date Range
     title: Date Range
@@ -819,8 +835,8 @@
     explore: desktop_new_profile
     listens_to_filters: []
     field: desktop_new_profile.date
-  - name: Countries
-    title: Countries
+  - name: Bucket
+    title: Bucket
     type: string_filter
     default_value: Overall
     allow_multiple_values: true
@@ -829,17 +845,17 @@
       type: dropdown_menu
       display: inline
       options:
-      - Overall
-      - non-tier-1
-      - tier-1
       - US
+      - GB
+      - Overall
       - CA
       - DE
-      - MX
       - FR
-      - CN
-      - UK
+      - MX
       - BR
+      - tier-1
+      - non-tier-1
+      - CN
   - name: Ignore Most Recent Week
     title: Ignore Most Recent Week
     type: field_filter

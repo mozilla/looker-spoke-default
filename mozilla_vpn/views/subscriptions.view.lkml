@@ -112,7 +112,7 @@ view: +subscriptions {
   dimension: cancel_reason {
     type: string
     sql: CASE
-      WHEN ${provider} LIKE "Apple Store IAP" THEN "Cancelled by IAP"
+      WHEN ${provider} LIKE "Apple Store%" THEN "Cancelled by IAP"
       WHEN ${canceled_for_customer} THEN "Cancelled by Customer"
       ELSE "Payment Failed"
       END;;
