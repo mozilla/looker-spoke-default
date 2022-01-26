@@ -53,7 +53,7 @@ explore: subscriptions {
 
   join: exchange_rates_table {
     view_label: "Exchange Rates"
-    fields: []
+    fields: [price]
     sql_on: UPPER(${subscriptions.plan_currency}) = UPPER(${exchange_rates_table.base_currency})
       AND ${subscriptions__active.active_raw} = ${exchange_rates_table.date_raw};;
     relationship: one_to_one
