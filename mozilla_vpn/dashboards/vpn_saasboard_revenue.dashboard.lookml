@@ -159,8 +159,6 @@
     label_value_format: "$0.00,,"
     series_types: {}
     series_colors:
-      USA - sum_of_revenue: "#347be3"
-      USA - sum_of_annual_recurring_revenue: "#347be3"
       USA - subscriptions.annual_recurring_revenue: "#347be3"
     x_axis_datetime_label: ''
     trend_lines: []
