@@ -2,7 +2,7 @@ include: "../views/subscriptions.view"
 include: "../views/devices.view"
 include: "../views/table_metadata.view"
 include: "../views/vat_rates.view"
-include: "../views/exchange_rates.view"
+include: "//looker-hub/mozilla_vpn/views/exchange_rates_table.view"
 
 explore: subscriptions {
 
