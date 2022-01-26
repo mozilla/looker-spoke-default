@@ -2,13 +2,7 @@ include: "//looker-hub/mozilla_vpn/views/exchange_rates_table.view"
 
 view: +exchange_rates_table {
 
-  derived_table: {
-    sql:
-      SELECT
-        *
-      FROM
-        mozdata.mozilla_vpn.exchange_rates;;
-  }
+  sql_table_name: mozdata.mozilla_vpn.exchange_rates;;
 
   dimension: base_currency {
     sql: ${TABLE}.base_currency ;;
