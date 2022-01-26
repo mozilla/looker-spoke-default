@@ -230,8 +230,7 @@
     label_value_format: "$0.00,,"
     series_types: {}
     series_colors:
-      1-month-usd-4.99 - sum_of_annual_recurring_revenue: "#7363A9"
-      6-month-chf-47.94 - sum_of_annual_recurring_revenue: "#82a6a8"
+      6-month-chf-47.94 - subscriptions.annual_recurring_revenue: "#82a6a8"
       1-month-usd-4.99 - subscriptions.annual_recurring_revenue: "#7363A9"
     x_axis_datetime_label: ''
     trend_lines: []
