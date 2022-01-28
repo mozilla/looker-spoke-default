@@ -55,8 +55,8 @@ view: bizdev_search_core_users {
   dimension: product_usage {
     type: string
     sql:  CASE
-              WHEN days_of_use >= 21 THEN 'Core'
-              ELSE 'Non-Core'
+              WHEN days_of_use >= 21 THEN 'Heavy-Browser'
+              ELSE 'Light-Browser'
           END ;;
   }
 
