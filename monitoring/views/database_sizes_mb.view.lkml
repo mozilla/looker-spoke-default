@@ -1,5 +1,4 @@
 # If necessary, uncomment the line below to include explore_source.
-# include: "//looker-hub/fenix/explores/metrics.explore.lkml"
 include: "//looker-hub/fenix/views/metrics.view.lkml"
 
 view: database_sizes_mb {
