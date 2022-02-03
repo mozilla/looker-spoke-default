@@ -3,34 +3,26 @@
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
+  description: ''
   elements:
   - title: Month Over Month Growth Rate
     name: Month Over Month Growth Rate
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     type: looker_line
-    fields: [subscriptions__active.active_month, subscriptions.count, sum_of_annual_recurring_revenue]
-    fill_fields: [subscriptions__active.active_month]
+    fields: [active_subscriptions.active_month, active_subscriptions.count_sum, active_subscriptions.annual_recurring_revenue]
+    fill_fields: [active_subscriptions.active_month]
     filters:
-      subscriptions__active.is_end_of_month: 'Yes'
-    sorts: [subscriptions__active.active_month]
+      active_subscriptions.is_end_of_month: 'Yes'
+    sorts: [active_subscriptions.active_month]
     limit: 500
-    dynamic_fields: [{category: table_calculation, expression: "${subscriptions.count}\
-          \ / offset(${subscriptions.count}, -1) -1", label: Active Subscriptions,
+    dynamic_fields: [{category: table_calculation, expression: "${active_subscriptions.count_sum}\
+          \ / offset(${active_subscriptions.count_sum}, -1) -1", label: Active Subscriptions,
         value_format: !!null '', value_format_name: percent_1, _kind_hint: measure,
         table_calculation: active_subscriptions, _type_hint: number}, {category: table_calculation,
-        expression: "${sum_of_annual_recurring_revenue} / offset(${sum_of_annual_recurring_revenue},\
+        expression: "${active_subscriptions.annual_recurring_revenue} / offset(${active_subscriptions.annual_recurring_revenue},\
           \ -1) -1", label: Annual Recurring Revenue, value_format: !!null '', value_format_name: percent_1,
-        _kind_hint: measure, table_calculation: annual_recurring_revenue_1, _type_hint: number},
-      {category: dimension, expression: "case(\n  when(\n    ${subscriptions.plan_interval}\
-          \ = \"year\",\n    1/${subscriptions.plan_interval_count}\n  ),\n  when(\n\
-          \    ${subscriptions.plan_interval} = \"month\",\n    12/${subscriptions.plan_interval_count}\n\
-          \  ),\n  null\n)\n*${subscriptions.plan_amount}/100", label: Annual Recurring
-          Revenue, value_format: !!null '', value_format_name: !!null '', dimension: annual_recurring_revenue,
-        _kind_hint: dimension, _type_hint: number}, {category: measure, expression: !!null '',
-        label: Sum of Annual Recurring Revenue, value_format: !!null '', value_format_name: !!null '',
-        based_on: annual_recurring_revenue, _kind_hint: measure, measure: sum_of_annual_recurring_revenue,
-        type: sum, _type_hint: number}]
+        _kind_hint: measure, table_calculation: annual_recurring_revenue_1, _type_hint: number}]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -69,6 +61,8 @@
       arr: "#FF505F"
       active_subscriptions: "#0060E0"
       annual_recurring_revenue_1: "#ff3825"
+      annual_recurring_revenue_chg: "#FF505F"
+      active_subscriptions_chg: "#0060E0"
     x_axis_datetime_label: ''
     ordering: none
     show_null_labels: false
@@ -76,10 +70,12 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    hidden_fields: [subscriptions.count, subscriptions.sum_revenue, sum_of_annual_recurring_revenue]
+    hidden_fields: [active_subscriptions.count_sum, active_subscriptions.annual_recurring_revenue]
     listen:
-      Active Date: subscriptions__active.active_date
-      Provider: subscriptions.provider
+      Pricing Plan: active_subscriptions.pricing_plan
+      Active Date: active_subscriptions.active_date
+      Country: active_subscriptions.country_name
+      Provider: active_subscriptions.provider
     row: 15
     col: 0
     width: 12
@@ -108,24 +104,15 @@
   - title: Annual Recurring Revenue (By Country)
     name: Annual Recurring Revenue (By Country)
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     type: looker_column
-    fields: [subscriptions__active.active_month, subscriptions.country_name, sum_of_annual_recurring_revenue]
-    pivots: [subscriptions.country_name]
-    fill_fields: [subscriptions__active.active_month]
+    fields: [active_subscriptions.active_month, active_subscriptions.country_name, active_subscriptions.annual_recurring_revenue]
+    pivots: [active_subscriptions.country_name]
+    fill_fields: [active_subscriptions.active_month]
     filters:
-      subscriptions__active.is_end_of_month: 'Yes'
-    sorts: [subscriptions__active.active_month desc, subscriptions.country_name desc]
+      active_subscriptions.is_end_of_month: 'Yes'
+    sorts: [active_subscriptions.active_month desc, active_subscriptions.country_name desc]
     limit: 500
-    dynamic_fields: [{category: dimension, expression: "case(\n  when(\n    ${subscriptions.plan_interval}\
-          \ = \"year\",\n    1/${subscriptions.plan_interval_count}\n  ),\n  when(\n\
-          \    ${subscriptions.plan_interval} = \"month\",\n    12/${subscriptions.plan_interval_count}\n\
-          \  ),\n  null\n)\n*${subscriptions.plan_amount}/100", label: Annual Recurring
-          Revenue, value_format: !!null '', value_format_name: usd, dimension: annual_recurring_revenue,
-        _kind_hint: dimension, _type_hint: number}, {category: measure, expression: !!null '',
-        label: Sum of Annual Recurring Revenue, value_format: !!null '', value_format_name: !!null '',
-        based_on: annual_recurring_revenue, _kind_hint: measure, measure: sum_of_annual_recurring_revenue,
-        type: sum, _type_hint: number}]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -168,8 +155,7 @@
     label_value_format: "$0.00,,"
     series_types: {}
     series_colors:
-      USA - sum_of_revenue: "#347be3"
-      USA - sum_of_annual_recurring_revenue: "#347be3"
+      USA - active_subscriptions.annual_recurring_revenue: "#347be3"
     x_axis_datetime_label: ''
     trend_lines: []
     show_null_points: true
@@ -179,10 +165,10 @@
     note_display: hover
     note_text: Country is based on customer billing address.
     listen:
-      Pricing Plan: subscriptions.pricing_plan
-      Active Date: subscriptions__active.active_date
-      Country: subscriptions.country_name
-      Provider: subscriptions.provider
+      Pricing Plan: active_subscriptions.pricing_plan
+      Active Date: active_subscriptions.active_date
+      Country: active_subscriptions.country_name
+      Provider: active_subscriptions.provider
     row: 6
     col: 0
     width: 12
@@ -190,24 +176,15 @@
   - title: Annual Recurring Revenue (By Plan)
     name: Annual Recurring Revenue (By Plan)
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     type: looker_column
-    fields: [subscriptions__active.active_month, sum_of_annual_recurring_revenue,
-      subscriptions.pricing_plan]
-    pivots: [subscriptions.pricing_plan]
-    fill_fields: [subscriptions__active.active_month]
+    fields: [active_subscriptions.active_month, active_subscriptions.pricing_plan, active_subscriptions.annual_recurring_revenue]
+    pivots: [active_subscriptions.pricing_plan]
+    fill_fields: [active_subscriptions.active_month]
     filters:
-      subscriptions__active.is_end_of_month: 'Yes'
-    sorts: [subscriptions__active.active_month desc, subscriptions.pricing_plan]
+      active_subscriptions.is_end_of_month: 'Yes'
+    sorts: [active_subscriptions.active_month desc, active_subscriptions.pricing_plan]
     limit: 500
-    dynamic_fields: [{category: measure, expression: '', label: Sum of Annual Recurring
-          Revenue, based_on: annual_recurring_revenue, _kind_hint: measure, measure: sum_of_annual_recurring_revenue,
-        type: sum, _type_hint: number}, {category: dimension, expression: "case(\n\
-          \  when(\n    ${subscriptions.plan_interval} = \"year\",\n    1/${subscriptions.plan_interval_count}\n\
-          \  ),\n  when(\n    ${subscriptions.plan_interval} = \"month\",\n    12/${subscriptions.plan_interval_count}\n\
-          \  ),\n  null\n)\n*${subscriptions.plan_amount}/100", label: Annual Recurring
-          Revenue, value_format: !!null '', value_format_name: !!null '', dimension: annual_recurring_revenue,
-        _kind_hint: dimension, _type_hint: number}]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -249,18 +226,18 @@
     label_value_format: "$0.00,,"
     series_types: {}
     series_colors:
-      1-month-usd-4.99 - sum_of_annual_recurring_revenue: "#7363A9"
-      6-month-chf-47.94 - sum_of_annual_recurring_revenue: "#82a6a8"
+      6-month-chf-47.94 - active_subscriptions.annual_recurring_revenue: "#82a6a8"
+      1-month-usd-4.99 - active_subscriptions.annual_recurring_revenue: "#7363A9"
     x_axis_datetime_label: ''
     trend_lines: []
     show_null_points: true
     interpolation: linear
     defaults_version: 1
     listen:
-      Pricing Plan: subscriptions.pricing_plan
-      Active Date: subscriptions__active.active_date
-      Country: subscriptions.country_name
-      Provider: subscriptions.provider
+      Pricing Plan: active_subscriptions.pricing_plan
+      Active Date: active_subscriptions.active_date
+      Country: active_subscriptions.country_name
+      Provider: active_subscriptions.provider
     row: 6
     col: 12
     width: 12
@@ -277,11 +254,11 @@
   - title: Untitled
     name: Untitled
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     type: single_value
-    fields: [subscriptions__active.active_date]
-    fill_fields: [subscriptions__active.active_date]
-    sorts: [subscriptions__active.active_date desc]
+    fields: [active_subscriptions.active_date]
+    fill_fields: [active_subscriptions.active_date]
+    sorts: [active_subscriptions.active_date desc]
     limit: 500
     custom_color_enabled: true
     show_single_value_title: true
@@ -296,8 +273,10 @@
     series_types: {}
     defaults_version: 1
     listen:
-      Active Date: subscriptions__active.active_date
-      Provider: subscriptions.provider
+      Pricing Plan: active_subscriptions.pricing_plan
+      Active Date: active_subscriptions.active_date
+      Country: active_subscriptions.country_name
+      Provider: active_subscriptions.provider
     row: 2
     col: 18
     width: 6
@@ -305,6 +284,7 @@
   - name: " (3)"
     type: text
     title_text: ''
+    subtitle_text: ''
     body_text: |
       <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px; color: red;">
 
@@ -312,19 +292,19 @@
 
         <img style="color: #efefef; padding: 5px 25px; float: left; height: 40px;" src="https://wwwstatic.lookercdn.com/logos/looker_all_white.svg"/>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__active_subscriptions?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/412?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">
 
        Active Subs</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__subscriptions_growth?Provider=&Pricing+Plan=&Country=&Event+Date=after+2020%2F07%2F20">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/416?Provider=&Pricing+Plan=&Country=&Event+Date=after+2020%2F07%2F20">
 
        Subs Growth</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__retention?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Retention</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/414?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Retention</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__churn?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Churn</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/413?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Churn</a>
 
-        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__revenue?Provider=&Pricing%20Plan=&Country=&Active%20Date=after%202020%2F07%2F20">Revenue</a>
+        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/415?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">Revenue</a>
 
         <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1VtrTwm8Eqt9cPLZLaH1kjnM413gKtdaZArS29xcxXpA/edit?usp=sharing">Docs</a>
 
@@ -347,9 +327,9 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     listens_to_filters: [Pricing Plan, Country, Active Date]
-    field: subscriptions.provider
+    field: active_subscriptions.provider
   - name: Pricing Plan
     title: Pricing Plan
     type: field_filter
@@ -361,9 +341,9 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     listens_to_filters: [Provider, Country, Active Date]
-    field: subscriptions.pricing_plan
+    field: active_subscriptions.pricing_plan
   - name: Country
     title: Country
     type: field_filter
@@ -375,9 +355,9 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     listens_to_filters: [Provider, Pricing Plan, Active Date]
-    field: subscriptions.country_name
+    field: active_subscriptions.country_name
   - name: Active Date
     title: Active Date
     type: field_filter
@@ -389,6 +369,6 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: subscriptions
+    explore: active_subscriptions
     listens_to_filters: []
-    field: subscriptions__active.active_date
+    field: active_subscriptions.active_date
