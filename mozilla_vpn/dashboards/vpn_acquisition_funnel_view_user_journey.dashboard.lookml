@@ -1,5 +1,5 @@
-- dashboard: vpn_acquisition_funnel_view
-  title: VPN Acquisition Funnel View
+- dashboard: vpn_acquisition_funnel_view_user_journey
+  title: VPN Acquisition Funnel View - User Journey
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
