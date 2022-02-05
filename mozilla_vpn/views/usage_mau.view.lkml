@@ -1,5 +1,5 @@
-# VPN MAU usage over time based on Glean metrics
-view: usage {
+# VPN MAU usage over time based on Glean telemetry
+view: usage_mau {
   # We have to write a custom SQL statement here since, we'll need
   # to aggregating over distinct client_ids
   derived_table: {
@@ -42,11 +42,12 @@ view: usage {
             AND
             (ids.submission_date >= date_sub(dates.submission_date, interval 30 day))
     ) SELECT * FROM mau ;;
-}
+  }
 
   dimension: client_id {
     type: string
     primary_key: yes
+    hidden: yes
   }
 
   dimension: submission_date {
