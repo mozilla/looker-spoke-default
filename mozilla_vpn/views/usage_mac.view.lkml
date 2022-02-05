@@ -1,5 +1,5 @@
-# VPN MAU usage over time based on Glean telemetry
-view: usage_mau {
+# VPN Monthly Active Clients (based on Glean telemetry)
+view: usage_mac {
   # We have to write a custom SQL statement here since, we'll need
   # to aggregating over distinct client_ids
   derived_table: {
@@ -27,7 +27,7 @@ view: usage_mau {
               client_info.app_channel = "production" AND
               NOT CONTAINS_SUBSTR(client_info.app_display_version, "~")
       ),
-      mau AS (
+      mac AS (
         SELECT
           dates.submission_date,
           os,
@@ -41,7 +41,7 @@ view: usage_mau {
             (ids.submission_date <= dates.submission_date)
             AND
             (ids.submission_date >= date_sub(dates.submission_date, interval 30 day))
-    ) SELECT * FROM mau ;;
+    ) SELECT * FROM mac ;;
   }
 
   dimension: client_id {
@@ -66,9 +66,9 @@ view: usage_mau {
     sql: ${TABLE}.app_version ;;
   }
 
-  measure: mau {
+  measure: mac {
     type: count_distinct
-    label: "Monthly Active Users"
+    label: "Monthly Active Clients"
     description: "Total number of distinct clients that have been active in the previous 30 days from the submission date"
     sql: ${TABLE}.client_id ;;
   }

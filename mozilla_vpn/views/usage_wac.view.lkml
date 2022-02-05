@@ -1,5 +1,5 @@
-# VPN WAU usage over time based on Glean telemetry
-view: usage_wau {
+# VPN Weekly Active Clients (based on Glean telemetry)
+view: usage_wac {
   # We have to write a custom SQL statement here since, we'll need
   # to aggregating over distinct client_ids
   derived_table: {
@@ -27,7 +27,7 @@ view: usage_wau {
               client_info.app_channel = "production" AND
               NOT CONTAINS_SUBSTR(client_info.app_display_version, "~")
       ),
-      mau AS (
+      wac AS (
         SELECT
           dates.submission_date,
           os,
@@ -41,7 +41,7 @@ view: usage_wau {
             (ids.submission_date <= dates.submission_date)
             AND
             (ids.submission_date >= date_sub(dates.submission_date, interval 7 day))
-    ) SELECT * FROM mau ;;
+    ) SELECT * FROM wac ;;
   }
 
   dimension: client_id {
@@ -66,9 +66,9 @@ view: usage_wau {
     sql: ${TABLE}.app_version ;;
   }
 
-  measure: wau {
+  measure: wac {
     type: count_distinct
-    label: "Weekly Active Users"
+    label: "Weekly Active Clients"
     description: "Total number of distinct clients that have been active in the previous 7 days from the submission date"
     sql: ${TABLE}.client_id ;;
   }
