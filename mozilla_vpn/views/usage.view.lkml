@@ -32,7 +32,7 @@ view: usage {
           dates.submission_date,
           os,
           app_version,
-          COUNT(distinct client_id) as mau,
+          client_id as client_id,
         FROM
           dates
         INNER JOIN
@@ -41,10 +41,13 @@ view: usage {
             (ids.submission_date <= dates.submission_date)
             AND
             (ids.submission_date >= date_sub(dates.submission_date, interval 30 day))
-      GROUP BY
-        submission_date, os, app_version
     ) SELECT * FROM mau ;;
 }
+
+  dimension: client_id {
+    type: string
+    primary_key: yes
+  }
 
   dimension: submission_date {
     type: date
@@ -63,10 +66,10 @@ view: usage {
   }
 
   measure: mau {
-    type: number
+    type: count_distinct
     label: "Monthly Active Users"
     description: "Total number of distinct clients that have been active in the previous 30 days from the current date"
-    sql: ANY_VALUE(${TABLE}.mau) ;;
+    sql: ${TABLE}.client_id ;;
   }
 
 }
