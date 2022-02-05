@@ -2,6 +2,10 @@
 view: usage {
   # We have to write a custom SQL statement here since, we'll need
   # to aggregating over distinct client_ids
+
+  ## Notes
+  # - 2021-09-01 is the earliest that we had any usable glean data
+  # - Have picked a few measures to get started with
   derived_table: {
     sql:
       WITH dates AS (
@@ -10,32 +14,27 @@ view: usage {
       ), ids AS (
           SELECT
               DATE(submission_timestamp) as date,
+              normalized_os as os,
+              client_info.app_display_version as app_version,
               client_info.client_id as id
           FROM mozillavpn.main
           WHERE
-              DATE(submission_timestamp) > DATE(2020, 6, 1) AND
+              DATE(submission_timestamp) > DATE(2021, 9, 1) AND
               client_info.app_channel = "production" AND
               NOT CONTAINS_SUBSTR(client_info.app_display_version, "~")
-      ), mau AS (
-          SELECT
-              dates.date as date,
-              COUNT(distinct id) as glean_mau,
-          FROM dates
-          INNER JOIN ids
-          ON
-              (ids.date <= dates.date)
-              AND
-              (ids.date >= date_sub(dates.date, interval 30 day))
-          GROUP by date
       ), dau AS (
         SELECT
           date as date,
+          os,
+          app_version,
           COUNT(distinct id) as glean_dau
         FROM ids
-        GROUP by date
+        GROUP by date, os, app_version
       ), wau AS (
           SELECT
               dates.date as date,
+              os,
+              app_version,
               COUNT(distinct id) as glean_wau,
           FROM dates
           INNER JOIN ids
@@ -43,10 +42,25 @@ view: usage {
               (ids.date <= dates.date)
               AND
               (ids.date >= date_sub(dates.date, interval 7 day))
-          GROUP by date
+          GROUP by date, os, app_version
+      ), mau AS (
+          SELECT
+              dates.date as date,
+              os,
+              app_version,
+              COUNT(distinct id) as glean_mau,
+          FROM dates
+          INNER JOIN ids
+          ON
+              (ids.date <= dates.date)
+              AND
+              (ids.date >= date_sub(dates.date, interval 30 day))
+          GROUP by date, os, app_version
       )
       SELECT
         date,
+        os,
+        app_version,
         glean_dau AS dau,
         glean_mau AS mau,
         glean_wau AS wau
@@ -64,6 +78,16 @@ view: usage {
     type: date
     datatype: datetime
     sql: ${TABLE}.date ;;
+  }
+
+  dimension: os {
+    type: string
+    sql: ${TABLE}.os ;;
+  }
+
+  dimension: app_version {
+    type: string
+    sql: ${TABLE}.app_version ;;
   }
 
   # Measures can be thought of as the aggregations in a GROUP BY
