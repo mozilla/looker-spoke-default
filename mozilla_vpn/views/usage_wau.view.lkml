@@ -1,5 +1,5 @@
-# VPN MAU usage over time based on Glean telemetry
-view: usage_mau {
+# VPN WAU usage over time based on Glean telemetry
+view: usage_wau {
   # We have to write a custom SQL statement here since, we'll need
   # to aggregating over distinct client_ids
   derived_table: {
@@ -40,7 +40,7 @@ view: usage_mau {
         ON
             (ids.submission_date <= dates.submission_date)
             AND
-            (ids.submission_date >= date_sub(dates.submission_date, interval 30 day))
+            (ids.submission_date >= date_sub(dates.submission_date, interval 7 day))
     ) SELECT * FROM mau ;;
   }
 
@@ -66,10 +66,10 @@ view: usage_mau {
     sql: ${TABLE}.app_version ;;
   }
 
-  measure: mau {
+  measure: wau {
     type: count_distinct
-    label: "Monthly Active Users"
-    description: "Total number of distinct clients that have been active in the previous 30 days from the submission date"
+    label: "Weekly Active Users"
+    description: "Total number of distinct clients that have been active in the previous 7 days from the submission date"
     sql: ${TABLE}.client_id ;;
   }
 
