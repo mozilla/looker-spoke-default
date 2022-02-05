@@ -29,7 +29,7 @@ view: usage {
       ),
       mau AS (
         SELECT
-          submission_date,
+          dates.submission_date,
           os,
           app_version,
           COUNT(distinct id) as mau,
