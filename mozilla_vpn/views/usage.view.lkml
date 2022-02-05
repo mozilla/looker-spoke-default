@@ -58,9 +58,9 @@ view: usage {
           GROUP by date, os, app_version
       )
       SELECT
-        date,
-        os,
-        app_version,
+        dau.date,
+        dau.os,
+        dau.app_version,
         glean_dau AS dau,
         glean_mau AS mau,
         glean_wau AS wau
