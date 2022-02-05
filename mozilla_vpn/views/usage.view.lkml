@@ -32,7 +32,7 @@ view: usage {
           dates.submission_date,
           os,
           app_version,
-          COUNT(distinct id) as mau,
+          COUNT(distinct client_id) as mau,
         FROM
           dates
         INNER JOIN
