@@ -17,7 +17,7 @@ view: usage {
       ),
       ids AS (
           SELECT
-              DATE(submission_timestamp) as date,
+              DATE(submission_timestamp) as submission_date,
               normalized_os as os,
               client_info.app_display_version as app_version,
               client_info.client_id as client_id
@@ -29,7 +29,7 @@ view: usage {
       ),
       mau AS (
         SELECT
-          dates.date as date,
+          submission_date,
           os,
           app_version,
           COUNT(distinct id) as mau,
@@ -38,18 +38,18 @@ view: usage {
         INNER JOIN
           ids
         ON
-            (ids.date <= dates.date)
+            (ids.submission_date <= dates.submission_date)
             AND
-            (ids.date >= date_sub(dates.date, interval 30 day))
+            (ids.submission_date >= date_sub(dates.submission_date, interval 30 day))
       GROUP BY
-        date, os, app_version
+        submission_date, os, app_version
     ) SELECT * FROM mau ;;
 }
 
-  dimension: date {
+  dimension: submission_date {
     type: date
-    datatype: datetime
-    sql: ${TABLE}.date ;;
+    datatype: date
+    sql: ${TABLE}.submission_date ;;
   }
 
   dimension: os {
