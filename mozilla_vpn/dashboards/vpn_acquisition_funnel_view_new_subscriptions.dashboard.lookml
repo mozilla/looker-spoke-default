@@ -1,11 +1,73 @@
-- dashboard: new_subscriptions
-  title: New Subscriptions
+- dashboard: vpn_acquisition_funnel_view_new_subscriptions
+  title: VPN Acquisition Funnel View - New Subscriptions
   layout: newspaper
   preferred_viewer: dashboards-next
+  tile_size: 100
+  # - dashboard: vpn_acquisition_funnel_view__new_subscriptions
+  # title: VPN Acquisition Funnel View - New Subscriptions
+  # layout: newspaper
+  # preferred_viewer: dashboards-next
   crossfilter_enabled: true
   description: ''
   refresh: 1 day
+
   elements:
+  # tap to access dashboards and doc
+  - name: " (1)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: |
+      <div style="border-radius: 5px; padding: 5px 10px; background: #FFFFFF; height: 60px; color: red;">
+
+      <nav style="font-size: 20px;">
+
+        <img style="color: #000000; padding: 5px 10px; float: left; height: 40px;" src="https://www.mozilla.org/media/img/logos/vpn/logo-with-wordmark.c1659f9e6dd6.svg"/>
+
+        <a style="color: #000000; border: 1px solid white; padding: 5px 80px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/337?Start%20Date=28%20day&Country=&UTM%20Medium=&UTM%20Source=&UTM%20Campaign=&UTM%20Term=&Entrypoint%20Variation=&OS%20Name=&UTM%20Content=&Entrypoint%20Experiment=&Pricing%20Plan=&OS%20Version=&Channel%20Group=">
+
+      User Journey</a>
+
+        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/342?Start%20Date=28%20day&Pricing%20Plan=&Country=&Provider=&UTM%20Medium=&UTM%20Campaign=&UTM%20Content=&UTM%20Source=&Channel%20Group=&Entrypoint%20Experiment=&Entrypoint%20Variation=">
+
+       New Subs</a>
+
+        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1_l-ZsbKsxRh7HGqtODz8w8eDBqkw2N9SIZxEE9qG-DQ/edit?usp=sharing">
+
+        Doc</a>
+
+      </nav>
+
+      </div>
+    row: 0
+    col: 0
+    width: 24
+    height: 2
+# contact information
+  - name: " (2)"
+    type: text
+    title_text: ''
+    body_text: |2-
+
+      <div style="border-top: solid 2px #e0e0e0;">
+
+      <h3><b>Contact @yeonjoo for questions in #mozilla-vpn-data </b></h3>
+       <div style="border-bottom: solid 2px #e0e0e0;">
+    row: 1
+    col: 0
+    width: 24
+    height: 2
+
+  #####
+
+  # - dashboard: vpn_acquisition_funnel_view__new_subscriptions
+  # title: VPN Acquisition Funnel View - New Subscriptions
+  # layout: newspaper
+  # preferred_viewer: dashboards-next
+  # crossfilter_enabled: true
+  # description: ''
+  # refresh: 1 day
+  # elements:
   - title: Last Updated Date
     name: Last Updated Date
     model: mozilla_vpn
@@ -28,7 +90,7 @@
     hidden_fields: [new_subscriptions.New_Subscriptions]
     refresh: 1 day
     listen: {}
-    row: 0
+    row: 2
     col: 0
     width: 7
     height: 4
@@ -76,7 +138,7 @@
       UTM Content: new_subscriptions.UTM_content
       Entrypoint Experiment: new_subscriptions.entrypoint_experiment
       Entrypoint Variation: new_subscriptions.entrypoint_variation
-    row: 0
+    row: 2
     col: 7
     width: 9
     height: 4
@@ -228,21 +290,20 @@
     subtitle_text: ''
     body_text: "The channel groups are categorized using the UTM attributions ( medium,\
       \ source, campaign, content). The categorization rule was based on the Marketing\
-      \ UTM Parameters - 2021 H2 spreadsheet.\n\n* Direct: direct traffic led by putting\
-      \ the product site address on a url bar. For direct traffic, the default set\
-      \ of utm parameters are passed from Bedrock. \nThe default set of utm parameters\
-      \ are\n**medium = `referral` , source = `www.mozilla.org-vpn-product-page` ,\
-      \ campaign = `vpn-product-page`**. \n\n* Organic: traffic led by finding the\
-      \ site through a search engine (ex. google). The **organic traffic is identified\
-      \ by the medium parameter values being `organic` or `organic-search`.**\n\n\
-      * Marketing_owned: traffic led by the marketing owned media campaigns (ex. Blog.mozilla.org,\
-      \ whatsnew)\n\n* Marketing_paid: traffic led by the paid campaign(ex. SEM)\n\
-      \n* Product_owned: traffic led by the product owned media campaigns (ex. Firefox\
-      \ browser)\n\n* Unattributed: traffic led with no attribution\n\n* Miscellaneous:\
-      \ traffic led with some attributions that could not be categorized. It could\
-      \ be that some of the attribution parameters got lost or attributions that were\
-      \ not well documented.\n\n* For more detailed explanation for the categorization\
-      \ of the channel groups, please refer to [this documentation](https://docs.google.com/document/d/1ojf1XHb3Iu5GNzMfozDcxWhEw6d9A4QuiaoAm-gDIrk/edit?usp=sharing). "
+      \ UTM Parameters - 2021 H2 spreadsheet.\n\n* Direct: traffic led to the VPN\
+      \ product site without campaign attributions. For example when users visit through\
+      \ the link from their search results or by entering mozilla.org/vpn to the URL\
+      \ bar, they are considered as a part of direct traffic.  For direct traffic,\
+      \ the default set of utm parameters are passed from Bedrock\n(**medium = `referral`\
+      \ , source = `www.mozilla.org-vpn-product-page` , campaign = `vpn-product-page`**).\
+      \ \n\n* Marketing_owned: traffic led by the marketing owned media campaigns\
+      \ (ex. Blog.mozilla.org, whatsnew)\n\n* Marketing_paid: traffic led by the paid\
+      \ campaign(ex. SEM)\n\n* Product_owned: traffic led by the product owned media\
+      \ campaigns (ex. Firefox browser)\n\n* Unattributed: traffic led with no attribution\n\
+      \n* Miscellaneous: traffic led with some attributions that could not be categorized.\
+      \ It could be that some of the attribution parameters got lost or attributions\
+      \ that were not well documented.\n\n* For more detailed explanation for the\
+      \ categorization of the channel groups, please refer to [this documentation](https://docs.google.com/document/d/1ojf1XHb3Iu5GNzMfozDcxWhEw6d9A4QuiaoAm-gDIrk/edit?usp=sharing). "
     row: 22
     col: 0
     width: 24
@@ -462,8 +523,8 @@
     col: 3
     width: 19
     height: 7
-  - title: Total New Subscriptions
-    name: Total New Subscriptions
+  - title: Total New Subscriptions during Filtered Days
+    name: Total New Subscriptions during Filtered Days
     model: mozilla_vpn
     explore: new_subscriptions
     type: single_value
@@ -492,9 +553,9 @@
       UTM Content: new_subscriptions.UTM_content
       Entrypoint Experiment: new_subscriptions.entrypoint_experiment
       Entrypoint Variation: new_subscriptions.entrypoint_variation
-    row: 0
+    row: 2
     col: 16
-    width: 7
+    width: 8
     height: 4
   - title: Accumulative Subscriptions
     name: Accumulative Subscriptions

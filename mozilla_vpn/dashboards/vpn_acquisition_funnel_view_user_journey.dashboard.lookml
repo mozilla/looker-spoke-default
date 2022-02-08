@@ -2,10 +2,214 @@
   title: VPN Acquisition Funnel View - User Journey
   layout: newspaper
   preferred_viewer: dashboards-next
+  tile_size: 100
   crossfilter_enabled: true
   description: ''
   refresh: 1 day
+
+
   elements:
+  # tap to access dashboards and doc
+  - name: " (1)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: |
+      <div style="border-radius: 5px; padding: 5px 10px; background: #FFFFFF; height: 60px; color: red;">
+
+      <nav style="font-size: 20px;">
+
+        <img style="color: #000000; padding: 5px 10px; float: left; height: 40px;" src="https://www.mozilla.org/media/img/logos/vpn/logo-with-wordmark.c1659f9e6dd6.svg"/>
+
+        <a style="color: #000000; border: 1px solid white; padding: 5px 80px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/337?Start%20Date=28%20day&Country=&UTM%20Medium=&UTM%20Source=&UTM%20Campaign=&UTM%20Term=&Entrypoint%20Variation=&OS%20Name=&UTM%20Content=&Entrypoint%20Experiment=&Pricing%20Plan=&OS%20Version=&Channel%20Group=">
+
+      User Journey</a>
+
+        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/342?Start%20Date=28%20day&Pricing%20Plan=&Country=&Provider=&UTM%20Medium=&UTM%20Campaign=&UTM%20Content=&UTM%20Source=&Channel%20Group=&Entrypoint%20Experiment=&Entrypoint%20Variation=">
+
+      New Subs</a>
+
+        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1_l-ZsbKsxRh7HGqtODz8w8eDBqkw2N9SIZxEE9qG-DQ/edit?usp=sharing">
+
+        Doc</a>
+
+      </nav>
+
+      </div>
+    row: 0
+    col: 0
+    width: 24
+    height: 2
+  - name: " (2)"
+    type: text
+    title_text: ''
+    body_text: |2-
+
+      <div style="border-top: solid 2px #e0e0e0;">
+
+      <h3><b>Contact @yeonjoo for questions in #mozilla-vpn-data </b></h3>
+       <div style="border-bottom: solid 2px #e0e0e0;">
+    row: 1
+    col: 0
+    width: 24
+    height: 2
+
+    ########
+  #   - dashboard: vpn_acquisition_funnel_view__user_journey
+  # title: VPN Acquisition Funnel View - User Journey
+  # layout: newspaper
+  # preferred_viewer: dashboards-next
+  # crossfilter_enabled: true
+  # description: ''
+  # refresh: 1 day
+  # elements:
+  - title: Last Updated Date
+    name: Last Updated Date
+    model: mozilla_vpn
+    explore: new_funnel_from_08252021
+    type: single_value
+    fields: [new_funnel_from_08252021.start_date, new_funnel_from_08252021.VPN_site_hits]
+    sorts: [new_funnel_from_08252021.start_date desc]
+    limit: 1
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    series_types: {}
+    defaults_version: 1
+    hidden_fields: [new_funnel_from_08252021.VPN_site_hits]
+    refresh: 1 day
+    listen: {}
+    row: 2
+    col: 0
+    width: 7
+    height: 4
+  - title: VPN Product Site Visits on the Last Updated Date
+    name: VPN Product Site Visits on the Last Updated Date
+    model: mozilla_vpn
+    explore: new_funnel_from_08252021
+    type: single_value
+    fields: [new_funnel_from_08252021.start_date, new_funnel_from_08252021.VPN_site_hits,
+      vpn_site_hits]
+    sorts: [new_funnel_from_08252021.start_date desc]
+    limit: 2
+    dynamic_fields: [{category: measure, expression: !!null '', label: VPN Site Hits,
+        value_format: !!null '', value_format_name: !!null '', based_on: new_funnel_from_08252021.VPN_site_hits,
+        _kind_hint: measure, measure: vpn_site_hits, type: sum, _type_hint: number},
+      {category: table_calculation, description: 'Difference between the current row’s
+          value and value of the row below, divided by the value of the row below.',
+        label: "% Change VPN Site Hits", value_format: !!null '', value_format_name: percent_0,
+        calculation_type: percent_difference_from_previous, table_calculation: change_vpn_site_hits,
+        args: [vpn_site_hits], _kind_hint: measure, _type_hint: number}]
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: change
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    comparison_label: since the previous day
+    conditional_formatting: [{type: equal to, value: !!null '', background_color: "#3FE1B0",
+        font_color: !!null '', color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
+        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    defaults_version: 1
+    series_types: {}
+    hidden_fields: [vpn_site_hits]
+    refresh: 1 day
+    listen:
+      Channel Group: new_funnel_from_08252021.Channel_group
+      UTM Medium: new_funnel_from_08252021.UTM_medium
+      UTM Source: new_funnel_from_08252021.UTM_source
+      UTM Campaign: new_funnel_from_08252021.UTM_campaign
+      UTM Content: new_funnel_from_08252021.UTM_content
+      UTM Term: new_funnel_from_08252021.UTM_term
+      Entrypoint Experiment: new_funnel_from_08252021.entrypoint_experiment
+      Entrypoint Variation: new_funnel_from_08252021.entrypoint_variation
+      Pricing Plan: new_funnel_from_08252021.pricing_plan
+      OS Name: new_funnel_from_08252021.OS_name
+      OS Version: new_funnel_from_08252021.OS_version
+      Country: new_funnel_from_08252021.country
+    row: 2
+    col: 7
+    width: 9
+    height: 4
+
+  - title: Total VPN Site Visits During Filtered Days
+    name: Total VPN Site Visits During Filtered Days
+    model: mozilla_vpn
+    explore: new_funnel_from_08252021
+    type: single_value
+    fields: [new_funnel_from_08252021.VPN_site_hits]
+    limit: 1
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    defaults_version: 1
+    series_types: {}
+    listen:
+      Start Date: new_funnel_from_08252021.start_date
+      Channel Group: new_funnel_from_08252021.Channel_group
+      UTM Medium: new_funnel_from_08252021.UTM_medium
+      UTM Source: new_funnel_from_08252021.UTM_source
+      UTM Campaign: new_funnel_from_08252021.UTM_campaign
+      UTM Content: new_funnel_from_08252021.UTM_content
+      UTM Term: new_funnel_from_08252021.UTM_term
+      Entrypoint Experiment: new_funnel_from_08252021.entrypoint_experiment
+      Entrypoint Variation: new_funnel_from_08252021.entrypoint_variation
+      Pricing Plan: new_funnel_from_08252021.pricing_plan
+      OS Name: new_funnel_from_08252021.OS_name
+      OS Version: new_funnel_from_08252021.OS_version
+      Country: new_funnel_from_08252021.country
+    row: 2
+    col: 16
+    width: 8
+    height: 4
+  - name: " (3)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: "# [VPN Product Site](www.mozilla.org/vpn) Traffic "
+    row: 4
+    col: 0
+    width: 24
+    height: 2
   - title: VPN Product Site Visit Trend
     name: VPN Product Site Visit Trend
     model: mozilla_vpn
@@ -188,107 +392,7 @@
     col: 9
     width: 15
     height: 7
-  - title: Last Updated Date
-    name: Last Updated Date
-    model: mozilla_vpn
-    explore: new_funnel_from_08252021
-    type: single_value
-    fields: [new_funnel_from_08252021.start_date, new_funnel_from_08252021.VPN_site_hits]
-    sorts: [new_funnel_from_08252021.start_date desc]
-    limit: 1
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    series_types: {}
-    defaults_version: 1
-    hidden_fields: [new_funnel_from_08252021.VPN_site_hits]
-    refresh: 1 day
-    listen: {}
-    row: 0
-    col: 0
-    width: 7
-    height: 4
-  - title: VPN Product Site Visits on the Last Updated Date
-    name: VPN Product Site Visits on the Last Updated Date
-    model: mozilla_vpn
-    explore: new_funnel_from_08252021
-    type: single_value
-    fields: [new_funnel_from_08252021.start_date, new_funnel_from_08252021.VPN_site_hits,
-      vpn_site_hits]
-    sorts: [new_funnel_from_08252021.start_date desc]
-    limit: 2
-    dynamic_fields: [{category: measure, expression: !!null '', label: VPN Site Hits,
-        value_format: !!null '', value_format_name: !!null '', based_on: new_funnel_from_08252021.VPN_site_hits,
-        _kind_hint: measure, measure: vpn_site_hits, type: sum, _type_hint: number},
-      {category: table_calculation, description: 'Difference between the current row’s
-          value and value of the row below, divided by the value of the row below.',
-        label: "% Change VPN Site Hits", value_format: !!null '', value_format_name: percent_0,
-        calculation_type: percent_difference_from_previous, table_calculation: change_vpn_site_hits,
-        args: [vpn_site_hits], _kind_hint: measure, _type_hint: number}]
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: true
-    comparison_type: change
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    comparison_label: since the previous day
-    conditional_formatting: [{type: equal to, value: !!null '', background_color: "#3FE1B0",
-        font_color: !!null '', color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
-        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    show_null_points: true
-    interpolation: linear
-    defaults_version: 1
-    series_types: {}
-    hidden_fields: [vpn_site_hits]
-    refresh: 1 day
-    listen:
-      Channel Group: new_funnel_from_08252021.Channel_group
-      UTM Medium: new_funnel_from_08252021.UTM_medium
-      UTM Source: new_funnel_from_08252021.UTM_source
-      UTM Campaign: new_funnel_from_08252021.UTM_campaign
-      UTM Content: new_funnel_from_08252021.UTM_content
-      UTM Term: new_funnel_from_08252021.UTM_term
-      Entrypoint Experiment: new_funnel_from_08252021.entrypoint_experiment
-      Entrypoint Variation: new_funnel_from_08252021.entrypoint_variation
-      Pricing Plan: new_funnel_from_08252021.pricing_plan
-      OS Name: new_funnel_from_08252021.OS_name
-      OS Version: new_funnel_from_08252021.OS_version
-      Country: new_funnel_from_08252021.country
-    row: 0
-    col: 7
-    width: 9
-    height: 4
+
   - title: CTR from the VPN product Site to Enter the Funnel
     name: CTR from the VPN product Site to Enter the Funnel
     model: mozilla_vpn
@@ -503,9 +607,9 @@
     model: mozilla_vpn
     explore: new_funnel_from_08252021
     type: looker_column
-    fields: [new_funnel_from_08252021.start_date, new_funnel_from_08252021.Existing_FxA_SignedOff_CVR,
-      new_funnel_from_08252021.Existing_FxA_SignedOff_signin_CTA_click, new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_view,
-      new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_engage, new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_complete]
+    fields: [new_funnel_from_08252021.start_date, new_funnel_from_08252021.Existing_FxA_SignedOff_signin_CTA_click,
+      new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_view, new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_engage,
+      new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_complete, new_funnel_from_08252021.Existing_FxA_SignedOff_CVR]
     sorts: [new_funnel_from_08252021.start_date]
     limit: 500
     x_axis_gridlines: false
@@ -545,7 +649,7 @@
             id: new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_complete,
             name: Existing FxA SignedOff Payment Setup Complete}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: custom, tickDensityCustom: 99,
-        type: linear}, {label: '', orientation: right, series: [{axisId: new_funnel_from_08252021.Existing_FxA_SignedOff_CVR,
+        type: linear}, {label: CVR(%), orientation: right, series: [{axisId: new_funnel_from_08252021.Existing_FxA_SignedOff_CVR,
             id: new_funnel_from_08252021.Existing_FxA_SignedOff_CVR, name: Existing
               FxA SignedOff CVR}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, type: linear}]
@@ -1012,21 +1116,20 @@
     subtitle_text: ''
     body_text: "The channel groups are categorized using the UTM attributions ( medium,\
       \ source, campaign, content). The categorization rule was based on the Marketing\
-      \ UTM Parameters - 2021 H2 spreadsheet.\n\n* Direct: direct traffic led by putting\
-      \ the product site address on a url bar. For direct traffic, the default set\
-      \ of utm parameters are passed from Bedrock. \nThe default set of utm parameters\
-      \ are\n**medium = `referral` , source = `www.mozilla.org-vpn-product-page` ,\
-      \ campaign = `vpn-product-page`**. \n\n* Organic: traffic led by finding the\
-      \ site through a search engine (ex. google). The **organic traffic is identified\
-      \ by the medium parameter values being `organic` or `organic-search`.**\n\n\
-      * Marketing_owned: traffic led by the marketing owned media campaigns (ex. Blog.mozilla.org,\
-      \ whatsnew)\n\n* Marketing_paid: traffic led by the paid campaign(ex. SEM)\n\
-      \n* Product_owned: traffic led by the product owned media campaigns (ex. Firefox\
-      \ browser)\n\n* Unattributed: traffic led with no attribution\n\n* Miscellaneous:\
-      \ traffic led with some attributions that could not be categorized. It could\
-      \ be that some of the attribution parameters got lost or attributions that were\
-      \ not well documented.\n\n* For more detailed explanation for the categorization\
-      \ of the channel groups, please refer to [this documentation](https://docs.google.com/document/d/1ojf1XHb3Iu5GNzMfozDcxWhEw6d9A4QuiaoAm-gDIrk/edit?usp=sharing). "
+      \ UTM Parameters - 2021 H2 spreadsheet.\n\n* Direct: traffic led to the VPN\
+      \ product site without campaign attributions. For example when users visit through\
+      \ the link from their search results or by entering mozilla.org/vpn to the URL\
+      \ bar, they are considered as a part of direct traffic.  For direct traffic,\
+      \ the default set of utm parameters are passed from Bedrock\n(**medium = `referral`\
+      \ , source = `www.mozilla.org-vpn-product-page` , campaign = `vpn-product-page`**).\
+      \ \n\n* Marketing_owned: traffic led by the marketing owned media campaigns\
+      \ (ex. Blog.mozilla.org, whatsnew)\n\n* Marketing_paid: traffic led by the paid\
+      \ campaign(ex. SEM)\n\n* Product_owned: traffic led by the product owned media\
+      \ campaigns (ex. Firefox browser)\n\n* Unattributed: traffic led with no attribution\n\
+      \n* Miscellaneous: traffic led with some attributions that could not be categorized.\
+      \ It could be that some of the attribution parameters got lost or attributions\
+      \ that were not well documented.\n\n* For more detailed explanation for the\
+      \ categorization of the channel groups, please refer to [this documentation](https://docs.google.com/document/d/1ojf1XHb3Iu5GNzMfozDcxWhEw6d9A4QuiaoAm-gDIrk/edit?usp=sharing). "
     row: 12
     col: 0
     width: 24
@@ -1101,16 +1204,8 @@
     col: 4
     width: 17
     height: 6
-  - name: " (2)"
-    type: text
-    title_text: ''
-    subtitle_text: ''
-    body_text: "# [VPN Product Site](www.mozilla.org/vpn) Traffic "
-    row: 4
-    col: 0
-    width: 24
-    height: 2
-  - name: " (3)"
+
+  - name: " (4)"
     type: text
     title_text: ''
     subtitle_text: ''
@@ -1122,11 +1217,14 @@
       \ in before entering the funnel, existing FxA users how was signed in before\
       \ entering the funnel. \n\n* Existing FxA Signed In users: people who had a\
       \ FxA and already signed in before entering the funnel.\n\nFor more information\
-      \ about each funnel, refer to [this board](https://miro.com/app/board/o9J_lq1HHTg=/?invite_link_id=97426737166) "
+      \ about each funnel, refer to [this board](https://miro.com/app/board/o9J_lq1HHTg=/?invite_link_id=97426737166).\n\
+      \nTo understand how each step in the user journey of each user group,  refer\
+      \ to [this documentation](https://docs.google.com/document/d/1LpxDmkmwEHbD_7y_Qb3SKEjCLDS9j3ZoIKE4N9TU64A/edit?usp=sharing). "
     row: 68
     col: 0
     width: 24
     height: 6
+
   - name: Click Through Rate (CTR)  from choosing a pricing plan to start the acquisition
       process
     type: text
@@ -1212,42 +1310,7 @@
     col: 4
     width: 17
     height: 6
-  - title: Total VPN Site Visits
-    name: Total VPN Site Visits
-    model: mozilla_vpn
-    explore: new_funnel_from_08252021
-    type: single_value
-    fields: [new_funnel_from_08252021.VPN_site_hits]
-    limit: 1
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    defaults_version: 1
-    series_types: {}
-    listen:
-      Start Date: new_funnel_from_08252021.start_date
-      Channel Group: new_funnel_from_08252021.Channel_group
-      UTM Medium: new_funnel_from_08252021.UTM_medium
-      UTM Source: new_funnel_from_08252021.UTM_source
-      UTM Campaign: new_funnel_from_08252021.UTM_campaign
-      UTM Content: new_funnel_from_08252021.UTM_content
-      UTM Term: new_funnel_from_08252021.UTM_term
-      Entrypoint Experiment: new_funnel_from_08252021.entrypoint_experiment
-      Entrypoint Variation: new_funnel_from_08252021.entrypoint_variation
-      Pricing Plan: new_funnel_from_08252021.pricing_plan
-      OS Name: new_funnel_from_08252021.OS_name
-      OS Version: new_funnel_from_08252021.OS_version
-      Country: new_funnel_from_08252021.country
-    row: 0
-    col: 16
-    width: 8
-    height: 4
+
   filters:
   - name: Start Date
     title: Start Date
