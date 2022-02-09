@@ -37,7 +37,9 @@ view: +subscriptions {
   }
 
   dimension: cancel_at_period_end {
-    hidden: yes
+    description: "Indicates if auto-renewal was cancelled and subscription is to be cancelled at period end"
+    type: yesno
+    sql: ${TABLE}.cancel_at_period_end;;
   }
 
   dimension: canceled_for_customer_at {
@@ -50,6 +52,18 @@ view: +subscriptions {
 
   dimension_group: canceled_at {
     hidden: yes
+  }
+
+  dimension: is_ended {
+    description: "Indicates if subscription has ended"
+    type: yesno
+    sql: ${TABLE}.ended_at IS NOT NULL;;
+  }
+
+  dimension: plan_interval_type {
+    description: "Indicates the plan interval type (1 year, 6 month, 1 month, etc)"
+    type: string
+    sql: CONCAT(${plan_interval_count},"_",  ${plan_interval});;
   }
 
   dimension: normalized_source {
