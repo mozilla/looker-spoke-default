@@ -1,7 +1,2 @@
 connection: "telemetry"
 label: "Firefox Translations"
-include: "//looker-hub/firefox_translations/explores/*"
-include: "//looker-hub/firefox_translations/dashboards/*"
-include: "views/*"
-include: "explores/*"
-include: "dashboards/*"
