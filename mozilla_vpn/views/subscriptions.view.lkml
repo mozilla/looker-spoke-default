@@ -37,7 +37,7 @@ view: +subscriptions {
   }
 
   dimension: cancel_at_period_end {
-    description: "Indicates if autorenewal was cancelled and subscription is to be cancelled at period end"
+    description: "Indicates if auto-renewal was cancelled and subscription is to be cancelled at period end"
     type: yesno
     sql: ${TABLE}.cancel_at_period_end;;
   }
