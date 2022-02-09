@@ -1,9 +1,8 @@
 view: bizdev_search_core_users {
   derived_table: {
-    # TODO: Make this a PDT
-    # increment_key: "submission_month"
-    # increment_offset: 1
-    # sql_trigger_value: SELECT DATE_TRUNC(CURRENT_DATE(), MONTH)  ;;
+    increment_key: "submission_month"
+    increment_offset: 1
+    sql_trigger_value: SELECT DATE_TRUNC(CURRENT_DATE(), MONTH)  ;;
     sql: SELECT
               client_id,
               DATE_TRUNC(submission_date, MONTH) as month,
@@ -15,9 +14,9 @@ view: bizdev_search_core_users {
               COALESCE(SUM(ad_click), 0) AS ad_click
          FROM
               search.search_clients_engines_sources_daily
-        -- WHERE
-        --     {% incrementcondition %} submission_date {%  endincrementcondition %}
-        --     -- AND submission_date >= DATE("2019-01-01")
+        WHERE
+            {% incrementcondition %} submission_date {%  endincrementcondition %}
+            AND submission_date >= DATE("2019-01-01")
          GROUP BY 1, 2, 3, 4
        ;;
   }
@@ -46,17 +45,17 @@ view: bizdev_search_core_users {
   dimension: ad_click_bucket {
     type: string
     sql:  CASE
-              WHEN ${TABLE}.ad_click >= 10 THEN 'Highest (10+)'
-              WHEN ${TABLE}.ad_click > 0 THEN 'Moderate (1-9)'
-              ELSE 'None'
+              WHEN ${TABLE}.ad_click >= 10 THEN '10+ ad-clicks'
+              WHEN ${TABLE}.ad_click > 0 THEN '1-9 ad-clicks'
+              ELSE '0 ad-clicks'
           END ;;
   }
 
-  dimension: product_usage {
+  dimension: days_of_use_bucket {
     type: string
     sql:  CASE
-              WHEN days_of_use >= 21 THEN 'Heavy-Browser'
-              ELSE 'Light-Browser'
+              WHEN days_of_use >= 21 THEN '21+ days'
+              ELSE '1-20 days'
           END ;;
   }
 
