@@ -35,6 +35,12 @@ view: +active_subscriptions_table {
     sql:  ${active_raw}=${max_active_date};;
   }
 
+  dimension: plan_interval_type {
+    description: "Indicates the plan interval type (1 year, 6 month, 1 month, etc)"
+    type: string
+    sql: CONCAT(${plan_interval_count},"_",  ${plan_interval});;
+  }
+
   dimension: count {
     hidden: yes
   }
