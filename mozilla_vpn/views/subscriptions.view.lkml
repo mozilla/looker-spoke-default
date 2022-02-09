@@ -64,7 +64,7 @@ view: +subscriptions {
     description: "Indicates the plan interval type (1 year, 6 month, 1 month, etc)"
     type: string
     sql: CONCAT(CAST(${TABLE}.plan_interval_count AS STRING),"_",  ${TABLE}.plan_interval);;
-    }
+  }
 
   dimension: normalized_source {
     group_label: "Attribution"
