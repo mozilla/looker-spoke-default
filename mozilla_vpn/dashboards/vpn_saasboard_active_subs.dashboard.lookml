@@ -240,6 +240,34 @@
     series_types: {}
     series_colors:
       USA - active_subscriptions.count_sum: "#347be3"
+      United Kingdom - active_subscriptions.count_sum: "#a9c574"
+      United Arab Emirates - active_subscriptions.count_sum: "#929292"
+      Switzerland - active_subscriptions.count_sum: "#9fdee0"
+      Sweden - active_subscriptions.count_sum: "#1f3e5a"
+      Spain - active_subscriptions.count_sum: "#90c8ae"
+      Singapore - active_subscriptions.count_sum: "#92818d"
+      Russia - active_subscriptions.count_sum: "#c5c6a6"
+      Romania - active_subscriptions.count_sum: "#82c2ca"
+      Reunion - active_subscriptions.count_sum: "#cee0a0"
+      Puerto Rico - active_subscriptions.count_sum: "#928fb4"
+      Poland - active_subscriptions.count_sum: "#9fc190"
+      Null - active_subscriptions.count_sum: "#a1d6e5"
+      Norway - active_subscriptions.count_sum: "#cbdcac"
+      New Zealand - active_subscriptions.count_sum: "#bebebe"
+      Netherlands - active_subscriptions.count_sum: "#c5ebec"
+      Malaysia - active_subscriptions.count_sum: "#798b9c"
+      Italy - active_subscriptions.count_sum: "#bcdece"
+      Ireland - active_subscriptions.count_sum: "#beb3bb"
+      Guam - active_subscriptions.count_sum: "#dcddca"
+      Germany - active_subscriptions.count_sum: "#b4dadf"
+      France - active_subscriptions.count_sum: "#e2ecc6"
+      Egypt - active_subscriptions.count_sum: "#bebcd2"
+      Canada - active_subscriptions.count_sum: "#c5dabc"
+      Belgium - active_subscriptions.count_sum: "#3b707f"
+      Austria - active_subscriptions.count_sum: "#657646"
+      Australia - active_subscriptions.count_sum: "#585858"
+      Argentina - active_subscriptions.count_sum: "#5f8586"
+      American Samoa - active_subscriptions.count_sum: "#132536"
     defaults_version: 1
     note_state: collapsed
     note_display: hover
@@ -302,8 +330,32 @@
     x_axis_label: Month
     series_types: {}
     series_colors:
-      1-month-usd-4.99 - active_subscriptions.count_sum: "#7363A9"
-      6-month-chf-47.94 - active_subscriptions.count_sum: "#82a6a8"
+      1-month-usd-4.99: "#7363A9"
+      1-month-apple: "#4276BE"
+      1-month-cad-12.99: "#3FB0D5"
+      1-month-chf-10.99: "#9ED7D7"
+      1-month-eur-9.99: "#E57947"
+      1-month-gbp-8.49: "#FBB556"
+      1-month-myr-44.99: "#FFD95F"
+      1-month-nzd-15.99: "#D5C679"
+      1-month-sgd-13.99: "#D59E79"
+      1-month-usd-9.99: "#6A013A"
+      1-year-apple: "#7363A9"
+      1-year-cad-74.99: "#44759A"
+      1-year-chf-71.88: "#D5C679"
+      1-year-egp-939.99: "#8cd0e6"
+      1-year-eur-59.88: "#c5e7e7"
+      1-year-gbp-51.99: "#efaf91"
+      1-year-myr-269.99: "#fdd39a"
+      1-year-nzd-99.99: "#ffe89f"
+      1-year-sgd-86.98: "#e6ddaf"
+      1-year-usd-59.88: "#e6c5af"
+      6-month-apple: "#d28287"
+      6-month-cad-59.99: "#a66789"
+      6-month-chf-47.94: "#aba1cb"
+      6-month-eur-41.94: "#8facc2"
+      6-month-gbp-41.49: "#284772"
+      6-month-usd-47.94: "#266a80"
     defaults_version: 1
     note_state: collapsed
     note_display: hover
@@ -388,7 +440,11 @@
         steps: 5
     x_axis_label: Month
     series_types: {}
-    series_colors: {}
+    series_colors:
+    Stripe: "#3D52B9"
+    Paypal: "#08B248"
+    Google Play: "#A918B4"
+    Apple Store: "#FC2E31"
     defaults_version: 1
     note_state: collapsed
     note_display: hover
@@ -577,6 +633,34 @@
         steps: 5
     series_colors:
       USA: "#347be3"
+      United Kingdom: "#a9c574"
+      United Arab Emirates: "#929292"
+      Switzerland: "#9fdee0"
+      Sweden: "#1f3e5a"
+      Spain: "#90c8ae"
+      Singapore: "#92818d"
+      Russia: "#c5c6a6"
+      Romania: "#82c2ca"
+      Reunion: "#cee0a0"
+      Puerto Rico: "#928fb4"
+      Poland: "#9fc190"
+      Null: "#a1d6e5"
+      Norway: "#cbdcac"
+      New Zealand: "#bebebe"
+      Netherlands: "#c5ebec"
+      Malaysia: "#798b9c"
+      Italy: "#bcdece"
+      Ireland: "#beb3bb"
+      Guam: "#dcddca"
+      Germany: "#b4dadf"
+      France: "#e2ecc6"
+      Egypt: "#bebcd2"
+      Canada: "#c5dabc"
+      Belgium: "#3b707f"
+      Austria: "#657646"
+      Australia: "#585858"
+      Argentina: "#5f8586"
+      American Samoa: "#132536"
     show_value_labels: true
     font_size: 12
     hide_legend: false
@@ -661,10 +745,32 @@
       options:
         steps: 5
     series_colors:
-      1-month-usd-4.99 - active_subscriptions.count_sum: "#7363A9"
-      6-month-chf-47.94 - active_subscriptions.count_sum: "#82a6a8"
       1-month-usd-4.99: "#7363A9"
+      1-month-apple: "#4276BE"
+      1-month-cad-12.99: "#3FB0D5"
+      1-month-chf-10.99: "#9ED7D7"
+      1-month-eur-9.99: "#E57947"
+      1-month-gbp-8.49: "#FBB556"
+      1-month-myr-44.99: "#FFD95F"
+      1-month-nzd-15.99: "#D5C679"
+      1-month-sgd-13.99: "#D59E79"
+      1-month-usd-9.99: "#6A013A"
+      1-year-apple: "#7363A9"
+      1-year-cad-74.99: "#44759A"
       1-year-chf-71.88: "#D5C679"
+      1-year-egp-939.99: "#8cd0e6"
+      1-year-eur-59.88: "#c5e7e7"
+      1-year-gbp-51.99: "#efaf91"
+      1-year-myr-269.99: "#fdd39a"
+      1-year-nzd-99.99: "#ffe89f"
+      1-year-sgd-86.98: "#e6ddaf"
+      1-year-usd-59.88: "#e6c5af"
+      6-month-apple: "#d28287"
+      6-month-cad-59.99: "#a66789"
+      6-month-chf-47.94: "#aba1cb"
+      6-month-eur-41.94: "#8facc2"
+      6-month-gbp-41.49: "#284772"
+      6-month-usd-47.94: "#266a80"
     show_value_labels: true
     font_size: 12
     x_axis_gridlines: false
@@ -744,7 +850,11 @@
       palette_id: 18d0c733-1d87-42a9-934f-4ba8ef81d736
       options:
         steps: 5
-    series_colors: {}
+    series_colors:
+      Stripe: "#3D52B9"
+      Paypal: "#08B248"
+      Google Play: "#A918B4"
+      Apple Store: "#FC2E31"
     show_value_labels: true
     font_size: 12
     hide_legend: false
