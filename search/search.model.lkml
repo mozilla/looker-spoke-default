@@ -129,4 +129,67 @@ explore: +desktop_search_counts {
       sql_trigger_value: "SELECT CURRENT_DATE()" ;;
     }
   }
+
+  aggregate_table: rollup__search_clients_engines_sources_daily_per_day {
+    query: {
+      dimensions: [
+        search_clients_engines_sources_daily.submission_date,
+        search_clients_engines_sources_daily.normalized_engine,
+        search_clients_engines_sources_daily.country,
+        search_clients_engines_sources_daily.os,
+        search_clients_engines_sources_daily.source
+      ]
+      measures: [
+        search_clients_engines_sources_daily.clients,
+        search_clients_engines_sources_daily.total_searches,
+        search_clients_engines_sources_daily.total_tagged_sap_searches,
+        search_clients_engines_sources_daily.total_tagged_searches,
+        search_clients_engines_sources_daily.total_tagged_follow_on_searches,
+        search_clients_engines_sources_daily.total_organic_searches,
+        search_clients_engines_sources_daily.total_searches_with_ads,
+        search_clients_engines_sources_daily.total_organic_searches_with_ads,
+        search_clients_engines_sources_daily.total_ad_clicks,
+        search_clients_engines_sources_daily.total_organic_ad_clicks
+      ]
+      filters: [search_clients_engines_sources_daily.submission_year: "after 2019-01-01"]
+    }
+
+    materialization: {
+      sql_trigger_value: "SELECT CURRENT_DATE()" ;;
+      increment_key: search_clients_engines_sources_daily.submission_date
+      increment_offset: 1
+    }
+  }
+
+  aggregate_table: rollup__search_clients_engines_sources_daily_per_month {
+    query: {
+      dimensions: [
+        search_clients_engines_sources_daily.submission_month,
+        search_clients_engines_sources_daily.normalized_engine,
+        search_clients_engines_sources_daily.country,
+        search_clients_engines_sources_daily.os,
+        search_clients_engines_sources_daily.source
+      ]
+      measures: [
+        search_clients_engines_sources_daily.clients,
+        search_clients_engines_sources_daily.total_searches,
+        search_clients_engines_sources_daily.total_tagged_sap_searches,
+        search_clients_engines_sources_daily.total_tagged_searches,
+        search_clients_engines_sources_daily.total_tagged_follow_on_searches,
+        search_clients_engines_sources_daily.total_organic_searches,
+        search_clients_engines_sources_daily.total_searches_with_ads,
+        search_clients_engines_sources_daily.total_organic_searches_with_ads,
+        search_clients_engines_sources_daily.total_ad_clicks,
+        search_clients_engines_sources_daily.total_organic_ad_clicks
+      ]
+      filters: [search_clients_engines_sources_daily.submission_year: "after 2019-01-01"]
+    }
+
+    materialization: {
+      sql_trigger_value: "SELECT DATE_TRUNC(CURRENT_DATE(), MONTH)" ;;
+      increment_key: search_clients_engines_sources_daily.submission_month
+      increment_offset: 1
+    }
+  }
+
 }
