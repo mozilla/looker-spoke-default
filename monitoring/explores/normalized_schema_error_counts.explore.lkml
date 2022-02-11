@@ -7,7 +7,6 @@ view_name: overall_ping_counts
 hidden: no
 
 join: grouped_schema_error_counts {
-
   from: grouped_schema_error_counts
   relationship: one_to_one
 
