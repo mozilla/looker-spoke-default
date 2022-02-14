@@ -20,8 +20,12 @@ explore: distinct_docids {
   "
 
   join: non_matching {
-    relationship: one_to_many
-    sql: LEFT JOIN non_matching USING(submission_date) ;;
+    relationship: one_to_one
+    sql: LEFT JOIN non_matching USING(
+      submission_date,
+      doc_type,
+      namespace
+    ) ;;
   }
 
   always_filter: {
