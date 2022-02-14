@@ -1,7 +1,6 @@
 include: "distinct_docids.view.lkml"
 
-view: overall_ping_counts {
-  extends: [distinct_docids]
+view: +distinct_docids {
 
   dimension: document_type {
     type: string
