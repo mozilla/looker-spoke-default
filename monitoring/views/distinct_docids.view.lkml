@@ -61,19 +61,26 @@ view: distinct_docids {
     type: number
   }
 
-
+  measure: n_documents {
+    type:  sum
+    sql: (${TABLE}.stable) ;;
+  }
 }
 
 view: non_matching {
   derived_table: {
     sql: SELECT
     submission_date,
+    namespace,
+    doc_type,
     COUNTIF(
       decoded != live OR decoded != stable
     ) AS non_matching_count,
     FROM distinct_docids
     GROUP BY
-    submission_date;;
+    submission_date,
+    namespace,
+    doc_type;;
   }
 
   dimension_group: submission {
