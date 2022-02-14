@@ -61,45 +61,15 @@ view: distinct_docids {
     type: number
   }
 
+  measure: non_matching_count {
+    type: number
+    sql: COUNTIF(
+      ${TABLE}.decoded != ${TABLE}.live OR ${TABLE}.decoded != ${TABLE}.stable
+    );;
+  }
+
   measure: n_documents {
     type:  sum
     sql: (${TABLE}.stable) ;;
-  }
-}
-
-view: non_matching {
-  derived_table: {
-    sql: SELECT
-    submission_date,
-    namespace,
-    doc_type,
-    COUNTIF(
-      decoded != live OR decoded != stable
-    ) AS non_matching_count,
-    FROM distinct_docids
-    GROUP BY
-    submission_date,
-    namespace,
-    doc_type;;
-  }
-
-  dimension_group: submission {
-    sql: ${TABLE}.submission_date ;;
-    type: time
-    timeframes: [
-      raw,
-      date,
-      week,
-      month,
-      quarter,
-      year,
-    ]
-    convert_tz: no
-    datatype: date
-  }
-
-  dimension: non_matching_count {
-    sql: ${TABLE}.non_matching_count ;;
-    type: number
   }
 }
