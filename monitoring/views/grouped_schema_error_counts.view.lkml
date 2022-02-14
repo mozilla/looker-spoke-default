@@ -1,9 +1,6 @@
 include: "//looker-hub/monitoring/views/schema_error_counts.view.lkml"
 
-view: grouped_schema_error_counts {
-    extends: [schema_error_counts]
-
-  sql_table_name:`moz-fx-data-shared-prod`.monitoring.schema_error_counts;;
+view: +schema_error_counts {
 
   dimension: document_namespace{
     type: string
