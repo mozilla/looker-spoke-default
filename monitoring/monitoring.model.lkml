@@ -2,7 +2,7 @@ connection: "telemetry"
 label: "Monitoring (Data Pipeline)"
 include: "//looker-hub/monitoring/explores/*"
 include: "//looker-hub/monitoring/views/*"
-# include: "views/*"
+include: "views/*"
 include: "explores/*"
 include: "dashboards/*"
 
