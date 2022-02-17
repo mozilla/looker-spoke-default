@@ -19,15 +19,9 @@ explore: distinct_docids {
   to test pings present in the decoded and live tables.
   "
 
-  join: non_matching {
-    relationship: one_to_many
-    sql: LEFT JOIN non_matching USING(submission_date) ;;
-  }
-
   always_filter: {
     filters: [
       submission_date: "3 years",
-      non_matching.non_matching_count: "> 0",
     ]
   }
 }

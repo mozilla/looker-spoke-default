@@ -35,6 +35,12 @@ view: +active_subscriptions_table {
     sql:  ${active_raw}=${max_active_date};;
   }
 
+  dimension: plan_interval_type {
+    description: "Indicates the plan interval type (1 year, 6 month, 1 month, etc)"
+    type: string
+    sql: CONCAT(${plan_interval_count},"_",  ${plan_interval});;
+  }
+
   dimension: count {
     hidden: yes
   }
@@ -58,6 +64,6 @@ view: +active_subscriptions_table {
           THEN
             12 / ${plan_interval_count}
           END * ${count} * ${plan_amount} * (1 - IFNULL(${vat_rates.vat}, 0)) * IFNULL(${exchange_rates_table.price}, 1) / 100;;
-    value_format: "$0.00"
+    value_format: "$#,##0.00"
   }
 }

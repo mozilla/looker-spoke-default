@@ -1243,9 +1243,9 @@
     explore: distinct_docids
     type: looker_grid
     fields: [distinct_docids.submission_date, distinct_docids.namespace, distinct_docids.doc_type,
-      distinct_docids.decoded, distinct_docids.live, distinct_docids.stable, non_matching.non_matching_count]
+      distinct_docids.decoded, distinct_docids.live, distinct_docids.stable, distinct_docids.non_matching_count]
     filters:
-      non_matching.non_matching_count: ">0"
+      distinct_docids.non_matching_count: ">0"
     sorts: [distinct_docids.submission_date desc]
     limit: 500
     show_view_names: false
@@ -1266,7 +1266,7 @@
     defaults_version: 1
     listen:
       Submission Date: distinct_docids.submission_date
-    row: 61
+    row: 85
     col: 0
     width: 24
     height: 4
