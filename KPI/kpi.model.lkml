@@ -99,3 +99,21 @@ explore: recent_mobile_forecast {
     relationship: one_to_many
   }
 }
+
+explore: browser_kpis {
+  label: "2022 Browser KPIs"
+  group_label: "Core Browser Metrics and KPIs"
+}
+
+explore: unified_browser_metrics {
+  group_label: "Core Browser Metrics and KPIs"
+  sql_always_where: ${submission_date}  >= DATE(2017,1,1);;
+  conditionally_filter: {
+    filters: [active_today: "yes"]
+    unless: [days_seen_bits]
+  }
+}
+explore: loines_browser_2022_forecasts {
+  group_label: "Core Browser Metrics and KPIs"
+  label: "2022 Browser Forecasts"
+}
