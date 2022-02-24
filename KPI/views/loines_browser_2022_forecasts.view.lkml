@@ -50,19 +50,19 @@ view: loines_browser_2022_forecasts {
 
   measure: lower_target_pace {
     type: sum
-    sql: ${TABLE}.yhat * 0.959120747;;
+    sql: CASE WHEN platform = 'desktop' THEN ${TABLE}.yhat_cumulative  * 0.959120747 ELSE ${TABLE}.yhat_cumulative * 0.912746182 END;;
     label: "Low-End Target Daily Pace"
   }
 
   measure: baseline_target_pace {
     type: sum
-    sql: ${TABLE}.yhat * 0.990897496;;
+    sql: CASE WHEN platform = 'desktop' THEN ${TABLE}.yhat_cumulative * 0.990897496 ELSE ${TABLE}.yhat_cumulative * 0.980045439 END;;
     label: "Baseline Target Daily Pace"
   }
 
   measure: stretch_target_pace {
     type: sum
-    sql: ${TABLE}.yhat * 1.006562090;;
+    sql: CASE WHEN platform = 'desktop' THEN ${TABLE}.yhat_cumulative * 1.006562090 ELSE ${TABLE}.yhat_cumulative * 1.066272613 END;;
     label: "Stretch Target Daily Pace"
   }
 
@@ -74,19 +74,19 @@ view: loines_browser_2022_forecasts {
 
   measure: lower_target_pace_cumulative {
     type: sum
-    sql: ${TABLE}.yhat_cumulative  * 0.959120747 ;;
+    sql: CASE WHEN platform = 'desktop' THEN ${TABLE}.yhat_cumulative  * 0.959120747 ELSE ${TABLE}.yhat_cumulative * 0.912746182 END;;
     label: "Cumulative Low-End Target Pace (Starting Jan 1st)"
   }
 
   measure: baseline_target_pace_cumulative {
     type: sum
-    sql: ${TABLE}.yhat_cumulative * 0.990897496;;
+    sql: CASE WHEN platform = 'desktop' THEN ${TABLE}.yhat_cumulative * 0.990897496 ELSE ${TABLE}.yhat_cumulative * 0.980045439 END;;
     label: "Cumulative Baseline Target Pace (Starting Jan 1st)"
   }
 
   measure: stretch_target_pace_cumulative {
     type: sum
-    sql: ${TABLE}.yhat_cumulative * 1.006562090;;
+    sql: CASE WHEN platform = 'desktop' THEN ${TABLE}.yhat_cumulative * 1.006562090 ELSE ${TABLE}.yhat_cumulative * 1.066272613 END;;
     label: "Cumulative Stretch Target Pace (Starting Jan 1st)"
   }
 
