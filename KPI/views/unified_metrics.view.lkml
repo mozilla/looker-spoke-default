@@ -189,6 +189,7 @@ view: browser_kpis {
       filters: [unified_browser_metrics.active_today: "yes"]
       column: activity_segment {}
       column: app_display_version {}
+      column: country {}
       column: is_default_browser {}
       column: is_new_profile {}
       column: locale {}
@@ -276,6 +277,12 @@ view: browser_kpis {
   dimension: device_model {
     type: string
     sql: ${TABLE}.device_model ;;
+  }
+
+  dimension: country {
+    type: string
+    map_layer_name: countries
+    sql: ${TABLE}.country ;;
   }
 
   measure: user_count_qualified {
