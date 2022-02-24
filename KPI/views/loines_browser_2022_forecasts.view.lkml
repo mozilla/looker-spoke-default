@@ -48,10 +48,46 @@ view: loines_browser_2022_forecasts {
     label: "Forecast"
   }
 
+  measure: lower_target_pace {
+    type: sum
+    sql: ${TABLE}.yhat * 0.959120747;;
+    label: "Low-End Target Daily Pace"
+  }
+
+  measure: baseline_target_pace {
+    type: sum
+    sql: ${TABLE}.yhat * 0.990897496;;
+    label: "Baseline Target Daily Pace"
+  }
+
+  measure: stretch_target_pace {
+    type: sum
+    sql: ${TABLE}.yhat * 1.006562090;;
+    label: "Stretch Target Daily Pace"
+  }
+
   measure: yhat_cumulative {
     type: sum
-    sql: ${TABLE}.yhat_cumulative ;;
+    sql: ${TABLE}.yhat_cumulative;;
     label: "Cumulative Forecast (Starting Jan 1st)"
+  }
+
+  measure: lower_target_pace_cumulative {
+    type: sum
+    sql: ${TABLE}.yhat_cumulative  * 0.959120747 ;;
+    label: "Cumulative Low-End Target Pace (Starting Jan 1st)"
+  }
+
+  measure: baseline_target_pace_cumulative {
+    type: sum
+    sql: ${TABLE}.yhat_cumulative * 0.990897496;;
+    label: "Cumulative Baseline Target Pace (Starting Jan 1st)"
+  }
+
+  measure: stretch_target_pace_cumulative {
+    type: sum
+    sql: ${TABLE}.yhat_cumulative * 1.006562090;;
+    label: "Cumulative Stretch Target Pace (Starting Jan 1st)"
   }
 
   measure: yhat_lower {
