@@ -1,4 +1,4 @@
-- dashboard: vpn_acquisition_funnel_view_channel_group_proportions_table
+- dashboard: vpn_acquisition_funnel_view_new_subscriptions
   title: VPN Acquisition Funnel View - New Subscriptions
   layout: newspaper
   preferred_viewer: dashboards-next
