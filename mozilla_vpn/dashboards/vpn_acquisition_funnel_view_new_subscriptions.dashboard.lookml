@@ -284,26 +284,27 @@
     col: 0
     width: 24
     height: 4
-  - name: Subscriptions Grouped by Channel Group
+  - name: Subscriptions Categorized by Channel Group
     type: text
-    title_text: Subscriptions Grouped by Channel Group
+    title_text: Subscriptions Categoriz by Channel Group
     subtitle_text: ''
     body_text: "The channel groups are categorized using the UTM attributions ( medium,\
       \ source, campaign, content). The categorization rule was based on the Marketing\
       \ UTM Parameters - 2021 H2 spreadsheet.\n\n* Direct: traffic led to the VPN\
-      \ product site without campaign attributions. For example when users visit through\
-      \ the link from their search results or by entering mozilla.org/vpn to the URL\
-      \ bar, they are considered as a part of direct traffic.  For direct traffic,\
-      \ the default set of utm parameters are passed from Bedrock\n(**medium = `referral`\
-      \ , source = `www.mozilla.org-vpn-product-page` , campaign = `vpn-product-page`**).\
-      \ \n\n* Marketing_owned: traffic led by the marketing owned media campaigns\
-      \ (ex. Blog.mozilla.org, whatsnew)\n\n* Marketing_paid: traffic led by the paid\
-      \ campaign(ex. SEM)\n\n* Product_owned: traffic led by the product owned media\
-      \ campaigns (ex. Firefox browser)\n\n* Unattributed: traffic led with no attribution\n\
-      \n* Miscellaneous: traffic led with some attributions that could not be categorized.\
-      \ It could be that some of the attribution parameters got lost or attributions\
-      \ that were not well documented.\n\n* For more detailed explanation for the\
-      \ categorization of the channel groups, please refer to [this documentation](https://docs.google.com/document/d/1ojf1XHb3Iu5GNzMfozDcxWhEw6d9A4QuiaoAm-gDIrk/edit?usp=sharing). "
+      \ product page or the mobile app stores without campaign attributions. In a\
+      \ web browser, when users visit through the link from their search results or\
+      \ by entering mozilla.org/vpn to the URL bar, they are attributed with (**medium\
+      \ = `referral` , source = `www.mozilla.org-vpn-product-page` , campaign = `vpn-product-page`**).\
+      \ In a mobile app store, the direct traffic is attributed with (**medium = `organic`,\
+      \ source = `google-play`**). \n\n* Marketing_owned: traffic led by the marketing\
+      \ owned media campaigns (ex. Blog.mozilla.org, whatsnew)\n\n* Marketing_paid:\
+      \ traffic led by the paid campaign(ex. SEM)\n\n* Product_owned: traffic led\
+      \ by the product owned media campaigns (ex. Firefox browser)\n\n* Unattributed:\
+      \ traffic led with no attribution\n\n* Miscellaneous: traffic led with some\
+      \ attributions that could not be categorized. It could be that some of the attribution\
+      \ parameters got lost or attributions that were not well documented.  \n* For\
+      \ more detailed explanation for the categorization of the channel groups, please\
+      \ refer to [this documentation](https://docs.google.com/document/d/1ojf1XHb3Iu5GNzMfozDcxWhEw6d9A4QuiaoAm-gDIrk/edit?usp=sharing). "
     row: 22
     col: 0
     width: 24
