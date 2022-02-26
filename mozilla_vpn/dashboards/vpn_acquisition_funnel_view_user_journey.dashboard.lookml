@@ -66,10 +66,10 @@
   - title: Last Updated Date
     name: Last Updated Date
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     type: single_value
-    fields: [new_funnel_from_08252021.start_date, new_funnel_from_08252021.VPN_site_hits]
-    sorts: [new_funnel_from_08252021.start_date desc]
+    fields: [funnel_product_page_to_subscribed_table.partition_date, funnel_product_page_to_subscribed_table.product_page_visit]
+    sorts: [funnel_product_page_to_subscribed_table.partition_date desc]
     limit: 1
     custom_color_enabled: true
     show_single_value_title: true
@@ -82,30 +82,30 @@
     conditional_formatting_include_nulls: false
     series_types: {}
     defaults_version: 1
-    hidden_fields: [new_funnel_from_08252021.VPN_site_hits]
+    hidden_fields: [funnel_product_page_to_subscribed_table.product_page_visit]
     refresh: 1 day
     listen: {}
     row: 2
     col: 0
     width: 7
     height: 4
-  - title: VPN Product Site Visits on the Last Updated Date
-    name: VPN Product Site Visits on the Last Updated Date
+  - title: Product Page Visits on the Last Updated Date
+    name: Product Page Visits on the Last Updated Date
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     type: single_value
-    fields: [new_funnel_from_08252021.start_date, new_funnel_from_08252021.VPN_site_hits,
-      vpn_site_hits]
-    sorts: [new_funnel_from_08252021.start_date desc]
+    fields: [funnel_product_page_to_subscribed_table.partition_date, funnel_product_page_to_subscribed_table.product_page_visit,
+      product_page_visits]
+    sorts: [funnel_product_page_to_subscribed_table.partition_date desc]
     limit: 2
-    dynamic_fields: [{category: measure, expression: !!null '', label: VPN Site Hits,
-        value_format: !!null '', value_format_name: !!null '', based_on: new_funnel_from_08252021.VPN_site_hits,
-        _kind_hint: measure, measure: vpn_site_hits, type: sum, _type_hint: number},
+    dynamic_fields: [{category: measure, expression: !!null '', label: Product Page Visit,
+        value_format: !!null '', value_format_name: !!null '', based_on: funnel_product_page_to_subscribed_table.product_page_visit,
+        _kind_hint: measure, measure: product_page_visits, type: sum, _type_hint: number},
       {category: table_calculation, description: 'Difference between the current row’s
           value and value of the row below, divided by the value of the row below.',
-        label: "% Change VPN Site Hits", value_format: !!null '', value_format_name: percent_0,
-        calculation_type: percent_difference_from_previous, table_calculation: change_vpn_site_hits,
-        args: [vpn_site_hits], _kind_hint: measure, _type_hint: number}]
+        label: "% Change Product Page Visit", value_format: !!null '', value_format_name: percent_0,
+        calculation_type: percent_difference_from_previous, table_calculation: change_product_page_visits,
+        args: [product_page_visits], _kind_hint: measure, _type_hint: number}]
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -145,32 +145,32 @@
     interpolation: linear
     defaults_version: 1
     series_types: {}
-    hidden_fields: [vpn_site_hits]
+    hidden_fields: [product_page_visits]
     refresh: 1 day
     listen:
-      Channel Group: new_funnel_from_08252021.Channel_group
-      UTM Medium: new_funnel_from_08252021.UTM_medium
-      UTM Source: new_funnel_from_08252021.UTM_source
-      UTM Campaign: new_funnel_from_08252021.UTM_campaign
-      UTM Content: new_funnel_from_08252021.UTM_content
-      UTM Term: new_funnel_from_08252021.UTM_term
-      Entrypoint Experiment: new_funnel_from_08252021.entrypoint_experiment
-      Entrypoint Variation: new_funnel_from_08252021.entrypoint_variation
-      Pricing Plan: new_funnel_from_08252021.pricing_plan
-      OS Name: new_funnel_from_08252021.OS_name
-      OS Version: new_funnel_from_08252021.OS_version
-      Country: new_funnel_from_08252021.country
+      Channel Group: funnel_product_page_to_subscribed_table.channel_group
+      UTM Medium: funnel_product_page_to_subscribed_table.utm_medium
+      UTM Source: funnel_product_page_to_subscribed_table.utm_source
+      UTM Campaign: funnel_product_page_to_subscribed_table.utm_campaign
+      UTM Content: funnel_product_page_to_subscribed_table.utm_content
+      UTM Term: funnel_product_page_to_subscribed_table.utm_term
+      Entrypoint Experiment: funnel_product_page_to_subscribed_table.entrypoint_experiment
+      Entrypoint Variation: funnel_product_page_to_subscribed_table.entrypoint_variation
+      Pricing Plan: funnel_product_page_to_subscribed_table.pricing_plan
+      OS Name: funnel_product_page_to_subscribed_table.os_name
+      OS Version: funnel_product_page_to_subscribed_table.os_version
+      Country: funnel_product_page_to_subscribed_table.country
     row: 2
     col: 7
     width: 9
     height: 4
 
-  - title: Total VPN Site Visits During Filtered Days
-    name: Total VPN Site Visits During Filtered Days
+  - title: Total Product Page Visits During Filtered Days
+    name: Total Product Page Visits During Filtered Days
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     type: single_value
-    fields: [new_funnel_from_08252021.VPN_site_hits]
+    fields: [funnel_product_page_to_subscribed_table.product_page_visit]
     limit: 1
     custom_color_enabled: true
     show_single_value_title: true
@@ -184,19 +184,19 @@
     defaults_version: 1
     series_types: {}
     listen:
-      Start Date: new_funnel_from_08252021.start_date
-      Channel Group: new_funnel_from_08252021.Channel_group
-      UTM Medium: new_funnel_from_08252021.UTM_medium
-      UTM Source: new_funnel_from_08252021.UTM_source
-      UTM Campaign: new_funnel_from_08252021.UTM_campaign
-      UTM Content: new_funnel_from_08252021.UTM_content
-      UTM Term: new_funnel_from_08252021.UTM_term
-      Entrypoint Experiment: new_funnel_from_08252021.entrypoint_experiment
-      Entrypoint Variation: new_funnel_from_08252021.entrypoint_variation
-      Pricing Plan: new_funnel_from_08252021.pricing_plan
-      OS Name: new_funnel_from_08252021.OS_name
-      OS Version: new_funnel_from_08252021.OS_version
-      Country: new_funnel_from_08252021.country
+      Partition Date: funnel_product_page_to_subscribed_table.partition_date
+      Channel Group: funnel_product_page_to_subscribed_table.channel_group
+      UTM Medium: funnel_product_page_to_subscribed_table.utm_medium
+      UTM Source: funnel_product_page_to_subscribed_table.utm_source
+      UTM Campaign: funnel_product_page_to_subscribed_table.utm_campaign
+      UTM Content: funnel_product_page_to_subscribed_table.utm_content
+      UTM Term: funnel_product_page_to_subscribed_table.utm_term
+      Entrypoint Experiment: funnel_product_page_to_subscribed_table.entrypoint_experiment
+      Entrypoint Variation: funnel_product_page_to_subscribed_table.entrypoint_variation
+      Pricing Plan: funnel_product_page_to_subscribed_table.pricing_plan
+      OS Name: funnel_product_page_to_subscribed_table.os_name
+      OS Version: funnel_product_page_to_subscribed_table.os_version
+      Country: funnel_product_page_to_subscribed_table.country
     row: 2
     col: 16
     width: 8
@@ -205,31 +205,31 @@
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: "# [VPN Product Site](www.mozilla.org/vpn) Traffic "
+    body_text: "# [Product Page](www.mozilla.org/vpn) Traffic "
     row: 4
     col: 0
     width: 24
     height: 2
-  - title: VPN Product Site Visit Trend
-    name: VPN Product Site Visit Trend
+  - title: Product Page Visit Trend
+    name: Product Page Visit Trend
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     type: looker_line
-    fields: [new_funnel_from_08252021.start_date, new_funnel_from_08252021.VPN_site_hits]
-    sorts: [new_funnel_from_08252021.start_date]
+    fields: [funnel_product_page_to_subscribed_table.partition_date, funnel_product_page_to_subscribed_table.product_page_visit]
+    sorts: [funnel_product_page_to_subscribed_table.partition_date]
     total: true
-    dynamic_fields: [{category: measure, expression: !!null '', label: VPN Site Hits,
-        value_format: !!null '', value_format_name: !!null '', based_on: new_funnel_from_08252021.VPN_site_hits,
-        _kind_hint: measure, measure: vpn_site_hits, type: sum, _type_hint: number},
+    dynamic_fields: [{category: measure, expression: !!null '', label: Product Page Visit,
+        value_format: !!null '', value_format_name: !!null '', based_on: funnel_product_page_to_subscribed_table.product_page_visit,
+        _kind_hint: measure, measure: product_page_visits, type: sum, _type_hint: number},
       {category: table_calculation, description: Current row’s value divided by the
-          value of the row below., label: "% Change VPN Site Hits", value_format: !!null '',
+          value of the row below., label: "% Change Product Page Visit", value_format: !!null '',
         value_format_name: percent_0, calculation_type: percent_difference_from_previous,
-        table_calculation: change_vpn_site_hits, args: [vpn_site_hits], _kind_hint: dimension,
+        table_calculation: change_product_page_visits, args: [product_page_visits], _kind_hint: dimension,
         _type_hint: number, is_disabled: true}, {category: table_calculation, description: Cumulative
           sum of this row and all previous rows in the column, label: Running Total
           VPN Site Hits, value_format: !!null '', value_format_name: Default formatting,
-        calculation_type: running_total, table_calculation: running_total_vpn_site_hits,
-        args: [new_funnel_from_08252021.VPN_site_hits], _kind_hint: measure, _type_hint: number,
+        calculation_type: running_total, table_calculation: running_total_product_page_visits,
+        args: [funnel_product_page_to_subscribed_table.product_page_visit], _kind_hint: measure, _type_hint: number,
         is_disabled: true}]
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -255,8 +255,8 @@
     y_axis_combined: true
     show_null_points: false
     interpolation: linear
-    y_axes: [{label: session counts, orientation: left, series: [{axisId: new_funnel_from_08252021.VPN_site_hits,
-            id: new_funnel_from_08252021.VPN_site_hits, name: VPN Site Hits}], showLabels: true,
+    y_axes: [{label: session counts, orientation: left, series: [{axisId: funnel_product_page_to_subscribed_table.product_page_visit,
+            id: funnel_product_page_to_subscribed_table.product_page_visit, name: VPN Site Hits}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: custom, tickDensityCustom: 99,
         type: linear}]
     series_types: {}
@@ -267,19 +267,19 @@
     totals_color: "#808080"
     defaults_version: 1
     listen:
-      Start Date: new_funnel_from_08252021.start_date
-      Channel Group: new_funnel_from_08252021.Channel_group
-      UTM Medium: new_funnel_from_08252021.UTM_medium
-      UTM Source: new_funnel_from_08252021.UTM_source
-      UTM Campaign: new_funnel_from_08252021.UTM_campaign
-      UTM Content: new_funnel_from_08252021.UTM_content
-      UTM Term: new_funnel_from_08252021.UTM_term
-      Entrypoint Experiment: new_funnel_from_08252021.entrypoint_experiment
-      Entrypoint Variation: new_funnel_from_08252021.entrypoint_variation
-      Pricing Plan: new_funnel_from_08252021.pricing_plan
-      OS Name: new_funnel_from_08252021.OS_name
-      OS Version: new_funnel_from_08252021.OS_version
-      Country: new_funnel_from_08252021.country
+      Partition Date: funnel_product_page_to_subscribed_table.partition_date
+      Channel Group: funnel_product_page_to_subscribed_table.channel_group
+      UTM Medium: funnel_product_page_to_subscribed_table.utm_medium
+      UTM Source: funnel_product_page_to_subscribed_table.utm_source
+      UTM Campaign: funnel_product_page_to_subscribed_table.utm_campaign
+      UTM Content: funnel_product_page_to_subscribed_table.utm_content
+      UTM Term: funnel_product_page_to_subscribed_table.utm_term
+      Entrypoint Experiment: funnel_product_page_to_subscribed_table.entrypoint_experiment
+      Entrypoint Variation: funnel_product_page_to_subscribed_table.entrypoint_variation
+      Pricing Plan: funnel_product_page_to_subscribed_table.pricing_plan
+      OS Name: funnel_product_page_to_subscribed_table.os_name
+      OS Version: funnel_product_page_to_subscribed_table.os_version
+      Country: funnel_product_page_to_subscribed_table.country
     row: 6
     col: 11
     width: 13
@@ -315,14 +315,14 @@
   - title: All User Conversion Process
     name: All User Conversion Process
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     type: looker_column
-    fields: [new_funnel_from_08252021.start_date, new_funnel_from_08252021.total_acquisition_process_start,
-      new_funnel_from_08252021.total_payment_setup_engage, new_funnel_from_08252021.total_payment_setup_complete,
-      new_funnel_from_08252021.CVR_from_payment_site_hits_to_payment_complete]
-    fill_fields: [new_funnel_from_08252021.start_date]
+    fields: [funnel_product_page_to_subscribed_table.partition_date, funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
+      funnel_product_page_to_subscribed_table.all_users_step2_payment_setup_engage, funnel_product_page_to_subscribed_table.all_users_step3_payment_setup_complete,
+      funnel_product_page_to_subscribed_table.CVR_from_payment_site_visit_to_payment_complete]
+    fill_fields: [funnel_product_page_to_subscribed_table.partition_date]
     filters: {}
-    sorts: [new_funnel_from_08252021.start_date]
+    sorts: [funnel_product_page_to_subscribed_table.partition_date]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -351,71 +351,107 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    y_axes: [{label: Session Counts, orientation: left, series: [{axisId: new_funnel_from_08252021.total_acquisition_process_start,
-            id: new_funnel_from_08252021.total_acquisition_process_start, name: Total
-              Acquisition Process Start}, {axisId: new_funnel_from_08252021.total_payment_setup_engage,
-            id: new_funnel_from_08252021.total_payment_setup_engage, name: Total Payment
-              Setup Engage}, {axisId: new_funnel_from_08252021.total_payment_setup_complete,
-            id: new_funnel_from_08252021.total_payment_setup_complete, name: Total
+    y_axes: [{label: Session Counts, orientation: left, series: [{axisId: funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
+            id: funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start, name: Total
+              Acquisition Process Start}, {axisId: funnel_product_page_to_subscribed_table.all_users_step2_payment_setup_engage,
+            id: funnel_product_page_to_subscribed_table.all_users_step2_payment_setup_engage, name: Total Payment
+              Setup Engage}, {axisId: funnel_product_page_to_subscribed_table.all_users_step3_payment_setup_complete,
+            id: funnel_product_page_to_subscribed_table.all_users_step3_payment_setup_complete, name: Total
               Payment Setup Complete}], showLabels: true, showValues: true, maxValue: !!null '',
         minValue: !!null '', unpinAxis: false, tickDensity: custom, tickDensityCustom: 75,
-        type: linear}, {label: CVR(%), orientation: right, series: [{axisId: new_funnel_from_08252021.CVR_from_payment_site_hits_to_payment_complete,
-            id: new_funnel_from_08252021.CVR_from_payment_site_hits_to_payment_complete,
-            name: CVR From Payment Site Hits to Payment Complete}, {axisId: new_funnel_from_08252021.overall_CVR_from_payment_site_hits_to_payment_complete,
-            id: new_funnel_from_08252021.overall_CVR_from_payment_site_hits_to_payment_complete,
+        type: linear}, {label: CVR(%), orientation: right, series: [{axisId: funnel_product_page_to_subscribed_table.CVR_from_payment_site_visit_to_payment_complete,
+            id: funnel_product_page_to_subscribed_table.CVR_from_payment_site_visit_to_payment_complete,
+            name: CVR From Payment Site Hits to Payment Complete}, {axisId: funnel_product_page_to_subscribed_table.overall_CVR_from_payment_site_visit_to_payment_complete,
+            id: funnel_product_page_to_subscribed_table.overall_CVR_from_payment_site_visit_to_payment_complete,
             name: Overall CVR From Payment Site Hits to Payment Complete}], showLabels: true,
         showValues: true, maxValue: !!null '', minValue: !!null '', unpinAxis: false,
         tickDensity: custom, tickDensityCustom: 60, type: linear}]
     series_types:
-      new_funnel_from_08252021.CVR_from_payment_site_hits_to_payment_complete: line
-      new_funnel_from_08252021.overall_CVR_from_payment_site_hits_to_payment_complete: line
+      funnel_product_page_to_subscribed_table.CVR_from_payment_site_visit_to_payment_complete: line
+      funnel_product_page_to_subscribed_table.overall_CVR_from_payment_site_visit_to_payment_complete: line
     reference_lines: []
     show_null_points: false
     interpolation: linear
     defaults_version: 1
     hidden_fields:
     listen:
-      Start Date: new_funnel_from_08252021.start_date
-      Channel Group: new_funnel_from_08252021.Channel_group
-      UTM Medium: new_funnel_from_08252021.UTM_medium
-      UTM Source: new_funnel_from_08252021.UTM_source
-      UTM Campaign: new_funnel_from_08252021.UTM_campaign
-      UTM Content: new_funnel_from_08252021.UTM_content
-      UTM Term: new_funnel_from_08252021.UTM_term
-      Entrypoint Experiment: new_funnel_from_08252021.entrypoint_experiment
-      Entrypoint Variation: new_funnel_from_08252021.entrypoint_variation
-      Pricing Plan: new_funnel_from_08252021.pricing_plan
-      OS Name: new_funnel_from_08252021.OS_name
-      OS Version: new_funnel_from_08252021.OS_version
-      Country: new_funnel_from_08252021.country
+      Partition Date: funnel_product_page_to_subscribed_table.partition_date
+      Channel Group: funnel_product_page_to_subscribed_table.channel_group
+      UTM Medium: funnel_product_page_to_subscribed_table.utm_medium
+      UTM Source: funnel_product_page_to_subscribed_table.utm_source
+      UTM Campaign: funnel_product_page_to_subscribed_table.utm_campaign
+      UTM Content: funnel_product_page_to_subscribed_table.utm_content
+      UTM Term: funnel_product_page_to_subscribed_table.utm_term
+      Entrypoint Experiment: funnel_product_page_to_subscribed_table.entrypoint_experiment
+      Entrypoint Variation: funnel_product_page_to_subscribed_table.entrypoint_variation
+      Pricing Plan: funnel_product_page_to_subscribed_table.pricing_plan
+      OS Name: funnel_product_page_to_subscribed_table.os_name
+      OS Version: funnel_product_page_to_subscribed_table.os_version
+      Country: funnel_product_page_to_subscribed_table.country
     row: 74
     col: 9
     width: 15
     height: 7
 
-  - title: CTR from the VPN product Site to Enter the Funnel
-    name: CTR from the VPN product Site to Enter the Funnel
+  - title: CTR from the Product Page to Entering Subscription Flow
+    name: CTR from the Product Page to Entering Subscription Flow
+
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     type: looker_column
-    fields: [new_funnel_from_08252021.CTR_from_VPN_site_hits_to_enter_the_funnel,
-      new_funnel_from_08252021.VPN_site_hits, new_funnel_from_08252021.total_acquisition_process_start,
-      new_funnel_from_08252021.start_date]
-    sorts: [new_funnel_from_08252021.start_date]
+    fields: [funnel_product_page_to_subscribed_table.CTR_from_product_page_visit_to_entering_subscription_flow,
+      funnel_product_page_to_subscribed_table.product_page_visit, funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
+      funnel_product_page_to_subscribed_table.partition_date]
+    filters:
+      funnel_product_page_to_subscribed_table.partition_date: ''
+      funnel_product_page_to_subscribed_table.channel_group: ''
+      funnel_product_page_to_subscribed_table.utm_medium: ''
+      funnel_product_page_to_subscribed_table.utm_source: ''
+      funnel_product_page_to_subscribed_table.utm_campaign: ''
+      funnel_product_page_to_subscribed_table.utm_content: ''
+      funnel_product_page_to_subscribed_table.utm_term: ''
+      funnel_product_page_to_subscribed_table.entrypoint_experiment: ''
+      funnel_product_page_to_subscribed_table.entrypoint_variation: ''
+      funnel_product_page_to_subscribed_table.pricing_plan: ''
+      funnel_product_page_to_subscribed_table.os_name: ''
+      funnel_product_page_to_subscribed_table.os_version: ''
+      funnel_product_page_to_subscribed_table.country: ''
+    sorts: [funnel_product_page_to_subscribed_table.partition_date]
     limit: 500
-    dynamic_fields: [{category: measure, expression: !!null '', label: Total Acquisition
-          Process Start, value_format: !!null '', value_format_name: !!null '', based_on: new_funnel_from_08252021.total_acquisition_process_start,
-        _kind_hint: measure, measure: total_acquisition_process_start, type: sum,
-        _type_hint: number}, {category: table_calculation, label: "% Change Total\
-          \ Acquisition Process Start", value_format: !!null '', value_format_name: percent_1,
-        calculation_type: percent_difference_from_previous, table_calculation: change_total_acquisition_process_start,
-        args: [total_acquisition_process_start], _kind_hint: dimension, _type_hint: number,
-        is_disabled: true}, {category: table_calculation, description: Cumulative
-          sum of this row and all previous rows in the column, label: Running Total
-          Total Acquisition Process Start, value_format: !!null '', value_format_name: Default
-          formatting, calculation_type: running_total, table_calculation: running_total_total_acquisition_process_start,
-        args: [total_acquisition_process_start], _kind_hint: dimension, _type_hint: number,
-        is_disabled: true}]
+    dynamic_fields:
+    - category: measure
+      expression:
+      label: Total Acquisition Process Start
+      value_format:
+      value_format_name:
+      based_on: funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start
+      _kind_hint: measure
+      measure: total_acquisition_process_start
+      type: sum
+      _type_hint: number
+    - category: table_calculation
+      label: "% Change Total Acquisition Process Start"
+      value_format:
+      value_format_name: percent_1
+      calculation_type: percent_difference_from_previous
+      table_calculation: change_total_acquisition_process_start
+      args:
+      - total_acquisition_process_start
+      _kind_hint: dimension
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      description: Cumulative sum of this row and all previous rows in the column
+      label: Running Total Total Acquisition Process Start
+      value_format:
+      value_format_name: Default formatting
+      calculation_type: running_total
+      table_calculation: running_total_total_acquisition_process_start
+      args:
+      - total_acquisition_process_start
+      _kind_hint: dimension
+      _type_hint: number
+      is_disabled: true
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -449,35 +485,37 @@
       options:
         steps: 5
         reverse: false
-    y_axes: [{label: Session Counts, orientation: left, series: [{axisId: new_funnel_from_08252021.total_acquisition_process_start,
-            id: new_funnel_from_08252021.total_acquisition_process_start, name: Total
-              Acquisition Process Start}], showLabels: true, showValues: true, maxValue: !!null '',
-        unpinAxis: false, tickDensity: custom, tickDensityCustom: 92, type: linear},
-      {label: CTR(%), orientation: right, series: [{axisId: new_funnel_from_08252021.CTR_from_VPN_site_hits_to_enter_the_funnel,
-            id: new_funnel_from_08252021.CTR_from_VPN_site_hits_to_enter_the_funnel,
-            name: CTR From VPN Site Hits to Enter the Funnel}], showLabels: true,
-        showValues: true, maxValue: !!null '', unpinAxis: false, tickDensity: custom,
-        tickDensityCustom: 92, type: linear}]
+        __FILE: spoke-default/mozilla_vpn/dashboards/vpn_acquisition_funnel_view_user_journey.dashboard.lookml
+        __LINE_NUM: 450
+    y_axes: [{label: Session Counts, orientation: left, series: [{axisId: funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
+            id: funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
+            name: All Users Step1 Acquisition Process Start}], showLabels: true, showValues: true,
+        maxValue: !!null '', unpinAxis: false, tickDensity: custom, tickDensityCustom: 92,
+        type: linear}, {label: CTR(%), orientation: right, series: [{axisId: funnel_product_page_to_subscribed_table.CTR_from_product_page_visit_to_entering_subscription_flow,
+            id: funnel_product_page_to_subscribed_table.CTR_from_product_page_visit_to_entering_subscription_flow,
+            name: CTR From Product Page Visit to Entering Subscription Flow}], showLabels: true,
+        showValues: true, unpinAxis: false, tickDensity: default, type: linear}]
     series_types:
-      new_funnel_from_08252021.CTR_from_VPN_site_hits_to_enter_the_funnel: line
+      funnel_product_page_to_subscribed_table.CTR_from_product_page_visits_to_enter_the_funnel: line
+      funnel_product_page_to_subscribed_table.CTR_from_product_page_visit_to_entering_subscription_flow: line
     show_null_points: false
     interpolation: linear
     defaults_version: 1
-    hidden_fields: [new_funnel_from_08252021.VPN_site_hits]
+    hidden_fields: [funnel_product_page_to_subscribed_table.product_page_visit]
     listen:
-      Start Date: new_funnel_from_08252021.start_date
-      Channel Group: new_funnel_from_08252021.Channel_group
-      UTM Medium: new_funnel_from_08252021.UTM_medium
-      UTM Source: new_funnel_from_08252021.UTM_source
-      UTM Campaign: new_funnel_from_08252021.UTM_campaign
-      UTM Content: new_funnel_from_08252021.UTM_content
-      UTM Term: new_funnel_from_08252021.UTM_term
-      Entrypoint Experiment: new_funnel_from_08252021.entrypoint_experiment
-      Entrypoint Variation: new_funnel_from_08252021.entrypoint_variation
-      Pricing Plan: new_funnel_from_08252021.pricing_plan
-      OS Name: new_funnel_from_08252021.OS_name
-      OS Version: new_funnel_from_08252021.OS_version
-      Country: new_funnel_from_08252021.country
+      Partition Date: funnel_product_page_to_subscribed_table.partition_date
+      Channel Group: funnel_product_page_to_subscribed_table.channel_group
+      UTM Medium: funnel_product_page_to_subscribed_table.utm_medium
+      UTM Source: funnel_product_page_to_subscribed_table.utm_source
+      UTM Campaign: funnel_product_page_to_subscribed_table.utm_campaign
+      UTM Content: funnel_product_page_to_subscribed_table.utm_content
+      UTM Term: funnel_product_page_to_subscribed_table.utm_term
+      Entrypoint Experiment: funnel_product_page_to_subscribed_table.entrypoint_experiment
+      Entrypoint Variation: funnel_product_page_to_subscribed_table.entrypoint_variation
+      Pricing Plan: funnel_product_page_to_subscribed_table.pricing_plan
+      OS Name: funnel_product_page_to_subscribed_table.os_name
+      OS Version: funnel_product_page_to_subscribed_table.os_version
+      Country: funnel_product_page_to_subscribed_table.country
     row: 39
     col: 4
     width: 17
@@ -485,12 +523,12 @@
   - title: New FxA users Conversion Process
     name: New FxA users Conversion Process
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     type: looker_column
-    fields: [new_funnel_from_08252021.start_date, new_funnel_from_08252021.New_FxA_user_input_emails,
-      new_funnel_from_08252021.New_FxA_payment_setup_engage, new_funnel_from_08252021.New_FxA_payment_setup_complete,
-      new_funnel_from_08252021.New_FxA_CVR]
-    sorts: [new_funnel_from_08252021.start_date]
+    fields: [funnel_product_page_to_subscribed_table.partition_date, funnel_product_page_to_subscribed_table.new_fxa_users_step1_input_emails,
+      funnel_product_page_to_subscribed_table.new_fxa_users_step2_payment_setup_engage, funnel_product_page_to_subscribed_table.new_fxa_users_step3_payment_setup_complete,
+      funnel_product_page_to_subscribed_table.new_fxa_CVR]
+    sorts: [funnel_product_page_to_subscribed_table.partition_date]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -519,23 +557,23 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    y_axes: [{label: session counts, orientation: left, series: [{axisId: new_funnel_from_08252021.New_FxA_user_input_emails,
-            id: new_funnel_from_08252021.New_FxA_user_input_emails, name: New FxA
-              User Input Emails}, {axisId: new_funnel_from_08252021.New_FxA_payment_setup_engage,
-            id: new_funnel_from_08252021.New_FxA_payment_setup_engage, name: New FxA
-              Payment Setup Engage}, {axisId: new_funnel_from_08252021.New_FxA_payment_setup_complete,
-            id: new_funnel_from_08252021.New_FxA_payment_setup_complete, name: New
-              FxA Payment Setup Complete}, {axisId: new_funnel_from_08252021.overall_New_FxA_user_input_emails,
-            id: new_funnel_from_08252021.overall_New_FxA_user_input_emails, name: Overall
+    y_axes: [{label: session counts, orientation: left, series: [{axisId: funnel_product_page_to_subscribed_table.new_fxa_users_step1_input_emails,
+            id: funnel_product_page_to_subscribed_table.new_fxa_users_step1_input_emails, name: New FxA
+              User Input Emails}, {axisId: funnel_product_page_to_subscribed_table.new_fxa_users_step2_payment_setup_engage,
+            id: funnel_product_page_to_subscribed_table.new_fxa_users_step2_payment_setup_engage, name: New FxA
+              Payment Setup Engage}, {axisId: funnel_product_page_to_subscribed_table.new_fxa_users_step3_payment_setup_complete,
+            id: funnel_product_page_to_subscribed_table.new_fxa_users_step3_payment_setup_complete, name: New
+              FxA Payment Setup Complete}, {axisId: funnel_product_page_to_subscribed_table.overall_New_FxA_user_input_emails,
+            id: funnel_product_page_to_subscribed_table.overall_New_FxA_user_input_emails, name: Overall
               New FxA User Input Emails}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: custom, tickDensityCustom: 63, type: linear}, {label: '', orientation: left,
-        series: [{axisId: new_funnel_from_08252021.overall_New_FxA_payment_setup_complete,
-            id: new_funnel_from_08252021.overall_New_FxA_payment_setup_complete, name: Overall
+        series: [{axisId: funnel_product_page_to_subscribed_table.overall_New_FxA_payment_setup_complete,
+            id: funnel_product_page_to_subscribed_table.overall_New_FxA_payment_setup_complete, name: Overall
               New FxA Payment Setup Complete}], showLabels: true, showValues: true,
         unpinAxis: false, tickDensity: default, type: linear}, {label: CVR(%), orientation: right,
-        series: [{axisId: new_funnel_from_08252021.New_FxA_CVR, id: new_funnel_from_08252021.New_FxA_CVR,
-            name: New FxA CVR}, {axisId: new_funnel_from_08252021.overall_New_FxA_CVR,
-            id: new_funnel_from_08252021.overall_New_FxA_CVR, name: Overall New FxA
+        series: [{axisId: funnel_product_page_to_subscribed_table.new_fxa_CVR, id: funnel_product_page_to_subscribed_table.new_fxa_CVR,
+            name: New FxA CVR}, {axisId: funnel_product_page_to_subscribed_table.overall_New_FxA_CVR,
+            id: funnel_product_page_to_subscribed_table.overall_New_FxA_CVR, name: Overall New FxA
               CVR}], showLabels: true, showValues: true, unpinAxis: false, tickDensity: custom,
         tickDensityCustom: 72, type: linear}]
     limit_displayed_rows_values:
@@ -544,27 +582,27 @@
       num_rows: 0
     hide_legend: false
     series_types:
-      new_funnel_from_08252021.New_FxA_CVR: line
-      new_funnel_from_08252021.overall_New_FxA_CVR: line
+      funnel_product_page_to_subscribed_table.new_fxa_CVR: line
+      funnel_product_page_to_subscribed_table.overall_New_FxA_CVR: line
     show_dropoff: false
     show_null_points: false
     interpolation: linear
     defaults_version: 1
     hidden_fields: []
     listen:
-      Start Date: new_funnel_from_08252021.start_date
-      Channel Group: new_funnel_from_08252021.Channel_group
-      UTM Medium: new_funnel_from_08252021.UTM_medium
-      UTM Source: new_funnel_from_08252021.UTM_source
-      UTM Campaign: new_funnel_from_08252021.UTM_campaign
-      UTM Content: new_funnel_from_08252021.UTM_content
-      UTM Term: new_funnel_from_08252021.UTM_term
-      Entrypoint Experiment: new_funnel_from_08252021.entrypoint_experiment
-      Entrypoint Variation: new_funnel_from_08252021.entrypoint_variation
-      Pricing Plan: new_funnel_from_08252021.pricing_plan
-      OS Name: new_funnel_from_08252021.OS_name
-      OS Version: new_funnel_from_08252021.OS_version
-      Country: new_funnel_from_08252021.country
+      Partition Date: funnel_product_page_to_subscribed_table.partition_date
+      Channel Group: funnel_product_page_to_subscribed_table.channel_group
+      UTM Medium: funnel_product_page_to_subscribed_table.utm_medium
+      UTM Source: funnel_product_page_to_subscribed_table.utm_source
+      UTM Campaign: funnel_product_page_to_subscribed_table.utm_campaign
+      UTM Content: funnel_product_page_to_subscribed_table.utm_content
+      UTM Term: funnel_product_page_to_subscribed_table.utm_term
+      Entrypoint Experiment: funnel_product_page_to_subscribed_table.entrypoint_experiment
+      Entrypoint Variation: funnel_product_page_to_subscribed_table.entrypoint_variation
+      Pricing Plan: funnel_product_page_to_subscribed_table.pricing_plan
+      OS Name: funnel_product_page_to_subscribed_table.os_name
+      OS Version: funnel_product_page_to_subscribed_table.os_version
+      Country: funnel_product_page_to_subscribed_table.country
     row: 81
     col: 9
     width: 15
@@ -602,15 +640,15 @@
     col: 0
     width: 9
     height: 7
-  - title: Exsiting FxA Signed Off Users Conversion Process
-    name: Exsiting FxA Signed Off Users Conversion Process
+  - title: Signed off FxA Users Conversion Process
+    name: Signed off FxA Users Conversion Process
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     type: looker_column
-    fields: [new_funnel_from_08252021.start_date, new_funnel_from_08252021.Existing_FxA_SignedOff_signin_CTA_click,
-      new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_view, new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_engage,
-      new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_complete, new_funnel_from_08252021.Existing_FxA_SignedOff_CVR]
-    sorts: [new_funnel_from_08252021.start_date]
+    fields: [funnel_product_page_to_subscribed_table.partition_date, funnel_product_page_to_subscribed_table.signedoff_fxa_users_step1_signin_cta_click,
+      funnel_product_page_to_subscribed_table.signedoff_fxa_users_step2_payment_setup_view,funnel_product_page_to_subscribed_table.signedoff_fxa_users_step3_payment_setup_engage,
+      funnel_product_page_to_subscribed_table.signedoff_fxa_users_step4_payment_setup_complete, funnel_product_page_to_subscribed_table.signedoff_fxa_users_CVR]
+    sorts: [funnel_product_page_to_subscribed_table.partition_date]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -639,54 +677,54 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    y_axes: [{label: Session Counts, orientation: left, series: [{axisId: new_funnel_from_08252021.Existing_FxA_SignedOff_signin_CTA_click,
-            id: new_funnel_from_08252021.Existing_FxA_SignedOff_signin_CTA_click,
-            name: Existing FxA SignedOff Signin CTA Click}, {axisId: new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_view,
-            id: new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_view,
-            name: Existing FxA SignedOff Payment Setup View}, {axisId: new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_engage,
-            id: new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_engage,
-            name: Existing FxA SignedOff Payment Setup Engage}, {axisId: new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_complete,
-            id: new_funnel_from_08252021.Existing_FxA_SignedOff_payment_setup_complete,
-            name: Existing FxA SignedOff Payment Setup Complete}], showLabels: true,
+    y_axes: [{label: Session Counts, orientation: left, series: [{axisId: funnel_product_page_to_subscribed_table.signedoff_fxa_users_step1_signin_cta_click,
+            id: funnel_product_page_to_subscribed_table.signedoff_fxa_users_step1_signin_cta_click,
+            name: Signed off FxA Step1 Signin CTA Click}, {axisId: funnel_product_page_to_subscribed_table.signedoff_fxa_users_step3_payment_setup_engage,
+            id: funnel_product_page_to_subscribed_table.signedoff_fxa_users_step3_payment_setup_engage,
+            name: Signed off FxA Step2 Payment Setup View}, {axisId: funnel_product_page_to_subscribed_table.signedoff_fxa_users_step2_payment_setup_view,
+            id: funnel_product_page_to_subscribed_table.signedoff_fxa_users_step2_payment_setup_view,
+            name: Signed off FxA Step3 Payment Setup Engage}, {axisId: funnel_product_page_to_subscribed_table.signedoff_fxa_users_step4_payment_setup_complete,
+            id: funnel_product_page_to_subscribed_table.signedoff_fxa_users_step4_payment_setup_complete,
+            name: Signed off FxA Step4 Payment Setup Complete}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: custom, tickDensityCustom: 99,
-        type: linear}, {label: CVR(%), orientation: right, series: [{axisId: new_funnel_from_08252021.Existing_FxA_SignedOff_CVR,
-            id: new_funnel_from_08252021.Existing_FxA_SignedOff_CVR, name: Existing
+        type: linear}, {label: CVR(%), orientation: right, series: [{axisId: funnel_product_page_to_subscribed_table.signedoff_fxa_users_CVR,
+            id: funnel_product_page_to_subscribed_table.signedoff_fxa_users_CVR, name: Existing
               FxA SignedOff CVR}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, type: linear}]
     hidden_series: []
     series_types:
-      new_funnel_from_08252021.Existing_FxA_SignedOff_CVR: line
+      funnel_product_page_to_subscribed_table.signedoff_fxa_users_CVR: line
     show_null_points: false
     interpolation: linear
     discontinuous_nulls: false
     defaults_version: 1
     listen:
-      Start Date: new_funnel_from_08252021.start_date
-      Channel Group: new_funnel_from_08252021.Channel_group
-      UTM Medium: new_funnel_from_08252021.UTM_medium
-      UTM Source: new_funnel_from_08252021.UTM_source
-      UTM Campaign: new_funnel_from_08252021.UTM_campaign
-      UTM Content: new_funnel_from_08252021.UTM_content
-      UTM Term: new_funnel_from_08252021.UTM_term
-      Entrypoint Experiment: new_funnel_from_08252021.entrypoint_experiment
-      Entrypoint Variation: new_funnel_from_08252021.entrypoint_variation
-      Pricing Plan: new_funnel_from_08252021.pricing_plan
-      OS Name: new_funnel_from_08252021.OS_name
-      OS Version: new_funnel_from_08252021.OS_version
-      Country: new_funnel_from_08252021.country
+      Partition Date: funnel_product_page_to_subscribed_table.partition_date
+      Channel Group: funnel_product_page_to_subscribed_table.channel_group
+      UTM Medium: funnel_product_page_to_subscribed_table.utm_medium
+      UTM Source: funnel_product_page_to_subscribed_table.utm_source
+      UTM Campaign: funnel_product_page_to_subscribed_table.utm_campaign
+      UTM Content: funnel_product_page_to_subscribed_table.utm_content
+      UTM Term: funnel_product_page_to_subscribed_table.utm_term
+      Entrypoint Experiment: funnel_product_page_to_subscribed_table.entrypoint_experiment
+      Entrypoint Variation: funnel_product_page_to_subscribed_table.entrypoint_variation
+      Pricing Plan: funnel_product_page_to_subscribed_table.pricing_plan
+      OS Name: funnel_product_page_to_subscribed_table.os_name
+      OS Version: funnel_product_page_to_subscribed_table.os_version
+      Country: funnel_product_page_to_subscribed_table.country
     row: 87
     col: 9
     width: 15
     height: 7
-  - title: Existing FxA Signed In Users Conversion Process
-    name: Existing FxA Signed In Users Conversion Process
+  - title: Singed in FxA Users Conversion Process
+    name: Singed in FxA Users Conversion Process
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     type: looker_column
-    fields: [new_funnel_from_08252021.start_date, new_funnel_from_08252021.Existing_FxA_SignedIn_payment_setup_view,
-      new_funnel_from_08252021.Existing_FxA_SignedIn_payment_setup_engage, new_funnel_from_08252021.Existing_FxA_SignedIn_payment_setup_complete,
-      new_funnel_from_08252021.Existing_Fxa_SignedIn_CVR]
-    sorts: [new_funnel_from_08252021.start_date]
+    fields: [funnel_product_page_to_subscribed_table.partition_date, funnel_product_page_to_subscribed_table.signedin_fxa_users_step1_payment_setup_view,
+      funnel_product_page_to_subscribed_table.signedin_fxa_users_step2_payment_setup_engage, funnel_product_page_to_subscribed_table.signedin_fxa_users_step3_payment_setup_complete,
+      funnel_product_page_to_subscribed_table.signedin_fxa_users_CVR]
+    sorts: [funnel_product_page_to_subscribed_table.partition_date]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -715,46 +753,46 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    y_axes: [{label: Session Counts, orientation: left, series: [{axisId: new_funnel_from_08252021.Existing_FxA_SignedIn_payment_setup_view,
-            id: new_funnel_from_08252021.Existing_FxA_SignedIn_payment_setup_view,
-            name: Existing FxA SignedIn Payment Setup View}, {axisId: new_funnel_from_08252021.Existing_FxA_SignedIn_payment_setup_engage,
-            id: new_funnel_from_08252021.Existing_FxA_SignedIn_payment_setup_engage,
-            name: Existing FxA SignedIn Payment Setup Engage}, {axisId: new_funnel_from_08252021.Existing_FxA_SignedIn_payment_setup_complete,
-            id: new_funnel_from_08252021.Existing_FxA_SignedIn_payment_setup_complete,
+    y_axes: [{label: Session Counts, orientation: left, series: [{axisId: funnel_product_page_to_subscribed_table.signedin_fxa_users_step1_payment_setup_view,
+            id: funnel_product_page_to_subscribed_table.signedin_fxa_users_step1_payment_setup_view,
+            name: Existing FxA SignedIn Payment Setup View}, {axisId: funnel_product_page_to_subscribed_table.signedin_fxa_users_step2_payment_setup_engage,
+            id: funnel_product_page_to_subscribed_table.signedin_fxa_users_step2_payment_setup_engage,
+            name: Existing FxA SignedIn Payment Setup Engage}, {axisId: funnel_product_page_to_subscribed_table.signedin_fxa_users_step3_payment_setup_complete,
+            id: funnel_product_page_to_subscribed_table.signedin_fxa_users_step3_payment_setup_complete,
             name: Existing FxA SignedIn Payment Setup Complete}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: custom, tickDensityCustom: 97,
-        type: linear}, {label: CVR(%), orientation: right, series: [{axisId: new_funnel_from_08252021.Existing_Fxa_SignedIn_CVR,
-            id: new_funnel_from_08252021.Existing_Fxa_SignedIn_CVR, name: Existing
+        type: linear}, {label: CVR(%), orientation: right, series: [{axisId: funnel_product_page_to_subscribed_table.signedin_fxa_users_CVR,
+            id: funnel_product_page_to_subscribed_table.signedin_fxa_users_CVR, name: Existing
               Fxa SignedIn CVR}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: custom, tickDensityCustom: 70, type: linear}]
     hide_legend: false
     series_types:
-      new_funnel_from_08252021.Existing_Fxa_SignedIn_CVR: line
-      new_funnel_from_08252021.overall_Existing_Fxa_SignedIn_CVR: line
+      funnel_product_page_to_subscribed_table.signedin_fxa_users_CVR: line
+      funnel_product_page_to_subscribed_table.overall_Existing_Fxa_SignedIn_CVR: line
     show_null_points: false
     interpolation: linear
     defaults_version: 1
     listen:
-      Start Date: new_funnel_from_08252021.start_date
-      Channel Group: new_funnel_from_08252021.Channel_group
-      UTM Medium: new_funnel_from_08252021.UTM_medium
-      UTM Source: new_funnel_from_08252021.UTM_source
-      UTM Campaign: new_funnel_from_08252021.UTM_campaign
-      UTM Content: new_funnel_from_08252021.UTM_content
-      UTM Term: new_funnel_from_08252021.UTM_term
-      Entrypoint Experiment: new_funnel_from_08252021.entrypoint_experiment
-      Entrypoint Variation: new_funnel_from_08252021.entrypoint_variation
-      Pricing Plan: new_funnel_from_08252021.pricing_plan
-      OS Name: new_funnel_from_08252021.OS_name
-      OS Version: new_funnel_from_08252021.OS_version
-      Country: new_funnel_from_08252021.country
+      Partition Date: funnel_product_page_to_subscribed_table.partition_date
+      Channel Group: funnel_product_page_to_subscribed_table.channel_group
+      UTM Medium: funnel_product_page_to_subscribed_table.utm_medium
+      UTM Source: funnel_product_page_to_subscribed_table.utm_source
+      UTM Campaign: funnel_product_page_to_subscribed_table.utm_campaign
+      UTM Content: funnel_product_page_to_subscribed_table.utm_content
+      UTM Term: funnel_product_page_to_subscribed_table.utm_term
+      Entrypoint Experiment: funnel_product_page_to_subscribed_table.entrypoint_experiment
+      Entrypoint Variation: funnel_product_page_to_subscribed_table.entrypoint_variation
+      Pricing Plan: funnel_product_page_to_subscribed_table.pricing_plan
+      OS Name: funnel_product_page_to_subscribed_table.os_name
+      OS Version: funnel_product_page_to_subscribed_table.os_version
+      Country: funnel_product_page_to_subscribed_table.country
     row: 94
     col: 9
     width: 15
     height: 7
-  - name: Existing FxA Signed In Users Conversion Process (2)
+  - name: Singed in FxA Users Conversion Process (2)
     type: text
-    title_text: Existing FxA Signed In Users Conversion Process
+    title_text: Singed in FxA Users Conversion Process
     subtitle_text: ''
     body_text: "The three bars in the chart represent steps that summarize the conversion\
       \ process for users who had a FxA and had already signed in before entering\
@@ -770,14 +808,14 @@
     col: 0
     width: 9
     height: 7
-  - title: VPN Product Site Visits by Country
-    name: VPN Product Site Visits by Country
+  - title: Product Page Visits by Country
+    name: Product Page Visits by Country
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     type: looker_pie
-    fields: [new_funnel_from_08252021.VPN_site_hits, new_funnel_from_08252021.country]
+    fields: [funnel_product_page_to_subscribed_table.product_page_visit, funnel_product_page_to_subscribed_table.country]
     filters: {}
-    sorts: [new_funnel_from_08252021.VPN_site_hits desc]
+    sorts: [funnel_product_page_to_subscribed_table.product_page_visit desc]
     limit: 20
     value_labels: labels
     label_type: labPer
@@ -826,19 +864,19 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     listen:
-      Start Date: new_funnel_from_08252021.start_date
-      Channel Group: new_funnel_from_08252021.Channel_group
-      UTM Medium: new_funnel_from_08252021.UTM_medium
-      UTM Source: new_funnel_from_08252021.UTM_source
-      UTM Campaign: new_funnel_from_08252021.UTM_campaign
-      UTM Content: new_funnel_from_08252021.UTM_content
-      UTM Term: new_funnel_from_08252021.UTM_term
-      Entrypoint Experiment: new_funnel_from_08252021.entrypoint_experiment
-      Entrypoint Variation: new_funnel_from_08252021.entrypoint_variation
-      Pricing Plan: new_funnel_from_08252021.pricing_plan
-      OS Name: new_funnel_from_08252021.OS_name
-      OS Version: new_funnel_from_08252021.OS_version
-      Country: new_funnel_from_08252021.country
+      Partition Date: funnel_product_page_to_subscribed_table.partition_date
+      Channel Group: funnel_product_page_to_subscribed_table.channel_group
+      UTM Medium: funnel_product_page_to_subscribed_table.utm_medium
+      UTM Source: funnel_product_page_to_subscribed_table.utm_source
+      UTM Campaign: funnel_product_page_to_subscribed_table.utm_campaign
+      UTM Content: funnel_product_page_to_subscribed_table.utm_content
+      UTM Term: funnel_product_page_to_subscribed_table.utm_term
+      Entrypoint Experiment: funnel_product_page_to_subscribed_table.entrypoint_experiment
+      Entrypoint Variation: funnel_product_page_to_subscribed_table.entrypoint_variation
+      Pricing Plan: funnel_product_page_to_subscribed_table.pricing_plan
+      OS Name: funnel_product_page_to_subscribed_table.os_name
+      OS Version: funnel_product_page_to_subscribed_table.os_version
+      Country: funnel_product_page_to_subscribed_table.country
     row: 6
     col: 0
     width: 11
@@ -846,11 +884,11 @@
   - title: Chosen Pricing Plan on the Top of the Funnel
     name: Chosen Pricing Plan on the Top of the Funnel
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     type: looker_grid
-    fields: [new_funnel_from_08252021.pricing_plan, new_funnel_from_08252021.total_acquisition_process_start]
+    fields: [funnel_product_page_to_subscribed_table.pricing_plan, funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start]
     filters: {}
-    sorts: [new_funnel_from_08252021.total_acquisition_process_start desc]
+    sorts: [funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start desc]
     limit: 500
     show_view_names: false
     show_row_numbers: true
@@ -892,52 +930,52 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    y_axes: [{label: Session Count, orientation: left, series: [{axisId: new_funnel_from_08252021.total_acquisition_process_start,
-            id: new_funnel_from_08252021.total_acquisition_process_start, name: Total
+    y_axes: [{label: Session Count, orientation: left, series: [{axisId: funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
+            id: funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start, name: Total
               Acquisition Process Start}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     series_types: {}
     defaults_version: 1
     listen:
-      Start Date: new_funnel_from_08252021.start_date
-      Channel Group: new_funnel_from_08252021.Channel_group
-      UTM Medium: new_funnel_from_08252021.UTM_medium
-      UTM Source: new_funnel_from_08252021.UTM_source
-      UTM Campaign: new_funnel_from_08252021.UTM_campaign
-      UTM Content: new_funnel_from_08252021.UTM_content
-      UTM Term: new_funnel_from_08252021.UTM_term
-      Entrypoint Experiment: new_funnel_from_08252021.entrypoint_experiment
-      Entrypoint Variation: new_funnel_from_08252021.entrypoint_variation
-      Pricing Plan: new_funnel_from_08252021.pricing_plan
-      OS Name: new_funnel_from_08252021.OS_name
-      OS Version: new_funnel_from_08252021.OS_version
-      Country: new_funnel_from_08252021.country
+      Partition Date: funnel_product_page_to_subscribed_table.partition_date
+      Channel Group: funnel_product_page_to_subscribed_table.channel_group
+      UTM Medium: funnel_product_page_to_subscribed_table.utm_medium
+      UTM Source: funnel_product_page_to_subscribed_table.utm_source
+      UTM Campaign: funnel_product_page_to_subscribed_table.utm_campaign
+      UTM Content: funnel_product_page_to_subscribed_table.utm_content
+      UTM Term: funnel_product_page_to_subscribed_table.utm_term
+      Entrypoint Experiment: funnel_product_page_to_subscribed_table.entrypoint_experiment
+      Entrypoint Variation: funnel_product_page_to_subscribed_table.entrypoint_variation
+      Pricing Plan: funnel_product_page_to_subscribed_table.pricing_plan
+      OS Name: funnel_product_page_to_subscribed_table.os_name
+      OS Version: funnel_product_page_to_subscribed_table.os_version
+      Country: funnel_product_page_to_subscribed_table.country
     row: 47
     col: 4
     width: 17
     height: 6
-  - title: VPN Product Site Visits by Channel Group
-    name: VPN Product Site Visits by Channel Group
+  - title: Product Page Visits by Channel Group
+    name: Product Page Visits by Channel Group
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     type: looker_line
-    fields: [new_funnel_from_08252021.VPN_site_hits, new_funnel_from_08252021.start_date,
-      new_funnel_from_08252021.Channel_group]
-    pivots: [new_funnel_from_08252021.Channel_group]
-    sorts: [new_funnel_from_08252021.VPN_site_hits desc 0, new_funnel_from_08252021.Channel_group]
+    fields: [funnel_product_page_to_subscribed_table.product_page_visit, funnel_product_page_to_subscribed_table.partition_date,
+      funnel_product_page_to_subscribed_table.channel_group]
+    pivots: [funnel_product_page_to_subscribed_table.channel_group]
+    sorts: [funnel_product_page_to_subscribed_table.product_page_visit desc 0, funnel_product_page_to_subscribed_table.channel_group]
     limit: 500
-    dynamic_fields: [{category: measure, expression: !!null '', label: VPN Site Hits,
-        value_format: !!null '', value_format_name: !!null '', based_on: new_funnel_from_08252021.VPN_site_hits,
-        _kind_hint: measure, measure: vpn_site_hits, type: sum, _type_hint: number},
+    dynamic_fields: [{category: measure, expression: !!null '', label: Product Page Visit,
+        value_format: !!null '', value_format_name: !!null '', based_on: funnel_product_page_to_subscribed_table.product_page_visit,
+        _kind_hint: measure, measure: product_page_visits, type: sum, _type_hint: number},
       {category: table_calculation, description: 'Difference between the current row’s
           value and value of the row below, divided by the value of the row below.',
-        label: "% Change VPN Site Hits", value_format: !!null '', value_format_name: percent_1,
-        calculation_type: percent_difference_from_previous, table_calculation: change_vpn_site_hits,
-        args: [vpn_site_hits], _kind_hint: dimension, _type_hint: number, is_disabled: true},
+        label: "% Change Product Page Visit", value_format: !!null '', value_format_name: percent_1,
+        calculation_type: percent_difference_from_previous, table_calculation: change_product_page_visits,
+        args: [product_page_visits], _kind_hint: dimension, _type_hint: number, is_disabled: true},
       {category: table_calculation, description: Cumulative sum of this row and all
-          previous rows in the column, label: Running Total VPN Site Hits, value_format: !!null '',
-        value_format_name: Default formatting, calculation_type: running_total, table_calculation: running_total_vpn_site_hits,
-        args: [new_funnel_from_08252021.VPN_site_hits], _kind_hint: measure, _type_hint: number,
+          previous rows in the column, label: Running Total Product Page Visits, value_format: !!null '',
+        value_format_name: Default formatting, calculation_type: running_total, table_calculation: running_total_product_page_visits,
+        args: [funnel_product_page_to_subscribed_table.product_page_visit], _kind_hint: measure, _type_hint: number,
         is_disabled: true}]
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -963,17 +1001,17 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
-    y_axes: [{label: '', orientation: left, series: [{axisId: new_funnel_from_08252021.VPN_site_hits,
-            id: direct - new_funnel_from_08252021.VPN_site_hits, name: direct}, {
-            axisId: new_funnel_from_08252021.VPN_site_hits, id: marketing_owned -
-              new_funnel_from_08252021.VPN_site_hits, name: marketing_owned}, {axisId: new_funnel_from_08252021.VPN_site_hits,
-            id: marketing_paid - new_funnel_from_08252021.VPN_site_hits, name: marketing_paid},
-          {axisId: new_funnel_from_08252021.VPN_site_hits, id: miscellaneous - new_funnel_from_08252021.VPN_site_hits,
-            name: miscellaneous}, {axisId: new_funnel_from_08252021.VPN_site_hits,
-            id: organic - new_funnel_from_08252021.VPN_site_hits, name: organic},
-          {axisId: new_funnel_from_08252021.VPN_site_hits, id: product_owned - new_funnel_from_08252021.VPN_site_hits,
-            name: product_owned}, {axisId: new_funnel_from_08252021.VPN_site_hits,
-            id: unattributed - new_funnel_from_08252021.VPN_site_hits, name: unattributed}],
+    y_axes: [{label: '', orientation: left, series: [{axisId: funnel_product_page_to_subscribed_table.product_page_visit,
+            id: direct - funnel_product_page_to_subscribed_table.product_page_visit, name: direct}, {
+            axisId: funnel_product_page_to_subscribed_table.product_page_visit, id: marketing_owned -
+              funnel_product_page_to_subscribed_table.product_page_visit, name: marketing_owned}, {axisId: funnel_product_page_to_subscribed_table.product_page_visit,
+            id: marketing_paid - funnel_product_page_to_subscribed_table.product_page_visit, name: marketing_paid},
+          {axisId: funnel_product_page_to_subscribed_table.product_page_visit, id: miscellaneous - funnel_product_page_to_subscribed_table.product_page_visit,
+            name: miscellaneous}, {axisId: funnel_product_page_to_subscribed_table.product_page_visit,
+            id: organic - funnel_product_page_to_subscribed_table.product_page_visit, name: organic},
+          {axisId: funnel_product_page_to_subscribed_table.product_page_visit, id: product_owned - funnel_product_page_to_subscribed_table.product_page_visit,
+            name: product_owned}, {axisId: funnel_product_page_to_subscribed_table.product_page_visit,
+            id: unattributed - funnel_product_page_to_subscribed_table.product_page_visit, name: unattributed}],
         showLabels: true, showValues: true, unpinAxis: false, tickDensity: custom,
         tickDensityCustom: 97, type: linear}]
     series_types: {}
@@ -997,19 +1035,19 @@
     totals_color: "#808080"
     defaults_version: 1
     listen:
-      Start Date: new_funnel_from_08252021.start_date
-      Channel Group: new_funnel_from_08252021.Channel_group
-      UTM Medium: new_funnel_from_08252021.UTM_medium
-      UTM Source: new_funnel_from_08252021.UTM_source
-      UTM Campaign: new_funnel_from_08252021.UTM_campaign
-      UTM Content: new_funnel_from_08252021.UTM_content
-      UTM Term: new_funnel_from_08252021.UTM_term
-      Entrypoint Experiment: new_funnel_from_08252021.entrypoint_experiment
-      Entrypoint Variation: new_funnel_from_08252021.entrypoint_variation
-      Pricing Plan: new_funnel_from_08252021.pricing_plan
-      OS Name: new_funnel_from_08252021.OS_name
-      OS Version: new_funnel_from_08252021.OS_version
-      Country: new_funnel_from_08252021.country
+      Partition Date: funnel_product_page_to_subscribed_table.partition_date
+      Channel Group: funnel_product_page_to_subscribed_table.channel_group
+      UTM Medium: funnel_product_page_to_subscribed_table.utm_medium
+      UTM Source: funnel_product_page_to_subscribed_table.utm_source
+      UTM Campaign: funnel_product_page_to_subscribed_table.utm_campaign
+      UTM Content: funnel_product_page_to_subscribed_table.utm_content
+      UTM Term: funnel_product_page_to_subscribed_table.utm_term
+      Entrypoint Experiment: funnel_product_page_to_subscribed_table.entrypoint_experiment
+      Entrypoint Variation: funnel_product_page_to_subscribed_table.entrypoint_variation
+      Pricing Plan: funnel_product_page_to_subscribed_table.pricing_plan
+      OS Name: funnel_product_page_to_subscribed_table.os_name
+      OS Version: funnel_product_page_to_subscribed_table.os_version
+      Country: funnel_product_page_to_subscribed_table.country
     row: 20
     col: 4
     width: 17
@@ -1017,15 +1055,15 @@
   - title: Top of the Funnel by Channel Group
     name: Top of the Funnel by Channel Group
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     type: looker_line
-    fields: [new_funnel_from_08252021.total_acquisition_process_start, new_funnel_from_08252021.start_date,
-      new_funnel_from_08252021.Channel_group]
-    pivots: [new_funnel_from_08252021.Channel_group]
-    sorts: [new_funnel_from_08252021.start_date desc, new_funnel_from_08252021.Channel_group]
+    fields: [funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start, funnel_product_page_to_subscribed_table.partition_date,
+      funnel_product_page_to_subscribed_table.channel_group]
+    pivots: [funnel_product_page_to_subscribed_table.channel_group]
+    sorts: [funnel_product_page_to_subscribed_table.partition_date desc, funnel_product_page_to_subscribed_table.channel_group]
     limit: 500
     dynamic_fields: [{category: measure, expression: !!null '', label: Total Acquisition
-          Process Start, value_format: !!null '', value_format_name: !!null '', based_on: new_funnel_from_08252021.total_acquisition_process_start,
+          Process Start, value_format: !!null '', value_format_name: !!null '', based_on: funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
         _kind_hint: measure, measure: total_acquisition_process_start, type: sum,
         _type_hint: number}, {category: table_calculation, description: Current row’s
           value divided by the value of the row below., label: "% Change Total Acquisition\
@@ -1061,20 +1099,20 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
-    y_axes: [{label: Session Count, orientation: left, series: [{axisId: new_funnel_from_08252021.total_acquisition_process_start,
-            id: direct - new_funnel_from_08252021.total_acquisition_process_start,
-            name: direct}, {axisId: new_funnel_from_08252021.total_acquisition_process_start,
-            id: marketing_owned - new_funnel_from_08252021.total_acquisition_process_start,
-            name: marketing_owned}, {axisId: new_funnel_from_08252021.total_acquisition_process_start,
-            id: marketing_paid - new_funnel_from_08252021.total_acquisition_process_start,
-            name: marketing_paid}, {axisId: new_funnel_from_08252021.total_acquisition_process_start,
-            id: miscellaneous - new_funnel_from_08252021.total_acquisition_process_start,
-            name: miscellaneous}, {axisId: new_funnel_from_08252021.total_acquisition_process_start,
-            id: organic - new_funnel_from_08252021.total_acquisition_process_start,
-            name: organic}, {axisId: new_funnel_from_08252021.total_acquisition_process_start,
-            id: product_owned - new_funnel_from_08252021.total_acquisition_process_start,
-            name: product_owned}, {axisId: new_funnel_from_08252021.total_acquisition_process_start,
-            id: unattributed - new_funnel_from_08252021.total_acquisition_process_start,
+    y_axes: [{label: Session Count, orientation: left, series: [{axisId: funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
+            id: direct - funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
+            name: direct}, {axisId: funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
+            id: marketing_owned - funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
+            name: marketing_owned}, {axisId: funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
+            id: marketing_paid - funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
+            name: marketing_paid}, {axisId: funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
+            id: miscellaneous - funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
+            name: miscellaneous}, {axisId: funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
+            id: organic - funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
+            name: organic}, {axisId: funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
+            id: product_owned - funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
+            name: product_owned}, {axisId: funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
+            id: unattributed - funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
             name: unattributed}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: custom, tickDensityCustom: 100, type: linear}]
     series_types: {}
@@ -1093,19 +1131,19 @@
     conditional_formatting_include_nulls: false
     defaults_version: 1
     listen:
-      Start Date: new_funnel_from_08252021.start_date
-      Channel Group: new_funnel_from_08252021.Channel_group
-      UTM Medium: new_funnel_from_08252021.UTM_medium
-      UTM Source: new_funnel_from_08252021.UTM_source
-      UTM Campaign: new_funnel_from_08252021.UTM_campaign
-      UTM Content: new_funnel_from_08252021.UTM_content
-      UTM Term: new_funnel_from_08252021.UTM_term
-      Entrypoint Experiment: new_funnel_from_08252021.entrypoint_experiment
-      Entrypoint Variation: new_funnel_from_08252021.entrypoint_variation
-      Pricing Plan: new_funnel_from_08252021.pricing_plan
-      OS Name: new_funnel_from_08252021.OS_name
-      OS Version: new_funnel_from_08252021.OS_version
-      Country: new_funnel_from_08252021.country
+      Partition Date: funnel_product_page_to_subscribed_table.partition_date
+      Channel Group: funnel_product_page_to_subscribed_table.channel_group
+      UTM Medium: funnel_product_page_to_subscribed_table.utm_medium
+      UTM Source: funnel_product_page_to_subscribed_table.utm_source
+      UTM Campaign: funnel_product_page_to_subscribed_table.utm_campaign
+      UTM Content: funnel_product_page_to_subscribed_table.utm_content
+      UTM Term: funnel_product_page_to_subscribed_table.utm_term
+      Entrypoint Experiment: funnel_product_page_to_subscribed_table.entrypoint_experiment
+      Entrypoint Variation: funnel_product_page_to_subscribed_table.entrypoint_variation
+      Pricing Plan: funnel_product_page_to_subscribed_table.pricing_plan
+      OS Name: funnel_product_page_to_subscribed_table.os_name
+      OS Version: funnel_product_page_to_subscribed_table.os_version
+      Country: funnel_product_page_to_subscribed_table.country
     row: 56
     col: 4
     width: 17
@@ -1120,7 +1158,7 @@
       \ product site without campaign attributions. For example when users visit through\
       \ the link from their search results or by entering mozilla.org/vpn to the URL\
       \ bar, they are considered as a part of direct traffic.  For direct traffic,\
-      \ the default set of utm parameters are passed from Bedrock\n(**medium = `referral`\
+      \ the default set of utm_ parameters are passed from Bedrock\n(**medium = `referral`\
       \ , source = `www.mozilla.org-vpn-product-page` , campaign = `vpn-product-page`**).\
       \ \n\n* Marketing_owned: traffic led by the marketing owned media campaigns\
       \ (ex. Blog.mozilla.org, whatsnew)\n\n* Marketing_paid: traffic led by the paid\
@@ -1137,12 +1175,12 @@
   - title: Top 10 Attributions that Led the Most Site Visits
     name: Top 10 Attributions that Led the Most Site Visits
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     type: looker_grid
-    fields: [new_funnel_from_08252021.VPN_site_hits, new_funnel_from_08252021.Channel_group,
-      new_funnel_from_08252021.UTM_medium, new_funnel_from_08252021.UTM_source, new_funnel_from_08252021.UTM_campaign,
-      new_funnel_from_08252021.UTM_content]
-    sorts: [new_funnel_from_08252021.VPN_site_hits desc]
+    fields: [funnel_product_page_to_subscribed_table.product_page_visit, funnel_product_page_to_subscribed_table.channel_group,
+      funnel_product_page_to_subscribed_table.utm_medium, funnel_product_page_to_subscribed_table.utm_source, funnel_product_page_to_subscribed_table.utm_campaign,
+      funnel_product_page_to_subscribed_table.utm_content]
+    sorts: [funnel_product_page_to_subscribed_table.product_page_visit desc]
     limit: 10
     show_view_names: false
     show_row_numbers: true
@@ -1187,19 +1225,19 @@
     defaults_version: 1
     series_types: {}
     listen:
-      Start Date: new_funnel_from_08252021.start_date
-      Channel Group: new_funnel_from_08252021.Channel_group
-      UTM Medium: new_funnel_from_08252021.UTM_medium
-      UTM Source: new_funnel_from_08252021.UTM_source
-      UTM Campaign: new_funnel_from_08252021.UTM_campaign
-      UTM Content: new_funnel_from_08252021.UTM_content
-      UTM Term: new_funnel_from_08252021.UTM_term
-      Entrypoint Experiment: new_funnel_from_08252021.entrypoint_experiment
-      Entrypoint Variation: new_funnel_from_08252021.entrypoint_variation
-      Pricing Plan: new_funnel_from_08252021.pricing_plan
-      OS Name: new_funnel_from_08252021.OS_name
-      OS Version: new_funnel_from_08252021.OS_version
-      Country: new_funnel_from_08252021.country
+      Partition Date: funnel_product_page_to_subscribed_table.partition_date
+      Channel Group: funnel_product_page_to_subscribed_table.channel_group
+      UTM Medium: funnel_product_page_to_subscribed_table.utm_medium
+      UTM Source: funnel_product_page_to_subscribed_table.utm_source
+      UTM Campaign: funnel_product_page_to_subscribed_table.utm_campaign
+      UTM Content: funnel_product_page_to_subscribed_table.utm_content
+      UTM Term: funnel_product_page_to_subscribed_table.utm_term
+      Entrypoint Experiment: funnel_product_page_to_subscribed_table.entrypoint_experiment
+      Entrypoint Variation: funnel_product_page_to_subscribed_table.entrypoint_variation
+      Pricing Plan: funnel_product_page_to_subscribed_table.pricing_plan
+      OS Name: funnel_product_page_to_subscribed_table.os_name
+      OS Version: funnel_product_page_to_subscribed_table.os_version
+      Country: funnel_product_page_to_subscribed_table.country
     row: 27
     col: 4
     width: 17
@@ -1215,7 +1253,7 @@
       \n*  New FxA users: people how did not have a FxA before entering the funnel\
       \ \n\n* Existing FxA Signed Off users: people who had a FxA but did not log\
       \ in before entering the funnel, existing FxA users how was signed in before\
-      \ entering the funnel. \n\n* Existing FxA Signed In users: people who had a\
+      \ entering the funnel. \n\n* Singed in FxA users: people who had a\
       \ FxA and already signed in before entering the funnel.\n\nFor more information\
       \ about each funnel, refer to [this board](https://miro.com/app/board/o9J_lq1HHTg=/?invite_link_id=97426737166).\n\
       \nTo understand how each step in the user journey of each user group,  refer\
@@ -1259,7 +1297,7 @@
     body_text: 'This plot shows how many people from each channel group entered the
       acquisition funnel after landing on the product site. The conversion rate for
       each group from the product site to the top of the funnel can be found in **CTR
-      from the VPN product Site to Enter the Funnel** above using the channel group
+      from the VPN product Site to Entering Subscription Flow** above using the channel group
       filter on the top.  '
     row: 53
     col: 0
@@ -1268,12 +1306,12 @@
   - title: Top 10 Attributions that Led to the Top of the Funnel
     name: Top 10 Attributions that Led to the Top of the Funnel
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     type: looker_grid
-    fields: [new_funnel_from_08252021.Channel_group, new_funnel_from_08252021.UTM_medium,
-      new_funnel_from_08252021.UTM_source, new_funnel_from_08252021.UTM_campaign,
-      new_funnel_from_08252021.UTM_content, new_funnel_from_08252021.VPN_site_hits]
-    sorts: [new_funnel_from_08252021.VPN_site_hits desc]
+    fields: [funnel_product_page_to_subscribed_table.channel_group, funnel_product_page_to_subscribed_table.utm_medium,
+      funnel_product_page_to_subscribed_table.utm_source, funnel_product_page_to_subscribed_table.utm_campaign,
+      funnel_product_page_to_subscribed_table.utm_content, funnel_product_page_to_subscribed_table.product_page_visit]
+    sorts: [funnel_product_page_to_subscribed_table.product_page_visit desc]
     limit: 10
     show_view_names: false
     show_row_numbers: true
@@ -1293,27 +1331,27 @@
     series_types: {}
     defaults_version: 1
     listen:
-      Start Date: new_funnel_from_08252021.start_date
-      Channel Group: new_funnel_from_08252021.Channel_group
-      UTM Medium: new_funnel_from_08252021.UTM_medium
-      UTM Source: new_funnel_from_08252021.UTM_source
-      UTM Campaign: new_funnel_from_08252021.UTM_campaign
-      UTM Content: new_funnel_from_08252021.UTM_content
-      UTM Term: new_funnel_from_08252021.UTM_term
-      Entrypoint Experiment: new_funnel_from_08252021.entrypoint_experiment
-      Entrypoint Variation: new_funnel_from_08252021.entrypoint_variation
-      Pricing Plan: new_funnel_from_08252021.pricing_plan
-      OS Name: new_funnel_from_08252021.OS_name
-      OS Version: new_funnel_from_08252021.OS_version
-      Country: new_funnel_from_08252021.country
+      Partition Date: funnel_product_page_to_subscribed_table.partition_date
+      Channel Group: funnel_product_page_to_subscribed_table.channel_group
+      UTM Medium: funnel_product_page_to_subscribed_table.utm_medium
+      UTM Source: funnel_product_page_to_subscribed_table.utm_source
+      UTM Campaign: funnel_product_page_to_subscribed_table.utm_campaign
+      UTM Content: funnel_product_page_to_subscribed_table.utm_content
+      UTM Term: funnel_product_page_to_subscribed_table.utm_term
+      Entrypoint Experiment: funnel_product_page_to_subscribed_table.entrypoint_experiment
+      Entrypoint Variation: funnel_product_page_to_subscribed_table.entrypoint_variation
+      Pricing Plan: funnel_product_page_to_subscribed_table.pricing_plan
+      OS Name: funnel_product_page_to_subscribed_table.os_name
+      OS Version: funnel_product_page_to_subscribed_table.os_version
+      Country: funnel_product_page_to_subscribed_table.country
     row: 62
     col: 4
     width: 17
     height: 6
 
   filters:
-  - name: Start Date
-    title: Start Date
+  - name: Partition Date
+    title: Partition Date
     type: field_filter
     default_value: 28 day
     allow_multiple_values: true
@@ -1323,9 +1361,9 @@
       display: inline
       options: []
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     listens_to_filters: []
-    field: new_funnel_from_08252021.start_date
+    field: funnel_product_page_to_subscribed_table.partition_date
   - name: Country
     title: Country
     type: field_filter
@@ -1337,10 +1375,10 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     listens_to_filters: [Channel Group, Entrypoint Variation, Entrypoint Experiment,
       Pricing Plan, UTM Medium, UTM Source, UTM Campaign, UTM Content]
-    field: new_funnel_from_08252021.country
+    field: funnel_product_page_to_subscribed_table.country
   - name: Channel Group
     title: Channel Group
     type: field_filter
@@ -1352,10 +1390,10 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     listens_to_filters: [Entrypoint Variation, Entrypoint Experiment, Pricing Plan,
       UTM Medium, UTM Source, UTM Campaign, UTM Content]
-    field: new_funnel_from_08252021.Channel_group
+    field: funnel_product_page_to_subscribed_table.channel_group
   - name: UTM Medium
     title: UTM Medium
     type: field_filter
@@ -1367,10 +1405,10 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     listens_to_filters: [Country, Channel Group, Entrypoint Variation, Entrypoint
         Experiment, Pricing Plan, UTM Source, UTM Campaign, UTM Content]
-    field: new_funnel_from_08252021.UTM_medium
+    field: funnel_product_page_to_subscribed_table.utm_medium
   - name: UTM Source
     title: UTM Source
     type: field_filter
@@ -1382,10 +1420,10 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     listens_to_filters: [Country, Channel Group, Entrypoint Variation, Entrypoint
         Experiment, Pricing Plan, UTM Medium, UTM Campaign, UTM Content]
-    field: new_funnel_from_08252021.UTM_source
+    field: funnel_product_page_to_subscribed_table.utm_source
   - name: UTM Campaign
     title: UTM Campaign
     type: field_filter
@@ -1397,10 +1435,10 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     listens_to_filters: [Country, Channel Group, Entrypoint Variation, Entrypoint
         Experiment, Pricing Plan, UTM Medium, UTM Source, UTM Content]
-    field: new_funnel_from_08252021.UTM_campaign
+    field: funnel_product_page_to_subscribed_table.utm_campaign
   - name: UTM Content
     title: UTM Content
     type: field_filter
@@ -1412,10 +1450,10 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     listens_to_filters: [Country, Channel Group, Entrypoint Experiment, Pricing Plan,
       UTM Medium, UTM Source, UTM Campaign]
-    field: new_funnel_from_08252021.UTM_content
+    field: funnel_product_page_to_subscribed_table.utm_content
   - name: UTM Term
     title: UTM Term
     type: field_filter
@@ -1427,10 +1465,10 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     listens_to_filters: [Channel Group, Entrypoint Variation, Entrypoint Experiment,
       Pricing Plan, UTM Medium, UTM Campaign, UTM Content]
-    field: new_funnel_from_08252021.UTM_term
+    field: funnel_product_page_to_subscribed_table.utm_term
   - name: Entrypoint Experiment
     title: Entrypoint Experiment
     type: field_filter
@@ -1442,10 +1480,10 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     listens_to_filters: [Country, Channel Group, Entrypoint Variation, Pricing Plan,
       UTM Medium, UTM Source, UTM Campaign, UTM Content]
-    field: new_funnel_from_08252021.entrypoint_experiment
+    field: funnel_product_page_to_subscribed_table.entrypoint_experiment
   - name: Entrypoint Variation
     title: Entrypoint Variation
     type: field_filter
@@ -1457,10 +1495,10 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     listens_to_filters: [Country, Channel Group, Entrypoint Experiment, Pricing Plan,
       UTM Medium, UTM Source, UTM Campaign, UTM Content]
-    field: new_funnel_from_08252021.entrypoint_variation
+    field: funnel_product_page_to_subscribed_table.entrypoint_variation
   - name: Pricing Plan
     title: Pricing Plan
     type: field_filter
@@ -1472,9 +1510,9 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     listens_to_filters: [Country, Channel Group, UTM Campaign]
-    field: new_funnel_from_08252021.pricing_plan
+    field: funnel_product_page_to_subscribed_table.pricing_plan
   - name: OS Name
     title: OS Name
     type: field_filter
@@ -1486,9 +1524,9 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     listens_to_filters: []
-    field: new_funnel_from_08252021.OS_name
+    field: funnel_product_page_to_subscribed_table.os_name
   - name: OS Version
     title: OS Version
     type: field_filter
@@ -1500,6 +1538,6 @@
       display: popover
       options: []
     model: mozilla_vpn
-    explore: new_funnel_from_08252021
+    explore: funnel_product_page_to_subscribed_table
     listens_to_filters: [OS Name]
-    field: new_funnel_from_08252021.OS_version
+    field: funnel_product_page_to_subscribed_table.os_version

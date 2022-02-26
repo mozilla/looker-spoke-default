@@ -1,4 +1,4 @@
 connection: "telemetry"
-label: "Bergamot Translator"
-include: "//looker-hub/bergamot/explores/*"
-include: "//looker-hub/bergamot/views/*"
+label: "Firefox Translator"
+include: "//looker-hub/firefox_translations/explores/*"
+include: "//looker-hub/firefox_translations/views/*"
