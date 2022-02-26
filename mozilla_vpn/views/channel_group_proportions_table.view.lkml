@@ -28,3 +28,4 @@ view: +channel_group_proportions_table {
   }
 
 }
+
