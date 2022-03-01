@@ -1,6 +1,3 @@
 connection: "telemetry"
 label: "KPI"
 include: "//looker-hub/kpi/explores/*"
-include: "views/*"
-include: "explores/*"
-include: "dashboards/*"
