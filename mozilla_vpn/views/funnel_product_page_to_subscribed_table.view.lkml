@@ -37,34 +37,34 @@ view: +funnel_product_page_to_subscribed_table {
             ELSE round(cast(SUM(${TABLE}.total_acquisition_process_start)/SUM(${TABLE}.vpn_site_hits) *100 AS Float64))
             END;;
   }
-  measure:CVR_from_product_site_visit_to_payment_complete {
+  measure:CVR_from_product_page_visit_to_payment_complete {
     type: average
     sql:CASE WHEN ${TABLE}.vpn_site_hits = 0 then 0
             ELSE round(cast(${TABLE}.total_payment_setup_complete/${TABLE}.vpn_site_hits *100 AS Float64))
             END;;
   }
-  measure: CVR_from_payment_site_visit_to_payment_complete {
+  measure: CVR_from_payment_page_visit_to_payment_complete {
     type: number
     sql:CASE WHEN SUM(${TABLE}.total_acquisition_process_start)= 0 then 0
       ELSE round(cast(SUM(${TABLE}.total_payment_setup_complete)/SUM(${TABLE}.total_acquisition_process_start) *100 AS Float64))
       END;;
   }
   #FxA signed in
-  measure: signedin_fxa_users_step1_payment_setup_view {
+  measure: signed_in_fxa_users_step1_payment_setup_view {
     sql: ${TABLE}.existing_fxa_signedin_payment_setup_view ;;
     type: sum
   }
   dimension: existing_fxa_signedin_payment_setup_view{
     hidden: yes
   }
-  measure: signedin_fxa_users_step2_payment_setup_engage {
+  measure: signed_in_fxa_users_step2_payment_setup_engage {
     sql: ${TABLE}.existing_fxa_signedin_payment_setup_engage ;;
     type: sum
   }
   dimension: existing_fxa_signedin_payment_setup_engage{
     hidden: yes
   }
-  measure: signedin_fxa_users_step3_payment_setup_complete {
+  measure: signed_in_fxa_users_step3_payment_setup_complete {
     sql: ${TABLE}.existing_fxa_signedin_payment_setup_complete ;;
     type: sum
   }
@@ -72,7 +72,7 @@ view: +funnel_product_page_to_subscribed_table {
     hidden: yes
   }
 
-  measure: signedin_fxa_users_CVR {
+  measure: signed_in_fxa_CVR {
     type: number
     sql:CASE WHEN SUM(${TABLE}.existing_fxa_signedin_payment_setup_view) = 0 then 0
       ELSE round(cast(SUM(${TABLE}.existing_fxa_signedin_payment_setup_complete)/SUM(${TABLE}.existing_fxa_signedin_payment_setup_view) *100 AS Float64))
@@ -80,35 +80,35 @@ view: +funnel_product_page_to_subscribed_table {
   }
 
   # FxA signed off
-  measure: signedoff_fxa_users_step1_signin_cta_click {
+  measure: signed_out_fxa_users_step1_sign_in_CTA_click {
     sql: ${TABLE}.existing_fxa_signedoff_signin_cta_click ;;
     type: sum
   }
   dimension: existing_fxa_signedoff_signin_cta_click {
     hidden: yes
   }
-  measure: signedoff_fxa_users_step2_payment_setup_view {
+  measure: signed_out_fxa_users_step2_payment_setup_view {
     sql: ${TABLE}.existing_signedoff_fxa_payment_setup_view ;;
     type: sum
   }
   dimension: existing_signedoff_fxa_payment_setup_view {
     hidden: yes
   }
-  measure: signedoff_fxa_users_step3_payment_setup_engage {
+  measure: signed_out_fxa_users_step3_payment_setup_engage {
     sql: ${TABLE}.existing_fxa_signedoff_payment_setup_engage ;;
     type: sum
   }
   dimension: existing_fxa_signedoff_payment_setup_engage {
     hidden: yes
   }
-  measure: signedoff_fxa_users_step4_payment_setup_complete {
+  measure: signed_out_fxa_users_step4_payment_setup_complete {
     sql: ${TABLE}.existing_fxa_signedoff_payment_setup_complete ;;
     type: sum
   }
   dimension: existing_fxa_signedoff_payment_setup_complete {
    hidden: yes
   }
-  measure: signedoff_fxa_users_CVR {
+  measure: signed_out_fxa_CVR {
     type: number
     sql:CASE WHEN SUM(${TABLE}.existing_fxa_signedoff_signin_cta_click) = 0 then 0
         ELSE round(cast(SUM(${TABLE}.existing_fxa_signedoff_payment_setup_complete)/SUM(${TABLE}.existing_fxa_signedoff_signin_cta_click) *100 AS Float64))

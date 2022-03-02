@@ -31,7 +31,7 @@
 
         <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1_l-ZsbKsxRh7HGqtODz8w8eDBqkw2N9SIZxEE9qG-DQ/edit?usp=sharing">
 
-        Doc</a>
+        Docs</a>
 
       </nav>
 
@@ -298,16 +298,15 @@
     title_text: All Users Conversion Funnel Steps
     subtitle_text: ''
     body_text: "This plot displays the overall user journey through the acquisition\
-      \ funnel. Depending on the FxA status(New FxA users, Existing FxA users signed\
-      \ off, Existing FxA users signed in), there are different mid-steps to get to\
-      \ each step shown in the plot. For example, existing FxA users who were signed\
-      \ off before entering the funnel have sign-in steps between the acquisition\
+      \ funnel. Depending on their FxA status(New FxA users, , Signed in FxA users), there are different mid-steps to get to\
+      \ each step shown in the plot. For example, Signed out FxA users, existing FxA users who were not signed\
+      \ in before entering the funnel, have sign-in steps between the acquisition\
       \ process start step and the payment setup engagement step. For more information\
       \ about the funnel steps for each user group, refer to [this board](https://miro.com/app/board/o9J_lq1HHTg=/?invite_link_id=97426737166).\n\
-      \n* The **CVR From Payment Site Hits to Payment Complete** is the conversion\
-      \ rate of people completed the payment over people who started the acquisition\
+      \n* The **CVR From Payment Site Visit to Payment Complete** is the conversion\
+      \ rate of people who completed the payment over people who started the acquisition\
       \ process.\n\n* Click the three dots on the top right of the plot to compare\
-      \ the CVRs for different groups on one plot.  \n\n\n"
+      \ the CVRs for different groups on one plot using the **Explore** feature.  \n\n\n"
     row: 74
     col: 0
     width: 9
@@ -319,7 +318,7 @@
     type: looker_column
     fields: [funnel_product_page_to_subscribed_table.partition_date, funnel_product_page_to_subscribed_table.all_users_step1_acquisition_process_start,
       funnel_product_page_to_subscribed_table.all_users_step2_payment_setup_engage, funnel_product_page_to_subscribed_table.all_users_step3_payment_setup_complete,
-      funnel_product_page_to_subscribed_table.CVR_from_payment_site_visit_to_payment_complete]
+      funnel_product_page_to_subscribed_table.CVR_from_payment_page_visit_to_payment_complete]
     fill_fields: [funnel_product_page_to_subscribed_table.partition_date]
     filters: {}
     sorts: [funnel_product_page_to_subscribed_table.partition_date]
@@ -359,16 +358,16 @@
             id: funnel_product_page_to_subscribed_table.all_users_step3_payment_setup_complete, name: Total
               Payment Setup Complete}], showLabels: true, showValues: true, maxValue: !!null '',
         minValue: !!null '', unpinAxis: false, tickDensity: custom, tickDensityCustom: 75,
-        type: linear}, {label: CVR(%), orientation: right, series: [{axisId: funnel_product_page_to_subscribed_table.CVR_from_payment_site_visit_to_payment_complete,
-            id: funnel_product_page_to_subscribed_table.CVR_from_payment_site_visit_to_payment_complete,
-            name: CVR From Payment Site Hits to Payment Complete}, {axisId: funnel_product_page_to_subscribed_table.overall_CVR_from_payment_site_visit_to_payment_complete,
-            id: funnel_product_page_to_subscribed_table.overall_CVR_from_payment_site_visit_to_payment_complete,
-            name: Overall CVR From Payment Site Hits to Payment Complete}], showLabels: true,
+        type: linear}, {label: CVR(%), orientation: right, series: [{axisId: funnel_product_page_to_subscribed_table.CVR_from_payment_page_visit_to_payment_complete,
+            id: funnel_product_page_to_subscribed_table.CVR_from_payment_page_visit_to_payment_complete,
+            name: CVR From Payment Site Visit to Payment Complete}, {axisId: funnel_product_page_to_subscribed_table.overall_CVR_from_payment_page_visit_to_payment_complete,
+            id: funnel_product_page_to_subscribed_table.overall_CVR_from_payment_page_visit_to_payment_complete,
+            name: Overall CVR From Payment Site Visit to Payment Complete}], showLabels: true,
         showValues: true, maxValue: !!null '', minValue: !!null '', unpinAxis: false,
         tickDensity: custom, tickDensityCustom: 60, type: linear}]
     series_types:
-      funnel_product_page_to_subscribed_table.CVR_from_payment_site_visit_to_payment_complete: line
-      funnel_product_page_to_subscribed_table.overall_CVR_from_payment_site_visit_to_payment_complete: line
+      funnel_product_page_to_subscribed_table.CVR_from_payment_page_visit_to_payment_complete: line
+      funnel_product_page_to_subscribed_table.overall_CVR_from_payment_page_visit_to_payment_complete: line
     reference_lines: []
     show_null_points: false
     interpolation: linear
@@ -612,30 +611,30 @@
     title_text: New FxA Users Conversion Process
     subtitle_text: ''
     body_text: "The three bars in the chart represent steps that summarize the conversion\
-      \ process for users who did not have a FxA. **New FxA User Input Emails** is\
+      \ process for users who did not have a FxA before entering the acquisition funnel. **New FxA User Step 1 Input Emails** is\
       \ the first step for the new FxA user group that is distinguishable from the\
-      \ existing FxA user group. \n\n* The **New FxA CVR** is the rate of users completed\
-      \ the payment out of new FxA users  who engaged in inputting their emails. \n\
+      \ other two groups with FxA accounts. \n\n* The **New FxA CVR** is the rate of users completed\
+      \ the payment out of new FxA users who engaged in inputting their emails. \n\
       \n* Click the three dots on the top right of the plot to compare the CVRs for\
-      \ different groups on one plot.\n"
+      \ different groups on one plot using the **Explore** feature.\n"
     row: 81
     col: 0
     width: 9
     height: 6
-  - name: Existing FxA Signed Off Users Conversion Process
+  - name: Signed Out FxA Users Users Conversion Process
     type: text
-    title_text: Existing FxA Signed Off Users Conversion Process
+    title_text: Signed Out FxA Users Users Conversion Process
     subtitle_text: ''
     body_text: "The four bars in the chart represent steps that summarize the conversion\
-      \ process for users who had a FxA but had not signed off before entering the\
-      \ acquisition funnel. **Existing FxA User SignedOff Signin CTA Click** is the\
+      \ process for users who had a FxA but had not signed in before entering\
+      \ the acquisition funnel. **Signed out Fxa Users Step1 Signin CTA Click** is the\
       \ first step for this user group that is distinguishable from the new FxA user\
       \ group. This step is captured when the users click the “sign in” CTA button.\
-      \  \n\n* The **Existing FxA SinedOff CVR** is the proportion of users who completed\
-      \ the payment out of existing FxA users  who clicked the “sign in” CTA button.\
+      \  \n\n* The **Singed Out FxA CVR** is the proportion of the users who completed\
+      \ the payment out of the users who clicked the “sign in” CTA button.\
       \ It is calculated based on the filters you set. \n\n* Click the three dots\
       \ on the top right of the plot to compare the CVRs for different groups on one\
-      \ plot.\n\n"
+      \ plot the **Explore** feature.\n\n"
     row: 87
     col: 0
     width: 9
@@ -645,9 +644,9 @@
     model: mozilla_vpn
     explore: funnel_product_page_to_subscribed_table
     type: looker_column
-    fields: [funnel_product_page_to_subscribed_table.partition_date, funnel_product_page_to_subscribed_table.signedoff_fxa_users_step1_signin_cta_click,
-      funnel_product_page_to_subscribed_table.signedoff_fxa_users_step2_payment_setup_view,funnel_product_page_to_subscribed_table.signedoff_fxa_users_step3_payment_setup_engage,
-      funnel_product_page_to_subscribed_table.signedoff_fxa_users_step4_payment_setup_complete, funnel_product_page_to_subscribed_table.signedoff_fxa_users_CVR]
+    fields: [funnel_product_page_to_subscribed_table.partition_date, funnel_product_page_to_subscribed_table.signed_out_fxa_users_step1_sign_in_CTA_click,
+      funnel_product_page_to_subscribed_table.signed_out_fxa_users_step2_payment_setup_view,funnel_product_page_to_subscribed_table.signed_out_fxa_users_step3_payment_setup_engage,
+      funnel_product_page_to_subscribed_table.signed_out_fxa_users_step4_payment_setup_complete, funnel_product_page_to_subscribed_table.signed_out_fxa_CVR]
     sorts: [funnel_product_page_to_subscribed_table.partition_date]
     limit: 500
     x_axis_gridlines: false
@@ -677,23 +676,24 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    y_axes: [{label: Session Counts, orientation: left, series: [{axisId: funnel_product_page_to_subscribed_table.signedoff_fxa_users_step1_signin_cta_click,
-            id: funnel_product_page_to_subscribed_table.signedoff_fxa_users_step1_signin_cta_click,
-            name: Signed off FxA Step1 Signin CTA Click}, {axisId: funnel_product_page_to_subscribed_table.signedoff_fxa_users_step3_payment_setup_engage,
-            id: funnel_product_page_to_subscribed_table.signedoff_fxa_users_step3_payment_setup_engage,
-            name: Signed off FxA Step2 Payment Setup View}, {axisId: funnel_product_page_to_subscribed_table.signedoff_fxa_users_step2_payment_setup_view,
-            id: funnel_product_page_to_subscribed_table.signedoff_fxa_users_step2_payment_setup_view,
-            name: Signed off FxA Step3 Payment Setup Engage}, {axisId: funnel_product_page_to_subscribed_table.signedoff_fxa_users_step4_payment_setup_complete,
-            id: funnel_product_page_to_subscribed_table.signedoff_fxa_users_step4_payment_setup_complete,
-            name: Signed off FxA Step4 Payment Setup Complete}], showLabels: true,
+    y_axes: [{label: Session Counts, orientation: left, series: [{axisId: funnel_product_page_to_subscribed_table.signed_out_fxa_users_step1_sign_in_CTA_click,
+            id: funnel_product_page_to_subscribed_table.signed_out_fxa_users_step1_sign_in_CTA_click,
+            name: Signed Out Fxa Users Step1 Signin CTA Click}, {axisId: funnel_product_page_to_subscribed_table.signed_out_fxa_users_step2_payment_setup_view,
+            id: funnel_product_page_to_subscribed_table.signed_out_fxa_users_step2_payment_setup_view,
+            name: Signed Out Fxa Users Step2 Payment Setup View}, {axisId: funnel_product_page_to_subscribed_table.signed_out_fxa_users_step3_payment_setup_engage,
+            id: funnel_product_page_to_subscribed_table.signed_out_fxa_users_step3_payment_setup_engage,
+            name: Signed Out Fxa Users Step3 Payment Setup Engage}, {axisId: funnel_product_page_to_subscribed_table.signed_out_fxa_users_step4_payment_setup_complete,
+            id: funnel_product_page_to_subscribed_table.signed_out_fxa_users_step4_payment_setup_complete,
+            name: Signed Out Fxa Users Step4 Payment Setup Complete}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: custom, tickDensityCustom: 99,
-        type: linear}, {label: CVR(%), orientation: right, series: [{axisId: funnel_product_page_to_subscribed_table.signedoff_fxa_users_CVR,
-            id: funnel_product_page_to_subscribed_table.signedoff_fxa_users_CVR, name: Existing
-              FxA SignedOff CVR}], showLabels: true, showValues: true, unpinAxis: false,
-        tickDensity: default, type: linear}]
+        type: linear}, {label: CVR(%), orientation: right, series: [{axisId: funnel_product_page_to_subscribed_table.signed_out_fxa_CVR,
+            id: funnel_product_page_to_subscribed_table.signed_out_fxa_CVR, name: Signed
+              Out Fxa CVR}], showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
+        type: linear}]
     hidden_series: []
     series_types:
-      funnel_product_page_to_subscribed_table.signedoff_fxa_users_CVR: line
+      funnel_product_page_to_subscribed_table.signed_out_fxa_users_CVR: line
+      funnel_product_page_to_subscribed_table.signed_out_fxa_CVR: line
     show_null_points: false
     interpolation: linear
     discontinuous_nulls: false
@@ -716,14 +716,14 @@
     col: 9
     width: 15
     height: 7
-  - title: Singed in FxA Users Conversion Process
-    name: Singed in FxA Users Conversion Process
+  - title: Signed in FxA Users Conversion Process
+    name: Signed in FxA Users Conversion Process
     model: mozilla_vpn
     explore: funnel_product_page_to_subscribed_table
     type: looker_column
-    fields: [funnel_product_page_to_subscribed_table.partition_date, funnel_product_page_to_subscribed_table.signedin_fxa_users_step1_payment_setup_view,
-      funnel_product_page_to_subscribed_table.signedin_fxa_users_step2_payment_setup_engage, funnel_product_page_to_subscribed_table.signedin_fxa_users_step3_payment_setup_complete,
-      funnel_product_page_to_subscribed_table.signedin_fxa_users_CVR]
+    fields: [funnel_product_page_to_subscribed_table.partition_date, funnel_product_page_to_subscribed_table.signed_in_fxa_users_step1_payment_setup_view,
+      funnel_product_page_to_subscribed_table.signed_in_fxa_users_step2_payment_setup_engage, funnel_product_page_to_subscribed_table.signed_in_fxa_users_step3_payment_setup_complete,
+      funnel_product_page_to_subscribed_table.signed_in_fxa_CVR]
     sorts: [funnel_product_page_to_subscribed_table.partition_date]
     limit: 500
     x_axis_gridlines: false
@@ -753,22 +753,23 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    y_axes: [{label: Session Counts, orientation: left, series: [{axisId: funnel_product_page_to_subscribed_table.signedin_fxa_users_step1_payment_setup_view,
-            id: funnel_product_page_to_subscribed_table.signedin_fxa_users_step1_payment_setup_view,
-            name: Existing FxA SignedIn Payment Setup View}, {axisId: funnel_product_page_to_subscribed_table.signedin_fxa_users_step2_payment_setup_engage,
-            id: funnel_product_page_to_subscribed_table.signedin_fxa_users_step2_payment_setup_engage,
-            name: Existing FxA SignedIn Payment Setup Engage}, {axisId: funnel_product_page_to_subscribed_table.signedin_fxa_users_step3_payment_setup_complete,
-            id: funnel_product_page_to_subscribed_table.signedin_fxa_users_step3_payment_setup_complete,
-            name: Existing FxA SignedIn Payment Setup Complete}], showLabels: true,
-        showValues: true, unpinAxis: false, tickDensity: custom, tickDensityCustom: 97,
-        type: linear}, {label: CVR(%), orientation: right, series: [{axisId: funnel_product_page_to_subscribed_table.signedin_fxa_users_CVR,
-            id: funnel_product_page_to_subscribed_table.signedin_fxa_users_CVR, name: Existing
-              Fxa SignedIn CVR}], showLabels: true, showValues: true, unpinAxis: false,
-        tickDensity: custom, tickDensityCustom: 70, type: linear}]
+    y_axes: [{label: Session Counts, orientation: left, series: [{axisId: funnel_product_page_to_subscribed_table.signed_in_fxa_users_step1_payment_setup_view,
+        id: funnel_product_page_to_subscribed_table.signed_in_fxa_users_step1_payment_setup_view,
+        name: Signed In Fxa Users Step1 Payment Setup View}, {axisId: funnel_product_page_to_subscribed_table.signed_in_fxa_users_step2_payment_setup_engage,
+        id: funnel_product_page_to_subscribed_table.signed_in_fxa_users_step2_payment_setup_engage,
+        name: Signed In Fxa Users Step2 Payment Setup Engage}, {axisId: funnel_product_page_to_subscribed_table.signed_in_fxa_users_step3_payment_setup_complete,
+        id: funnel_product_page_to_subscribed_table.signed_in_fxa_users_step3_payment_setup_complete,
+        name: Signed In Fxa Users Step3 Payment Setup Complete}], showLabels: true,
+    showValues: true, unpinAxis: false, tickDensity: custom, tickDensityCustom: 97,
+    type: linear}, {label: CVR(%), orientation: right, series: [{axisId: funnel_product_page_to_subscribed_table.signed_in_fxa_CVR,
+        id: funnel_product_page_to_subscribed_table.signed_in_fxa_CVR, name: Signed
+          In Fxa CVR}], showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
+    type: linear}]
     hide_legend: false
     series_types:
-      funnel_product_page_to_subscribed_table.signedin_fxa_users_CVR: line
+      funnel_product_page_to_subscribed_table.signed_in_fxa_users_CVR: line
       funnel_product_page_to_subscribed_table.overall_Existing_Fxa_SignedIn_CVR: line
+      funnel_product_page_to_subscribed_table.signed_in_fxa_CVR: line
     show_null_points: false
     interpolation: linear
     defaults_version: 1
@@ -790,20 +791,20 @@
     col: 9
     width: 15
     height: 7
-  - name: Singed in FxA Users Conversion Process (2)
+  - name: Signed in FxA Users Conversion Process (2)
     type: text
-    title_text: Singed in FxA Users Conversion Process
+    title_text: Signed in FxA Users Conversion Process
     subtitle_text: ''
     body_text: "The three bars in the chart represent steps that summarize the conversion\
       \ process for users who had a FxA and had already signed in before entering\
-      \ the acquisition funnel. \n\n**Existing FxA User Signed In**  is the first\
-      \ step for this user group and it is captured when the users hit the payment\
-      \ site from the VPN product site by choosing a VPN plan. \n\n* The **Existing\
-      \ FxA SinedIn CVR**  is the proportion of users who completed the payment out\
-      \ of existing FxA users entered the acquisition funnel with a signed in FxA\
+      \ the acquisition funnel. \n\n**Signed In FxA Users Step1 Payment Setup View** is\
+      \ the first step for this user group and it is captured when the users visit the payment\
+      \ page from the VPN product page by choosing a plan. \n\n* The **Signed In\
+      \ FxA CVR**  is the proportion of users who completed the payment out\
+      \ of the users entered the funnel with a signed in FxA\
       \ account. It is calculated based on the filters you set. \n\n* Click the three\
       \ dots on the top right of the plot to compare the CVRs for different groups\
-      \ on one plot.\n\n"
+      \ on one plot using the **Explore** feature.\n\n"
     row: 94
     col: 0
     width: 9
@@ -1153,21 +1154,21 @@
     title_text: Product Site Visits by Channel Group
     subtitle_text: ''
     body_text: "The channel groups are categorized using the UTM attributions ( medium,\
-      \ source, campaign, content). The categorization rule was based on the Marketing\
+      \ source, campaign, content). The categorization rules were based on the Marketing\
       \ UTM Parameters - 2021 H2 spreadsheet.\n\n* Direct: traffic led to the VPN\
-      \ product page or the mobile app stores without campaign attributions. In a\
+      \ product page or the mobile app stores without a campaign attribution. In a\
       \ web browser, when users visit through the link from their search results or\
-      \ by entering mozilla.org/vpn to the URL bar, they are attributed with (**medium\
-      \ = `referral` , source = `www.mozilla.org-vpn-product-page` , campaign = `vpn-product-page`**).\
-      \ In a mobile app store, the direct traffic is attributed with (**medium = `organic`,\
-      \ source =`google-play`**). \n\n* Marketing_owned: traffic led by the marketing\
-      \ owned media campaigns (ex. Blog.mozilla.org, whatsnew)\n\n* Marketing_paid:\
-      \ traffic led by the paid campaign(ex. SEM)\n\n* Product_owned: traffic led\
+      \ by entering mozilla.org/vpn to the URL bar, they are attributed with (**medium**\
+      \ = `referral` , **source** = `www.mozilla.org-vpn-product-page` , **campaign** = `vpn-product-page`).\
+      \ In a mobile app store, the direct traffic is attributed with (**medium** = `organic`,\
+      \ **source** =`google-play`). \n\n* Marketing owned: traffic led by the marketing\
+      \ owned media campaigns (ex. Blog.mozilla.org, whatsnew)\n\n* Marketing paid:\
+      \ traffic led by the paid campaign(ex. SEM)\n\n* Product owned: traffic led\
       \ by the product owned media campaigns (ex. Firefox browser)\n\n* Unattributed:\
       \ traffic led with no attribution\n\n* Miscellaneous: traffic led with some\
       \ attributions that could not be categorized. It could be that some of the attribution\
       \ parameters got lost or attributions that were not well documented.  \n* For\
-      \ more detailed explanation for the categorization of the channel groups, please\
+      \ a more detailed explanation for the categorization of the channel groups, please\
       \ refer to [this documentation](https://docs.google.com/document/d/1ojf1XHb3Iu5GNzMfozDcxWhEw6d9A4QuiaoAm-gDIrk/edit?usp=sharing). "
     row: 12
     col: 0
@@ -1248,13 +1249,13 @@
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: "# Conversion Funnel Steps\n\nDepending on users status with FxA, the\
+    body_text: "# Conversion Funnel Steps\n\nDepending on users status with their FxA, the\
       \ conversion funnel varies. For all users, there are three common steps between\
-      \ groups are plotted to monitor overall trend. Then there are three plots for\n\
-      \n*  New FxA users: people how did not have a FxA before entering the funnel\
-      \ \n\n* Existing FxA Signed Off users: people who had a FxA but did not log\
-      \ in before entering the funnel, existing FxA users how was signed in before\
-      \ entering the funnel. \n\n* Singed in FxA users: people who had a\
+      \ groups that are plotted to monitor overall trend. Then there are three separate plots for\n\
+      \n*  New FxA users: people who did not have a FxA before entering the acquisition funnel\
+      \ \n\n* Signed off FxA users : people who had a FxA but did not sign\
+      \ in before entering the funnel, existing FxA users who were signed in before\
+      \ entering the funnel. \n\n* Signed in FxA users: people who had a\
       \ FxA and already signed in before entering the funnel.\n\nFor more information\
       \ about each funnel, refer to [this board](https://miro.com/app/board/o9J_lq1HHTg=/?invite_link_id=97426737166).\n\
       \nTo understand how each step in the user journey of each user group,  refer\
@@ -1270,35 +1271,35 @@
     title_text: Click Through Rate (CTR)  from choosing a pricing plan to start the
       acquisition process
     subtitle_text: ''
-    body_text: "CTR is calculated as a rate of the number of people on the top of\
-      \ funnel by click a pricing plan in [the VPN product site](www.mozilla.org/vpn).\
-      \ \n\n* **CTR (Click Through Rate in %)= (the payment site visits)/(VPN product\
-      \ site visits)*100**\n\n* Using filters on the top, you can get the CTR for\
+    body_text: "The CTR is calculated as a rate of the number of people on the top of\
+      \ the funnel by clicking a pricing plan in [the VPN product page](www.mozilla.org/vpn).\
+      \ \n\n* **CTR (Click Through Rate in %)= (the payment page visits)/(VPN product\
+      \ page visits)*100**\n\n* Using filters on the top, you can get the CTR for\
       \ a specific group. \n\n* Click the three dots on the top right of the plot\
-      \ to compare the CTRs for different groups on one plot.  \n"
+      \ to compare the CTRs for different groups on one plot using the **Explore** feature.  \n"
     row: 35
     col: 0
     width: 24
-    height: 4
+    height: 5
   - name: Pricing Plans Chosen while Entering the Funnel
     type: text
     title_text: Pricing Plans Chosen while Entering the Funnel
     subtitle_text: ''
-    body_text: 'Users choose one of the three price plans (monthly, 6 months, 12 months)
-      to enter the acquisition funnel. This plot represent the popularity of each
+    body_text: 'Users choose one of the three pricing plans (monthly, 6 months, 12 months)
+      to enter the subscription flow. This chart represents the number of sessions that chose each
       plan. '
     row: 45
     col: 0
     width: 24
-    height: 2
+    height: 1
   - name: Top of the Funnel traffic by Channel Group
     type: text
     title_text: Top of the Funnel traffic by Channel Group
     subtitle_text: ''
     body_text: 'This plot shows how many people from each channel group entered the
-      acquisition funnel after landing on the product site. The conversion rate for
-      each group from the product site to the top of the funnel can be found in **CTR
-      from the VPN product Site to Entering Subscription Flow** above using the channel group
+      acquisition funnel after landing on the VPN product page. The conversion rate for
+      each group from the product page to the top of the funnel can be found in **CTR
+      From Product Page Visit to Entering Subscription Flow** above using the channel group
       filter on the top.  '
     row: 53
     col: 0

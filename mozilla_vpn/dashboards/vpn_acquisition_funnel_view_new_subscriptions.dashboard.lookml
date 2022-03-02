@@ -34,7 +34,7 @@
 
         <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1_l-ZsbKsxRh7HGqtODz8w8eDBqkw2N9SIZxEE9qG-DQ/edit?usp=sharing">
 
-        Doc</a>
+        Docs</a>
 
       </nav>
 
@@ -272,12 +272,12 @@
     type: text
     title_text: Daily Subscriptions Proportion Rate of Each Channel Group
     subtitle_text: ''
-    body_text: "This plot shows how daily subscriptions consist of traffics from each\
+    body_text: "This plot shows how daily subscriptions consist of traffic from each\
       \ channel group. It can be used to answer questions like what percent of new\
       \ subscriptions is led by the direct traffic. \n\nMoreover, we can also use\
       \ this plot to detect a sign of a potential problem in the data generating system.\
       \ The **unattributed** and **miscellaneous** subscriptions may be due to the\
-      \ logging system missing a part or all or attributions. If the rates of those\
+      \ logging system missing a part or all of utm parameters consisting of attributions. If the rates of those\
       \ two groups increase, then it can be a sign of a problem for the system passing\
       \ the data. "
     row: 38
@@ -286,31 +286,31 @@
     height: 4
   - name: Subscriptions Categorized by Channel Group
     type: text
-    title_text: Subscriptions Categoriz by Channel Group
+    title_text: Subscriptions Categorized by Channel Group
     subtitle_text: ''
     body_text: "The channel groups are categorized using the UTM attributions ( medium,\
-      \ source, campaign, content). The categorization rule was based on the Marketing\
+      \ source, campaign, content). The categorization rules were based on the Marketing\
       \ UTM Parameters - 2021 H2 spreadsheet.\n\n* Direct: traffic led to the VPN\
-      \ product page or the mobile app stores without campaign attributions. In a\
+      \ product page or the mobile app stores without a campaign attribution. In a\
       \ web browser, when users visit through the link from their search results or\
-      \ by entering mozilla.org/vpn to the URL bar, they are attributed with (**medium\
-      \ = `referral` , source = `www.mozilla.org-vpn-product-page` , campaign = `vpn-product-page`**).\
-      \ In a mobile app store, the direct traffic is attributed with (**medium = `organic`,\
-      \ source = `google-play`**). \n\n* Marketing_owned: traffic led by the marketing\
-      \ owned media campaigns (ex. Blog.mozilla.org, whatsnew)\n\n* Marketing_paid:\
-      \ traffic led by the paid campaign(ex. SEM)\n\n* Product_owned: traffic led\
+      \ by entering mozilla.org/vpn to the URL bar, they are attributed with (**medium**\
+      \ = `referral` , **source** = `www.mozilla.org-vpn-product-page` , **campaign** = `vpn-product-page`).\
+      \ In a mobile app store, the direct traffic is attributed with (**medium** = `organic`,\
+      \ **source** =`google-play`). \n\n* Marketing owned: traffic led by the marketing\
+      \ owned media campaigns (ex. Blog.mozilla.org, whatsnew)\n\n* Marketing paid:\
+      \ traffic led by the paid campaign(ex. SEM)\n\n* Product owned: traffic led\
       \ by the product owned media campaigns (ex. Firefox browser)\n\n* Unattributed:\
       \ traffic led with no attribution\n\n* Miscellaneous: traffic led with some\
       \ attributions that could not be categorized. It could be that some of the attribution\
       \ parameters got lost or attributions that were not well documented.  \n* For\
-      \ more detailed explanation for the categorization of the channel groups, please\
+      \ a more detailed explanation for the categorization of the channel groups, please\
       \ refer to [this documentation](https://docs.google.com/document/d/1ojf1XHb3Iu5GNzMfozDcxWhEw6d9A4QuiaoAm-gDIrk/edit?usp=sharing). "
     row: 22
     col: 0
     width: 24
     height: 9
-  - title: Subscription Proportion Rate by Each Channel Group
-    name: Subscription Proportion Rate by Each Channel Group
+  - title: Subscription Proportion Rate of Each Channel Group
+    name: Subscription Proportion Rate of Each Channel Group
     model: mozilla_vpn
     explore: channel_group_proportions_table
     type: looker_line
@@ -524,8 +524,8 @@
     col: 3
     width: 19
     height: 7
-  - title: Total New Subscriptions during Filtered Days
-    name: Total New Subscriptions during Filtered Days
+  - title: New Subscriptions during Filtered Days
+    name: New Subscriptions during Filtered Days
     model: mozilla_vpn
     explore: channel_group_proportions_table
     type: single_value
