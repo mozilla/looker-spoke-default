@@ -15,6 +15,30 @@ view: browser_kpis {
     hidden: yes
   }
 
+  dimension: active_hours_sum {
+    hidden: yes
+  }
+
+  dimension: ad_click {
+    hidden: yes
+  }
+
+  dimension: search_count {
+    hidden: yes
+  }
+
+  dimension: organic_search_count {
+    hidden: yes
+  }
+
+  dimension: search_with_ads {
+    hidden: yes
+  }
+
+  dimension: durations {
+    hidden: yes
+  }
+
   measure: total_search_count {
     hidden: yes
   }
@@ -35,10 +59,8 @@ view: browser_kpis {
     hidden: yes
   }
 
-  measure: user_count_qualified {
-    type: sum
-    sql: ${TABLE}.user_count ;;
-    filters: [client_qualifies: "yes"]
-    label: "User Count"
+  measure: total_search_with_ads {
+    hidden: yes
   }
+
 }
