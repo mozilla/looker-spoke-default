@@ -1,5 +1,6 @@
 connection: "telemetry"
 
+include: "//looker-hub/kpi/explores/*"
 include: "./dashboards/*.dashboard"
 include: "./views/*.view.lkml"                # include all views in the views/ folder in this project
 
@@ -98,4 +99,29 @@ explore: recent_mobile_forecast {
     sql_on: ${recent_mobile_forecast.primary_key} = ${mobile_dau_actuals.primary_key};;
     relationship: one_to_many
   }
+}
+
+explore: browser_kpis {
+  label: "2022 Browser KPIs"
+  group_label: "Core Browser Metrics and KPIs"
+
+  always_filter: {
+    filters: [
+      browser_kpis.active_today: "yes"
+    ]
+  }
+}
+
+explore: +unified_metrics {
+  group_label: "Core Browser Metrics and KPIs"
+  sql_always_where: ${submission_date}  >= DATE(2017,1,1);;
+  conditionally_filter: {
+    filters: [active_today: "yes"]
+    unless: [days_seen_bits]
+  }
+}
+
+explore: loines_browser_2022_forecasts {
+  group_label: "Core Browser Metrics and KPIs"
+  label: "2022 Browser Forecasts"
 }
