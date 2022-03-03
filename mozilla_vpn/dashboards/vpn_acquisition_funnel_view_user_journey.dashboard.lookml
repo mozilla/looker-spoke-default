@@ -21,7 +21,7 @@
 
         <img style="color: #000000; padding: 5px 10px; float: left; height: 40px;" src="https://www.mozilla.org/media/img/logos/vpn/logo-with-wordmark.c1659f9e6dd6.svg"/>
 
-        <a style="color: #000000; border: 1px solid white; padding: 5px 80px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/495?Partition%20Date=28%20day&Country=&Channel%20Group=&UTM%20Medium=&UTM%20Source=&UTM%20Campaign=&UTM%20Content=&UTM%20Term=&Entrypoint%20Experiment=&Entrypoint%20Variation=&Pricing%20Plan=&OS%20Name=&OS%20Version=">
+        <a style="color: #000000; border: 1px solid white; padding: 5px 80px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" >
 
       User Journey</a>
 
