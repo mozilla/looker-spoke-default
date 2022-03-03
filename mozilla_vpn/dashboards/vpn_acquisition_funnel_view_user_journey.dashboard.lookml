@@ -21,11 +21,11 @@
 
         <img style="color: #000000; padding: 5px 10px; float: left; height: 40px;" src="https://www.mozilla.org/media/img/logos/vpn/logo-with-wordmark.c1659f9e6dd6.svg"/>
 
-        <a style="color: #000000; border: 1px solid white; padding: 5px 80px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/mozilla_vpn::vpn_acquisition_funnel_view_user_journey?Start+Date=28+day&Country=&Channel+Group=&UTM+Medium=&UTM+Source=&UTM+Campaign=&UTM+Content=&UTM+Term=&Entrypoint+Experiment=&Entrypoint+Variation=&Pricing+Plan=&OS+Name=&OS+Version=">
+        <a style="color: #000000; border: 1px solid white; padding: 5px 80px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" >
 
       User Journey</a>
 
-        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/mozilla_vpn::vpn_acquisition_funnel_view_new_subscriptions?Start+Date=28+day&Country=&Channel+Group=&Provider=&Pricing+Plan=&UTM+Medium=&UTM+Source=&UTM+Campaign=&UTM+Content=&Entrypoint+Experiment=&Entrypoint+Variation=">
+        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/494?Start+Date=28+day&Country=&Channel+Group=&Provider=&Pricing+Plan=&UTM+Medium=&UTM+Source=&UTM+Campaign=&UTM+Content=&Entrypoint+Experiment=&Entrypoint+Variation=">
 
       New Subs</a>
 
