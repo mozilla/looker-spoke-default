@@ -85,7 +85,7 @@ explore: +desktop_search_counts {
     }
 
     materialization: {
-      sql_trigger_value: "SELECT CURRENT_DATE()" ;;
+      sql_trigger_value: SELECT CURRENT_DATE() ;;
     }
   }
 
@@ -99,7 +99,7 @@ explore: +desktop_search_counts {
     }
 
     materialization: {
-      sql_trigger_value: "SELECT CURRENT_DATE()" ;;
+      sql_trigger_value: SELECT CURRENT_DATE() ;;
     }
   }
 
@@ -113,7 +113,7 @@ explore: +desktop_search_counts {
     }
 
     materialization: {
-      sql_trigger_value: "SELECT CURRENT_DATE()" ;;
+      sql_trigger_value: SELECT CURRENT_DATE() ;;
     }
   }
 
@@ -126,7 +126,7 @@ explore: +desktop_search_counts {
     }
 
     materialization: {
-      sql_trigger_value: "SELECT CURRENT_DATE()" ;;
+      sql_trigger_value: SELECT CURRENT_DATE() ;;
     }
   }
 
@@ -155,7 +155,7 @@ explore: +desktop_search_counts {
     }
 
     materialization: {
-      sql_trigger_value: "SELECT CURRENT_DATE()" ;;
+      sql_trigger_value:SELECT CURRENT_DATE() ;;
       increment_key: search_clients_engines_sources_daily.submission_date
       increment_offset: 1
     }
@@ -186,7 +186,7 @@ explore: +desktop_search_counts {
     }
 
     materialization: {
-      sql_trigger_value: "SELECT DATE_TRUNC(CURRENT_DATE(), MONTH)" ;;
+      sql_trigger_value: SELECT DATE_TRUNC(CURRENT_DATE(), MONTH) ;;
       increment_key: search_clients_engines_sources_daily.submission_month
       increment_offset: 1
     }
