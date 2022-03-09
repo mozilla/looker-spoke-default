@@ -26,7 +26,7 @@ explore: firefox_desktop_usage_2021 {
     type: cross
     relationship: many_to_one
   }
-  hidden: no
+  hidden: yes
 }
 
 # For suggestions
@@ -37,6 +37,7 @@ explore: firefox_desktop_usage_fields {
 explore: mobile_usage_2021 {
   label: "Firefox Mobile Usage"
   group_label: "KPIs"
+  hidden: yes
   from: mobile_usage_2021
   join: mobile_prediction {
     view_label: "Mobile Forecast"
@@ -63,7 +64,7 @@ explore: recent_desktop_forecast {
   label: "Desktop Days of Use KRs (Work In Progress)"
   view_label: "Recent Desktop Forecast (Work in Progress)"
   group_label: "KPIs"
-  hidden: no
+  hidden: yes
   from: recent_desktop_forecast
   always_filter: {filters: [recent_desktop_forecast.forecast_recency: "1"]}
   join: original_desktop_forecast {
@@ -84,7 +85,7 @@ explore: recent_mobile_forecast {
   label: "Mobile Days of Use KRs (Work In Progress)"
   view_label: "Recent Mobile Forecast (Work in Progress)"
   group_label: "KPIs"
-  hidden: no
+  hidden: yes
   from: recent_mobile_forecast
   always_filter: {filters: [recent_mobile_forecast.forecast_recency: "1"]}
   join: original_mobile_forecast {
@@ -114,6 +115,7 @@ explore: browser_kpis {
 
 explore: +unified_metrics {
   group_label: "Core Browser Metrics and KPIs"
+  label: "Unified Browser Metrics"
   sql_always_where: ${submission_date}  >= DATE(2017,1,1);;
   conditionally_filter: {
     filters: [active_today: "yes"]
