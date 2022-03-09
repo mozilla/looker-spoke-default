@@ -12,7 +12,7 @@ explore: +session_counts {
     }
 
     materialization: {
-      sql_trigger_value: "SELECT CURRENT_DATE()" ;;
+      sql_trigger_value: SELECT CURRENT_DATE() ;;
     }
   }
 
@@ -23,7 +23,7 @@ explore: +session_counts {
     }
 
     materialization: {
-      sql_trigger_value: "SELECT CURRENT_DATE()" ;;
+      sql_trigger_value: SELECT CURRENT_DATE() ;;
     }
   }
 
@@ -34,7 +34,7 @@ explore: +session_counts {
     }
 
     materialization: {
-      sql_trigger_value: "SELECT CURRENT_DATE()" ;;
+      sql_trigger_value: SELECT CURRENT_DATE() ;;
     }
   }
 
@@ -44,7 +44,7 @@ explore: +session_counts {
     }
 
     materialization: {
-      sql_trigger_value: "SELECT CURRENT_DATE()" ;;
+      sql_trigger_value: SELECT CURRENT_DATE() ;;
     }
   }
 }
@@ -57,7 +57,7 @@ explore: +pocket_tile_impressions {
     }
 
     materialization: {
-      sql_trigger_value: "SELECT CURRENT_DATE()" ;;
+      sql_trigger_value: SELECT CURRENT_DATE() ;;
     }
   }
 
@@ -68,7 +68,7 @@ explore: +pocket_tile_impressions {
     }
 
     materialization: {
-      sql_trigger_value: "SELECT CURRENT_DATE()" ;;
+      sql_trigger_value: SELECT CURRENT_DATE() ;;
     }
   }
 
@@ -79,7 +79,7 @@ explore: +pocket_tile_impressions {
     }
 
     materialization: {
-      sql_trigger_value: "SELECT CURRENT_DATE()" ;;
+      sql_trigger_value: SELECT CURRENT_DATE() ;;
     }
   }
 
@@ -93,7 +93,7 @@ explore: +pocket_tile_impressions {
     }
 
     materialization: {
-      sql_trigger_value: "SELECT CURRENT_DATE()" ;;
+      sql_trigger_value: SELECT CURRENT_DATE() ;;
     }
   }
 
@@ -107,7 +107,7 @@ explore: +pocket_tile_impressions {
     }
 
     materialization: {
-      sql_trigger_value: "SELECT CURRENT_DATE()" ;;
+      sql_trigger_value: SELECT CURRENT_DATE() ;;
     }
   }
 }
