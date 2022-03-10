@@ -16,9 +16,24 @@ view: +unified_metrics {
       ELSE FALSE END ;;
   }
 
+  dimension: normalized_app_name {
+    label: "App Name"
+    description: "Possible Values are Firefox Desktop, Firefox iOS, Fenix, Focus Android and Focus iOS"
+  }
+
+  dimension: platform {
+    label: "Platform (Desktop or Mobile)"
+    sql: CASE WHEN ${TABLE}.normalized_app_name = 'Firefox Desktop' THEN 'Desktop' ELSE 'Mobile' END ;;
+  }
+
   measure: total_user_count {
     type: count
     drill_fields: [normalized_app_name]
+  }
+
+  measure: total_uri_count {
+    type: sum
+    sql: ${TABLE}.uri_count ;;
   }
 
   measure: total_search_count {
