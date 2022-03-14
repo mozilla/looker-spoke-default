@@ -64,7 +64,8 @@ view: distinct_docids {
   measure: non_matching_count {
     type: number
     sql: COUNTIF(
-      ${TABLE}.decoded != ${TABLE}.live OR ${TABLE}.decoded != ${TABLE}.stable
+      IF(${TABLE}.decoded IS NULL, FALSE, ${TABLE}.decoded != ${TABLE}.live)
+      OR ${TABLE}.live != ${TABLE}.stable
     );;
   }
 
