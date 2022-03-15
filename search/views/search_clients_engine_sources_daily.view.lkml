@@ -1,6 +1,12 @@
 include: "//looker-hub/search/views/search_clients_engines_sources_daily.view.lkml"
 
 view: +search_clients_engines_sources_daily {
+  dimension: month_formatted {
+    type: date
+    sql: DATE(2020, EXTRACT(MONTH FROM CAST(${TABLE}.submission_date AS DATE)), 1) ;;
+    html: {{ rendered_value | date: "%b" }} ;;
+  }
+
   measure: total_searches {
     type: sum
     sql: ${sap} ;;
