@@ -32,7 +32,7 @@ view: loines_browser_2022_forecasts {
 
   dimension: platform {
     type: string
-    sql: CASE WHEN ${TABLE}.platform = 'desktop' THEN 'Firefox Desktop' ELSE 'Firefox Mobile' END;;
+    sql: CASE WHEN ${TABLE}.platform = 'desktop' THEN 'Firefox Desktop' WHEN ${TABLE}.platform = 'mobile' THEN 'Firefox Mobile' ELSE 'Firefox Mobile (REVISED)' END;;
     label: "Platform (Firefox Desktop or Mobile)"
   }
 
