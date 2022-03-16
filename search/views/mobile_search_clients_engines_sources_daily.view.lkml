@@ -3,6 +3,7 @@ include: "//looker-hub/search/views/mobile_search_clients_engines_sources_daily.
 view: +mobile_search_clients_engines_sources_daily {
   measure: total_searches {
     type: sum
+    label: "Total SAP Searches"
     sql: ${sap} ;;
     description: "Total searches from all Search Access Points (SAPs), not including follow-ons.
     These may or may not be tagged."
