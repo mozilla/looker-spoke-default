@@ -1,6 +1,22 @@
 include: "//looker-hub/search/views/search_clients_engines_sources_daily.view.lkml"
 
 view: +search_clients_engines_sources_daily {
+  dimension_group: submission {
+    sql: ${TABLE}.submission_date ;;
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      month_name,
+      quarter,
+      year,
+    ]
+    convert_tz: no
+    datatype: date
+  }
+
   dimension: month_formatted {
     type: date
     sql: DATE(2020, EXTRACT(MONTH FROM CAST(${TABLE}.submission_date AS DATE)), 1) ;;
