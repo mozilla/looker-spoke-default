@@ -7,6 +7,22 @@ view: +mobile_search_clients_engines_sources_daily {
     html: {{ rendered_value | date: "%b" }} ;;
   }
 
+  dimension_group: submission {
+    sql: ${TABLE}.submission_date ;;
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      month_name,
+      quarter,
+      year,
+    ]
+    convert_tz: no
+    datatype: date
+  }
+
   measure: total_searches {
     label: "SAP Searches"
     type: sum
