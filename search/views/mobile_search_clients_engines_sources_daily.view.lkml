@@ -1,10 +1,21 @@
 include: "//looker-hub/search/views/mobile_search_clients_engines_sources_daily.view.lkml"
 
 view: +mobile_search_clients_engines_sources_daily {
-  dimension: month_formatted {
-    type: date
-    sql: DATE(2020, EXTRACT(MONTH FROM CAST(${TABLE}.submission_date AS DATE)), 1) ;;
-    html: {{ rendered_value | date: "%b" }} ;;
+
+  dimension_group: submission {
+    sql: ${TABLE}.submission_date ;;
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      month_name,
+      quarter,
+      year,
+    ]
+    convert_tz: no
+    datatype: date
   }
 
   measure: total_searches {
