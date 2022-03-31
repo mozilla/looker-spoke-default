@@ -14,7 +14,11 @@ view: +channel_group_proportions_table {
     sql: ${TABLE}.total_new_subscriptions_for_date ;;
     type: average
   }
-
+  
+  dimension: coupon_code {
+    sql: ${TABLE}.promotion_codes[SAFE_ORDINAL(1)] ;;
+  }
+  
   dimension: new_subscriptions{
     hidden: yes
   }
