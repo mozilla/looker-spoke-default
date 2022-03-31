@@ -14,19 +14,11 @@ view: +channel_group_proportions_table {
     sql: ${TABLE}.total_new_subscriptions_for_date ;;
     type: average
   }
-<<<<<<< HEAD
 
   dimension: coupon_code {
     sql: ${TABLE}.promotion_codes[SAFE_ORDINAL(1)] ;;
   }
 
-=======
-  
-  dimension: coupon_code {
-    sql: ${TABLE}.promotion_codes[SAFE_ORDINAL(1)] ;;
-  }
-  
->>>>>>> branch 'vpn-acquistion-funnel-view' of git@github.com:mozilla/looker-spoke-default.git
   dimension: new_subscriptions{
     hidden: yes
   }
