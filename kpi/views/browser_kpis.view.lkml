@@ -33,12 +33,14 @@ view: browser_kpis {
 
   dimension: platform {
     sql: ${TABLE}.platform ;;
-    description: "Firefox Desktop or Mobile"
+    label: "Platform (Firefox Desktop or Mobile)"
+    description: "'Firefox Desktop' or 'Firefox Mobile'"
   }
 
   measure: dau {
     type: sum
     label: "Qualified Days of Use (Daily Active Users)"
+    description: "This counts QCDOU for Desktop and CDOU for Mobile."
     sql: ${TABLE}.dau ;;
   }
 }
