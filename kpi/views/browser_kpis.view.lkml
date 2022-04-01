@@ -1,66 +1,46 @@
-include: "./unified_metrics.view.lkml"
+# derived table for simplified tracking of (Q)CDOU. Users looking to drill down should use the upstream explore, `browser_dau`
 
 view: browser_kpis {
-  extends: [unified_metrics]
-
-  dimension: days_since_first_seen {
-    hidden: yes
+  derived_table: {
+    explore_source: browser_dau {
+      column: submission {
+        field: browser_dau.submission_date
+      }
+      column: platform {
+        field: browser_dau.platform
+      }
+      column: dau {
+        field: browser_dau.total_user_count
+      }
+    filters: [browser_dau.client_qualifies: "yes"]
+    }
   }
 
-  dimension: first_seen {
-    hidden: yes
+  dimension_group: submission {
+    sql: DATE(${TABLE}.submission) ;;
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year,
+    ]
+    convert_tz: no
+    datatype: date
   }
 
-  dimension: uri_count {
-    hidden: yes
+  dimension: platform {
+    sql: ${TABLE}.platform ;;
+    label: "Platform (Firefox Desktop or Mobile)"
+    description: "'Firefox Desktop' or 'Firefox Mobile'"
   }
 
-  dimension: active_hours_sum {
-    hidden: yes
+  measure: dau {
+    type: sum
+    label: "Qualified Days of Use (Daily Active Users)"
+    description: "This counts QCDOU for Desktop and CDOU for Mobile."
+    sql: ${TABLE}.dau ;;
   }
-
-  dimension: ad_click {
-    hidden: yes
-  }
-
-  dimension: search_count {
-    hidden: yes
-  }
-
-  dimension: organic_search_count {
-    hidden: yes
-  }
-
-  dimension: search_with_ads {
-    hidden: yes
-  }
-
-  dimension: durations {
-    hidden: yes
-  }
-
-  measure: total_search_count {
-    hidden: yes
-  }
-
-  measure: total_ad_click {
-    hidden: yes
-  }
-
-  measure: total_organic_search_count {
-    hidden: yes
-  }
-
-  measure: total_durations {
-    hidden: yes
-  }
-
-  measure: total_active_hours_sum {
-    hidden: yes
-  }
-
-  measure: total_search_with_ads {
-    hidden: yes
-  }
-
 }

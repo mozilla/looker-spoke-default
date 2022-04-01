@@ -22,13 +22,12 @@ view: +unified_metrics {
   }
 
   dimension: platform {
-    label: "Platform (Desktop or Mobile)"
-    sql: CASE WHEN ${TABLE}.normalized_app_name = 'Firefox Desktop' THEN 'Desktop' ELSE 'Mobile' END ;;
+    label: "Platform (Firefox Desktop or Mobile)"
+    sql: CASE WHEN ${TABLE}.normalized_app_name = 'Firefox Desktop' THEN 'Firefox Desktop' ELSE 'Firefox Mobile' END ;;
   }
 
   measure: total_user_count {
     type: count
-    drill_fields: [normalized_app_name]
   }
 
   measure: total_uri_count {
