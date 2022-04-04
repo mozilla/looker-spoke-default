@@ -104,17 +104,17 @@ explore: recent_mobile_forecast {
 
 explore: browser_kpis {
   label: "2022 Browser KPIs"
-  group_label: "Core Browser Metrics and KPIs"
-
-  always_filter: {
-    filters: [
-      browser_kpis.active_today: "yes"
-    ]
+  group_label: "Official Browser KPIs"
+  description: "For Official Accounting. To drill down into other dimensions (e.g. Country) please use the 'Browsers Daily Active Users' Explore."
+  join: loines_browser_2022_forecasts {
+    type: left_outer
+    sql_on: ${browser_kpis.submission_date} = ${loines_browser_2022_forecasts.date_date} AND ${browser_kpis.platform} = ${loines_browser_2022_forecasts.platform};;
+    relationship: one_to_one
   }
 }
 
 explore: +unified_metrics {
-  group_label: "Core Browser Metrics and KPIs"
+  group_label: "Core Browser Metrics"
   label: "Unified Browser Metrics"
   sql_always_where: ${submission_date}  >= DATE(2017,1,1);;
   conditionally_filter: {
@@ -123,7 +123,18 @@ explore: +unified_metrics {
   }
 }
 
+explore: browser_dau {
+  label: "Browsers Daily Active Users"
+  group_label: "Core Browser Metrics"
+  description: "Easiest to use for answering most common questions about (Q)CDOU."
+  always_filter: {
+    filters: [
+      browser_dau.active_today: "yes"
+    ]
+  }
+}
+
 explore: loines_browser_2022_forecasts {
-  group_label: "Core Browser Metrics and KPIs"
-  label: "2022 Browser Forecasts"
+  group_label: "Official Browser KPIs"
+  label: "Official Browser KPI Forecasts and Targets"
 }
