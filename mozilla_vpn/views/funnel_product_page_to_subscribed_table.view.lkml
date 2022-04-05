@@ -142,6 +142,23 @@ view: +funnel_product_page_to_subscribed_table {
             ELSE round(cast(SUM(${TABLE}.new_fxa_payment_setup_complete)/SUM(${TABLE}.new_fxa_user_input_emails) *100 AS Float64))
             END;;
   }
+  #Coupon activities
+  dimension: promotion_code {
+    sql: ${TABLE}.promotion_code ;;
+    type: string
+  }
+  measure: subscribe_coupon_submit {
+    sql: ${TABLE}.subscribe_coupon_submit ;;
+    type: sum
+  }
+  measure: subscribe_coupon_fail {
+    sql: ${TABLE}.subscribe_coupon_fail ;;
+    type: sum
+  }
+  measure: subscribe_coupon_success {
+    sql: ${TABLE}.subscribe_coupon_success ;;
+    type: sum
+  }
   # overall_... are total counts of the cateogry per day
   dimension: overall_existing_fxa_signedin_payment_setup_complete {
     hidden: yes
