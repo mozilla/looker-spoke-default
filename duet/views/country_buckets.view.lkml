@@ -2,7 +2,7 @@ view: country_buckets {
   derived_table: {
     sql:
       WITH country_codes AS (
-        SELECT * FROM
+        SELECT name, code FROM
             mozdata.static.country_codes_v1 c
           UNION ALL
           SELECT "OTHER" AS name, "OTHER" as code
