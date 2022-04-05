@@ -143,7 +143,7 @@ view: +funnel_product_page_to_subscribed_table {
             END;;
   }
   #Coupon activities
-  dimension: promotion_code {
+  dimension: coupon_code {
     sql: ${TABLE}.promotion_code ;;
     type: string
   }
