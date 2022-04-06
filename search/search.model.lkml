@@ -3,6 +3,7 @@ label: "Search"
 include: "//looker-hub/search/explores/*"
 include: "//looker-hub/search/views/desktop_search_alert_latest_daily.view.lkml"
 include: "views/*"
+include: "/shared/views/*"
 
 explore: +desktop_search_counts {
   description: "Desktop search counts and ad clicks.
@@ -17,6 +18,13 @@ explore: +mobile_search_counts {
   like the URL bar and newtab page. Follow-on searches are those that are after entry from a
   SAP, and organic searches are those that occur directly on a search webpage (e.g. www.google.com).
   Warning: Firefox iOS is not able to implement all metrics, like ad clicks."
+
+  join: countries {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${mobile_search_clients_engines_sources_daily.country} = ${countries.code} ;;
+  }
+
 }
 
 explore: desktop_search_alert_latest_daily {}
@@ -75,6 +83,13 @@ explore: business_development_core_search_users_monthly {
 }
 
 explore: +desktop_search_counts {
+
+  join: countries {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${search_clients_engines_sources_daily.country} = ${countries.code} ;;
+  }
+
   aggregate_table: rollup__search_clients_engines_sources_daily_submission_date_0 {
     query: {
       dimensions: [search_clients_engines_sources_daily.submission_date]
