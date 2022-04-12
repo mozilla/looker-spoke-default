@@ -1,7 +1,3 @@
 connection: "telemetry"
 label: "Shared"
-include: "//looker-hub/shared/explores/*"
-include: "//looker-hub/shared/dashboards/*"
-include: "views/*"
-include: "explores/*"
-include: "dashboards/*"
+include: "//looker-hub/shared/views/*"
