@@ -147,15 +147,15 @@ view: +funnel_product_page_to_subscribed_table {
     sql: ${TABLE}.promotion_code ;;
     type: string
   }
-  measure: subscribe_coupon_submit {
+  measure: total_subscribe_coupon_submit {
     sql: ${TABLE}.subscribe_coupon_submit ;;
     type: sum
   }
-  measure: subscribe_coupon_fail {
+  measure: total_subscribe_coupon_fail {
     sql: ${TABLE}.subscribe_coupon_fail ;;
     type: sum
   }
-  measure: subscribe_coupon_success {
+  measure: total_subscribe_coupon_success {
     sql: ${TABLE}.subscribe_coupon_success ;;
     type: sum
   }
