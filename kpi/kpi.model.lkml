@@ -3,6 +3,7 @@ connection: "telemetry"
 include: "//looker-hub/kpi/explores/*"
 include: "./dashboards/*.dashboard"
 include: "./views/*.view.lkml"                # include all views in the views/ folder in this project
+include: "/shared/views/*"
 
 explore: firefox_desktop_usage_2021 {
   label: "Firefox Desktop Usage"
@@ -121,6 +122,13 @@ explore: +unified_metrics {
     filters: [active_today: "yes"]
     unless: [days_seen_bits]
   }
+
+  join: countries {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${unified_metrics.country} = ${countries.code} ;;
+  }
+
 }
 
 explore: browser_dau {
