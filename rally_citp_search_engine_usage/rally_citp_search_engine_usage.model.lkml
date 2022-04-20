@@ -1,0 +1,7 @@
+connection: "telemetry"
+label: "Search Engine Usage and Result Quality"
+include: "//looker-hub/rally_citp_search_engine_usage/explores/*"
+include: "//looker-hub/rally_citp_search_engine_usage/dashboards/*"
+include: "views/*"
+include: "explores/*"
+include: "dashboards/*"
