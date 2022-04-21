@@ -56,7 +56,7 @@
     filters:
       subscriptions__retention.months_since_subscription_start: ">0"
       subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [subscriptions__retention.churned desc]
+    sorts: [subscriptions__retention.months_since_subscription_start]
     dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.churned}/${subscriptions__retention.previously_retained}",
         label: Churn Rate, value_format: !!null '', value_format_name: percent_1,
         _kind_hint: measure, table_calculation: churn_rate, _type_hint: number}, {
