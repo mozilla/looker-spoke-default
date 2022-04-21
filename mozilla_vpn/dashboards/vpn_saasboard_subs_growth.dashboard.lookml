@@ -3,6 +3,7 @@
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
+  description: ''
   elements:
   - name: ''
     type: text
@@ -84,6 +85,7 @@
       Pricing Plan: subscription_events.pricing_plan
       Country: subscription_events.country_name
       Event Date: subscription_events.event_date
+      Plan Interval Type: subscription_events.plan_interval_type
     row: 2
     col: 19
     width: 5
@@ -98,7 +100,8 @@
     fill_fields: [subscription_events.event_month]
     filters:
       subscription_events.event_type: New
-    sorts: [subscription_events.event_month desc, subscription_events.country_name desc]
+    sorts: [subscription_events.event_month desc, subscription_events.country_name
+        desc]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -196,6 +199,7 @@
       Pricing Plan: subscription_events.pricing_plan
       Country: subscription_events.country_name
       Event Date: subscription_events.event_date
+      Plan Interval Type: subscription_events.plan_interval_type
     row: 8
     col: 0
     width: 8
@@ -308,6 +312,7 @@
       Pricing Plan: subscription_events.pricing_plan
       Country: subscription_events.country_name
       Event Date: subscription_events.event_date
+      Plan Interval Type: subscription_events.plan_interval_type
     row: 8
     col: 8
     width: 8
@@ -368,8 +373,6 @@
     series_colors:
       Resurrected - subscription_events.delta: "#47f5bf"
       New - subscription_events.delta: "#80ab62"
-      New - subscription_events.delta: "#80ab62"
-      Resurrected - subscription_events.delta: "#47f5bf"
     series_labels:
       Resurrected - subscription_events.delta: Returning
     show_null_points: true
@@ -384,79 +387,9 @@
       Pricing Plan: subscription_events.pricing_plan
       Country: subscription_events.country_name
       Event Date: subscription_events.event_date
+      Plan Interval Type: subscription_events.plan_interval_type
     row: 23
     col: 8
-    width: 8
-    height: 13
-  - title: Subscription Cancellations
-    name: Subscription Cancellations
-    model: mozilla_vpn
-    explore: subscription_events
-    type: looker_column
-    fields: [subscription_events.event_month, subscription_events.granular_event_type,
-      subscription_events.delta]
-    pivots: [subscription_events.granular_event_type]
-    fill_fields: [subscription_events.event_month]
-    filters:
-      subscription_events.event_type: Cancelled
-    sorts: [subscription_events.event_month desc, subscription_events.granular_event_type]
-    limit: 500
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: normal
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: true
-    show_silhouette: false
-    totals_color: "#808080"
-    color_application:
-      collection_id: 1297ec12-86a5-4ae0-9dfc-82de70b3806a
-      palette_id: 93f8aeb4-3f4a-4cd7-8fee-88c3417516a1
-      options:
-        steps: 5
-    x_axis_label: Month
-    limit_displayed_rows_values:
-      show_hide: hide
-      first_last: first
-      num_rows: 0
-    hide_legend: false
-    series_types: {}
-    series_colors:
-      Cancelled by IAP - subscription_events.delta: "#7CC8FA"
-      Cancelled by Customer - subscription_events.delta: "#FFDAC4"
-      Payment Failed - subscription_events.delta: "#F56776"
-    series_labels:
-      Resurrected - subscription_events.delta: Returning
-      Cancelled by IAP - subscription_events.delta: Not reported (Apple IAP)
-    show_null_points: true
-    interpolation: linear
-    defaults_version: 1
-    listen:
-      Provider: subscription_events.provider
-      Pricing Plan: subscription_events.pricing_plan
-      Country: subscription_events.country_name
-      Event Date: subscription_events.event_date
-    row: 23
-    col: 16
     width: 8
     height: 13
   - title: Net New Subscriptions
@@ -538,6 +471,7 @@
       Pricing Plan: subscription_events.pricing_plan
       Country: subscription_events.country_name
       Event Date: subscription_events.event_date
+      Plan Interval Type: subscription_events.plan_interval_type
     row: 23
     col: 0
     width: 8
@@ -648,6 +582,7 @@
       Pricing Plan: subscription_events.pricing_plan
       Country: subscription_events.country_name
       Event Date: subscription_events.event_date
+      Plan Interval Type: subscription_events.plan_interval_type
     row: 8
     col: 16
     width: 8
@@ -655,6 +590,7 @@
   - name: " (3)"
     type: text
     title_text: ''
+    subtitle_text: ''
     body_text: |
       <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px; color: red;">
 
@@ -662,19 +598,19 @@
 
         <img style="color: #efefef; padding: 5px 25px; float: left; height: 40px;" src="https://wwwstatic.lookercdn.com/logos/looker_all_white.svg"/>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__active_subscriptions?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/412?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">
 
        Active Subs</a>
 
-        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__subscriptions_growth?Provider=&Pricing+Plan=&Country=&Event+Date=after+2020%2F07%2F20">
+        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/416?Provider=&Pricing+Plan=&Country=&Event+Date=after+2020%2F07%2F20">
 
        Subs Growth</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__retention?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Retention</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/414?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Retention</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__churn?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Churn</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/413?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Churn</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__revenue?Provider=&Pricing%20Plan=&Country=&Active%20Date=after%202020%2F07%2F20">Revenue</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/433?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">Revenue</a>
 
         <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1VtrTwm8Eqt9cPLZLaH1kjnM413gKtdaZArS29xcxXpA/edit?usp=sharing">Docs</a>
 
@@ -711,6 +647,15 @@
     col: 0
     width: 24
     height: 2
+  - name: Subscription Cancellations
+    type: text
+    title_text: Subscription Cancellations
+    subtitle_text: This view is currently unavailable.
+    body_text: ''
+    row: 23
+    col: 16
+    width: 8
+    height: 13
   filters:
   - name: Provider
     title: Provider
@@ -724,7 +669,7 @@
       options: []
     model: mozilla_vpn
     explore: subscription_events
-    listens_to_filters: [Pricing Plan, Country, Event Date]
+    listens_to_filters: [Plan Interval Type, Pricing Plan, Country, Event Date]
     field: subscription_events.provider
   - name: Pricing Plan
     title: Pricing Plan
@@ -738,7 +683,7 @@
       options: []
     model: mozilla_vpn
     explore: subscription_events
-    listens_to_filters: [Provider, Country, Event Date]
+    listens_to_filters: [Plan Interval Type, Provider, Country, Event Date]
     field: subscription_events.pricing_plan
   - name: Country
     title: Country
@@ -752,7 +697,7 @@
       options: []
     model: mozilla_vpn
     explore: subscription_events
-    listens_to_filters: [Provider, Pricing Plan, Event Date]
+    listens_to_filters: [Plan Interval Type, Provider, Pricing Plan, Event Date]
     field: subscription_events.country_name
   - name: Event Date
     title: Event Date
@@ -768,3 +713,17 @@
     explore: subscription_events
     listens_to_filters: []
     field: subscription_events.event_date
+  - name: Plan Interval Type
+    title: Plan Interval Type
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: checkboxes
+      display: popover
+      options: []
+    model: mozilla_vpn
+    explore: subscription_events
+    listens_to_filters: [Provider, Pricing Plan, Country, Event Date]
+    field: subscription_events.plan_interval_type
