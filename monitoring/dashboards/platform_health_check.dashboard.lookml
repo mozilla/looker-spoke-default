@@ -380,7 +380,7 @@
     filters:
       baseline.sample_id: '0'
       baseline.normalized_channel: release
-      baseline.normalized_country_code: CN,CA,DE,FR,FB,US
+      baseline.normalized_country_code: CN,CA,DE,FR,GB,US
     sorts: [baseline.submission_date desc, baseline.normalized_country_code]
     limit: 500
     x_axis_gridlines: false
