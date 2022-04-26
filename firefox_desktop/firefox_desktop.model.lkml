@@ -89,7 +89,7 @@ view: +clients_daily_table__contextual_services_quicksuggest_block_nonsponsored_
   }
 
   measure: count {
-    sql: ${TABLE}.value ;;
+   sql: SUM(${TABLE}.value) ;;
     type: number
   }
 }
