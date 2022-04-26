@@ -100,7 +100,7 @@ view: +clients_daily_table__contextual_services_quicksuggest_block_nonsponsored_
   }
 
   measure: count {
-    sql: ${TABLE}.value ;;
+    sql:  SUM(${TABLE}.value) ;;
     type: number
   }
 }
@@ -111,7 +111,7 @@ view: +clients_daily_table__contextual_services_quicksuggest_block_sponsored_bes
   }
 
   measure: count {
-    sql: ${TABLE}.value ;;
+    sql:  SUM(${TABLE}.value) ;;
     type: number
   }
 }
@@ -122,7 +122,7 @@ view: +clients_daily_table__contextual_services_quicksuggest_block_sponsored_sum
   }
 
   measure: count {
-    sql: ${TABLE}.value ;;
+    sql:  SUM(${TABLE}.value) ;;
     type: number
   }
 }
@@ -133,7 +133,7 @@ view: +clients_daily_table__contextual_services_quicksuggest_click_nonsponsored_
   }
 
   measure: count {
-    sql: ${TABLE}.value ;;
+    sql:  SUM(${TABLE}.value) ;;
     type: number
   }
 }
@@ -144,7 +144,7 @@ view: +clients_daily_table__contextual_services_quicksuggest_click_sponsored_bes
   }
 
   measure: count {
-    sql: ${TABLE}.value ;;
+    sql:  SUM(${TABLE}.value) ;;
     type: number
   }
 }
@@ -155,7 +155,7 @@ view: +clients_daily_table__contextual_services_quicksuggest_click_sum {
   }
 
   measure: count {
-    sql: ${TABLE}.value ;;
+    sql:  SUM(${TABLE}.value) ;;
     type: number
   }
 }
@@ -166,7 +166,7 @@ view: +clients_daily_table__contextual_services_quicksuggest_help_nonsponsored_b
   }
 
   measure: count {
-    sql: ${TABLE}.value ;;
+    sql: SUM(${TABLE}.value) ;;
     type: number
   }
 }
@@ -177,7 +177,7 @@ view: +clients_daily_table__contextual_services_quicksuggest_help_sponsored_best
   }
 
   measure: count {
-    sql: ${TABLE}.value ;;
+    sql:  SUM(${TABLE}.value) ;;
     type: number
   }
 }
@@ -188,7 +188,7 @@ view: +clients_daily_table__contextual_services_quicksuggest_help_sum {
   }
 
   measure: count {
-    sql: ${TABLE}.value ;;
+    sql:  SUM(${TABLE}.value) ;;
     type: number
   }
 }
@@ -199,7 +199,7 @@ view: +clients_daily_table__contextual_services_quicksuggest_impression_nonspons
   }
 
   measure: count {
-    sql: ${TABLE}.value ;;
+    sql:  SUM(${TABLE}.value) ;;
     type: number
   }
 }
@@ -210,7 +210,7 @@ view: +clients_daily_table__contextual_services_quicksuggest_impression_sponsore
   }
 
   measure: count {
-    sql: ${TABLE}.value ;;
+    sql:  SUM(${TABLE}.value) ;;
     type: number
   }
 }
@@ -221,7 +221,7 @@ view: +clients_daily_table__contextual_services_quicksuggest_impression_sum {
   }
 
   measure: count {
-    sql: ${TABLE}.value ;;
+    sql:  SUM(${TABLE}.value) ;;
     type: number
   }
 }
