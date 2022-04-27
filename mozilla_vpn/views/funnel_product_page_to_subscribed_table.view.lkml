@@ -147,18 +147,30 @@ view: +funnel_product_page_to_subscribed_table {
     sql: ${TABLE}.promotion_code ;;
     type: string
   }
-  measure: subscribe_coupon_submit {
+  measure: discount_coupon_submit {
     sql: ${TABLE}.subscribe_coupon_submit ;;
     type: sum
   }
-  measure: subscribe_coupon_fail {
+  measure: discount_coupon_fail {
     sql: ${TABLE}.subscribe_coupon_fail ;;
     type: sum
   }
-  measure: subscribe_coupon_success {
+  measure: discount_coupon_success {
     sql: ${TABLE}.subscribe_coupon_success ;;
     type: sum
   }
+  dimension: subscribe_coupon_fail {
+    hidden: yes
+  }
+
+  dimension: subscribe_coupon_submit {
+     hidden: yes
+  }
+
+  dimension: subscribe_coupon_success {
+     hidden: yes
+  }
+
   # overall_... are total counts of the cateogry per day
   dimension: overall_existing_fxa_signedin_payment_setup_complete {
     hidden: yes
