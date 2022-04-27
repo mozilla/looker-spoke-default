@@ -76,6 +76,7 @@
       Active Date: active_subscriptions.active_date
       Country: active_subscriptions.country_name
       Provider: active_subscriptions.provider
+      Plan Interval Type: active_subscriptions.plan_interval_type
     row: 15
     col: 0
     width: 12
@@ -92,11 +93,13 @@
   - name: " (2)"
     type: text
     title_text: ''
+    subtitle_text: ''
     body_text: "<p style='background-color: #ffffdd; padding: 5px 10px; border: solid\
       \ 3px #ededed; border-radius: 5px; height:150px'>\n\nThis dashboard captures\
-      \ <strong>revenue</strong>.\n\n<br>\n<br>\nPlease submit any questions in  <b><a\
-      \ href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\">mozilla-vpn-data</a></b>\
-      \ channel on Slack for @wichan or @relud. \n\n</p>"
+      \ <strong>revenue</strong>.\n<br>\nRevenue from Apple Store is not included\
+      \ because price amount is not available.\n<br>\n<br>\n<br>\nPlease submit any\
+      \ questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
+      >mozilla-vpn-data</a></b> channel on Slack for @wichan or @relud. \n\n</p>"
     row: 2
     col: 3
     width: 15
@@ -106,12 +109,14 @@
     model: mozilla_vpn
     explore: active_subscriptions
     type: looker_column
-    fields: [active_subscriptions.active_month, active_subscriptions.country_name, active_subscriptions.annual_recurring_revenue]
+    fields: [active_subscriptions.active_month, active_subscriptions.country_name,
+      active_subscriptions.annual_recurring_revenue]
     pivots: [active_subscriptions.country_name]
     fill_fields: [active_subscriptions.active_month]
     filters:
       active_subscriptions.is_end_of_month: 'Yes'
-    sorts: [active_subscriptions.active_month desc, active_subscriptions.country_name desc]
+    sorts: [active_subscriptions.active_month desc, active_subscriptions.country_name
+        desc]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -169,6 +174,7 @@
       Active Date: active_subscriptions.active_date
       Country: active_subscriptions.country_name
       Provider: active_subscriptions.provider
+      Plan Interval Type: active_subscriptions.plan_interval_type
     row: 6
     col: 0
     width: 12
@@ -178,7 +184,8 @@
     model: mozilla_vpn
     explore: active_subscriptions
     type: looker_column
-    fields: [active_subscriptions.active_month, active_subscriptions.pricing_plan, active_subscriptions.annual_recurring_revenue]
+    fields: [active_subscriptions.active_month, active_subscriptions.pricing_plan,
+      active_subscriptions.annual_recurring_revenue]
     pivots: [active_subscriptions.pricing_plan]
     fill_fields: [active_subscriptions.active_month]
     filters:
@@ -238,6 +245,7 @@
       Active Date: active_subscriptions.active_date
       Country: active_subscriptions.country_name
       Provider: active_subscriptions.provider
+      Plan Interval Type: active_subscriptions.plan_interval_type
     row: 6
     col: 12
     width: 12
@@ -277,6 +285,7 @@
       Active Date: active_subscriptions.active_date
       Country: active_subscriptions.country_name
       Provider: active_subscriptions.provider
+      Plan Interval Type: active_subscriptions.plan_interval_type
     row: 2
     col: 18
     width: 6
@@ -304,7 +313,7 @@
 
         <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/413?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Churn</a>
 
-        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/415?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">Revenue</a>
+        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/433?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">Revenue</a>
 
         <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1VtrTwm8Eqt9cPLZLaH1kjnM413gKtdaZArS29xcxXpA/edit?usp=sharing">Docs</a>
 
@@ -328,7 +337,7 @@
       options: []
     model: mozilla_vpn
     explore: active_subscriptions
-    listens_to_filters: [Pricing Plan, Country, Active Date]
+    listens_to_filters: [Plan Interval Type, Active Date, Country, Pricing Plan]
     field: active_subscriptions.provider
   - name: Pricing Plan
     title: Pricing Plan
@@ -342,7 +351,7 @@
       options: []
     model: mozilla_vpn
     explore: active_subscriptions
-    listens_to_filters: [Provider, Country, Active Date]
+    listens_to_filters: [Plan Interval Type, Active Date, Country, Provider]
     field: active_subscriptions.pricing_plan
   - name: Country
     title: Country
@@ -356,7 +365,7 @@
       options: []
     model: mozilla_vpn
     explore: active_subscriptions
-    listens_to_filters: [Provider, Pricing Plan, Active Date]
+    listens_to_filters: [Plan Interval Type, Active Date, Pricing Plan, Provider]
     field: active_subscriptions.country_name
   - name: Active Date
     title: Active Date
@@ -372,3 +381,17 @@
     explore: active_subscriptions
     listens_to_filters: []
     field: active_subscriptions.active_date
+  - name: Plan Interval Type
+    title: Plan Interval Type
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: checkboxes
+      display: popover
+      options: []
+    model: mozilla_vpn
+    explore: active_subscriptions
+    listens_to_filters: [Active Date, Country, Pricing Plan, Provider]
+    field: active_subscriptions.plan_interval_type
