@@ -21,6 +21,13 @@ explore: +client_counts {
   }
 }
 
+view: +client_counts {
+    measure: client_count_distinct {
+    sql: COUNT(${TABLE}.client_id) ;;
+    type: count_distinct
+  }
+}
+
 explore: +event_counts {
   label: "Event Counts (Legacy Telemetry)"
   always_filter: {
