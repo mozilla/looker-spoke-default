@@ -22,9 +22,10 @@ explore: +client_counts {
 }
 
 view: +client_counts {
-    measure: client_count_distinct {
-    sql: COUNT(${TABLE}.client_id) ;;
+  measure: client_count_distinct {
     type: count_distinct
+    description: "Force client count to distinct."
+    sql: ${client_id};;
   }
 }
 
