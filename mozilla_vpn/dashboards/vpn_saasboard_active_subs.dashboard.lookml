@@ -3,6 +3,7 @@
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
+  description: ''
   elements:
   - title: Active Subscriptions (Daily)
     name: Active Subscriptions (Daily)
@@ -47,6 +48,7 @@
       Pricing Plan: active_subscriptions.pricing_plan
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
+      Plan Interval Type: active_subscriptions.plan_interval_type
     row: 8
     col: 8
     width: 16
@@ -105,6 +107,7 @@
       Pricing Plan: active_subscriptions.pricing_plan
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
+      Plan Interval Type: active_subscriptions.plan_interval_type
     row: 8
     col: 0
     width: 8
@@ -188,6 +191,7 @@
       Pricing Plan: active_subscriptions.pricing_plan
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
+      Plan Interval Type: active_subscriptions.plan_interval_type
     row: 2
     col: 19
     width: 5
@@ -202,7 +206,8 @@
     fill_fields: [active_subscriptions.active_month]
     filters:
       active_subscriptions.is_end_of_month: 'Yes'
-    sorts: [active_subscriptions.country_name desc, active_subscriptions.count_sum desc 0]
+    sorts: [active_subscriptions.country_name desc, active_subscriptions.count_sum
+        desc 0]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -279,6 +284,7 @@
       Pricing Plan: active_subscriptions.pricing_plan
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
+      Plan Interval Type: active_subscriptions.plan_interval_type
     row: 31
     col: 0
     width: 8
@@ -366,6 +372,7 @@
       Pricing Plan: active_subscriptions.pricing_plan
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
+      Plan Interval Type: active_subscriptions.plan_interval_type
     row: 31
     col: 8
     width: 8
@@ -455,6 +462,7 @@
       Pricing Plan: active_subscriptions.pricing_plan
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
+      Plan Interval Type: active_subscriptions.plan_interval_type
     row: 31
     col: 16
     width: 8
@@ -532,6 +540,7 @@
       Pricing Plan: active_subscriptions.pricing_plan
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
+      Plan Interval Type: active_subscriptions.plan_interval_type
     row: 15
     col: 0
     width: 4
@@ -609,6 +618,7 @@
       Pricing Plan: active_subscriptions.pricing_plan
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
+      Plan Interval Type: active_subscriptions.plan_interval_type
     row: 15
     col: 4
     width: 4
@@ -621,7 +631,7 @@
     fields: [active_subscriptions.count_sum, active_subscriptions.country_name]
     filters:
       active_subscriptions.is_max_active_date: 'Yes'
-    sorts: [active_subscriptions.country_name desc]
+    sorts: [active_subscriptions.count_sum desc]
     limit: 1000
     column_limit: 50
     value_labels: labels
@@ -722,6 +732,7 @@
       Pricing Plan: active_subscriptions.pricing_plan
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
+      Plan Interval Type: active_subscriptions.plan_interval_type
     row: 22
     col: 0
     width: 8
@@ -734,7 +745,7 @@
     fields: [active_subscriptions.pricing_plan, active_subscriptions.count_sum]
     filters:
       active_subscriptions.is_max_active_date: 'Yes'
-    sorts: [active_subscriptions.pricing_plan]
+    sorts: [active_subscriptions.count_sum desc]
     limit: 1000
     column_limit: 50
     value_labels: labels
@@ -828,6 +839,7 @@
       Pricing Plan: active_subscriptions.pricing_plan
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
+      Plan Interval Type: active_subscriptions.plan_interval_type
     row: 22
     col: 8
     width: 8
@@ -840,7 +852,7 @@
     fields: [active_subscriptions.count_sum, active_subscriptions.provider]
     filters:
       active_subscriptions.is_max_active_date: 'Yes'
-    sorts: [active_subscriptions.provider desc]
+    sorts: [active_subscriptions.count_sum desc]
     limit: 1000
     column_limit: 50
     value_labels: labels
@@ -913,6 +925,7 @@
       Pricing Plan: active_subscriptions.pricing_plan
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
+      Plan Interval Type: active_subscriptions.plan_interval_type
     row: 22
     col: 16
     width: 8
@@ -927,19 +940,19 @@
 
         <img style="color: #efefef; padding: 5px 25px; float: left; height: 40px;" src="https://wwwstatic.lookercdn.com/logos/looker_all_white.svg"/>
 
-        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__active_subscriptions?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">
+        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/412?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">
 
        Active Subs</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__subscriptions_growth?Provider=&Pricing+Plan=&Country=&Event+Date=after+2020%2F07%2F20">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/416?Provider=&Pricing+Plan=&Country=&Event+Date=after+2020%2F07%2F20">
 
        Subs Growth</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__retention?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Retention</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/414?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Retention</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__churn?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Churn</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/413?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Churn</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__revenue?Provider=&Pricing%20Plan=&Country=&Active%20Date=after%202020%2F07%2F20">Revenue</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/433?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">Revenue</a>
 
         <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1VtrTwm8Eqt9cPLZLaH1kjnM413gKtdaZArS29xcxXpA/edit?usp=sharing">Docs</a>
 
@@ -985,7 +998,7 @@
       options: []
     model: mozilla_vpn
     explore: active_subscriptions
-    listens_to_filters: [Active Date, Country, Pricing Plan]
+    listens_to_filters: [Plan Interval Type, Active Date, Country, Pricing Plan]
     field: active_subscriptions.provider
   - name: Pricing Plan
     title: Pricing Plan
@@ -999,7 +1012,7 @@
       options: []
     model: mozilla_vpn
     explore: active_subscriptions
-    listens_to_filters: [Active Date, Country, Provider]
+    listens_to_filters: [Plan Interval Type, Active Date, Country, Provider]
     field: active_subscriptions.pricing_plan
   - name: Country
     title: Country
@@ -1013,7 +1026,7 @@
       options: []
     model: mozilla_vpn
     explore: active_subscriptions
-    listens_to_filters: [Active Date, Pricing Plan, Provider]
+    listens_to_filters: [Plan Interval Type, Active Date, Pricing Plan, Provider]
     field: active_subscriptions.country_name
   - name: Active Date
     title: Active Date
@@ -1029,3 +1042,17 @@
     explore: active_subscriptions
     listens_to_filters: []
     field: active_subscriptions.active_date
+  - name: Plan Interval Type
+    title: Plan Interval Type
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: checkboxes
+      display: popover
+      options: []
+    model: mozilla_vpn
+    explore: active_subscriptions
+    listens_to_filters: [Active Date, Country, Pricing Plan, Provider]
+    field: active_subscriptions.plan_interval_type
