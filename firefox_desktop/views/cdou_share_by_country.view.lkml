@@ -36,6 +36,7 @@ ORDER BY 1
   dimension: submission_date {
     type: date_month
     sql: ${TABLE}.submission_date ;;
+    hidden: yes
   }
 
 
