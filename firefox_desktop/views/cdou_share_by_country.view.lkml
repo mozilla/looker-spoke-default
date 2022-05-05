@@ -3,7 +3,7 @@ view: cdou_share_by_country {
     sql:
 with total_dou as (
   SELECT
-    date_trunc(submission_date, MONTH) as ds_month,
+    date_trunc(submission_date, MONTH) as submission_date,
     SUM(dau) AS total
   FROM
     mozdata.telemetry.firefox_desktop_exact_mau28_by_dimensions desktop
@@ -13,7 +13,7 @@ with total_dou as (
 
 country_dou AS (
   SELECT
-    date_trunc(submission_date, MONTH) as ds_month,
+    date_trunc(submission_date, MONTH) as submission_date,
     country,
     SUM(dau) AS dou
   FROM
@@ -27,7 +27,7 @@ SELECT country,
   AVG(dou/total) as CDOU_share
 FROM country_dou
 LEFT JOIN total_dou
-USING (ds_month)
+USING (submission_date)
 GROUP BY 1
 ORDER BY 1
       ;;
