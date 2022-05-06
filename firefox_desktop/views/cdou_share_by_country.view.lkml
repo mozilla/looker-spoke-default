@@ -8,7 +8,7 @@ with total_dou as (
   FROM
     mozdata.telemetry.firefox_desktop_exact_mau28_by_dimensions desktop
   WHERE
-    {% condition date_filter %} desktop.date {% endcondition %}
+    {% condition submission_date_month %} desktop.submission_date {% endcondition %}
   GROUP BY 1),
 
 country_dou AS (
@@ -19,28 +19,35 @@ country_dou AS (
   FROM
     mozdata.telemetry.firefox_desktop_exact_mau28_by_dimensions desktop
   WHERE
-    {% condition date_filter %} desktop.date {% endcondition %}
+    {% condition submission_date_month %} desktop.submission_date {% endcondition %}
     AND {% condition country %} desktop.country {% endcondition %}
   GROUP BY 1, 2)
 
-SELECT country,
+SELECT
+  submission_date,
+  country,
   AVG(dou/total) as CDOU_share
 FROM country_dou
 LEFT JOIN total_dou
 USING (submission_date)
-GROUP BY 1
+GROUP BY 1, 2
 ORDER BY 1
       ;;
   }
 
   filter: date_filter {
     type: date
-    sql: {% condition date_filter %} ${date} {% endcondition %};;
+    sql: {% condition date_filter %} ${submission_date_month} {% endcondition %};;
   }
 
-  dimension: date {
-    type: date_month
+  dimension_group: submission_date {
     sql: ${TABLE}.submission_date ;;
+    type: time
+    timeframes: [
+      month
+    ]
+    convert_tz: no
+    datatype: date
     hidden: yes
   }
 
