@@ -29,6 +29,13 @@ explore: +mobile_search_counts {
 
 explore: desktop_search_alert_latest_daily {}
 
+explore: automated_KPI_forecasts {
+
+  view_name: kpi_automated_forecast_confidences_v1
+
+}
+
+
 explore: business_development_core_search_users_monthly {
   view_name: bizdev_search_core_users
 
