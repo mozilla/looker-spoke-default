@@ -71,7 +71,7 @@ view: period_over_period_parameters {
 
   }
 
-  dimension: current_vs_previous_period_bigquery {
+  dimension: current_vs_previous_period {
     description: "Use this dimension along with \"Select Timeframe\" Filter"
     type: string
     sql:
