@@ -2384,8 +2384,6 @@
       explore: schema_error_counts
       type: table
       fields: [schema_error_counts.submission_date, grouped, filtered_error_counts]
-      filters:
-        schema_error_counts.submission_date: 28 days
       sorts: [filtered_error_counts desc]
       limit: 500
       dynamic_fields: [{category: measure, expression: !!null '', label: filtered_error_counts,
@@ -2399,8 +2397,6 @@
       explore: schema_error_counts
       type: table
       fields: [grouped, top_error_counts]
-      filters:
-        schema_error_counts.submission_date: 10 years
       sorts: [top_error_counts desc]
       limit: 10
       dynamic_fields: [{category: dimension, expression: 'concat(${schema_error_counts.path},
@@ -2506,8 +2502,6 @@
     type: looker_grid
     fields: [schema_error_counts.document_namespace, schema_error_counts.document_type,
       schema_error_counts.path, error_count, schema_errors_notes.notes]
-    filters:
-      schema_error_counts.submission_date: 15 days
     sorts: [error_count desc]
     limit: 500
     dynamic_fields: [{category: measure, expression: !!null '', label: error_count,
@@ -2569,7 +2563,6 @@
       fields: [schema_error_counts.document_namespace, schema_error_counts.document_type,
         schema_error_counts.path, schema_error_counts.error_counts_sum, schema_errors_notes.notes]
       filters:
-        schema_error_counts.submission_date: 14 days ago for 14 days
         schema_error_counts.error_counts_sum: ''
       sorts: [schema_error_counts.document_type]
       limit: 5000
@@ -2578,8 +2571,6 @@
       explore: distinct_docids
       type: table
       fields: [distinct_docids.namespace, distinct_docids.doc_type, distinct_docids.n_documents]
-      filters:
-        distinct_docids.submission_date: 14 days ago for 14 days
       sorts: [distinct_docids.doc_type]
       limit: 5000
       join_fields:
