@@ -25,11 +25,11 @@ explore: +event_counts {
   sql_always_where: timestamp > "2010-01-01" ;;
 }
 
-explore: fxa_users_services_daily_table {
+explore: daily_service_users {
   label: "Daily Services Users"
   description: "Number of Firefox Accounts authenticating with FxA services according to the FxA server table:`moz-fx-data-shared-prod.firefox_accounts.fxa_users_services_daily`"
   always_filter: {
-    filters: [fxa_users_services_daily_table.submission_date: "14 days"]
+    filters: [daily_service_users.submission_date: "14 days"]
     }
-  fields: [ALL_FIELDS*, -fxa_users_services_daily_table.user_id]
+  fields: [ALL_FIELDS*, -daily_service_users.user_id]
 }

@@ -1,6 +1,7 @@
 include: "//looker-hub/firefox_accounts/views/fxa_users_services_daily_table.view.lkml"
 
-view: +fxa_users_services_daily_table {
+view: daily_service_users {
+  extends: [fxa_users_services_daily_table]
   measure: total_user_count {
     sql: ${user_id} ;;
     type: count_distinct
@@ -9,27 +10,26 @@ view: +fxa_users_services_daily_table {
   measure: desktop_only_users {
     sql: ${user_id} ;;
     type: count_distinct
-    filters: [fxa_users_services_daily_table.service: "firefox-desktop"]
+    filters: [daily_service_users.service: "firefox-desktop"]
   }
 
   measure: fenix_only_users {
     sql: ${user_id} ;;
     type: count_distinct
-    filters: [fxa_users_services_daily_table.service: "fenix"]
+    filters: [daily_service_users.service: "fenix"]
   }
 
   measure: fx_ios_only_users {
     sql: ${user_id} ;;
     type: count_distinct
-    filters: [fxa_users_services_daily_table.service: "firefox-ios"]
+    filters: [daily_service_users.service: "firefox-ios"]
   }
 
   measure: desktop_and_mobile_users {
     sql: ${user_id} ;;
     type: count_distinct
-    filters: [fxa_users_services_daily_table.service: "firefox-desktop, fenix, firefox-ios"]
+    filters: [daily_service_users.service: "firefox-desktop, fenix, firefox-ios"]
   }
-
 
 
   # # You can specify the table name if it's different from the view name:
