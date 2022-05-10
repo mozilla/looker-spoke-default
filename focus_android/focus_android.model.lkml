@@ -5,6 +5,8 @@ include: "views/*"
 
 explore: period_over_period_parameters {}
 
+explore: pop_method_1 {}
+
 explore: usage {
   always_filter: {
     filters: [
