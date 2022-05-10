@@ -28,6 +28,7 @@ view: pop_method_1 {
       date,
       day_of_month,
       day_of_year,
+      day_of_week,
       week,
       month,
       quarter,
@@ -41,20 +42,6 @@ view: pop_method_1 {
 
 #(Method 1a) you may also wish to create MTD and YTD filters in LookML
 
-  dimension: wtd_only {
-    group_label: "To-Date Filters"
-    label: "WTD"
-    view_label: "_PoP"
-    type: yesno
-    sql:  (EXTRACT(DAYOFWEEK FROM ${submission_date}) < EXTRACT(DAYOFWEEK FROM CURRENT_DATE())
-                OR
-            (EXTRACT(DAYOFWEEK FROM ${submission_date}) = EXTRACT(DAYOFWEEK FROM CURRENT_DATE()) AND
-            EXTRACT(HOUR FROM ${submission_date}) < EXTRACT(HOUR FROM CURRENT_TIME()))
-                OR
-            (EXTRACT(DAYOFWEEK FROM ${submission_date}) = EXTRACT(DAYOFWEEK FROM CURRENT_DATE()) AND
-            EXTRACT(HOUR FROM ${submission_date}) <= EXTRACT(HOUR FROM CURRENT_TIME()) AND
-            EXTRACT(MINUTE FROM ${submission_date}) < EXTRACT(MINUTE FROM CURRENT_TIME())))  ;;
-  }
 
   dimension: mtd_only {
     group_label: "To-Date Filters"
@@ -64,11 +51,11 @@ view: pop_method_1 {
     sql:  (EXTRACT(DAY FROM ${submission_date}) < EXTRACT(DAY FROM CURRENT_DATE())
                 OR
             (EXTRACT(DAY FROM ${submission_date}) = EXTRACT(DAY FROM CURRENT_DATE()) AND
-            EXTRACT(HOUR FROM ${submission_date}) < EXTRACT(HOUR FROM CURRENT_TIME()))
+            EXTRACT(HOUR FROM ${submission_raw}) < EXTRACT(HOUR FROM CURRENT_TIME()))
                 OR
             (EXTRACT(DAY FROM ${submission_date}) = EXTRACT(DAY FROM CURRENT_DATE()) AND
-            EXTRACT(HOUR FROM ${submission_date}) <= EXTRACT(HOUR FROM CURRENT_TIME()) AND
-            EXTRACT(MINUTE FROM ${submission_date}) < EXTRACT(MINUTE FROM CURRENT_TIME())))  ;;
+            EXTRACT(HOUR FROM ${submission_raw}) <= EXTRACT(HOUR FROM CURRENT_TIME()) AND
+            EXTRACT(MINUTE FROM ${submission_raw}) < EXTRACT(MINUTE FROM CURRENT_TIME())))  ;;
   }
 
   dimension: ytd_only {
@@ -79,13 +66,12 @@ view: pop_method_1 {
     sql:  (EXTRACT(DAYOFYEAR FROM ${submission_date}) < EXTRACT(DAYOFYEAR FROM CURRENT_DATE())
                 OR
             (EXTRACT(DAYOFYEAR FROM ${submission_date}) = EXTRACT(DAYOFYEAR FROM CURRENT_DATE()) AND
-            EXTRACT(HOUR FROM ${submission_date}) < EXTRACT(HOUR FROM CURRENT_TIME()))
+            EXTRACT(HOUR FROM ${submission_raw}) < EXTRACT(HOUR FROM CURRENT_TIME()))
                 OR
             (EXTRACT(DAYOFYEAR FROM ${submission_date}) = EXTRACT(DAYOFYEAR FROM CURRENT_DATE()) AND
-            EXTRACT(HOUR FROM ${submission_date}) <= EXTRACT(HOUR FROM CURRENT_TIME()) AND
-            EXTRACT(MINUTE FROM ${submission_date}) < EXTRACT(MINUTE FROM CURRENT_TIME())))  ;;
+            EXTRACT(HOUR FROM ${submission_raw}) <= EXTRACT(HOUR FROM CURRENT_TIME()) AND
+            EXTRACT(MINUTE FROM ${submission_raw}) < EXTRACT(MINUTE FROM CURRENT_TIME())))  ;;
   }
-
 
   dimension: days_since_seen {
     type: number
@@ -111,7 +97,6 @@ view: pop_method_1 {
       field: active_this_day
       value: "yes"
     }
-
 
     drill_fields: [country, user_count_active_this_day]
   }

@@ -7,6 +7,8 @@ explore: period_over_period_parameters {}
 
 explore: pop_method_1 {}
 
+explore: pop_method2 {}
+
 explore: usage {
   always_filter: {
     filters: [
