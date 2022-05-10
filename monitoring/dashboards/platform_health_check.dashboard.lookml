@@ -2,7 +2,6 @@
   title: Platform Health Check
   layout: newspaper
   preferred_viewer: dashboards-next
-  load_configuration: wait
   description: 'Weekly Health Checks for Data Platform
 
     '
@@ -48,17 +47,18 @@
     defaults_version: 1
     listen:
       Submission Date: client_counts.submission_date
-    row: 5
+    row: 8
     col: 0
     width: 12
     height: 6
-  - name: OS and Geo Distributions
+  - name: OS | Geo | Channel - Distributions
     type: text
-    title_text: OS and Geo Distributions
+    title_text: OS | Geo | Channel - Distributions
+    subtitle_text: ''
     body_text: ''
-    row: 3
+    row: 6
     col: 0
-    width: 23
+    width: 24
     height: 2
   - title: Firefox Android by Country (Glean)
     name: Firefox Android by Country (Glean)
@@ -107,7 +107,7 @@
     defaults_version: 1
     listen:
       Submission Date: client_counts.submission_date
-    row: 11
+    row: 14
     col: 12
     width: 12
     height: 6
@@ -165,7 +165,7 @@
     totals_color: "#808080"
     listen:
       Submission Date: client_counts.submission_date
-    row: 5
+    row: 8
     col: 12
     width: 12
     height: 6
@@ -173,7 +173,7 @@
     name: Firefox Desktop OS Distribution (legacy telemetry, 1% sample)
     model: firefox_desktop
     explore: client_counts
-    type: looker_line
+    type: looker_area
     fields: [client_counts.client_count, client_counts.submission_date, os_version]
     pivots: [os_version]
     filters:
@@ -200,7 +200,7 @@
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
-    stacking: ''
+    stacking: normal
     limit_displayed_rows: false
     legend_position: center
     point_style: none
@@ -210,6 +210,9 @@
     y_axis_combined: true
     show_null_points: false
     interpolation: linear
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
     y_axes: [{label: '', orientation: left, series: [{axisId: client_counts.client_count,
             id: Darwin 15.6.0 - client_counts.client_count, name: Darwin 15.6.0},
           {axisId: client_counts.client_count, id: Darwin 17.7.0 - client_counts.client_count,
@@ -227,10 +230,12 @@
             id: Windows_NT 6.3 - client_counts.client_count, name: Windows_NT 6.3}],
         showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
+    hidden_series: []
+    series_types: {}
     defaults_version: 1
     listen:
       Submission Date: client_counts.submission_date
-    row: 17
+    row: 20
     col: 0
     width: 12
     height: 6
@@ -238,7 +243,7 @@
     name: Firefox Android OS Version Distribution (Glean)
     model: fenix
     explore: client_counts
-    type: looker_line
+    type: looker_area
     fields: [client_counts.submission_date, os_version, client_counts.client_count]
     pivots: [os_version]
     filters:
@@ -265,7 +270,7 @@
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
-    stacking: ''
+    stacking: normal
     limit_displayed_rows: false
     legend_position: center
     point_style: none
@@ -275,6 +280,9 @@
     y_axis_combined: true
     show_null_points: false
     interpolation: linear
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
     y_axes: [{label: '', orientation: left, series: [{axisId: client_counts.client_count,
             id: Android 10 - client_counts.client_count, name: Android 10}, {axisId: client_counts.client_count,
             id: Android 11 - client_counts.client_count, name: Android 11}, {axisId: client_counts.client_count,
@@ -298,21 +306,18 @@
     series_types: {}
     ordering: none
     show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
     defaults_version: 1
     listen:
       Submission Date: client_counts.submission_date
-    row: 23
+    row: 26
     col: 0
     width: 12
-    height: 6
+    height: 9
   - title: Firefox iOS OS version distribution (Glean)
     name: Firefox iOS OS version distribution (Glean)
     model: firefox_ios
     explore: client_counts
-    type: looker_line
+    type: looker_area
     fields: [client_counts.client_count, client_counts.submission_date, client_counts.normalized_os_version]
     pivots: [client_counts.normalized_os_version]
     filters:
@@ -334,7 +339,7 @@
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
-    stacking: ''
+    stacking: normal
     limit_displayed_rows: false
     legend_position: center
     point_style: none
@@ -344,6 +349,9 @@
     y_axis_combined: true
     show_null_points: false
     interpolation: linear
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
     y_axes: [{label: '', orientation: left, series: [{axisId: client_counts.client_count,
             id: 12.5.5 - client_counts.client_count, name: 12.5.5}, {axisId: client_counts.client_count,
             id: 14.4 - client_counts.client_count, name: '14.4'}, {axisId: client_counts.client_count,
@@ -360,12 +368,9 @@
     defaults_version: 1
     ordering: none
     show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
     listen:
       Submission Date: client_counts.submission_date
-    row: 17
+    row: 20
     col: 12
     width: 12
     height: 6
@@ -380,7 +385,7 @@
     filters:
       baseline.sample_id: '0'
       baseline.normalized_channel: release
-      baseline.normalized_country_code: CN,CA,DE,FR,GB,US
+      baseline.normalized_country_code: CN,CA,DE,FR,US,GB
     sorts: [baseline.submission_date desc, baseline.normalized_country_code]
     limit: 500
     x_axis_gridlines: false
@@ -410,18 +415,26 @@
     defaults_version: 1
     listen:
       Submission Date: baseline.submission_date
-    row: 11
+    row: 14
     col: 0
     width: 12
     height: 6
   - name: Missing Columns
     type: text
     title_text: Missing Columns
-    body_text: ''
-    row: 29
+    subtitle_text: ''
+    body_text: |
+      Checks:
+
+      1. **Frequently occurring missing columns:** Default. Sort by _Sum of Path Count (last 7 days)_ descending
+
+      2. **New columns that are missing:** Sort by _Sum of Path Count (last 7 days)_ ascending. Null values from two weeks ago indicate that a new column has been added within the last 7 days that is not part of the schemas
+
+      3. **Verify that counts for added columns are decreasing:** Sort by _Diff_ descending.
+    row: 35
     col: 0
     width: 24
-    height: 2
+    height: 4
   - name: Missing Columns in last 14 days (telemetry)
     title: Missing Columns in last 14 days (telemetry)
     merged_queries:
@@ -430,9 +443,10 @@
       type: table
       fields: [telemetry_missing_columns.document_namespace, telemetry_missing_columns.document_type,
         telemetry_missing_columns.document_version, telemetry_missing_columns.path,
-        sum_of_path_count_last_7_days]
+        sum_of_path_count_last_7_days, missing_columns_notes.notes, missing_columns_notes.bug]
       filters:
         sum_of_path_count_last_7_days: ">10"
+        telemetry_missing_columns.submission_date: 7 days
       sorts: [sum_of_path_count_last_7_days desc]
       limit: 500
       dynamic_fields: [{category: measure, expression: '', label: Sum of Path Count
@@ -446,13 +460,15 @@
         telemetry_missing_columns.document_version, telemetry_missing_columns.path,
         sum_of_path_count_two_weeks_ago]
       filters:
+        telemetry_missing_columns.submission_date: 14 days
         sum_of_path_count_two_weeks_ago: ">10"
+      sorts: [sum_of_path_count_two_weeks_ago desc]
       limit: 500
       dynamic_fields: [{category: measure, expression: '', label: Sum of Path Count
             (two weeks ago), based_on: telemetry_missing_columns.path_count, _kind_hint: measure,
           measure: sum_of_path_count_two_weeks_ago, type: sum, _type_hint: number}]
       filter_expression: |-
-        (diff_days(${telemetry_missing_columns.submission_date}, now()) > 7) AND
+        (diff_days(${telemetry_missing_columns.submission_date}, now()) >= 7) AND
         (diff_days(${telemetry_missing_columns.submission_date}, now())) < 14
       join_fields:
       - field_name: telemetry_missing_columns.document_namespace
@@ -463,15 +479,27 @@
         source_field_name: telemetry_missing_columns.document_version
       - field_name: telemetry_missing_columns.path
         source_field_name: telemetry_missing_columns.path
-    type: looker_grid
-    series_types: {}
+    show_sql_query_menu_options: false
+    show_totals: true
+    show_row_totals: true
     show_view_names: false
     show_row_numbers: true
     transpose: false
     truncate_text: true
-    hide_totals: false
-    hide_row_totals: false
+    truncate_header: false
     size_to_fit: true
+    series_column_widths:
+      telemetry_missing_columns.document_namespace: 120.16700000000003
+      telemetry_missing_columns.document_type: 114
+      telemetry_missing_columns.document_version: 77
+      telemetry_missing_columns.path: 272
+    series_cell_visualizations:
+      sum_of_path_count_last_7_days:
+        is_active: true
+      diff_to_two_weeks_ago:
+        is_active: false
+      sum_of_path_count_two_weeks_ago:
+        is_active: true
     table_theme: white
     limit_displayed_rows: false
     enable_conditional_formatting: false
@@ -480,13 +508,18 @@
     rows_font_size: '12'
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
+    series_value_format: {}
+    type: looker_grid
+    series_types: {}
+    hide_totals: false
+    hide_row_totals: false
     query_fields:
       measures:
       - align: right
         can_filter: false
         category: measure
         default_filter_value:
-        description:
+        description: ''
         enumerations:
         field_group_label:
         fill_style:
@@ -514,6 +547,7 @@
         view_label: ''
         dynamic: true
         week_start_day: monday
+        original_view: telemetry_missing_columns
         dimension_group:
         error:
         field_group_variant: Sum of Path Count (last 7 days)
@@ -536,6 +570,7 @@
         sql: sum_of_path_count_last_7_days
         sql_case:
         filters:
+        times_used: 0
         aggregate: true
         sorted:
           desc: true
@@ -544,7 +579,7 @@
         can_filter: false
         category: measure
         default_filter_value:
-        description:
+        description: ''
         enumerations:
         field_group_label:
         fill_style:
@@ -572,6 +607,7 @@
         view_label: ''
         dynamic: true
         week_start_day: monday
+        original_view: telemetry_missing_columns
         dimension_group:
         error:
         field_group_variant: Sum of Path Count (two weeks ago)
@@ -594,13 +630,14 @@
         sql: sum_of_path_count_two_weeks_ago
         sql_case:
         filters:
+        times_used: 0
         aggregate: true
       dimensions:
       - align: left
         can_filter: false
         category: dimension
         default_filter_value:
-        description:
+        description: ''
         enumerations:
         field_group_label:
         fill_style:
@@ -628,6 +665,7 @@
         view_label: Telemetry Missing Columns
         dynamic: false
         week_start_day: monday
+        original_view: telemetry_missing_columns
         dimension_group:
         error:
         field_group_variant: Document Namespace
@@ -650,11 +688,12 @@
         sql: "${TABLE}.document_namespace "
         sql_case:
         filters:
+        times_used: 0
       - align: left
         can_filter: false
         category: dimension
         default_filter_value:
-        description:
+        description: ''
         enumerations:
         field_group_label:
         fill_style:
@@ -682,6 +721,7 @@
         view_label: Telemetry Missing Columns
         dynamic: false
         week_start_day: monday
+        original_view: telemetry_missing_columns
         dimension_group:
         error:
         field_group_variant: Document Type
@@ -704,11 +744,12 @@
         sql: "${TABLE}.document_type "
         sql_case:
         filters:
+        times_used: 0
       - align: left
         can_filter: false
         category: dimension
         default_filter_value:
-        description:
+        description: ''
         enumerations:
         field_group_label:
         fill_style:
@@ -736,6 +777,7 @@
         view_label: Telemetry Missing Columns
         dynamic: false
         week_start_day: monday
+        original_view: telemetry_missing_columns
         dimension_group:
         error:
         field_group_variant: Document Version
@@ -758,11 +800,12 @@
         sql: "${TABLE}.document_version "
         sql_case:
         filters:
+        times_used: 0
       - align: left
         can_filter: false
         category: dimension
         default_filter_value:
-        description:
+        description: ''
         enumerations:
         field_group_label:
         fill_style:
@@ -790,6 +833,7 @@
         view_label: Telemetry Missing Columns
         dynamic: false
         week_start_day: monday
+        original_view: telemetry_missing_columns
         dimension_group:
         error:
         field_group_variant: Path
@@ -812,19 +856,129 @@
         sql: "${TABLE}.path "
         sql_case:
         filters:
+        times_used: 0
+      - align: left
+        can_filter: false
+        category: dimension
+        default_filter_value:
+        description: ''
+        enumerations:
+        field_group_label:
+        fill_style:
+        fiscal_month_offset: 0
+        has_allowed_values: false
+        hidden: false
+        is_filter: false
+        is_numeric: false
+        label: Missing Columns Notes Notes
+        label_from_parameter:
+        label_short: Notes
+        map_layer:
+        name: missing_columns_notes.notes
+        strict_value_format: false
+        requires_refresh_on_sort: false
+        sortable: true
+        suggestions:
+        tags: []
+        type: string
+        user_attribute_filter_types:
+        - string
+        - advanced_filter_string
+        value_format:
+        view: missing_columns_notes
+        view_label: Missing Columns Notes
+        dynamic: false
+        week_start_day: monday
+        original_view: missing_columns_notes
+        dimension_group:
+        error:
+        field_group_variant: Notes
+        measure: false
+        parameter: false
+        primary_key: false
+        project_name: spoke-default
+        scope: missing_columns_notes
+        suggest_dimension: missing_columns_notes.notes
+        suggest_explore: telemetry_missing_columns
+        suggestable: true
+        is_fiscal: false
+        is_timeframe: false
+        can_time_filter: false
+        time_interval:
+        lookml_link: "/projects/spoke-default/files/imported_projects%2Flooker-hub%2Fmonitoring%2Fviews%2Fmissing_columns_notes.view.lkml?line=28"
+        permanent: true
+        source_file: imported_projects/looker-hub/monitoring/views/missing_columns_notes.view.lkml
+        source_file_path: spoke-default/imported_projects/looker-hub/monitoring/views/missing_columns_notes.view.lkml
+        sql: "${TABLE}.notes "
+        sql_case:
+        filters:
+        times_used: 0
+      - align: left
+        can_filter: false
+        category: dimension
+        default_filter_value:
+        description: ''
+        enumerations:
+        field_group_label:
+        fill_style:
+        fiscal_month_offset: 0
+        has_allowed_values: false
+        hidden: false
+        is_filter: false
+        is_numeric: false
+        label: Missing Columns Notes Bug
+        label_from_parameter:
+        label_short: Bug
+        map_layer:
+        name: missing_columns_notes.bug
+        strict_value_format: false
+        requires_refresh_on_sort: false
+        sortable: true
+        suggestions:
+        tags: []
+        type: string
+        user_attribute_filter_types:
+        - string
+        - advanced_filter_string
+        value_format:
+        view: missing_columns_notes
+        view_label: Missing Columns Notes
+        dynamic: false
+        week_start_day: monday
+        original_view: missing_columns_notes
+        dimension_group:
+        error:
+        field_group_variant: Bug
+        measure: false
+        parameter: false
+        primary_key: false
+        project_name: spoke-default
+        scope: missing_columns_notes
+        suggest_dimension: missing_columns_notes.bug
+        suggest_explore: telemetry_missing_columns
+        suggestable: true
+        is_fiscal: false
+        is_timeframe: false
+        can_time_filter: false
+        time_interval:
+        lookml_link: "/projects/spoke-default/files/imported_projects%2Flooker-hub%2Fmonitoring%2Fviews%2Fmissing_columns_notes.view.lkml?line=8"
+        permanent: true
+        source_file: imported_projects/looker-hub/monitoring/views/missing_columns_notes.view.lkml
+        source_file_path: spoke-default/imported_projects/looker-hub/monitoring/views/missing_columns_notes.view.lkml
+        sql: "${TABLE}.bug "
+        sql_case:
+        filters:
+        times_used: 0
       table_calculations: []
       pivots: []
-    series_column_widths:
-      telemetry_missing_columns.document_namespace: 120.16700000000003
-      telemetry_missing_columns.document_type: 114
-      telemetry_missing_columns.document_version: 77
-      telemetry_missing_columns.path: 363
+    hidden_fields: [missing_columns_notes.bug]
     sorts: [sum_of_path_count_last_7_days desc]
     column_limit: 50
-    listen:
-    - Submission Date: telemetry_missing_columns.submission_date
-    - Submission Date: telemetry_missing_columns.submission_date
-    row: 31
+    dynamic_fields: [{category: table_calculation, expression: "((${sum_of_path_count_last_7_days}-\
+          \ ${sum_of_path_count_two_weeks_ago})/${sum_of_path_count_last_7_days})\
+          \ * 100", label: Diff % to two weeks ago, value_format: !!null '', value_format_name: decimal_1,
+        _kind_hint: measure, table_calculation: diff_to_two_weeks_ago, _type_hint: number}]
+    row: 39
     col: 0
     width: 24
     height: 6
@@ -836,7 +990,10 @@
       type: table
       fields: [structured_missing_columns.document_namespace, structured_missing_columns.document_type,
         structured_missing_columns.document_version, structured_missing_columns.path,
-        sum_of_path_count_last_7_days]
+        sum_of_path_count_last_7_days, missing_columns_notes.notes]
+      filters:
+        structured_missing_columns.submission_date: 7 days
+        structured_missing_columns.path: "-%`ping^_info`.`experiments`.%"
       sorts: [sum_of_path_count_last_7_days desc]
       limit: 500
       column_limit: 50
@@ -850,6 +1007,9 @@
       fields: [structured_missing_columns.document_namespace, structured_missing_columns.document_type,
         structured_missing_columns.document_version, structured_missing_columns.path,
         sum_of_path_count_two_weeks_ago]
+      filters:
+        structured_missing_columns.submission_date: 14 days
+        structured_missing_columns.path: "-%`extra`.`enrollmentId`%"
       sorts: [sum_of_path_count_two_weeks_ago desc]
       limit: 500
       dynamic_fields: [{category: measure, expression: '', label: Sum of Path Count
@@ -866,15 +1026,30 @@
         source_field_name: structured_missing_columns.document_version
       - field_name: structured_missing_columns.path
         source_field_name: structured_missing_columns.path
-    type: looker_grid
-    series_types: {}
+    show_sql_query_menu_options: false
+    show_totals: true
+    show_row_totals: true
     show_view_names: false
     show_row_numbers: true
     transpose: false
     truncate_text: true
-    hide_totals: false
-    hide_row_totals: false
+    truncate_header: false
     size_to_fit: true
+    series_column_widths:
+      structured_missing_columns.document_namespace: 145.16700000000003
+      structured_missing_columns.document_type: 135
+      structured_missing_columns.document_version: 77
+      structured_missing_columns.path: 360
+    series_cell_visualizations:
+      sum_of_path_count_last_7_days:
+        is_active: true
+      diff_to_two_weeks_ago:
+        is_active: false
+      sum_of_path_count_two_weeks_ago:
+        is_active: true
+    series_text_format:
+      diff_to_two_weeks_ago:
+        align: left
     table_theme: white
     limit_displayed_rows: false
     enable_conditional_formatting: false
@@ -883,6 +1058,10 @@
     rows_font_size: '12'
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
+    type: looker_grid
+    series_types: {}
+    hide_totals: false
+    hide_row_totals: false
     query_fields:
       measures:
       - align: right
@@ -1217,23 +1396,12 @@
         filters:
       table_calculations: []
       pivots: []
-    series_column_widths:
-      structured_missing_columns.document_namespace: 145.16700000000003
-      structured_missing_columns.document_type: 135
-      structured_missing_columns.document_version: 77
-      structured_missing_columns.path: 360
-    show_sql_query_menu_options: false
-    show_totals: true
-    show_row_totals: true
-    series_cell_visualizations:
-      sum_of_path_count_last_7_days:
-        is_active: true
     sorts: [sum_of_path_count_last_7_days desc]
     column_limit: 50
-    listen:
-    - Submission Date: structured_missing_columns.submission_date
-    - Submission Date: structured_missing_columns.submission_date
-    row: 37
+    dynamic_fields: [{category: table_calculation, expression: "((${sum_of_path_count_last_7_days}-${sum_of_path_count_two_weeks_ago})/${sum_of_path_count_last_7_days})*100",
+        label: Diff % to two weeks ago, value_format: !!null '', value_format_name: decimal_1,
+        _kind_hint: measure, table_calculation: diff_to_two_weeks_ago, _type_hint: number}]
+    row: 45
     col: 0
     width: 24
     height: 6
@@ -1243,11 +1411,22 @@
     explore: distinct_docids
     type: looker_grid
     fields: [distinct_docids.submission_date, distinct_docids.namespace, distinct_docids.doc_type,
-      distinct_docids.decoded, distinct_docids.live, distinct_docids.stable, distinct_docids.non_matching_count]
+      distinct_docids.decoded, distinct_docids.live, distinct_docids.stable, distinct_docids.non_matching_count,
+      distinct_docids_notes.notes]
     filters:
       distinct_docids.non_matching_count: ">0"
     sorts: [distinct_docids.submission_date desc]
     limit: 500
+    dynamic_fields: [{category: table_calculation, expression: "${distinct_docids.decoded}\
+          \ - ${distinct_docids.live}", label: Diff Live to Decoded, value_format: !!null '',
+        value_format_name: !!null '', _kind_hint: dimension, table_calculation: diff_live_to_decoded,
+        _type_hint: number}, {category: table_calculation, expression: "${distinct_docids.decoded}\
+          \ - ${distinct_docids.stable}", label: Diff Stable to Decoded, value_format: !!null '',
+        value_format_name: !!null '', _kind_hint: dimension, table_calculation: diff_stable_to_decoded,
+        _type_hint: number}, {category: table_calculation, expression: "${distinct_docids.live}\
+          \ - ${distinct_docids.stable}", label: Diff Stable to Live, value_format: !!null '',
+        value_format_name: !!null '', _kind_hint: dimension, table_calculation: diff_stable_to_live,
+        _type_hint: number}]
     show_view_names: false
     show_row_numbers: true
     transpose: false
@@ -1264,9 +1443,14 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
+    column_order: ["$$$_row_numbers_$$$", distinct_docids.submission_date, distinct_docids.namespace,
+      distinct_docids.doc_type, distinct_docids.decoded, distinct_docids.live, distinct_docids.stable,
+      diff_live_to_decoded, diff_stable_to_decoded, diff_stable_to_live, distinct_docids.non_matching_count,
+      distinct_docids_notes.notes]
+    hidden_fields: [distinct_docids.non_matching_count]
     listen:
       Submission Date: distinct_docids.submission_date
-    row: 85
+    row: 84
     col: 0
     width: 24
     height: 4
@@ -1277,7 +1461,7 @@
       to live tables.
     body_text: <center> <a href="https://earthangel-b40313e5.influxcloud.net/d/bZHv1mUMk/pipeline-latency?orgId=1&from=now-7d&to=now&var-realm=prod&var-family=telemetry">
       Grafana Dashboard</a> </center>
-    row: 114
+    row: 143
     col: 0
     width: 24
     height: 4
@@ -1357,7 +1541,7 @@
     defaults_version: 1
     listen:
       Submission Date: payload_bytes_error_all.submission_date
-    row: 83
+    row: 107
     col: 0
     width: 13
     height: 8
@@ -1425,7 +1609,7 @@
     defaults_version: 1
     listen:
       Submission Date: payload_bytes_error_all.submission_date
-    row: 91
+    row: 115
     col: 0
     width: 13
     height: 7
@@ -1507,7 +1691,7 @@
     defaults_version: 1
     listen:
       Submission Date: payload_bytes_error_all.submission_date
-    row: 83
+    row: 107
     col: 13
     width: 11
     height: 8
@@ -1516,15 +1700,20 @@
     model: monitoring
     explore: column_size_differences
     type: looker_grid
-    fields: [column_size.submission_date, column_size.column_name, column_size.byte_size,
-      column_size_last_week.byte_size]
-    sorts: [column_size.submission_date desc]
+    fields: [column_size.submission_date, column_size.column_name, this_week_byte_size,
+      last_week_byte_size]
+    sorts: [column_size.submission_date desc, column_size.column_name desc]
     limit: 500
     dynamic_fields: [{category: table_calculation, description: Difference in Byte
-          sizes between last week and the current week., expression: "(${column_size.byte_size}\
-          \ - ${column_size_last_week.byte_size})  / 1024 / 1024 / 1024", label: diff_to_previous_week_in_gb,
-        value_format: !!null '', value_format_name: decimal_2, _kind_hint: dimension,
-        table_calculation: diff_to_previous_week_in_gb, _type_hint: number}]
+          sizes between last week and the current week., expression: "((${this_week_byte_size})\
+          \ - (${last_week_byte_size}))", label: diff_to_previous_week_in_gb, value_format: !!null '',
+        value_format_name: decimal_2, _kind_hint: dimension, table_calculation: diff_to_previous_week_in_gb,
+        _type_hint: number}, {category: dimension, expression: "${column_size.byte_size}/1024/1024/1024\n",
+        label: this_week_byte_size, value_format: !!null '', value_format_name: !!null '',
+        dimension: this_week_byte_size, _kind_hint: dimension, _type_hint: number},
+      {category: dimension, expression: "${column_size_last_week.byte_size}/1024/1024/1024",
+        label: last_week_byte_size, value_format: !!null '', value_format_name: !!null '',
+        dimension: last_week_byte_size, _kind_hint: dimension, _type_hint: number}]
     show_view_names: false
     show_row_numbers: true
     transpose: false
@@ -1564,10 +1753,10 @@
     interpolation: linear
     defaults_version: 1
     series_types: {}
-    hidden_fields: [column_size.byte_size, column_size_last_week.byte_size]
+    hidden_fields: [this_week_byte_size, last_week_byte_size]
     listen:
       Submission Date: column_size.submission_date
-    row: 146
+    row: 175
     col: 0
     width: 24
     height: 7
@@ -1657,7 +1846,7 @@
     defaults_version: 1
     listen:
       Submission Date: stable_table_sizes.submission_date
-    row: 120
+    row: 149
     col: 0
     width: 24
     height: 9
@@ -1747,7 +1936,7 @@
     defaults_version: 1
     listen:
       Submission Date: stable_table_sizes.submission_date
-    row: 129
+    row: 158
     col: 0
     width: 24
     height: 8
@@ -1821,7 +2010,7 @@
     defaults_version: 1
     listen:
       Submission Date: stable_table_sizes.submission_date
-    row: 137
+    row: 166
     col: 0
     width: 24
     height: 7
@@ -1829,7 +2018,7 @@
     type: text
     title_text: Stable Table Partition Sizes
     body_text: ''
-    row: 118
+    row: 147
     col: 0
     width: 23
     height: 2
@@ -1838,7 +2027,7 @@
     title_text: Column Size Differences
     body_text: Shows the differences in column sizes compared to the size of 7 days
       ago. This explains where increases in partition sizes could come from.
-    row: 144
+    row: 173
     col: 0
     width: 24
     height: 2
@@ -1852,168 +2041,26 @@
       to a direct `COUNT(DISTINCT document_id)` on the relevant table partition. Prior
       to adding this filtering, document types under `org_mozilla_fenix` would consistently
       show mismatches due to test pings present in the decoded and live tables.
-    row: 57
+    row: 80
     col: 0
     width: 24
     height: 4
-  - title: Top schema errors per ping
-    name: Top schema errors per ping
-    model: monitoring
-    explore: schema_error_counts
-    type: looker_line
-    fields: [schema_error_counts.submission_date, total_error_count, ping_and_path]
-    pivots: [ping_and_path]
-    fill_fields: [schema_error_counts.submission_date]
-    filters:
-      schema_error_counts.submission_date: 28 days ago for 28 days
-    sorts: [schema_error_counts.submission_date desc, ping_and_path]
-    limit: 500
-    column_limit: 50
-    dynamic_fields: [{category: measure, expression: !!null '', label: Total Error
-          Count, value_format: !!null '', value_format_name: !!null '', based_on: schema_error_counts.error_count,
-        _kind_hint: measure, measure: total_error_count, type: sum, _type_hint: number},
-      {category: dimension, expression: 'concat(${schema_error_counts.document_namespace},
-          ".", ${schema_error_counts.document_type}, " ", ${schema_error_counts.path})',
-        label: Ping and Path, value_format: !!null '', value_format_name: !!null '',
-        dimension: ping_and_path, _kind_hint: dimension, _type_hint: string}]
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    show_null_points: true
-    interpolation: linear
-    y_axes: [{label: '', orientation: left, series: [{axisId: total_error_count, id: activity-stream
-              - events - total_error_count, name: activity-stream - events}, {axisId: total_error_count,
-            id: activity-stream - impression-stats - total_error_count, name: activity-stream
-              - impression-stats}, {axisId: total_error_count, id: activity-stream
-              - pocket-button - total_error_count, name: activity-stream - pocket-button},
-          {axisId: total_error_count, id: activity-stream - sessions - total_error_count,
-            name: activity-stream - sessions}, {axisId: total_error_count, id: activity-stream
-              - spoc-fills - total_error_count, name: activity-stream - spoc-fills},
-          {axisId: total_error_count, id: contextual-services - quicksuggest-click
-              - total_error_count, name: contextual-services - quicksuggest-click},
-          {axisId: total_error_count, id: contextual-services - quicksuggest-impression
-              - total_error_count, name: contextual-services - quicksuggest-impression},
-          {axisId: total_error_count, id: contextual-services - topsites-click - total_error_count,
-            name: contextual-services - topsites-click}, {axisId: total_error_count,
-            id: contextual-services - topsites-impression - total_error_count, name: contextual-services
-              - topsites-impression}, {axisId: total_error_count, id: firefox-desktop
-              - baseline - total_error_count, name: firefox-desktop - baseline}, {
-            axisId: total_error_count, id: firefox-desktop - deletion-request - total_error_count,
-            name: firefox-desktop - deletion-request}, {axisId: total_error_count,
-            id: firefox-desktop - fog-validation - total_error_count, name: firefox-desktop
-              - fog-validation}, {axisId: total_error_count, id: firefox-desktop -
-              metrics - total_error_count, name: firefox-desktop - metrics}, {axisId: total_error_count,
-            id: firefox-desktop-background-update - background-update - total_error_count,
-            name: firefox-desktop-background-update - background-update}, {axisId: total_error_count,
-            id: firefox-desktop-background-update - baseline - total_error_count,
-            name: firefox-desktop-background-update - baseline}, {axisId: total_error_count,
-            id: firefox-desktop-background-update - deletion-request - total_error_count,
-            name: firefox-desktop-background-update - deletion-request}, {axisId: total_error_count,
-            id: firefox-desktop-background-update - metrics - total_error_count, name: firefox-desktop-background-update
-              - metrics}, {axisId: total_error_count, id: firefox-desktop' - baseline
-              - total_error_count, name: firefox-desktop' - baseline}, {axisId: total_error_count,
-            id: firefox-desktop' - metrics - total_error_count, name: firefox-desktop'
-              - metrics}, {axisId: total_error_count, id: messaging-system - cfr -
-              total_error_count, name: messaging-system - cfr}, {axisId: total_error_count,
-            id: messaging-system - infobar - total_error_count, name: messaging-system
-              - infobar}, {axisId: total_error_count, id: messaging-system - moments
-              - total_error_count, name: messaging-system - moments}, {axisId: total_error_count,
-            id: messaging-system - onboarding - total_error_count, name: messaging-system
-              - onboarding}, {axisId: total_error_count, id: messaging-system - undesired-events
-              - total_error_count, name: messaging-system - undesired-events}, {axisId: total_error_count,
-            id: messaging-system - whats-new-panel - total_error_count, name: messaging-system
-              - whats-new-panel}, {axisId: total_error_count, id: mobile - activation
-              - total_error_count, name: mobile - activation}, {axisId: total_error_count,
-            id: mozilla-lockbox - baseline - total_error_count, name: mozilla-lockbox
-              - baseline}, {axisId: total_error_count, id: mozilla-lockbox - logins-sync
-              - total_error_count, name: mozilla-lockbox - logins-sync}, {axisId: total_error_count,
-            id: mozilla-lockbox - metrics - total_error_count, name: mozilla-lockbox
-              - metrics}, {axisId: total_error_count, id: mozilla-mach - usage - total_error_count,
-            name: mozilla-mach - usage}, {axisId: total_error_count, id: mozillavpn
-              - deletion-request - total_error_count, name: mozillavpn - deletion-request},
-          {axisId: total_error_count, id: mozillavpn - main - total_error_count, name: mozillavpn
-              - main}, {axisId: total_error_count, id: org-mozilla-bergamot - deletion-request
-              - total_error_count, name: org-mozilla-bergamot - deletion-request},
-          {axisId: total_error_count, id: org-mozilla-fenix - baseline - total_error_count,
-            name: org-mozilla-fenix - baseline}, {axisId: total_error_count, id: org-mozilla-fenix
-              - events - total_error_count, name: org-mozilla-fenix - events}, {axisId: total_error_count,
-            id: org-mozilla-fenix - metrics - total_error_count, name: org-mozilla-fenix
-              - metrics}, {axisId: total_error_count, id: org-mozilla-fenix-nightly
-              - baseline - total_error_count, name: org-mozilla-fenix-nightly - baseline},
-          {axisId: total_error_count, id: org-mozilla-fenix-nightly - events - total_error_count,
-            name: org-mozilla-fenix-nightly - events}, {axisId: total_error_count,
-            id: org-mozilla-fenix-nightly - metrics - total_error_count, name: org-mozilla-fenix-nightly
-              - metrics}, {axisId: total_error_count, id: org-mozilla-fennec-aurora
-              - baseline - total_error_count, name: org-mozilla-fennec-aurora - baseline},
-          {axisId: total_error_count, id: org-mozilla-fennec-aurora - metrics - total_error_count,
-            name: org-mozilla-fennec-aurora - metrics}, {axisId: total_error_count,
-            id: org-mozilla-firefox - baseline - total_error_count, name: org-mozilla-firefox
-              - baseline}, {axisId: total_error_count, id: org-mozilla-firefox - bookmarks-sync
-              - total_error_count, name: org-mozilla-firefox - bookmarks-sync}, {
-            axisId: total_error_count, id: org-mozilla-firefox - creditcards-sync
-              - total_error_count, name: org-mozilla-firefox - creditcards-sync},
-          {axisId: total_error_count, id: org-mozilla-firefox - events - total_error_count,
-            name: org-mozilla-firefox - events}, {axisId: total_error_count, id: org-mozilla-firefox
-              - history-sync - total_error_count, name: org-mozilla-firefox - history-sync},
-          {axisId: total_error_count, id: org-mozilla-firefox - logins-sync - total_error_count,
-            name: org-mozilla-firefox - logins-sync}, {axisId: total_error_count,
-            id: org-mozilla-firefox - metrics - total_error_count, name: org-mozilla-firefox
-              - metrics}, {axisId: total_error_count, id: org-mozilla-firefox - startup-timeline
-              - total_error_count, name: org-mozilla-firefox - startup-timeline},
-          {axisId: total_error_count, id: org-mozilla-firefox - sync - total_error_count,
-            name: org-mozilla-firefox - sync}], showLabels: true, showValues: true,
-        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
-    defaults_version: 1
-    listen: {}
-    row: 45
-    col: 0
-    width: 24
-    height: 8
-  - name: Main Ping Schema Errors
+  - name: Schema Errors
     type: text
-    title_text: Main Ping Schema Errors
+    title_text: Schema Errors
+    subtitle_text: ''
     body_text: ''
-    row: 43
+    row: 51
     col: 0
     width: 24
     height: 2
-  - name: All Schema Errors
-    type: text
-    title_text: All Schema Errors
-    body_text: |-
-      Todo: migrate to Looker
-
-      [Redash Dashboard](https://sql.telemetry.mozilla.org/dashboard/all-schema-errors)
-    row: 53
-    col: 0
-    width: 24
-    height: 4
   - title: Missing document namespaces
     name: Missing document namespaces
     model: monitoring
     explore: missing_namespaces_and_document_types
     type: looker_grid
     fields: [missing_namespaces_and_document_types.document_namespace, missing_namespaces_and_document_types.total_pings,
-      list_of_document_type]
+      list_of_document_type, missing_document_namespaces_notes.notes]
     sorts: [missing_namespaces_and_document_types.total_pings desc]
     limit: 500
     dynamic_fields: [{measure: list_of_document_type, based_on: missing_namespaces_and_document_types.document_type,
@@ -2036,7 +2083,7 @@
     conditional_formatting_include_nulls: false
     defaults_version: 1
     listen: {}
-    row: 67
+    row: 91
     col: 0
     width: 24
     height: 6
@@ -2046,7 +2093,8 @@
     explore: missing_namespaces_and_document_types
     type: looker_grid
     fields: [missing_namespaces_and_document_types.document_namespace, missing_namespaces_and_document_types.total_pings,
-      missing_namespaces_and_document_types.document_type, missing_namespaces_and_document_types.document_version]
+      missing_namespaces_and_document_types.document_type, missing_namespaces_and_document_types.document_version,
+      missing_document_namespaces_notes.notes]
     sorts: [missing_namespaces_and_document_types.total_pings desc]
     limit: 500
     dynamic_fields: [{measure: list_of_document_type, based_on: missing_namespaces_and_document_types.document_type,
@@ -2069,25 +2117,26 @@
     conditional_formatting_include_nulls: false
     defaults_version: 1
     listen: {}
-    row: 75
+    row: 99
     col: 0
     width: 24
     height: 6
   - name: Missing Document Namespaces
     type: text
     title_text: Missing Document Namespaces
-    body_text: 'Add unknown namespaces to [MessageScrubber](https://github.com/mozilla/gcp-ingestion/blob/b86c6f491ec23bea8c57fc182eb3ccd3b62527be/ingestion-beam/src/main/java/com/mozilla/telemetry/decoder/MessageScrubber.java#L22)
-      if threshold exceeds 10,000. Different variation of existing products are due
-      to fuzzing. '
-    row: 65
+    subtitle_text: ''
+    body_text: "Add unknown namespaces to [MessageScrubber](https://github.com/mozilla/gcp-ingestion/blob/b86c6f491ec23bea8c57fc182eb3ccd3b62527be/ingestion-beam/src/main/java/com/mozilla/telemetry/decoder/MessageScrubber.java#L22)\
+      \ if threshold exceeds 10,000. Different variation of existing products are\
+      \ due to fuzzing. \n\n\nA list of known namespaces can be found inside [probeinfo/glean/app-listings](https://probeinfo.telemetry.mozilla.org/v2/glean/app-listings)."
+    row: 88
     col: 0
     width: 24
-    height: 2
+    height: 3
   - name: Missing Doctypes/Versions
     type: text
     title_text: Missing Doctypes/Versions
     body_text: ''
-    row: 73
+    row: 97
     col: 0
     width: 24
     height: 2
@@ -2096,7 +2145,7 @@
     title_text: 'Overall # of Errors per `error_type`'
     subtitle_text: Errors encountered during ingestion
     body_text: ''
-    row: 81
+    row: 105
     col: 0
     width: 24
     height: 2
@@ -2105,7 +2154,7 @@
     title_text: Total Columns per Table
     subtitle_text: ''
     body_text: ''
-    row: 98
+    row: 122
     col: 0
     width: 24
     height: 3
@@ -2127,7 +2176,8 @@
     fields: [stable_table_column_counts.submission_date, stable_table_column_counts.dataset,
       stable_table_column_counts.table_name, stable_table_column_counts.total_columns]
     filters: {}
-    sorts: [stable_table_column_counts.total_columns desc]
+    sorts: [stable_table_column_counts.submission_date desc, stable_table_column_counts.total_columns
+        desc]
     limit: 500
     hidden_fields: []
     hidden_points_if_no: []
@@ -2173,9 +2223,9 @@
     conditional_formatting_include_nulls: false
     listen:
       Submission Date: stable_table_column_counts.submission_date
-    row: 101
+    row: 125
     col: 0
-    width: 23
+    width: 24
     height: 7
   - title: Total Columns per Stable Table over Time
     name: Total Columns per Stable Table over Time
@@ -2220,95 +2270,89 @@
     show_null_points: true
     interpolation: linear
     y_axes: [{label: Total Columns, orientation: left, series: [{axisId: total_columns_sum,
-            id: action_v1 - mlhackweek_search_stable - total_columns_sum, name: action_v1
-              - mlhackweek_search_stable}, {axisId: total_columns_sum, id: bhr_v4
-              - telemetry_stable - total_columns_sum, name: bhr_v4 - telemetry_stable},
-          {axisId: total_columns_sum, id: crash_v4 - telemetry_stable - total_columns_sum,
-            name: crash_v4 - telemetry_stable}, {axisId: total_columns_sum, id: custom_v1
-              - org_mozilla_bergamot_stable - total_columns_sum, name: custom_v1 -
-              org_mozilla_bergamot_stable}, {axisId: total_columns_sum, id: dnssec_study_v1_v4
-              - telemetry_stable - total_columns_sum, name: dnssec_study_v1_v4 - telemetry_stable},
-          {axisId: total_columns_sum, id: event_v4 - telemetry_stable - total_columns_sum,
-            name: event_v4 - telemetry_stable}, {axisId: total_columns_sum, id: first_shutdown_v4
-              - telemetry_stable - total_columns_sum, name: first_shutdown_v4 - telemetry_stable},
-          {axisId: total_columns_sum, id: heartbeat_v4 - telemetry_stable - total_columns_sum,
-            name: heartbeat_v4 - telemetry_stable}, {axisId: total_columns_sum, id: main_v4
-              - telemetry_stable - total_columns_sum, name: main_v4 - telemetry_stable},
-          {axisId: total_columns_sum, id: metrics_v1 - firefox_desktop_stable - total_columns_sum,
-            name: metrics_v1 - firefox_desktop_stable}, {axisId: total_columns_sum,
-            id: metrics_v1 - org_mozilla_fenix_nightly_stable - total_columns_sum,
-            name: metrics_v1 - org_mozilla_fenix_nightly_stable}, {axisId: total_columns_sum,
-            id: metrics_v1 - org_mozilla_fenix_stable - total_columns_sum, name: metrics_v1
-              - org_mozilla_fenix_stable}, {axisId: total_columns_sum, id: metrics_v1
-              - org_mozilla_fennec_aurora_stable - total_columns_sum, name: metrics_v1
-              - org_mozilla_fennec_aurora_stable}, {axisId: total_columns_sum, id: metrics_v1
-              - org_mozilla_firefox_beta_stable - total_columns_sum, name: metrics_v1
-              - org_mozilla_firefox_beta_stable}, {axisId: total_columns_sum, id: metrics_v1
-              - org_mozilla_firefox_stable - total_columns_sum, name: metrics_v1 -
-              org_mozilla_firefox_stable}, {axisId: total_columns_sum, id: metrics_v1
-              - org_mozilla_focus_beta_stable - total_columns_sum, name: metrics_v1
-              - org_mozilla_focus_beta_stable}, {axisId: total_columns_sum, id: metrics_v1
-              - org_mozilla_focus_nightly_stable - total_columns_sum, name: metrics_v1
-              - org_mozilla_focus_nightly_stable}, {axisId: total_columns_sum, id: metrics_v1
-              - org_mozilla_focus_stable - total_columns_sum, name: metrics_v1 - org_mozilla_focus_stable},
-          {axisId: total_columns_sum, id: metrics_v1 - org_mozilla_ios_fennec_stable
-              - total_columns_sum, name: metrics_v1 - org_mozilla_ios_fennec_stable},
-          {axisId: total_columns_sum, id: metrics_v1 - org_mozilla_ios_firefox_stable
-              - total_columns_sum, name: metrics_v1 - org_mozilla_ios_firefox_stable},
-          {axisId: total_columns_sum, id: metrics_v1 - org_mozilla_ios_firefoxbeta_stable
-              - total_columns_sum, name: metrics_v1 - org_mozilla_ios_firefoxbeta_stable},
-          {axisId: total_columns_sum, id: metrics_v1 - org_mozilla_ios_focus_stable
-              - total_columns_sum, name: metrics_v1 - org_mozilla_ios_focus_stable},
-          {axisId: total_columns_sum, id: metrics_v1 - org_mozilla_ios_klar_stable
-              - total_columns_sum, name: metrics_v1 - org_mozilla_ios_klar_stable},
-          {axisId: total_columns_sum, id: metrics_v1 - org_mozilla_klar_stable - total_columns_sum,
-            name: metrics_v1 - org_mozilla_klar_stable}, {axisId: total_columns_sum,
-            id: metrics_v1 - org_mozilla_reference_browser_stable - total_columns_sum,
-            name: metrics_v1 - org_mozilla_reference_browser_stable}, {axisId: total_columns_sum,
-            id: metrics_v1 - org_mozilla_vrbrowser_stable - total_columns_sum, name: metrics_v1
-              - org_mozilla_vrbrowser_stable}, {axisId: total_columns_sum, id: migration_v1
-              - org_mozilla_fenix_nightly_stable - total_columns_sum, name: migration_v1
-              - org_mozilla_fenix_nightly_stable}, {axisId: total_columns_sum, id: migration_v1
-              - org_mozilla_fenix_stable - total_columns_sum, name: migration_v1 -
-              org_mozilla_fenix_stable}, {axisId: total_columns_sum, id: migration_v1
-              - org_mozilla_fennec_aurora_stable - total_columns_sum, name: migration_v1
-              - org_mozilla_fennec_aurora_stable}, {axisId: total_columns_sum, id: migration_v1
-              - org_mozilla_firefox_beta_stable - total_columns_sum, name: migration_v1
-              - org_mozilla_firefox_beta_stable}, {axisId: total_columns_sum, id: migration_v1
-              - org_mozilla_firefox_stable - total_columns_sum, name: migration_v1
-              - org_mozilla_firefox_stable}, {axisId: total_columns_sum, id: modules_v4
-              - telemetry_stable - total_columns_sum, name: modules_v4 - telemetry_stable},
-          {axisId: total_columns_sum, id: new_profile_v4 - telemetry_stable - total_columns_sum,
-            name: new_profile_v4 - telemetry_stable}, {axisId: total_columns_sum,
-            id: regrets_reporter_update_v1 - regrets_reporter_stable - total_columns_sum,
-            name: regrets_reporter_update_v1 - regrets_reporter_stable}, {axisId: total_columns_sum,
-            id: regrets_reporter_update_v4 - telemetry_stable - total_columns_sum,
-            name: regrets_reporter_update_v4 - telemetry_stable}, {axisId: total_columns_sum,
-            id: saved_session_v4 - telemetry_stable - total_columns_sum, name: saved_session_v4
-              - telemetry_stable}, {axisId: total_columns_sum, id: session_end_v1
-              - org_mozilla_vrbrowser_stable - total_columns_sum, name: session_end_v1
-              - org_mozilla_vrbrowser_stable}, {axisId: total_columns_sum, id: shield_icq_v1_v4
-              - telemetry_stable - total_columns_sum, name: shield_icq_v1_v4 - telemetry_stable},
-          {axisId: total_columns_sum, id: shield_study_addon_v3 - telemetry_stable
-              - total_columns_sum, name: shield_study_addon_v3 - telemetry_stable},
-          {axisId: total_columns_sum, id: shield_study_error_v3 - telemetry_stable
-              - total_columns_sum, name: shield_study_error_v3 - telemetry_stable},
-          {axisId: total_columns_sum, id: shield_study_v3 - telemetry_stable - total_columns_sum,
-            name: shield_study_v3 - telemetry_stable}, {axisId: total_columns_sum,
-            id: sync_v4 - telemetry_stable - total_columns_sum, name: sync_v4 - telemetry_stable},
-          {axisId: total_columns_sum, id: sync_v5 - telemetry_stable - total_columns_sum,
-            name: sync_v5 - telemetry_stable}, {axisId: total_columns_sum, id: testpilot_v4
-              - telemetry_stable - total_columns_sum, name: testpilot_v4 - telemetry_stable},
-          {axisId: total_columns_sum, id: third_party_modules_v4 - telemetry_stable
-              - total_columns_sum, name: third_party_modules_v4 - telemetry_stable},
-          {axisId: total_columns_sum, id: uninstall_v4 - telemetry_stable - total_columns_sum,
-            name: uninstall_v4 - telemetry_stable}, {axisId: total_columns_sum, id: untrusted_modules_v4
-              - telemetry_stable - total_columns_sum, name: untrusted_modules_v4 -
-              telemetry_stable}, {axisId: total_columns_sum, id: update_v4 - telemetry_stable
-              - total_columns_sum, name: update_v4 - telemetry_stable}, {axisId: total_columns_sum,
-            id: voice_v4 - telemetry_stable - total_columns_sum, name: voice_v4 -
-              telemetry_stable}], showLabels: true, showValues: true, unpinAxis: false,
-        tickDensity: default, tickDensityCustom: 5, type: linear}]
+            id: firefox_desktop_stable.metrics_v1 - total_columns_sum, name: firefox_desktop_stable.metrics_v1},
+          {axisId: total_columns_sum, id: firefox_translations_stable.custom_v1 -
+              total_columns_sum, name: firefox_translations_stable.custom_v1}, {axisId: total_columns_sum,
+            id: mlhackweek_search_stable.action_v1 - total_columns_sum, name: mlhackweek_search_stable.action_v1},
+          {axisId: total_columns_sum, id: org_mozilla_bergamot_stable.custom_v1 -
+              total_columns_sum, name: org_mozilla_bergamot_stable.custom_v1}, {axisId: total_columns_sum,
+            id: org_mozilla_fenix_nightly_stable.metrics_v1 - total_columns_sum, name: org_mozilla_fenix_nightly_stable.metrics_v1},
+          {axisId: total_columns_sum, id: org_mozilla_fenix_nightly_stable.migration_v1
+              - total_columns_sum, name: org_mozilla_fenix_nightly_stable.migration_v1},
+          {axisId: total_columns_sum, id: org_mozilla_fenix_stable.metrics_v1 - total_columns_sum,
+            name: org_mozilla_fenix_stable.metrics_v1}, {axisId: total_columns_sum,
+            id: org_mozilla_fenix_stable.migration_v1 - total_columns_sum, name: org_mozilla_fenix_stable.migration_v1},
+          {axisId: total_columns_sum, id: org_mozilla_fennec_aurora_stable.metrics_v1
+              - total_columns_sum, name: org_mozilla_fennec_aurora_stable.metrics_v1},
+          {axisId: total_columns_sum, id: org_mozilla_fennec_aurora_stable.migration_v1
+              - total_columns_sum, name: org_mozilla_fennec_aurora_stable.migration_v1},
+          {axisId: total_columns_sum, id: org_mozilla_firefox_beta_stable.metrics_v1
+              - total_columns_sum, name: org_mozilla_firefox_beta_stable.metrics_v1},
+          {axisId: total_columns_sum, id: org_mozilla_firefox_beta_stable.migration_v1
+              - total_columns_sum, name: org_mozilla_firefox_beta_stable.migration_v1},
+          {axisId: total_columns_sum, id: org_mozilla_firefox_stable.metrics_v1 -
+              total_columns_sum, name: org_mozilla_firefox_stable.metrics_v1}, {axisId: total_columns_sum,
+            id: org_mozilla_firefox_stable.migration_v1 - total_columns_sum, name: org_mozilla_firefox_stable.migration_v1},
+          {axisId: total_columns_sum, id: org_mozilla_focus_beta_stable.metrics_v1
+              - total_columns_sum, name: org_mozilla_focus_beta_stable.metrics_v1},
+          {axisId: total_columns_sum, id: org_mozilla_focus_nightly_stable.metrics_v1
+              - total_columns_sum, name: org_mozilla_focus_nightly_stable.metrics_v1},
+          {axisId: total_columns_sum, id: org_mozilla_focus_stable.metrics_v1 - total_columns_sum,
+            name: org_mozilla_focus_stable.metrics_v1}, {axisId: total_columns_sum,
+            id: org_mozilla_ios_fennec_stable.metrics_v1 - total_columns_sum, name: org_mozilla_ios_fennec_stable.metrics_v1},
+          {axisId: total_columns_sum, id: org_mozilla_ios_firefox_stable.metrics_v1
+              - total_columns_sum, name: org_mozilla_ios_firefox_stable.metrics_v1},
+          {axisId: total_columns_sum, id: org_mozilla_ios_firefoxbeta_stable.metrics_v1
+              - total_columns_sum, name: org_mozilla_ios_firefoxbeta_stable.metrics_v1},
+          {axisId: total_columns_sum, id: org_mozilla_ios_focus_stable.metrics_v1
+              - total_columns_sum, name: org_mozilla_ios_focus_stable.metrics_v1},
+          {axisId: total_columns_sum, id: org_mozilla_ios_klar_stable.metrics_v1 -
+              total_columns_sum, name: org_mozilla_ios_klar_stable.metrics_v1}, {
+            axisId: total_columns_sum, id: org_mozilla_klar_stable.metrics_v1 - total_columns_sum,
+            name: org_mozilla_klar_stable.metrics_v1}, {axisId: total_columns_sum,
+            id: org_mozilla_reference_browser_stable.metrics_v1 - total_columns_sum,
+            name: org_mozilla_reference_browser_stable.metrics_v1}, {axisId: total_columns_sum,
+            id: org_mozilla_vrbrowser_stable.metrics_v1 - total_columns_sum, name: org_mozilla_vrbrowser_stable.metrics_v1},
+          {axisId: total_columns_sum, id: org_mozilla_vrbrowser_stable.session_end_v1
+              - total_columns_sum, name: org_mozilla_vrbrowser_stable.session_end_v1},
+          {axisId: total_columns_sum, id: regrets_reporter_stable.regrets_reporter_update_v1
+              - total_columns_sum, name: regrets_reporter_stable.regrets_reporter_update_v1},
+          {axisId: total_columns_sum, id: telemetry_stable.bhr_v4 - total_columns_sum,
+            name: telemetry_stable.bhr_v4}, {axisId: total_columns_sum, id: telemetry_stable.crash_v4
+              - total_columns_sum, name: telemetry_stable.crash_v4}, {axisId: total_columns_sum,
+            id: telemetry_stable.dnssec_study_v1_v4 - total_columns_sum, name: telemetry_stable.dnssec_study_v1_v4},
+          {axisId: total_columns_sum, id: telemetry_stable.event_v4 - total_columns_sum,
+            name: telemetry_stable.event_v4}, {axisId: total_columns_sum, id: telemetry_stable.first_shutdown_v4
+              - total_columns_sum, name: telemetry_stable.first_shutdown_v4}, {axisId: total_columns_sum,
+            id: telemetry_stable.heartbeat_v4 - total_columns_sum, name: telemetry_stable.heartbeat_v4},
+          {axisId: total_columns_sum, id: telemetry_stable.main_v4 - total_columns_sum,
+            name: telemetry_stable.main_v4}, {axisId: total_columns_sum, id: telemetry_stable.modules_v4
+              - total_columns_sum, name: telemetry_stable.modules_v4}, {axisId: total_columns_sum,
+            id: telemetry_stable.new_profile_v4 - total_columns_sum, name: telemetry_stable.new_profile_v4},
+          {axisId: total_columns_sum, id: telemetry_stable.regrets_reporter_update_v4
+              - total_columns_sum, name: telemetry_stable.regrets_reporter_update_v4},
+          {axisId: total_columns_sum, id: telemetry_stable.saved_session_v4 - total_columns_sum,
+            name: telemetry_stable.saved_session_v4}, {axisId: total_columns_sum,
+            id: telemetry_stable.shield_icq_v1_v4 - total_columns_sum, name: telemetry_stable.shield_icq_v1_v4},
+          {axisId: total_columns_sum, id: telemetry_stable.shield_study_addon_v3 -
+              total_columns_sum, name: telemetry_stable.shield_study_addon_v3}, {
+            axisId: total_columns_sum, id: telemetry_stable.shield_study_error_v3
+              - total_columns_sum, name: telemetry_stable.shield_study_error_v3},
+          {axisId: total_columns_sum, id: telemetry_stable.shield_study_v3 - total_columns_sum,
+            name: telemetry_stable.shield_study_v3}, {axisId: total_columns_sum, id: telemetry_stable.sync_v4
+              - total_columns_sum, name: telemetry_stable.sync_v4}, {axisId: total_columns_sum,
+            id: telemetry_stable.sync_v5 - total_columns_sum, name: telemetry_stable.sync_v5},
+          {axisId: total_columns_sum, id: telemetry_stable.testpilot_v4 - total_columns_sum,
+            name: telemetry_stable.testpilot_v4}, {axisId: total_columns_sum, id: telemetry_stable.third_party_modules_v4
+              - total_columns_sum, name: telemetry_stable.third_party_modules_v4},
+          {axisId: total_columns_sum, id: telemetry_stable.uninstall_v4 - total_columns_sum,
+            name: telemetry_stable.uninstall_v4}, {axisId: total_columns_sum, id: telemetry_stable.untrusted_modules_v4
+              - total_columns_sum, name: telemetry_stable.untrusted_modules_v4}, {
+            axisId: total_columns_sum, id: telemetry_stable.update_v4 - total_columns_sum,
+            name: telemetry_stable.update_v4}, {axisId: total_columns_sum, id: telemetry_stable.voice_v4
+              - total_columns_sum, name: telemetry_stable.voice_v4}], showLabels: true,
+        showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
+        type: log}]
     series_types: {}
     series_labels: {}
     defaults_version: 1
@@ -2329,20 +2373,327 @@
     hidden_points_if_no: []
     listen:
       Submission Date: stable_table_column_counts.submission_date
-    row: 108
+    row: 132
     col: 0
-    width: 23
-    height: 6
+    width: 24
+    height: 11
+  - name: Top Schema Errors
+    title: Top Schema Errors
+    merged_queries:
+    - model: monitoring
+      explore: schema_error_counts
+      type: table
+      fields: [schema_error_counts.submission_date, grouped, filtered_error_counts]
+      filters:
+        schema_error_counts.submission_date: 28 days
+      sorts: [filtered_error_counts desc]
+      limit: 500
+      dynamic_fields: [{category: measure, expression: !!null '', label: filtered_error_counts,
+          value_format: !!null '', value_format_name: !!null '', based_on: schema_error_counts.error_count,
+          _kind_hint: measure, measure: filtered_error_counts, type: sum, _type_hint: sum},
+        {category: dimension, expression: 'concat(${schema_error_counts.path}, " [",
+            ${schema_error_counts.document_namespace}, ".", ${schema_error_counts.document_type})',
+          label: grouped, value_format: !!null '', value_format_name: !!null '', dimension: grouped,
+          _kind_hint: dimension, _type_hint: string}]
+    - model: monitoring
+      explore: schema_error_counts
+      type: table
+      fields: [grouped, top_error_counts]
+      filters:
+        schema_error_counts.submission_date: 10 years
+      sorts: [top_error_counts desc]
+      limit: 10
+      dynamic_fields: [{category: dimension, expression: 'concat(${schema_error_counts.path},
+            " [", ${schema_error_counts.document_namespace}, ".", ${schema_error_counts.document_type})',
+          label: grouped, value_format: !!null '', value_format_name: !!null '', dimension: grouped,
+          _kind_hint: dimension, _type_hint: string}, {category: measure, expression: !!null '',
+          label: top_error_counts, value_format: !!null '', value_format_name: !!null '',
+          based_on: schema_error_counts.error_count, _kind_hint: measure, measure: top_error_counts,
+          type: sum, _type_hint: sum}]
+      join_fields:
+      - field_name: grouped
+        source_field_name: grouped
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: true
+    y_axes: [{label: Total pings, orientation: left, series: [{axisId: filtered_error_counts,
+            id: "# [messaging_system.onboarding_v1 - filtered_error_counts", name: "#\
+              \ [messaging_system.onboarding_v1"}, {axisId: filtered_error_counts,
+            id: "# [telemetry.mobile_event_v4 - filtered_error_counts", name: "# [telemetry.mobile_event_v4"},
+          {axisId: filtered_error_counts, id: "#/application/buildId [telemetry.health_v4\
+              \ - filtered_error_counts", name: "#/application/buildId [telemetry.health_v4"},
+          {axisId: filtered_error_counts, id: "#/application/version [telemetry.health_v4\
+              \ - filtered_error_counts", name: "#/application/version [telemetry.health_v4"},
+          {axisId: filtered_error_counts, id: "#/client_info [firefox_desktop_background_update.metrics_v1\
+              \ - filtered_error_counts", name: "#/client_info [firefox_desktop_background_update.metrics_v1"},
+          {axisId: filtered_error_counts, id: "#/client_info [firefox_desktop.metrics_v1\
+              \ - filtered_error_counts", name: "#/client_info [firefox_desktop.metrics_v1"},
+          {axisId: filtered_error_counts, id: "#/client_info [org_mozilla_firefox.metrics_v1\
+              \ - filtered_error_counts", name: "#/client_info [org_mozilla_firefox.metrics_v1"},
+          {axisId: filtered_error_counts, id: "#/clientId [telemetry.crash_v4 - filtered_error_counts",
+            name: "#/clientId [telemetry.crash_v4"}, {axisId: filtered_error_counts,
+            id: "#/environment/build/buildId [telemetry.main_v4 - filtered_error_counts",
+            name: "#/environment/build/buildId [telemetry.main_v4"}, {axisId: filtered_error_counts,
+            id: "#/environment/build/version [telemetry.event_v4 - filtered_error_counts",
+            name: "#/environment/build/version [telemetry.event_v4"}, {axisId: filtered_error_counts,
+            id: "#/environment/build/version [telemetry.main_v4 - filtered_error_counts",
+            name: "#/environment/build/version [telemetry.main_v4"}, {axisId: filtered_error_counts,
+            id: "#/environment/build/version [telemetry.modules_v4 - filtered_error_counts",
+            name: "#/environment/build/version [telemetry.modules_v4"}, {axisId: filtered_error_counts,
+            id: "#/environment/build/version [telemetry.third_party_modules_v4 - filtered_error_counts",
+            name: "#/environment/build/version [telemetry.third_party_modules_v4"},
+          {axisId: filtered_error_counts, id: "#/environment/settings/update/autoDownload\
+              \ [telemetry.main_v4 - filtered_error_counts", name: "#/environment/settings/update/autoDownload\
+              \ [telemetry.main_v4"}, {axisId: filtered_error_counts, id: "#/environment/system/cpu/cores\
+              \ [telemetry.event_v4 - filtered_error_counts", name: "#/environment/system/cpu/cores\
+              \ [telemetry.event_v4"}, {axisId: filtered_error_counts, id: "#/environment/system/cpu/cores\
+              \ [telemetry.main_v4 - filtered_error_counts", name: "#/environment/system/cpu/cores\
+              \ [telemetry.main_v4"}, {axisId: filtered_error_counts, id: "#/environment/system/cpu/cores\
+              \ [telemetry.modules_v4 - filtered_error_counts", name: "#/environment/system/cpu/cores\
+              \ [telemetry.modules_v4"}, {axisId: filtered_error_counts, id: "#/environment/system/cpu/cores\
+              \ [telemetry.new_profile_v4 - filtered_error_counts", name: "#/environment/system/cpu/cores\
+              \ [telemetry.new_profile_v4"}, {axisId: filtered_error_counts, id: "#/payload\
+              \ [telemetry.update_v4 - filtered_error_counts", name: "#/payload [telemetry.update_v4"},
+          {axisId: filtered_error_counts, id: "#/payload/hangs/0/annotations [telemetry.bhr_v4\
+              \ - filtered_error_counts", name: "#/payload/hangs/0/annotations [telemetry.bhr_v4"},
+          {axisId: filtered_error_counts, id: "#/payload/info/subsessionLength [telemetry.first_shutdown_v4\
+              \ - filtered_error_counts", name: "#/payload/info/subsessionLength [telemetry.first_shutdown_v4"},
+          {axisId: filtered_error_counts, id: "#/payload/info/subsessionLength [telemetry.main_v4\
+              \ - filtered_error_counts", name: "#/payload/info/subsessionLength [telemetry.main_v4"},
+          {axisId: filtered_error_counts, id: "#/payload/keyedHistograms/SQLITE_STORE_QUERY/1657114595AmcateirvtiSty.sqlite/values/0\
+              \ [telemetry.main_v4 - filtered_error_counts", name: "#/payload/keyedHistograms/SQLITE_STORE_QUERY/1657114595AmcateirvtiSty.sqlite/values/0\
+              \ [telemetry.main_v4"}, {axisId: filtered_error_counts, id: "#/payload/keyedHistograms/SQLITE_STORE_QUERY/3870112724rsegmnoittet-es.sqlite/values/0\
+              \ [telemetry.main_v4 - filtered_error_counts", name: "#/payload/keyedHistograms/SQLITE_STORE_QUERY/3870112724rsegmnoittet-es.sqlite/values/0\
+              \ [telemetry.main_v4"}], showLabels: true, showValues: true, unpinAxis: false,
+        tickDensity: default, tickDensityCustom: 5, type: linear}]
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: right
+    series_types: {}
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    hidden_fields: [top_error_counts]
+    type: looker_line
+    pivots: [grouped]
+    sorts: [schema_error_counts.submission_date desc]
+    listen:
+    - Submission Date: schema_error_counts.submission_date
+    - Submission Date: schema_error_counts.submission_date
+    row: 53
+    col: 0
+    width: 24
+    height: 11
+  - title: All schema errors (last 14 days)
+    name: All schema errors (last 14 days)
+    model: monitoring
+    explore: schema_error_counts
+    type: looker_grid
+    fields: [schema_error_counts.document_namespace, schema_error_counts.document_type,
+      schema_error_counts.path, error_count, schema_errors_notes.notes]
+    filters:
+      schema_error_counts.submission_date: 15 days
+    sorts: [error_count desc]
+    limit: 500
+    dynamic_fields: [{category: measure, expression: !!null '', label: error_count,
+        value_format: !!null '', value_format_name: !!null '', based_on: schema_error_counts.error_count,
+        _kind_hint: measure, measure: error_count, type: sum, _type_hint: sum}]
+    show_view_names: false
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    limit_displayed_rows: false
+    enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: 12
+    rows_font_size: 12
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    series_types: {}
+    listen: {}
+    row: 64
+    col: 0
+    width: 24
+    height: 7
+  - name: Top schema errors normalized
+    title: Top schema errors normalized
+    merged_queries:
+    - model: monitoring
+      explore: schema_error_counts
+      type: table
+      fields: [schema_error_counts.document_namespace, schema_error_counts.document_type,
+        schema_error_counts.path, schema_error_counts.error_counts_sum, schema_errors_notes.notes]
+      filters:
+        schema_error_counts.submission_date: 14 days ago for 14 days
+        schema_error_counts.error_counts_sum: ''
+      sorts: [schema_error_counts.document_type]
+      limit: 5000
+      join_fields: []
+    - model: monitoring
+      explore: distinct_docids
+      type: table
+      fields: [distinct_docids.namespace, distinct_docids.doc_type, distinct_docids.n_documents]
+      filters:
+        distinct_docids.submission_date: 14 days ago for 14 days
+      sorts: [distinct_docids.doc_type]
+      limit: 5000
+      join_fields:
+      - field_name: distinct_docids.namespace
+        source_field_name: schema_error_counts.document_namespace
+      - field_name: distinct_docids.doc_type
+        source_field_name: schema_error_counts.document_type
+    type: table
+    sorts: [percent_of_error desc]
+    dynamic_fields: [{category: table_calculation, expression: "(${schema_error_counts.error_counts_sum}/(${schema_error_counts.error_counts_sum}+${distinct_docids.n_documents}))\
+          \ * 100", label: percent_of_error, value_format: !!null '', value_format_name: !!null '',
+        _kind_hint: measure, table_calculation: percent_of_error, _type_hint: number}]
+    listen:
+    - Submission Date: schema_error_counts.submission_date
+    - Submission Date: distinct_docids.submission_date
+    row: 71
+    col: 0
+    width: 24
+    height: 9
+  - name: Known Issues
+    type: text
+    title_text: Known Issues
+    subtitle_text: ''
+    body_text: "<center> <a href=\"https://docs.google.com/spreadsheets/d/1wMKyIyzp8yW7YpNz6hpFe0sHueeeLHdHr3p-1br2TbA\"\
+      > Known Data Platform Issues</a> <br/> \n<a href=\"https://docs.google.com/spreadsheets/d/16Cyx_KBieRdQkSBKolivqpBaK2H-VceN9LEZcL0snHg\"\
+      > Data Incidents</a>\n</center>\n\n"
+    row: 3
+    col: 0
+    width: 24
+    height: 3
+  - title: Firefox Desktop Metrics (Glean) - Client Count by Normalized Channel
+    name: Firefox Desktop Metrics (Glean) - Client Count by Normalized Channel
+    model: firefox_desktop
+    explore: metrics
+    type: looker_line
+    fields: [metrics.submission_date, metrics.sample_id, metrics.normalized_channel,
+      metrics.clients]
+    pivots: [metrics.normalized_channel]
+    filters:
+      metrics.submission_date: 90 days
+      metrics.sample_id: '0'
+      metrics.normalized_channel: nightly,release,Other,beta,aurora
+    sorts: [metrics.submission_date desc, metrics.normalized_channel]
+    limit: 500
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    y_axes: [{label: '', orientation: left, series: [{axisId: metrics.clients, id: aurora
+              - metrics.clients, name: aurora}, {axisId: metrics.clients, id: beta
+              - metrics.clients, name: beta}, {axisId: metrics.clients, id: nightly
+              - metrics.clients, name: nightly}, {axisId: metrics.clients, id: Other
+              - metrics.clients, name: Other}, {axisId: metrics.clients, id: release
+              - metrics.clients, name: release}], showLabels: true, showValues: true,
+        minValue: !!null '', valueFormat: '', unpinAxis: true, tickDensity: default,
+        tickDensityCustom: 100, type: log}]
+    limit_displayed_rows_values:
+      show_hide: hide
+      first_last: first
+      num_rows: 0
+    series_types: {}
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    hidden_fields: [metrics.sample_id]
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: 12
+    rows_font_size: 12
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    defaults_version: 1
+    listen: {}
+    row: 26
+    col: 12
+    width: 12
+    height: 9
   filters:
   - name: Submission Date
     title: Submission Date
     type: field_filter
-    default_value: 90 day
+    default_value: 90 day ago for 90 day
     allow_multiple_values: true
     required: false
     ui_config:
-      type: relative_timeframes
-      display: inline
+      type: advanced
+      display: popover
       options: []
     model: monitoring
     explore: stable_table_sizes
