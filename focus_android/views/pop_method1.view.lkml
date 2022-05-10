@@ -1,6 +1,6 @@
 include: "usage.view.lkml"
 
-view: pop_method_1 {
+view: pop_method1 {
   derived_table: {
     sql_trigger_value: SELECT CURRENT_DATE() ;;
     sql:
