@@ -19,6 +19,8 @@ explore: pop_method3 {
     filters: [current_date_range: "6 months", compare_to: "Year" ]
   }}
 
+explore:  pop_method7 {}
+
 explore: usage {
   always_filter: {
     filters: [
