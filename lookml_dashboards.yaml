@@ -1,0 +1,16 @@
+# Listing of synced dashboards.
+# A synced dashboard is a User-Defined dashboard that
+# a  LookML Dashboard is copied to. It will match the
+# LookML Dashboard exactly.
+# 
+# Usage:
+#   1. Create a LookML dashboard.
+#   2. Create a User-Defined dashboard
+#   3. Below, add an entry syncing the two. Syncs will happen on merge to `main`.
+#
+# Format:
+# user_defined_dashboard_id: "lookml_dashboard_id"
+---
+101: "kpi::firefox_corporate_kpis"
+66: "duet::desktop_numbers_that_matter"
+155: "mozilla_vpn::mozilla_vpn"

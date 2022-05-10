@@ -1,0 +1,6 @@
+connection: "telemetry"
+label: "Operational Monitoring"
+include: "//looker-hub/operational_monitoring/explores/*"
+include: "//looker-hub/operational_monitoring/views/*"
+include: "//looker-hub/operational_monitoring/dashboards/*"
+include: "views/tcp_rollout.view.lkml"
