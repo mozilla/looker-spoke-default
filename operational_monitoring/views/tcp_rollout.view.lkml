@@ -5,4 +5,9 @@ view: +tcp_rollout_scalar {
     type: number
     sql: SUM(${TABLE}.value) ;;
   }
+
+  measure: Average {
+    type: number
+    sql: AVG(${TABLE}.value) ;;
+  }
 }
