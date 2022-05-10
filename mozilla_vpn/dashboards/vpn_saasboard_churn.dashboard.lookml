@@ -3,6 +3,7 @@
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
+  description: ''
   refresh: 2147484 seconds
   elements:
   - name: ''
@@ -56,7 +57,7 @@
     filters:
       subscriptions__retention.months_since_subscription_start: ">0"
       subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [subscriptions__retention.churned desc]
+    sorts: [subscriptions__retention.months_since_subscription_start]
     dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.churned}/${subscriptions__retention.previously_retained}",
         label: Churn Rate, value_format: !!null '', value_format_name: percent_1,
         _kind_hint: measure, table_calculation: churn_rate, _type_hint: number}, {
@@ -128,6 +129,7 @@
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_date
+      Plan Interval Type: subscriptions.plan_interval_type
     row: 10
     col: 0
     width: 13
@@ -210,6 +212,7 @@
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_date
+      Plan Interval Type: subscriptions.plan_interval_type
     row: 10
     col: 13
     width: 11
@@ -308,6 +311,7 @@
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_date
+      Plan Interval Type: subscriptions.plan_interval_type
     row: 45
     col: 0
     width: 13
@@ -410,6 +414,7 @@
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_date
+      Plan Interval Type: subscriptions.plan_interval_type
     row: 45
     col: 13
     width: 11
@@ -525,6 +530,7 @@
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_date
+      Plan Interval Type: subscriptions.plan_interval_type
     row: 58
     col: 13
     width: 11
@@ -576,6 +582,7 @@
     series_types: {}
     listen:
       Subscription Start Date: subscriptions.subscription_start_date
+      Plan Interval Type: subscriptions.plan_interval_type
     row: 3
     col: 19
     width: 5
@@ -711,6 +718,7 @@
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_date
+      Plan Interval Type: subscriptions.plan_interval_type
     row: 21
     col: 13
     width: 11
@@ -835,6 +843,7 @@
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_date
+      Plan Interval Type: subscriptions.plan_interval_type
     row: 32
     col: 13
     width: 11
@@ -955,6 +964,7 @@
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_date
+      Plan Interval Type: subscriptions.plan_interval_type
     row: 21
     col: 0
     width: 13
@@ -962,6 +972,7 @@
   - name: " (6)"
     type: text
     title_text: ''
+    subtitle_text: ''
     body_text: |
       <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px; color: red;">
 
@@ -969,19 +980,19 @@
 
         <img style="color: #efefef; padding: 5px 25px; float: left; height: 40px;" src="https://wwwstatic.lookercdn.com/logos/looker_all_white.svg"/>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__active_subscriptions?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/412?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">
 
        Active Subs</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__subscriptions_growth?Provider=&Pricing+Plan=&Country=&Event+Date=after+2020%2F07%2F20">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/416?Provider=&Pricing+Plan=&Country=&Event+Date=after+2020%2F07%2F20">
 
        Subs Growth</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__retention?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Retention</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/414?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Retention</a>
 
-        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__churn?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Churn</a>
+        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/413?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Churn</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; " href="https://mozilla.cloud.looker.com/dashboards-next/mozilla_vpn::vpn_saasboard__revenue?Provider=&Pricing%20Plan=&Country=&Active%20Date=after%202020%2F07%2F20">Revenue</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; " href="https://mozilla.cloud.looker.com/dashboards/433?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">Revenue</a>
 
         <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1VtrTwm8Eqt9cPLZLaH1kjnM413gKtdaZArS29xcxXpA/edit?usp=sharing">Docs</a>
 
@@ -1004,7 +1015,8 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Subscription Start Date, Provider, Pricing Plan, Country]
+    listens_to_filters: [Provider, Plan Interval Type, Subscription Start Date, Country,
+      Pricing Plan]
     field: subscriptions.provider
   - name: Pricing Plan
     title: Pricing Plan
@@ -1017,7 +1029,8 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Subscription Start Date, Pricing Plan, Provider, Country]
+    listens_to_filters: [Pricing Plan, Plan Interval Type, Subscription Start Date,
+      Country, Provider]
     field: subscriptions.pricing_plan
   - name: Country
     title: Country
@@ -1030,7 +1043,8 @@
       display: popover
     model: mozilla_vpn
     explore: subscriptions
-    listens_to_filters: [Subscription Start Date, Country, Provider, Pricing Plan]
+    listens_to_filters: [Country, Plan Interval Type, Subscription Start Date, Pricing
+        Plan, Provider]
     field: subscriptions.country_name
   - name: Subscription Start Date
     title: Subscription Start Date
@@ -1045,3 +1059,17 @@
     explore: subscriptions
     listens_to_filters: [Subscription Start Date]
     field: subscriptions.subscription_start_date
+  - name: Plan Interval Type
+    title: Plan Interval Type
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: checkboxes
+      display: popover
+      options: []
+    model: mozilla_vpn
+    explore: subscriptions
+    listens_to_filters: [Subscription Start Date, Country, Pricing Plan, Provider]
+    field: subscriptions.plan_interval_type
