@@ -27,7 +27,7 @@ explore: +event_counts {
 
 explore: daily_service_users {
   label: "Daily Services Users"
-  description: "Number of Firefox Accounts authenticating with FxA services according to the FxA server table:`moz-fx-data-shared-prod.firefox_accounts.fxa_users_services_daily`"
+  description: "Number of Firefox Accounts authenticating with FxA services according to the FxA server table:`moz-fx-data-shared-prod.firefox_accounts.fxa_users_services_daily`."
   always_filter: {
     filters: [daily_service_users.submission_date: "14 days"]
     }
