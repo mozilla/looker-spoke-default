@@ -1,0 +1,7 @@
+connection: "telemetry"
+label: "Websites"
+include: "//looker-hub/websites/explores/*"
+include: "//looker-hub/websites/dashboards/*"
+include: "views/*"
+include: "explores/*"
+include: "dashboards/*"
