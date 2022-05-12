@@ -1,7 +1,2 @@
 connection: "telemetry"
 label: "Combined Browser Metrics"
-include: "//looker-hub/combined_browser_metrics/explores/*"
-include: "//looker-hub/combined_browser_metrics/dashboards/*"
-include: "views/*"
-include: "explores/*"
-include: "dashboards/*"
