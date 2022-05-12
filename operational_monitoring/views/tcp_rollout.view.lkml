@@ -1,5 +1,4 @@
 include: "//looker-hub/operational_monitoring/views/tcp_rollout_scalar.view.lkml"
-include: "//looker-hub/operational_monitoring/explores/tcp_rollout_scalar.explore.lkml"
 
 
 view: +tcp_rollout_scalar {
