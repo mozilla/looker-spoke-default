@@ -111,7 +111,7 @@ dimension: ytd_only {
 
   measure: daily_active_users {
     label: "DAU"
-    type:  max
+    type:  sum
     sql: (${TABLE}.dau) ;;
   }
 }
