@@ -1,7 +1,7 @@
-include: "//looker-hub/websites/views/moz_org_page_metrics.view.lkml"
+include: "//looker-hub/websites/views/moz_org_metrics_summary.view.lkml"
 
-view: page_metrics {
-  extends: [moz_org_page_metrics]
+view: metrics_summary {
+  extends: [moz_org_metrics_summary]
 
   filter: date {
     type: date
