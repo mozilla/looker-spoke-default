@@ -3,26 +3,6 @@ label: "Firefox Focus for Android"
 include: "//looker-hub/focus_android/explores/*"
 include: "views/*"
 
-explore: period_over_period_parameters {
-  sql_always_where:
-  {% if period_over_period_parameters.current_vs_previous_period._in_query %} ${period_over_period_parameters.current_vs_previous_period} is not null {% else %} 1=1 {% endif %}
-  ;;
-}
-
-explore: pop_method1 {}
-
-explore: pop_method2 {}
-
-explore: pop_method3 {
-  label: "PoP Method 3: Custom choice of current and previous periods with parameters"
-  always_filter: {
-    filters: [current_date_range: "6 months", compare_to: "Year" ]
-  }}
-
-explore:  pop_method6 {}
-
-explore:  pop_method7 {}
-
 explore: usage {
   always_filter: {
     filters: [
