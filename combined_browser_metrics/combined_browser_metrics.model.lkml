@@ -5,6 +5,6 @@ include: "views/*"
 
 explore: active_users_aggregates {
   always_filter: {
-    filters: [active_users_aggregates.submission_date: "2020-01-01"]
+    filters: [active_users_aggregates.submission_date: "2022-01-01"]
   }
 }
