@@ -1,0 +1,2 @@
+connection: "telemetry"
+label: "Marketing"
