@@ -1,0 +1,7 @@
+connection: "telemetry"
+label: "Marketing"
+include: "//looker-hub/marketing/explores/*"
+include: "//looker-hub/marketing/dashboards/*"
+include: "views/*"
+include: "explores/*"
+include: "dashboards/*"
