@@ -49,7 +49,7 @@ view: +active_users_aggregates {
 
   dimension: day_month_abbreviation {
     type:  date
-    hidden: no
+    hidden: yes
     view_label: "_PoP"
     convert_tz: no
     datatype:  date
@@ -58,7 +58,7 @@ view: +active_users_aggregates {
 
   dimension: day_month_number {
     type:  date
-    hidden: no
+    hidden: yes
     view_label: "_PoP"
     datatype:  date
     sql: FORMAT_DATE("%m-%d", ${TABLE}.submission_date);;
