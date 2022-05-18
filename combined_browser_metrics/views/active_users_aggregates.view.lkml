@@ -9,6 +9,7 @@ view: +active_users_aggregates {
     default_value: "Month"
     allowed_value: {label: "Month Number" value:"Month"}
     allowed_value: {label: "Month and Day" value: "Month_Day"}
+    allowed_value: {label: "Week of Year" value: "WOY"}
     allowed_value: {label: "Day of Year" value: "DOY"}
     allowed_value: {label: "Day of Month" value: "DOM"}
     allowed_value: {label: "Day of Week" value: "DOW"}
@@ -22,6 +23,7 @@ view: +active_users_aggregates {
     default_value: "Year"
     allowed_value: {value: "Year" }
     allowed_value: {value: "Month"}
+    allowed_value: {value: "Week"}
   }
 
   dimension_group: submission {
@@ -33,6 +35,7 @@ view: +active_users_aggregates {
       day_of_month,
       day_of_year,
       week,
+      week_of_year,
       month,
       month_name,
       month_num,
@@ -70,6 +73,7 @@ view: +active_users_aggregates {
     sql:
           {% if choose_breakdown._parameter_value == 'Month' %} ${submission_month_num}
           {% elsif choose_breakdown._parameter_value == 'Month_Day' %} ${day_month_abbreviation}
+          {% elsif choose_breakdown._parameter_value == 'WOY' %} ${submission_week_of_year}
           {% elsif choose_breakdown._parameter_value == 'DOY' %} ${submission_day_of_year}
           {% elsif choose_breakdown._parameter_value == 'DOM' %} ${submission_day_of_month}
           {% elsif choose_breakdown._parameter_value == 'Date' %} ${submission_date}
@@ -85,6 +89,7 @@ view: +active_users_aggregates {
     sql:
           {% if choose_comparison._parameter_value == 'Year' %} ${submission_year}
           {% elsif choose_comparison._parameter_value == 'Month' %} ${submission_month}
+          {% elsif choose_breakdown._parameter_value == 'WOY' %} ${submission_week_of_year}
           {% elsif choose_breakdown._parameter_value == 'Month_Day' %} ${day_month_abbreviation}
           {% else %}NULL{% endif %} ;;
   }
@@ -109,6 +114,7 @@ view: +active_users_aggregates {
     sql:
           {% if choose_breakdown._parameter_value == 'Month' %} ${submission_month_num}
           {% elsif choose_breakdown._parameter_value == 'Month_Day' %} ${submission_day_of_year}
+          {% elsif choose_breakdown._parameter_value == 'WOY' %} ${submission_week_of_year}
           {% elsif choose_breakdown._parameter_value == 'DOY' %} ${submission_day_of_year}
           {% elsif choose_breakdown._parameter_value == 'DOM' %} ${submission_day_of_month}
           {% elsif choose_breakdown._parameter_value == 'Date' %} ${submission_date}
@@ -121,6 +127,7 @@ view: +active_users_aggregates {
     sql:
           {% if choose_comparison._parameter_value == 'Year' %} ${submission_year}
           {% elsif choose_comparison._parameter_value == 'Month' %} ${submission_month_num}
+          {% elsif choose_breakdown._parameter_value == 'WOY' %} ${submission_week_of_year}
           {% elsif choose_breakdown._parameter_value == 'Month_Day' %} ${submission_day_of_year}
           {% elsif choose_comparison._parameter_value == 'Week' %} ${submission_week}
           {% else %}NULL{% endif %} ;;
@@ -133,6 +140,14 @@ view: +active_users_aggregates {
     view_label: "_PoP"
     type: yesno
     sql:  (EXTRACT(DAY FROM ${submission_date}) < EXTRACT(DAY FROM CURRENT_DATE()));;
+  }
+
+  dimension: wtd_only {
+    group_label: "To-Date Filters"
+    label: "WTD"
+    view_label: "_PoP"
+    type: yesno
+    sql:  (EXTRACT(WEEK FROM ${submission_date}) < EXTRACT(WEEK FROM CURRENT_DATE()));;
   }
 
   dimension: ytd_only {
