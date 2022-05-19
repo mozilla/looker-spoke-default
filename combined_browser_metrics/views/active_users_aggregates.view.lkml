@@ -147,7 +147,7 @@ view: +active_users_aggregates {
     label: "WTD"
     view_label: "_PoP"
     type: yesno
-    sql:  (EXTRACT(WEEK FROM ${submission_date}) < EXTRACT(WEEK FROM CURRENT_DATE()));;
+    sql:  ${submission_week_of_year} < (EXTRACT(WEEK FROM CURRENT_DATE()));;
   }
 
   dimension: ytd_only {
