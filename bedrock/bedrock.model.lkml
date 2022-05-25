@@ -1,0 +1,7 @@
+connection: "telemetry"
+label: "www.mozilla.org"
+include: "//looker-hub/bedrock/explores/*"
+include: "//looker-hub/bedrock/dashboards/*"
+include: "views/*"
+include: "explores/*"
+include: "dashboards/*"
