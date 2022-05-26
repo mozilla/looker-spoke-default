@@ -69,6 +69,7 @@ view: +cohort_daily_statistics {
   }
 
   measure: retention {
+    type: number
     sql: SAFE_DIVIDE(${clients_active_on_day}, ${clients_in_cohort}) ;;
     value_format: "0.00%"
   }
