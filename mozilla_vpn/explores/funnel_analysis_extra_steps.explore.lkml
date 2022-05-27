@@ -1,6 +1,6 @@
-include: "/spoke-default/mozilla_vpn/views/funnel_analysis_granular_steps.view.lkml"
+include: "/spoke-default/mozilla_vpn/views/funnel_analysis_extra_steps.view.lkml"
 
-explore: funnel_analysis_granular_steps {
+explore: funnel_analysis_extra_steps {
   description: "Count funnel completion over time. Funnels are limited to a single day."
   view_label: " User-Day Funnels"
 
@@ -49,7 +49,7 @@ explore: funnel_analysis_granular_steps {
     relationship: many_to_one
     type: cross
   }
-  sql_always_where: ${funnel_analysis_granular_steps.submission_date} >= '2010-01-01' ;;
+  sql_always_where: ${funnel_analysis_extra_steps.submission_date} >= '2010-01-01' ;;
 }
 
 # explore: event_names {

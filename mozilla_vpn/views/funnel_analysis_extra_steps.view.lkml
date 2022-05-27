@@ -1,5 +1,5 @@
 include: "//looker-hub/mozilla_vpn/views/funnel_analysis.view"
-view: funnel_analysis_granular_steps {
+view: funnel_analysis_extra_steps {
   extends: [funnel_analysis]
   dimension: completed_step_5 {
     type: yesno
