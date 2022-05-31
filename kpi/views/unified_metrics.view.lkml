@@ -11,7 +11,7 @@ view: +unified_metrics {
   dimension: client_qualifies {
     type: yesno
     label: "Client Qualifies for 2022 KPI"
-    sql: CASE WHEN ${TABLE}.normalized_app_name != 'Firefox Desktop' THEN TRUE
+    sql: CASE WHEN ${TABLE}.normalized_app_name != 'Firefox Desktop' AND ${TABLE}.normalized_app_name NOT LIKE '% BrowserStack' THEN TRUE
       WHEN ${TABLE}.normalized_app_name = 'Firefox Desktop' AND ${TABLE}.active_hours_sum > 0 AND ${TABLE}.uri_count > 0 THEN TRUE
       ELSE FALSE END ;;
   }
