@@ -27,12 +27,10 @@ view: +active_subscriptions_table {
     description: "Get max active date from end date in active date filter.  If null, use last modified date."
     hidden: yes
     type: date
-    sql: CASE
-    WHEN
-    ifnull({% date_end active_date %}, ${metadata.last_modified_date})<${metadata.last_modified_date}
-    THEN {% date_end active_date %}
-    ELSE ${metadata.last_modified_date}
-    END-1 ;;
+    sql: LEAST(
+      IFNULL({% date_end active_date %}, ${metadata.last_modified_date}),
+      ${metadata.last_modified_date}
+    )-1 ;;
   }
 
   dimension: is_max_active_date {
