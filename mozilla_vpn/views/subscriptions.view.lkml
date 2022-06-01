@@ -155,7 +155,7 @@ view: +subscriptions {
     sql: mozfun.norm.diff_months(
       start => LAST_DAY(DATE(${subscriptions.subscription_start_raw}), MONTH),
       `end` => DATE(${metadata.last_modified_date}),
-      grace_period => ${subscriptions.billing_grace_period},
+      grace_period => INTERVAL 7 DAY,
       inclusive => FALSE
     );;
   }
