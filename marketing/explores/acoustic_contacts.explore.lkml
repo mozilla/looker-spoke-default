@@ -1,6 +1,6 @@
-include: "//looker-hub/marketing/views/acoustic_contacts.view.lkml"
+include: "//looker-hub/marketing/views/acoustic_contact_change_events.view.lkml"
 
-explore: acoustic_contacts {
+explore: acoustic_contact_change_events {
   description:
   "
   This explore contains Acoustic Contact modification events (by default shows last 6 months).
