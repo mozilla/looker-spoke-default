@@ -14,17 +14,16 @@ view: +subscription_events_table {
     sql: CONCAT(${plan_interval_count},"_",  ${plan_interval});;
   }
 
-  dimension: wave_launch {
-    description: "Indicates the wave of launch (Wave 1, Europe, Switzerland).  This is to primarily support finance reporting"
+  dimension: forecast_region {
+    description: "Indicates region used in financial forecasting.  This is to primarily support finance forecasting work."
     type: string
     sql: CASE
-    WHEN ${pricing_plan} LIKE "%-eur-%" THEN "Europe"
-    WHEN ${pricing_plan} LIKE "%-chf-%" THEN "Switzerland"
-    WHEN ${pricing_plan} LIKE "1-month-usd-4.99" THEN "Wave_1 monthly legacy only"
-    ELSE "Wave_1 excluding monthly legacy"
-    END;;
+          WHEN ${pricing_plan} LIKE "%-eur-%" THEN "Europe"
+          WHEN ${pricing_plan} LIKE "%-chf-%" THEN "Switzerland"
+          WHEN ${pricing_plan} LIKE "1-month-usd-4.99" THEN "Wave_1 monthly legacy only"
+          ELSE "Wave_1 excluding monthly legacy & other"
+          END;;
   }
-
 
   dimension: count {
     hidden: yes
