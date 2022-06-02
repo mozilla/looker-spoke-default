@@ -269,9 +269,9 @@
       Ireland - active_subscriptions.count_sum: "#beb3bb"
       Guam - active_subscriptions.count_sum: "#dcddca"
       Germany - active_subscriptions.count_sum: "#b4dadf"
-      France - active_subscriptions.count_sum: "#e2ecc6"
+      France - active_subscriptions.count_sum: "#928fb4"
       Egypt - active_subscriptions.count_sum: "#bebcd2"
-      Canada - active_subscriptions.count_sum: "#c5dabc"
+      Canada - active_subscriptions.count_sum: "#1f3e5a"
       Belgium - active_subscriptions.count_sum: "#3b707f"
       Austria - active_subscriptions.count_sum: "#657646"
       Australia - active_subscriptions.count_sum: "#585858"
@@ -670,9 +670,9 @@
       Ireland: "#beb3bb"
       Guam: "#dcddca"
       Germany: "#b4dadf"
-      France: "#e2ecc6"
+      France: "#928fb4"
       Egypt: "#bebcd2"
-      Canada: "#c5dabc"
+      Canada: "#1f3e5a"
       Belgium: "#3b707f"
       Austria: "#657646"
       Australia: "#585858"
@@ -1051,7 +1051,10 @@
         steps: 5
     x_axis_label: Month
     series_types: {}
-    series_colors: {}
+    series_colors:
+      1_year - active_subscriptions.count_sum: "#3D52B9"
+      1_month - active_subscriptions.count_sum: "#ffd95f"
+      6_month - active_subscriptions.count_sum: "#b42f37"
     defaults_version: 1
     note_state: collapsed
     note_display: hover
@@ -1087,7 +1090,10 @@
       palette_id: 0cc9e709-0004-4166-adc2-c979c6a55ca0
       options:
         steps: 5
-    series_colors: {}
+    series_colors:
+      1_year: "#3D52B9"
+      1_month: "#ffd95f"
+      6_month: "#b42f37"
     show_value_labels: true
     font_size: 12
     x_axis_gridlines: false
