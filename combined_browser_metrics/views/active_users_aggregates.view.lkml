@@ -4,7 +4,7 @@ view: +active_users_aggregates {
 
   parameter: choose_breakdown {
     label: "Choose Grouping (Rows)"
-    view_label: "_PoP"
+    view_label: "Date/Period Selection"
     type: unquoted
     default_value: "Month"
     allowed_value: {label: "Month Number" value:"Month"}
@@ -18,7 +18,7 @@ view: +active_users_aggregates {
 
   parameter: choose_comparison {
     label: "Choose Comparison (Pivot)"
-    view_label: "_PoP"
+    view_label: "Date/Period Selection"
     type: unquoted
     default_value: "Year"
     allowed_value: {value: "Year" }
@@ -28,7 +28,7 @@ view: +active_users_aggregates {
 
   dimension_group: submission {
     type: time
-    view_label: "_PoP"
+    view_label: "Date/Period Selection"
     timeframes: [
       raw,
       date,
@@ -50,7 +50,7 @@ view: +active_users_aggregates {
   dimension: day_month_abbreviation {
     type:  date
     hidden: yes
-    view_label: "_PoP"
+    view_label: "Date/Period Selection"
     convert_tz: no
     datatype:  date
     sql: FORMAT_DATE("%b %d", ${TABLE}.submission_date);;
@@ -59,13 +59,13 @@ view: +active_users_aggregates {
   dimension: day_month_number {
     type:  date
     hidden: yes
-    view_label: "_PoP"
+    view_label: "Date/Period Selection"
     datatype:  date
     sql: FORMAT_DATE("%m-%d", ${TABLE}.submission_date);;
   }
 
-  dimension: pop_row  {
-    view_label: "_PoP"
+  dimension: period_over_period_row  {
+    view_label: "Date/Period Selection"
     label_from_parameter: choose_breakdown
     type: string
     # order_by_field: sort_hack1 # Important # WON: no dimension called sort_hack1
@@ -80,8 +80,8 @@ view: +active_users_aggregates {
           {% else %}NULL{% endif %} ;;
   }
 
-  dimension: pop_pivot {
-    view_label: "_PoP"
+  dimension: period_over_period_pivot {
+    view_label: "Date/Period Selection"
     label_from_parameter: choose_comparison
     type: string
     # order_by_field: sort_hack2 # Important # WON: no dimension called sort_hack2
@@ -137,7 +137,7 @@ view: +active_users_aggregates {
   dimension: mtd_only {
     group_label: "To-Date Filters"
     label: "MTD"
-    view_label: "_PoP"
+    view_label: "Date/Period Selection"
     type: yesno
     sql:  (EXTRACT(DAY FROM ${submission_date}) < EXTRACT(DAY FROM CURRENT_DATE()));;
   }
@@ -145,7 +145,7 @@ view: +active_users_aggregates {
   dimension: wtd_only {
     group_label: "To-Date Filters"
     label: "WTD"
-    view_label: "_PoP"
+    view_label: "Date/Period Selection"
     type: yesno
     sql:  ${submission_week_of_year} < (EXTRACT(WEEK FROM CURRENT_DATE()));;
   }
@@ -153,7 +153,7 @@ view: +active_users_aggregates {
   dimension: ytd_only {
     group_label: "To-Date Filters"
     label: "YTD"
-    view_label: "_PoP"
+    view_label: "Date/Period Selection"
     type: yesno
     sql:  (EXTRACT(DAYOFYEAR FROM ${submission_date}) < EXTRACT(DAYOFYEAR FROM CURRENT_DATE()));;
   }
