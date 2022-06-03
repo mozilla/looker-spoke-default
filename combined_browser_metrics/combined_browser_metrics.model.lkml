@@ -10,6 +10,12 @@ explore: active_users_aggregates {
   }
 }
 
+explore: active_users_aggregates_device {
+  always_filter: {
+    filters: [active_users_aggregates_device.submission_date: "2022-01-01"]
+  }
+}
+
 explore: user_retention {
   view_name: cohort_daily_statistics
 
