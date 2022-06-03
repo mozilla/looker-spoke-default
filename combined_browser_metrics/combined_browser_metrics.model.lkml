@@ -6,13 +6,13 @@ include: "/shared/views/*"
 
 explore: active_users_aggregates {
   always_filter: {
-    filters: [active_users_aggregates.submission_date: "2022-01-01"]
+    filters: [active_users_aggregates.submission_date: "this year"]
   }
 }
 
 explore: active_users_aggregates_device {
   always_filter: {
-    filters: [active_users_aggregates_device.submission_date: "2022-01-01"]
+    filters: [active_users_aggregates_device.submission_date: "this year"]
   }
 }
 
@@ -20,7 +20,7 @@ explore: user_retention {
   view_name: cohort_daily_statistics
 
   always_filter: {
-    filters: [cohort_daily_statistics.activity_date: "2022-01-01"]
+    filters: [cohort_daily_statistics.activity_date: "this year"]
   }
 
   join: countries {
