@@ -110,12 +110,14 @@ view: +active_users_aggregates {
   dimension: attribution_medium {
     label: "Attribution Medium"
     type:  string
+    group_label: "Attribution"
     sql: ${TABLE}.attribution_medium ;;
   }
 
   dimension: attribution_source {
     label: "Attribution Source"
     type:  string
+    group_label: "Attribution"
     sql: ${TABLE}.attribution_source ;;
   }
 
