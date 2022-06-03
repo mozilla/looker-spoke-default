@@ -107,6 +107,20 @@ view: +active_users_aggregates {
     sql: ${TABLE}.app_version ;;
   }
 
+  dimension: attribution_medium {
+    label: "Attribution Medium"
+    type:  string
+    group_label: "Attribution"
+    sql: ${TABLE}.attribution_medium ;;
+  }
+
+  dimension: attribution_source {
+    label: "Attribution Source"
+    type:  string
+    group_label: "Attribution"
+    sql: ${TABLE}.attribution_source ;;
+  }
+
 # These dimensions are just to make sure the dimensions sort correctly
   dimension: sort_by1 {
     hidden: yes
@@ -287,33 +301,4 @@ view: +active_users_aggregates {
     sql: ${TABLE}.os_version_minor ;;
     group_label: "OS"
   }
-
-  dimension: attribution_source {
-    sql: ${TABLE}.attribution_source ;;
-    group_label: "Attribution"
-  }
-  dimension: attribution_medium {
-    sql: ${TABLE}.attribution_medium ;;
-    group_label: "Attribution"
-  }
-  dimension: attribution_campaign {
-    sql: ${TABLE}.attribution_campaign ;;
-    group_label: "Attribution"
-  }
-  dimension: attribution_content {
-    sql: ${TABLE}.attribution_content ;;
-    group_label: "Attribution"
-  }
-
-  dimension: attribution_experiment {
-    sql: ${TABLE}.attribution_experiment ;;
-    group_label: "Attribution - Experiments"
-  }
-
-  dimension: attribution_variation {
-    sql: ${TABLE}.attribution_variation ;;
-    group_label: "Attribution - Experiments"
-  }
-
-
 }
