@@ -10,7 +10,7 @@ view: +urlbar_clients_daily {
 
   measure: total_count_picked {
     sql: ${TABLE}.count_picked_total ;;
-    type: number
+    type: sum
   }
 }
 
@@ -21,7 +21,7 @@ view: +urlbar_clients_daily__count_picked_by_position {
 
   measure: count {
     sql: ${TABLE}.value ;;
-    type: number
+    type: sum
   }
 }
 
@@ -32,7 +32,7 @@ view: +urlbar_clients_daily__count_picked_by_type {
 
   measure: count {
     sql: ${TABLE}.value ;;
-    type: number
+    type: sum
   }
 }
 
@@ -43,6 +43,6 @@ view: +urlbar_clients_daily__urlbar_picked_by_type_by_position__position {
 
   measure: count {
     sql: ${TABLE}.value ;;
-    type: number
+    type: sum
   }
 }
