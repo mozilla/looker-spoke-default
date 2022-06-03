@@ -10,7 +10,7 @@ explore: active_users_aggregates {
   }
 }
 
-explore: active_users_aggregates_device{
+explore: active_users_aggregates_device {
   always_filter: {
     filters: [active_users_aggregates_device.submission_date: "2022-01-01"]
   }
