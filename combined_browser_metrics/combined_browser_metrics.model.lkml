@@ -16,6 +16,18 @@ explore: active_users_aggregates_device {
   }
 }
 
+explore: active_users_aggregates_attribution {
+  always_filter: {
+    filters: [active_users_aggregates_attribution.submission_date: "this year"]
+  }
+
+  join: countries {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${active_users_aggregates_attribution.country} = ${countries.code} ;;
+  }
+}
+
 explore: user_retention {
   view_name: cohort_daily_statistics
 
