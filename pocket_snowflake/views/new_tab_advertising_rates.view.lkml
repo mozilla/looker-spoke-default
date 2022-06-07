@@ -2,12 +2,9 @@ view: new_tab_advertising_rates{
   sql_table_name: "DBT_SHARED_WITH_MOZILLA"."Y2022_MONTHLY_NEW_TAB_ADVERTISING_RATES"
     ;;
 
-  dimension_group: month {
+  dimension_group: Period {
     type: time
     timeframes: [
-      raw,
-      date,
-      week,
       month,
       quarter,
       year
@@ -17,13 +14,15 @@ view: new_tab_advertising_rates{
     sql: ${TABLE}.HAPPENED_MONTH ;;
   }
 
-  measure: cpm_rest_of_world {
-    type: number
+  measure: CPM_Rest_Of_World {
+    type: average
     sql: ${TABLE}.ROW_CPM ;;
+    value_format:"$#.00;($#.00)"
   }
 
-  measure: cpm_us {
-    type: number
+  measure: CPM_US {
+    type: average
     sql: ${TABLE}.US_CPM ;;
+    value_format:"$#.00;($#.00)"
   }
 }
