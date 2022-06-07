@@ -243,7 +243,7 @@ view: +active_users_aggregates {
   }
 
   measure: new_profile {
-    label: "New Profile"
+    label: "New Profiles"
     type: sum
     sql:  ${TABLE}.new_profiles ;;
   }
