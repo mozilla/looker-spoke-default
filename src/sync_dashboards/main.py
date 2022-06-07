@@ -48,7 +48,8 @@ def get_all_linked_dashboards(sdk: methods.Looker31SDK) -> dict:
     """
     remote_config = {}
 
-    dashboards = sdk.search_dashboards(deleted=False)
+    transport_options = looker_sdk.rtl.transport.TransportOptions({"timeout": 60 * 5})
+    dashboards = sdk.search_dashboards(deleted=False, transport_options=transport_options)
 
     for dashboard in dashboards:
         if dashboard.model is None and dashboard.lookml_link_id:
