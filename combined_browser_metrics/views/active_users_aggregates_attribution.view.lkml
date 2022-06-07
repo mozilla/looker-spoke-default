@@ -14,7 +14,7 @@ view: +active_users_aggregates_attribution {
     sql: ${TABLE}.app_version ;;
   }
 
-# Attribution details ungrouped as this is a focused view for attribution analysis
+  # Attribution details ungrouped as this is an attribution analysis focused view
 
   dimension: attributed{
     label: "Attributed (Yes/No)"
@@ -58,7 +58,28 @@ view: +active_users_aggregates_attribution {
     sql: ${TABLE}.attribution_variation ;;
   }
 
+  dimension: is_default_browser {
+    type:  string
+    case: {
+      when: {
+        sql: ${TABLE}.is_default_browser = true ;;
+        label: "yes"
+      }
+
+      when: {
+        sql: ${TABLE}.is_default_browser = false ;;
+        label: "no"
+      }
+
+      when: {
+        sql: ${TABLE}.is_default_browser is NULL ;;
+        label: "unknown"
+      }
+    }
+  }
+
   # Measures
+
   measure: daily_active_users {
     label: "DAU"
     type:  sum
@@ -119,7 +140,8 @@ view: +active_users_aggregates_attribution {
     sql:  ${TABLE}.active_hours ;;
   }
 
-# Hide metric columns showing as dimensions
+  # Hide dimensions that are set as measures
+
   dimension: mau {
     hidden: yes
     sql: ${TABLE}.mau ;;
