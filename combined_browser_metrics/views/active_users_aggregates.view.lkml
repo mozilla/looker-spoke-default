@@ -284,6 +284,26 @@ view: +active_users_aggregates {
     sql:  ${TABLE}.active_hours ;;
   }
 
+  dimension: is_default_browser {
+    type:  string
+    case: {
+      when: {
+        sql: ${TABLE}.is_default_browser = true ;;
+        label: "yes"
+      }
+
+      when: {
+        sql: ${TABLE}.is_default_browser = false ;;
+        label: "no"
+      }
+
+      when: {
+        sql: ${TABLE}.is_default_browser is NULL ;;
+        label: "unknown"
+      }
+    }
+  }
+
 # Group dimensions in Explore
   dimension: os {
     sql: ${TABLE}.os ;;
