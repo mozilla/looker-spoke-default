@@ -24,8 +24,8 @@ view: kpi_automated_forecast_confidences_v1 {
     sql: ${TABLE}.date;;
   }
 
-  dimension: device {
-    label: "Target: desktop or mobile."
+  dimension: target {
+    label: "Device_Metric."
     type: string
     sql: ${TABLE}.target ;;
   }
@@ -34,6 +34,18 @@ view: kpi_automated_forecast_confidences_v1 {
     type: string
     sql: ${TABLE}.unit ;;
     label: "Time unit: month."
+  }
+
+  dimension: forecast_parameters {
+    label: "Parameters used in fitting Prophet model."
+    type: string
+    sql: ${TABLE}.forecast_parameters ;;
+  }
+
+  dimension: forecast_date {
+    label: "Date forecast was run."
+    type: string
+    sql: ${TABLE}.forecast_date ;;
   }
 
   measure: value {
@@ -56,19 +68,19 @@ view: kpi_automated_forecast_confidences_v1 {
 
   measure: Base {
     type: average
-    sql: AVG(${Worst},${Best});;
+    sql: AVG(${TABLE}.yhat_p10 + ${TABLE}.yhat_p90);;
     label: "Average of CI Lower and CI Upper"
   }
 
   measure: relative_CI_size {
     type: average
-    sql: (${Best} - ${Worst}) / ${Base}  ;;
+    sql: (${TABLE}.yhat_p90 - ${TABLE}.yhat_p10) / AVG(${TABLE}.yhat_p10 + ${TABLE}.yhat_p90)  ;;
     label: "Relative CI Size: Size of CI / Base"
   }
 
   measure: percent_change_in_base {
     type: average
-    sql: (${Base} - lag(${Base}) / lag(${Base})  ;;
+    sql: (AVG(${TABLE}.yhat_p10 + ${TABLE}.yhat_p90) - lag(AVG(${TABLE}.yhat_p10 + ${TABLE}.yhat_p90)) / lag(AVG(${TABLE}.yhat_p10 + ${TABLE}.yhat_p90))  ;;
     label: "(Base - Lag(Base)) / Lag(Base)"
   }
 
