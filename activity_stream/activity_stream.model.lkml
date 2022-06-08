@@ -10,6 +10,7 @@ explore: +session_counts {
     query: {
       dimensions: [sessions.submission_date]
       measures: [sessions.clients, sessions.session_count]
+      filters: [sessions.submission_date: "after 2019-01-01"]
     }
 
     materialization: {
@@ -26,6 +27,7 @@ explore: +pocket_tile_impressions {
     query: {
       dimensions: [impression_stats_flat.submission_date, impression_stats_flat.tile_type]
       measures: [impression_stats_flat.click_count, impression_stats_flat.impression_count, impression_stats_flat.loaded_count, impression_stats_flat.pocketed_count]
+      filters: [impression_stats_flat.submission_date: "after 2019-01-01"]
     }
 
     materialization: {
