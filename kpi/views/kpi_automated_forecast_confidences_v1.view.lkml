@@ -3,7 +3,7 @@ view: kpi_automated_forecast_confidences_v1 {
   sql_table_name: `moz-fx-data-shared-prod.telemetry_derived.kpi_automated_forecast_confidences_v1`;;
 
   dimension: as_of_date {
-    label: "Forecast end date."
+    description: "Forecast end date."
     type: date
     sql: ${TABLE}.asofdate ;;
     hidden: no
@@ -25,7 +25,7 @@ view: kpi_automated_forecast_confidences_v1 {
   }
 
   dimension: target {
-    label: "Device_Metric."
+    description: "Device_Metric."
     type: string
     sql: ${TABLE}.target ;;
   }
@@ -33,17 +33,17 @@ view: kpi_automated_forecast_confidences_v1 {
   dimension: unit {
     type: string
     sql: ${TABLE}.unit ;;
-    label: "Time unit: month."
+    description: "Time unit: month."
   }
 
   dimension: forecast_parameters {
-    label: "Parameters used in fitting Prophet model."
+    description: "Parameters used in fitting Prophet model."
     type: string
     sql: ${TABLE}.forecast_parameters ;;
   }
 
   dimension: forecast_date {
-    label: "Date forecast was run."
+    description: "Date forecast was run."
     type: string
     sql: ${TABLE}.forecast_date ;;
   }
@@ -51,25 +51,25 @@ view: kpi_automated_forecast_confidences_v1 {
   measure: value {
     type: average
     sql: ${TABLE}.value ;;
-    label: "Observed for past dates, estimated for future dates."
+    description: "Observed for past dates, estimated for future dates."
   }
 
   measure: Worst {
     type: average
     sql: ${TABLE}.yhat_p10;;
-    label: "CI Lower: 10th Percentile"
+    description: "CI Lower: 10th Percentile"
   }
 
   measure: Best {
     type: average
     sql:  ${TABLE}.yhat_p90;;
-    label: "CI Upper: 90th Percentile"
+    description: "CI Upper: 90th Percentile"
   }
 
   measure: Base {
     type: average
     sql: AVG(${TABLE}.yhat_p10 + ${TABLE}.yhat_p90);;
-    label: "Average of CI Lower and CI Upper"
+    description: "Average of CI Lower and CI Upper"
   }
 
   measure: relative_CI_size {
@@ -81,7 +81,7 @@ view: kpi_automated_forecast_confidences_v1 {
   measure: percent_change_in_base {
     type: average
     sql: (AVG(${TABLE}.yhat_p10 + ${TABLE}.yhat_p90) - lag(AVG(${TABLE}.yhat_p10 + ${TABLE}.yhat_p90)) / lag(AVG(${TABLE}.yhat_p10 + ${TABLE}.yhat_p90))  ;;
-    label: "(Base - Lag(Base)) / Lag(Base)"
+    description: "(Base - Lag(Base)) / Lag(Base)"
   }
 
 
