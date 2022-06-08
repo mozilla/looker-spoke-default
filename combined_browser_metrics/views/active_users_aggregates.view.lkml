@@ -243,7 +243,7 @@ view: +active_users_aggregates {
   }
 
   measure: new_profile {
-    label: "New Profile"
+    label: "New Profiles"
     type: sum
     sql:  ${TABLE}.new_profiles ;;
   }
@@ -282,6 +282,26 @@ view: +active_users_aggregates {
     label: "Active Hours"
     type: sum
     sql:  ${TABLE}.active_hours ;;
+  }
+
+  dimension: is_default_browser {
+    type:  string
+    case: {
+      when: {
+        sql: ${TABLE}.is_default_browser = true ;;
+        label: "yes"
+      }
+
+      when: {
+        sql: ${TABLE}.is_default_browser = false ;;
+        label: "no"
+      }
+
+      when: {
+        sql: ${TABLE}.is_default_browser is NULL ;;
+        label: "unknown"
+      }
+    }
   }
 
 # Group dimensions in Explore
