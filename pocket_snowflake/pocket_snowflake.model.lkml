@@ -17,7 +17,6 @@ explore: monthly_revenue {
 explore: pocket_hits_r4_w_avg_click_counts {
   description: "Pocket Hits R4w Average Click Counts"
   always_filter: {
-    filters: [pocket_hits_r4_w_avg_click_counts.period_filter_date: "before today",
-      pocket_hits_r4_w_avg_click_counts.period_filter_year: "this year"]
+    filters: [pocket_hits_r4_w_avg_click_counts.current_year_only: "yes"]
   }
 }

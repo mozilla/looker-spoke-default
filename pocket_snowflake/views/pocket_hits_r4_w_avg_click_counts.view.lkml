@@ -12,14 +12,13 @@ view: pocket_hits_r4_w_avg_click_counts {
     sql: ${TABLE}."CLICK_COUNT_R4W" ;;
   }
 
-  dimension_group: period_filter {
-    type: time
-    hidden: yes
-    timeframes: [
-      date,
-      year
-    ]
-    sql: ${TABLE}."HAPPENED_WEEK" ;;
+  dimension: current_year_only {
+    label: "current_year_only"
+    view_label: "Date/Period Selection"
+    type: yesno
+    sql:  (  (EXTRACT(MONTH FROM DATE(CONCAT(${Period_month}, '-01'))) <= EXTRACT(MONTH FROM CURRENT_DATE()))
+              AND (${Period_year} = EXTRACT(YEAR FROM CURRENT_DATE()))
+    );;
   }
 
   dimension_group: Period {
