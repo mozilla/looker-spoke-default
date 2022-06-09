@@ -12,12 +12,19 @@ view: pocket_hits_r4_w_avg_click_counts {
     sql: ${TABLE}."CLICK_COUNT_R4W" ;;
   }
 
-  dimension_group: happened_week {
+  dimension_group: period_filter {
+    type: time
+    hidden: yes
+    timeframes: [
+      date,
+      year
+    ]
+    sql: ${TABLE}."HAPPENED_WEEK" ;;
+  }
+
+  dimension_group: Period {
     type: time
     timeframes: [
-      raw,
-      time,
-      date,
       week,
       month,
       quarter,

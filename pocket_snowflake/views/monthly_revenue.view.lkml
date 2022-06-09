@@ -7,7 +7,7 @@ view: monthly_revenue {
     sql: ${TABLE}.CATEGORY ;;
   }
 
-  dimension_group: period {
+  dimension_group: Period {
     type: time
     timeframes: [
       month,
