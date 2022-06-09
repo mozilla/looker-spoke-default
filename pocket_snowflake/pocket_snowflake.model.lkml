@@ -7,9 +7,13 @@ explore: new_tab_advertising_rates {
 }
 
 explore: pocket_hits_monthly_newsletter_advertising_rates {
-  description: "Pocket New Tab Advertising Rates"
+  description: "Pocket Monthly Newsletter Advertising Rates"
 }
 
 explore: monthly_revenue {
-  description: "Pocket New Tab Advertising Rates"
+  description: "Pocket Montly Revenue"
+}
+
+explore: pocket_hits_r4_w_avg_click_counts {
+  description: "Pocket Hits R4w Average Click Counts"
 }
