@@ -1,5 +1,5 @@
-- dashboard: tcp_rollout_phase_2_phase_2
-  title: Tcp Rollout Phase 2
+- dashboard: tcp_rollout_phase_2_2
+  title: Tcp Rollout - Phase 2
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
@@ -8,15 +8,15 @@
   - title: Tagged Searches by Day
     name: Tagged Searches by Day
     model: operational_monitoring
-    explore: tcp_rollout_phase_2_phase_2_scalar
+    explore: tcp_rollout_phase_2_scalar
     type: looker_line
-    fields: [tcp_rollout_phase_2_phase_2_scalar.submission_date, tcp_rollout_phase_2_phase_2_scalar.branch, tcp_rollout_phase_2_phase_2_scalar.Total]
-    pivots: [tcp_rollout_phase_2_phase_2_scalar.branch]
+    fields: [tcp_rollout_phase_2_scalar.submission_date, tcp_rollout_phase_2_scalar.branch, tcp_rollout_phase_2_scalar.Total]
+    pivots: [tcp_rollout_phase_2_scalar.branch]
     filters:
-      tcp_rollout_phase_2_phase_2_scalar.probe: tagged_search_count
-      tcp_rollout_phase_2_phase_2_scalar.percentile_conf: '95'
-      tcp_rollout_phase_2_phase_2_scalar.branch: control,opt-in,opt-out,pref-does-not-exist
-    sorts: [tcp_rollout_phase_2_phase_2_scalar.submission_date, tcp_rollout_phase_2_phase_2_scalar.branch]
+      tcp_rollout_phase_2_scalar.probe: tagged_search_count
+      tcp_rollout_phase_2_scalar.percentile_conf: '95'
+      tcp_rollout_phase_2_scalar.branch: control,opt-in,opt-out,pref-does-not-exist
+    sorts: [tcp_rollout_phase_2_scalar.submission_date, tcp_rollout_phase_2_scalar.branch]
     dynamic_fields: [{args: [tcp_rollout_phase_2_scalar.Total], calculation_type: running_row_total,
         category: table_calculation, based_on: tcp_rollout_phase_2_scalar.Total, label: Running
           row total, source_field: tcp_rollout_phase_2_scalar.Total, table_calculation: running_row_total,
