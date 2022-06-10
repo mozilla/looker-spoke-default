@@ -15,7 +15,7 @@
     filters:
       tcp_rollout_phase_2_scalar.probe: tagged_search_count
       tcp_rollout_phase_2_scalar.percentile_conf: '95'
-      tcp_rollout_phase_2_scalar.branch: control,opt-in,opt-out,pref-does-not-exist
+      tcp_rollout_phase_2_scalar.branch: disabled,enabled
     sorts: [tcp_rollout_phase_2_scalar.submission_date, tcp_rollout_phase_2_scalar.branch]
     dynamic_fields: [{args: [tcp_rollout_phase_2_scalar.Total], calculation_type: running_row_total,
         category: table_calculation, based_on: tcp_rollout_phase_2_scalar.Total, label: Running
@@ -89,7 +89,7 @@
     filters:
       tcp_rollout_phase_2_scalar.probe: tagged_follow_on_search_count
       tcp_rollout_phase_2_scalar.percentile_conf: '95'
-      tcp_rollout_phase_2_scalar.branch: control,opt-in,opt-out,pref-does-not-exist
+      tcp_rollout_phase_2_scalar.branch: disabled,enabled
     sorts: [tcp_rollout_phase_2_scalar.submission_date, tcp_rollout_phase_2_scalar.branch]
     dynamic_fields: [{args: [tcp_rollout_phase_2_scalar.Total], calculation_type: running_row_total,
         category: table_calculation, based_on: tcp_rollout_phase_2_scalar.Total, label: Running
@@ -169,7 +169,7 @@
     filters:
       tcp_rollout_phase_2_scalar.probe: search_with_ads
       tcp_rollout_phase_2_scalar.percentile_conf: '95'
-      tcp_rollout_phase_2_scalar.branch: opt-in,opt-out,pref-does-not-exist
+      tcp_rollout_phase_2_scalar.branch: disabled,enabled
     sorts: [tcp_rollout_phase_2_scalar.submission_date, tcp_rollout_phase_2_scalar.branch]
     dynamic_fields: [{args: [tcp_rollout_phase_2_scalar.Total], calculation_type: running_row_total,
         category: table_calculation, based_on: tcp_rollout_phase_2_scalar.Total, label: Running
@@ -249,7 +249,7 @@
     filters:
       tcp_rollout_phase_2_scalar.probe: ad_click
       tcp_rollout_phase_2_scalar.percentile_conf: '95'
-      tcp_rollout_phase_2_scalar.branch: opt-in,opt-out,pref-does-not-exist
+      tcp_rollout_phase_2_scalar.branch: disabled,enabled
     sorts: [tcp_rollout_phase_2_scalar.submission_date, tcp_rollout_phase_2_scalar.branch]
     dynamic_fields: [{args: [tcp_rollout_phase_2_scalar.Total], calculation_type: running_row_total,
         category: table_calculation, based_on: tcp_rollout_phase_2_scalar.Total, label: Running
@@ -329,7 +329,7 @@
     filters:
       tcp_rollout_phase_2_scalar.probe: organic_search_count
       tcp_rollout_phase_2_scalar.percentile_conf: '95'
-      tcp_rollout_phase_2_scalar.branch: opt-in,opt-out,pref-does-not-exist
+      tcp_rollout_phase_2_scalar.branch: disabled,enabled
     sorts: [tcp_rollout_phase_2_scalar.submission_date, tcp_rollout_phase_2_scalar.branch]
     dynamic_fields: [{args: [tcp_rollout_phase_2_scalar.Total], calculation_type: running_row_total,
         category: table_calculation, based_on: tcp_rollout_phase_2_scalar.Total, label: Running
@@ -422,7 +422,7 @@
     pivots: [tcp_rollout_phase_2_scalar.branch]
     filters:
       tcp_rollout_phase_2_scalar.probe: sap
-      tcp_rollout_phase_2_scalar.branch: opt-in,opt-out,pref-does-not-exist
+      tcp_rollout_phase_2_scalar.branch: disabled,enabled
     sorts: [tcp_rollout_phase_2_scalar.submission_date, tcp_rollout_phase_2_scalar.branch]
     dynamic_fields: [{args: [tcp_rollout_phase_2_scalar.Total], calculation_type: running_row_total,
         category: table_calculation, based_on: tcp_rollout_phase_2_scalar.Total, label: Running
@@ -501,7 +501,7 @@
     pivots: [tcp_rollout_phase_2_scalar.branch]
     filters:
       tcp_rollout_phase_2_scalar.probe: ad_click_organic
-      tcp_rollout_phase_2_scalar.branch: opt-in,opt-out,pref-does-not-exist
+      tcp_rollout_phase_2_scalar.branch: disabled,enabled
     sorts: [tcp_rollout_phase_2_scalar.submission_date, tcp_rollout_phase_2_scalar.branch]
     dynamic_fields: [{args: [tcp_rollout_phase_2_scalar.Total], calculation_type: running_row_total,
         category: table_calculation, based_on: tcp_rollout_phase_2_scalar.Total, label: Running
@@ -580,7 +580,7 @@
     pivots: [tcp_rollout_phase_2_scalar.branch]
     filters:
       tcp_rollout_phase_2_scalar.probe: search_with_ads_organic
-      tcp_rollout_phase_2_scalar.branch: opt-in,opt-out,pref-does-not-exist
+      tcp_rollout_phase_2_scalar.branch: disabled,enabled
     sorts: [tcp_rollout_phase_2_scalar.submission_date, tcp_rollout_phase_2_scalar.branch]
     dynamic_fields: [{args: [tcp_rollout_phase_2_scalar.Total], calculation_type: running_row_total,
         category: table_calculation, based_on: tcp_rollout_phase_2_scalar.Total, label: Running
@@ -679,7 +679,7 @@
     filters:
       tcp_rollout_phase_2_scalar.probe: tagged_search_count
       tcp_rollout_phase_2_scalar.percentile_conf: '95'
-      tcp_rollout_phase_2_scalar.branch: control,opt-in,opt-out,pref-does-not-exist
+      tcp_rollout_phase_2_scalar.branch: disabled,enabled
     sorts: [tcp_rollout_phase_2_scalar.submission_date, tcp_rollout_phase_2_scalar.branch]
     dynamic_fields: [{args: [tcp_rollout_phase_2_scalar.Total], calculation_type: running_row_total,
         category: table_calculation, based_on: tcp_rollout_phase_2_scalar.Total, label: Running
@@ -753,7 +753,7 @@
     filters:
       tcp_rollout_phase_2_scalar.probe: tagged_follow_on_search_count
       tcp_rollout_phase_2_scalar.percentile_conf: '95'
-      tcp_rollout_phase_2_scalar.branch: control,opt-in,opt-out,pref-does-not-exist
+      tcp_rollout_phase_2_scalar.branch: disabled,enabled
     sorts: [tcp_rollout_phase_2_scalar.submission_date, tcp_rollout_phase_2_scalar.branch]
     dynamic_fields: [{args: [tcp_rollout_phase_2_scalar.Total], calculation_type: running_row_total,
         category: table_calculation, based_on: tcp_rollout_phase_2_scalar.Total, label: Running
@@ -833,7 +833,7 @@
     filters:
       tcp_rollout_phase_2_scalar.probe: search_with_ads
       tcp_rollout_phase_2_scalar.percentile_conf: '95'
-      tcp_rollout_phase_2_scalar.branch: opt-in,opt-out,pref-does-not-exist
+      tcp_rollout_phase_2_scalar.branch: disabled,enabled
     sorts: [tcp_rollout_phase_2_scalar.submission_date, tcp_rollout_phase_2_scalar.branch]
     dynamic_fields: [{args: [tcp_rollout_phase_2_scalar.Total], calculation_type: running_row_total,
         category: table_calculation, based_on: tcp_rollout_phase_2_scalar.Total, label: Running
@@ -912,7 +912,7 @@
     pivots: [tcp_rollout_phase_2_scalar.branch]
     filters:
       tcp_rollout_phase_2_scalar.probe: ad_click_organic
-      tcp_rollout_phase_2_scalar.branch: opt-in,opt-out,pref-does-not-exist
+      tcp_rollout_phase_2_scalar.branch: disabled,enabled
     sorts: [tcp_rollout_phase_2_scalar.submission_date, tcp_rollout_phase_2_scalar.branch]
     dynamic_fields: [{args: [tcp_rollout_phase_2_scalar.Total], calculation_type: running_row_total,
         category: table_calculation, based_on: tcp_rollout_phase_2_scalar.Total, label: Running
@@ -992,7 +992,7 @@
     filters:
       tcp_rollout_phase_2_scalar.probe: organic_search_count
       tcp_rollout_phase_2_scalar.percentile_conf: '95'
-      tcp_rollout_phase_2_scalar.branch: opt-in,opt-out,pref-does-not-exist
+      tcp_rollout_phase_2_scalar.branch: disabled,enabled
     sorts: [tcp_rollout_phase_2_scalar.submission_date, tcp_rollout_phase_2_scalar.branch]
     dynamic_fields: [{args: [tcp_rollout_phase_2_scalar.Total], calculation_type: running_row_total,
         category: table_calculation, based_on: tcp_rollout_phase_2_scalar.Total, label: Running
@@ -1071,7 +1071,7 @@
     pivots: [tcp_rollout_phase_2_scalar.branch]
     filters:
       tcp_rollout_phase_2_scalar.probe: sap
-      tcp_rollout_phase_2_scalar.branch: opt-in,opt-out,pref-does-not-exist
+      tcp_rollout_phase_2_scalar.branch: disabled,enabled
     sorts: [tcp_rollout_phase_2_scalar.submission_date, tcp_rollout_phase_2_scalar.branch]
     dynamic_fields: [{args: [tcp_rollout_phase_2_scalar.Total], calculation_type: running_row_total,
         category: table_calculation, based_on: tcp_rollout_phase_2_scalar.Total, label: Running
@@ -1151,7 +1151,7 @@
     filters:
       tcp_rollout_phase_2_scalar.probe: ad_click
       tcp_rollout_phase_2_scalar.percentile_conf: '95'
-      tcp_rollout_phase_2_scalar.branch: opt-in,opt-out,pref-does-not-exist
+      tcp_rollout_phase_2_scalar.branch: disabled,enabled
     sorts: [tcp_rollout_phase_2_scalar.submission_date, tcp_rollout_phase_2_scalar.branch]
     dynamic_fields: [{args: [tcp_rollout_phase_2_scalar.Total], calculation_type: running_row_total,
         category: table_calculation, based_on: tcp_rollout_phase_2_scalar.Total, label: Running
@@ -1230,7 +1230,7 @@
     pivots: [tcp_rollout_phase_2_scalar.branch]
     filters:
       tcp_rollout_phase_2_scalar.probe: search_with_ads_organic
-      tcp_rollout_phase_2_scalar.branch: opt-in,opt-out,pref-does-not-exist
+      tcp_rollout_phase_2_scalar.branch: disabled,enabled
     sorts: [tcp_rollout_phase_2_scalar.submission_date, tcp_rollout_phase_2_scalar.branch]
     dynamic_fields: [{args: [tcp_rollout_phase_2_scalar.Total], calculation_type: running_row_total,
         category: table_calculation, based_on: tcp_rollout_phase_2_scalar.Total, label: Running
