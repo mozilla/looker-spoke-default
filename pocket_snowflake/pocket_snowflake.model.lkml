@@ -20,3 +20,10 @@ explore: pocket_hits_r4_w_avg_click_counts {
     filters: [pocket_hits_r4_w_avg_click_counts.current_year_only: "yes"]
   }
 }
+
+explore: twice_weekly_active_user_counts {
+  description: "Twice Weekly Active User Counts"
+  always_filter: {
+    filters: [twice_weekly_active_user_counts.current_year_only: "yes"]
+  }
+}
