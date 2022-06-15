@@ -56,7 +56,7 @@ view: sample_ratio_mismatch {
         ]
       ) AS v
     ),
-    {% if metric == "active_clients_daily" %}
+    {% if metric._parameter_value == "'daily_active_clients'" %}
     max_date_daily_clients AS (
       SELECT MAX(submission_date)
       FROM `moz-fx-data-shared-prod.telemetry_derived.experiments_daily_active_clients_v1`
@@ -72,7 +72,7 @@ view: sample_ratio_mismatch {
         AND submission_date = (SELECT * FROM max_date_daily_clients)
         AND branch IS NOT NULL
     ),
-    {% elsif metric == "enrollments" %}
+    {% elsif metric._parameter_value == "'enrollments'" %}
     actual AS (
       SELECT
         branch,
