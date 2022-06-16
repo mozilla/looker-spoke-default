@@ -72,7 +72,7 @@ view: +subscriptions {
     sql: CASE
           WHEN ${pricing_plan} LIKE "%-eur-%" THEN "Europe"
           WHEN ${pricing_plan} LIKE "%-chf-%" THEN "Switzerland"
-          WHEN ${pricing_plan} LIKE "1-month-usd-4.99" THEN "Wave_1 monthly legacy only"
+          WHEN ${pricing_plan} = "1-month-usd-4.99" THEN "Wave_1 monthly legacy only"
           ELSE "Wave_1 (excluding monthly legacy) & other"
           END;;
   }
