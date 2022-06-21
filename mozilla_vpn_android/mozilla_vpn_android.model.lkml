@@ -1,7 +1,0 @@
-connection: "telemetry"
-label: "Mozilla VPN (Android)"
-include: "//looker-hub/mozilla_vpn_android/explores/*"
-include: "//looker-hub/mozilla_vpn_android/dashboards/*"
-include: "views/*"
-include: "explores/*"
-include: "dashboards/*"
