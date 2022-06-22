@@ -67,7 +67,6 @@ view: +active_users_aggregates_device {
     view_label: "Date/Period Selection"
     label_from_parameter: choose_breakdown
     type: string
-    # order_by_field: sort_hack1 # Important # WON: no dimension called sort_hack1
     order_by_field: sort_by1
     sql:
           {% if choose_breakdown._parameter_value == 'Month' %} ${submission_month_num}
@@ -83,7 +82,6 @@ view: +active_users_aggregates_device {
     view_label: "Date/Period Selection"
     label_from_parameter: choose_comparison
     type: string
-    # order_by_field: sort_hack2 # Important # WON: no dimension called sort_hack2
     order_by_field: sort_by2
     sql:
           {% if choose_comparison._parameter_value == 'Year' %} ${submission_year}
