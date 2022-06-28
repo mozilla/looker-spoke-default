@@ -31,6 +31,6 @@ view: +subscription_events_table {
 
   measure: delta {
     type: sum
-    sql: IF(${event_type} = "New", ${count}, -${count});;
+    sql: IF(${event_type} LIKE "%New%", ${count}, -${count});;
   }
 }
