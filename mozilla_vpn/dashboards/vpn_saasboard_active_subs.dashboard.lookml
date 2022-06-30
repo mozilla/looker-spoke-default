@@ -4,6 +4,7 @@
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
   description: ''
+  preferred_slug: QdEXdxGMfayKMyTL5YgpRq
   elements:
   - title: Active Subscriptions (Daily)
     name: Active Subscriptions (Daily)
@@ -11,7 +12,6 @@
     explore: active_subscriptions
     type: looker_line
     fields: [active_subscriptions.active_date, active_subscriptions.count_sum]
-    fill_fields: [active_subscriptions.active_date]
     sorts: [active_subscriptions.active_date desc]
     limit: 500
     x_axis_gridlines: false
@@ -58,10 +58,10 @@
     model: mozilla_vpn
     explore: active_subscriptions
     type: single_value
-    fields: [active_subscriptions.count_sum, active_subscriptions.active_date]
-    fill_fields: [active_subscriptions.active_date]
+    fields: [active_subscriptions.count_sum, active_subscriptions.active_date, active_subscriptions.is_max_active_date]
+    filters:
+      active_subscriptions.is_max_active_date: 'Yes'
     sorts: [active_subscriptions.active_date desc]
-    limit: 1
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -102,6 +102,8 @@
     show_null_points: true
     interpolation: linear
     defaults_version: 1
+    hidden_fields: [active_subscriptions.is_max_active_date]
+    hidden_points_if_no: [active_subscriptions.is_max_active_date]
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
@@ -141,10 +143,11 @@
     model: mozilla_vpn
     explore: active_subscriptions
     type: single_value
-    fields: [active_subscriptions.active_date]
-    fill_fields: [active_subscriptions.active_date]
+    fields: [active_subscriptions.active_date, active_subscriptions.is_max_active_date]
+    filters:
+      active_subscriptions.is_max_active_date: 'Yes'
     sorts: [active_subscriptions.active_date desc]
-    limit: 1
+    limit: 3
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -186,6 +189,7 @@
     defaults_version: 1
     note_state: collapsed
     note_display: below
+    hidden_fields: [active_subscriptions.is_max_active_date]
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
@@ -201,9 +205,9 @@
     model: mozilla_vpn
     explore: active_subscriptions
     type: looker_column
-    fields: [active_subscriptions.count_sum, active_subscriptions.country_name, active_subscriptions.active_month]
+    fields: [active_subscriptions.count_sum, active_subscriptions.country_name, active_subscriptions.active_month,
+      active_subscriptions.is_max_active_date]
     pivots: [active_subscriptions.country_name]
-    fill_fields: [active_subscriptions.active_month]
     filters:
       active_subscriptions.is_end_of_month: 'Yes'
     sorts: [active_subscriptions.country_name desc, active_subscriptions.count_sum
@@ -265,9 +269,9 @@
       Ireland - active_subscriptions.count_sum: "#beb3bb"
       Guam - active_subscriptions.count_sum: "#dcddca"
       Germany - active_subscriptions.count_sum: "#b4dadf"
-      France - active_subscriptions.count_sum: "#e2ecc6"
+      France - active_subscriptions.count_sum: "#928fb4"
       Egypt - active_subscriptions.count_sum: "#bebcd2"
-      Canada - active_subscriptions.count_sum: "#c5dabc"
+      Canada - active_subscriptions.count_sum: "#1f3e5a"
       Belgium - active_subscriptions.count_sum: "#3b707f"
       Austria - active_subscriptions.count_sum: "#657646"
       Australia - active_subscriptions.count_sum: "#585858"
@@ -279,24 +283,25 @@
     note_text: "Country is based on customer billing address.\n\nSubscription counts\
       \ on month end dates except for most current month which may not have reached\
       \ month end. "
+    hidden_fields: [active_subscriptions.is_max_active_date]
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
-    row: 31
+    row: 52
     col: 0
-    width: 8
-    height: 13
+    width: 13
+    height: 11
   - title: Monthly Active Subscriptions (by Plan)
     name: Monthly Active Subscriptions (by Plan)
     model: mozilla_vpn
     explore: active_subscriptions
     type: looker_column
-    fields: [active_subscriptions.count_sum, active_subscriptions.pricing_plan, active_subscriptions.active_month]
+    fields: [active_subscriptions.count_sum, active_subscriptions.pricing_plan, active_subscriptions.active_month,
+      active_subscriptions.is_end_of_month]
     pivots: [active_subscriptions.pricing_plan]
-    fill_fields: [active_subscriptions.active_month]
     filters:
       active_subscriptions.is_end_of_month: 'Yes'
     sorts: [active_subscriptions.active_month desc, active_subscriptions.pricing_plan]
@@ -336,47 +341,48 @@
     x_axis_label: Month
     series_types: {}
     series_colors:
-      1-month-usd-4.99: "#7363A9"
-      1-month-apple: "#4276BE"
-      1-month-cad-12.99: "#3FB0D5"
-      1-month-chf-10.99: "#9ED7D7"
-      1-month-eur-9.99: "#E57947"
-      1-month-gbp-8.49: "#FBB556"
-      1-month-myr-44.99: "#FFD95F"
-      1-month-nzd-15.99: "#D5C679"
-      1-month-sgd-13.99: "#D59E79"
-      1-month-usd-9.99: "#6A013A"
-      1-year-apple: "#7363A9"
-      1-year-cad-74.99: "#44759A"
-      1-year-chf-71.88: "#D5C679"
-      1-year-egp-939.99: "#8cd0e6"
-      1-year-eur-59.88: "#c5e7e7"
-      1-year-gbp-51.99: "#efaf91"
-      1-year-myr-269.99: "#fdd39a"
-      1-year-nzd-99.99: "#ffe89f"
-      1-year-sgd-86.98: "#e6ddaf"
-      1-year-usd-59.88: "#e6c5af"
-      6-month-apple: "#d28287"
-      6-month-cad-59.99: "#a66789"
-      6-month-chf-47.94: "#aba1cb"
-      6-month-eur-41.94: "#8facc2"
-      6-month-gbp-41.49: "#284772"
-      6-month-usd-47.94: "#266a80"
+      1-month-usd-4.99 - active_subscriptions.count_sum: "#7363A9"
+      1-month-apple - active_subscriptions.count_sum: "#4276BE"
+      1-month-cad-12.99 - active_subscriptions.count_sum: "#3FB0D5"
+      1-month-chf-10.99 - active_subscriptions.count_sum: "#9ED7D7"
+      1-month-eur-9.99 - active_subscriptions.count_sum: "#E57947"
+      1-month-gbp-8.49 - active_subscriptions.count_sum: "#FBB556"
+      1-month-myr-44.99 - active_subscriptions.count_sum: "#FFD95F"
+      1-month-nzd-15.99 - active_subscriptions.count_sum: "#D5C679"
+      1-month-sgd-13.99 - active_subscriptions.count_sum: "#D59E79"
+      1-month-usd-9.99 - active_subscriptions.count_sum: "#6A013A"
+      1-year-apple - active_subscriptions.count_sum: "#7363A9"
+      1-year-cad-74.99 - active_subscriptions.count_sum: "#44759A"
+      1-year-chf-71.88 - active_subscriptions.count_sum: "#D5C679"
+      1-year-egp-939.99 - active_subscriptions.count_sum: "#8cd0e6"
+      1-year-eur-59.88 - active_subscriptions.count_sum: "#c5e7e7"
+      1-year-gbp-51.99 - active_subscriptions.count_sum: "#efaf91"
+      1-year-myr-269.99 - active_subscriptions.count_sum: "#fdd39a"
+      1-year-nzd-99.99 - active_subscriptions.count_sum: "#ffe89f"
+      1-year-sgd-86.98 - active_subscriptions.count_sum: "#e6ddaf"
+      1-year-usd-59.88 - active_subscriptions.count_sum: "#e6c5af"
+      6-month-apple - active_subscriptions.count_sum: "#d28287"
+      6-month-cad-59.99 - active_subscriptions.count_sum: "#a66789"
+      6-month-chf-47.94 - active_subscriptions.count_sum: "#aba1cb"
+      6-month-eur-41.94 - active_subscriptions.count_sum: "black"
+      6-month-gbp-41.49 - active_subscriptions.count_sum: "#284772"
+      6-month-usd-47.94 - active_subscriptions.count_sum: "#266a80"
     defaults_version: 1
     note_state: collapsed
     note_display: hover
     note_text: 'Subscription counts on month end dates except for most current month
       which may not have reached month end. '
+    hidden_fields: [active_subscriptions.is_end_of_month]
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
-    row: 31
-    col: 8
-    width: 8
-    height: 13
+    row: 29
+    col: 0
+    width: 13
+    height: 11
   - name: " (3)"
     type: text
     title_text: ''
@@ -397,18 +403,18 @@
       <div style="border-top: solid 2px #e0e0e0;">
 
       <h3><b>Active Subscriptions by Country</b></h3>
-    row: 19
+    row: 40
     col: 0
-    width: 8
-    height: 3
+    width: 13
+    height: 4
   - title: Monthly Active Subscriptions (by Provider)
     name: Monthly Active Subscriptions (by Provider)
     model: mozilla_vpn
     explore: active_subscriptions
     type: looker_column
-    fields: [active_subscriptions.count_sum, active_subscriptions.active_month, active_subscriptions.provider]
+    fields: [active_subscriptions.count_sum, active_subscriptions.active_month, active_subscriptions.provider,
+      active_subscriptions.is_max_active_date]
     pivots: [active_subscriptions.provider]
-    fill_fields: [active_subscriptions.active_month]
     filters:
       active_subscriptions.is_end_of_month: 'Yes'
     sorts: [active_subscriptions.count_sum desc 0, active_subscriptions.provider desc]
@@ -448,32 +454,32 @@
     x_axis_label: Month
     series_types: {}
     series_colors:
-    Stripe: "#3D52B9"
-    Paypal: "#08B248"
-    Google Play: "#A918B4"
-    Apple Store: "#FC2E31"
+      Stripe - active_subscriptions.count_sum: "#3D52B9"
+      Paypal - active_subscriptions.count_sum: "#08B248"
+      Google Play - active_subscriptions.count_sum: "#A918B4"
+      Apple Store - active_subscriptions.count_sum: "#FC2E31"
     defaults_version: 1
     note_state: collapsed
     note_display: hover
     note_text: 'Subscription counts on month end dates except for most current month
       which may not have reached month end. '
+    hidden_fields: [active_subscriptions.is_max_active_date]
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
-    row: 31
-    col: 16
-    width: 8
-    height: 13
+    row: 52
+    col: 13
+    width: 11
+    height: 11
   - title: New Tile
     name: New Tile
     model: mozilla_vpn
     explore: active_subscriptions
     type: single_value
-    fields: [active_subscriptions.count_sum, active_subscriptions.active_date]
-    fill_fields: [active_subscriptions.active_date]
+    fields: [active_subscriptions.count_sum, active_subscriptions.active_date, active_subscriptions.is_max_active_date]
     sorts: [active_subscriptions.active_date desc]
     limit: 3
     column_limit: 50
@@ -534,7 +540,8 @@
     header_text_alignment: left
     header_font_size: 12
     rows_font_size: 12
-    hidden_fields: [active_subscriptions.count_sum]
+    hidden_fields: [active_subscriptions.count_sum, active_subscriptions.is_max_active_date]
+    hidden_points_if_no: [active_subscriptions.is_max_active_date]
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
@@ -550,8 +557,7 @@
     model: mozilla_vpn
     explore: active_subscriptions
     type: single_value
-    fields: [active_subscriptions.count_sum, active_subscriptions.active_date]
-    fill_fields: [active_subscriptions.active_date]
+    fields: [active_subscriptions.count_sum, active_subscriptions.active_date, active_subscriptions.is_max_active_date]
     sorts: [active_subscriptions.active_date desc]
     limit: 10
     column_limit: 50
@@ -612,7 +618,8 @@
     header_text_alignment: left
     header_font_size: 12
     rows_font_size: 12
-    hidden_fields: [active_subscriptions.count_sum]
+    hidden_fields: [active_subscriptions.count_sum, active_subscriptions.is_max_active_date]
+    hidden_points_if_no: [active_subscriptions.is_max_active_date]
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
@@ -628,7 +635,7 @@
     model: mozilla_vpn
     explore: active_subscriptions
     type: looker_pie
-    fields: [active_subscriptions.count_sum, active_subscriptions.country_name]
+    fields: [active_subscriptions.count_sum, active_subscriptions.country_name, active_subscriptions.is_max_active_date]
     filters:
       active_subscriptions.is_max_active_date: 'Yes'
     sorts: [active_subscriptions.count_sum desc]
@@ -663,9 +670,9 @@
       Ireland: "#beb3bb"
       Guam: "#dcddca"
       Germany: "#b4dadf"
-      France: "#e2ecc6"
+      France: "#928fb4"
       Egypt: "#bebcd2"
-      Canada: "#c5dabc"
+      Canada: "#1f3e5a"
       Belgium: "#3b707f"
       Austria: "#657646"
       Australia: "#585858"
@@ -723,7 +730,7 @@
     comparison_type: value
     comparison_reverse_colors: false
     show_comparison_label: true
-    hidden_fields: []
+    hidden_fields: [active_subscriptions.is_max_active_date]
     note_state: collapsed
     note_display: hover
     note_text: Country is based on customer billing address.
@@ -733,16 +740,16 @@
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
-    row: 22
+    row: 44
     col: 0
-    width: 8
-    height: 9
+    width: 13
+    height: 8
   - title: Current Active Subscriptions (by Plan)
     name: Current Active Subscriptions (by Plan)
     model: mozilla_vpn
     explore: active_subscriptions
     type: looker_pie
-    fields: [active_subscriptions.pricing_plan, active_subscriptions.count_sum]
+    fields: [active_subscriptions.pricing_plan, active_subscriptions.count_sum, active_subscriptions.is_max_active_date]
     filters:
       active_subscriptions.is_max_active_date: 'Yes'
     sorts: [active_subscriptions.count_sum desc]
@@ -833,7 +840,7 @@
     comparison_type: value
     comparison_reverse_colors: false
     show_comparison_label: true
-    hidden_fields: []
+    hidden_fields: [active_subscriptions.is_max_active_date]
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
@@ -841,15 +848,15 @@
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
     row: 22
-    col: 8
-    width: 8
-    height: 9
+    col: 0
+    width: 13
+    height: 7
   - title: Current Active Subscriptions (by Provider)
     name: Current Active Subscriptions (by Provider)
     model: mozilla_vpn
     explore: active_subscriptions
     type: looker_pie
-    fields: [active_subscriptions.count_sum, active_subscriptions.provider]
+    fields: [active_subscriptions.count_sum, active_subscriptions.provider, active_subscriptions.is_max_active_date]
     filters:
       active_subscriptions.is_max_active_date: 'Yes'
     sorts: [active_subscriptions.count_sum desc]
@@ -919,20 +926,21 @@
     comparison_type: value
     comparison_reverse_colors: false
     show_comparison_label: true
-    hidden_fields: []
+    hidden_fields: [active_subscriptions.is_max_active_date]
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
-    row: 22
-    col: 16
-    width: 8
-    height: 9
+    row: 44
+    col: 13
+    width: 11
+    height: 8
   - name: " (4)"
     type: text
     title_text: ''
+    subtitle_text: ''
     body_text: |
       <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px; color: red;">
 
@@ -971,8 +979,8 @@
 
       <h3><b>Active Subscriptions by Plan</b></h3>
     row: 19
-    col: 8
-    width: 8
+    col: 0
+    width: 13
     height: 3
   - name: " (5)"
     type: text
@@ -981,10 +989,173 @@
       <div style="border-top: solid 2px #e0e0e0;">
 
       <h3><b>Active Subscriptions by Provider</b></h3>
+    row: 40
+    col: 13
+    width: 11
+    height: 4
+  - name: " (6)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: |-
+      <div style="border-top: solid 2px #e0e0e0;">
+
+      <h3><b>Active Subscriptions by Plan Interval Type</b></h3>
     row: 19
-    col: 16
-    width: 8
+    col: 13
+    width: 11
     height: 3
+  - title: Monthly Active Subscriptions (by Plan Interval Type)
+    name: Monthly Active Subscriptions (by Plan Interval Type)
+    model: mozilla_vpn
+    explore: active_subscriptions
+    type: looker_column
+    fields: [active_subscriptions.count_sum, active_subscriptions.active_month, active_subscriptions.plan_interval_type,
+      active_subscriptions.is_max_active_date]
+    pivots: [active_subscriptions.plan_interval_type]
+    filters:
+      active_subscriptions.is_end_of_month: 'Yes'
+    sorts: [active_subscriptions.active_month desc, active_subscriptions.plan_interval_type]
+    limit: 500
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: normal
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: desc
+    show_null_labels: false
+    show_totals_labels: true
+    show_silhouette: false
+    totals_color: "#808080"
+    color_application:
+      collection_id: 80e60a97-c02b-4a41-aa05-83522ee2144b
+      palette_id: 0cc9e709-0004-4166-adc2-c979c6a55ca0
+      options:
+        steps: 5
+    x_axis_label: Month
+    series_types: {}
+    series_colors:
+      1_year - active_subscriptions.count_sum: "#3D52B9"
+      1_month - active_subscriptions.count_sum: "#ffd95f"
+      6_month - active_subscriptions.count_sum: "#b42f37"
+    defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: 'Subscription counts on month end dates except for most current month
+      which may not have reached month end. '
+    hidden_fields: [active_subscriptions.is_max_active_date]
+    listen:
+      Provider: active_subscriptions.provider
+      Pricing Plan: active_subscriptions.pricing_plan
+      Country: active_subscriptions.country_name
+      Active Date: active_subscriptions.active_date
+      Plan Interval Type: active_subscriptions.plan_interval_type
+    row: 29
+    col: 13
+    width: 11
+    height: 11
+  - title: Current Active Subscriptions (by Plan Interval Type)
+    name: Current Active Subscriptions (by Plan Interval Type)
+    model: mozilla_vpn
+    explore: active_subscriptions
+    type: looker_pie
+    fields: [active_subscriptions.count_sum, active_subscriptions.plan_interval_type,
+      active_subscriptions.is_max_active_date]
+    filters:
+      active_subscriptions.is_max_active_date: 'Yes'
+    sorts: [active_subscriptions.count_sum desc]
+    limit: 1000
+    column_limit: 50
+    value_labels: labels
+    label_type: labPer
+    color_application:
+      collection_id: 80e60a97-c02b-4a41-aa05-83522ee2144b
+      palette_id: 0cc9e709-0004-4166-adc2-c979c6a55ca0
+      options:
+        steps: 5
+    series_colors:
+      1_year: "#3D52B9"
+      1_month: "#ffd95f"
+      6_month: "#b42f37"
+    show_value_labels: true
+    font_size: 12
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: row
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    series_types: {}
+    point_style: none
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: 12
+    rows_font_size: 12
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    show_null_points: true
+    interpolation: linear
+    defaults_version: 1
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    hidden_fields: [active_subscriptions.is_max_active_date]
+    listen:
+      Provider: active_subscriptions.provider
+      Pricing Plan: active_subscriptions.pricing_plan
+      Country: active_subscriptions.country_name
+      Active Date: active_subscriptions.active_date
+      Plan Interval Type: active_subscriptions.plan_interval_type
+    row: 22
+    col: 13
+    width: 11
+    height: 7
   filters:
   - name: Provider
     title: Provider
