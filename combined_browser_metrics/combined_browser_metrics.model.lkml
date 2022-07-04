@@ -9,11 +9,42 @@ explore: active_users_aggregates {
     filters: [active_users_aggregates.submission_date: "this year"]
   }
 
-join: countries {
-  type: left_outer
-  relationship: one_to_one
-  sql_on: ${active_users_aggregates.country} = ${countries.code} ;;
-}
+  join: countries {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${active_users_aggregates.country} = ${countries.code} ;;
+  }
+
+  aggregate_table: rollup__active_users_aggregates_2022_usage {
+    query: {
+      dimensions: [active_users_aggregates.app_name, active_users_aggregates.submission_date]
+      measures: [daily_active_users, weekly_active_users, monthly_active_users, new_profile, ad_click, organic_search_counts, search_counts, search_with_ad, uri_counts, active_hour]
+      filters: [
+        active_users_aggregates.submission_date: "this year"
+      ]
+    }
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE() ;;
+      increment_key: active_users_aggregates.submission_date
+      increment_offset: 1
+    }
+  }
+
+  aggregate_table: rollup__active_users_aggregates_2021_common {
+    query: {
+      dimensions: [active_users_aggregates.app_name, active_users_aggregates.submission_date, active_users_aggregates.country, active_users_aggregates.channel, active_users_aggregates.attribution_medium]
+      measures: [daily_active_users, weekly_active_users, monthly_active_users, new_profile, ad_click, organic_search_counts, search_counts, search_with_ad, uri_counts, active_hour]
+      filters: [
+        active_users_aggregates.submission_date: "2 years"
+      ]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE() ;;
+      increment_key: active_users_aggregates.submission_date
+      increment_offset: 1
+    }
+  }
 }
 
 explore: active_users_aggregates_device {
@@ -21,11 +52,11 @@ explore: active_users_aggregates_device {
     filters: [active_users_aggregates_device.submission_date: "this year"]
   }
 
-join: countries {
-  type: left_outer
-  relationship: one_to_one
-  sql_on: ${active_users_aggregates_device.country} = ${countries.code} ;;
-}
+  join: countries {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${active_users_aggregates_device.country} = ${countries.code} ;;
+  }
 }
 
 explore: active_users_aggregates_attribution {
