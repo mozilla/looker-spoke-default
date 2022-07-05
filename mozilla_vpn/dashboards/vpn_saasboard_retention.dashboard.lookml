@@ -5,6 +5,7 @@
   crossfilter_enabled: true
   description: ''
   refresh: 2147484 seconds
+  preferred_slug: Xy9m1LuSVOyM1ql8YcKOGA
   elements:
   - name: ''
     type: text
@@ -174,12 +175,12 @@
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_month
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 41
-    col: 12
-    width: 12
-    height: 8
-  - title: Cohort Retention Rate By Months Since Subscription Start
-    name: Cohort Retention Rate By Months Since Subscription Start
+    row: 51
+    col: 0
+    width: 24
+    height: 11
+  - title: Cohort Retention Rate By Months Since Subscription Start (A)
+    name: Cohort Retention Rate By Months Since Subscription Start (A)
     model: mozilla_vpn
     explore: subscriptions
     type: looker_line
@@ -213,7 +214,7 @@
     point_style: circle_outline
     show_value_labels: false
     label_density: 25
-    x_axis_scale: auto
+    x_axis_scale: linear
     y_axis_combined: true
     show_null_points: false
     interpolation: linear
@@ -268,7 +269,7 @@
       19 - retention_rate: Month 19
       20 - retention_rate: Month 20
       21 - retention_rate: Month 21
-    x_axis_datetime_label: "%Y-%m"
+    x_axis_datetime_label: ''
     x_axis_label_rotation: -45
     discontinuous_nulls: true
     show_sql_query_menu_options: false
@@ -305,10 +306,10 @@
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_month
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 41
+    row: 42
     col: 0
     width: 12
-    height: 16
+    height: 9
   - title: Retention Counts Table (by Cohort)
     name: Retention Counts Table (by Cohort)
     model: mozilla_vpn
@@ -429,26 +430,32 @@
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_month
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 49
-    col: 12
-    width: 12
-    height: 8
+    row: 62
+    col: 0
+    width: 24
+    height: 10
   - title: Current Retention by Cohort
     name: Current Retention by Cohort
     model: mozilla_vpn
     explore: subscriptions
     type: looker_column
-    fields: [subscriptions.subscription_start_month, subscriptions.count, subscriptions__retention.retained]
+    fields: [subscriptions.subscription_start_month, subscriptions.count, filtered_retention_retained_updated]
     filters:
       subscriptions__retention.is_current_months_since_subscription_start: 'Yes'
     sorts: [subscriptions.subscription_start_month]
     dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
         label: Retention Rate, value_format: !!null '', value_format_name: percent_1,
-        _kind_hint: measure, table_calculation: retention_rate, _type_hint: number},
-      {category: table_calculation, expression: "${subscriptions.count}-${subscriptions__retention.retained}",
+        _kind_hint: measure, table_calculation: retention_rate, _type_hint: number,
+        is_disabled: true}, {category: table_calculation, expression: "${subscriptions.count}-${subscriptions__retention.retained}",
         label: Not Retained, value_format: !!null '', value_format_name: !!null '',
         _kind_hint: measure, table_calculation: not_retained, _type_hint: number,
-        is_disabled: true}]
+        is_disabled: true}, {category: measure, expression: !!null '', label: Filtered
+          Retention - Retained - Updated, value_format: !!null '', value_format_name: !!null '',
+        based_on: subscriptions__retention.retained, _kind_hint: measure, measure: filtered_retention_retained_updated,
+        type: count_distinct, _type_hint: number, filters: {subscriptions.is_ended: 'No'}},
+      {category: table_calculation, expression: "${filtered_retention_retained_updated}/${subscriptions.count}",
+        label: Retention Rate - Updated, value_format: !!null '', value_format_name: percent_1,
+        _kind_hint: measure, table_calculation: retention_rate_updated, _type_hint: number}]
     x_axis_gridlines: true
     y_axis_gridlines: true
     show_view_names: false
@@ -481,22 +488,28 @@
       palette_id: c36094e3-d04d-4aa4-8ec7-bc9af9f851f4
       options:
         steps: 5
-    y_axes: [{label: '', orientation: left, series: [{axisId: retention_rate, id: retention_rate,
-            name: Retention Rate}], showLabels: true, showValues: true, unpinAxis: false,
-        tickDensity: default, type: linear}, {label: Subscription Counts, orientation: right,
-        series: [{axisId: retained, id: retained, name: Retained}, {axisId: not_retained,
-            id: not_retained, name: Not Retained}], showLabels: true, showValues: true,
-        unpinAxis: false, tickDensity: default, type: linear}]
+    y_axes: [{label: '', orientation: left, series: [{axisId: retention_rate_updated,
+            id: retention_rate_updated, name: Retention Rate}], showLabels: true,
+        showValues: true, unpinAxis: false, tickDensity: default, type: linear}, {
+        label: Retained Counts, orientation: right, series: [{axisId: filtered_retention_retained_updated,
+            id: filtered_retention_retained_updated, name: Retained}], showLabels: true,
+        showValues: true, unpinAxis: false, tickDensity: default, type: linear}]
     x_axis_label: Cohort
     hidden_series: [subscriptions.count]
     series_types:
       retention_rate: line
+      retention_rate_updated: line
     series_colors:
       retained: "#0060E0"
       retention_rate: "#000000"
       churned: "#F9CB67"
       not_retained: "#F9CB67"
       subscriptions__retention.retained: "#0060E0"
+      retention_rate_updated: "#000000"
+      filtered_retention_retained_updated: "#1A73E8"
+    series_labels:
+      filtered_retention_retained_updated: Retained
+      retention_rate_updated: Retention Rate
     label_color: []
     x_axis_datetime_label: "%m-%Y"
     x_axis_label_rotation: -45
@@ -504,7 +517,8 @@
     defaults_version: 1
     hidden_fields: [subscriptions.count]
     note_state: expanded
-    note_display: below
+    note_display: hover
+    note_text: This views show the current retention rate and counts for each cohort.
     listen:
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
@@ -636,17 +650,17 @@
     col: 19
     width: 5
     height: 5
-  - title: Retention Rate Table (By Plan)
-    name: Retention Rate Table (By Plan)
+  - title: Retention Rate Table (By Plan Interval Type)
+    name: Retention Rate Table (By Plan Interval Type)
     model: mozilla_vpn
     explore: subscriptions
     type: looker_grid
-    fields: [subscriptions.pricing_plan, subscriptions.count, subscriptions__retention.months_since_subscription_start,
-      subscriptions__retention.retained]
+    fields: [subscriptions.count, subscriptions__retention.months_since_subscription_start,
+      subscriptions__retention.retained, subscriptions.plan_interval_type]
     pivots: [subscriptions__retention.months_since_subscription_start]
     filters:
       subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [subscriptions.pricing_plan 0, subscriptions__retention.months_since_subscription_start]
+    sorts: [subscriptions__retention.months_since_subscription_start]
     column_limit: 50
     total: true
     dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
@@ -739,10 +753,10 @@
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_month
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 22
-    col: 12
-    width: 12
-    height: 9
+    row: 28
+    col: 0
+    width: 24
+    height: 6
   - name: " (4)"
     type: text
     title_text: ''
@@ -752,34 +766,35 @@
       <div style="border-top: solid 2px #e0e0e0;">
 
       <h3><b>Retention by Cohort</b></h3>
-    row: 39
+    row: 40
     col: 0
     width: 24
     height: 2
   - name: " (5)"
     type: text
     title_text: ''
+    subtitle_text: ''
     body_text: |2-
 
 
       <div style="border-top: solid 2px #e0e0e0;">
 
-      <h3><b>Retention by Plan</b></h3>
+      <h3><b>Retention by Plan Interval Type</b></h3>
     row: 20
     col: 0
     width: 24
     height: 2
-  - title: Retention Counts Table (By Plan)
-    name: Retention Counts Table (By Plan)
+  - title: Retention Counts Table (By Plan Interval Type)
+    name: Retention Counts Table (By Plan Interval Type)
     model: mozilla_vpn
     explore: subscriptions
     type: looker_grid
     fields: [subscriptions.count, subscriptions__retention.months_since_subscription_start,
-      subscriptions.pricing_plan, subscriptions__retention.retained]
+      subscriptions__retention.retained, subscriptions.plan_interval_type]
     pivots: [subscriptions__retention.months_since_subscription_start]
     filters:
       subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [subscriptions.pricing_plan 0, subscriptions__retention.months_since_subscription_start]
+    sorts: [subscriptions__retention.months_since_subscription_start]
     column_limit: 50
     total: true
     dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
@@ -870,22 +885,22 @@
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_month
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 31
-    col: 12
-    width: 12
-    height: 8
-  - title: Retention Rate  (By Plan)
-    name: Retention Rate  (By Plan)
+    row: 34
+    col: 0
+    width: 24
+    height: 6
+  - title: Retention Rate  (By Plan Interval Type)
+    name: Retention Rate  (By Plan Interval Type)
     model: mozilla_vpn
     explore: subscriptions
     type: looker_line
-    fields: [subscriptions.pricing_plan, subscriptions.count, subscriptions__retention.months_since_subscription_start,
-      subscriptions__retention.retained]
-    pivots: [subscriptions.pricing_plan]
+    fields: [subscriptions.count, subscriptions__retention.months_since_subscription_start,
+      subscriptions__retention.retained, subscriptions.plan_interval_type]
+    pivots: [subscriptions.plan_interval_type]
     filters:
       subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [subscriptions__retention.months_since_subscription_start, subscriptions.pricing_plan,
-      months_since_plan_start desc, total_subscribers desc 0]
+    sorts: [subscriptions__retention.months_since_subscription_start, subscriptions.plan_interval_type,
+      months_since_plan_start desc 0, total_subscribers desc 0]
     limit: 1000
     column_limit: 50
     dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
@@ -931,6 +946,9 @@
     series_colors:
       1-month-usd-4.99 - retention_rate: "#7363A9"
       6-month-chf-47.94 - retention_rate: "#82a6a8"
+      1_month - retention_rate: "#ffd95f"
+      1_year - retention_rate: "#4276be"
+      6_month - retention_rate: "#b42f37"
     discontinuous_nulls: true
     show_row_numbers: true
     transpose: false
@@ -979,33 +997,34 @@
       Plan Interval Type: subscriptions.plan_interval_type
     row: 22
     col: 0
-    width: 12
-    height: 17
+    width: 24
+    height: 6
   - name: " (6)"
     type: text
     title_text: ''
+    subtitle_text: ''
     body_text: |2-
 
 
       <div style="border-top: solid 2px #e0e0e0;">
 
-      <h3><b>Retention by Country</b></h3>
-    row: 57
+      <h3><b>Retention by Forcast Region</b></h3>
+    row: 72
     col: 0
     width: 24
     height: 3
-  - title: Retention Rate  (By Country)
-    name: Retention Rate  (By Country)
+  - title: Retention Rate  (By Forcast Region)
+    name: Retention Rate  (By Forcast Region)
     model: mozilla_vpn
     explore: subscriptions
-    type: looker_column
+    type: looker_line
     fields: [subscriptions.count, subscriptions__retention.months_since_subscription_start,
-      subscriptions.country_name, subscriptions__retention.retained]
-    pivots: [subscriptions__retention.months_since_subscription_start]
+      subscriptions__retention.retained, subscriptions.forecast_region]
+    pivots: [subscriptions.forecast_region]
     filters:
-      subscriptions__retention.months_since_subscription_start: '1,3,6,9,12,0'
       subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [subscriptions.count desc 0, subscriptions.country_name desc, subscriptions__retention.months_since_subscription_start]
+    sorts: [subscriptions.count desc 0, subscriptions__retention.months_since_subscription_start,
+      subscriptions.forecast_region]
     limit: 1000
     column_limit: 50
     total: true
@@ -1025,7 +1044,7 @@
     x_axis_reversed: false
     y_axis_reversed: false
     plot_size_by_field: false
-    trellis: row
+    trellis: ''
     stacking: ''
     limit_displayed_rows: false
     legend_position: left
@@ -1034,11 +1053,8 @@
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: true
-    show_silhouette: false
-    totals_color: "#808080"
+    show_null_points: false
+    interpolation: linear
     color_application:
       collection_id: mozilla
       palette_id: mozilla-categorical-0
@@ -1053,9 +1069,7 @@
         type: linear}]
     x_axis_label: Months Since Subscription Start
     trellis_rows: 4
-    series_types:
-      subscriptions.count: line
-      retention_rate: line
+    series_types: {}
     series_colors:
       retention_rate: "#000000"
       churned: "#ffa993"
@@ -1063,6 +1077,11 @@
       not_retained: "#F9CB67"
       USA - retention_rate: "#347be3"
     label_color: []
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: true
+    show_silhouette: false
+    totals_color: "#808080"
     defaults_version: 1
     hidden_fields: [subscriptions.count, not_retained, subscriptions__retention.retained]
     note_state: collapsed
@@ -1074,10 +1093,10 @@
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_month
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 60
+    row: 75
     col: 0
     width: 24
-    height: 19
+    height: 8
   - name: " (7)"
     type: text
     title_text: ''
@@ -1089,19 +1108,19 @@
 
         <img style="color: #efefef; padding: 5px 25px; float: left; height: 40px;" src="https://wwwstatic.lookercdn.com/logos/looker_all_white.svg"/>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/412?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/412">
 
        Active Subs</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/416?Provider=&Pricing+Plan=&Country=&Event+Date=after+2020%2F07%2F20">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/416">
 
        Subs Growth</a>
 
-        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/414?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Retention</a>
+        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/414">Retention</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/413?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Churn</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/413">Churn</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/433?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">Revenue</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/433">Revenue</a>
 
         <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1VtrTwm8Eqt9cPLZLaH1kjnM413gKtdaZArS29xcxXpA/edit?usp=sharing">Docs</a>
 
@@ -1112,6 +1131,136 @@
     col: 0
     width: 24
     height: 2
+  - title: Cohort Retention Rate By Months Since Subscription Start (B)
+    name: Cohort Retention Rate By Months Since Subscription Start (B)
+    model: mozilla_vpn
+    explore: subscriptions
+    type: looker_line
+    fields: [subscriptions.subscription_start_month, subscriptions.count, subscriptions__retention.months_since_subscription_start,
+      subscriptions__retention.retained]
+    pivots: [subscriptions.subscription_start_month]
+    fill_fields: [subscriptions.subscription_start_month]
+    filters:
+      subscriptions__retention.is_cohort_complete: 'Yes'
+    sorts: [subscriptions.subscription_start_month, subscriptions__retention.months_since_subscription_start]
+    dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
+        label: Retention Rate, value_format: !!null '', value_format_name: percent_1,
+        _kind_hint: measure, table_calculation: retention_rate, _type_hint: number}]
+    x_axis_gridlines: true
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: left
+    point_style: circle_outline
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: false
+    interpolation: linear
+    y_axes: [{label: '', orientation: left, series: [{axisId: retention_rate, id: 2019-10
+              - retention_rate, name: 2019-10}, {axisId: retention_rate, id: 2019-11
+              - retention_rate, name: 2019-11}, {axisId: retention_rate, id: 2019-12
+              - retention_rate, name: 2019-12}, {axisId: retention_rate, id: 2020-01
+              - retention_rate, name: 2020-01}, {axisId: retention_rate, id: 2020-02
+              - retention_rate, name: 2020-02}, {axisId: retention_rate, id: 2020-03
+              - retention_rate, name: 2020-03}, {axisId: retention_rate, id: 2020-04
+              - retention_rate, name: 2020-04}, {axisId: retention_rate, id: 2020-05
+              - retention_rate, name: 2020-05}, {axisId: retention_rate, id: 2020-06
+              - retention_rate, name: 2020-06}, {axisId: retention_rate, id: 2020-07
+              - retention_rate, name: 2020-07}, {axisId: retention_rate, id: 2020-08
+              - retention_rate, name: 2020-08}, {axisId: retention_rate, id: 2020-09
+              - retention_rate, name: 2020-09}, {axisId: retention_rate, id: 2020-10
+              - retention_rate, name: 2020-10}, {axisId: retention_rate, id: 2020-11
+              - retention_rate, name: 2020-11}, {axisId: retention_rate, id: 2020-12
+              - retention_rate, name: 2020-12}, {axisId: retention_rate, id: 2021-01
+              - retention_rate, name: 2021-01}, {axisId: retention_rate, id: 2021-02
+              - retention_rate, name: 2021-02}, {axisId: retention_rate, id: 2021-03
+              - retention_rate, name: 2021-03}, {axisId: retention_rate, id: 2021-04
+              - retention_rate, name: 2021-04}, {axisId: retention_rate, id: 2021-05
+              - retention_rate, name: 2021-05}, {axisId: retention_rate, id: 2021-06
+              - retention_rate, name: 2021-06}, {axisId: retention_rate, id: 2021-07
+              - retention_rate, name: 2021-07}, {axisId: retention_rate, id: 2021-08
+              - retention_rate, name: 2021-08}], showLabels: true, showValues: true,
+        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
+    x_axis_label: ''
+    hidden_series: []
+    series_types: {}
+    series_labels:
+      0 - retention_rate: Month 0
+      1 - retention_rate: Month 1
+      2 - retention_rate: Month 2
+      3 - retention_rate: Month 3
+      4 - retention_rate: Month 4
+      5 - retention_rate: Month 5
+      6 - retention_rate: Month 6
+      7 - retention_rate: Month 7
+      8 - retention_rate: Month 8
+      9 - retention_rate: Month 9
+      13 - retention_rate: Month 13
+      12 - retention_rate: Month 12
+      11 - retention_rate: Month 11
+      10 - retention_rate: Month 10
+      14 - retention_rate: Month 14
+      15 - retention_rate: Month 15
+      16 - retention_rate: Month 16
+      17 - retention_rate: Month 17
+      18 - retention_rate: Month 18
+      19 - retention_rate: Month 19
+      20 - retention_rate: Month 20
+      21 - retention_rate: Month 21
+    x_axis_datetime_label: ''
+    discontinuous_nulls: true
+    show_sql_query_menu_options: false
+    show_totals: true
+    show_row_totals: true
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    size_to_fit: true
+    table_theme: white
+    enable_conditional_formatting: true
+    header_text_alignment: left
+    header_font_size: '12'
+    rows_font_size: '12'
+    conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#3FE1B0",
+        font_color: !!null '', color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0,
+          options: {steps: 5, constraints: {min: {type: minimum}, mid: {type: number,
+                value: 0}, max: {type: maximum}}, mirror: true, reverse: false, stepped: false}},
+        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    hidden_fields: [subscriptions.count, subscriptions__retention.retained]
+    hide_totals: false
+    hide_row_totals: false
+    listen:
+      Country: subscriptions.country_name
+      Pricing Plan: subscriptions.pricing_plan
+      Provider: subscriptions.provider
+      Subscription Start Date: subscriptions.subscription_start_month
+      Plan Interval Type: subscriptions.plan_interval_type
+    row: 42
+    col: 12
+    width: 12
+    height: 9
   filters:
   - name: Provider
     title: Provider
@@ -1158,7 +1307,7 @@
   - name: Subscription Start Date
     title: Subscription Start Date
     type: field_filter
-    default_value: after 2020/07/20
+    default_value: after 2021/03/01
     allow_multiple_values: true
     required: false
     ui_config:
