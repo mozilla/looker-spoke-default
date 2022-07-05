@@ -3,12 +3,18 @@ connection: "telemetry"
 include: "//looker-hub/firefox_desktop/views/*.view.lkml"
 include: "//looker-hub/firefox_desktop/explores/*.explore.lkml"
 include: "explores/*.explore.lkml"
+include: "views/*.view.lkml"
 # include: "dashboards/*.dashboard"
 
 explore: firefox_desktop_last_seen {
   label: "Firefox Dekstop Clients Last Seen"
   from: clients_last_seen_table
   hidden: yes
+}
+
+explore: newtab_interactions {
+  label: "New Tab Interactions"
+  from: newtab_interactions
 }
 
 explore: +client_counts {
