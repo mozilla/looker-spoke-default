@@ -1,8 +1,7 @@
-include: "//looker-hub/operational_monitoring/views/tcp_rollout_phase_2_scalar.view.lkml"
-include: "//looker-hub/operational_monitoring/views/tcp_rollout_phase_2_histogram.view.lkml"
+include: "//looker-hub/operational_monitoring/views/tcp_rollout_phase_2.view.lkml"
 
 
-view: +tcp_rollout_phase_2_scalar {
+view: +tcp_rollout_phase_2 {
   measure: Total {
     type: number
     sql: SUM(${TABLE}.value) ;;
@@ -16,9 +15,7 @@ view: +tcp_rollout_phase_2_scalar {
   dimension: submission_date {
     datatype: date
   }
-}
 
-view: +tcp_rollout_phase_2_histogram {
   dimension: country {
     sql: ${TABLE}.country ;;
     type: string
