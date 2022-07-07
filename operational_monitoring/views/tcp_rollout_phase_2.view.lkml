@@ -4,12 +4,12 @@ include: "//looker-hub/operational_monitoring/views/tcp_rollout_phase_2.view.lkm
 view: +tcp_rollout_phase_2 {
   measure: Total {
     type: number
-    sql: SUM(${TABLE}.value) ;;
+    sql: SUM(${TABLE}.value.sum) ;;
   }
 
   measure: Average {
     type: number
-    sql: AVG(${TABLE}.value) ;;
+    sql: AVG(${TABLE}.value.sum) ;;
   }
 
   dimension: submission_date {
