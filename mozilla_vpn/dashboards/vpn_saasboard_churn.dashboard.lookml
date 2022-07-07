@@ -5,6 +5,7 @@
   crossfilter_enabled: true
   description: ''
   refresh: 2147484 seconds
+  preferred_slug: eYqxHc9qMbz6bbuVVlyyBp
   elements:
   - name: ''
     type: text
@@ -283,6 +284,7 @@
       20 - churn_rate: Month 20
       21 - churn_rate: Month 21
       0 - churn_rate: "."
+      22 - churn_rate: Month 22
     x_axis_datetime_label: "%m-%Y"
     x_axis_label_rotation: -45
     discontinuous_nulls: true
@@ -312,10 +314,10 @@
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_date
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 45
+    row: 41
     col: 0
-    width: 13
-    height: 25
+    width: 24
+    height: 9
   - title: " Churn Rate Table (by Cohort)"
     name: " Churn Rate Table (by Cohort)"
     model: mozilla_vpn
@@ -415,10 +417,10 @@
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_date
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 45
-    col: 13
-    width: 11
-    height: 13
+    row: 50
+    col: 0
+    width: 24
+    height: 11
   - title: " Churn Counts Table (by Cohort)"
     name: " Churn Counts Table (by Cohort)"
     model: mozilla_vpn
@@ -531,10 +533,10 @@
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_date
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 58
-    col: 13
-    width: 11
-    height: 12
+    row: 61
+    col: 0
+    width: 24
+    height: 11
   - title: Untitled
     name: Untitled
     model: mozilla_vpn
@@ -596,22 +598,23 @@
       <div style="border-top: solid 2px #e0e0e0;">
 
       <h3><b>Churn by Cohort</b></h3>
-    row: 43
+    row: 39
     col: 0
     width: 24
     height: 2
-  - title: " Churn Rate Table (by Plan)"
-    name: " Churn Rate Table (by Plan)"
+  - title: Churn Rate Table (by Plan Interval Type)
+    name: Churn Rate Table (by Plan Interval Type)
     model: mozilla_vpn
     explore: subscriptions
     type: looker_grid
-    fields: [subscriptions__retention.months_since_subscription_start, subscriptions.pricing_plan,
-      subscriptions__retention.churned, subscriptions__retention.previously_retained]
+    fields: [subscriptions__retention.months_since_subscription_start, subscriptions__retention.churned,
+      subscriptions__retention.previously_retained, subscriptions.plan_interval_type]
     pivots: [subscriptions__retention.months_since_subscription_start]
     filters:
       subscriptions__retention.months_since_subscription_start: ">0"
       subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [subscriptions.pricing_plan 0, subscriptions__retention.months_since_subscription_start]
+    sorts: [subscriptions__retention.months_since_subscription_start, subscriptions__retention.churned
+        desc 0]
     total: true
     dynamic_fields: [{category: measure, expression: "if(\n  ${subscriptions__retention.months_since_subscription_start}\
           \ > 0,\n  ${subscriptions__retention.months_since_subscription_start} <=\
@@ -651,6 +654,7 @@
     show_sql_query_menu_options: false
     show_totals: true
     show_row_totals: true
+    truncate_header: false
     series_labels:
       1 - churn_rate: Month 1
       churned: Subs Churned
@@ -661,6 +665,7 @@
       churned: 115
       churn_rate: 115
       subscriptions.pricing_plan: 256
+      subscriptions.plan_interval_type: 243
     series_cell_visualizations:
       churned:
         is_active: false
@@ -719,10 +724,10 @@
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_date
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 21
-    col: 13
-    width: 11
-    height: 11
+    row: 27
+    col: 0
+    width: 24
+    height: 6
   - name: " (5)"
     type: text
     title_text: ''
@@ -736,18 +741,19 @@
     col: 0
     width: 24
     height: 2
-  - title: " Churn Counts Table (by Plan)"
-    name: " Churn Counts Table (by Plan)"
+  - title: Churn Counts Table (by Plan Interval Type)
+    name: Churn Counts Table (by Plan Interval Type)
     model: mozilla_vpn
     explore: subscriptions
     type: looker_grid
-    fields: [subscriptions__retention.months_since_subscription_start, subscriptions.pricing_plan,
-      subscriptions__retention.churned, subscriptions__retention.previously_retained]
+    fields: [subscriptions__retention.months_since_subscription_start, subscriptions__retention.churned,
+      subscriptions__retention.previously_retained, subscriptions.plan_interval_type]
     pivots: [subscriptions__retention.months_since_subscription_start]
     filters:
       subscriptions__retention.months_since_subscription_start: ">0"
       subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [subscriptions.pricing_plan 0, subscriptions__retention.months_since_subscription_start]
+    sorts: [subscriptions__retention.months_since_subscription_start, subscriptions__retention.churned
+        desc 0]
     total: true
     dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.churned}/${subscriptions__retention.previously_retained}",
         label: Churn Rate, value_format: !!null '', value_format_name: percent_1,
@@ -776,6 +782,7 @@
     show_sql_query_menu_options: false
     show_totals: true
     show_row_totals: true
+    truncate_header: false
     series_labels:
       1 - churn_rate: Month 1
       churned: Subs Churned
@@ -786,7 +793,8 @@
       churned: 115
       churn_rate: 115
       subscriptions.pricing_plan: 256
-      subscriptions__retention.months_since_subscription_start: 115
+      subscriptions.plan_interval_type: 243
+      subscriptions__retention.churned: 115
     series_cell_visualizations:
       churned:
         is_active: false
@@ -844,22 +852,22 @@
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_date
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 32
-    col: 13
-    width: 11
-    height: 11
-  - title: " Churn Rate  (by Plan)"
-    name: " Churn Rate  (by Plan)"
+    row: 33
+    col: 0
+    width: 24
+    height: 6
+  - title: " Churn Rate  (by Plan Interval Type)"
+    name: " Churn Rate  (by Plan Interval Type)"
     model: mozilla_vpn
     explore: subscriptions
     type: looker_line
-    fields: [subscriptions__retention.months_since_subscription_start, subscriptions.pricing_plan,
-      subscriptions__retention.churned, subscriptions__retention.previously_retained]
-    pivots: [subscriptions.pricing_plan]
+    fields: [subscriptions__retention.months_since_subscription_start, subscriptions__retention.churned,
+      subscriptions__retention.previously_retained, subscriptions.plan_interval_type]
+    pivots: [subscriptions.plan_interval_type]
     filters:
       subscriptions__retention.months_since_subscription_start: ">0"
       subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [subscriptions__retention.months_since_subscription_start, subscriptions.pricing_plan,
+    sorts: [subscriptions__retention.months_since_subscription_start, subscriptions.plan_interval_type,
       months_since_plan_start desc 0, total_subscribers desc 0]
     limit: 1000
     column_limit: 50
@@ -906,6 +914,9 @@
     series_colors:
       1-month-usd-4.99 - churn_rate: "#7363A9"
       6-month-chf-47.94 - churn_rate: "#82a6a8"
+      1_month - churn_rate: "#ffd95f"
+      1_year - churn_rate: "#4276be"
+      6_month - churn_rate: "#b42f37"
     series_labels:
       1 - churn_rate: Month 1
       churned: Subs Churned
@@ -967,8 +978,8 @@
       Plan Interval Type: subscriptions.plan_interval_type
     row: 21
     col: 0
-    width: 13
-    height: 22
+    width: 24
+    height: 6
   - name: " (6)"
     type: text
     title_text: ''
@@ -980,19 +991,19 @@
 
         <img style="color: #efefef; padding: 5px 25px; float: left; height: 40px;" src="https://wwwstatic.lookercdn.com/logos/looker_all_white.svg"/>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/412?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/412">
 
        Active Subs</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/416?Provider=&Pricing+Plan=&Country=&Event+Date=after+2020%2F07%2F20">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/416">
 
        Subs Growth</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/414?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Retention</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/414">Retention</a>
 
-        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/413?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Churn</a>
+        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/413">Churn</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; " href="https://mozilla.cloud.looker.com/dashboards/433?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">Revenue</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; " href="https://mozilla.cloud.looker.com/dashboards/433">Revenue</a>
 
         <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1VtrTwm8Eqt9cPLZLaH1kjnM413gKtdaZArS29xcxXpA/edit?usp=sharing">Docs</a>
 
@@ -1049,12 +1060,13 @@
   - name: Subscription Start Date
     title: Subscription Start Date
     type: field_filter
-    default_value: after 2020/07/20
+    default_value: after 2021/03/01
     allow_multiple_values: true
     required: false
     ui_config:
       type: advanced
       display: popover
+      options: []
     model: mozilla_vpn
     explore: subscriptions
     listens_to_filters: [Subscription Start Date]

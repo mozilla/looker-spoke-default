@@ -4,6 +4,7 @@
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
   description: ''
+  preferred_slug: PvDUYmlVKFey6B01C3uKZu
   elements:
   - title: Month Over Month Growth Rate
     name: Month Over Month Growth Rate
@@ -250,9 +251,9 @@
     col: 12
     width: 12
     height: 9
-  - name: ARR by Month Graph - bar chart
+  - name: Revenue by Month Graph - bar chart
     type: text
-    title_text: ARR by Month Graph - bar chart
+    title_text: Revenue by Month Graph - bar chart
     subtitle_text: Under Development - pending finance/accounting support
     body_text: ''
     row: 15
@@ -301,19 +302,19 @@
 
         <img style="color: #efefef; padding: 5px 25px; float: left; height: 40px;" src="https://wwwstatic.lookercdn.com/logos/looker_all_white.svg"/>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/412?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/412">
 
        Active Subs</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/416?Provider=&Pricing+Plan=&Country=&Event+Date=after+2020%2F07%2F20">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/416">
 
        Subs Growth</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/414?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Retention</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/414">Retention</a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/413?Provider=&Pricing+Plan=&Country=&Subscription+Start+Date=after+2020%2F07%2F20">Churn</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/413">Churn</a>
 
-        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/433?Provider=&Pricing+Plan=&Country=&Active+Date=after+2020%2F07%2F20">Revenue</a>
+        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/433">Revenue</a>
 
         <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1VtrTwm8Eqt9cPLZLaH1kjnM413gKtdaZArS29xcxXpA/edit?usp=sharing">Docs</a>
 
@@ -370,7 +371,7 @@
   - name: Active Date
     title: Active Date
     type: field_filter
-    default_value: after 2020/07/20
+    default_value: after 2021/03/01
     allow_multiple_values: true
     required: false
     ui_config:
