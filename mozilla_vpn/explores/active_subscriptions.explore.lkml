@@ -40,6 +40,7 @@ explore: active_subscriptions {
 }
 
 # Add aggregate tables lookML from VPN SaaSboard - Active Subscriptions
+
 explore: +active_subscriptions {
   aggregate_table: rollup__active_date__country_name__plan_interval_type__pricing_plan__provider__0 {
     query: {
@@ -128,18 +129,17 @@ explore: +active_subscriptions {
     }
   }
 
-  aggregate_table: rollup__active_date__country_name__is_end_of_month__plan_interval_type__pricing_plan__provider__4 {
+  aggregate_table: rollup__active_date__country_name__is_max_active_date__plan_interval_type__pricing_plan__provider__4 {
     query: {
       dimensions: [
         active_date,
         country_name,
-        is_end_of_month,
+        is_max_active_date,
         plan_interval_type,
         pricing_plan,
         provider
       ]
       measures: [count_sum]
-      filters: [active_subscriptions.is_end_of_month: "Yes"]
     }
 
     materialization: {
@@ -163,7 +163,7 @@ explore: +active_subscriptions {
         provider
       ]
       measures: [count_sum]
-      filters: [active_subscriptions.is_end_of_month: "Yes"]
+      filters: [active_subscriptions.is_max_active_date: "Yes"]
     }
 
     materialization: {
@@ -187,6 +187,7 @@ explore: +active_subscriptions {
         provider
       ]
       measures: [count_sum]
+      filters: [active_subscriptions.is_max_active_date: "Yes"]
     }
 
     materialization: {
@@ -210,7 +211,7 @@ explore: +active_subscriptions {
         provider
       ]
       measures: [count_sum]
-      filters: [active_subscriptions.is_max_active_date: "Yes"]
+      filters: [active_subscriptions.is_end_of_month: "Yes"]
     }
 
     materialization: {
@@ -236,7 +237,6 @@ explore: +active_subscriptions {
       measures: [count_sum]
       filters: [active_subscriptions.is_max_active_date: "Yes"]
     }
-
     materialization: {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
@@ -247,18 +247,18 @@ explore: +active_subscriptions {
     }
   }
 
-  aggregate_table: rollup__active_date__country_name__is_max_active_date__plan_interval_type__pricing_plan__provider__9 {
+  aggregate_table: rollup__active_date__country_name__is_end_of_month__plan_interval_type__pricing_plan__provider__9 {
     query: {
       dimensions: [
         active_date,
         country_name,
-        is_max_active_date,
+        is_end_of_month,
         plan_interval_type,
         pricing_plan,
         provider
       ]
       measures: [count_sum]
-      filters: [active_subscriptions.is_max_active_date: "Yes"]
+      filters: [active_subscriptions.is_end_of_month: "Yes"]
     }
 
     materialization: {
@@ -282,7 +282,7 @@ explore: +active_subscriptions {
         provider
       ]
       measures: [count_sum]
-      filters: [active_subscriptions.is_end_of_month: "Yes"]
+      filters: [active_subscriptions.is_max_active_date: "Yes"]
     }
 
     materialization: {
@@ -306,7 +306,7 @@ explore: +active_subscriptions {
         provider
       ]
       measures: [count_sum]
-      filters: [active_subscriptions.is_max_active_date: "Yes"]
+      filters: [active_subscriptions.is_end_of_month: "Yes"]
     }
 
     materialization: {

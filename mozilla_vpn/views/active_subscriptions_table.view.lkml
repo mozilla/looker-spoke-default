@@ -66,7 +66,7 @@ view: +active_subscriptions_table {
             ${plan_interval} = "month"
           THEN
             12 / ${plan_interval_count}
-          END * ${count} * ${plan_amount} * (1 - IFNULL(${vat_rates.vat}, 0)) * IFNULL(${exchange_rates_table.price}, 1) / 100;;
+          END * ${count} * ${plan_amount} / (1 + IFNULL(${vat_rates.vat}, 0)) * IFNULL(${exchange_rates_table.price}, 1) / 100;;
     value_format: "$#,##0.00"
   }
 }

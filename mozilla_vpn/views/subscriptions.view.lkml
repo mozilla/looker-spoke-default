@@ -225,7 +225,7 @@ view: +subscriptions {
       ${plan_interval} = "month"
     THEN
       12 / ${plan_interval_count}
-    END * ${plan_amount} * (1 - IFNULL(${vat_rates.vat}, 0)) * IFNULL(${exchange_rates_table.price}, 1) / 100;;
+    END * ${plan_amount} / (1 + IFNULL(${vat_rates.vat}, 0)) * IFNULL(${exchange_rates_table.price}, 1) / 100;;
   }
 }
 
