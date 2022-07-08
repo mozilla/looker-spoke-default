@@ -19,9 +19,9 @@ explore: subscription_events {
 # Add aggregate tables lookML from VPN SaaSboard - Subscriptions Growth
 
 explore: +subscription_events {
-  aggregate_table: rollup__country_name__event_date__pricing_plan__provider__0 {
+  aggregate_table: rollup__country_name__event_date__plan_interval_type__pricing_plan__provider__0 {
     query: {
-      dimensions: [country_name, event_date, pricing_plan, provider]
+      dimensions: [country_name, event_date, plan_interval_type, pricing_plan, provider]
     }
 
     materialization: {
@@ -34,9 +34,9 @@ explore: +subscription_events {
     }
   }
 
-  aggregate_table: rollup__country_name__event_date__pricing_plan__provider__1 {
+  aggregate_table: rollup__country_name__event_date__plan_interval_type__pricing_plan__provider__1 {
     query: {
-      dimensions: [country_name, event_date, pricing_plan, provider]
+      dimensions: [country_name, event_date, plan_interval_type, pricing_plan, provider]
       measures: [delta]
       filters: [subscription_events.event_type: "New"]
     }
@@ -51,9 +51,16 @@ explore: +subscription_events {
     }
   }
 
-  aggregate_table: rollup__country_name__event_date__pricing_plan__provider__2 {
+  aggregate_table: rollup__country_name__event_date__granular_event_type__plan_interval_type__pricing_plan__provider__2 {
     query: {
-      dimensions: [country_name, event_date, pricing_plan, provider]
+      dimensions: [
+        country_name,
+        event_date,
+        granular_event_type,
+        plan_interval_type,
+        pricing_plan,
+        provider
+      ]
       measures: [delta]
       filters: [subscription_events.event_type: "New"]
     }
@@ -68,9 +75,33 @@ explore: +subscription_events {
     }
   }
 
-  aggregate_table: rollup__country_name__event_date__granular_event_type__pricing_plan__provider__3 {
+  aggregate_table: rollup__country_name__event_date__event_type__plan_interval_type__pricing_plan__provider__3 {
     query: {
-      dimensions: [country_name, event_date, granular_event_type, pricing_plan, provider]
+      dimensions: [
+        country_name,
+        event_date,
+        event_type,
+        plan_interval_type,
+        pricing_plan,
+        provider
+      ]
+      measures: [delta]
+      filters: [subscription_events.event_type: "New,Cancelled"]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT
+        MAX(last_modified_time)
+      FROM
+        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+      WHERE
+        table_name = "all_subscriptions_v1";;
+    }
+  }
+
+  aggregate_table: rollup__country_name__event_date__plan_interval_type__pricing_plan__provider__4 {
+    query: {
+      dimensions: [country_name, event_date, plan_interval_type, pricing_plan, provider]
       measures: [delta]
       filters: [subscription_events.event_type: "New"]
     }
@@ -85,44 +116,35 @@ explore: +subscription_events {
     }
   }
 
-  aggregate_table: rollup__country_name__event_date__granular_event_type__pricing_plan__provider__4 {
+  aggregate_table: rollup__country_name__event_date__plan_interval_type__pricing_plan__provider__5 {
     query: {
-      dimensions: [country_name, event_date, granular_event_type, pricing_plan, provider]
-      measures: [delta]
-      filters: [subscription_events.event_type: "Cancelled"]
-    }
-
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "all_subscriptions_v1";;
-    }
-  }
-
-  aggregate_table: rollup__country_name__event_date__event_type__pricing_plan__provider__5 {
-    query: {
-      dimensions: [country_name, event_date, event_type, pricing_plan, provider]
-      measures: [delta]
-    }
-
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "all_subscriptions_v1";;
-    }
-  }
-
-  aggregate_table: rollup__country_name__event_date__pricing_plan__provider__6 {
-    query: {
-      dimensions: [country_name, event_date, pricing_plan, provider]
+      dimensions: [country_name, event_date, plan_interval_type, pricing_plan, provider]
       measures: [delta]
       filters: [subscription_events.event_type: "New"]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT
+        MAX(last_modified_time)
+      FROM
+        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+      WHERE
+        table_name = "all_subscriptions_v1";;
+    }
+  }
+
+  aggregate_table: rollup__country_name__event_date__event_type__plan_interval_type__pricing_plan__provider__6 {
+    query: {
+      dimensions: [
+        country_name,
+        event_date,
+        event_type,
+        plan_interval_type,
+        pricing_plan,
+        provider
+      ]
+      measures: [delta]
+      filters: [subscription_events.event_type: "New Trial,Cancelled Trial"]
     }
 
     materialization: {
