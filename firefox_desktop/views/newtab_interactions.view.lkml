@@ -120,91 +120,91 @@ view: newtab_interactions {
   measure: visits_with_search {
     group_label: "Search"
     type: count_distinct
-    sql: IF(${searches } > 0, ${newtab_visit_id}, NULL) ;;
+    sql: IF(${searches} > 0, ${newtab_visit_id}, NULL) ;;
     approximate: yes
   }
 
   measure: visits_with_tagged_search_ad_impression {
     group_label: "Search"
     type: count_distinct
-    sql: IF(${tagged_search_ad_impressions } > 0, ${newtab_visit_id}, NULL) ;;
+    sql: IF(${tagged_search_ad_impressions} > 0, ${newtab_visit_id}, NULL) ;;
     approximate: yes
   }
 
   measure:  visits_with_tagged_search_ad_click {
     group_label: "Search"
     type: count_distinct
-    sql: IF(${tagged_search_ad_clicks } > 0, ${newtab_visit_id}, NULL) ;;
+    sql: IF(${tagged_search_ad_clicks} > 0, ${newtab_visit_id}, NULL) ;;
     approximate: yes
   }
 
   measure: visits_with_follow_on_search_ad_impression {
     group_label: "Search"
     type: count_distinct
-    sql: IF(${follow_on_search_ad_impressions } > 0, ${newtab_visit_id}, NULL) ;;
+    sql: IF(${follow_on_search_ad_impressions} > 0, ${newtab_visit_id}, NULL) ;;
     approximate: yes
   }
 
   measure:  visits_with_follow_on_search_ad_click {
     group_label: "Search"
     type: count_distinct
-    sql: IF(${follow_on_search_ad_clicks } > 0, ${newtab_visit_id}, NULL) ;;
+    sql: IF(${follow_on_search_ad_clicks} > 0, ${newtab_visit_id}, NULL) ;;
     approximate: yes
   }
 
   measure: visits_with_tagged_follow_on_search_ad_impression {
     group_label: "Search"
     type: count_distinct
-    sql: IF(${tagged_follow_on_search_ad_impressions } > 0, ${newtab_visit_id}, NULL) ;;
+    sql: IF(${tagged_follow_on_search_ad_impressions} > 0, ${newtab_visit_id}, NULL) ;;
     approximate: yes
   }
 
   measure:  visits_with_tagged_follow_on_search_ad_click {
     group_label: "Search"
     type: count_distinct
-    sql: IF(${tagged_follow_on_search_ad_clicks } > 0, ${newtab_visit_id}, NULL) ;;
+    sql: IF(${tagged_follow_on_search_ad_clicks} > 0, ${newtab_visit_id}, NULL) ;;
     approximate: yes
   }
 
   measure: clients_with_search {
     group_label: "Search"
     type: count_distinct
-    sql: IF(${searches } > 0, ${client_id}, NULL) ;;
+    sql: IF(${searches} > 0, ${client_id}, NULL) ;;
     approximate: yes
   }
 
   measure: clients_with_tagged_search_ad_impression {
     group_label: "Search"
     type: count_distinct
-    sql: IF(${tagged_search_ad_impressions } > 0, ${client_id}, NULL) ;;
+    sql: IF(${tagged_search_ad_impressions} > 0, ${client_id}, NULL) ;;
     approximate: yes
   }
 
   measure:  clients_with_tagged_search_ad_click {
     group_label: "Search"
     type: count_distinct
-    sql: IF(${tagged_search_ad_clicks } > 0, ${client_id}, NULL) ;;
+    sql: IF(${tagged_search_ad_clicks} > 0, ${client_id}, NULL) ;;
     approximate: yes
   }
 
   measure: clients_with_follow_on_search_ad_impression {
     group_label: "Search"
     type: count_distinct
-    sql: IF(${follow_on_search_ad_impressions } > 0, ${client_id}, NULL) ;;
+    sql: IF(${follow_on_search_ad_impressions} > 0, ${client_id}, NULL) ;;
     approximate: yes
   }
 
   measure:  clients_with_follow_on_search_ad_click {
     group_label: "Search"
     type: count_distinct
-    sql: IF(${follow_on_search_ad_clicks } > 0, ${client_id}, NULL) ;;
+    sql: IF(${follow_on_search_ad_clicks} > 0, ${client_id}, NULL) ;;
     approximate: yes
   }
 
   measure: clients_with_tagged_follow_on_search_ad_impression {
     group_label: "Search"
     type: count_distinct
-    sql: IF(${tagged_follow_on_search_ad_impressions } > 0, ${client_id}, NULL) ;;
+    sql: IF(${tagged_follow_on_search_ad_impressions} > 0, ${client_id}, NULL) ;;
     approximate: yes
   }
 
@@ -249,14 +249,14 @@ view: newtab_interactions {
   measure: visits_with_topsite_click {
     group_label: "Topsites"
     type: count_distinct
-    sql: IF(${topsite_clicks } > 0, ${newtab_visit_id}, NULL) ;;
+    sql: IF(${topsite_clicks} > 0, ${newtab_visit_id}, NULL) ;;
     approximate: yes
   }
 
   measure: visits_with_sponsored_topsite_click {
     group_label: "Topsites"
     type: count_distinct
-    sql: IF(${sponsored_topsite_clicks } > 0, ${newtab_visit_id}, NULL) ;;
+    sql: IF(${sponsored_topsite_clicks} > 0, ${newtab_visit_id}, NULL) ;;
     approximate: yes
   }
 
@@ -277,21 +277,21 @@ view: newtab_interactions {
   measure: clients_with_topsite_click {
     group_label: "Topsites"
     type: count_distinct
-    sql: IF(${topsite_clicks } > 0, ${client_id}, NULL) ;;
+    sql: IF(${topsite_clicks} > 0, ${client_id}, NULL) ;;
     approximate: yes
   }
 
   measure: clients_with_sponsored_topsite_click {
     group_label: "Topsites"
     type: count_distinct
-    sql: IF(${sponsored_topsite_clicks } > 0, ${client_id}, NULL) ;;
+    sql: IF(${sponsored_topsite_clicks} > 0, ${client_id}, NULL) ;;
     approximate: yes
   }
 
   measure: clients_with_topsite_impression {
     group_label: "Topsites"
     type: count_distinct
-    sql: IF(${topsite_impressions } > 0, ${client_id}, NULL) ;;
+    sql: IF(${topsite_impressions} > 0, ${client_id}, NULL) ;;
     approximate: yes
   }
 
