@@ -114,12 +114,20 @@ view: survey_lifecycle_28d_desktop__survey_data {
 
   measure: non_null_count {
     type: count
+    label: "Count - Not Null"
     filters: [answer: "-NULL"]
   }
 
   measure: satisfied_very_satisfied_count {
     type: count
+    label: "Count - Satisfied or Very Satisfied"
     filters: [answer: "Satisfied, Very Satisfied"]
+  }
+
+  measure: agree_strongly_agree_count {
+    type: count
+    label: "Count - Agree or Strongly Agree"
+    filters: [answer: "Agree, Strongly Agree"]
   }
 }
 
