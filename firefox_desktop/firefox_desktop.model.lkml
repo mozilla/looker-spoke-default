@@ -3,12 +3,25 @@ connection: "telemetry"
 include: "//looker-hub/firefox_desktop/views/*.view.lkml"
 include: "//looker-hub/firefox_desktop/explores/*.explore.lkml"
 include: "explores/*.explore.lkml"
+include: "views/*.view.lkml"
 # include: "dashboards/*.dashboard"
 
 explore: firefox_desktop_last_seen {
   label: "Firefox Dekstop Clients Last Seen"
   from: clients_last_seen_table
   hidden: yes
+}
+
+explore: newtab_interactions {
+  sql_always_where: ${newtab_interactions.submission_date} >= '2022-07-01' ;;
+  label: "New Tab Interactions"
+  from: newtab_interactions
+
+  always_filter: {
+    filters: [
+      submission_date: "28 days",
+    ]
+  }
 }
 
 explore: +client_counts {
