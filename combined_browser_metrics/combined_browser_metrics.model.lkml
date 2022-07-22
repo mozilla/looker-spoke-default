@@ -2,6 +2,7 @@ connection: "telemetry"
 label: "Combined Browser Metrics"
 include: "//looker-hub/combined_browser_metrics/views/*"
 include: "views/*"
+include: "explores/*"
 include: "/shared/views/*"
 
 explore: active_users_aggregates {
@@ -66,17 +67,17 @@ explore: active_users_aggregates {
   }
 }
 
-explore: active_users_aggregates_device {
-  always_filter: {
-    filters: [active_users_aggregates_device.submission_date: "this year"]
-  }
+# explore: active_users_aggregates_device {
+#   always_filter: {
+#     filters: [active_users_aggregates_device.submission_date: "this year"]
+#   }
 
-  join: countries {
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${active_users_aggregates_device.country} = ${countries.code} ;;
-  }
-}
+#   join: countries {
+#     type: left_outer
+#     relationship: one_to_one
+#     sql_on: ${active_users_aggregates_device.country} = ${countries.code} ;;
+#   }
+# }
 
 explore: active_users_aggregates_attribution {
   always_filter: {
