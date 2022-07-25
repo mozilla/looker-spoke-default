@@ -27,7 +27,7 @@ view: bizdev_search_core_users {
             DATE_TRUNC(submission_date, MONTH) as month,
             "desktop" as device,
             normalized_engine,
-            "desktop" as normalized_app_name,
+            '' as normalized_app_name,
             os,
             country,
             count(DISTINCT submission_date) AS days_of_use,
