@@ -32,6 +32,8 @@ view: bizdev_search_core_users {
             country,
             count(DISTINCT submission_date) AS days_of_use,
             COALESCE(SUM(sap), 0) AS searches,
+            COALESCE(SUM(search_with_ads), 0) AS search_with_ads,
+            COALESCE(SUM(ad_click), 0) AS ad_click
             FROM search.search_clients_engines_sources_daily
             WHERE {% incrementcondition %} submission_date {% endincrementcondition %}
             AND submission_date >= DATE("2019-01-01")
