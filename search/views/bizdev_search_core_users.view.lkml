@@ -55,6 +55,21 @@ view: bizdev_search_core_users {
     sql: ${TABLE}.country ;;
   }
 
+  dimension: device {
+    type: string
+    sql: ${TABLE}.device ;;
+  }
+
+  dimension: normalized_app_name {
+    type: string
+    sql: ${TABLE}.normalized_app_name ;;
+  }
+
+  dimension: os {
+    type: string
+    sql: ${TABLE}.os ;;
+  }
+
   dimension: normalized_engine {
     type: string
     sql: ${TABLE}.normalized_engine ;;
