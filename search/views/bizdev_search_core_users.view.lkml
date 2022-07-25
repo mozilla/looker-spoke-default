@@ -4,20 +4,38 @@ view: bizdev_search_core_users {
     increment_offset: 1
     sql_trigger_value: SELECT DATE_TRUNC(CURRENT_DATE(), MONTH)  ;;
     sql: SELECT
-              client_id,
-              DATE_TRUNC(submission_date, MONTH) as month,
-              normalized_engine,
-              country,
-              count(DISTINCT submission_date) AS days_of_use,
-              COALESCE(SUM(sap), 0) AS searches,
-              COALESCE(SUM(search_with_ads), 0) AS search_with_ads,
-              COALESCE(SUM(ad_click), 0) AS ad_click
-         FROM
-              search.search_clients_engines_sources_daily
-        WHERE
-            {% incrementcondition %} submission_date {%  endincrementcondition %}
+            client_id,
+            DATE_TRUNC(submission_date, MONTH) as month,
+            "mobile" as device,
+            normalized_engine,
+            normalized_app_name,
+            os,
+            country,
+            COUNT(DISTINCT submission_date) AS days_of_use,
+            COALESCE(SUM(sap), 0) AS searches,
+            COALESCE(SUM(search_with_ads), 0) AS search_with_ads,
+            COALESCE(SUM(ad_click), 0) AS ad_click
+            FROM search.mobile_search_clients_engines_sources_daily
+            WHERE {% incrementcondition %} submission_date {% endincrementcondition %}
+            AND submission_date >= DATE("2020-01-01")
+            GROUP BY 1, 2, 3, 4, 5, 6, 7
+
+        UNION ALL
+
+        SELECT
+            client_id,
+            DATE_TRUNC(submission_date, MONTH) as month,
+            "desktop" as device,
+            normalized_engine,
+            "desktop" as normalized_app_name,
+            os,
+            country,
+            count(DISTINCT submission_date) AS days_of_use,
+            COALESCE(SUM(sap), 0) AS searches,
+            FROM search.search_clients_engines_sources_daily
+            WHERE {% incrementcondition %} submission_date {% endincrementcondition %}
             AND submission_date >= DATE("2019-01-01")
-         GROUP BY 1, 2, 3, 4
+            GROUP BY 1, 2, 3, 4, 5, 6, 7
        ;;
   }
 
