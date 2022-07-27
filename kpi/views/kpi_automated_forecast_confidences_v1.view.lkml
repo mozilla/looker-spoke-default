@@ -21,7 +21,7 @@ view: kpi_automated_forecast_confidences_v1 {
     ]
     convert_tz: no
     datatype: date
-    sql: ${TABLE}.date;;
+    sql: DATE(${TABLE}.date);;
   }
 
   dimension: target {
@@ -57,32 +57,38 @@ view: kpi_automated_forecast_confidences_v1 {
   measure: Worst {
     type: average
     sql: ${TABLE}.yhat_p10;;
-    description: "CI Lower: 10th Percentile"
+    label: "CI Lower: 10th Percentile"
   }
 
   measure: Best {
     type: average
     sql:  ${TABLE}.yhat_p90;;
-    description: "CI Upper: 90th Percentile"
+    label: "CI Upper: 90th Percentile"
   }
 
-  measure: Base {
+  measure: Mid {
     type: average
-    sql: AVG(${TABLE}.yhat_p10 + ${TABLE}.yhat_p90);;
-    description: "Average of CI Lower and CI Upper"
+    sql:  ${TABLE}.yhat_p50;;
+    label: "CI Middle: 50th Percentile"
   }
 
-  measure: relative_CI_size {
-    type: average
-    sql: (${TABLE}.yhat_p90 - ${TABLE}.yhat_p10) / AVG(${TABLE}.yhat_p10 + ${TABLE}.yhat_p90)  ;;
-    label: "Relative CI Size: Size of CI / Base"
-  }
+  # measure: Base {
+  #   type: average
+  #   sql: AVG(${TABLE}.yhat_p10 + ${TABLE}.yhat_p90);;
+  #   description: "Average of CI Lower and CI Upper"
+  # }
 
-  measure: percent_change_in_base {
-    type: average
-    sql: (AVG(${TABLE}.yhat_p10 + ${TABLE}.yhat_p90) - lag(AVG(${TABLE}.yhat_p10 + ${TABLE}.yhat_p90)) / lag(AVG(${TABLE}.yhat_p10 + ${TABLE}.yhat_p90))  ;;
-    description: "(Base - Lag(Base)) / Lag(Base)"
-  }
+  # measure: relative_CI_size {
+  #   type: average
+  #   sql: (${TABLE}.yhat_p90 - ${TABLE}.yhat_p10) / AVG(${TABLE}.yhat_p10 + ${TABLE}.yhat_p90)  ;;
+  #   label: "Relative CI Size: Size of CI / Base"
+  # }
+
+  # measure: percent_change_in_base {
+  #   type: average
+  #   sql: (AVG(${TABLE}.yhat_p10 + ${TABLE}.yhat_p90) - lag(AVG(${TABLE}.yhat_p10 + ${TABLE}.yhat_p90))) / lag(AVG(${TABLE}.yhat_p10 + ${TABLE}.yhat_p90))  ;;
+  #   description: "(Base - Lag(Base)) / Lag(Base)"
+  # }
 
 
 }
