@@ -1,8 +1,5 @@
 view: bizdev_search_core_users {
   derived_table: {
-    increment_key: "submission_month"
-    increment_offset: 1
-    sql_trigger_value: SELECT DATE_TRUNC(CURRENT_DATE(), MONTH)  ;;
     sql: SELECT
             client_id,
             DATE_TRUNC(submission_date, MONTH) as month,
@@ -27,15 +24,18 @@ view: bizdev_search_core_users {
             DATE_TRUNC(submission_date, MONTH) as month,
             "desktop" as device,
             normalized_engine,
-            '' as normalized_app_name,
+            'Firefox Desktop' as normalized_app_name,
             os,
             country,
             count(DISTINCT submission_date) AS days_of_use,
             COALESCE(SUM(sap), 0) AS searches,
+            COALESCE(SUM(search_with_ads), 0) AS search_with_ads,
+            COALESCE(SUM(ad_click), 0) AS ad_click
             FROM search.search_clients_engines_sources_daily
             WHERE {% incrementcondition %} submission_date {% endincrementcondition %}
             AND submission_date >= DATE("2019-01-01")
             GROUP BY 1, 2, 3, 4, 5, 6, 7
+
        ;;
   }
 
