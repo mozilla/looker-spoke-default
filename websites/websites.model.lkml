@@ -1,9 +1,9 @@
 connection: "telemetry"
 label: "Websites"
 
-include: "/websites/views/*.view.lkml"
+include: "//looker-hub/websites/views/*.view.lkml"
 
-explore: blogs_summary{}
-explore: landing_page_metrics{}
-explore: metrics_summary{}
-explore: page_metrics{}
+explore: blogs_daily_summary{}
+explore: moz_org_landing_page_metrics{}
+explore: moz_org_metrics_summary{}
+explore: moz_org_page_metrics{}
