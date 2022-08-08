@@ -119,6 +119,5 @@ explore: +desktop_search_counts {
       increment_key: search_clients_engines_sources_daily.submission_date
       increment_offset: 1
     }
-  }
-
+}
 }
