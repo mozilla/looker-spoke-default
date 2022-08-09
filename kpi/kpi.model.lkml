@@ -1,6 +1,7 @@
 connection: "telemetry"
 
 include: "//looker-hub/kpi/explores/*"
+include: "//looker-hub/kpi/views/*"
 include: "./dashboards/*.dashboard"
 include: "./views/*.view.lkml"                # include all views in the views/ folder in this project
 include: "/shared/views/*"
@@ -146,3 +147,7 @@ explore: loines_browser_2022_forecasts {
   group_label: "Official Browser KPIs"
   label: "Official Browser KPI Forecasts and Targets"
 }
+
+explore: automated_kpi_forecasts {}
+
+explore: automated_kpi_confidence_intervals {}
