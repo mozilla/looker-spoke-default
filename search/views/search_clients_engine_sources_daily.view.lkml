@@ -34,7 +34,7 @@ view: +search_clients_engines_sources_daily {
       view_label: "Period over Period Analysis Parameters"
       label: "1. Current Date Range"
       description: "Select the current date range you are interested in. Make sure any other filter on Event Date covers this period, or is removed."
-      sql: ${period} IS NOT NULL ;;
+      sql: ${period} IS NOT NULL;;
       convert_tz: no
     }
 
@@ -183,7 +183,7 @@ view: +search_clients_engines_sources_daily {
         ;;
     }
   dimension: period_filtered_measures {
-    hidden: yes
+    hidden: no
     description: "We just use this for the filtered measures"
     type: string
     sql:
@@ -194,164 +194,6 @@ view: +search_clients_engines_sources_daily {
         {% else %} NULL {% endif %} ;;
   }
 
-  measure: current_period_total_sap_searches {
-    view_label: "Period over Period Analysis Parameters"
-    label: "Total sap searches for current {{compare_to._parameter_value }} "
-    type: sum
-    sql: ${sap};;
-    filters: [period_filtered_measures: "this"]
-  }
-
-  measure: previous_period_total_sap_searches {
-    view_label: "Period over Period Analysis Parameters"
-    label: "Total sap searches for previous {{compare_to._parameter_value }} "
-    type: sum
-    sql: ${sap};;
-    filters: [period_filtered_measures: "last"]
-  }
-
-  measure: total_sap_searches_pop_change {
-    view_label: "Period over Period Analysis Parameters"
-    label: "% change in total sap searches"
-    type: number
-    sql: CASE WHEN ${current_period_total_sap_searches} = 0
-            THEN NULL
-            ELSE (1.0 * ${current_period_total_sap_searches} / NULLIF(${previous_period_total_sap_searches} ,0)) - 1 END ;;
-    value_format_name: percent_2
-  }
-
-  measure: current_period_tagged_sap_searches {
-    view_label: "Period over Period Analysis Parameters"
-    label: "Total tagged sap searches for current {{compare_to._parameter_value }} "
-    type: sum
-    sql:${tagged_sap};;
-    filters: [period_filtered_measures: "this"]
-  }
-
-  measure: previous_period_tagged_sap_searches {
-    view_label: "Period over Period Analysis Parameters"
-    label: "Total tagged sap searches for previous {{compare_to._parameter_value }} "
-    type: sum
-    sql: ${tagged_sap};;
-    filters: [period_filtered_measures: "last"]
-  }
-
-  measure: total_tagged_sap_searches_pop_change {
-    view_label: "Period over Period Analysis Parameters"
-    label: "% change in total tagged sap searches"
-    type: number
-    sql: CASE WHEN ${current_period_tagged_sap_searches} = 0
-            THEN NULL
-            ELSE (1.0 * ${current_period_tagged_sap_searches} / NULLIF(${previous_period_tagged_sap_searches} ,0)) - 1 END ;;
-    value_format_name: percent_2
-  }
-
-  measure: current_period_tagged_follow_on_searches {
-    view_label: "Period over Period Analysis Parameters"
-    label: "Total follow on searches for current {{compare_to._parameter_value }} "
-    type: sum
-    sql: ${tagged_follow_on};;
-    filters: [period_filtered_measures: "this"]
-  }
-
-  measure: previous_period_tagged_follow_on_searches {
-    view_label: "Period over Period Analysis Parameters"
-    label: "Total follow on searches for previous {{compare_to._parameter_value }} "
-    type: sum
-    sql: ${tagged_follow_on};;
-    filters: [period_filtered_measures: "last"]
-  }
-
-  measure: total_tagged_follow_on_searches_pop_change {
-    view_label: "Period over Period Analysis Parameters"
-    label: "% change in follow on searches"
-    type: number
-    sql: CASE WHEN ${current_period_tagged_follow_on_searches} = 0
-            THEN NULL
-            ELSE (1.0 * ${current_period_tagged_follow_on_searches} / NULLIF(${previous_period_tagged_follow_on_searches} ,0)) - 1 END ;;
-    value_format_name: percent_2
-  }
-
-
-  measure: current_period_search_with_ads{
-    view_label: "Period over Period Analysis Parameters"
-    label: "Total search with ads searches for current {{compare_to._parameter_value }} "
-    type: sum
-    sql:  ${search_with_ads};;
-    filters: [period_filtered_measures: "this"]
-  }
-
-  measure: previous_period_search_with_ads{
-    view_label: "Period over Period Analysis Parameters"
-    label: "Total search with ads for previous {{compare_to._parameter_value }} "
-    type: sum
-    sql:  ${search_with_ads};;
-    filters: [period_filtered_measures: "last"]
-  }
-
-  measure: total_search_with_ads_pop_change {
-    view_label: "Period over Period Analysis Parameters"
-    label: "% change in search with ads"
-    type: number
-    sql: CASE WHEN ${current_period_search_with_ads} = 0
-            THEN NULL
-            ELSE (1.0 * ${current_period_search_with_ads} / NULLIF(${previous_period_search_with_ads} ,0)) - 1 END ;;
-    value_format_name: percent_2
-  }
-
-
-  measure: current_period_search_ad_click{
-    view_label: "Period over Period Analysis Parameters"
-    label: "Total search ad click for current {{compare_to._parameter_value }} "
-    type: sum
-    sql: ${ad_click};;
-    filters: [period_filtered_measures: "this"]
-  }
-
-  measure: previous_period_search_ad_click{
-    view_label: "Period over Period Analysis Parameters"
-    label: "Total search ad click for previous {{compare_to._parameter_value }} "
-    type: sum
-    sql:  ${ad_click};;
-    filters: [period_filtered_measures: "last"]
-  }
-
-  measure: total_search_ad_click_pop_change {
-    view_label: "Period over Period Analysis Parameters"
-    label: "% change in search ad click"
-    type: number
-    sql: CASE WHEN ${current_period_search_ad_click} = 0
-            THEN NULL
-            ELSE (1.0 * ${current_period_search_ad_click} / NULLIF(${previous_period_search_ad_click} ,0)) - 1 END ;;
-    value_format_name: percent_2
-  }
-
-
-  measure: current_period_ad_click_organic{
-    view_label: "Period over Period Analysis Parameters"
-    label: "Total organic ad click for current {{compare_to._parameter_value }} "
-    type: sum
-    sql: ${ad_click_organic}};;
-    filters: [period_filtered_measures: "this"]
-  }
-
-  measure: previous_period_ad_click_organic{
-    view_label: "Period over Period Analysis Parameters"
-    label: "Total organic ad click for previous {{compare_to._parameter_value }} "
-    type: sum
-    sql: ${ad_click_organic};;
-    filters: [period_filtered_measures: "last"]
-  }
-
-  measure: total_ad_click_organic_pop_change {
-    view_label: "Period over Period Analysis Parameters"
-    label: "% change in organic ad click"
-    type: number
-    sql: CASE WHEN ${current_period_ad_click_organic} = 0
-            THEN NULL
-            ELSE (1.0 * ${current_period_ad_click_organic} / NULLIF(${previous_period_ad_click_organic} ,0)) - 1 END ;;
-    value_format_name: percent_2
-  }
 
 
   measure: total_searches {
