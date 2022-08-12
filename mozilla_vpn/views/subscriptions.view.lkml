@@ -148,15 +148,6 @@ view: +subscriptions {
     sql: ${canceled_for_customer_at} IS NOT NULL OR ${cancel_at_period_end};;
   }
 
-  dimension: cancel_reason {
-    type: string
-    sql: CASE
-      WHEN ${provider} LIKE "Apple Store%" THEN "Cancelled by IAP"
-      WHEN ${canceled_for_customer} THEN "Cancelled by Customer"
-      ELSE "Payment Failed"
-      END;;
-  }
-
   dimension: billing_grace_period {
     description: "Interval after billing before a subscription is cancelled due to nonpayment."
     sql: ${TABLE}.billing_grace_period;;
@@ -188,33 +179,6 @@ view: +subscriptions {
   dimension: active_dates {
     hidden: yes
     sql: GENERATE_DATE_ARRAY(${subscription_start_date}, ${end_date} - 1);;
-  }
-
-  dimension: events {
-    hidden: yes
-    sql:
-      ARRAY_CONCAT(
-        [
-          STRUCT(
-            ${subscription_start_date} AS date,
-            "New" AS type,
-            IF(${subscription_start_date} = ${customer_start_date}, "New", "Resurrected") AS granular_type,
-            1 AS delta
-          )
-        ],
-        IF(
-          ${end_date} < DATE(${metadata.last_modified_date}),
-          [
-            STRUCT(
-              ${end_date} AS date,
-              "Cancelled" AS type,
-              ${cancel_reason} AS granular_type,
-              -1 AS delta
-            )
-          ],
-          []
-        )
-      );;
   }
 
   dimension: retention {
@@ -285,39 +249,6 @@ view: subscriptions__active {
   dimension: is_max_active_date {
     type: yesno
     sql:  ${active_raw}=${max_active_date};;
-  }
-}
-
-view: subscriptions__events {
-  dimension_group: event {
-    type: time
-    timeframes: [
-      raw,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.date;;
-    convert_tz: no
-    datatype: date
-  }
-
-  dimension: type {
-    type: string
-    sql: ${TABLE}.type;;
-  }
-
-  dimension: granular_type {
-    type: string
-    sql: ${TABLE}.granular_type;;
-  }
-
-  measure: delta {
-    description: "Net change in subscription count"
-    type: sum
-    sql: ${TABLE}.delta;;
   }
 }
 
