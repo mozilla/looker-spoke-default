@@ -57,7 +57,8 @@ explore: +structured_missing_columns {
       AND (${missing_columns_notes.document_version} IS NULL OR ${structured_missing_columns.document_version} = ${missing_columns_notes.document_version})
       AND (${missing_columns_notes.path} IS NULL OR ${structured_missing_columns.path} = ${missing_columns_notes.path})
       AND (${missing_columns_notes.start_date} IS NULL OR ${missing_columns_notes.start_date} <= ${structured_missing_columns.submission_date})
-      AND (${missing_columns_notes.end_date} IS NULL OR ${missing_columns_notes.end_date} >= ${structured_missing_columns.submission_date});;
+      AND (${missing_columns_notes.end_date} IS NULL OR ${missing_columns_notes.end_date} >= ${structured_missing_columns.submission_date})
+      AND (${missing_columns_notes.bug} IS NOT NULL OR ${missing_columns_notes.notes} IS NOT NULL);;
   }
 }
 
@@ -84,7 +85,8 @@ explore: +telemetry_missing_columns {
       AND (${missing_columns_notes.document_version} IS NULL OR ${telemetry_missing_columns.document_version} = ${missing_columns_notes.document_version})
       AND (${missing_columns_notes.path} IS NULL OR ${telemetry_missing_columns.path} = ${missing_columns_notes.path})
       AND (${missing_columns_notes.start_date} IS NULL OR ${missing_columns_notes.start_date} <= ${telemetry_missing_columns.submission_date})
-      AND (${missing_columns_notes.end_date} IS NULL OR ${missing_columns_notes.end_date} >= ${telemetry_missing_columns.submission_date});;
+      AND (${missing_columns_notes.end_date} IS NULL OR ${missing_columns_notes.end_date} >= ${telemetry_missing_columns.submission_date})
+      AND (${missing_columns_notes.bug} IS NOT NULL OR ${missing_columns_notes.notes} IS NOT NULL);;
   }
 }
 
@@ -94,7 +96,8 @@ explore: +distinct_docids {
     sql_on: (${distinct_docids_notes.document_namespace} IS NULL OR ${distinct_docids.namespace} = ${distinct_docids_notes.document_namespace})
       AND (${distinct_docids_notes.document_type} IS NULL OR ${distinct_docids.doc_type} = ${distinct_docids_notes.document_type})
       AND (${distinct_docids_notes.start_date} IS NULL OR ${distinct_docids_notes.start_date} <= ${distinct_docids.submission_date})
-      AND (${distinct_docids_notes.end_date} IS NULL OR ${distinct_docids_notes.end_date} >= ${distinct_docids.submission_date});;
+      AND (${distinct_docids_notes.end_date} IS NULL OR ${distinct_docids_notes.end_date} >= ${distinct_docids.submission_date})
+      AND (${distinct_docids_notes.notes} IS NOT NULL OR ${distinct_docids_notes.bug} IS NOT NULL);;
   }
 }
 
@@ -104,7 +107,8 @@ explore: +missing_namespaces_and_document_types {
     relationship: many_to_one
     sql_on: (${missing_document_namespaces_notes.document_namespace} IS NULL OR ${missing_namespaces_and_document_types.document_namespace} = ${missing_document_namespaces_notes.document_namespace})
       AND (${missing_document_namespaces_notes.document_type} IS NULL OR ${missing_namespaces_and_document_types.document_type} = ${missing_document_namespaces_notes.document_type})
-      AND (${missing_document_namespaces_notes.document_version} IS NULL OR ${missing_namespaces_and_document_types.document_version} = ${missing_document_namespaces_notes.document_version});;
+      AND (${missing_document_namespaces_notes.document_version} IS NULL OR ${missing_namespaces_and_document_types.document_version} = ${missing_document_namespaces_notes.document_version})
+      AND (${missing_document_namespaces_notes.notes} IS NOT NULL OR ${missing_document_namespaces_notes.bug} IS NOT NULL);;
   }
 }
 

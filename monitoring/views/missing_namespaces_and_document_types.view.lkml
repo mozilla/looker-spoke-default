@@ -2,7 +2,7 @@ view: missing_namespaces_and_document_types {
   derived_table: {
     sql: WITH ping_counts AS (
       SELECT
-        TIMESTAMP_TRUNC(submission_timestamp, DAY) AS submission_date,
+        DATE(submission_timestamp) AS submission_date,
         metadata.document_namespace,
         metadata.document_type,
         metadata.document_version,
@@ -20,7 +20,7 @@ view: missing_namespaces_and_document_types {
     ),
     error_counts AS (
       SELECT
-        TIMESTAMP_TRUNC(submission_timestamp, DAY) AS submission_date,
+        DATE(submission_timestamp) AS submission_date,
         document_namespace,
         document_type,
         document_version,
@@ -56,13 +56,15 @@ view: missing_namespaces_and_document_types {
     )
     SELECT
       document_namespace,
-      SUM(ping_count) AS total_pings,
+      submission_date,
       document_type,
-      document_version
+      document_version,
+      SUM(ping_count) AS total_pings
     FROM
       structured_daily_errors
     GROUP BY
       document_namespace,
+      submission_date,
       document_type,
       document_version
     HAVING
@@ -72,6 +74,17 @@ view: missing_namespaces_and_document_types {
     ORDER BY
       total_pings DESC
     ;;
+  }
+
+  dimension_group: submission {
+    sql: ${TABLE}.submission_date ;;
+    type: time
+    timeframes: [
+      raw,
+      date
+    ]
+    convert_tz: no
+    datatype: date
   }
 
   dimension: document_namespace {

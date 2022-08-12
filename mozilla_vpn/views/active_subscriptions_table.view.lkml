@@ -44,6 +44,20 @@ view: +active_subscriptions_table {
     sql: CONCAT(${plan_interval_count},"_",  ${plan_interval});;
   }
 
+  dimension: promotion_discounts_amount {
+    group_label: "Coupon"
+    description: "The discounted amount applied to a subscription."
+    type: string
+    sql: ${TABLE}.promotion_discounts_amount ;;
+  }
+
+  dimension: coupon_code {
+    group_label: "Coupon"
+    description: "The coupon code applied to a subscription."
+    type: string
+    sql: ${TABLE}.promotion_codes[SAFE_ORDINAL(1)] ;;
+  }
+
   dimension: count {
     hidden: yes
   }
@@ -66,7 +80,7 @@ view: +active_subscriptions_table {
             ${plan_interval} = "month"
           THEN
             12 / ${plan_interval_count}
-          END * ${count} * ${plan_amount} / (1 + IFNULL(${vat_rates.vat}, 0)) * IFNULL(${exchange_rates_table.price}, 1) / 100;;
+          END * ${count} * (${plan_amount} - IFNULL(${promotion_discounts_amount}, 0)) / (1 + IFNULL(${vat_rates.vat}, 0)) * IFNULL(${exchange_rates_table.price}, 1) / 100;;
     value_format: "$#,##0.00"
   }
 }

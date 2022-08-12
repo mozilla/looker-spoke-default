@@ -12,18 +12,6 @@ explore: firefox_desktop_last_seen {
   hidden: yes
 }
 
-explore: newtab_interactions {
-  sql_always_where: ${newtab_interactions.submission_date} >= '2022-07-01' ;;
-  label: "New Tab Interactions"
-  from: newtab_interactions
-
-  always_filter: {
-    filters: [
-      submission_date: "28 days",
-    ]
-  }
-}
-
 explore: +client_counts {
   label: "Client Counts (Legacy Telemetry)"
   always_filter: {
