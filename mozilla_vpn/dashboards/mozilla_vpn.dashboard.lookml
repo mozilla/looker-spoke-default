@@ -1,5 +1,5 @@
 - dashboard: mozilla_vpn
-  title: Mozilla VPN - DEPRICATED
+  title: Mozilla VPN - DEPRECATED
   layout: newspaper
   preferred_viewer: dashboards-next
   refresh: 1 day
