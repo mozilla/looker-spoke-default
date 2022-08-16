@@ -148,6 +148,22 @@ explore: loines_browser_2022_forecasts {
   label: "Official Browser KPI Forecasts and Targets"
 }
 
-explore: automated_kpi_forecasts {}
+explore: automated_KPI_forecasts {
+  view_name: automated_kpi_forecasts
 
-explore: automated_kpi_confidence_intervals {}
+  always_filter: {
+    filters: [automated_kpi_forecasts.target: "-EMPTY",
+              automated_kpi_forecasts.forecast_date: "-EMPTY",
+              automated_kpi_forecasts.metric: "-EMPTY"]
+  }
+}
+
+explore: automated_KPI_confidence_intervals {
+  view_name: automated_kpi_confidence_intervals
+
+  always_filter: {
+    filters: [automated_kpi_confidence_intervals.target: "-EMPTY",
+      automated_kpi_confidence_intervals.forecast_date: "-EMPTY",
+      automated_kpi_confidence_intervals.unit: "-EMPTY"]
+  }
+}
