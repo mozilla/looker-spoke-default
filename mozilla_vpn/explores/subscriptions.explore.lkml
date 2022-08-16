@@ -27,11 +27,11 @@ explore: subscriptions {
     relationship: one_to_many
   }
 
-  join: subscriptions__events {
-    view_label: "Subscription Events"
-    sql: CROSS JOIN UNNEST(${subscriptions.events}) AS subscriptions__events;;
-    relationship: one_to_many
-  }
+  # join: subscriptions__events {
+  #   view_label: "Subscription Events"
+  #   sql: CROSS JOIN UNNEST(${subscriptions.events}) AS subscriptions__events;;
+  #   relationship: one_to_many
+  # }
 
   join: subscriptions__retention {
     view_label: "Retention"
