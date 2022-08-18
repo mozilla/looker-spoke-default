@@ -82,17 +82,16 @@ explore: +active_subscriptions {
     }
   }
 
-  aggregate_table: rollup__active_date__country_name__is_max_active_date__plan_interval_type__pricing_plan__provider__2 {
+  aggregate_table: rollup__active_date__country_name__metadata_last_modified_date__plan_interval_type__pricing_plan__provider__2 {
     query: {
       dimensions: [
         active_date,
         country_name,
-        is_max_active_date,
+        metadata.last_modified_date,
         plan_interval_type,
         pricing_plan,
         provider
       ]
-      filters: [active_subscriptions.is_max_active_date: "Yes"]
     }
 
     materialization: {
@@ -237,6 +236,7 @@ explore: +active_subscriptions {
       measures: [count_sum]
       filters: [active_subscriptions.is_max_active_date: "Yes"]
     }
+
     materialization: {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
