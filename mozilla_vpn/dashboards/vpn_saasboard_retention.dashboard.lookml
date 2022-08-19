@@ -18,6 +18,7 @@
   - name: " (2)"
     type: text
     title_text: ''
+    subtitle_text: ''
     body_text: "<div style='background-color: #ffffdd; padding: 5px 10px; border:\
       \ solid 3px #ededed; border-radius: 5px; height:220px'>\n\nThese visualizations\
       \ capture <strong>subscription retention</strong>.\n<ul>\n<li>Retention rate\
@@ -30,7 +31,7 @@
       \ that started their subscriptions in a particular month.  For example, cohort\
       \ 07-2020 includes all subscriptions that started in the month of July 2020.</li>\n\
       </ul>\n<br>\nPlease submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
-      >mozilla-vpn-data</a></b> channel on Slack for @wichan or @relud. \n</div>"
+      >mozilla-vpn-data</a></b> channel on Slack for @wichan. \n</div>"
     row: 2
     col: 3
     width: 16
@@ -175,10 +176,10 @@
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_month
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 51
+    row: 49
     col: 0
     width: 24
-    height: 11
+    height: 7
   - title: Cohort Retention Rate By Months Since Subscription Start (A)
     name: Cohort Retention Rate By Months Since Subscription Start (A)
     model: mozilla_vpn
@@ -306,7 +307,7 @@
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_month
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 42
+    row: 40
     col: 0
     width: 12
     height: 9
@@ -430,10 +431,10 @@
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_month
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 62
+    row: 56
     col: 0
     width: 24
-    height: 10
+    height: 7
   - title: Current Retention by Cohort
     name: Current Retention by Cohort
     model: mozilla_vpn
@@ -624,10 +625,13 @@
     model: mozilla_vpn
     explore: subscriptions
     type: single_value
-    fields: [subscriptions.subscription_start_date]
-    fill_fields: [subscriptions.subscription_start_date]
-    sorts: [subscriptions.subscription_start_date desc]
+    fields: [metadata.last_modified_date]
+    fill_fields: [metadata.last_modified_date]
+    sorts: [metadata.last_modified_date desc]
     limit: 1
+    dynamic_fields: [{category: table_calculation, expression: 'add_days(-1, ${metadata.last_modified_date})',
+        label: New Calculation, value_format: !!null '', value_format_name: !!null '',
+        _kind_hint: dimension, table_calculation: new_calculation, _type_hint: date}]
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -637,9 +641,10 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    single_value_title: Most Recent Data Included
+    single_value_title: Data Last Updated
     series_types: {}
     defaults_version: 1
+    hidden_fields: [metadata.last_modified_date]
     listen:
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
@@ -756,7 +761,7 @@
     row: 28
     col: 0
     width: 24
-    height: 6
+    height: 5
   - name: " (4)"
     type: text
     title_text: ''
@@ -766,7 +771,7 @@
       <div style="border-top: solid 2px #e0e0e0;">
 
       <h3><b>Retention by Cohort</b></h3>
-    row: 40
+    row: 38
     col: 0
     width: 24
     height: 2
@@ -885,10 +890,10 @@
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_month
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 34
+    row: 33
     col: 0
     width: 24
-    height: 6
+    height: 5
   - title: Retention Rate  (By Plan Interval Type)
     name: Retention Rate  (By Plan Interval Type)
     model: mozilla_vpn
@@ -1009,7 +1014,7 @@
       <div style="border-top: solid 2px #e0e0e0;">
 
       <h3><b>Retention by Forcast Region</b></h3>
-    row: 72
+    row: 63
     col: 0
     width: 24
     height: 3
@@ -1093,7 +1098,7 @@
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_month
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 75
+    row: 66
     col: 0
     width: 24
     height: 8
@@ -1257,7 +1262,7 @@
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_month
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 42
+    row: 40
     col: 12
     width: 12
     height: 9
@@ -1307,7 +1312,7 @@
   - name: Subscription Start Date
     title: Subscription Start Date
     type: field_filter
-    default_value: after 2021/03/01
+    default_value: 6 month
     allow_multiple_values: true
     required: false
     ui_config:
