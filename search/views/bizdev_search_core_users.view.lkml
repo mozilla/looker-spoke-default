@@ -2,7 +2,7 @@ view: bizdev_search_core_users {
   derived_table: {
     sql: SELECT
            *
-         FROM `mozdata.search.desktop_mobile_search_clients_monthly_v1`
+         FROM `mozdata.search.desktop_mobile_search_clients_monthly`
        ;;
   }
 
