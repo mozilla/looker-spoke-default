@@ -143,11 +143,13 @@
     model: mozilla_vpn
     explore: active_subscriptions
     type: single_value
-    fields: [active_subscriptions.active_date, active_subscriptions.is_max_active_date]
-    filters:
-      active_subscriptions.is_max_active_date: 'Yes'
-    sorts: [active_subscriptions.active_date desc]
-    limit: 3
+    fields: [metadata.last_modified_date]
+    fill_fields: [metadata.last_modified_date]
+    sorts: [metadata.last_modified_date desc]
+    limit: 1
+    dynamic_fields: [{category: table_calculation, expression: 'add_days(-1, ${metadata.last_modified_date})',
+        label: New Calculation, value_format: !!null '', value_format_name: !!null '',
+        _kind_hint: dimension, table_calculation: new_calculation, _type_hint: date}]
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -157,7 +159,7 @@
     enable_conditional_formatting: true
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    single_value_title: Most Recent Data Included
+    single_value_title: Data Last Updated
     conditional_formatting: [{type: not equal to, value: 0, background_color: "#cdbfff",
         font_color: !!null '', color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
         bold: false, italic: false, strikethrough: false, fields: !!null ''}]
@@ -189,7 +191,7 @@
     defaults_version: 1
     note_state: collapsed
     note_display: below
-    hidden_fields: [active_subscriptions.is_max_active_date]
+    hidden_fields: [metadata.last_modified_date]
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
@@ -1219,7 +1221,7 @@
   - name: Active Date
     title: Active Date
     type: field_filter
-    default_value: after 2021/03/01
+    default_value: 6 month
     allow_multiple_values: true
     required: false
     ui_config:

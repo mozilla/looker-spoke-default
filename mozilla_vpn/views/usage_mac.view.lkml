@@ -21,7 +21,7 @@ view: usage_mac {
               normalized_os as os,
               client_info.app_display_version as app_version,
               client_info.client_id as client_id
-          FROM mozillavpn.main
+          FROM mozilla_vpn.main
           WHERE
               DATE(submission_timestamp) > DATE(2021, 9, 1) AND
               client_info.app_channel = "production" AND
