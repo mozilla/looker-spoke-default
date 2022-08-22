@@ -82,17 +82,16 @@ explore: +active_subscriptions {
     }
   }
 
-  aggregate_table: rollup__active_date__country_name__is_max_active_date__plan_interval_type__pricing_plan__provider__2 {
+  aggregate_table: rollup__active_date__country_name__metadata_last_modified_date__plan_interval_type__pricing_plan__provider__2 {
     query: {
       dimensions: [
         active_date,
         country_name,
-        is_max_active_date,
+        metadata.last_modified_date,
         plan_interval_type,
         pricing_plan,
         provider
       ]
-      filters: [active_subscriptions.is_max_active_date: "Yes"]
     }
 
     materialization: {
@@ -237,6 +236,7 @@ explore: +active_subscriptions {
       measures: [count_sum]
       filters: [active_subscriptions.is_max_active_date: "Yes"]
     }
+
     materialization: {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
@@ -306,6 +306,91 @@ explore: +active_subscriptions {
         provider
       ]
       measures: [count_sum]
+      filters: [active_subscriptions.is_end_of_month: "Yes"]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT
+        MAX(last_modified_time)
+      FROM
+        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+      WHERE
+        table_name = "all_subscriptions_v1";;
+    }
+  }
+
+  aggregate_table: rollup__active_date__country_name__plan_interval_type__pricing_plan__provider__0 {
+    query: {
+      dimensions: [active_date, country_name, plan_interval_type, pricing_plan, provider]
+      measures: [annual_recurring_revenue, count_sum, monthly_recurring_revenue]
+      filters: [active_subscriptions.is_end_of_month: "Yes"]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT
+        MAX(last_modified_time)
+      FROM
+        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+      WHERE
+        table_name = "all_subscriptions_v1";;
+    }
+  }
+
+  aggregate_table: rollup__active_date__country_name__plan_interval_type__pricing_plan__provider__1 {
+    query: {
+      dimensions: [active_date, country_name, plan_interval_type, pricing_plan, provider]
+      measures: [annual_recurring_revenue]
+      filters: [active_subscriptions.is_end_of_month: "Yes"]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT
+        MAX(last_modified_time)
+      FROM
+        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+      WHERE
+        table_name = "all_subscriptions_v1";;
+    }
+  }
+
+  aggregate_table: rollup__active_date__country_name__plan_interval_type__pricing_plan__provider__2 {
+    query: {
+      dimensions: [active_date, country_name, plan_interval_type, pricing_plan, provider]
+      measures: [annual_recurring_revenue]
+      filters: [active_subscriptions.is_end_of_month: "Yes"]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT
+        MAX(last_modified_time)
+      FROM
+        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+      WHERE
+        table_name = "all_subscriptions_v1";;
+    }
+  }
+
+  aggregate_table: rollup__active_date__country_name__plan_interval_type__pricing_plan__provider__3 {
+    query: {
+      dimensions: [active_date, country_name, plan_interval_type, pricing_plan, provider]
+      measures: [monthly_recurring_revenue]
+      filters: [active_subscriptions.is_end_of_month: "Yes"]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT
+        MAX(last_modified_time)
+      FROM
+        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+      WHERE
+        table_name = "all_subscriptions_v1";;
+    }
+  }
+
+  aggregate_table: rollup__active_date__country_name__plan_interval_type__pricing_plan__provider__4 {
+    query: {
+      dimensions: [active_date, country_name, plan_interval_type, pricing_plan, provider]
+      measures: [monthly_recurring_revenue]
       filters: [active_subscriptions.is_end_of_month: "Yes"]
     }
 
