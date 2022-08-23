@@ -18,19 +18,22 @@
   - name: " (2)"
     type: text
     title_text: ''
+    subtitle_text: ''
     body_text: "<div style='background-color: #ffffdd; padding: 5px 10px; border:\
       \ solid 3px #ededed; border-radius: 5px; height:220px'>\n\nThis dashboard capture\
-      \ <strong>subscription churn</strong>.\n\n<ul>\n  <li>A cohort refers to the\
-      \ group of subscriptions that started in a particular month.  For example, cohort\
-      \ 07-2020 includes all subscriptions that started in the month of July 2020.</li>\n\
-      \  <li>Churn rate is the percentage of not-retained subscriptions out of the\
-      \ number retained from the previous month. </li>\n  <li>Churn rate can be aggregated\
-      \ to get the average churn per month by not specifying <b>Months Since Subscription\
-      \ Start</b>. This differs from retention rate, which is cumulative and therefore\
-      \ must not be aggregated.</li>\n  <li>Churn Rate is not defined for 0 months\
-      \ since subscription started, because there is no previous month.</li>\n</ul>\n\
-      <br>\n\nPlease submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
-      >mozilla-vpn-data</a></b> channel on Slack for @wichan or @relud. \n\n</div>"
+      \ <strong>subscription churn</strong>.  Churn is defined as when a subscription\
+      \ officially ends and the client no longer has access to the vpn service.\n\n\
+      <ul>\n  <li>A cohort refers to the group of subscriptions that started in a\
+      \ particular month.  For example, cohort 07-2020 includes all subscriptions\
+      \ that started in the month of July 2020.</li>\n  <li>Churn rate is the percentage\
+      \ of not-retained subscriptions out of the number retained from the previous\
+      \ month. </li>\n  <li>Churn rate can be aggregated to get the average churn\
+      \ per month by not specifying <b>Months Since Subscription Start</b>. This differs\
+      \ from retention rate, which is cumulative and therefore must not be aggregated.</li>\n\
+      \  <li>Churn Rate is not defined for 0 months since subscription started, because\
+      \ there is no previous month.</li>\n</ul>\n<br>\n\nPlease submit any questions\
+      \ in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\">mozilla-vpn-data</a></b>\
+      \ channel on Slack for @wichan. \n\n</div>"
     row: 3
     col: 3
     width: 16
@@ -420,7 +423,7 @@
     row: 50
     col: 0
     width: 24
-    height: 11
+    height: 7
   - title: " Churn Counts Table (by Cohort)"
     name: " Churn Counts Table (by Cohort)"
     model: mozilla_vpn
@@ -533,19 +536,24 @@
       Provider: subscriptions.provider
       Subscription Start Date: subscriptions.subscription_start_date
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 61
+    row: 57
     col: 0
     width: 24
-    height: 11
+    height: 7
   - title: Untitled
     name: Untitled
     model: mozilla_vpn
     explore: subscriptions
     type: single_value
-    fields: [subscriptions.subscription_start_date]
-    fill_fields: [subscriptions.subscription_start_date]
-    sorts: [subscriptions.subscription_start_date desc]
+    fields: [metadata.last_modified_date]
+    fill_fields: [metadata.last_modified_date]
+    filters:
+      subscriptions__active.is_max_active_date: 'Yes'
+    sorts: [metadata.last_modified_date desc]
     limit: 1
+    dynamic_fields: [{category: table_calculation, expression: 'add_days(-1,${metadata.last_modified_date})',
+        label: New Calculation, value_format: !!null '', value_format_name: !!null '',
+        _kind_hint: dimension, table_calculation: new_calculation, _type_hint: date}]
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -555,7 +563,7 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    single_value_title: Most Recent Data Included
+    single_value_title: Data Last Updated
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -582,6 +590,7 @@
     interpolation: linear
     defaults_version: 1
     series_types: {}
+    hidden_fields: [metadata.last_modified_date]
     listen:
       Subscription Start Date: subscriptions.subscription_start_date
       Plan Interval Type: subscriptions.plan_interval_type
@@ -1060,7 +1069,7 @@
   - name: Subscription Start Date
     title: Subscription Start Date
     type: field_filter
-    default_value: after 2021/03/01
+    default_value: 6 month
     allow_multiple_values: true
     required: false
     ui_config:

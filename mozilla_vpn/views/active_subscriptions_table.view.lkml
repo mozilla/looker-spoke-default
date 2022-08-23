@@ -68,19 +68,54 @@ view: +active_subscriptions_table {
     sql: ${count};;
   }
 
-  measure: annual_recurring_revenue {
-    description: "Annual Recurring Revenue in USD"
-    type: sum
+  dimension: normalized_plan_amount {
+    description: "Plan amount (inc. USD estimate for Apple based on pricing plan)"
+    sql: IFNULL(${plan_amount},
+      CASE
+        WHEN
+          ${pricing_plan} = "1-year-apple"
+        THEN
+          5988
+        WHEN
+          ${pricing_plan} = "6-month-apple"
+        THEN
+          4194
+        WHEN
+          ${pricing_plan} = "1-month-apple"
+        THEN
+          999
+        ELSE
+          NULL
+        END);;
+  }
+
+  dimension: monthly_recurring_revenue_raw {
     sql: CASE
           WHEN
             ${plan_interval} = "year"
           THEN
-            1 / ${plan_interval_count}
+            1 / 12 * ${plan_interval_count}
           WHEN
             ${plan_interval} = "month"
           THEN
-            12 / ${plan_interval_count}
-          END * ${count} * (${plan_amount} - IFNULL(${promotion_discounts_amount}, 0)) / (1 + IFNULL(${vat_rates.vat}, 0)) * IFNULL(${exchange_rates_table.price}, 1) / 100;;
-    value_format: "$#,##0.00"
+            1 / ${plan_interval_count}
+          END * ${count} * (${normalized_plan_amount} - IFNULL(${promotion_discounts_amount}, 0)) / (1 + IFNULL(${vat_rates.vat}, 0)) * IFNULL(${exchange_rates_table.price}, 1) / 100;;
+    hidden: yes
   }
+
+  measure:  monthly_recurring_revenue {
+    description: "MRR in USD (includes estimate for Apple subscriptions)"
+    type: sum
+    sql:  ${monthly_recurring_revenue_raw} ;;
+    value_format: "$#,##0"
+  }
+
+
+  measure: annual_recurring_revenue {
+    description: "ARR in USD (includes estimate for Apple subscriptions)"
+    type: sum
+    sql:  ${monthly_recurring_revenue_raw} * 12;;
+    value_format: "$#,##0"
+  }
+
 }

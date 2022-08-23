@@ -15,3 +15,8 @@
 66: "duet::desktop_numbers_that_matter"
 155: "mozilla_vpn::mozilla_vpn"
 723: "operational_monitoring::tcp_rollout_phase_2_2"
+412: "mozilla_vpn::vpn_saasboard__active_subscriptions"
+416: "mozilla_vpn::vpn_saasboard__subscriptions_growth"
+414: "mozilla_vpn::vpn_saasboard__retention"
+413: "mozilla_vpn::vpn_saasboard__churn"
+433: "mozilla_vpn::vpn_saasboard__revenue"

@@ -169,7 +169,7 @@ view: +subscriptions {
     description: "Smallest possible value of current_months_since_subscription_start for this cohort (subscription start month). Used to only count complete cohorts."
     type: number
     sql: mozfun.norm.diff_months(
-      start => LAST_DAY(DATE(${subscriptions.subscription_start_raw}), MONTH),
+      start => LAST_DAY(DATE(${subscription_start_raw}), MONTH),
       `end` => DATE(${metadata.last_modified_date}),
       grace_period => INTERVAL 7 DAY,
       inclusive => FALSE
