@@ -83,7 +83,6 @@ explore: business_development_core_search_users_monthly {
 }
 
 explore: +desktop_search_counts {
-
   join: countries {
     type: left_outer
     relationship: one_to_one
