@@ -1,4 +1,4 @@
-include: "//looker-hub/kpi/views/automated_kpi_confidence_intervals.view.lkml"
+include: "//looker-hub/kpi/views/*"
 
 view: +automated_kpi_confidence_intervals {
 
@@ -12,7 +12,7 @@ view: +automated_kpi_confidence_intervals {
     }
 
   dimension_group: submission {
-    sql: ${TABLE}.date ;;
+    sql: CAST(${TABLE}.date as DATE) ;;
     type: time
     timeframes: [
       date,

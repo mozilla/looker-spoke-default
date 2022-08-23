@@ -1,10 +1,10 @@
-include: "//looker-hub/kpi/views/automated_kpi_forecasts.view.lkml"
+include: "//looker-hub/kpi/views/*"
 
 view: +automated_kpi_forecasts {
 
   dimension_group: ds {
     label: "Submission"
-    sql: ${TABLE}.ds ;;
+    sql: CAST(${TABLE}.ds as DATE) ;;
     type: time
     timeframes: [
       date,

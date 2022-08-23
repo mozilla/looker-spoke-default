@@ -5,6 +5,7 @@ include: "//looker-hub/kpi/views/*"
 include: "./dashboards/*.dashboard"
 include: "./views/*.view.lkml"                # include all views in the views/ folder in this project
 include: "/shared/views/*"
+include: "explores/*"
 
 explore: firefox_desktop_usage_2021 {
   label: "Firefox Desktop Usage"
@@ -146,24 +147,4 @@ explore: browser_dau {
 explore: loines_browser_2022_forecasts {
   group_label: "Official Browser KPIs"
   label: "Official Browser KPI Forecasts and Targets"
-}
-
-explore: automated_KPI_forecasts {
-  view_name: automated_kpi_forecasts
-
-  always_filter: {
-    filters: [automated_kpi_forecasts.target: "-EMPTY",
-              automated_kpi_forecasts.forecast_date: "-EMPTY",
-              automated_kpi_forecasts.metric: "-EMPTY"]
-  }
-}
-
-explore: automated_KPI_confidence_intervals {
-  view_name: automated_kpi_confidence_intervals
-
-  always_filter: {
-    filters: [automated_kpi_confidence_intervals.target: "-EMPTY",
-      automated_kpi_confidence_intervals.forecast_date: "-EMPTY",
-      automated_kpi_confidence_intervals.unit: "-EMPTY"]
-  }
 }
