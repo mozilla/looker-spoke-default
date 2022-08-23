@@ -60,7 +60,7 @@ explore: subscriptions {
   }
 }
 
-# Add aggregate tables lookML from VPN SaaSboard - retention
+# Add aggregate tables lookML from VPN SaaSboard
 
 explore: +subscriptions {
   aggregate_table: rollup__subscription_start_month__subscriptions__retention_months_since_subscription_start__0 {
@@ -69,7 +69,7 @@ explore: +subscriptions {
       measures: [count, subscriptions__retention.retained]
       filters: [
         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "after 2021/03/01",
+        subscriptions.subscription_start_month: "6 month",
         subscriptions__retention.is_cohort_complete: "Yes"
       ]
     }
@@ -90,7 +90,7 @@ explore: +subscriptions {
       measures: [count, subscriptions__retention.retained]
       filters: [
         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "after 2021/03/01",
+        subscriptions.subscription_start_month: "6 month",
         subscriptions__retention.is_cohort_complete: "Yes"
       ]
     }
@@ -111,7 +111,7 @@ explore: +subscriptions {
       measures: [count, subscriptions__retention.retained]
       filters: [
         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "after 2021/03/01",
+        subscriptions.subscription_start_month: "6 month",
         subscriptions__retention.is_cohort_complete: "Yes"
       ]
     }
@@ -132,7 +132,7 @@ explore: +subscriptions {
       measures: [count, subscriptions__retention.retained]
       filters: [
         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "after 2021/03/01",
+        subscriptions.subscription_start_month: "6 month",
         subscriptions__retention.is_cohort_complete: "Yes"
       ]
     }
@@ -147,12 +147,15 @@ explore: +subscriptions {
     }
   }
 
-  aggregate_table: rollup__subscription_start_date__4 {
+  aggregate_table: rollup__country_name__metadata_last_modified_date__plan_interval_type__pricing_plan__provider__subscription_start_month__4 {
     query: {
-      dimensions: [subscription_start_date]
-      filters: [
-        # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "after 2021/03/01"
+      dimensions: [
+        country_name,
+        metadata.last_modified_date,
+        plan_interval_type,
+        pricing_plan,
+        provider,
+        subscription_start_month
       ]
     }
 
@@ -172,7 +175,7 @@ explore: +subscriptions {
       measures: [count, subscriptions__retention.retained]
       filters: [
         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "after 2021/03/01",
+        subscriptions.subscription_start_month: "6 month",
         subscriptions__retention.is_cohort_complete: "Yes"
       ]
     }
@@ -193,10 +196,11 @@ explore: +subscriptions {
       measures: [count, subscriptions__retention.retained]
       filters: [
         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "after 2021/03/01",
+        subscriptions.subscription_start_month: "6 month",
         subscriptions__retention.is_cohort_complete: "Yes"
       ]
     }
+
     materialization: {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
@@ -213,7 +217,7 @@ explore: +subscriptions {
       measures: [count, subscriptions__retention.retained]
       filters: [
         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "after 2021/03/01",
+        subscriptions.subscription_start_month: "6 month",
         subscriptions__retention.is_cohort_complete: "Yes"
       ]
     }
@@ -234,7 +238,7 @@ explore: +subscriptions {
       measures: [count, subscriptions__retention.retained]
       filters: [
         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "after 2021/03/01",
+        subscriptions.subscription_start_month: "6 month",
         subscriptions__retention.is_cohort_complete: "Yes"
       ]
     }
@@ -255,7 +259,7 @@ explore: +subscriptions {
       measures: [count, subscriptions__retention.retained]
       filters: [
         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "after 2021/03/01",
+        subscriptions.subscription_start_month: "6 month",
         subscriptions__retention.is_cohort_complete: "Yes"
       ]
     }
@@ -395,9 +399,10 @@ explore: +subscriptions {
     }
   }
 
-  aggregate_table: rollup__plan_interval_type__subscription_start_date__5 {
+  aggregate_table: rollup__metadata_last_modified_date__plan_interval_type__subscription_start_date__5 {
     query: {
-      dimensions: [plan_interval_type, subscription_start_date]
+      dimensions: [metadata.last_modified_date, plan_interval_type, subscription_start_date]
+      filters: [subscriptions__active.is_max_active_date: "Yes"]
     }
 
     materialization: {
