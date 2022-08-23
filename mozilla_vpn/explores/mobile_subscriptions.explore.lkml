@@ -7,7 +7,7 @@ explore: mobile_subscriptions {
 
   join: metadata {
     from: table_metadata
-    view_label: "Metadata"
+    view_label: "Nonfunctional Set1 -- DO NOT USE"
     sql_on: ${metadata.table_name} = "all_subscriptions_v1";;
     # Using a one_to_one relationship here, instead of the technically correct many_to_one, makes
     # Looker understand that this join does not impact aggregation, which only works because this
@@ -15,31 +15,8 @@ explore: mobile_subscriptions {
     relationship: one_to_one
   }
 
-  # join: devices {
-  #   relationship: many_to_one
-  #   sql_on: ${devices.user_id} = ${user_id};;
-  # }
-
-  # join: subscriptions__active {
-  #   view_label: "Active Subscriptions"
-  #   sql: LEFT JOIN UNNEST(${subscriptions.active_dates}) AS subscriptions__active;;
-  #   relationship: one_to_many
-  # }
-
-  # join: subscriptions__events {
-  #   view_label: "Subscription Events"
-  #   sql: CROSS JOIN UNNEST(${subscriptions.events}) AS subscriptions__events;;
-  #   relationship: one_to_many
-  # }
-
-  # join: subscriptions__retention {
-  #   view_label: "Retention"
-  #   sql: CROSS JOIN UNNEST(${subscriptions.retention}) AS subscriptions__retention;;
-  #   relationship: one_to_many
-  # }
-
   join: vat_rates {
-    view_label: "VAT Rates"
+    view_label: "Nonfunctional Set2 -- DO NOT USE"
     fields: [vat]
     sql_on: FALSE;;
     type: left_outer
@@ -47,7 +24,7 @@ explore: mobile_subscriptions {
   }
 
   join: exchange_rates_table {
-    view_label: "Exchange Rates"
+    view_label: "Nonfunctional Set3 -- DO NOT USE"
     fields: [price]
     sql_on: FALSE ;;
     type: left_outer
