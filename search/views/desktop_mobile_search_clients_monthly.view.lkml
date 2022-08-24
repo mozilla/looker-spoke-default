@@ -1,11 +1,6 @@
-view: bizdev_search_core_users {
-  derived_table: {
-    sql: SELECT
-           *
-         FROM `mozdata.search.desktop_mobile_search_clients_monthly`
-       ;;
-  }
+include: "//looker-hub/search/views/desktop_mobile_search_clients_monthly.view.lkml"
 
+view: +desktop_mobile_search_clients_monthly {
   dimension_group: submission {
     sql: ${TABLE}.submission_month ;;
     type: time
@@ -15,31 +10,6 @@ view: bizdev_search_core_users {
     ]
     convert_tz: no
     datatype: date
-  }
-
-  dimension: country {
-    type: string
-    sql: ${TABLE}.country ;;
-  }
-
-  dimension: device {
-    type: string
-    sql: ${TABLE}.device ;;
-  }
-
-  dimension: normalized_app_name {
-    type: string
-    sql: ${TABLE}.normalized_app_name ;;
-  }
-
-  dimension: os {
-    type: string
-    sql: ${TABLE}.os ;;
-  }
-
-  dimension: normalized_engine {
-    type: string
-    sql: ${TABLE}.normalized_engine ;;
   }
 
   dimension: ad_click_bucket {
@@ -59,28 +29,42 @@ view: bizdev_search_core_users {
           END ;;
   }
 
-  measure: searches {
+  dimension: tagged_follow_on {
+    hidden: yes
+  }
+
+  dimension: tagged_sap {
+    hidden: yes
+  }
+
+  measure: total_searches {
     type: sum
     sql: ${TABLE}.searches ;;
   }
 
-  measure: search_with_ads {
+  measure: total_search_with_ads {
     type: sum
     sql: ${TABLE}.search_with_ads ;;
   }
 
-  measure: ad_clicks {
+  measure: total_ad_clicks {
     type: sum
     sql: ${TABLE}.ad_click ;;
   }
 
-  measure: days_of_use {
+  measure: total_days_of_use {
     type: sum
     sql: ${TABLE}.days_of_use ;;
   }
 
   measure: clients {
     type: count_distinct
+    sql: ${TABLE}.client_id ;;
+  }
+
+  measure: approx_clients {
+    type: count_distinct
+    approximate: yes
     sql: ${TABLE}.client_id ;;
   }
 
