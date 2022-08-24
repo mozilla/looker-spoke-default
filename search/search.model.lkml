@@ -21,7 +21,7 @@ explore: business_development_core_search_users_monthly {
   aggregate_table: rollup__desktop_mobile_search_clients_monthly_last_month {
     query: {
       dimensions: [desktop_mobile_search_clients_monthly.days_of_use_bucket, desktop_mobile_search_clients_monthly.ad_click_bucket, desktop_mobile_search_clients_monthly.country, desktop_mobile_search_clients_monthly.normalized_engine, desktop_mobile_search_clients_monthly.submission_month]
-      measures: [desktop_mobile_search_clients_monthly.total_ad_clicks, desktop_mobile_search_clients_monthly.clients, desktop_mobile_search_clients_monthly.total_searches]
+      measures: [desktop_mobile_search_clients_monthly.total_ad_clicks, desktop_mobile_search_clients_monthly.approx_clients, desktop_mobile_search_clients_monthly.total_searches]
       filters: [
         desktop_mobile_search_clients_monthly.submission_month: "1 months ago for 1 months"
       ]
@@ -51,7 +51,7 @@ explore: business_development_core_search_users_monthly {
   aggregate_table: rollup__desktop_mobile_search_clients_monthly_ad_click_bucket {
     query: {
       dimensions: [desktop_mobile_search_clients_monthly.submission_month, desktop_mobile_search_clients_monthly.ad_click_bucket]
-      measures: [desktop_mobile_search_clients_monthly.clients]
+      measures: [desktop_mobile_search_clients_monthly.approx_clients]
       filters: [
         desktop_mobile_search_clients_monthly.country: "US",
         desktop_mobile_search_clients_monthly.normalized_engine: "Google"
