@@ -16,14 +16,14 @@ explore: +desktop_search_counts {
 explore: desktop_search_alert_latest_daily {}
 
 explore: business_development_core_search_users_monthly {
-  view_name: desktop_mobile_search_clients_monthly
+  view_name: bizdev_search_core_users
 
-  aggregate_table: rollup__desktop_mobile_search_clients_monthly_last_month {
+  aggregate_table: rollup__bizdev_search_core_users_last_month {
     query: {
-      dimensions: [desktop_mobile_search_clients_monthly.days_of_use_bucket, desktop_mobile_search_clients_monthly.ad_click_bucket, desktop_mobile_search_clients_monthly.country, desktop_mobile_search_clients_monthly.normalized_engine, desktop_mobile_search_clients_monthly.submission_month]
-      measures: [desktop_mobile_search_clients_monthly.total_ad_clicks, desktop_mobile_search_clients_monthly.approx_clients, desktop_mobile_search_clients_monthly.total_searches]
+      dimensions: [bizdev_search_core_users.days_of_use_bucket, bizdev_search_core_users.ad_click_bucket, bizdev_search_core_users.country, bizdev_search_core_users.normalized_engine, bizdev_search_core_users.submission_month]
+      measures: [bizdev_search_core_users.ad_clicks, bizdev_search_core_users.approx_clients, bizdev_search_core_users.searches]
       filters: [
-        desktop_mobile_search_clients_monthly.submission_month: "1 months ago for 1 months"
+        bizdev_search_core_users.submission_month: "1 months ago for 1 months"
       ]
     }
 
@@ -33,13 +33,13 @@ explore: business_development_core_search_users_monthly {
 
   }
 
-  aggregate_table: rollup__desktop_mobile_search_clients_monthly_clients {
+  aggregate_table: rollup__bizdev_search_core_users_clients {
     query: {
-      dimensions: [desktop_mobile_search_clients_monthly.submission_month, desktop_mobile_search_clients_monthly.days_of_use_bucket]
-      measures: [desktop_mobile_search_clients_monthly.approx_clients]
+      dimensions: [bizdev_search_core_users.submission_month, bizdev_search_core_users.days_of_use_bucket]
+      measures: [bizdev_search_core_users.approx_clients]
       filters: [
-        desktop_mobile_search_clients_monthly.country: "US",
-        desktop_mobile_search_clients_monthly.normalized_engine: "Google"
+        bizdev_search_core_users.country: "US",
+        bizdev_search_core_users.normalized_engine: "Google"
       ]
     }
 
@@ -48,13 +48,13 @@ explore: business_development_core_search_users_monthly {
     }
   }
 
-  aggregate_table: rollup__desktop_mobile_search_clients_monthly_ad_click_bucket {
+  aggregate_table: rollup__bizdev_search_core_users_ad_click_bucket {
     query: {
-      dimensions: [desktop_mobile_search_clients_monthly.submission_month, desktop_mobile_search_clients_monthly.ad_click_bucket]
-      measures: [desktop_mobile_search_clients_monthly.approx_clients]
+      dimensions: [bizdev_search_core_users.submission_month, bizdev_search_core_users.ad_click_bucket]
+      measures: [bizdev_search_core_users.approx_clients]
       filters: [
-        desktop_mobile_search_clients_monthly.country: "US",
-        desktop_mobile_search_clients_monthly.normalized_engine: "Google"
+        bizdev_search_core_users.country: "US",
+        bizdev_search_core_users.normalized_engine: "Google"
       ]
     }
 
