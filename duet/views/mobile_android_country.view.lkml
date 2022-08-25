@@ -19,10 +19,10 @@ view: mobile_android_country {
         play_store_updated,
         latest_date,
         date_sub(latest_date,
-          interval {% parameter.history_days %} * ({% parameter.period_offset %} + 1) - 1  day
+          interval {% parameter history_days %} * ({% parameter period_offset %} + 1) - 1  day
         ) as start_date,
         date_sub(latest_date,
-          interval {% parameter.history_days %} * {% parameter.period_offset %} day
+          interval {% parameter history_days %} * {% parameter period_offset %} day
         ) as end_date
       from last_updated
     ),
@@ -38,7 +38,7 @@ view: mobile_android_country {
           period
         WHERE
           Date BETWEEN start_date AND end_date
-          AND Package_name IN ('org.mozilla.{% parameter.app_id %}')
+          AND Package_name IN ('org.mozilla.{% parameter app_id %}')
         GROUP BY
           1, 2
       ),
@@ -55,7 +55,7 @@ view: mobile_android_country {
             period
           WHERE
             Date between start_date and end_date
-          AND Package_name IN ('org.mozilla.{% parameter.app_id %}')
+          AND Package_name IN ('org.mozilla.{% parameter app_id %}')
           GROUP BY 1, 2
       ),
       -- The set of play store countries is much smaller than the entire set of countries that we may
@@ -71,7 +71,7 @@ view: mobile_android_country {
               count(distinct case when coalesce(BIT_COUNT(days_seen_bits), 0) >= 5 then client_id end) as activated
           from
             {% if "firefox firefox_beta fenix" contains app_id._parameter_value %}
-                `moz-fx-data-shared-prod.org_mozilla_{% parameter.app_id %}_derived.baseline_clients_last_seen_v1`
+                `moz-fx-data-shared-prod.org_mozilla_{% parameter app_id %}_derived.baseline_clients_last_seen_v1`
             {% elsif "focus klar" contains app_id._parameter_value %}
                 `moz-fx-data-shared-prod.telemetry.core_clients_last_seen`
             {% endif %}
@@ -85,8 +85,8 @@ view: mobile_android_country {
             -- We'll overshoot the amount of time we need to filter by 3 days, in case the latest day is behind by
             -- more than a week. The number of days chosen is abitrary, the margin for fuzzing could be smaller.
             submission_date
-              between date_sub(current_date(), interval {% parameter.history_days %}*({% parameter.period_offset %}+1) + 7 + 3 day)
-              and date_sub(current_date(), interval {% parameter.history_days %}*{% parameter.period_offset %} day)
+              between date_sub(current_date(), interval {% parameter history_days %}*({% parameter period_offset %}+1) + 7 + 3 day)
+              and date_sub(current_date(), interval {% parameter history_days %}*{% parameter period_offset %} day)
             and first_seen_date between start_date and end_date
             and date_sub(submission_date, interval 7 day) = first_seen_date
             {% if app_id._parameter_value == "focus" %} and app_name = "Focus" and os = "Android"
