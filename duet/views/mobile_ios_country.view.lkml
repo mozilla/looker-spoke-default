@@ -16,10 +16,10 @@ view: mobile_ios_country {
           ios_store_updated,
           latest_date,
           date_sub(latest_date,
-            INTERVAL {% parameter.history_days %} * ({% parameter.period_offset %} + 1) - 1  day
+            INTERVAL {% parameter history_days %} * ({% parameter period_offset %} + 1) - 1  day
           ) AS start_date,
           date_sub(latest_date,
-            INTERVAL {% parameter.history_days %} * {% parameter.period_offset %} day
+            INTERVAL {% parameter history_days %} * {% parameter period_offset %} day
           ) AS end_date
         FROM
           last_updated
@@ -74,7 +74,7 @@ view: mobile_ios_country {
               END
             ) AS activated
           FROM
-            `moz-fx-data-shared-prod.org_mozilla_ios_{% parameter.app_name %}.baseline_clients_last_seen`
+            `moz-fx-data-shared-prod.org_mozilla_ios_{% parameter app_name %}.baseline_clients_last_seen`
           LEFT JOIN
             apple_countries
           USING
@@ -83,8 +83,8 @@ view: mobile_ios_country {
             period
           WHERE
             submission_date
-              BETWEEN date_sub(current_date(), INTERVAL {% parameter.history_days %}*({% parameter.period_offset %} + 1) + 7 day)
-              AND date_sub(current_date(), INTERVAL {% parameter.history_days %}*{% parameter.period_offset %} day)
+              BETWEEN date_sub(current_date(), INTERVAL {% parameter history_days %}*({% parameter period_offset %} + 1) + 7 day)
+              AND date_sub(current_date(), INTERVAL {% parameter history_days %}*{% parameter period_offset %} day)
             AND first_run_date
             BETWEEN start_date
             AND period.end_date
