@@ -84,4 +84,10 @@ view: bizdev_search_core_users {
     sql: ${TABLE}.client_id ;;
   }
 
+  measure: approx_clients {
+    type: count_distinct
+    approximate: yes
+    sql: ${TABLE}.client_id ;;
+  }
+
 }

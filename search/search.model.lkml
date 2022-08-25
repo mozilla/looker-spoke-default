@@ -21,7 +21,7 @@ explore: business_development_core_search_users_monthly {
   aggregate_table: rollup__bizdev_search_core_users_last_month {
     query: {
       dimensions: [bizdev_search_core_users.days_of_use_bucket, bizdev_search_core_users.ad_click_bucket, bizdev_search_core_users.country, bizdev_search_core_users.normalized_engine, bizdev_search_core_users.submission_month]
-      measures: [bizdev_search_core_users.ad_clicks, bizdev_search_core_users.clients, bizdev_search_core_users.searches]
+      measures: [bizdev_search_core_users.ad_clicks, bizdev_search_core_users.approx_clients, bizdev_search_core_users.searches]
       filters: [
         bizdev_search_core_users.submission_month: "1 months ago for 1 months"
       ]
@@ -36,7 +36,7 @@ explore: business_development_core_search_users_monthly {
   aggregate_table: rollup__bizdev_search_core_users_clients {
     query: {
       dimensions: [bizdev_search_core_users.submission_month, bizdev_search_core_users.days_of_use_bucket]
-      measures: [bizdev_search_core_users.clients]
+      measures: [bizdev_search_core_users.approx_clients]
       filters: [
         bizdev_search_core_users.country: "US",
         bizdev_search_core_users.normalized_engine: "Google"
@@ -51,7 +51,7 @@ explore: business_development_core_search_users_monthly {
   aggregate_table: rollup__bizdev_search_core_users_ad_click_bucket {
     query: {
       dimensions: [bizdev_search_core_users.submission_month, bizdev_search_core_users.ad_click_bucket]
-      measures: [bizdev_search_core_users.clients]
+      measures: [bizdev_search_core_users.approx_clients]
       filters: [
         bizdev_search_core_users.country: "US",
         bizdev_search_core_users.normalized_engine: "Google"
