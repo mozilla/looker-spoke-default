@@ -6,28 +6,16 @@ view: +automated_kpi_confidence_intervals {
     label: "Last Forecasted Date"
   }
 
-  dimension: date {
-    hidden: yes
-    sql: ${TABLE}.date ;;
-    }
-
   dimension_group: submission {
-    sql: CAST(${TABLE}.date as DATE) ;;
+    timeframes: [month]
     type: time
-    timeframes: [
-      date,
-      month,
-      month_name,
-      quarter,
-      year,
-    ]
     convert_tz: no
-    datatype: date
+    sql: CAST(${TABLE}.date AS DATE) ;;
   }
 
   dimension: forecast_date {
     label: "Forecast Run Date"
-    }
+  }
 
   dimension: value {
     hidden:  yes
@@ -36,7 +24,7 @@ view: +automated_kpi_confidence_intervals {
 
   measure: Estimated_Value {
     type: number
-    description: "Forecasted if after forecast date, observed if before."
+    description: "Forecasted if after forecast run date, observed if before. If forecasted, this is the average of the uncertainty samples."
     sql: SUM(CAST(${TABLE}.value as NUMERIC)) ;;
   }
 

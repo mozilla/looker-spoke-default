@@ -3,22 +3,18 @@ include: "//looker-hub/kpi/views/*"
 view: +automated_kpi_forecasts {
 
   dimension_group: ds {
-    label: "Submission"
-    sql: CAST(${TABLE}.ds as DATE) ;;
-    type: time
-    timeframes: [
-      date,
-      month,
-      month_name,
-      quarter,
-      year,
-    ]
+    hidden: yes
+  }
+
+  dimension: date {
+    label: "Submission Date"
+    type: date
     convert_tz: no
-    datatype: date
+    sql: CAST(${TABLE}.ds AS DATE) ;;
   }
 
   dimension: forecast_date {
-    label: "Date of Forecast"
+    label: "Forecast Run Date"
   }
 
   dimension: yhat {
