@@ -1,10 +1,10 @@
 view: crash_usage {
   sql_table_name: mozdata.telemetry.clients_daily ;;
 
-  # We use a Looker Filter so we can apply it directly to both crash_usage and crash views.
+  # We use a Looker Filter so we can apply it directly to both crash_usage and crashes_daily views.
   # Date filter predicate pushdown doesn't seem to be applied through the join (i.e.
   # when we filter on submission_date here, because we join on submission_date with
-  # the crashes view, we would expect the predicate filter to apply there as well.
+  # the crashes_daily view, we would expect the predicate filter to apply there as well.
   # But BQ doesn't realize it's a predicate filter through the join, and fails the query
   # since we require one on these tables)
   filter: date {
