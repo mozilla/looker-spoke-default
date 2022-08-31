@@ -6,8 +6,13 @@ view: +automated_kpi_confidence_intervals {
     label: "Last Forecasted Date"
   }
 
+  dimension: date {
+    hidden: yes
+  }
+
   dimension_group: submission {
     timeframes: [month]
+    datatype: date
     type: time
     convert_tz: no
     sql: CAST(${TABLE}.date AS DATE) ;;
