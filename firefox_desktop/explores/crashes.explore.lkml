@@ -11,7 +11,7 @@ explore: crash_usage {
     sql_on: ${crashes_daily.client_id} = ${crash_usage.client_id}
             AND ${crashes_daily.submission_date} = ${crash_usage.submission_date} ;;
     relationship: one_to_one
-    fields: []
+    fields: [main_crash_count, content_crash_count, gpu_crash_count, rdd_crash_count, utility_crash_count, socket_crash_count, vr_crash_count]
   }
 
   join: buildhub {

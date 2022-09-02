@@ -72,7 +72,7 @@ view: crash_usage {
 
   dimension: patch_version {
     type: number
-    sql: mozfun.norm.browser_version_info(${TABLE}.app_version).patch_version ;;
+    sql: mozfun.norm.browser_version_info(${TABLE}.app_version).patch_revision ;;
     description: "The patch version of the application, as a number."
     group_label: "Browser Version"
   }
@@ -88,6 +88,12 @@ view: crash_usage {
     type: string
     sql: ${TABLE}.app_build_id ;;
     description: "Build ID."
+  }
+
+  dimension: build_id_as_int {
+    type: number
+    sql: CAST(${TABLE}.app_build_id AS INTEGER) ;;
+    description: "Build ID, as an int. Useful for sorting."
   }
 
   dimension: os_name {
@@ -146,13 +152,13 @@ view: crash_usage {
 
   measure: main_crash_active_hours {
     type: number
-    sql: SUM(IF(crashes_daily.main_crash_count > 0, ${active_hours}, 0)) ;;
+    sql: SUM(IF(crashes_daily.main_crash_count > 0, ${active_hours_sum}, 0)) ;;
     hidden: yes
   }
 
   measure: main_crash_rate {
     type: number
-    sql: SAFE_DIVIDE(${main_crashes}, ${active_hours}) ;;
+    sql: SAFE_DIVIDE(${main_crashes}, ${main_crash_active_hours}) ;;
     group_label: "Crash Rate"
     group_item_label: "Main Process"
     description: "Total crashes, divided by number of usages hours of those who crashed (not overall)."
@@ -176,13 +182,13 @@ view: crash_usage {
 
   measure: content_crash_active_hours {
     type: number
-    sql: SUM(IF(crashes_daily.content_crash_count > 0, ${active_hours}, 0)) ;;
+    sql: SUM(IF(crashes_daily.content_crash_count > 0, ${active_hours_sum}, 0)) ;;
     hidden: yes
   }
 
   measure: content_crash_rate {
     type: number
-    sql: SAFE_DIVIDE(${content_crashes}, ${active_hours}) ;;
+    sql: SAFE_DIVIDE(${content_crashes}, ${content_crash_active_hours}) ;;
     group_label: "Crash Rate"
     group_item_label: "Content Process"
     description: "Total crashes, divided by number of usages hours of those who crashed (not overall)."
@@ -206,13 +212,13 @@ view: crash_usage {
 
   measure: gpu_crash_active_hours {
     type: number
-    sql: SUM(IF(crashes_daily.gpu_crash_count > 0, ${active_hours}, 0)) ;;
+    sql: SUM(IF(crashes_daily.gpu_crash_count > 0, ${active_hours_sum}, 0)) ;;
     hidden: yes
   }
 
   measure: gpu_crash_rate {
     type: number
-    sql: SAFE_DIVIDE(${gpu_crashes}, ${active_hours}) ;;
+    sql: SAFE_DIVIDE(${gpu_crashes}, ${gpu_crash_active_hours}) ;;
     group_label: "Crash Rate"
     group_item_label: "Gpu Process"
     description: "Total crashes, divided by number of usages hours of those who crashed (not overall)."
@@ -236,16 +242,24 @@ view: crash_usage {
 
   measure: socket_crash_active_hours {
     type: number
-    sql: SUM(IF(crashes_daily.socket_crash_count > 0, ${active_hours}, 0)) ;;
+    sql: SUM(IF(crashes_daily.socket_crash_count > 0, ${active_hours_sum}, 0)) ;;
     hidden: yes
   }
 
   measure: socket_crash_rate {
     type: number
-    sql: SAFE_DIVIDE(${socket_crashes}, ${active_hours}) ;;
+    sql: SAFE_DIVIDE(${socket_crashes}, ${socket_crash_active_hours}) ;;
     group_label: "Crash Rate"
     group_item_label: "Socket Process"
     description: "Total crashes, divided by number of usages hours of those who crashed (not overall)."
+  }
+
+  measure: socket_crash_incidence {
+    type: number
+    sql: SAFE_DIVIDE(COUNTIF(${crashes_daily.socket_crash_count} > 0), COUNT(${client_id})) ;;
+    group_label: "Crash Incidence"
+    group_item_label: "Socket Process"
+    description: "Proportion of DAU that experience a socket crash."
   }
 
   measure: rdd_crashes {
@@ -266,13 +280,13 @@ view: crash_usage {
 
   measure: rdd_crash_active_hours {
     type: number
-    sql: SUM(IF(crashes_daily.rdd_crash_count > 0, ${active_hours}, 0)) ;;
+    sql: SUM(IF(crashes_daily.rdd_crash_count > 0, ${active_hours_sum}, 0)) ;;
     hidden: yes
   }
 
   measure: rdd_crash_rate {
     type: number
-    sql: SAFE_DIVIDE(${rdd_crashes}, ${active_hours}) ;;
+    sql: SAFE_DIVIDE(${rdd_crashes}, ${rdd_crash_active_hours}) ;;
     group_label: "Crash Rate"
     group_item_label: "Rdd Process"
     description: "Total crashes, divided by number of usages hours of those who crashed (not overall)."
@@ -288,13 +302,13 @@ view: crash_usage {
 
   measure: utility_crash_active_hours {
     type: number
-    sql: SUM(IF(crashes_daily.utility_crash_count > 0, ${active_hours}, 0)) ;;
+    sql: SUM(IF(crashes_daily.utility_crash_count > 0, ${active_hours_sum}, 0)) ;;
     hidden: yes
   }
 
   measure: utility_crash_rate {
     type: number
-    sql: SAFE_DIVIDE(${utility_crashes}, ${active_hours}) ;;
+    sql: SAFE_DIVIDE(${utility_crashes}, ${utility_crash_active_hours}) ;;
     group_label: "Crash Rate"
     group_item_label: "Utility Process"
     description: "Total crashes, divided by number of usages hours of those who crashed (not overall)."
@@ -318,13 +332,13 @@ view: crash_usage {
 
   measure: vr_crash_active_hours {
     type: number
-    sql: SUM(IF(crashes_daily.vr_crash_count > 0, ${active_hours}, 0)) ;;
+    sql: SUM(IF(crashes_daily.vr_crash_count > 0, ${active_hours_sum}, 0)) ;;
     hidden: yes
   }
 
   measure: vr_crash_rate {
     type: number
-    sql: SAFE_DIVIDE(${vr_crashes}, ${active_hours}) ;;
+    sql: SAFE_DIVIDE(${vr_crashes}, ${vr_crash_active_hours}) ;;
     group_label: "Crash Rate"
     group_item_label: "VR Process"
     description: "Total crashes, divided by number of usages hours of those who crashed (not overall)."
@@ -346,12 +360,12 @@ view: buildhub {
       SELECT
           build.target.version,
           build.target.channel,
-          MIN(build.download.date) AS publish_date
+          MIN(build.download.date) AS publish_date,
       FROM
-        mozdata.telemetry.buildhub2
+          mozdata.telemetry.buildhub2
       GROUP BY
-        build.target.version,
-        build.target.channel
+          build.target.version,
+          build.target.channel
     ;;
   }
 
