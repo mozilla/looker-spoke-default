@@ -1,7 +1,7 @@
 connection: "telemetry"
 label: "Websites"
 
-include: "./views/*.view.lkml"
+include: "views/*"
 
 explore: blogs_daily_summary{}
 explore: blogs_landing_page_summary{}

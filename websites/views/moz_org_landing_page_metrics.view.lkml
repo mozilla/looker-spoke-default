@@ -22,7 +22,7 @@ view: +moz_org_landing_page_metrics {
   measure:  non_fx_downloads {
     label: "Non-Fx Download Count"
     type: sum
-    sql: ${TABLE}. non_fx_downloads;;
+    sql: ${TABLE}.non_fx_downloads;;
   }
 
   measure: pageviews {
