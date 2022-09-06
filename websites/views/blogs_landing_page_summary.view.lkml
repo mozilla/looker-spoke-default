@@ -1,27 +1,27 @@
 include: "//looker-hub/websites/views/blogs_landing_page_summary.view.lkml"
 
 view: +blogs_landing_page_summary {
-  measure: sessions {
-    label: "Sessions Count"
+  measure: sessions_sum {
+    label: "Sessions Sum"
     type: sum
-    sql: ${TABLE}.sessions;;
+    sql: ${sessions} ;;
   }
 
-  measure: downloads {
-    label: "Downloads Count"
+  measure: downloads_sum {
+    label: "Downloads Sum"
     type: sum
-    sql: ${TABLE}.downloads;;
+    sql: ${downloads} ;;
   }
 
-  measure: social_share {
-    label: "Social Share Count"
+  measure: social_shares_sum {
+    label: "Social Share Sum"
     type: sum
-    sql: ${TABLE}.social_share;;
+    sql: ${social_share} ;;
   }
 
-  measure: newsletter_subscription {
-    label: "Newsletter Subscription Count"
+  measure: newsletter_subscriptions_sum {
+    label: "Newsletter Subscription Sum"
     type: sum
-    sql: ${TABLE}.newsletter_subscription;;
+    sql: ${newsletter_subscription} ;;
   }
 }

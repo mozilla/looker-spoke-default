@@ -1,63 +1,63 @@
 include: "//looker-hub/websites/views/moz_org_page_metrics.view.lkml"
 
 view: +moz_org_page_metrics {
-  measure: pageviews {
-    label: "Page View Count"
+  measure: pageviews_sum {
+    label: "Page View Sum"
     type: sum
-    sql: ${TABLE}.pageviews;;
+    sql: ${pageviews} ;;
   }
 
-  measure: unique_pageviews {
-    label: "Unique Page View Count"
+  measure: unique_pageviews_sum {
+    label: "Unique Page View Sum"
     type: sum
-    sql: ${TABLE}.unique_pageviews;;
+    sql: ${unique_pageviews} ;;
   }
 
-  measure: entrances {
-    label: "Entrance Count"
+  measure: entrances_sum {
+    label: "Entrance Sum"
     type: sum
-    sql: ${TABLE}.entrances;;
+    sql: ${entrances} ;;
   }
 
-  measure: exits {
-    label: "Exit Count"
+  measure: exits_sum {
+    label: "Exit Sum"
     type: sum
-    sql: ${TABLE}.exits;;
+    sql: ${exits} ;;
   }
 
-  measure: non_exit_pageviews {
-    label: "Non-Exit Page View Count"
+  measure: non_exit_pageviews_sum {
+    label: "Non-Exit Page View Sum"
     type: sum
-    sql: ${TABLE}.non_exit_pageviews;;
+    sql: ${non_exit_pageviews} ;;
   }
 
-  measure: total_events {
-    label: "Total Event Count"
+  measure: total_events_sum {
+    label: "Total Event Sum"
     type: sum
-    sql: ${TABLE}.total_events;;
+    sql: ${total_events} ;;
   }
 
-  measure: unique_events {
-    label: "Unique Event Count"
+  measure: unique_events_sum {
+    label: "Unique Event Sum"
     type: sum
-    sql: ${TABLE}.unique_events;;
+    sql: ${unique_events} ;;
   }
 
-  measure: total_time_on_page {
+  measure: total_time_on_page_average {
     label: "Average Total Time on Page"
     type: average
-    sql: ${TABLE}.total_time_on_page;;
+    sql: ${total_time_on_page} ;;
   }
 
-  measure: single_page_sessions {
-    label: "Single Page Session Count"
+  measure: single_page_sessions_sum {
+    label: "Single Page Session Sum"
     type: sum
-    sql: ${TABLE}.single_page_sessions;;
+    sql: ${single_page_sessions} ;;
   }
 
-  measure: bounces {
-    label: "Bounce Count"
+  measure: bounces_sum {
+    label: "Bounce Sum"
     type: sum
-    sql: ${TABLE}.bounces;;
+    sql: ${bounces} ;;
   }
 }

@@ -1,27 +1,27 @@
-include: "//looker-hub/websites/views/moz_org_landing_page_metrics.view.lkml"
+include: "//looker-hub/websites/views/moz_org_metrics_summary.view.lkml"
 
-view: +moz_org_landing_page_metrics {
-  measure: sessions {
-    label: "Session Count"
+view: +moz_org_metrics_summary {
+  measure: sessions_sum {
+    label: "Session Sum"
     type: sum
-    sql: ${TABLE}.sessions;;
+    sql: ${sessions} ;;
   }
 
-  measure: non_fx_sessions {
-    label: "Non Fx session Count"
+  measure: non_fx_sessions_sum {
+    label: "Non Fx session Sum"
     type: sum
-    sql: ${TABLE}.non_fx_sessions;;
+    sql: ${non_fx_sessions} ;;
   }
 
-  measure: downloads {
-    label: "Download Count"
+  measure: downloads_sum {
+    label: "Download Sum"
     type: sum
-    sql: ${TABLE}.downloads;;
+    sql: ${downloads} ;;
   }
 
-  measure:  non_fx_downloads {
-    label: "Non-Fx Download Count"
+  measure:  non_fx_downloads_sum {
+    label: "Non-Fx Download Sum"
     type: sum
-    sql: ${TABLE}.non_fx_downloads;;
+    sql: ${non_fx_downloads} ;;
   }
 }

@@ -1,51 +1,51 @@
 include: "//looker-hub/websites/views/moz_org_landing_page_metrics.view.lkml"
 
 view: +moz_org_landing_page_metrics {
-  measure: sessions {
-    label: "Session Count"
+  measure: sessions_sum {
+    label: "Session Sum"
     type: sum
-    sql: ${TABLE}.sessions;;
+    sql: ${sessions} ;;
   }
 
-  measure: non_fx_sessions {
-    label: "Non Fx session Count"
+  measure: non_fx_sessions_sum {
+    label: "Non Fx session Sum"
     type: sum
-    sql: ${TABLE}.non_fx_sessions;;
+    sql: ${non_fx_sessions} ;;
   }
 
-  measure: downloads {
-    label: "Download Count"
+  measure: downloads_sum {
+    label: "Download Sum"
     type: sum
-    sql: ${TABLE}.downloads;;
+    sql: ${downloads} ;;
   }
 
-  measure:  non_fx_downloads {
-    label: "Non-Fx Download Count"
+  measure:  non_fx_downloads_sum {
+    label: "Non-Fx Download Sum"
     type: sum
-    sql: ${TABLE}.non_fx_downloads;;
+    sql: ${non_fx_downloads} ;;
   }
 
-  measure: pageviews {
-    label: "Page View Count"
+  measure: pageviews_sum {
+    label: "Page View Sum"
     type: sum
-    sql: ${TABLE}.pageviews;;
+    sql: ${pageviews} ;;
   }
 
-  measure: unique_pageviews {
-    label: "Unique Page View Count"
+  measure: unique_pageviews_sum {
+    label: "Unique Page View Sum"
     type: sum
-    sql: ${TABLE}.unique_pageviews;;
+    sql: ${unique_pageviews} ;;
   }
 
-  measure: bounces {
-    label: "Bounce Count"
+  measure: bounces_sum {
+    label: "Bounce Sum"
     type: sum
-    sql: ${TABLE}.bounces;;
+    sql: ${bounces} ;;
   }
 
-  measure: exits {
-    label: "Exit Count"
+  measure: exits_sum {
+    label: "Exit Sum"
     type: sum
-    sql: ${TABLE}.exits;;
+    sql: ${exits} ;;
   }
 }
