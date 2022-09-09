@@ -31,7 +31,7 @@
       \ that started their subscriptions in a particular month.  For example, cohort\
       \ 07-2020 includes all subscriptions that started in the month of July 2020.</li>\n\
       </ul>\n<br>\nPlease submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
-      >mozilla-vpn-data</a></b> channel on Slack for @wichan. \n</div>"
+      >mozilla-vpn-data</a></b> channel on Slack. \n</div>"
     row: 2
     col: 3
     width: 16
