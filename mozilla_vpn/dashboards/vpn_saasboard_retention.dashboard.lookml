@@ -215,7 +215,7 @@
     point_style: circle_outline
     show_value_labels: false
     label_density: 25
-    x_axis_scale: linear
+    x_axis_scale: auto
     y_axis_combined: true
     show_null_points: false
     interpolation: linear
@@ -270,7 +270,7 @@
       19 - retention_rate: Month 19
       20 - retention_rate: Month 20
       21 - retention_rate: Month 21
-    x_axis_datetime_label: ''
+    x_axis_datetime_label: "%m-%Y"
     x_axis_label_rotation: -45
     discontinuous_nulls: true
     show_sql_query_menu_options: false
