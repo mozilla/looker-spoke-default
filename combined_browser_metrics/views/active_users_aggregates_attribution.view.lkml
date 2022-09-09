@@ -58,6 +58,18 @@ view: +active_users_aggregates_attribution {
     sql: ${TABLE}.attribution_variation ;;
   }
 
+  dimension: install_source{
+    label: "Install Source"
+    type:  string
+    sql: COALESCE(${TABLE}.install_source, 'unknown') ;;
+  }
+
+  dimension: adjust_campaign{
+    label: "Adjust Campaign"
+    type:  string
+    sql: COALESCE(${TABLE}.adjust_campaign, 'unknown') ;;
+  }
+
   dimension: is_default_browser {
     type:  string
     case: {
