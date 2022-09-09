@@ -28,7 +28,7 @@
       \ date.\n</li>\n<li>\nNew subscriptions do not include trial subscriptions unless\
       \ specified.\n</li>\n</ul>\n<br>\n\nPlease submit any questions in  <b><a href=\"\
       https://mozilla.slack.com/messages/mozilla-vpn-data/\">mozilla-vpn-data</a></b>\
-      \ channel on Slack for @wichan. \n\n</div>"
+      \ channel on Slack. \n\n</div>"
     row: 2
     col: 3
     width: 16

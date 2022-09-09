@@ -133,7 +133,7 @@
       \ the current state and monthly trend of <strong>active subscriptions</strong>.\n\
       \n<ul>\n<li>\nActive subscriptions are paid subscriptions at a moment in time.\
       \  \n</li>\n</ul>\n<br>\n\nPlease submit any questions in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\"\
-      >mozilla-vpn-data</a></b> channel on Slack for @wichan. \n\n</div>"
+      >mozilla-vpn-data</a></b> channel on Slack. \n\n</div>"
     row: 2
     col: 3
     width: 16

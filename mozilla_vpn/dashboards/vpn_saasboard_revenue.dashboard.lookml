@@ -109,7 +109,7 @@
       <br>\nRevenue from Apple Store is inflated because VAT rates and exchange rates\
       \ were not considered.\n<br>\n<br>\n<br>\n<br>\nPlease submit any questions\
       \ in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\">mozilla-vpn-data</a></b>\
-      \ channel on Slack for @wichan. \n\n</p>"
+      \ channel on Slack. \n\n</p>"
     row: 2
     col: 3
     width: 15

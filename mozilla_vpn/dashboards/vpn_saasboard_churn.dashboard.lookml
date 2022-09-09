@@ -33,7 +33,7 @@
       \  <li>Churn Rate is not defined for 0 months since subscription started, because\
       \ there is no previous month.</li>\n</ul>\n<br>\n\nPlease submit any questions\
       \ in  <b><a href=\"https://mozilla.slack.com/messages/mozilla-vpn-data/\">mozilla-vpn-data</a></b>\
-      \ channel on Slack for @wichan. \n\n</div>"
+      \ channel on Slack. \n\n</div>"
     row: 3
     col: 3
     width: 16
