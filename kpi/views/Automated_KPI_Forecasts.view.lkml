@@ -7,7 +7,7 @@ view: +automated_kpi_forecasts {
   }
 
   dimension_group: submission {
-    timeframes: [date]
+    timeframes: [date, year]
     datatype: date
     type: time
     convert_tz: no

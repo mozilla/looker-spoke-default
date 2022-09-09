@@ -11,7 +11,7 @@ view: +automated_kpi_confidence_intervals {
   }
 
   dimension_group: submission {
-    timeframes: [month]
+    timeframes: [month, month_name, year]
     datatype: date
     type: time
     convert_tz: no
