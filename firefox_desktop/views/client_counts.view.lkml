@@ -1,4 +1,5 @@
 include: "//looker-hub/firefox_desktop/views/client_counts.view"
+
 view: +client_counts {
   dimension: primary_key {
     hidden: yes
