@@ -2,6 +2,8 @@ include: "//looker-hub/kpi/views/*"
 include: "/kpi/views/*"
 
 explore: automated_KPI_forecasts {
+  label: "Automated KPI Forecasts: Daily Data"
+  description: "This contains daily forecast output only. Aggregations to other time intervals are supported via the Automated KPI Confidence Intervals Explore."
   view_name: automated_kpi_forecasts
 
   always_filter: {

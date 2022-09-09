@@ -6,9 +6,10 @@ view: +automated_kpi_forecasts {
     hidden: yes
   }
 
-  dimension: date {
-    label: "Submission Date"
-    type: date
+  dimension_group: submission {
+    timeframes: [date, year]
+    datatype: date
+    type: time
     convert_tz: no
     sql: CAST(${TABLE}.ds AS DATE) ;;
   }
