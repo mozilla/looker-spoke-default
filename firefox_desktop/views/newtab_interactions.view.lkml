@@ -160,7 +160,7 @@ view: newtab_interactions_table_tmp {
     datatype: date
   }
 
-  sql_table_name: `moz-dx-data-shared-prod.analysis.newtab_interactions` ;;
+  sql_table_name: `moz-fx-data-shared-prod.analysis.newtab_interactions` ;;
 }
 
 view: newtab_interactions_table__experiments_tmp {
