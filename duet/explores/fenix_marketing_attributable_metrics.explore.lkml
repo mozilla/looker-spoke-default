@@ -2,7 +2,7 @@ include: "../views/fenix_marketing_attributable_metrics.view.lkml"
 include: "/shared/views/*"
 
 explore: fenix_marketing_metrics {
-  label: "Marketing metrics for Android"
+  label: "Marketing Metrics for Android"
   description: "Android metrics segmented by Marketing campaign attribution."
   view_name: fenix_marketing_metrics
 
