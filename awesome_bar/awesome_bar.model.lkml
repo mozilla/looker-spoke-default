@@ -1,6 +1,6 @@
 connection: "telemetry"
 label: "Awesome Bar"
-include: "//looker-hub/awesome_bar/views/*"
+include: "views/*"
 include: "//looker-hub/awesome_bar/explores/*"
 
 view: +urlbar_clients_daily {
