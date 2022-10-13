@@ -60,91 +60,115 @@ view: fxa_flow_aggregates {
       FROM flow_agg
       GROUP BY 1,2,3,4,5,6,7,8,9,10;;
   }
-
-  dimension: flow_start_date {
-    type: date
+  dimension_group: flow_start {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
     datatype: date
-    sql: ${TABLE}.flow_start_date ;;
+    sql: DATE(${TABLE}.flow_start_date);;
   }
 
   dimension: entrypoint {
     type: string
     sql: ${TABLE}.entrypoint ;;
+    description: "The Entrypoint Parameter Passed to FxA"
   }
 
   dimension: utm_source {
     type: string
     sql: ${TABLE}.utm_source ;;
+    description: "The UTM Source Parameter Passed to FxA"
   }
 
   dimension: utm_medium {
     type: string
     sql: ${TABLE}.utm_medium ;;
+    description: "The UTM Medium Parameter Passed to FxA"
   }
 
   dimension: utm_term {
     type: string
     sql: ${TABLE}.utm_term ;;
+    description: "The UTM Term Parameter Passed to FxA"
   }
 
   dimension: utm_campaign {
     type: string
     sql: ${TABLE}.utm_campaign ;;
+    description: "The UTM Campaign Parameter Passed to FxA"
   }
 
   dimension: country {
     type: string
     sql: ${TABLE}.country ;;
+    description: "Full Country Name"
   }
 
   dimension: browser_name {
     type: string
     sql: ${TABLE}.browser_name ;;
+    description: "From The User Agent"
   }
 
   dimension: browser_version {
     type: string
     sql: ${TABLE}.browser_version ;;
+    description: "From The User Agent"
   }
 
   dimension: os_name {
     type: string
     sql: ${TABLE}.os_name ;;
+    description: "From The User Agent"
   }
 
   measure: total_flows_started {
     type: sum
     sql: ${TABLE}.total_flows_started ;;
+    description: "Total Unique Flow IDs"
   }
 
   measure: emails_submitted {
     type: sum
     sql: ${TABLE}.emails_submitted ;;
+    description: "Total Unique Flow IDs submitting Email (First FxA Step)"
   }
 
   measure: emails_engaged {
     type: sum
     sql: ${TABLE}.emails_engaged ;;
+    description: "Total Unique Flow IDs engaging Email Form (First FxA Step)"
   }
 
   measure: registrations_started {
     type: sum
     sql: ${TABLE}.registrations_started ;;
+    description: "Total Unique Flow IDs starting registration (new accounts), after email submission"
   }
 
   measure: logins_started {
     type: sum
     sql: ${TABLE}.logins_started ;;
+    description: "Total Unique Flow IDs starting login (existing accounts), after email submission"
   }
 
   measure: registrations_complete {
     type: sum
     sql: ${TABLE}.registrations_complete ;;
+    description: "Total Unique Flow IDs finishing registration (new accounts)"
   }
 
   measure: logins_complete {
     type: sum
     sql: ${TABLE}.logins_complete ;;
+    description: "Total Unique Flow IDs finishing login (existing accounts)"
   }
 
 }
