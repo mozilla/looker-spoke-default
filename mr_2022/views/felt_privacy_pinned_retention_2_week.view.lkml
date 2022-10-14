@@ -54,7 +54,7 @@ view: felt_privacy_pinned_retention_2_week {
 
   measure: remained_pinned_rate {
     type: number
-    sql: ${TABLE}.remained_pinned_rate ;;
+    sql: avg(${TABLE}.remained_pinned_rate) ;;
     description: "Out of the users pinned during the previous 7 days, what fraction remained pinned at the end of the next 14 days"
   }
 
