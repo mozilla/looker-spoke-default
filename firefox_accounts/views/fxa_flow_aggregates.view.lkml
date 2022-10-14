@@ -29,14 +29,36 @@ view: fxa_flow_aggregates {
 
       flow_agg AS (
         SELECT
-          f.*,
-          event_type,
+          f.flow_id,
+          f.entrypoint,
+          f.utm_source,
+          f.utm_medium,
+          f.utm_term,
+          f.utm_campaign,
+          f.country,
+          f.browser_name,
+          f.browser_version,
+          f.os_name,
+          f.flow_start_date,
+          e.event_type,
           COUNT(*) as n_events
         FROM flow_ids f
         LEFT JOIN firefox_accounts.fxa_content_auth_oauth_events e
         USING(flow_id)
         WHERE DATE(e.timestamp) >= DATE(2022,9,1)
-      GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12
+      GROUP BY
+          f.flow_id,
+          f.entrypoint,
+          f.utm_source,
+          f.utm_medium,
+          f.utm_term,
+          f.utm_campaign,
+          f.country,
+          f.browser_name,
+          f.browser_version,
+          f.os_name,
+          f.flow_start_date,
+          e.event_type
       )
 
       SELECT
