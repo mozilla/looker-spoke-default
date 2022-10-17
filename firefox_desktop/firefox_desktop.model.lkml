@@ -1,6 +1,7 @@
 connection: "telemetry"
 
 include: "//looker-hub/firefox_desktop/views/*.view.lkml"
+include: "/mr_2022/views/*.view.lkml"
 include: "//looker-hub/firefox_desktop/explores/*.explore.lkml"
 include: "explores/*.explore.lkml"
 include: "views/*.view.lkml"
@@ -19,6 +20,12 @@ explore: +client_counts {
       client_counts.submission_date: "7 days",
       client_counts.sample_id: "0"
     ]
+  }
+  join: felt_privacy_pinned_retention_2_week {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${client_counts.client_id} = ${felt_privacy_pinned_retention_2_week.client_id} AND ${client_counts.submission_date} = ${felt_privacy_pinned_retention_2_week.submission_date};;
+
   }
 }
 
