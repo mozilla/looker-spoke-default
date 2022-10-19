@@ -18,7 +18,7 @@ explore: crash_usage {
     sql_on: ${crash_usage.country_code} = ${countries.code} ;;
   }
 
-  sql_always_where: ${crash_usage.submission_date} >= "2022-09-01" ;;
+  sql_always_where: ${crash_usage.submission_date} >= "2021-01-01" ;;
 
   always_filter: {
     filters: [
