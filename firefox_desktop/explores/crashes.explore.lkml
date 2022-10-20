@@ -1,10 +1,20 @@
 include: "../views/crash_usage.view.lkml"
 include: "/shared/views/countries.view.lkml"
 
+datagroup: clients_daily_joined_partitions {
+  max_cache_age: "24 hours"
+  sql_trigger:
+    SELECT MAX(last_modified_time)
+    FROM `moz-fx-data-shared-prod`.telemetry_derived.INFORMATION_SCHEMA.PARTITIONS
+    WHERE table_name = "clients_daily_joined_v1" ;;
+  label: "Clients Daily Joined Partitions"
+  description: "Updates when new partitions are added to clients_daily_joined"
+}
 
 explore: crash_usage {
   label: "Crashes"
   description: "Crash counts for Desktop Firefox, derived from the crash ping."
+  persist_with: clients_daily_joined_partitions
 
   join: buildhub {
     sql_on: ${crash_usage.version} = ${buildhub.version} AND ${crash_usage.channel} = ${buildhub.channel} ;;
@@ -67,7 +77,7 @@ explore: crash_usage {
       ]
     }
     materialization: {
-      sql_trigger_value: SELECT MAX(submission_date) FROM `moz-fx-data-shared-prod`.telemetry_derived.clients_daily_joined_v1 ;;
+      datagroup_trigger: clients_daily_joined_partitions
       increment_key: "submission_date"
     }
   }
@@ -98,7 +108,10 @@ explore: crash_usage {
     }
 
     materialization: {
-      sql_trigger_value: SELECT MAX(submission_date) FROM `moz-fx-data-shared-prod`.telemetry_derived.clients_daily_joined_v1 ;;
+      sql_trigger_value:
+        SELECT MAX(last_modified_time)
+        FROM `moz-fx-data-shared-prod`.telemetry_derived.INFORMATION_SCHEMA.PARTITIONS
+        WHERE table_name = "clients_daily_joined_v1" ;;
     }
   }
 
@@ -142,7 +155,7 @@ explore: crash_usage {
       ]
     }
     materialization: {
-      sql_trigger_value: SELECT MAX(submission_date) FROM `moz-fx-data-shared-prod`.telemetry_derived.clients_daily_joined_v1 ;;
+      datagroup_trigger: clients_daily_joined_partitions
       increment_key: "submission_date"
     }
   }
@@ -174,7 +187,7 @@ explore: crash_usage {
     }
 
     materialization: {
-      sql_trigger_value: SELECT MAX(submission_date) FROM `moz-fx-data-shared-prod`.telemetry_derived.clients_daily_joined_v1 ;;
+      datagroup_trigger: clients_daily_joined_partitions
     }
   }
 
@@ -219,7 +232,7 @@ explore: crash_usage {
       ]
     }
     materialization: {
-      sql_trigger_value: SELECT MAX(submission_date) FROM `moz-fx-data-shared-prod`.telemetry_derived.clients_daily_joined_v1 ;;
+      datagroup_trigger: clients_daily_joined_partitions
       increment_key: "submission_date"
     }
   }
@@ -251,7 +264,7 @@ explore: crash_usage {
     }
 
     materialization: {
-      sql_trigger_value: SELECT MAX(submission_date) FROM `moz-fx-data-shared-prod`.telemetry_derived.clients_daily_joined_v1 ;;
+      datagroup_trigger: clients_daily_joined_partitions
     }
   }
 }
