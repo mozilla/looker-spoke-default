@@ -56,8 +56,6 @@ view: newtab_interactions {
     hidden: yes
   }
 
-  # POCKET
-
   dimension: pocket_impressions {
     hidden: yes
   }
@@ -87,8 +85,6 @@ view: newtab_interactions {
   }
 
   dimension: sponsored_pocket_saves {
-    sql: ${TABLE}.sponsored_pocket_saves ;;
-    type: number
     hidden: yes
   }
 
