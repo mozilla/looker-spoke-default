@@ -1,22 +1,5 @@
 view: crash_usage {
-  sql_table_name: mozdata.telemetry.clients_daily ;;
-
-  # We use a Looker Filter so we can apply it directly to both crash_usage and crashes_daily views.
-  # Date filter predicate pushdown doesn't seem to be applied through the join (i.e.
-  # when we filter on submission_date here, because we join on submission_date with
-  # the crashes_daily view, we would expect the predicate filter to apply there as well.
-  # But BQ doesn't realize it's a predicate filter through the join, and fails the query
-  # since we require one on these tables)
-  filter: date {
-    type: date
-    default_value: "28 days"
-    description: "Submission date (date that we received the associated crash or usage data from the client)."
-  }
-
-  filter: sample_id {
-    type: number
-    description: "Sample ID to filter on. Use this to speed up iterative analysis."
-  }
+  sql_table_name: `moz-fx-data-shared-prod`.telemetry_derived.clients_daily_joined_v1 ;;
 
   dimension: client_id {
     type: string
@@ -24,7 +7,13 @@ view: crash_usage {
     hidden: yes
   }
 
-  dimension: sample_id_dim {
+  dimension: ten_percent_sample {
+    type: yesno
+    sql: ${sample_id} < 10 ;;
+    description: "Is part of the ten percent sample?"
+  }
+
+  dimension: sample_id {
     type: number
     sql: ${TABLE}.sample_id ;;
     hidden: yes
@@ -32,7 +21,7 @@ view: crash_usage {
 
   dimension: submission_date {
     type: date
-    sql: ${TABLE}.submission_date ;;
+    sql: CAST(${TABLE}.submission_date AS TIMESTAMP);;
     description: "Submission date of the crash"
   }
 
@@ -130,10 +119,9 @@ view: crash_usage {
     description: "Total active hours for this client on this day, derived from active tickets (see the probe dictionary for details)."
   }
 
-  measure: client_count {
-    type: count_distinct
-    sql: ${client_id} ;;
-    description: "Count of unique profiles."
+  measure: dau_count {
+    type: count
+    description: "Count of unique Daily Active Users (DAU)."
   }
 
   measure: active_hours {
@@ -142,18 +130,29 @@ view: crash_usage {
     description: "Total active hours, derived from active ticks (see the probe dictionary for details)."
   }
 
+  dimension: main_crash_count {
+    type: number
+    sql: ${TABLE}.main_crash_count ;;
+    group_label: "Client Crash Count"
+    group_item_label: "Main Process"
+    description: "Number of Main crashes by a single client. Filter on this field to remove clients with large numbers of crashes."
+  }
+
   measure: main_crashes {
     type: sum
-    sql: ${crashes_daily.main_crash_count} ;;
-    group_label: "Crash Count"
+    sql: ${main_crash_count} ;;
+    group_label: "Total Crash Count"
     group_item_label: "Main Process"
     description: "Total count of Main crashes."
   }
 
   measure: main_crash_active_hours {
-    type: number
-    sql: SUM(IF(crashes_daily.main_crash_count > 0, ${active_hours_sum}, 0)) ;;
-    hidden: yes
+    type: sum
+    sql: ${active_hours_sum} ;;
+    filters: [
+      main_crash_count: ">0"
+    ]
+    #hidden: yes
   }
 
   measure: main_crash_rate {
@@ -164,25 +163,46 @@ view: crash_usage {
     description: "Total crashes, divided by number of usages hours of those who crashed (not overall)."
   }
 
+  measure: main_crash_dau_count {
+    type: count
+    group_label: "Crashed DAU"
+    group_item_label: "Main Process"
+    description: "Number of DAU who experienced at least one Main crash"
+    filters: [
+      main_crash_count: ">0"
+    ]
+  }
+
   measure: main_crash_incidence {
     type: number
-    sql: SAFE_DIVIDE(COUNTIF(${crashes_daily.main_crash_count} > 0), COUNT(${client_id})) ;;
+    sql: SAFE_DIVIDE(${main_crash_dau_count}, ${dau_count}) ;;
     group_label: "Crash Incidence"
     group_item_label: "Main Process"
-    description: "Proportion of DAU that experience a main crash."
+    description: "Proportion of DAU that experience a Main crash."
+  }
+
+  dimension: content_crash_count {
+    type: number
+    sql: ${TABLE}.content_crash_count ;;
+    group_label: "Client Crash Count"
+    group_item_label: "Content Process"
+    description: "Number of Content crashes by a single client. Filter on this field to remove clients with large numbers of crashes."
   }
 
   measure: content_crashes {
     type: sum
-    sql: ${crashes_daily.content_crash_count} ;;
-    group_label: "Crash Count"
+    sql: ${content_crash_count} ;;
+    group_label: "Total Crash Count"
     group_item_label: "Content Process"
-    description: "Total count of content crashes."
+    description: "Total count of Content crashes."
   }
 
   measure: content_crash_active_hours {
-    type: number
-    sql: SUM(IF(crashes_daily.content_crash_count > 0, ${active_hours_sum}, 0)) ;;
+    type: sum
+    sql: ${active_hours_sum} ;;
+    filters: [
+      content_crash_count: ">0"
+    ]
     hidden: yes
   }
 
@@ -194,25 +214,46 @@ view: crash_usage {
     description: "Total crashes, divided by number of usages hours of those who crashed (not overall)."
   }
 
+  measure: content_crash_dau_count {
+    type: count
+    group_label: "Crashed DAU"
+    group_item_label: "Content Process"
+    description: "Number of DAU who experienced at least one Content crash"
+    filters: [
+      content_crash_count: ">0"
+    ]
+  }
+
   measure: content_crash_incidence {
     type: number
-    sql: SAFE_DIVIDE(COUNTIF(${crashes_daily.content_crash_count} > 0), COUNT(${client_id})) ;;
+    sql: SAFE_DIVIDE(${content_crash_dau_count}, ${dau_count}) ;;
     group_label: "Crash Incidence"
     group_item_label: "Content Process"
-    description: "Proportion of DAU that experience a content crash."
+    description: "Proportion of DAU that experience a Content crash."
+  }
+
+  dimension: gpu_crash_count {
+    type: number
+    sql: ${TABLE}.gpu_crash_count ;;
+    group_label: "Client Crash Count"
+    group_item_label: "GPU Process"
+    description: "Number of GPU crashes by a single client. Filter on this field to remove clients with large numbers of crashes."
   }
 
   measure: gpu_crashes {
     type: sum
-    sql: ${crashes_daily.gpu_crash_count} ;;
-    group_label: "Crash Count"
-    group_item_label: "Gpu Process"
-    description: "Total count of gpu crashes."
+    sql: ${gpu_crash_count} ;;
+    group_label: "Total Crash Count"
+    group_item_label: "GPU Process"
+    description: "Total count of GPU crashes."
   }
 
   measure: gpu_crash_active_hours {
-    type: number
-    sql: SUM(IF(crashes_daily.gpu_crash_count > 0, ${active_hours_sum}, 0)) ;;
+    type: sum
+    sql: ${active_hours_sum} ;;
+    filters: [
+      gpu_crash_count: ">0"
+    ]
     hidden: yes
   }
 
@@ -220,29 +261,101 @@ view: crash_usage {
     type: number
     sql: SAFE_DIVIDE(${gpu_crashes}, ${gpu_crash_active_hours}) ;;
     group_label: "Crash Rate"
-    group_item_label: "Gpu Process"
+    group_item_label: "GPU Process"
     description: "Total crashes, divided by number of usages hours of those who crashed (not overall)."
+  }
+
+  measure: gpu_crash_dau_count {
+    type: count
+    group_label: "Crashed DAU"
+    group_item_label: "GPU Process"
+    description: "Number of DAU who experienced at least one GPU crash"
+    filters: [
+      gpu_crash_count: ">0"
+    ]
   }
 
   measure: gpu_crash_incidence {
     type: number
-    sql: SAFE_DIVIDE(COUNTIF(${crashes_daily.gpu_crash_count} > 0), COUNT(${client_id})) ;;
+    sql: SAFE_DIVIDE(${gpu_crash_dau_count}, ${dau_count}) ;;
     group_label: "Crash Incidence"
-    group_item_label: "Gpu Process"
-    description: "Proportion of DAU that experience a gpu crash."
+    group_item_label: "GPU Process"
+    description: "Proportion of DAU that experience a GPU crash."
+  }
+
+  dimension: rdd_crash_count {
+    type: number
+    sql: ${TABLE}.rdd_crash_count ;;
+    group_label: "Client Crash Count"
+    group_item_label: "RDD Process"
+    description: "Number of RDD crashes by a single client. Filter on this field to remove clients with large numbers of crashes."
+  }
+
+  measure: rdd_crashes {
+    type: sum
+    sql: ${rdd_crash_count} ;;
+    group_label: "Total Crash Count"
+    group_item_label: "RDD Process"
+    description: "Total count of RDD crashes."
+  }
+
+  measure: rdd_crash_active_hours {
+    type: sum
+    sql: ${active_hours_sum} ;;
+    filters: [
+      rdd_crash_count: ">0"
+    ]
+    hidden: yes
+  }
+
+  measure: rdd_crash_rate {
+    type: number
+    sql: SAFE_DIVIDE(${rdd_crashes}, ${rdd_crash_active_hours}) ;;
+    group_label: "Crash Rate"
+    group_item_label: "RDD Process"
+    description: "Total crashes, divided by number of usages hours of those who crashed (not overall)."
+  }
+
+  measure: rdd_crash_dau_count {
+    type: count
+    group_label: "Crashed DAU"
+    group_item_label: "RDD Process"
+    description: "Number of DAU who experienced at least one RDD crash"
+    filters: [
+      rdd_crash_count: ">0"
+    ]
+  }
+
+  measure: rdd_crash_incidence {
+    type: number
+    sql: SAFE_DIVIDE(${rdd_crash_dau_count}, ${dau_count}) ;;
+    group_label: "Crash Incidence"
+    group_item_label: "RDD Process"
+    description: "Proportion of DAU that experience a RDD crash."
+  }
+
+  dimension: socket_crash_count {
+    type: number
+    sql: ${TABLE}.socket_crash_count ;;
+    group_label: "Client Crash Count"
+    group_item_label: "Socket Process"
+    description: "Number of Socket crashes by a single client. Filter on this field to remove clients with large numbers of crashes."
   }
 
   measure: socket_crashes {
     type: sum
-    sql: ${crashes_daily.socket_crash_count} ;;
-    group_label: "Crash Count"
+    sql: ${socket_crash_count} ;;
+    group_label: "Total Crash Count"
     group_item_label: "Socket Process"
-    description: "Total count of socket crashes."
+    description: "Total count of Socket crashes."
   }
 
   measure: socket_crash_active_hours {
-    type: number
-    sql: SUM(IF(crashes_daily.socket_crash_count > 0, ${active_hours_sum}, 0)) ;;
+    type: sum
+    sql: ${active_hours_sum} ;;
+    filters: [
+      socket_crash_count: ">0"
+    ]
     hidden: yes
   }
 
@@ -254,55 +367,46 @@ view: crash_usage {
     description: "Total crashes, divided by number of usages hours of those who crashed (not overall)."
   }
 
+  measure: socket_crash_dau_count {
+    type: count
+    group_label: "Crashed DAU"
+    group_item_label: "Socket Process"
+    description: "Number of DAU who experienced at least one Socket crash"
+    filters: [
+      socket_crash_count: ">0"
+    ]
+  }
+
   measure: socket_crash_incidence {
     type: number
-    sql: SAFE_DIVIDE(COUNTIF(${crashes_daily.socket_crash_count} > 0), COUNT(${client_id})) ;;
+    sql: SAFE_DIVIDE(${socket_crash_dau_count}, ${dau_count}) ;;
     group_label: "Crash Incidence"
     group_item_label: "Socket Process"
-    description: "Proportion of DAU that experience a socket crash."
+    description: "Proportion of DAU that experience a Socket crash."
   }
 
-  measure: rdd_crashes {
-    type: sum
-    sql: ${crashes_daily.rdd_crash_count} ;;
-    group_label: "Crash Count"
-    group_item_label: "Rdd Process"
-    description: "Total count of rdd crashes."
-  }
-
-  measure: rdd_crash_incidence {
+  dimension: utility_crash_count {
     type: number
-    sql: SAFE_DIVIDE(COUNTIF(${crashes_daily.rdd_crash_count} > 0), COUNT(${client_id})) ;;
-    group_label: "Crash Incidence"
-    group_item_label: "Rdd Process"
-    description: "Proportion of DAU that experience a rdd crash."
-  }
-
-  measure: rdd_crash_active_hours {
-    type: number
-    sql: SUM(IF(crashes_daily.rdd_crash_count > 0, ${active_hours_sum}, 0)) ;;
-    hidden: yes
-  }
-
-  measure: rdd_crash_rate {
-    type: number
-    sql: SAFE_DIVIDE(${rdd_crashes}, ${rdd_crash_active_hours}) ;;
-    group_label: "Crash Rate"
-    group_item_label: "Rdd Process"
-    description: "Total crashes, divided by number of usages hours of those who crashed (not overall)."
+    sql: ${TABLE}.utility_crash_count ;;
+    group_label: "Client Crash Count"
+    group_item_label: "Utility Process"
+    description: "Number of Utility crashes by a single client. Filter on this field to remove clients with large numbers of crashes."
   }
 
   measure: utility_crashes {
     type: sum
-    sql: ${crashes_daily.utility_crash_count} ;;
-    group_label: "Crash Count"
+    sql: ${utility_crash_count} ;;
+    group_label: "Total Crash Count"
     group_item_label: "Utility Process"
-    description: "Total count of utility crashes."
+    description: "Total count of Utility crashes."
   }
 
   measure: utility_crash_active_hours {
-    type: number
-    sql: SUM(IF(crashes_daily.utility_crash_count > 0, ${active_hours_sum}, 0)) ;;
+    type: sum
+    sql: ${active_hours_sum} ;;
+    filters: [
+      utility_crash_count: ">0"
+    ]
     hidden: yes
   }
 
@@ -314,25 +418,46 @@ view: crash_usage {
     description: "Total crashes, divided by number of usages hours of those who crashed (not overall)."
   }
 
+  measure: utility_crash_dau_count {
+    type: count
+    group_label: "Crashed DAU"
+    group_item_label: "Utility Process"
+    description: "Number of DAU who experienced at least one Utility crash"
+    filters: [
+      utility_crash_count: ">0"
+    ]
+  }
+
   measure: utility_crash_incidence {
     type: number
-    sql: SAFE_DIVIDE(COUNTIF(${crashes_daily.utility_crash_count} > 0), COUNT(${client_id})) ;;
+    sql: SAFE_DIVIDE(${utility_crash_dau_count}, ${dau_count}) ;;
     group_label: "Crash Incidence"
     group_item_label: "Utility Process"
-    description: "Proportion of DAU that experience a utility crash."
+    description: "Proportion of DAU that experience a Utility crash."
+  }
+
+  dimension: vr_crash_count {
+    type: number
+    sql: ${TABLE}.vr_crash_count ;;
+    group_label: "Client Crash Count"
+    group_item_label: "VR Process"
+    description: "Number of VR crashes by a single client. Filter on this field to remove clients with large numbers of crashes."
   }
 
   measure: vr_crashes {
     type: sum
-    sql: ${crashes_daily.vr_crash_count} ;;
-    group_label: "Crash Count"
+    sql: ${vr_crash_count} ;;
+    group_label: "Total Crash Count"
     group_item_label: "VR Process"
     description: "Total count of vr crashes."
   }
 
   measure: vr_crash_active_hours {
-    type: number
-    sql: SUM(IF(crashes_daily.vr_crash_count > 0, ${active_hours_sum}, 0)) ;;
+    type: sum
+    sql: ${active_hours_sum} ;;
+    filters: [
+      vr_crash_count: ">0"
+    ]
     hidden: yes
   }
 
@@ -344,14 +469,23 @@ view: crash_usage {
     description: "Total crashes, divided by number of usages hours of those who crashed (not overall)."
   }
 
+  measure: vr_crash_dau_count {
+    type: count
+    group_label: "Crashed DAU"
+    group_item_label: "VR Process"
+    description: "Number of DAU who experienced at least one VR crash"
+    filters: [
+      vr_crash_count: ">0"
+    ]
+  }
+
   measure: vr_crash_incidence {
     type: number
-    sql: SAFE_DIVIDE(COUNTIF(${crashes_daily.vr_crash_count} > 0), COUNT(${client_id})) ;;
+    sql: SAFE_DIVIDE(${vr_crash_dau_count}, ${dau_count}) ;;
     group_label: "Crash Incidence"
     group_item_label: "VR Process"
     description: "Proportion of DAU that experience a vr crash."
   }
-
 }
 
 view: buildhub {

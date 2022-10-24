@@ -1,18 +1,20 @@
-include: "//looker-hub/firefox_desktop/views/crashes_daily.view.lkml"
 include: "../views/crash_usage.view.lkml"
 include: "/shared/views/countries.view.lkml"
 
+datagroup: clients_daily_joined_partitions {
+  max_cache_age: "24 hours"
+  sql_trigger:
+    SELECT MAX(last_modified_time)
+    FROM `moz-fx-data-shared-prod`.telemetry_derived.INFORMATION_SCHEMA.PARTITIONS
+    WHERE table_name = "clients_daily_joined_v1" ;;
+  label: "Clients Daily Joined Partitions"
+  description: "Updates when new partitions are added to clients_daily_joined"
+}
 
 explore: crash_usage {
   label: "Crashes"
   description: "Crash counts for Desktop Firefox, derived from the crash ping."
-
-  join: crashes_daily {
-    sql_on: ${crashes_daily.client_id} = ${crash_usage.client_id}
-            AND ${crashes_daily.submission_date} = ${crash_usage.submission_date} ;;
-    relationship: one_to_one
-    fields: [main_crash_count, content_crash_count, gpu_crash_count, rdd_crash_count, utility_crash_count, socket_crash_count, vr_crash_count]
-  }
+  persist_with: clients_daily_joined_partitions
 
   join: buildhub {
     sql_on: ${crash_usage.version} = ${buildhub.version} AND ${crash_usage.channel} = ${buildhub.channel} ;;
@@ -26,14 +28,246 @@ explore: crash_usage {
     sql_on: ${crash_usage.country_code} = ${countries.code} ;;
   }
 
-  sql_always_where: {% condition crash_usage.date %} TIMESTAMP(${crash_usage.submission_date}) {% endcondition %}
-    AND {% condition crash_usage.date %} TIMESTAMP(${crashes_daily.submission_date}) {% endcondition %}
-    AND {% condition crash_usage.sample_id %} ${crash_usage.sample_id_dim} {% endcondition %}
-    AND {% condition crash_usage.sample_id %} ${crashes_daily.sample_id} {% endcondition %};;
+  sql_always_where: ${crash_usage.submission_date} >= "2021-01-01" ;;
 
   always_filter: {
     filters: [
-      crash_usage.date: "28 days",
+      crash_usage.submission_date: "3 month",
+      crash_usage.ten_percent_sample: "Yes"
     ]
+  }
+
+  aggregate_table: ten_percent_daily_rollups {
+    query: {
+      dimensions: [
+        submission_date,
+        version,
+        major_version,
+        minor_version,
+        os_name,
+        channel,
+      ]
+      measures: [
+        active_hours,
+        dau_count,
+        content_crash_rate,
+        content_crashes,
+        content_crash_incidence,
+        gpu_crash_rate,
+        gpu_crashes,
+        gpu_crash_incidence,
+        main_crash_rate,
+        main_crashes,
+        main_crash_incidence,
+        rdd_crash_rate,
+        rdd_crashes,
+        rdd_crash_incidence,
+        socket_crash_incidence,
+        socket_crash_rate,
+        socket_crashes,
+        utility_crash_incidence,
+        utility_crash_rate,
+        utility_crashes,
+        vr_crash_rate,
+        vr_crashes,
+        vr_crash_incidence,
+      ]
+      filters: [
+        crash_usage.days_since_build_published: "<=56",
+        crash_usage.ten_percent_sample: "Yes",
+      ]
+    }
+    materialization: {
+      datagroup_trigger: clients_daily_joined_partitions
+      increment_key: "submission_date"
+    }
+  }
+
+  aggregate_table: ten_percent_build_id_rollups {
+    query: {
+      dimensions: [
+        build_id,
+        build_id_as_int,
+        channel,
+        os_name,
+      ]
+      measures: [
+        active_hours,
+        content_crash_rate,
+        gpu_crash_rate,
+        main_crash_rate,
+        rdd_crash_rate,
+        socket_crash_rate,
+        utility_crash_rate,
+        vr_crash_rate,
+      ]
+      filters: [
+        crash_usage.submission_date: "3 month",
+        crash_usage.days_since_build_published: "<=56",
+        crash_usage.ten_percent_sample: "Yes",
+      ]
+    }
+
+    materialization: {
+      sql_trigger_value:
+        SELECT MAX(last_modified_time)
+        FROM `moz-fx-data-shared-prod`.telemetry_derived.INFORMATION_SCHEMA.PARTITIONS
+        WHERE table_name = "clients_daily_joined_v1" ;;
+    }
+  }
+
+  aggregate_table: full_nightly_daily_rollups {
+    query: {
+      dimensions: [
+        submission_date,
+        version,
+        major_version,
+        minor_version,
+        os_name,
+      ]
+      measures: [
+        active_hours,
+        dau_count,
+        content_crash_rate,
+        content_crashes,
+        content_crash_incidence,
+        gpu_crash_rate,
+        gpu_crashes,
+        gpu_crash_incidence,
+        main_crash_rate,
+        main_crashes,
+        main_crash_incidence,
+        rdd_crash_rate,
+        rdd_crashes,
+        rdd_crash_incidence,
+        socket_crash_incidence,
+        socket_crash_rate,
+        socket_crashes,
+        utility_crash_incidence,
+        utility_crash_rate,
+        utility_crashes,
+        vr_crash_rate,
+        vr_crashes,
+        vr_crash_incidence,
+      ]
+      filters: [
+        crash_usage.days_since_build_published: "<=56",
+        crash_usage.ten_percent_sample: "No",
+        crash_usage.channel: "nightly"
+      ]
+    }
+    materialization: {
+      datagroup_trigger: clients_daily_joined_partitions
+      increment_key: "submission_date"
+    }
+  }
+
+  aggregate_table: full_nightly_buildid_rollups {
+    query: {
+      dimensions: [
+        build_id,
+        build_id_as_int,
+        channel,
+        os_name,
+      ]
+      measures: [
+        active_hours,
+        content_crash_rate,
+        gpu_crash_rate,
+        main_crash_rate,
+        rdd_crash_rate,
+        socket_crash_rate,
+        utility_crash_rate,
+        vr_crash_rate,
+      ]
+      filters: [
+        crash_usage.submission_date: "3 month",
+        crash_usage.days_since_build_published: "<=56",
+        crash_usage.ten_percent_sample: "No",
+        crash_usage.channel: "nightly"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: clients_daily_joined_partitions
+    }
+  }
+
+
+  aggregate_table: full_beta_daily_rollups {
+    query: {
+      dimensions: [
+        submission_date,
+        version,
+        major_version,
+        minor_version,
+        os_name,
+      ]
+      measures: [
+        active_hours,
+        dau_count,
+        content_crash_rate,
+        content_crashes,
+        content_crash_incidence,
+        gpu_crash_rate,
+        gpu_crashes,
+        gpu_crash_incidence,
+        main_crash_rate,
+        main_crashes,
+        main_crash_incidence,
+        rdd_crash_rate,
+        rdd_crashes,
+        rdd_crash_incidence,
+        socket_crash_incidence,
+        socket_crash_rate,
+        socket_crashes,
+        utility_crash_incidence,
+        utility_crash_rate,
+        utility_crashes,
+        vr_crash_rate,
+        vr_crashes,
+        vr_crash_incidence,
+      ]
+      filters: [
+        crash_usage.days_since_build_published: "<=56",
+        crash_usage.ten_percent_sample: "No",
+        crash_usage.channel: "beta"
+      ]
+    }
+    materialization: {
+      datagroup_trigger: clients_daily_joined_partitions
+      increment_key: "submission_date"
+    }
+  }
+
+  aggregate_table: full_beta_buildid_rollups {
+    query: {
+      dimensions: [
+        build_id,
+        build_id_as_int,
+        channel,
+        os_name,
+      ]
+      measures: [
+        active_hours,
+        content_crash_rate,
+        gpu_crash_rate,
+        main_crash_rate,
+        rdd_crash_rate,
+        socket_crash_rate,
+        utility_crash_rate,
+        vr_crash_rate,
+      ]
+      filters: [
+        crash_usage.submission_date: "3 month",
+        crash_usage.days_since_build_published: "<=56",
+        crash_usage.ten_percent_sample: "No",
+        crash_usage.channel: "beta"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: clients_daily_joined_partitions
+    }
   }
 }

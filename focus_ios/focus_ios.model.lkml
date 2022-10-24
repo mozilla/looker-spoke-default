@@ -22,14 +22,14 @@ explore: usage {
         usage.submission_date: "after 2021/01/01"
       ]
     }
-    
+
     # Whenever CURRENT_DATE() changes, the query will get re-executed and added to the aggregate table
     # The dashboard will then directly query the aggregate table instead of running the query, which makes loading dashboard tiles much faster
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
   }
-  
+
   aggregate_table: rollup__active_8_days_active_last_28__submission_date {
     query: {
       dimensions: [active_8_days_active_last_28, submission_date]
@@ -51,11 +51,21 @@ explore: usage {
         usage.submission_date: "after 2021/01/01"
       ]
     }
-    
+
     materialization: {
       sql_trigger_value: SELECT CURRENT_DATE();;
     }
   }
 
   sql_always_where: submission_date >= "2020-01-01" ;;
+}
+
+view: +metrics {
+  dimension: metrics__labeled_counter__browser_search_in_content {
+    label: "Browser Search In Content"
+    hidden: yes
+    sql: ${TABLE}.metrics.labeled_counter.browser_search_in_content ;;
+    group_label: "Browser Search"
+    group_item_label: "In Content"
+  }
 }
