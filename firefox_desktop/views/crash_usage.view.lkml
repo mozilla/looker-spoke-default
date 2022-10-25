@@ -92,6 +92,7 @@ view: crash_usage {
           WHEN "Linux" THEN "Linux"
           WHEN "Windows_NT" THEN "Windows_NT"
           ELSE "Other" END;;
+    suggestions: ["Darwin", "Linux", "Windows_NT", "Other"]
     description: "OS name, normalized to the top three (Windows_NT, Linux, or Darwin)."
   }
 
@@ -104,6 +105,7 @@ view: crash_usage {
   dimension: channel {
     type: string
     sql: ${TABLE}.normalized_channel ;;
+    suggestions: ["release", "beta", "nightly", "esr", "aurora", "Other"]
     description: "Release channel for the associated installation."
   }
 
