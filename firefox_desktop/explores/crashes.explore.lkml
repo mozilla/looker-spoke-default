@@ -44,8 +44,10 @@ explore: crash_usage {
         version,
         major_version,
         minor_version,
+        patch_version,
         os_name,
         channel,
+        days_since_build_published,
       ]
       measures: [
         active_hours,
@@ -90,6 +92,7 @@ explore: crash_usage {
         build_id_as_int,
         channel,
         os_name,
+        days_since_build_published,
       ]
       measures: [
         active_hours,
@@ -123,7 +126,9 @@ explore: crash_usage {
         version,
         major_version,
         minor_version,
+        patch_version,
         os_name,
+        days_since_build_published,
       ]
       measures: [
         active_hours,
@@ -169,6 +174,7 @@ explore: crash_usage {
         build_id_as_int,
         channel,
         os_name,
+        days_since_build_published,
       ]
       measures: [
         active_hours,
@@ -201,7 +207,9 @@ explore: crash_usage {
         version,
         major_version,
         minor_version,
+        patch_version,
         os_name,
+        days_since_build_published,
       ]
       measures: [
         active_hours,
@@ -247,6 +255,7 @@ explore: crash_usage {
         build_id_as_int,
         channel,
         os_name,
+        days_since_build_published,
       ]
       measures: [
         active_hours,
