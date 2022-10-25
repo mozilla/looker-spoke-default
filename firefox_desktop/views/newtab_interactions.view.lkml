@@ -1,5 +1,6 @@
 include: "//looker-hub/firefox_desktop/views/newtab_interactions_table.view.lkml"
 
+
 view: newtab_interactions {
   extends: [newtab_interactions_table]
 
@@ -54,6 +55,83 @@ view: newtab_interactions {
   dimension: topsite_impressions {
     hidden: yes
   }
+
+  dimension: pocket_impressions {
+    hidden: yes
+  }
+
+  dimension: sponsored_pocket_impressions {
+    hidden: yes
+  }
+
+  dimension: organic_pocket_impressions {
+    hidden: yes
+  }
+
+  dimension: pocket_clicks {
+    hidden: yes
+  }
+
+  dimension: sponsored_pocket_clicks {
+    hidden: yes
+  }
+
+  dimension: organic_pocket_clicks {
+    hidden: yes
+  }
+
+  dimension: pocket_saves {
+    hidden: yes
+  }
+
+  dimension: sponsored_pocket_saves {
+    hidden: yes
+  }
+
+  dimension: organic_pocket_saves {
+    hidden: yes
+  }
+
+  dimension: pocket_story_position {
+    sql: ${TABLE}.pocket_story_position ;;
+    type: number
+  }
+
+  dimension: pocket_enabled {
+    sql: ${TABLE}.pocket_enabled ;;
+    type: yesno
+  }
+
+  dimension: pocket_is_signed_in {
+    sql: ${TABLE}.pocket_is_signed_in ;;
+    type: yesno
+  }
+
+  dimension: pocket_sponsored_stories_enabled {
+    sql: ${TABLE}.pocket_sponsored_stories_enabled ;;
+    type: yesno
+  }
+
+  dimension: topsites_enabled {
+    sql: ${TABLE}.topsites_enabled ;;
+    type: yesno
+  }
+
+  dimension: newtab_homepage_category {
+    sql: ${TABLE}.newtab_homepage_category ;;
+    type: string
+  }
+
+  dimension: newtab_newtab_category {
+    sql: ${TABLE}.newtab_newtab_category ;;
+    type: string
+  }
+
+  dimension: newtab_search_enabled {
+    sql: ${TABLE}.newtab_search_enabled ;;
+    type: yesno
+  }
+
   measure: visits {
     type: count_distinct
     sql: ${newtab_visit_id} ;;
@@ -299,6 +377,197 @@ view: newtab_interactions {
     group_label: "Topsites"
     type: count_distinct
     sql: IF(${sponsored_topsite_impressions} > 0, ${client_id}, NULL) ;;
+    approximate: yes
+  }
+
+  ### Pocket
+
+  measure: sum_pocket_impressions {
+    group_label: "Pocket"
+    group_item_label: "Pocket Impressions"
+    sql: ${pocket_impressions} ;;
+    type: sum
+  }
+
+  measure: sum_sponsored_pocket_impressions {
+    group_label: "Pocket"
+    group_item_label: "Sponsored Pocket Impressions"
+    sql: ${sponsored_pocket_impressions} ;;
+    type: sum
+  }
+
+  measure: sum_organic_pocket_impressions {
+    group_label: "Pocket"
+    group_item_label: "Organic Pocket Impressions"
+    sql: ${organic_pocket_impressions} ;;
+    type: sum
+  }
+
+  measure: sum_pocket_clicks {
+    group_label: "Pocket"
+    group_item_label: "Pocket Clicks"
+    sql: ${pocket_clicks} ;;
+    type: sum
+  }
+
+  measure: sum_sponsored_pocket_clicks {
+    group_label: "Pocket"
+    group_item_label: "Sponsored Pocket Clicks"
+    sql: ${sponsored_pocket_clicks} ;;
+    type: sum
+  }
+
+  measure: sum_organic_pocket_clicks {
+    group_label: "Pocket"
+    group_item_label: "Organic Pocket Clicks"
+    sql: ${organic_pocket_clicks} ;;
+    type: sum
+  }
+
+  measure: sum_pocket_saves {
+    group_label: "Pocket"
+    group_item_label: "Pocket Saves"
+    sql: ${pocket_saves} ;;
+    type: sum
+  }
+
+  measure: sum_sponsored_pocket_saves {
+    group_label: "Pocket"
+    group_item_label: "Sponsored Pocket Saves"
+    sql: ${sponsored_pocket_saves} ;;
+    type: sum
+  }
+
+  measure: sum_organic_pocket_saves {
+    group_label: "Pocket"
+    group_item_label: "Organic Pocket Saves"
+    sql: ${organic_pocket_saves} ;;
+    type: sum
+  }
+
+  measure: visits_with_pocket_impressions {
+    group_label: "Pocket"
+    type: count_distinct
+    sql: IF(${pocket_impressions} > 0, ${newtab_visit_id}, NULL) ;;
+    approximate: yes
+  }
+
+  measure: clients_with_pocket_impressions {
+    group_label: "Pocket"
+    type: count_distinct
+    sql: IF(${pocket_impressions} > 0, ${client_id}, NULL) ;;
+    approximate: yes
+  }
+
+  measure: visits_with_sponsored_pocket_impressions {
+    group_label: "Pocket"
+    type: count_distinct
+    sql: IF(${sponsored_pocket_impressions} > 0, ${newtab_visit_id}, NULL) ;;
+    approximate: yes
+  }
+
+  measure: clients_with_sponsored_pocket_impressions {
+    group_label: "Pocket"
+    type: count_distinct
+    sql: IF(${sponsored_pocket_impressions} > 0, ${client_id}, NULL) ;;
+    approximate: yes
+  }
+
+  measure: visits_with_organic_pocket_impressions {
+    group_label: "Pocket"
+    type: count_distinct
+    sql: IF(${organic_pocket_impressions} > 0, ${newtab_visit_id}, NULL) ;;
+    approximate: yes
+  }
+
+  measure: clients_with_organic_pocket_impressions {
+    group_label: "Pocket"
+    type: count_distinct
+    sql: IF(${organic_pocket_impressions} > 0, ${client_id}, NULL) ;;
+    approximate: yes
+  }
+
+  measure: visits_with_pocket_clicks {
+    group_label: "Pocket"
+    type: count_distinct
+    sql: IF(${pocket_clicks} > 0, ${newtab_visit_id}, NULL) ;;
+    approximate: yes
+  }
+
+  measure: clients_with_pocket_clicks {
+    group_label: "Pocket"
+    type: count_distinct
+    sql: IF(${pocket_clicks} > 0, ${client_id}, NULL) ;;
+    approximate: yes
+  }
+
+  measure: visits_with_sponsored_pocket_clicks {
+    group_label: "Pocket"
+    type: count_distinct
+    sql: IF(${sponsored_pocket_clicks} > 0, ${newtab_visit_id}, NULL) ;;
+    approximate: yes
+  }
+
+  measure: clients_with_sponsored_pocket_clicks {
+    group_label: "Pocket"
+    type: count_distinct
+    sql: IF(${sponsored_pocket_clicks} > 0, ${client_id}, NULL) ;;
+    approximate: yes
+  }
+
+  measure: visits_with_organic_pocket_clicks {
+    group_label: "Pocket"
+    type: count_distinct
+    sql: IF(${organic_pocket_clicks} > 0, ${newtab_visit_id}, NULL) ;;
+    approximate: yes
+  }
+
+  measure: clients_with_organic_pocket_clicks {
+    group_label: "Pocket"
+    type: count_distinct
+    sql: IF(${organic_pocket_clicks} > 0, ${client_id}, NULL) ;;
+    approximate: yes
+  }
+
+  measure: visits_with_pocket_saves {
+    group_label: "Pocket"
+    type: count_distinct
+    sql: IF(${pocket_saves} > 0, ${newtab_visit_id}, NULL) ;;
+    approximate: yes
+  }
+
+  measure: clients_with_pocket_saves {
+    group_label: "Pocket"
+    type: count_distinct
+    sql: IF(${pocket_saves} > 0, ${client_id}, NULL) ;;
+    approximate: yes
+  }
+
+  measure: visits_with_sponsored_pocket_saves {
+    group_label: "Pocket"
+    type: count_distinct
+    sql: IF(${sponsored_pocket_saves} > 0, ${newtab_visit_id}, NULL) ;;
+    approximate: yes
+  }
+
+  measure: clients_with_sponsored_pocket_saves {
+    group_label: "Pocket"
+    type: count_distinct
+    sql: IF(${sponsored_pocket_saves} > 0, ${client_id}, NULL) ;;
+    approximate: yes
+  }
+
+  measure: visits_with_organic_pocket_saves {
+    group_label: "Pocket"
+    type: count_distinct
+    sql: IF(${organic_pocket_saves} > 0, ${newtab_visit_id}, NULL) ;;
+    approximate: yes
+  }
+
+  measure: clients_with_organic_pocket_saves {
+    group_label: "Pocket"
+    type: count_distinct
+    sql: IF(${organic_pocket_saves} > 0, ${client_id}, NULL) ;;
     approximate: yes
   }
 
