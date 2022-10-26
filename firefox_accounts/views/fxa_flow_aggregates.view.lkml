@@ -3,10 +3,7 @@
 
 view: fxa_flow_aggregates {
   derived_table: {
-    interval_trigger: "24 hours"
-    increment_key: "flow_start_ts"
-    # go back 2 days to allow recent flows to complete
-    increment_offset: 2
+    sql_trigger_value: SELECT CURRENT_DATE() ;;
     sql: WITH
           flow_ids AS (
               SELECT
@@ -95,13 +92,6 @@ view: fxa_flow_aggregates {
     convert_tz: no
     datatype: date
     sql: DATE(${TABLE}.flow_start_date);;
-  }
-
-  dimension: flow_start_ts {
-    type: date_time
-    datatype: timestamp
-    sql: TIMESTAMP(${TABLE}.flow_start_date);;
-    hidden: yes
   }
 
   dimension: entrypoint {
