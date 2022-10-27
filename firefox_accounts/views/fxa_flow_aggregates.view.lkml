@@ -4,8 +4,7 @@
 view: fxa_flow_aggregates {
   derived_table: {
     interval_trigger: "24 hours"
-    increment_key: "flow_start_ts"
-    # go back 2 days to allow recent flows to complete
+    increment_key: "flow_start_date"
     increment_offset: 2
     sql: WITH
           flow_ids AS (
@@ -39,7 +38,7 @@ view: fxa_flow_aggregates {
           f.browser_name,
           f.browser_version,
           f.os_name,
-          f.flow_start_date,
+          TIMESTAMP(f.flow_start_date) AS flow_start_date,
           e.event_type,
           COUNT(*) as n_events
         FROM flow_ids f
@@ -80,6 +79,7 @@ view: fxa_flow_aggregates {
         COUNTIF(event_type = 'fxa_reg - complete') AS registrations_complete,
         COUNTIF(event_type = 'fxa_login - complete') AS logins_complete,
       FROM flow_agg
+      WHERE {% incrementcondition %} flow_start_date {% endincrementcondition %}
       GROUP BY 1,2,3,4,5,6,7,8,9,10;;
   }
   dimension_group: flow_start {
@@ -95,13 +95,6 @@ view: fxa_flow_aggregates {
     convert_tz: no
     datatype: date
     sql: DATE(${TABLE}.flow_start_date);;
-  }
-
-  dimension: flow_start_ts {
-    type: date_time
-    datatype: timestamp
-    sql: TIMESTAMP(${TABLE}.flow_start_date);;
-    hidden: yes
   }
 
   dimension: entrypoint {
