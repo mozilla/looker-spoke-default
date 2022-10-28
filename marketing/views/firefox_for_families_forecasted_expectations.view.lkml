@@ -11,10 +11,6 @@ view: +firefox_for_families_forecasted_expectations {
     hidden: yes
   }
 
-  dimension_group: Date {
-    hidden: yes
-  }
-
   dimension_group: submission {
     sql: CAST(${TABLE}.Date AS DATE);;
     type: time
