@@ -93,8 +93,8 @@ view: fxa_flow_aggregates {
       year
     ]
     convert_tz: no
-    datatype: date
-    sql: DATE(${TABLE}.flow_start_date);;
+    datatype: timestamp
+    sql: ${TABLE}.flow_start_date;;
   }
 
   dimension: entrypoint {
