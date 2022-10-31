@@ -139,20 +139,7 @@ view: firefox_for_families_campaign_results {
 
   dimension: month {
     type: string
-    hidden: yes
     sql: ${TABLE}.month ;;
-  }
-
-  dimension_group: submission {
-    sql: CAST(${TABLE}.month AS DATE);;
-    type: time
-    timeframes: [
-      month,
-      quarter,
-      year,
-    ]
-    convert_tz: no
-    datatype: date
   }
 
   dimension: cdou {
