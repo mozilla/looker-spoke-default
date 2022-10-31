@@ -1,5 +1,4 @@
 include: "../views/firefox_for_families_campaign_results.view.lkml"
-include: "/shared/views/*"
 
 explore: firefox_for_families_campaign_results {
   label: "Firefox for Families Campaign Results"
