@@ -3,7 +3,8 @@ include: "/shared/views/*"
 
 explore: active_users_aggregates_attribution {
   always_filter: {
-    filters: [active_users_aggregates_attribution.submission_date: "this year"]
+    filters: [active_users_aggregates_attribution.app_name: "Firefox Desktop, Fenix, Fenix BrowserStack, Firefox iOS, Firefox iOS BrowserStack, Focus Android,  Focus iOS",
+      active_users_aggregates_attribution.submission_date: "after 4 weeks ago"]
   }
 
   join: countries {
