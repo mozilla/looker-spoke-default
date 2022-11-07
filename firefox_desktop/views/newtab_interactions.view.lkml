@@ -289,7 +289,7 @@ view: newtab_interactions {
   measure:  clients_with_tagged_follow_on_search_ad_click {
     group_label: "Search"
     type: count_distinct
-    sql: IF(${tagged_follow_on_search_ad_clicks}, ${client_id}, NULL) ;;
+    sql: IF(${tagged_follow_on_search_ad_clicks} > 0, ${client_id}, NULL) ;;
     approximate: yes
   }
 
