@@ -36,4 +36,13 @@ view: +metrics {
     group_label: "Metrics"
     group_item_label: "Recent synced tabs"
   }
+
+  dimension: client_info__build_date_ts {
+    label: "Build Date (Timestamp)"
+    description: "The date & time the application was built as a timestamp"
+    group_label: "Client Info"
+    group_item_label: "Build Date (Timestamp)"
+    sql:  SAFE.PARSE_TIMESTAMP('%FT%H:%M:%S%Ez', ${TABLE}.client_info.build_date) ;;
+    type: date_time
+  }
 }
