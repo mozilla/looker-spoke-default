@@ -91,6 +91,17 @@ explore: +metrics {
   }
 }
 
+view: +metrics {
+  dimension: client_info__build_date_datetime {
+    label: "Build Date (Datetime)"
+    description: "The date & time the application was built as a timestamp"
+    group_label: "Client Info"
+    group_item_label: "Build Date (Datetime)"
+    sql: PARSE_TIMESTAMP("%Y%m%d%H%M%S", ${TABLE}.client_info.app_build) ;;
+    type: date_time
+  }
+}
+
 view: +clients_daily_table__contextual_services_quicksuggest_block_nonsponsored_bestmatch_sum {
   dimension: value {
     hidden: yes
