@@ -3,7 +3,7 @@ view: preview {
     type: unquoted
   }
 
-  sql_table_name: moz-fx-data-shared-prod.{% parameter table %} ;;
+  sql_table_name: {% parameter table %} ;;
 
   dimension: submission_date {
     type: date
