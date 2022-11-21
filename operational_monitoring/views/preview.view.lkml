@@ -20,7 +20,6 @@ view: preview {
   dimension: metric {
     sql: ${TABLE}.metric ;;
     type: string
-    suggest_persist_for: "30 minutes"
   }
 
   dimension: parameter {
@@ -31,7 +30,6 @@ view: preview {
   dimension: statistic {
     sql: ${TABLE}.statistic ;;
     type: string
-    suggest_persist_for: "30 minutes"
   }
 
   measure: point {
