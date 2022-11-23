@@ -2,8 +2,6 @@ view: colorways {
   derived_table: {
     sql: -- basic example of how to set a variable in the BQ scripting language
 -- https://cloud.google.com/bigquery/docs/reference/standard-sql/procedural-language#declare
-DECLARE start_date DATE DEFAULT DATE(2022, 10, 18);
-
 WITH indp_voices_colorways AS
   (SELECT *
    FROM UNNEST (["visionary-balanced-colorway@mozilla.org",
@@ -30,7 +28,7 @@ WITH indp_voices_colorways AS
           100 * COUNT(DISTINCT client_id) AS clients_currently_set
    FROM telemetry.main_1pct -- these tables that end in _1pct are random 1 percent samples (based on client_id) of their parent tables. they speed things up when that's all you need.
 
-   WHERE DATE(submission_timestamp) >= start_date
+   WHERE DATE(submission_timestamp) >= DATE(2022, 10, 18)
      AND environment.addons.theme.id IN
        (SELECT *
         FROM indp_voices_colorways)
@@ -47,7 +45,7 @@ WITH indp_voices_colorways AS
           SPLIT(event_string_value, '-colorway')[OFFSET(0)] AS id,
           100 * COUNT(DISTINCT client_id) AS clients_play_today
    FROM telemetry.events_1pct
-   WHERE submission_date >= start_date
+   WHERE submission_date >= DATE(2022, 10, 18)
      AND event_string_value IN
        (SELECT *
         FROM indp_voices_colorways)
@@ -64,7 +62,7 @@ WITH indp_voices_colorways AS
           100 * COUNT(DISTINCT client_id) AS clients_set_today
    FROM telemetry.events_1pct
    CROSS JOIN UNNEST(event_map_values) e
-   WHERE submission_date >= start_date
+   WHERE submission_date >= DATE(2022, 10, 18)
      AND e.value IN
        (SELECT *
         FROM indp_voices_colorways)
@@ -91,22 +89,26 @@ ORDER BY submission_date, id
 
   dimension: id {
     type: string
+    label: "Colorways identifier"
     sql: ${TABLE}.id ;;
   }
 
   measure: clients_currently_set {
     type: sum
     sql: ${TABLE}.clients_currently_set ;;
+    label: "Number of daily clients having already set a Colorway"
   }
 
   measure: clients_play_today {
     type: sum
     sql: ${TABLE}.clients_play_today ;;
+    label: "Number of daily clients exploring Colorways choices"
   }
 
   measure: clients_set_today {
     type: sum
     sql: ${TABLE}.clients_set_today ;;
+    label: "Number of daily clients choosing a Colorways"
   }
 
   set: detail {

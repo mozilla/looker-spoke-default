@@ -102,10 +102,6 @@ view: +metrics {
   }
 }
 
-# explore: colorways {
-#   label: "Colorways"
-# }
-
 view: +clients_daily_table__contextual_services_quicksuggest_block_nonsponsored_bestmatch_sum {
   dimension: value {
     hidden: yes
