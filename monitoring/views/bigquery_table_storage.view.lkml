@@ -7,45 +7,55 @@ view: +bigquery_table_storage {
     sql: {total_rows} ;;
   }
 
-  # measure: sum_total_partitions{
-  #   type: sum
-  # }
+  measure: sum_total_partitions{
+    type: sum
+    sql: {total_partitions} ;;
+  }
 
-  # measure: sum_logical_billing_cost_usd{
-  #   type: sum
-  # }
+  measure: sum_total_logical_bytes{
+    type: sum
+    sql: {total_logical_bytes} ;;
+  }
 
-  # measure: sum_logical_billing_cost_usd{
-  #   type: sum
-  # }
+  measure: sum_active_logical_bytes{
+    type: sum
+    sql: {active_logical_bytes} ;;
+  }
 
-  # measure: sum_logical_billing_cost_usd{
-  #   type: sum
-  # }
+  measure: sum_long_term_logical_bytes{
+    type: sum
+    sql: {long_term_logical_bytes} ;;
+  }
 
-  # measure: sum_logical_billing_cost_usd{
-  #   type: sum
-  # }
+  measure: sum_total_physical_bytes{
+    type: sum
+    sql: {total_physical_bytes} ;;
+  }
 
-  # measure: sum_logical_billing_cost_usd{
-  #   type: sum
-  # }
+  measure: sum_active_physical_bytes{
+    type: sum
+    sql: {active_physical_bytes} ;;
+  }
 
-  # measure: sum_logical_billing_cost_usd{
-  #   type: sum
-  # }
+  measure: sum_long_term_physical_bytes{
+    type: sum
+    sql: {long_term_physical_bytes} ;;
+  }
 
-  # measure: sum_logical_billing_cost_usd{
-  #   type: sum
-  # }
+  measure: sum_time_travel_physical_bytes{
+    type: sum
+    sql: {time_travel_physical_bytes} ;;
+  }
 
-  # measure: sum_logical_billing_cost_usd{
-  #   type: sum
-  # }
+  measure: sum_logical_billing_cost_usd{
+    type: sum
+    sql: {logical_billing_cost_usd} ;;
+  }
 
-  # measure: sum_physical_billing_cost_usd{
-  #   type: sum
-  # }
+  measure: sum_physical_billing_cost_usd{
+    type: sum
+    sql: {physical_billing_cost_usd} ;;
+  }
 
   measure: count{
     type: count

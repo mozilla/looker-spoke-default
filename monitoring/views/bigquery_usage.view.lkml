@@ -20,8 +20,9 @@ view: +bigquery_usage {
 
   measure: sum_total_job_cost_usd{
     type: sum_distinct
-    sql_distinct_key: ${job_id} ;;
+    sql_distinct_key: ${job_id};;
     sql: ${cost_usd} ;;
+    value_format:"$#,##0.00"
   }
 
   measure: sum_total_terabytes_processed{
