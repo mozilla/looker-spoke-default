@@ -9,8 +9,8 @@ view: +bigquery_usage {
   }
 
   dimension: full_reference_table_name {
-        sql: concat(reference_project_id, reference_dataset_id, reference_table_id) ;;
-        type: string
+    sql: concat(reference_project_id, reference_dataset_id, reference_table_id) ;;
+    type: string
   }
 
   dimension: full_destination_table_name {
