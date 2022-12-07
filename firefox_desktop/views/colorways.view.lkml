@@ -24,7 +24,6 @@ WITH indp_voices_colorways AS
          "activist-soft-colorway@mozilla.org"])),
  currently_set AS
   (SELECT DATE(submission_timestamp) AS submission_date,
-          SPLIT(environment.addons.theme.id, '-colorway')[OFFSET(0)] AS id,
           100 * COUNT(DISTINCT client_id) AS clients_currently_set
    FROM telemetry.main_1pct -- these tables that end in _1pct are random 1 percent samples (based on client_id) of their parent tables. they speed things up when that's all you need.
 
@@ -34,15 +33,13 @@ WITH indp_voices_colorways AS
         FROM indp_voices_colorways)
      AND environment.addons.theme.user_disabled IS NOT TRUE -- this is just to be safe, it doesn't seem to happen much at all in practice
 
-   GROUP BY 1,
-            2 -- ORDER BY 2 DESC
+   GROUP BY 1-- ORDER BY 2 DESC
  ), -- themes set today according to telemetry events
  -- https://firefox-source-docs.mozilla.org/toolkit/components/telemetry/collection/events.html#eventtelemetry
  -- see https://searchfox.org/mozilla-central/source/toolkit/components/telemetry/Events.yaml#185
  -- this means that it was set at anytime, including clients just trying it in the modal. they don't have to actuall set it "permanently" for this event to fire
  play_today AS
   (SELECT submission_date,
-          SPLIT(event_string_value, '-colorway')[OFFSET(0)] AS id,
           100 * COUNT(DISTINCT client_id) AS clients_play_today
    FROM telemetry.events_1pct
    WHERE submission_date >= DATE(2022, 10, 18)
@@ -52,13 +49,11 @@ WITH indp_voices_colorways AS
      AND event_category = 'addonsManager'
      AND event_method = 'enable'
      AND event_object = 'theme'
-   GROUP BY 1,
-            2 -- ORDER BY 2 DESC
+   GROUP BY 1
  ), -- themes actually selected AND set in the modal, so the theme was actually set durably.
  -- see https://searchfox.org/mozilla-central/source/toolkit/components/telemetry/Events.yaml#3447
  set_today AS
   (SELECT submission_date,
-          SPLIT(e.value, '-colorway')[OFFSET(0)] AS id,
           100 * COUNT(DISTINCT client_id) AS clients_set_today
    FROM telemetry.events_1pct
    CROSS JOIN UNNEST(event_map_values) e
@@ -69,15 +64,12 @@ WITH indp_voices_colorways AS
      AND e.key = 'colorway_id'
      AND event_category = 'colorways_modal'
      AND event_method = 'set_colorway'
-   GROUP BY 1,
-            2)
+   GROUP BY 1)
 SELECT *
 FROM currently_set
-LEFT JOIN play_today USING(submission_date,
-                          id)
-LEFT JOIN set_today USING(submission_date,
-                               id)
-ORDER BY submission_date, id
+LEFT JOIN play_today USING(submission_date)
+LEFT JOIN set_today USING(submission_date)
+ORDER BY submission_date
        ;;
   }
 
@@ -85,12 +77,6 @@ ORDER BY submission_date, id
     type: date
     datatype: date
     sql: ${TABLE}.submission_date ;;
-  }
-
-  dimension: id {
-    type: string
-    label: "Colorways identifier"
-    sql: ${TABLE}.id ;;
   }
 
   measure: clients_currently_set {
@@ -112,6 +98,6 @@ ORDER BY submission_date, id
   }
 
   set: detail {
-    fields: [submission_date, id, clients_currently_set, clients_play_today, clients_set_today]
+    fields: [submission_date, clients_currently_set, clients_play_today, clients_set_today]
   }
 }
