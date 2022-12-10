@@ -19,43 +19,43 @@ view: +bigquery_table_storage_timeline_daily {
     value_format: "#,##0,,\" M\""
   }
 
-  measure: sum_total_logical_terabytes{
+  measure: sum_total_logical_GB{
     type: sum
     sql: ${avg_total_logical_bytes}/POW(1024, 3) ;;
     value_format: "#,##0.00"
   }
 
-  measure: sum_active_logical_bytes{
+  measure: sum_active_logical_GB{
     type: sum
     sql: ${avg_active_logical_bytes}/POW(1024, 3) ;;
     value_format: "#,##0.00"
   }
 
-  measure: sum_long_term_logical_bytes{
+  measure: sum_long_term_logical_GB{
     type: sum
     sql: ${avg_long_term_logical_bytes}/POW(1024, 3) ;;
     value_format: "#,##0.00"
   }
 
-  measure: sum_total_physical_terabytes{
+  measure: sum_total_physical_GB{
     type: sum
     sql: ${avg_total_physical_bytes}/POW(1024, 3);;
     value_format: "#,##0.00"
   }
 
-  measure: sum_active_physical_bytes{
+  measure: sum_active_physical_GB{
     type: sum
     sql: ${avg_active_physical_bytes}/POW(1024, 3) ;;
     value_format: "#,##0.00"
   }
 
-  measure: sum_long_term_physical_bytes{
+  measure: sum_long_term_physical_GB{
     type: sum
     sql: ${avg_long_term_physical_bytes}/POW(1024, 3) ;;
     value_format: "#,##0.00"
   }
 
-  measure: sum_time_travel_physical_bytes{
+  measure: sum_time_travel_physical_GB{
     type: sum
     sql: ${avg_time_travel_physical_bytes}/POW(1024, 3) ;;
     value_format: "#,##0.00"
