@@ -18,6 +18,16 @@ view: +bigquery_usage {
     type: string
   }
 
+  dimension: destination_table_id {
+    sql: split(destination_table_id, '$')[SAFE_OFFSET(0)];;
+    type: string
+  }
+
+  dimension: partition {
+    sql: split(destination_table_id, '$')[SAFE_OFFSET(1)];;
+    type: string
+  }
+
   measure: avg_total_job_cost_usd{
     type: average_distinct
     sql_distinct_key: ${job_id} ;;
