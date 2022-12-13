@@ -57,13 +57,13 @@ view: +bigquery_table_storage {
 
   measure: sum_logical_billing_cost_usd{
     type: sum
-    sql: ${logical_billing_cost_usd};;
+    sql: (${active_logical_bytes}/POW(1024, 3) * 0.02) + ((${long_term_logical_bytes}/POW(1024, 3)) * 0.01);;
     value_format:"$#,##0.00"
   }
 
   measure: sum_physical_billing_cost_usd{
     type: sum
-    sql: ${physical_billing_cost_usd};;
+    sql: (${active_physical_bytes}/POW(1024, 3) * 0.04) + ((${long_term_physical_bytes}/POW(1024, 3)) * 0.02);;
     value_format:"$#,##0.00"
   }
 

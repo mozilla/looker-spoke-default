@@ -63,13 +63,13 @@ view: +bigquery_table_storage_timeline_daily {
 
   measure: sum_logical_billing_cost_usd{
     type: sum
-    sql: ${avg_logical_billing_cost_usd};;
+    sql: (${avg_active_logical_bytes}/POW(1024, 3) * 0.02) + ((${avg_long_term_logical_bytes}/ POW(1024, 3)) * 0.01);;
     value_format:"$#,##0.00"
   }
 
   measure: sum_physical_billing_cost_usd{
     type: sum
-    sql: ${avg_physical_billing_cost_usd};;
+    sql: (${avg_active_physical_bytes}/POW(1024, 3) * 0.04) + ((${avg_long_term_physical_bytes}/ POW(1024, 3)) * 0.02);;
     value_format:"$#,##0.00"
   }
 
