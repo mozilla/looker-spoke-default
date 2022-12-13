@@ -157,28 +157,14 @@ view: newtab_interactions {
     group_label: "Search"
     label: "Tagged Search Ad Impressions"
     type: sum
-    sql: ${tagged_search_ad_impressions} ;;
+    sql: ${tagged_search_ad_impressions} - ${tagged_follow_on_search_ad_impressions};;
   }
 
   measure: sum_tagged_search_ad_clicks {
     group_label: "Search"
     label: "Tagged Search Ad Clicks"
     type: sum
-    sql: ${tagged_search_ad_clicks} ;;
-  }
-
-  measure: sum_follow_on_search_ad_impressions {
-    group_label: "Search"
-    label: "Follow-on Search Ad Impressions"
-    type: sum
-    sql: ${follow_on_search_ad_impressions} ;;
-  }
-
-  measure: sum_follow_on_search_ad_clicks {
-    group_label: "Search"
-    label: "Follow-on Search Ad Clicks"
-    type: sum
-    sql: ${follow_on_search_ad_clicks} ;;
+    sql: ${tagged_search_ad_clicks} - ${tagged_follow_on_search_ad_clicks};;
   }
 
   measure: sum_tagged_follow_on_search_ad_impressions {
@@ -195,6 +181,20 @@ view: newtab_interactions {
     sql: ${tagged_follow_on_search_ad_clicks} ;;
   }
 
+  measure: sum_all_search_ad_clicks {
+    group_label: "Search"
+    label: "Total Tagged Ad Clicks"
+    type: sum
+    sql: ${tagged_search_ad_clicks} ;;
+  }
+
+  measure: sum_all_search_ad_impressions {
+    group_label: "Search"
+    label: "Total Tagged Ad Impressions"
+    type: sum
+    sql: ${tagged_search_ad_impressions} ;;
+  }
+
   measure: visits_with_search {
     group_label: "Search"
     type: count_distinct
@@ -205,28 +205,14 @@ view: newtab_interactions {
   measure: visits_with_tagged_search_ad_impression {
     group_label: "Search"
     type: count_distinct
-    sql: IF(${tagged_search_ad_impressions} > 0, ${newtab_visit_id}, NULL) ;;
+    sql: IF(${tagged_search_ad_impressions} - ${tagged_follow_on_search_ad_impressions} > 0, ${newtab_visit_id}, NULL) ;;
     approximate: yes
   }
 
   measure:  visits_with_tagged_search_ad_click {
     group_label: "Search"
     type: count_distinct
-    sql: IF(${tagged_search_ad_clicks} > 0, ${newtab_visit_id}, NULL) ;;
-    approximate: yes
-  }
-
-  measure: visits_with_follow_on_search_ad_impression {
-    group_label: "Search"
-    type: count_distinct
-    sql: IF(${follow_on_search_ad_impressions} > 0, ${newtab_visit_id}, NULL) ;;
-    approximate: yes
-  }
-
-  measure:  visits_with_follow_on_search_ad_click {
-    group_label: "Search"
-    type: count_distinct
-    sql: IF(${follow_on_search_ad_clicks} > 0, ${newtab_visit_id}, NULL) ;;
+    sql: IF(${tagged_search_ad_clicks} - ${tagged_follow_on_search_ad_impressions} > 0, ${newtab_visit_id}, NULL) ;;
     approximate: yes
   }
 
@@ -244,6 +230,20 @@ view: newtab_interactions {
     approximate: yes
   }
 
+  measure:  visits_with_any_ad_click {
+    group_label: "Search"
+    type: count_distinct
+    sql: IF(${tagged_search_ad_clicks} > 0, ${newtab_visit_id}, NULL) ;;
+    approximate: yes
+  }
+
+  measure:  visits_with_any_ad_impression {
+    group_label: "Search"
+    type: count_distinct
+    sql: IF(${tagged_search_ad_impressions} > 0, ${newtab_visit_id}, NULL) ;;
+    approximate: yes
+  }
+
   measure: clients_with_search {
     group_label: "Search"
     type: count_distinct
@@ -254,28 +254,14 @@ view: newtab_interactions {
   measure: clients_with_tagged_search_ad_impression {
     group_label: "Search"
     type: count_distinct
-    sql: IF(${tagged_search_ad_impressions} > 0, ${client_id}, NULL) ;;
+    sql: IF(${tagged_search_ad_impressions} - ${tagged_follow_on_search_ad_impressions}> 0, ${client_id}, NULL) ;;
     approximate: yes
   }
 
   measure:  clients_with_tagged_search_ad_click {
     group_label: "Search"
     type: count_distinct
-    sql: IF(${tagged_search_ad_clicks} > 0, ${client_id}, NULL) ;;
-    approximate: yes
-  }
-
-  measure: clients_with_follow_on_search_ad_impression {
-    group_label: "Search"
-    type: count_distinct
-    sql: IF(${follow_on_search_ad_impressions} > 0, ${client_id}, NULL) ;;
-    approximate: yes
-  }
-
-  measure:  clients_with_follow_on_search_ad_click {
-    group_label: "Search"
-    type: count_distinct
-    sql: IF(${follow_on_search_ad_clicks} > 0, ${client_id}, NULL) ;;
+    sql: IF(${tagged_search_ad_clicks} - ${tagged_follow_on_search_ad_clicks}> 0, ${client_id}, NULL) ;;
     approximate: yes
   }
 
@@ -293,6 +279,19 @@ view: newtab_interactions {
     approximate: yes
   }
 
+  measure:  clients_with_any_ad_click {
+    group_label: "Search"
+    type: count_distinct
+    sql: IF(${tagged_search_ad_clicks} > 0, ${client_id}, NULL) ;;
+    approximate: yes
+  }
+
+  measure:  clients_with_any_ad_impression {
+    group_label: "Search"
+    type: count_distinct
+    sql: IF(${tagged_search_ad_impressions} > 0, ${client_id}, NULL) ;;
+    approximate: yes
+  }
 
   ### Topsites
 
