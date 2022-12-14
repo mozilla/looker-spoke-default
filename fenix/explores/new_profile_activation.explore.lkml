@@ -1,4 +1,4 @@
-include: "../../fenix/views/new_profile_activation_table.view.lkml"
+include: "../views/new_profile_activation_table.view.lkml"
 include: "/shared/views/*"
 
 explore: fenix_new_profile_activation {
