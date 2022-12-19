@@ -6,6 +6,7 @@
 
     '
   refresh: 1 day
+  preferred_slug: P5Q1y3FmJzwvEyZPmu1649
   elements:
   - title: Firefox Desktop by Country (legacy telemetry, 1% sample)
     name: Firefox Desktop by Country (legacy telemetry, 1% sample)
@@ -47,7 +48,7 @@
     defaults_version: 1
     listen:
       Submission Date: client_counts.submission_date
-    row: 8
+    row: 16
     col: 0
     width: 12
     height: 6
@@ -56,7 +57,7 @@
     title_text: OS | Geo | Channel - Distributions
     subtitle_text: ''
     body_text: ''
-    row: 6
+    row: 14
     col: 0
     width: 24
     height: 2
@@ -107,7 +108,7 @@
     defaults_version: 1
     listen:
       Submission Date: client_counts.submission_date
-    row: 14
+    row: 22
     col: 12
     width: 12
     height: 6
@@ -165,7 +166,7 @@
     totals_color: "#808080"
     listen:
       Submission Date: client_counts.submission_date
-    row: 8
+    row: 16
     col: 12
     width: 12
     height: 6
@@ -235,7 +236,7 @@
     defaults_version: 1
     listen:
       Submission Date: client_counts.submission_date
-    row: 20
+    row: 28
     col: 0
     width: 12
     height: 6
@@ -309,7 +310,7 @@
     defaults_version: 1
     listen:
       Submission Date: client_counts.submission_date
-    row: 26
+    row: 34
     col: 0
     width: 12
     height: 9
@@ -370,7 +371,7 @@
     show_null_labels: false
     listen:
       Submission Date: client_counts.submission_date
-    row: 20
+    row: 28
     col: 12
     width: 12
     height: 6
@@ -415,7 +416,7 @@
     defaults_version: 1
     listen:
       Submission Date: baseline.submission_date
-    row: 14
+    row: 22
     col: 0
     width: 12
     height: 6
@@ -431,7 +432,7 @@
       2. **New columns that are missing:** Sort by _Sum of Path Count (last 7 days)_ ascending. Null values from two weeks ago indicate that a new column has been added within the last 7 days that is not part of the schemas
 
       3. **Verify that counts for added columns are decreasing:** Sort by _Diff_ descending.
-    row: 35
+    row: 43
     col: 0
     width: 24
     height: 4
@@ -978,7 +979,7 @@
           \ ${sum_of_path_count_two_weeks_ago})/${sum_of_path_count_last_7_days})\
           \ * 100", label: Diff % to two weeks ago, value_format: !!null '', value_format_name: decimal_1,
         _kind_hint: measure, table_calculation: diff_to_two_weeks_ago, _type_hint: number}]
-    row: 39
+    row: 47
     col: 0
     width: 24
     height: 6
@@ -1401,7 +1402,7 @@
     dynamic_fields: [{category: table_calculation, expression: "((${sum_of_path_count_last_7_days}-${sum_of_path_count_two_weeks_ago})/${sum_of_path_count_last_7_days})*100",
         label: Diff % to two weeks ago, value_format: !!null '', value_format_name: decimal_1,
         _kind_hint: measure, table_calculation: diff_to_two_weeks_ago, _type_hint: number}]
-    row: 45
+    row: 53
     col: 0
     width: 24
     height: 6
@@ -1450,7 +1451,7 @@
     hidden_fields: [distinct_docids.non_matching_count]
     listen:
       Submission Date: distinct_docids.submission_date
-    row: 84
+    row: 92
     col: 0
     width: 24
     height: 4
@@ -1459,9 +1460,11 @@
     title_text: Pipeline latency sum
     subtitle_text: An estimate of worst case latency of messages from the decoder
       to live tables.
-    body_text: <center> <a href="https://earthangel-b40313e5.influxcloud.net/d/bZHv1mUMk/pipeline-latency?orgId=1&from=now-7d&to=now&var-realm=prod&var-family=telemetry">
-      Grafana Dashboard</a> </center>
-    row: 143
+    body_text: |-
+      <center> <a href="https://earthangel-b40313e5.influxcloud.net/d/bZHv1mUMk/pipeline-latency?orgId=1&from=now-14d&to=now&var-realm=prod&var-family=telemetry"> Grafana Pipeline Latency (telemetry)</a> </center>
+
+      <center> <a href="https://earthangel-b40313e5.influxcloud.net/d/bZHv1mUMk/pipeline-latency?orgId=1&from=now-14d&to=now&var-realm=prod&var-family=structured"> Grafana Pipeline Latency (structured)</a> </center>
+    row: 6
     col: 0
     width: 24
     height: 4
@@ -1541,7 +1544,7 @@
     defaults_version: 1
     listen:
       Submission Date: payload_bytes_error_all.submission_date
-    row: 107
+    row: 115
     col: 0
     width: 13
     height: 8
@@ -1609,7 +1612,7 @@
     defaults_version: 1
     listen:
       Submission Date: payload_bytes_error_all.submission_date
-    row: 115
+    row: 123
     col: 0
     width: 13
     height: 7
@@ -1691,7 +1694,7 @@
     defaults_version: 1
     listen:
       Submission Date: payload_bytes_error_all.submission_date
-    row: 107
+    row: 115
     col: 13
     width: 11
     height: 8
@@ -1756,269 +1759,16 @@
     hidden_fields: [this_week_byte_size, last_week_byte_size]
     listen:
       Submission Date: column_size.submission_date
-    row: 175
+    row: 188
     col: 0
     width: 24
     height: 7
-  - title: Stable Table Sizes (daily)
-    name: Stable Table Sizes (daily)
-    model: monitoring
-    explore: stable_table_sizes
-    type: looker_line
-    fields: [stable_table_sizes.submission_date, table, total_size]
-    pivots: [table]
-    fill_fields: [stable_table_sizes.submission_date]
-    filters:
-      total_size: ">50"
-    sorts: [total_size desc 0, table]
-    limit: 1000
-    column_limit: 100
-    dynamic_fields: [{category: measure, expression: !!null '', label: Total Size,
-        value_format: !!null '', value_format_name: !!null '', based_on: tb_size,
-        _kind_hint: measure, measure: total_size, type: sum, _type_hint: number},
-      {category: dimension, expression: 'concat(${stable_table_sizes.dataset_id},
-          ".", ${stable_table_sizes.table_id})', label: Table, value_format: !!null '',
-        value_format_name: !!null '', dimension: table, _kind_hint: dimension, _type_hint: string},
-      {category: dimension, expression: "${stable_table_sizes.byte_size} / 1024 /\
-          \ 1024 / 1024", label: TB Size, value_format: !!null '', value_format_name: !!null '',
-        dimension: tb_size, _kind_hint: dimension, _type_hint: number}]
-    x_axis_gridlines: true
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    show_null_points: true
-    interpolation: linear
-    y_axes: [{label: 'Partition Size [GB]', orientation: left, series: [{axisId: total_size,
-            id: activity_stream_stable.events_v1 - total_size, name: activity_stream_stable.events_v1},
-          {axisId: total_size, id: activity_stream_stable.impression_stats_v1 - total_size,
-            name: activity_stream_stable.impression_stats_v1}, {axisId: total_size,
-            id: activity_stream_stable.sessions_v1 - total_size, name: activity_stream_stable.sessions_v1},
-          {axisId: total_size, id: contextual_services_stable.topsites_impression_v1
-              - total_size, name: contextual_services_stable.topsites_impression_v1},
-          {axisId: total_size, id: firefox_desktop_stable.baseline_v1 - total_size,
-            name: firefox_desktop_stable.baseline_v1}, {axisId: total_size, id: firefox_desktop_stable.metrics_v1
-              - total_size, name: firefox_desktop_stable.metrics_v1}, {axisId: total_size,
-            id: messaging_system_stable.undesired_events_v1 - total_size, name: messaging_system_stable.undesired_events_v1},
-          {axisId: total_size, id: org_mozilla_firefox_stable.baseline_v1 - total_size,
-            name: org_mozilla_firefox_stable.baseline_v1}, {axisId: total_size, id: org_mozilla_firefox_stable.events_v1
-              - total_size, name: org_mozilla_firefox_stable.events_v1}, {axisId: total_size,
-            id: org_mozilla_firefox_stable.metrics_v1 - total_size, name: org_mozilla_firefox_stable.metrics_v1},
-          {axisId: total_size, id: telemetry_stable.event_v4 - total_size, name: telemetry_stable.event_v4},
-          {axisId: total_size, id: telemetry_stable.first_shutdown_v4 - total_size,
-            name: telemetry_stable.first_shutdown_v4}, {axisId: total_size, id: telemetry_stable.main_v4
-              - total_size, name: telemetry_stable.main_v4}, {axisId: total_size,
-            id: telemetry_stable.modules_v4 - total_size, name: telemetry_stable.modules_v4},
-          {axisId: total_size, id: telemetry_stable.sync_v4 - total_size, name: telemetry_stable.sync_v4},
-          {axisId: total_size, id: telemetry_stable.third_party_modules_v4 - total_size,
-            name: telemetry_stable.third_party_modules_v4}, {axisId: total_size, id: telemetry_stable.update_v4
-              - total_size, name: telemetry_stable.update_v4}], showLabels: true,
-        showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
-        type: linear}]
-    limit_displayed_rows_values:
-      show_hide: hide
-      first_last: first
-      num_rows: 0
-    hide_legend: false
-    series_types: {}
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    defaults_version: 1
-    listen:
-      Submission Date: stable_table_sizes.submission_date
-    row: 149
-    col: 0
-    width: 24
-    height: 9
-  - title: Stable Table Sizes (weekly)
-    name: Stable Table Sizes (weekly)
-    model: monitoring
-    explore: stable_table_sizes
-    type: looker_line
-    fields: [table, total_size, stable_table_sizes.submission_week]
-    pivots: [table]
-    fill_fields: [stable_table_sizes.submission_week]
-    filters:
-      total_size: ">50"
-    sorts: [total_size desc 0, table]
-    limit: 1000
-    column_limit: 100
-    dynamic_fields: [{category: measure, expression: !!null '', label: Total Size,
-        value_format: !!null '', value_format_name: !!null '', based_on: tb_size,
-        _kind_hint: measure, measure: total_size, type: average, _type_hint: number},
-      {category: dimension, expression: 'concat(${stable_table_sizes.dataset_id},
-          ".", ${stable_table_sizes.table_id})', label: Table, value_format: !!null '',
-        value_format_name: !!null '', dimension: table, _kind_hint: dimension, _type_hint: string},
-      {category: dimension, expression: "${stable_table_sizes.byte_size} / 1024 /\
-          \ 1024 / 1024", label: TB Size, value_format: !!null '', value_format_name: !!null '',
-        dimension: tb_size, _kind_hint: dimension, _type_hint: number}]
-    x_axis_gridlines: true
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    show_null_points: true
-    interpolation: linear
-    y_axes: [{label: 'Partition Size [GB]', orientation: left, series: [{axisId: total_size,
-            id: activity_stream_stable.events_v1 - total_size, name: activity_stream_stable.events_v1},
-          {axisId: total_size, id: activity_stream_stable.impression_stats_v1 - total_size,
-            name: activity_stream_stable.impression_stats_v1}, {axisId: total_size,
-            id: activity_stream_stable.sessions_v1 - total_size, name: activity_stream_stable.sessions_v1},
-          {axisId: total_size, id: contextual_services_stable.topsites_impression_v1
-              - total_size, name: contextual_services_stable.topsites_impression_v1},
-          {axisId: total_size, id: firefox_desktop_stable.baseline_v1 - total_size,
-            name: firefox_desktop_stable.baseline_v1}, {axisId: total_size, id: firefox_desktop_stable.metrics_v1
-              - total_size, name: firefox_desktop_stable.metrics_v1}, {axisId: total_size,
-            id: messaging_system_stable.undesired_events_v1 - total_size, name: messaging_system_stable.undesired_events_v1},
-          {axisId: total_size, id: org_mozilla_firefox_stable.baseline_v1 - total_size,
-            name: org_mozilla_firefox_stable.baseline_v1}, {axisId: total_size, id: org_mozilla_firefox_stable.events_v1
-              - total_size, name: org_mozilla_firefox_stable.events_v1}, {axisId: total_size,
-            id: org_mozilla_firefox_stable.metrics_v1 - total_size, name: org_mozilla_firefox_stable.metrics_v1},
-          {axisId: total_size, id: telemetry_stable.event_v4 - total_size, name: telemetry_stable.event_v4},
-          {axisId: total_size, id: telemetry_stable.first_shutdown_v4 - total_size,
-            name: telemetry_stable.first_shutdown_v4}, {axisId: total_size, id: telemetry_stable.main_v4
-              - total_size, name: telemetry_stable.main_v4}, {axisId: total_size,
-            id: telemetry_stable.modules_v4 - total_size, name: telemetry_stable.modules_v4},
-          {axisId: total_size, id: telemetry_stable.sync_v4 - total_size, name: telemetry_stable.sync_v4},
-          {axisId: total_size, id: telemetry_stable.third_party_modules_v4 - total_size,
-            name: telemetry_stable.third_party_modules_v4}, {axisId: total_size, id: telemetry_stable.update_v4
-              - total_size, name: telemetry_stable.update_v4}], showLabels: true,
-        showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
-        type: linear}]
-    limit_displayed_rows_values:
-      show_hide: hide
-      first_last: first
-      num_rows: 0
-    hide_legend: false
-    series_types: {}
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    defaults_version: 1
-    listen:
-      Submission Date: stable_table_sizes.submission_date
-    row: 158
-    col: 0
-    width: 24
-    height: 8
-  - title: Firefox Glean Table Sizes
-    name: Firefox Glean Table Sizes
-    model: monitoring
-    explore: stable_table_sizes
-    type: looker_line
-    fields: [table, total_size, stable_table_sizes.submission_week]
-    pivots: [table]
-    fill_fields: [stable_table_sizes.submission_week]
-    filters:
-      stable_table_sizes.dataset_id: '"firefox_desktop_stable"'
-    sorts: [total_size desc 0, table]
-    limit: 1000
-    column_limit: 100
-    dynamic_fields: [{category: measure, expression: !!null '', label: Total Size,
-        value_format: !!null '', value_format_name: !!null '', based_on: tb_size,
-        _kind_hint: measure, measure: total_size, type: average, _type_hint: number},
-      {category: dimension, expression: 'concat(${stable_table_sizes.dataset_id},
-          ".", ${stable_table_sizes.table_id})', label: Table, value_format: !!null '',
-        value_format_name: !!null '', dimension: table, _kind_hint: dimension, _type_hint: string},
-      {category: dimension, expression: "${stable_table_sizes.byte_size} / 1024 /\
-          \ 1024 / 1024", label: TB Size, value_format: !!null '', value_format_name: !!null '',
-        dimension: tb_size, _kind_hint: dimension, _type_hint: number}]
-    x_axis_gridlines: true
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    show_null_points: true
-    interpolation: linear
-    y_axes: [{label: 'Partition Size [GB]', orientation: left, series: [{axisId: total_size,
-            id: firefox_desktop_stable.baseline_v1 - total_size, name: firefox_desktop_stable.baseline_v1},
-          {axisId: total_size, id: firefox_desktop_stable.deletion_request_v1 - total_size,
-            name: firefox_desktop_stable.deletion_request_v1}, {axisId: total_size,
-            id: firefox_desktop_stable.events_v1 - total_size, name: firefox_desktop_stable.events_v1},
-          {axisId: total_size, id: firefox_desktop_stable.fog_validation_v1 - total_size,
-            name: firefox_desktop_stable.fog_validation_v1}, {axisId: total_size,
-            id: firefox_desktop_stable.metrics_v1 - total_size, name: firefox_desktop_stable.metrics_v1}],
-        showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
-        tickDensityCustom: 5, type: linear}]
-    limit_displayed_rows_values:
-      show_hide: hide
-      first_last: first
-      num_rows: 0
-    hide_legend: false
-    series_types: {}
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    defaults_version: 1
-    listen:
-      Submission Date: stable_table_sizes.submission_date
-    row: 166
-    col: 0
-    width: 24
-    height: 7
-  - name: Stable Table Partition Sizes
+  - name: Table Partition Sizes
     type: text
-    title_text: Stable Table Partition Sizes
+    title_text: Table Partition Sizes
+    subtitle_text: ''
     body_text: ''
-    row: 147
+    row: 151
     col: 0
     width: 23
     height: 2
@@ -2027,7 +1777,7 @@
     title_text: Column Size Differences
     body_text: Shows the differences in column sizes compared to the size of 7 days
       ago. This explains where increases in partition sizes could come from.
-    row: 173
+    row: 186
     col: 0
     width: 24
     height: 2
@@ -2041,7 +1791,7 @@
       to a direct `COUNT(DISTINCT document_id)` on the relevant table partition. Prior
       to adding this filtering, document types under `org_mozilla_fenix` would consistently
       show mismatches due to test pings present in the decoded and live tables.
-    row: 80
+    row: 88
     col: 0
     width: 24
     height: 4
@@ -2050,7 +1800,7 @@
     title_text: Schema Errors
     subtitle_text: ''
     body_text: ''
-    row: 51
+    row: 59
     col: 0
     width: 24
     height: 2
@@ -2061,40 +1811,8 @@
     type: looker_grid
     fields: [missing_namespaces_and_document_types.document_namespace, missing_namespaces_and_document_types.total_pings,
       list_of_document_type, missing_document_namespaces_notes.notes]
-    sorts: [missing_namespaces_and_document_types.total_pings desc]
-    limit: 500
-    dynamic_fields: [{measure: list_of_document_type, based_on: missing_namespaces_and_document_types.document_type,
-        expression: '', label: List of Document Type, type: list, _kind_hint: measure,
-        _type_hint: list}]
-    show_view_names: false
-    show_row_numbers: true
-    transpose: false
-    truncate_text: true
-    hide_totals: false
-    hide_row_totals: false
-    size_to_fit: true
-    table_theme: white
-    limit_displayed_rows: false
-    enable_conditional_formatting: false
-    header_text_alignment: left
-    header_font_size: 12
-    rows_font_size: 12
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    defaults_version: 1
-    listen: {}
-    row: 91
-    col: 0
-    width: 24
-    height: 6
-  - title: Missing DocTypes/versions
-    name: Missing DocTypes/versions
-    model: monitoring
-    explore: missing_namespaces_and_document_types
-    type: looker_grid
-    fields: [missing_namespaces_and_document_types.document_namespace, missing_namespaces_and_document_types.total_pings,
-      missing_namespaces_and_document_types.document_type, missing_namespaces_and_document_types.document_version,
-      missing_document_namespaces_notes.notes]
+    filters:
+      missing_namespaces_and_document_types.total_pings: ">=10000"
     sorts: [missing_namespaces_and_document_types.total_pings desc]
     limit: 500
     dynamic_fields: [{measure: list_of_document_type, based_on: missing_namespaces_and_document_types.document_type,
@@ -2121,6 +1839,42 @@
     col: 0
     width: 24
     height: 6
+  - title: Missing DocTypes/versions
+    name: Missing DocTypes/versions
+    model: monitoring
+    explore: missing_namespaces_and_document_types
+    type: looker_grid
+    fields: [missing_namespaces_and_document_types.document_namespace, missing_namespaces_and_document_types.total_pings,
+      missing_namespaces_and_document_types.document_type, missing_namespaces_and_document_types.document_version,
+      missing_document_namespaces_notes.notes]
+    filters:
+      missing_namespaces_and_document_types.total_pings: ">=10000"
+    sorts: [missing_namespaces_and_document_types.total_pings desc]
+    limit: 500
+    dynamic_fields: [{measure: list_of_document_type, based_on: missing_namespaces_and_document_types.document_type,
+        expression: '', label: List of Document Type, type: list, _kind_hint: measure,
+        _type_hint: list}]
+    show_view_names: false
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    limit_displayed_rows: false
+    enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: 12
+    rows_font_size: 12
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    defaults_version: 1
+    listen: {}
+    row: 107
+    col: 0
+    width: 24
+    height: 6
   - name: Missing Document Namespaces
     type: text
     title_text: Missing Document Namespaces
@@ -2128,7 +1882,7 @@
     body_text: "Add unknown namespaces to [MessageScrubber](https://github.com/mozilla/gcp-ingestion/blob/b86c6f491ec23bea8c57fc182eb3ccd3b62527be/ingestion-beam/src/main/java/com/mozilla/telemetry/decoder/MessageScrubber.java#L22)\
       \ if threshold exceeds 10,000. Different variation of existing products are\
       \ due to fuzzing. \n\n\nA list of known namespaces can be found inside [probeinfo/glean/app-listings](https://probeinfo.telemetry.mozilla.org/v2/glean/app-listings)."
-    row: 88
+    row: 96
     col: 0
     width: 24
     height: 3
@@ -2136,7 +1890,7 @@
     type: text
     title_text: Missing Doctypes/Versions
     body_text: ''
-    row: 97
+    row: 105
     col: 0
     width: 24
     height: 2
@@ -2145,7 +1899,7 @@
     title_text: 'Overall # of Errors per `error_type`'
     subtitle_text: Errors encountered during ingestion
     body_text: ''
-    row: 105
+    row: 113
     col: 0
     width: 24
     height: 2
@@ -2154,16 +1908,16 @@
     title_text: Total Columns per Table
     subtitle_text: ''
     body_text: ''
-    row: 122
+    row: 130
     col: 0
     width: 24
     height: 3
   - name: Open Issues
     type: text
     title_text: Open Issues
-    subtitle_text: All open issues tagged with [data-quality], P1-P3
-    body_text: <center> <a href="https://bugzilla.mozilla.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=NEW&bug_status=ASSIGNED&bug_status=REOPENED&classification=Client%20Software&classification=Developer%20Infrastructure&classification=Components&classification=Server%20Software&classification=Other&priority=P1&priority=P2&priority=P3&priority=--&resolution=---&status_whiteboard=[data-quality]&status_whiteboard_type=allwordssubstr&list_id=15652480">
-      Bugzilla</a> </center>
+    subtitle_text: ''
+    body_text: <center> <a href="https://bugzilla.mozilla.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=NEW&bug_status=ASSIGNED&bug_status=REOPENED&classification=Client%20Software&classification=Developer%20Infrastructure&classification=Components&classification=Server%20Software&classification=Other&columnlist=bug_type%2Cshort_desc%2Cproduct%2Ccomponent%2Cbug_status%2Cpriority%2Cassigned_to%2Copendate%2Cchangeddate&list_id=16161324&priority=P1&priority=P2&priority=P3&priority=--&query_format=advanced&status_whiteboard=%5Bdata-quality%5D&status_whiteboard_type=allwordssubstr&order=Last%20Updated%20DESC">All
+      open bugs tagged with [data-quality], P1-P3</a> </center>
     row: 0
     col: 0
     width: 24
@@ -2223,7 +1977,7 @@
     conditional_formatting_include_nulls: false
     listen:
       Submission Date: stable_table_column_counts.submission_date
-    row: 125
+    row: 133
     col: 0
     width: 24
     height: 7
@@ -2373,7 +2127,7 @@
     hidden_points_if_no: []
     listen:
       Submission Date: stable_table_column_counts.submission_date
-    row: 132
+    row: 140
     col: 0
     width: 24
     height: 11
@@ -2384,6 +2138,8 @@
       explore: schema_error_counts
       type: table
       fields: [schema_error_counts.submission_date, grouped, filtered_error_counts]
+      filters:
+        schema_error_counts.submission_date: 28 days
       sorts: [filtered_error_counts desc]
       limit: 500
       dynamic_fields: [{category: measure, expression: !!null '', label: filtered_error_counts,
@@ -2397,6 +2153,8 @@
       explore: schema_error_counts
       type: table
       fields: [grouped, top_error_counts]
+      filters:
+        schema_error_counts.submission_date: 10 years
       sorts: [top_error_counts desc]
       limit: 10
       dynamic_fields: [{category: dimension, expression: 'concat(${schema_error_counts.path},
@@ -2491,7 +2249,7 @@
     listen:
     - Submission Date: schema_error_counts.submission_date
     - Submission Date: schema_error_counts.submission_date
-    row: 53
+    row: 61
     col: 0
     width: 24
     height: 11
@@ -2502,6 +2260,8 @@
     type: looker_grid
     fields: [schema_error_counts.document_namespace, schema_error_counts.document_type,
       schema_error_counts.path, error_count, schema_errors_notes.notes]
+    filters:
+      schema_error_counts.submission_date: 15 days
     sorts: [error_count desc]
     limit: 500
     dynamic_fields: [{category: measure, expression: !!null '', label: error_count,
@@ -2550,7 +2310,7 @@
     defaults_version: 1
     series_types: {}
     listen: {}
-    row: 64
+    row: 72
     col: 0
     width: 24
     height: 7
@@ -2563,7 +2323,8 @@
       fields: [schema_error_counts.document_namespace, schema_error_counts.document_type,
         schema_error_counts.path, schema_error_counts.error_counts_sum, schema_errors_notes.notes]
       filters:
-        schema_error_counts.error_counts_sum: ''
+        schema_error_counts.submission_date: 14 days ago for 14 days
+        schema_error_counts.error_counts_sum: ">1000"
       sorts: [schema_error_counts.document_type]
       limit: 5000
       join_fields: []
@@ -2571,6 +2332,8 @@
       explore: distinct_docids
       type: table
       fields: [distinct_docids.namespace, distinct_docids.doc_type, distinct_docids.n_documents]
+      filters:
+        distinct_docids.submission_date: 14 days ago for 14 days
       sorts: [distinct_docids.doc_type]
       limit: 5000
       join_fields:
@@ -2586,7 +2349,7 @@
     listen:
     - Submission Date: schema_error_counts.submission_date
     - Submission Date: distinct_docids.submission_date
-    row: 71
+    row: 79
     col: 0
     width: 24
     height: 9
@@ -2671,10 +2434,364 @@
     conditional_formatting_include_nulls: false
     defaults_version: 1
     listen: {}
-    row: 26
+    row: 34
     col: 12
     width: 12
     height: 9
+  - title: Table Sizes (daily)
+    name: Table Sizes (daily)
+    model: monitoring
+    explore: stable_and_dervied_table_sizes
+    type: looker_line
+    fields: [stable_and_derived_table_sizes.submission_date, table, total_size]
+    pivots: [table]
+    fill_fields: [stable_and_derived_table_sizes.submission_date]
+    filters:
+      total_size: ">50"
+    sorts: [stable_and_derived_table_sizes.submission_date desc, table]
+    limit: 5000
+    column_limit: 1000
+    dynamic_fields: [{category: dimension, expression: 'concat(${stable_and_derived_table_sizes.dataset_id},
+          ".", ${stable_and_derived_table_sizes.table_id})', label: Table, value_format: !!null '',
+        value_format_name: !!null '', dimension: table, _kind_hint: dimension, _type_hint: string},
+      {category: dimension, expression: "${stable_and_derived_table_sizes.byte_size}\
+          \ / 1024 / 1024 / 1024", label: TB Size, value_format: !!null '', value_format_name: !!null '',
+        dimension: tb_size, _kind_hint: dimension, _type_hint: number}, {category: measure,
+        expression: !!null '', label: Total Size, value_format: !!null '', value_format_name: !!null '',
+        based_on: tb_size, _kind_hint: measure, measure: total_size, type: sum, _type_hint: number}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    y_axes: [{label: 'Partition Size [GB]', orientation: left, series: [{axisId: total_size,
+            id: activity_stream_stable.events_v1 - total_size, name: activity_stream_stable.events_v1},
+          {axisId: total_size, id: activity_stream_stable.impression_stats_v1 - total_size,
+            name: activity_stream_stable.impression_stats_v1}, {axisId: total_size,
+            id: activity_stream_stable.sessions_v1 - total_size, name: activity_stream_stable.sessions_v1},
+          {axisId: total_size, id: contextual_services_stable.topsites_impression_v1
+              - total_size, name: contextual_services_stable.topsites_impression_v1},
+          {axisId: total_size, id: firefox_accounts_derived.funnel_events_source_v1
+              - total_size, name: firefox_accounts_derived.funnel_events_source_v1},
+          {axisId: total_size, id: firefox_desktop_background_update_derived.baseline_clients_last_seen_v1
+              - total_size, name: firefox_desktop_background_update_derived.baseline_clients_last_seen_v1},
+          {axisId: total_size, id: firefox_desktop_background_update_derived.clients_last_seen_joined_v1
+              - total_size, name: firefox_desktop_background_update_derived.clients_last_seen_joined_v1},
+          {axisId: total_size, id: firefox_desktop_background_update_stable.background_update_v1
+              - total_size, name: firefox_desktop_background_update_stable.background_update_v1},
+          {axisId: total_size, id: firefox_desktop_background_update_stable.baseline_v1
+              - total_size, name: firefox_desktop_background_update_stable.baseline_v1},
+          {axisId: total_size, id: firefox_desktop_stable.baseline_v1 - total_size,
+            name: firefox_desktop_stable.baseline_v1}, {axisId: total_size, id: firefox_desktop_stable.events_v1
+              - total_size, name: firefox_desktop_stable.events_v1}, {axisId: total_size,
+            id: firefox_desktop_stable.metrics_v1 - total_size, name: firefox_desktop_stable.metrics_v1},
+          {axisId: total_size, id: firefox_desktop_stable.newtab_v1 - total_size,
+            name: firefox_desktop_stable.newtab_v1}, {axisId: total_size, id: messaging_system_stable.undesired_events_v1
+              - total_size, name: messaging_system_stable.undesired_events_v1}, {
+            axisId: total_size, id: org_mozilla_firefox_stable.baseline_v1 - total_size,
+            name: org_mozilla_firefox_stable.baseline_v1}, {axisId: total_size, id: org_mozilla_firefox_stable.events_v1
+              - total_size, name: org_mozilla_firefox_stable.events_v1}, {axisId: total_size,
+            id: org_mozilla_firefox_stable.metrics_v1 - total_size, name: org_mozilla_firefox_stable.metrics_v1},
+          {axisId: total_size, id: revenue_derived.client_ltv_v1 - total_size, name: revenue_derived.client_ltv_v1},
+          {axisId: total_size, id: search_derived.mobile_search_clients_last_seen_v1
+              - total_size, name: search_derived.mobile_search_clients_last_seen_v1},
+          {axisId: total_size, id: search_derived.search_clients_daily_v8 - total_size,
+            name: search_derived.search_clients_daily_v8}, {axisId: total_size, id: search_derived.search_clients_last_seen_v1
+              - total_size, name: search_derived.search_clients_last_seen_v1}, {axisId: total_size,
+            id: telemetry_derived.addons_v2 - total_size, name: telemetry_derived.addons_v2},
+          {axisId: total_size, id: telemetry_derived.clients_daily_histogram_aggregates_v1
+              - total_size, name: telemetry_derived.clients_daily_histogram_aggregates_v1},
+          {axisId: total_size, id: telemetry_derived.clients_daily_joined_v1 - total_size,
+            name: telemetry_derived.clients_daily_joined_v1}, {axisId: total_size,
+            id: telemetry_derived.clients_daily_scalar_aggregates_v1 - total_size,
+            name: telemetry_derived.clients_daily_scalar_aggregates_v1}, {axisId: total_size,
+            id: telemetry_derived.clients_daily_v6 - total_size, name: telemetry_derived.clients_daily_v6},
+          {axisId: total_size, id: telemetry_derived.clients_histogram_aggregates_v1
+              - total_size, name: telemetry_derived.clients_histogram_aggregates_v1},
+          {axisId: total_size, id: telemetry_derived.clients_last_seen_joined_v1 -
+              total_size, name: telemetry_derived.clients_last_seen_joined_v1}, {
+            axisId: total_size, id: telemetry_derived.clients_last_seen_v1 - total_size,
+            name: telemetry_derived.clients_last_seen_v1}, {axisId: total_size, id: telemetry_derived.clients_scalar_aggregates_v1
+              - total_size, name: telemetry_derived.clients_scalar_aggregates_v1},
+          {axisId: total_size, id: telemetry_derived.event_events_v1 - total_size,
+            name: telemetry_derived.event_events_v1}, {axisId: total_size, id: telemetry_derived.events_1pct_v1
+              - total_size, name: telemetry_derived.events_1pct_v1}, {axisId: total_size,
+            id: telemetry_derived.events_daily_v1 - total_size, name: telemetry_derived.events_daily_v1},
+          {axisId: total_size, id: telemetry_derived.main_1pct_v1 - total_size, name: telemetry_derived.main_1pct_v1},
+          {axisId: total_size, id: telemetry_derived.main_summary_v4 - total_size,
+            name: telemetry_derived.main_summary_v4}, {axisId: total_size, id: telemetry_derived.newtab_interactions_v1
+              - total_size, name: telemetry_derived.newtab_interactions_v1}, {axisId: total_size,
+            id: telemetry_derived.unified_metrics_v1 - total_size, name: telemetry_derived.unified_metrics_v1},
+          {axisId: total_size, id: telemetry_stable.event_v4 - total_size, name: telemetry_stable.event_v4},
+          {axisId: total_size, id: telemetry_stable.main_v4 - total_size, name: telemetry_stable.main_v4},
+          {axisId: total_size, id: telemetry_stable.modules_v4 - total_size, name: telemetry_stable.modules_v4},
+          {axisId: total_size, id: telemetry_stable.sync_v4 - total_size, name: telemetry_stable.sync_v4},
+          {axisId: total_size, id: telemetry_stable.third_party_modules_v4 - total_size,
+            name: telemetry_stable.third_party_modules_v4}, {axisId: total_size, id: telemetry_stable.update_v4
+              - total_size, name: telemetry_stable.update_v4}], showLabels: true,
+        showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
+        type: linear}]
+    defaults_version: 1
+    listen:
+      Submission Date: stable_and_derived_table_sizes.submission_date
+    row: 153
+    col: 0
+    width: 24
+    height: 14
+  - title: Table Sizes (weekly)
+    name: Table Sizes (weekly)
+    model: monitoring
+    explore: stable_and_dervied_table_sizes
+    type: looker_line
+    fields: [table, total_size, stable_and_derived_table_sizes.submission_week]
+    pivots: [table]
+    fill_fields: [stable_and_derived_table_sizes.submission_week]
+    filters:
+      total_size: ">50"
+    sorts: [table, stable_and_derived_table_sizes.submission_week desc]
+    limit: 5000
+    column_limit: 1000
+    dynamic_fields: [{category: dimension, expression: 'concat(${stable_and_derived_table_sizes.dataset_id},
+          ".", ${stable_and_derived_table_sizes.table_id})', label: Table, value_format: !!null '',
+        value_format_name: !!null '', dimension: table, _kind_hint: dimension, _type_hint: string},
+      {category: dimension, expression: "${stable_and_derived_table_sizes.byte_size}\
+          \ / 1024 / 1024 / 1024", label: TB Size, value_format: !!null '', value_format_name: !!null '',
+        dimension: tb_size, _kind_hint: dimension, _type_hint: number}, {category: measure,
+        expression: !!null '', label: Total Size, value_format: !!null '', value_format_name: !!null '',
+        based_on: tb_size, _kind_hint: measure, measure: total_size, type: average,
+        _type_hint: number}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    y_axes: [{label: 'Partition Size [GB]', orientation: left, series: [{axisId: total_size,
+            id: activity_stream_stable.events_v1 - total_size, name: activity_stream_stable.events_v1},
+          {axisId: total_size, id: activity_stream_stable.impression_stats_v1 - total_size,
+            name: activity_stream_stable.impression_stats_v1}, {axisId: total_size,
+            id: activity_stream_stable.sessions_v1 - total_size, name: activity_stream_stable.sessions_v1},
+          {axisId: total_size, id: contextual_services_stable.topsites_impression_v1
+              - total_size, name: contextual_services_stable.topsites_impression_v1},
+          {axisId: total_size, id: default_browser_agent_stable.default_browser_v1
+              - total_size, name: default_browser_agent_stable.default_browser_v1},
+          {axisId: total_size, id: fenix_derived.clients_last_seen_joined_v1 - total_size,
+            name: fenix_derived.clients_last_seen_joined_v1}, {axisId: total_size,
+            id: fenix_derived.events_daily_v1 - total_size, name: fenix_derived.events_daily_v1},
+          {axisId: total_size, id: firefox_accounts_derived.funnel_events_source_v1
+              - total_size, name: firefox_accounts_derived.funnel_events_source_v1},
+          {axisId: total_size, id: firefox_desktop_background_update_derived.baseline_clients_daily_v1
+              - total_size, name: firefox_desktop_background_update_derived.baseline_clients_daily_v1},
+          {axisId: total_size, id: firefox_desktop_background_update_derived.baseline_clients_last_seen_v1
+              - total_size, name: firefox_desktop_background_update_derived.baseline_clients_last_seen_v1},
+          {axisId: total_size, id: firefox_desktop_background_update_derived.clients_last_seen_joined_v1
+              - total_size, name: firefox_desktop_background_update_derived.clients_last_seen_joined_v1},
+          {axisId: total_size, id: firefox_desktop_background_update_stable.background_update_v1
+              - total_size, name: firefox_desktop_background_update_stable.background_update_v1},
+          {axisId: total_size, id: firefox_desktop_background_update_stable.baseline_v1
+              - total_size, name: firefox_desktop_background_update_stable.baseline_v1},
+          {axisId: total_size, id: firefox_desktop_derived.baseline_clients_daily_v1
+              - total_size, name: firefox_desktop_derived.baseline_clients_daily_v1},
+          {axisId: total_size, id: firefox_desktop_derived.baseline_clients_last_seen_v1
+              - total_size, name: firefox_desktop_derived.baseline_clients_last_seen_v1},
+          {axisId: total_size, id: firefox_desktop_derived.clients_last_seen_joined_v1
+              - total_size, name: firefox_desktop_derived.clients_last_seen_joined_v1},
+          {axisId: total_size, id: firefox_desktop_stable.baseline_v1 - total_size,
+            name: firefox_desktop_stable.baseline_v1}, {axisId: total_size, id: firefox_desktop_stable.events_v1
+              - total_size, name: firefox_desktop_stable.events_v1}, {axisId: total_size,
+            id: firefox_desktop_stable.metrics_v1 - total_size, name: firefox_desktop_stable.metrics_v1},
+          {axisId: total_size, id: firefox_desktop_stable.newtab_v1 - total_size,
+            name: firefox_desktop_stable.newtab_v1}, {axisId: total_size, id: messaging_system_stable.undesired_events_v1
+              - total_size, name: messaging_system_stable.undesired_events_v1}, {
+            axisId: total_size, id: operational_monitoring_derived.telemetry_alerts_prototype_histogram
+              - total_size, name: operational_monitoring_derived.telemetry_alerts_prototype_histogram},
+          {axisId: total_size, id: org_mozilla_firefox_beta_stable.metrics_v1 - total_size,
+            name: org_mozilla_firefox_beta_stable.metrics_v1}, {axisId: total_size,
+            id: org_mozilla_firefox_derived.baseline_clients_last_seen_v1 - total_size,
+            name: org_mozilla_firefox_derived.baseline_clients_last_seen_v1}, {axisId: total_size,
+            id: org_mozilla_firefox_stable.baseline_v1 - total_size, name: org_mozilla_firefox_stable.baseline_v1},
+          {axisId: total_size, id: org_mozilla_firefox_stable.events_v1 - total_size,
+            name: org_mozilla_firefox_stable.events_v1}, {axisId: total_size, id: org_mozilla_firefox_stable.metrics_v1
+              - total_size, name: org_mozilla_firefox_stable.metrics_v1}, {axisId: total_size,
+            id: org_mozilla_firefox_stable.sync_v1 - total_size, name: org_mozilla_firefox_stable.sync_v1},
+          {axisId: total_size, id: org_mozilla_firefox_stable.tabs_sync_v1 - total_size,
+            name: org_mozilla_firefox_stable.tabs_sync_v1}, {axisId: total_size, id: org_mozilla_ios_firefox_stable.baseline_v1
+              - total_size, name: org_mozilla_ios_firefox_stable.baseline_v1}, {axisId: total_size,
+            id: org_mozilla_ios_firefox_stable.events_v1 - total_size, name: org_mozilla_ios_firefox_stable.events_v1},
+          {axisId: total_size, id: revenue_derived.client_ltv_v1 - total_size, name: revenue_derived.client_ltv_v1},
+          {axisId: total_size, id: search_derived.mobile_search_clients_last_seen_v1
+              - total_size, name: search_derived.mobile_search_clients_last_seen_v1},
+          {axisId: total_size, id: search_derived.search_clients_daily_v8 - total_size,
+            name: search_derived.search_clients_daily_v8}, {axisId: total_size, id: search_derived.search_clients_last_seen_v1
+              - total_size, name: search_derived.search_clients_last_seen_v1}, {axisId: total_size,
+            id: telemetry_derived.addon_aggregates_v2 - total_size, name: telemetry_derived.addon_aggregates_v2},
+          {axisId: total_size, id: telemetry_derived.addons_v2 - total_size, name: telemetry_derived.addons_v2},
+          {axisId: total_size, id: telemetry_derived.clients_daily_histogram_aggregates_v1
+              - total_size, name: telemetry_derived.clients_daily_histogram_aggregates_v1},
+          {axisId: total_size, id: telemetry_derived.clients_daily_joined_v1 - total_size,
+            name: telemetry_derived.clients_daily_joined_v1}, {axisId: total_size,
+            id: telemetry_derived.clients_daily_scalar_aggregates_v1 - total_size,
+            name: telemetry_derived.clients_daily_scalar_aggregates_v1}, {axisId: total_size,
+            id: telemetry_derived.clients_daily_v6 - total_size, name: telemetry_derived.clients_daily_v6},
+          {axisId: total_size, id: telemetry_derived.clients_histogram_aggregates_v1
+              - total_size, name: telemetry_derived.clients_histogram_aggregates_v1},
+          {axisId: total_size, id: telemetry_derived.clients_last_seen_event_v1 -
+              total_size, name: telemetry_derived.clients_last_seen_event_v1}, {axisId: total_size,
+            id: telemetry_derived.clients_last_seen_joined_v1 - total_size, name: telemetry_derived.clients_last_seen_joined_v1},
+          {axisId: total_size, id: telemetry_derived.clients_last_seen_v1 - total_size,
+            name: telemetry_derived.clients_last_seen_v1}, {axisId: total_size, id: telemetry_derived.clients_scalar_aggregates_v1
+              - total_size, name: telemetry_derived.clients_scalar_aggregates_v1},
+          {axisId: total_size, id: telemetry_derived.event_events_v1 - total_size,
+            name: telemetry_derived.event_events_v1}, {axisId: total_size, id: telemetry_derived.events_1pct_v1
+              - total_size, name: telemetry_derived.events_1pct_v1}, {axisId: total_size,
+            id: telemetry_derived.events_daily_v1 - total_size, name: telemetry_derived.events_daily_v1},
+          {axisId: total_size, id: telemetry_derived.main_1pct_v1 - total_size, name: telemetry_derived.main_1pct_v1},
+          {axisId: total_size, id: telemetry_derived.main_nightly_v1 - total_size,
+            name: telemetry_derived.main_nightly_v1}, {axisId: total_size, id: telemetry_derived.main_summary_v4
+              - total_size, name: telemetry_derived.main_summary_v4}, {axisId: total_size,
+            id: telemetry_derived.newtab_interactions_v1 - total_size, name: telemetry_derived.newtab_interactions_v1},
+          {axisId: total_size, id: telemetry_derived.unified_metrics_v1 - total_size,
+            name: telemetry_derived.unified_metrics_v1}, {axisId: total_size, id: telemetry_derived.urlbar_clients_daily_v1
+              - total_size, name: telemetry_derived.urlbar_clients_daily_v1}, {axisId: total_size,
+            id: telemetry_stable.bhr_v4 - total_size, name: telemetry_stable.bhr_v4},
+          {axisId: total_size, id: telemetry_stable.core_v7 - total_size, name: telemetry_stable.core_v7},
+          {axisId: total_size, id: telemetry_stable.crash_v4 - total_size, name: telemetry_stable.crash_v4},
+          {axisId: total_size, id: telemetry_stable.event_v4 - total_size, name: telemetry_stable.event_v4},
+          {axisId: total_size, id: telemetry_stable.first_shutdown_v4 - total_size,
+            name: telemetry_stable.first_shutdown_v4}, {axisId: total_size, id: telemetry_stable.focus_event_v1
+              - total_size, name: telemetry_stable.focus_event_v1}, {axisId: total_size,
+            id: telemetry_stable.health_v4 - total_size, name: telemetry_stable.health_v4},
+          {axisId: total_size, id: telemetry_stable.main_v4 - total_size, name: telemetry_stable.main_v4},
+          {axisId: total_size, id: telemetry_stable.mobile_event_v1 - total_size,
+            name: telemetry_stable.mobile_event_v1}, {axisId: total_size, id: telemetry_stable.modules_v4
+              - total_size, name: telemetry_stable.modules_v4}, {axisId: total_size,
+            id: telemetry_stable.sync_v4 - total_size, name: telemetry_stable.sync_v4},
+          {axisId: total_size, id: telemetry_stable.third_party_modules_v4 - total_size,
+            name: telemetry_stable.third_party_modules_v4}, {axisId: total_size, id: telemetry_stable.update_v4
+              - total_size, name: telemetry_stable.update_v4}], showLabels: true,
+        showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
+        type: linear}]
+    defaults_version: 1
+    listen:
+      Submission Date: stable_and_derived_table_sizes.submission_date
+    row: 167
+    col: 0
+    width: 24
+    height: 14
+  - title: Firefox Glean Table Sizes
+    name: Firefox Glean Table Sizes
+    model: monitoring
+    explore: stable_and_dervied_table_sizes
+    type: looker_line
+    fields: [table, total_size, stable_and_derived_table_sizes.submission_week]
+    pivots: [table]
+    fill_fields: [stable_and_derived_table_sizes.submission_week]
+    filters:
+      stable_and_derived_table_sizes.dataset_id: '"firefox_desktop_stable"'
+    sorts: [table, stable_and_derived_table_sizes.submission_week desc]
+    limit: 5000
+    column_limit: 1000
+    dynamic_fields: [{category: dimension, expression: 'concat(${stable_and_derived_table_sizes.dataset_id},
+          ".", ${stable_and_derived_table_sizes.table_id})', label: Table, value_format: !!null '',
+        value_format_name: !!null '', dimension: table, _kind_hint: dimension, _type_hint: string},
+      {category: dimension, expression: "${stable_and_derived_table_sizes.byte_size}\
+          \ / 1024 / 1024 / 1024", label: TB Size, value_format: !!null '', value_format_name: !!null '',
+        dimension: tb_size, _kind_hint: dimension, _type_hint: number}, {category: measure,
+        expression: !!null '', label: Total Size, value_format: !!null '', value_format_name: !!null '',
+        based_on: tb_size, _kind_hint: measure, measure: total_size, type: average,
+        _type_hint: number}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    y_axes: [{label: 'Partition Size [GB]', orientation: left, series: [{axisId: total_size,
+            id: firefox_desktop_stable.baseline_v1 - total_size, name: firefox_desktop_stable.baseline_v1},
+          {axisId: total_size, id: firefox_desktop_stable.deletion_request_v1 - total_size,
+            name: firefox_desktop_stable.deletion_request_v1}, {axisId: total_size,
+            id: firefox_desktop_stable.events_v1 - total_size, name: firefox_desktop_stable.events_v1},
+          {axisId: total_size, id: firefox_desktop_stable.fog_validation_v1 - total_size,
+            name: firefox_desktop_stable.fog_validation_v1}, {axisId: total_size,
+            id: firefox_desktop_stable.metrics_v1 - total_size, name: firefox_desktop_stable.metrics_v1},
+          {axisId: total_size, id: firefox_desktop_stable.newtab_v1 - total_size,
+            name: firefox_desktop_stable.newtab_v1}], showLabels: true, showValues: true,
+        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
+    defaults_version: 1
+    listen:
+      Submission Date: stable_and_derived_table_sizes.submission_date
+    row: 181
+    col: 0
+    width: 24
+    height: 5
+  - name: STMO (Redash) Queue / Cost Monitoring
+    type: text
+    title_text: STMO (Redash) Queue / Cost Monitoring
+    subtitle_text: Dashboards showing queue usage for STMO BigQuery queries, and top
+      cost users of STMO.
+    body_text: |-
+      <center> <a href="https://earthangel-b40313e5.influxcloud.net/d/mUWGAU54k/stmo-redash-health-check?orgId=1&viewPanel=2&from=now-14d&to=now">Grafana STMO Queue Monitoring</a> </center>
+
+      <center> <a href="https://datastudio.google.com/u/0/reporting/1dTdlsZHSDL_fxuFjP_gSDhWCjSDhHkCl/page/uNDQB">STMO Cost/User Monitoring</a> </center>
+    row: 10
+    col: 0
+    width: 24
+    height: 4
   filters:
   - name: Submission Date
     title: Submission Date
