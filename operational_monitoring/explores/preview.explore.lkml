@@ -1,0 +1,3 @@
+include: "../views/*"
+
+explore: preview {}
