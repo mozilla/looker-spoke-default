@@ -27,6 +27,12 @@ explore: subscriptions {
     relationship: one_to_many
   }
 
+  join: original_subscriptions__active {
+    view_label: "Active Subscriptions"
+    sql: LEFT JOIN UNNEST(${subscriptions.original_subscription_active_dates}) AS original_subscriptions__active;;
+    relationship: one_to_many
+  }
+
   # join: subscriptions__events {
   #   view_label: "Subscription Events"
   #   sql: CROSS JOIN UNNEST(${subscriptions.events}) AS subscriptions__events;;
@@ -36,6 +42,12 @@ explore: subscriptions {
   join: subscriptions__retention {
     view_label: "Retention"
     sql: CROSS JOIN UNNEST(${subscriptions.retention}) AS subscriptions__retention;;
+    relationship: one_to_many
+  }
+
+  join: original_subscriptions__retention {
+    view_label: "Original Subscription Retention"
+    sql: CROSS JOIN UNNEST(${subscriptions.original_subscription_retention}) AS original_subscriptions__retention;;
     relationship: one_to_many
   }
 
