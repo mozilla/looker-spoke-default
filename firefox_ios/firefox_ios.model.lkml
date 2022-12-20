@@ -5,6 +5,7 @@ include: "//looker-hub/firefox_ios/views/*.view.lkml"
 include: "//looker-hub/firefox_ios/explores/*.explore.lkml"
 include: "views/*.view.lkml"
 include: "dashboards/*.dashboard"
+include: "explores/*.explore.lkml"
 
 explore: usage {
   always_filter: {
