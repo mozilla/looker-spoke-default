@@ -67,7 +67,8 @@ view: +subscriptions {
   dimension: plan_interval_type {
     description: "Indicates the plan interval type (1 year, 6 month, 1 month, etc)"
     type: string
-    sql: CONCAT(${plan_interval_count},"_",  ${plan_interval});;
+    sql: CASE WHEN ${product_name} = "Mozilla VPN & Firefox Relay" THEN CONCAT("bundle","_", ${plan_interval})
+    ELSE CONCAT(${plan_interval_count},"_",  ${plan_interval}) END;;
   }
 
   dimension: forecast_region {
@@ -352,7 +353,8 @@ view: original_subscriptions__retention {
   dimension: primary_key {
     primary_key: yes
     hidden: yes
-    sql: COALESCE(${subscriptions.original_subscription_id},${subscriptions.subscription_id} )|| ${months_since_original_subscription_start};;
+    # sql: COALESCE(${subscriptions.original_subscription_id},${subscriptions.subscription_id} )|| ${months_since_original_subscription_start};;
+    sql: COALESCE(${subscriptions.original_subscription_id},${subscriptions.subscription_id} );;
   }
 
   dimension:  is_cohort_complete{
@@ -396,10 +398,15 @@ view: original_subscriptions__retention {
     type: count_distinct
     sql:
     CASE WHEN (${subscriptions.ended_reason} IS NULL OR ${subscriptions.ended_reason} <> "Plan Change") AND ${original_subscriptions__retention.months_since_original_subscription_start} <= ${subscriptions.original_subscription_months_retained}
-    THEN COLLASCE(${subscriptions.original_subscription_id},${subscriptions.subscription_id})
+    THEN COALESCE(${subscriptions.original_subscription_id},${subscriptions.subscription_id})
     ELSE NULL
     END ;;
   }
+
+measure: subscription_count {
+  type: count_distinct
+  sql: ${primary_key} ;;
+}
 
   measure: count {
     description: "Count subscriptions once for each months_since_subscription_start. Used to calculate average churn per month. DO NOT USE FOR RETENTION RATE, because it is cumulative and should not be averaged."
@@ -478,6 +485,16 @@ view: subscriptions__retention {
     type: sum
     sql:
     CASE WHEN ${subscriptions__retention.months_since_subscription_start} = ${subscriptions.months_retained} + 1
+    THEN 1
+    ELSE NULL
+    END ;;
+  }
+
+  measure: upgrade_out {
+    description: "Count subscriptions churned on each months_since_subscription_start. It is used to calculate churn rate."
+    type: sum
+    sql:
+    CASE WHEN ${subscriptions.ended_reason} = "Plan Change" AND ${subscriptions__retention.months_since_subscription_start} = ${subscriptions.months_retained} + 1
     THEN 1
     ELSE NULL
     END ;;
