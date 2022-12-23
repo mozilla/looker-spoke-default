@@ -316,7 +316,7 @@ view: +active_users_aggregates {
         label: "Mac OS"
       }
       when: {
-        sql: ${TABLE}.os LIKE "%Windows%" ;;
+        sql: ${TABLE}.os LIKE "%Windows%" OR ${TABLE}.os LIKE 'WINNT%';;
         label: "Windows"
       }
       when: {
