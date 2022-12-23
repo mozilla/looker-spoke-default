@@ -312,8 +312,16 @@ view: +active_users_aggregates {
   dimension: os_grouped {
     case: {
       when: {
-        sql: ${TABLE}.os LIKE "%darwin%" ;;
+        sql: ${TABLE}.os LIKE "%Darwin%" ;;
         label: "Mac OS"
+      }
+      when: {
+        sql: ${TABLE}.os LIKE "%Windows%" ;;
+        label: "Windows"
+      }
+      when: {
+        sql: ${TABLE}.os LIKE "%Linux%" ;;
+        label: "Linux"
       }
       else: "other"
     }
