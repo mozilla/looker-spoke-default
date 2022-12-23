@@ -491,7 +491,7 @@ view: subscriptions__retention {
   }
 
   measure: upgrade_out {
-    description: "Count subscriptions churned on each months_since_subscription_start. It is used to calculate churn rate."
+    description: "Count subscriptions loss due to upgrades on each months_since_subscription_start."
     type: sum
     sql:
     CASE WHEN ${subscriptions.ended_reason} = "Plan Change" AND ${subscriptions__retention.months_since_subscription_start} = ${subscriptions.months_retained} + 1
