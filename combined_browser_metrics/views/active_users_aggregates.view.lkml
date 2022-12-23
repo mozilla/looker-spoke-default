@@ -323,7 +323,7 @@ view: +active_users_aggregates {
         sql: ${TABLE}.os LIKE "%Linux%" OR ${TABLE}.os LIKE '%BSD%' OR ${TABLE}.os LIKE '%SunOS%' OR ${TABLE}.os LIKE '%Solaris%';;
         label: "Linux"
       }
-      else: "other"
+      else: "Other"
     }
     group_label: "OS"
   }
