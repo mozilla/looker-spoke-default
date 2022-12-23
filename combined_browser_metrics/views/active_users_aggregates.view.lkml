@@ -325,6 +325,7 @@ view: +active_users_aggregates {
       }
       else: "other"
     }
+    group_label: "OS"
   }
   dimension: os_version {
     sql: ${TABLE}.os_version ;;
