@@ -20,3 +20,5 @@
 414: "mozilla_vpn::vpn_saasboard__retention"
 413: "mozilla_vpn::vpn_saasboard__churn"
 433: "mozilla_vpn::vpn_saasboard__revenue"
+501: "mozilla_vpn::vpn_acquisition_funnel_view_user_journey"
+499: "mozilla_vpn::vpn_acquisition_funnel_view_new_subscriptions"
