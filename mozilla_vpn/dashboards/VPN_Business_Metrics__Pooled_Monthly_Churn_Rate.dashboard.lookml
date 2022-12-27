@@ -5,46 +5,93 @@
   description: ''
   preferred_slug: nreFEicvxzkx7HkF6kSDFI
   elements:
+  - name: Monthly Churn Rate (not monthly plan users)
+    type: text
+    title_text: Monthly Churn Rate (not monthly plan users)
+    subtitle_text: Period Start = One Month before Period End (x-axis)
+    body_text: ''
+    row: 7
+    col: 0
+    width: 24
+    height: 2
+  - name: This dashboard takes a long time to load (up to 2 minutes)
+    type: text
+    title_text: This dashboard takes a long time to load (up to 2 minutes).
+    subtitle_text: ''
+    body_text: "**\"Pooled\" churn rates** are calculated as follows:\n\n`n lost /\
+      \ n start`\n\n* n start = number of subscribers active at start of period\n\
+      * n lost = number of subscribers lost during period (of those active at start\
+      \ of period)\n\n### Notes\n\n* This is **different to cohort-based** churn rates.\
+      \ Cohort-based churn rates are available [here](https://mozilla.cloud.looker.com/dashboards/413).\n\
+      * We are counting churn when a user stops having access to the product, not\
+      \ when a user cancels their subscription. For monthly customers, these are roughly\
+      \ the same thing, for annual customers they are not as customers can cancel\
+      \ (aka stop auto renew) long before their subscription end. However we do know\
+      \ that most people cancel close to the renewal time (when they get their renewal\
+      \ email).\n\n* This dashboard was changed to update the churn calculation after\
+      \ the upgrade to the bundle plan feature was released in October 11, 2022. "
+    row: 0
+    col: 0
+    width: 24
+    height: 7
+  - name: ''
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: |-
+      For queries, corrections please contact Sarah Bird (sbird@mozilla.com).
+
+      1) The number of subscriptions at the start of the period is slightly different to the number of subscriptions shown as active on the [active subscriptions dashboard](https://mozilla.cloud.looker.com/dashboards/412). I believe this is due to slightly different counting methods between `active_subscriptions` table and the query that powers this dashboard being against `all_subscriptions` table.
+    row: 21
+    col: 0
+    width: 24
+    height: 3
   - title: All
     name: All
     model: mozilla_vpn
     explore: subscriptions
     type: looker_line
-    fields: [subscriptions__active.active_date, period_start, period_end, subscriptions.count,
-      n_start, n_lost]
+    fields: [original_subscriptions__active.active_date, period_start, period_end,
+      original_subscriptions__retention.subscription_count, n_start, n_lost]
     filters:
-      subscriptions.plan_interval_type: ''
+      original_subscriptions__active.active_date: after 13 months ago
     sorts: [period_start desc]
     limit: 100
+    column_limit: 50
     row_total: right
-    dynamic_fields: [{category: table_calculation, expression: "${subscriptions.count}\
+    dynamic_fields: [{category: table_calculation, expression: "${original_subscriptions__retention.subscription_count}\
           \ - ${n_start}", label: Count - N Start, value_format: !!null '', value_format_name: !!null '',
         _kind_hint: measure, table_calculation: count_n_start, _type_hint: number,
-        id: vRnBHHl9pF}, {category: dimension, expression: 'add_months(1, ${subscriptions__active.active_date})',
+        is_disabled: false}, {category: dimension, expression: 'add_months(1, ${original_subscriptions__active.active_date})',
         label: Period End, value_format: !!null '', value_format_name: !!null '',
-        dimension: period_end, _kind_hint: dimension, _type_hint: date, id: gv25cHhLz6},
-      {category: dimension, expression: "${subscriptions__active.active_date}", label: Period
+        dimension: period_end, _kind_hint: dimension, _type_hint: date}, {category: dimension,
+        expression: "${original_subscriptions__active.active_date}", label: Period
           Start, value_format: !!null '', value_format_name: !!null '', dimension: period_start,
-        _kind_hint: dimension, _type_hint: date, id: 8u33sFvIHe}, {category: measure,
-        expression: "${subscriptions.subscription_start_date} <= ${period_start}\n\
-          AND\n${subscriptions.end_date} > ${period_start}\nAND \n${subscriptions.end_date}\
-          \ <= ${period_end}", label: N Lost, value_format: !!null '', value_format_name: !!null '',
-        based_on: subscriptions.count, filter_expression: "${subscriptions.subscription_start_date}\
+        _kind_hint: dimension, _type_hint: date}, {category: measure, expression: "(is_null(${subscriptions.ended_reason})\
+          \ OR (${subscriptions.ended_reason} != \"Plan Change\"))\nAND\n${subscriptions.original_subscription_start_date}\
           \ <= ${period_start}\nAND\n${subscriptions.end_date} > ${period_start}\n\
-          AND \n${subscriptions.end_date} <= ${period_end}", _kind_hint: measure,
-        measure: n_lost, type: count, _type_hint: number, id: sg2SoRtRJx}, {category: measure,
-        expression: "${subscriptions.subscription_start_date} <= ${period_start}\n\
-          AND\n${subscriptions.end_date} > ${period_start}", label: N Start, value_format: !!null '',
-        value_format_name: !!null '', based_on: subscriptions.count, filter_expression: "${subscriptions.subscription_start_date}\
-          \ <= ${period_start}\nAND\n${subscriptions.end_date} > ${period_start}",
-        _kind_hint: measure, measure: n_start, type: count, _type_hint: number, id: Mt6FdTSYQx},
-      {category: table_calculation, expression: "${n_lost}/${n_start}", label: Churn
-          rate, value_format: !!null '', value_format_name: percent_1, _kind_hint: measure,
-        table_calculation: churn_rate, _type_hint: number, id: YQl7meS99Q}]
+          AND \n${subscriptions.end_date} <= ${period_end}\n\n", label: N Lost, value_format: !!null '',
+        value_format_name: !!null '', based_on: original_subscriptions__retention.subscription_count,
+        filter_expression: "(is_null(${subscriptions.ended_reason}) OR (${subscriptions.ended_reason}\
+          \ != \"Plan Change\"))\nAND\n${subscriptions.original_subscription_start_date}\
+          \ <= ${period_start}\nAND\n${subscriptions.end_date} > ${period_start}\n\
+          AND \n${subscriptions.end_date} <= ${period_end}\n\n", _kind_hint: measure,
+        measure: n_lost, type: count_distinct, _type_hint: number}, {category: measure,
+        expression: "${subscriptions.original_subscription_start_date} <= ${period_start}\n\
+          AND\n${subscriptions.end_date} > ${period_start}\nAND \n(is_null(${subscriptions.ended_reason})OR${subscriptions.ended_reason}\
+          \ != \"Plan Change\") ", label: N Start, value_format: !!null '', value_format_name: !!null '',
+        based_on: original_subscriptions__retention.subscription_count, filter_expression: "${subscriptions.original_subscription_start_date}\
+          \ <= ${period_start}\nAND\n${subscriptions.end_date} > ${period_start}\n\
+          AND \n(is_null(${subscriptions.ended_reason})OR${subscriptions.ended_reason}\
+          \ != \"Plan Change\") ", _kind_hint: measure, measure: n_start, type: count_distinct,
+        _type_hint: number}, {category: table_calculation, expression: "${n_lost}/${n_start}",
+        label: Churn rate, value_format: !!null '', value_format_name: percent_1,
+        _kind_hint: measure, table_calculation: churn_rate, _type_hint: number, id: YQl7meS99Q,
+        is_disabled: false}]
     filter_expression: |
-      ${subscriptions__active.active_date} = trunc_months(${subscriptions__active.active_date})
+      ${original_subscriptions__active.active_date} = trunc_months(${original_subscriptions__active.active_date})
       AND
-      ${subscriptions__active.active_date} <= add_months(-1, now())
+      ${original_subscriptions__active.active_date} <= add_months(-1, now())
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -130,16 +177,23 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    hidden_fields: [subscriptions__active.active_date, count_n_start, period_start,
-      subscriptions.count, n_start, n_lost]
+    hidden_fields: [original_subscriptions__active.active_date, period_start, original_subscriptions__retention.subscription_count,
+      n_start, n_lost, count_n_start]
     defaults_version: 1
+    hidden_pivots: {}
+    note_state: expanded
+    note_display: above
+    note_text: "- Filtered by “Active Date for Churn for All” filter which is active\
+      \ date measured from the first subscription plan start date. \n\n- Not affected\
+      \ by upgrade events i.e. The churn is calculated using the first subscription\
+      \ plan start date and the last subscription plan end date regardless of plan\
+      \ changes. \n"
     listen:
-      Active Date: subscriptions__active.active_date
       Product Name: subscriptions.product_name
     row: 9
     col: 0
     width: 12
-    height: 11
+    height: 12
   - title: By Plan Type
     name: By Plan Type
     model: mozilla_vpn
@@ -150,8 +204,10 @@
     pivots: [plan_type]
     filters:
       subscriptions.plan_interval_type: '"1_month","1_year","6_month"'
+      subscriptions__active.active_date: after 13 months ago
     sorts: [plan_type, period_start desc]
     limit: 100
+    column_limit: 50
     row_total: right
     dynamic_fields: [{category: table_calculation, expression: "${subscriptions.count}\
           \ - ${n_start}", label: Count - N Start, value_format: !!null '', value_format_name: !!null '',
@@ -183,7 +239,15 @@
           6_month\", \"Six Monthly\"),\n    when(${subscriptions.plan_interval_type}=\"\
           1_year\", \"Annual\"), \"N/A\")\n)", label: Plan Type, value_format: !!null '',
         value_format_name: !!null '', dimension: plan_type, _kind_hint: dimension,
-        _type_hint: string, id: mL5VT19tvy}]
+        _type_hint: string, id: mL5VT19tvy}, {category: measure, expression: "${subscriptions.subscription_start_date}\
+          \ <= ${period_start}\nAND\n${subscriptions.end_date} > ${period_start}\n\
+          AND \n${subscriptions.end_date} <= ${period_end}\nAND\n ${subscriptions.ended_reason}\
+          \ = \"Plan Change\" ", label: N Lost due to Upgrades, value_format: !!null '',
+        value_format_name: !!null '', based_on: subscriptions.count, filter_expression: "${subscriptions.subscription_start_date}\
+          \ <= ${period_start}\nAND\n${subscriptions.end_date} > ${period_start}\n\
+          AND \n${subscriptions.end_date} <= ${period_end}\nAND\n ${subscriptions.ended_reason}\
+          \ = \"Plan Change\" ", _kind_hint: measure, measure: n_lost_due_to_upgrades,
+        type: count, _type_hint: number}]
     filter_expression: |
       ${subscriptions__active.active_date} = trunc_months(${subscriptions__active.active_date})
       AND
@@ -273,58 +337,36 @@
     hidden_fields: [subscriptions__active.active_date, count_n_start, period_start,
       subscriptions.count, n_start, n_lost]
     defaults_version: 1
+    hidden_pivots: {}
+    note_state: expanded
+    note_display: above
+    note_text: "- Filtered by “Active Date for Churn for by Plan type” filter which\
+      \ is active date measured from each subscription plan start date. \n\n- Affected\
+      \ by upgrade events i.e. This churn represents how each subscription plan count\
+      \ is lost either by the subscription end or by upgrade to another plan. \n"
     listen:
-      Active Date: subscriptions__active.active_date
       Product Name: subscriptions.product_name
     row: 9
     col: 12
     width: 12
-    height: 11
-  - name: Monthly Churn Rate (not monthly plan users)
-    type: text
-    title_text: Monthly Churn Rate (not monthly plan users)
-    subtitle_text: Period Start = One Month before Period End (x-axis)
-    body_text: ''
-    row: 7
-    col: 0
-    width: 24
-    height: 2
-  - name: This dashboard takes a long time to load (up to 2 minutes)
-    type: text
-    title_text: This dashboard takes a long time to load (up to 2 minutes).
-    subtitle_text: ''
-    body_text: |+
-      **"Pooled" churn rates** are calculated as follows:
-
-      `n lost / n start`
-
-      * n start = number of subscribers active at start of period
-      * n lost = number of subscribers lost during period (of those active at start of period)
-
-      ### Notes
-
-      * This is **different to cohort-based** churn rates. Cohort-based churn rates are available [here](https://mozilla.cloud.looker.com/dashboards/413).
-      * We are counting churn when a user stops having access to the product, not when a user cancels their subscription. For monthly customers, these are roughly the same thing, for annual customers they are not as customers can cancel (aka stop auto renew) long before their subscription end. However we do know that most people cancel close to the renewal time (when they get their renewal email).
-
-    row: 0
-    col: 0
-    width: 24
-    height: 7
-  - name: ''
-    type: text
-    title_text: ''
-    subtitle_text: ''
-    body_text: |-
-      For queries, corrections please contact Sarah Bird (sbird@mozilla.com).
-
-      1) The number of subscriptions at the start of the period is slightly different to the number of subscriptions shown as active on the [active subscriptions dashboard](https://mozilla.cloud.looker.com/dashboards/412). I believe this is due to slightly different counting methods between `active_subscriptions` table and the query that powers this dashboard being against `all_subscriptions` table.
-    row: 20
-    col: 0
-    width: 24
-    height: 3
+    height: 12
   filters:
-  - name: Active Date
-    title: Active Date
+  - name: 'Active Date for Churn for All '
+    title: 'Active Date for Churn for All '
+    type: field_filter
+    default_value: after 13 months ago
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: advanced
+      display: popover
+      options: []
+    model: mozilla_vpn
+    explore: subscriptions
+    listens_to_filters: []
+    field: original_subscriptions__active.active_date
+  - name: Active Date for Churn by Plan type
+    title: Active Date for Churn by Plan type
     type: field_filter
     default_value: after 13 month ago
     allow_multiple_values: true
