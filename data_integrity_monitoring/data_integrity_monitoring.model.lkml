@@ -1,5 +1,5 @@
 connection: "telemetry"
 label: "Data Integrity Monitoring (dim)"
-# include: "views/*"
+include: "//looker-hub/data_integrity_monitoring/views/*"
 # include: "explores/*"
 # include: "dashboards/*"
