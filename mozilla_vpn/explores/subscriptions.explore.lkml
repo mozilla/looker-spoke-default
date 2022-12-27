@@ -28,7 +28,7 @@ explore: subscriptions {
   }
 
   join: original_subscriptions__active {
-    view_label: "Active Subscriptions"
+    view_label: "Original Active Subscriptions"
     sql: LEFT JOIN UNNEST(${subscriptions.original_subscription_active_dates}) AS original_subscriptions__active;;
     relationship: one_to_many
   }
