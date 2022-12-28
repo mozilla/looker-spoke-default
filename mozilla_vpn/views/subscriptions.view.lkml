@@ -373,7 +373,7 @@ view: original_subscriptions__retention {
     description: "Count subscriptions churned on each months_since_original_subscription_start. It is used to calculate churn rate."
     type: sum
     sql:
-    CASE WHEN (${subscriptions.ended_reason} IS NULL OR ${subscriptions.ended_reason} <> "Plan Change")AND ${original_subscriptions__retention.months_since_original_subscription_start} = ${subscriptions.original_subscription_months_retained} + 1
+    CASE WHEN (${subscriptions.ended_reason} IS NULL OR ${subscriptions.ended_reason} != "Plan Change") AND ${original_subscriptions__retention.months_since_original_subscription_start} = ${subscriptions.original_subscription_months_retained} + 1
     THEN 1
     ELSE NULL
     END ;;
