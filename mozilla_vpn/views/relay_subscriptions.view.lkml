@@ -1,4 +1,5 @@
 view: relay_subscriptions {
+  sql_table_name:  `mozdata.tmp.yeonjoo_relay_all_subscriptions` ;;
 ###############dimensions should be defined from looker hub view files################
   dimension_group: cancel_at {
     sql: ${TABLE}.cancel_at ;;
@@ -583,6 +584,4 @@ view: relay_subscriptions__retention {
     type: count
   }
 
-
-    sql_table_name:  `mozdata.tmp.yeonjoo_relay_all_subscriptions` ;;
   }
