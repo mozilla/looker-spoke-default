@@ -353,8 +353,7 @@ view: original_subscriptions__retention {
   dimension: primary_key {
     primary_key: yes
     hidden: yes
-    # sql: COALESCE(${subscriptions.original_subscription_id},${subscriptions.subscription_id} )|| ${months_since_original_subscription_start};;
-    sql: COALESCE(${subscriptions.original_subscription_id},${subscriptions.subscription_id} );;
+    sql: ${subscriptions.subscription_id} || ${months_since_original_subscription_start};;
   }
 
   dimension:  is_cohort_complete{
@@ -409,7 +408,7 @@ view: original_subscriptions__retention {
   }
 
   measure: count {
-    description: "Count subscriptions once for each months_since_subscription_start. Used to calculate average churn per month. DO NOT USE FOR RETENTION RATE, because it is cumulative and should not be averaged."
+    description: "Count subscriptions once for each months_since_original_subscription_start. Used to calculate average churn per month. DO NOT USE FOR RETENTION RATE, because it is cumulative and should not be averaged."
     type: count
   }
 
