@@ -403,10 +403,10 @@ view: original_subscriptions__retention {
     END ;;
   }
 
-measure: subscription_count {
-  type: count_distinct
-  sql: ${primary_key} ;;
-}
+  measure: subscription_count {
+    type: count_distinct
+    sql: COALESCE(${subscriptions.original_subscription_id}, ${subscriptions.subscription_id}) ;;
+  }
 
   measure: count {
     description: "Count subscriptions once for each months_since_subscription_start. Used to calculate average churn per month. DO NOT USE FOR RETENTION RATE, because it is cumulative and should not be averaged."
