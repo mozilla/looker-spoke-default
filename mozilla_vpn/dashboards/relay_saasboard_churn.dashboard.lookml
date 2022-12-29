@@ -1120,12 +1120,12 @@
   - name: Provider
     title: Provider
     type: field_filter
-    default_value: Paypal,Stripe
+    default_value: ''
     allow_multiple_values: true
     required: false
     ui_config:
       type: checkboxes
-      display: inline
+      display: popover
     model: mozilla_vpn
     explore: relay_subscriptions
     listens_to_filters: []
