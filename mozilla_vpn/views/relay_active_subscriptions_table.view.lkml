@@ -1,7 +1,99 @@
-include: "//looker-hub/mozilla_vpn/views/active_subscriptions_table.view"
+view: relay_active_subscriptions_table {
+  sql_table_name: `mozdata.tmp.yeonjoo_relay_active_subscriptions` ;;
 
-view: +active_subscriptions_table {
+###############dimensions should be defined from looker hub view files################
+  dimension: count {
+    sql: ${TABLE}.count ;;
+    type: number
+    hidden: yes
+  }
 
+  dimension: country {
+    sql: ${TABLE}.country ;;
+    type: string
+    map_layer_name: countries
+  }
+
+  # dimension: country_name {
+  #   sql: ${TABLE}.country_name ;;
+  #   type: string
+  # }
+
+  dimension: plan_amount {
+    sql: ${TABLE}.plan_amount ;;
+    type: number
+  }
+
+  dimension: plan_currency {
+    sql: ${TABLE}.plan_currency ;;
+    type: string
+  }
+
+  dimension: plan_id {
+    sql: ${TABLE}.plan_id ;;
+    type: string
+  }
+
+  dimension: plan_interval {
+    sql: ${TABLE}.plan_interval ;;
+    type: string
+  }
+
+  dimension: plan_interval_count {
+    sql: ${TABLE}.plan_interval_count ;;
+    type: number
+  }
+
+  dimension: pricing_plan {
+    sql: ${TABLE}.pricing_plan ;;
+    type: string
+  }
+
+  dimension: product_id {
+    sql: ${TABLE}.product_id ;;
+    type: string
+  }
+
+  dimension: product_name {
+    sql: ${TABLE}.product_name ;;
+    type: string
+  }
+
+  dimension: promotion_codes {
+    sql: ${TABLE}.promotion_codes ;;
+    hidden: yes
+  }
+
+  # dimension: promotion_discounts_amount {
+  #   sql: ${TABLE}.promotion_discounts_amount ;;
+  #   type: number
+  # }
+
+  dimension: provider {
+    sql: ${TABLE}.provider ;;
+    type: string
+  }
+
+  dimension: status {
+    sql: ${TABLE}.status ;;
+    type: string
+  }
+
+  dimension_group: active {
+    sql: ${TABLE}.active_date ;;
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year,
+    ]
+    convert_tz: no
+    datatype: date
+  }
+###############dimensions should be defined from looker hub view files################
   dimension: country_name {
     description: "Add placeholder string for null values.  This is to allow selection of Null values in country name checkbox filters in dashboards"
     sql: COALESCE(${TABLE}.country_name, 'Null') ;;
@@ -59,9 +151,9 @@ view: +active_subscriptions_table {
     sql: ${TABLE}.promotion_codes[SAFE_ORDINAL(1)] ;;
   }
 
-  dimension: count {
-    hidden: yes
-  }
+  # dimension: count {
+  #   hidden: yes
+  # }
 
   measure: count_sum {
     description: "Count"
