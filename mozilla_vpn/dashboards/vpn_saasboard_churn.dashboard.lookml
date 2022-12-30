@@ -5,7 +5,7 @@
   crossfilter_enabled: true
   description: ''
   refresh: 2147484 seconds
-  preferred_slug: eYqxHc9qMbz6bbuVVlyyBp
+  preferred_slug: 6aSxIuXzGxHD9X4lsYkIIb
   elements:
   - name: ''
     type: text
@@ -18,7 +18,6 @@
   - name: " (2)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: "<div style='background-color: #ffffdd; padding: 5px 10px; border:\
       \ solid 3px #ededed; border-radius: 5px; height:220px'>\n\nThis dashboard capture\
       \ <strong>subscription churn</strong>.  Churn is defined as when a subscription\
@@ -41,33 +40,40 @@
   - name: " (3)"
     type: text
     title_text: ''
-    body_text: |2-
+    subtitle_text: ''
+    body_text: |2
 
 
       <div style="border-top: solid 2px #e0e0e0;">
 
       <h3><b>Churn Rate</b></h3>
+
+      <h4> <b><code>Original Subscription Start Date</code> is used to discard subscription removal due to plan changes(upgrades).</b> </h4>
     row: 8
     col: 0
     width: 24
-    height: 2
+    height: 3
   - title: Churn by Months Since Subscription Start
     name: Churn by Months Since Subscription Start
     model: mozilla_vpn
     explore: subscriptions
     type: looker_column
-    fields: [subscriptions__retention.months_since_subscription_start, subscriptions__retention.churned,
-      subscriptions__retention.previously_retained]
+    fields: [original_subscriptions__retention.churned, original_subscriptions__retention.previously_retained,
+      original_subscriptions__retention.months_since_original_subscription_start]
     filters:
-      subscriptions__retention.months_since_subscription_start: ">0"
-      subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [subscriptions__retention.months_since_subscription_start]
+      original_subscriptions__retention.is_cohort_complete: 'Yes'
+      original_subscriptions__retention.months_since_original_subscription_start: ">0"
+    sorts: [original_subscriptions__retention.months_since_original_subscription_start]
     dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.churned}/${subscriptions__retention.previously_retained}",
         label: Churn Rate, value_format: !!null '', value_format_name: percent_1,
-        _kind_hint: measure, table_calculation: churn_rate, _type_hint: number}, {
-        category: table_calculation, expression: "${previously_retained}-${churned}",
+        _kind_hint: measure, table_calculation: churn_rate, _type_hint: number, is_disabled: true},
+      {category: table_calculation, expression: "${previously_retained}-${churned}",
         label: Retained, value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
-        table_calculation: retained, _type_hint: number, is_disabled: true}]
+        table_calculation: retained, _type_hint: number, is_disabled: true}, {category: table_calculation,
+        expression: "${original_subscriptions__retention.churned}/${original_subscriptions__retention.previously_retained}",
+        label: Total Churn Rate, value_format: !!null '', value_format_name: percent_0,
+        _kind_hint: measure, table_calculation: total_churn_rate, _type_hint: number,
+        is_disabled: false}]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -107,20 +113,25 @@
             name: Churned}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, type: linear}]
     x_axis_label: Months Since Subscription Start
+    x_axis_zoom: true
+    y_axis_zoom: true
     series_types:
       churn_rate: line
+      total_churn_rate: line
     series_colors:
       churned: "#FF7139"
       churn_rate: "#000000"
       retained_from_previous: "#12B5CB"
       retained: "#0060E0"
       subscriptions__retention.churned: "#FF7139"
+      original_subscriptions__retention.churned: "#FF7139"
+      total_churn_rate: "#000000"
     series_labels:
       subscriptions__retention.churned: Churn Counts
     label_color: []
     x_axis_datetime_label: ''
     column_group_spacing_ratio: 0.3
-    hidden_fields: [subscriptions__retention.previously_retained]
+    hidden_fields: [original_subscriptions__retention.previously_retained]
     defaults_version: 1
     show_null_points: true
     interpolation: linear
@@ -128,13 +139,15 @@
     note_display: hover
     note_text: This visualization captures the percentage of subscriptions that churned
       at a particular month since subscriptions started.
+    hidden_pivots: {}
     listen:
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Subscription Start Date: subscriptions.subscription_start_date
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 10
+      Product Name: subscriptions.product_name
+      Original Subscription Start Date: subscriptions.original_subscription_start_date
+    row: 11
     col: 0
     width: 13
     height: 9
@@ -143,15 +156,19 @@
     model: mozilla_vpn
     explore: subscriptions
     type: looker_column
-    fields: [subscriptions.subscription_start_month, subscriptions__retention.churned,
-      subscriptions__retention.previously_retained]
+    fields: [subscriptions.original_subscription_start_month, original_subscriptions__retention.churned,
+      original_subscriptions__retention.previously_retained]
+    fill_fields: [subscriptions.original_subscription_start_month]
     filters:
-      subscriptions__retention.months_since_subscription_start: ">0"
-      subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [subscriptions.subscription_start_month]
+      original_subscriptions__retention.is_cohort_complete: 'Yes'
+    sorts: [subscriptions.original_subscription_start_month]
     dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.churned}/${subscriptions__retention.previously_retained}",
         label: Churn Rate, value_format: !!null '', value_format_name: percent_1,
-        _kind_hint: measure, table_calculation: churn_rate, _type_hint: number}]
+        _kind_hint: measure, table_calculation: churn_rate, _type_hint: number, is_disabled: true},
+      {category: table_calculation, expression: "${original_subscriptions__retention.churned}/${original_subscriptions__retention.previously_retained}",
+        label: Total Churn Rate, value_format: !!null '', value_format_name: percent_0,
+        _kind_hint: measure, table_calculation: total_churn_rate, _type_hint: number,
+        is_disabled: false}]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -191,33 +208,40 @@
             name: Churned}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: default, type: linear}]
     x_axis_label: Cohort
+    x_axis_zoom: true
+    y_axis_zoom: true
     series_types:
-      churn_rate: line
+      total_churn_rate: line
     series_colors:
       churned: "#FF7139"
       churn_rate: "#000000"
       retained: "#80CABB"
       retained_from_previous: "#80CABB"
       subscriptions__retention.churned: "#FF7139"
+      total_churn_rate: "#000000"
     series_labels:
       subscriptions__retention.churned: Churn Counts
     label_color: []
     x_axis_datetime_label: "%m-%Y"
     x_axis_label_rotation: -45
     column_group_spacing_ratio: 0.3
-    hidden_fields: [subscriptions__retention.previously_retained, subscriptions__retention.churned]
+    show_null_points: false
+    interpolation: linear
+    hidden_fields: [original_subscriptions__retention.churned, original_subscriptions__retention.previously_retained]
     defaults_version: 1
     note_state: collapsed
     note_display: hover
     note_text: This visualization captures the average churn rate of each cohort over
       every month since subscription started.
+    hidden_pivots: {}
     listen:
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Subscription Start Date: subscriptions.subscription_start_date
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 10
+      Product Name: subscriptions.product_name
+      Original Subscription Start Date: subscriptions.original_subscription_start_date
+    row: 11
     col: 13
     width: 11
     height: 9
@@ -226,16 +250,20 @@
     model: mozilla_vpn
     explore: subscriptions
     type: looker_line
-    fields: [subscriptions.subscription_start_month, subscriptions__retention.months_since_subscription_start,
-      subscriptions__retention.churned, subscriptions__retention.previously_retained]
-    pivots: [subscriptions__retention.months_since_subscription_start]
-    fill_fields: [subscriptions.subscription_start_month]
+    fields: [original_subscriptions__retention.churned, original_subscriptions__retention.previously_retained,
+      original_subscriptions__retention.months_since_original_subscription_start,
+      subscriptions.original_subscription_start_month]
+    pivots: [original_subscriptions__retention.months_since_original_subscription_start]
+    fill_fields: [subscriptions.original_subscription_start_month]
     filters:
-      subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [subscriptions.subscription_start_month, subscriptions__retention.months_since_subscription_start]
+      original_subscriptions__retention.is_cohort_complete: 'Yes'
+    sorts: [subscriptions.original_subscription_start_month, original_subscriptions__retention.months_since_original_subscription_start]
     dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.churned}/${subscriptions__retention.previously_retained}",
         label: Churn Rate, value_format: !!null '', value_format_name: percent_1,
-        _kind_hint: measure, table_calculation: churn_rate, _type_hint: number}]
+        _kind_hint: measure, table_calculation: churn_rate, _type_hint: number, is_disabled: true},
+      {category: table_calculation, expression: "${original_subscriptions__retention.churned}/${original_subscriptions__retention.previously_retained}",
+        label: Total Churn Rate, value_format: !!null '', value_format_name: percent_0,
+        _kind_hint: measure, table_calculation: total_churn_rate, _type_hint: number}]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -261,9 +289,12 @@
     show_null_points: false
     interpolation: linear
     x_axis_label: Cohort
+    x_axis_zoom: true
+    y_axis_zoom: true
     series_types: {}
     series_colors:
       0 - churn_rate: "#ffffff"
+      0 - total_churn_rate: "#ffffff"
     series_labels:
       1 - churn_rate: Month 1
       2 - churn_rate: Month 2
@@ -288,6 +319,12 @@
       21 - churn_rate: Month 21
       0 - churn_rate: "."
       22 - churn_rate: Month 22
+      0 - total_churn_rate: "."
+      1 - total_churn_rate: Month 1
+      2 - total_churn_rate: Month 2
+      3 - total_churn_rate: Month 3
+      4 - total_churn_rate: Month 4
+      5 - total_churn_rate: Month 5
     x_axis_datetime_label: "%m-%Y"
     x_axis_label_rotation: -45
     discontinuous_nulls: true
@@ -296,7 +333,7 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    hidden_fields: [subscriptions__retention.previously_retained, subscriptions__retention.churned]
+    hidden_fields: [original_subscriptions__retention.churned, original_subscriptions__retention.previously_retained]
     defaults_version: 1
     show_row_numbers: true
     transpose: false
@@ -311,13 +348,15 @@
     rows_font_size: 12
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
+    hidden_pivots: {}
     listen:
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Subscription Start Date: subscriptions.subscription_start_date
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 41
+      Product Name: subscriptions.product_name
+      Original Subscription Start Date: subscriptions.original_subscription_start_date
+    row: 44
     col: 0
     width: 24
     height: 9
@@ -326,18 +365,22 @@
     model: mozilla_vpn
     explore: subscriptions
     type: looker_grid
-    fields: [subscriptions.subscription_start_month, subscriptions__retention.months_since_subscription_start,
-      subscriptions__retention.churned, subscriptions__retention.previously_retained]
-    pivots: [subscriptions__retention.months_since_subscription_start]
-    fill_fields: [subscriptions.subscription_start_month]
+    fields: [subscriptions.original_subscription_start_month, original_subscriptions__retention.churned,
+      original_subscriptions__retention.previously_retained, original_subscriptions__retention.months_since_original_subscription_start]
+    pivots: [original_subscriptions__retention.months_since_original_subscription_start]
+    fill_fields: [subscriptions.original_subscription_start_month]
     filters:
-      subscriptions__retention.months_since_subscription_start: ">0"
-      subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [subscriptions.subscription_start_month, subscriptions__retention.months_since_subscription_start]
+      original_subscriptions__retention.is_cohort_complete: 'Yes'
+      original_subscriptions__retention.months_since_original_subscription_start: ">0"
+    sorts: [subscriptions.original_subscription_start_month, original_subscriptions__retention.months_since_original_subscription_start]
     total: true
     dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.churned}/${subscriptions__retention.previously_retained}",
         label: Churn Rate, value_format: !!null '', value_format_name: percent_1,
-        _kind_hint: measure, table_calculation: churn_rate, _type_hint: number}]
+        _kind_hint: measure, table_calculation: churn_rate, _type_hint: number, is_disabled: true},
+      {category: table_calculation, expression: "${original_subscriptions__retention.churned}/${original_subscriptions__retention.previously_retained}",
+        label: Total Churn Rate, value_format: !!null '', value_format_name: percent_0,
+        _kind_hint: measure, table_calculation: total_churn_rate, _type_hint: number,
+        is_disabled: false}]
     show_view_names: false
     show_row_numbers: false
     transpose: false
@@ -412,15 +455,17 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    hidden_fields: [subscriptions__retention.previously_retained, subscriptions__retention.churned]
+    hidden_fields: [original_subscriptions__retention.churned, original_subscriptions__retention.previously_retained]
     defaults_version: 1
+    hidden_pivots: {}
     listen:
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Subscription Start Date: subscriptions.subscription_start_date
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 50
+      Product Name: subscriptions.product_name
+      Original Subscription Start Date: subscriptions.original_subscription_start_date
+    row: 53
     col: 0
     width: 24
     height: 7
@@ -429,14 +474,15 @@
     model: mozilla_vpn
     explore: subscriptions
     type: looker_grid
-    fields: [subscriptions.subscription_start_month, subscriptions__retention.months_since_subscription_start,
-      subscriptions__retention.churned, subscriptions__retention.previously_retained]
-    pivots: [subscriptions__retention.months_since_subscription_start]
-    fill_fields: [subscriptions.subscription_start_month]
+    fields: [original_subscriptions__retention.previously_retained, original_subscriptions__retention.churned,
+      original_subscriptions__retention.months_since_original_subscription_start,
+      subscriptions.original_subscription_start_month]
+    pivots: [original_subscriptions__retention.months_since_original_subscription_start]
+    fill_fields: [subscriptions.original_subscription_start_month]
     filters:
-      subscriptions__retention.months_since_subscription_start: ">0"
-      subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [subscriptions.subscription_start_month, subscriptions__retention.months_since_subscription_start]
+      original_subscriptions__retention.is_cohort_complete: 'Yes'
+      original_subscriptions__retention.months_since_original_subscription_start: ">0"
+    sorts: [subscriptions.original_subscription_start_month, original_subscriptions__retention.months_since_original_subscription_start]
     total: true
     dynamic_fields: [{category: measure, expression: "if(\n  ${subscriptions__retention.months_since_subscription_start}\
           \ > 0,\n  ${subscriptions__retention.months_since_subscription_start} <=\
@@ -528,15 +574,17 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    hidden_fields: [subscriptions__retention.previously_retained]
+    hidden_fields: [original_subscriptions__retention.previously_retained]
     defaults_version: 1
+    hidden_pivots: {}
     listen:
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Subscription Start Date: subscriptions.subscription_start_date
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 57
+      Product Name: subscriptions.product_name
+      Original Subscription Start Date: subscriptions.original_subscription_start_date
+    row: 60
     col: 0
     width: 24
     height: 7
@@ -592,8 +640,10 @@
     series_types: {}
     hidden_fields: [metadata.last_modified_date]
     listen:
-      Subscription Start Date: subscriptions.subscription_start_date
       Plan Interval Type: subscriptions.plan_interval_type
+      Product Name: subscriptions.product_name
+      Subscription Start Date: subscriptions.subscription_start_date
+      Original Subscription Start Date: subscriptions.original_subscription_start_date
     row: 3
     col: 19
     width: 5
@@ -601,16 +651,68 @@
   - name: " (4)"
     type: text
     title_text: ''
+    subtitle_text: ''
     body_text: |2-
 
 
       <div style="border-top: solid 2px #e0e0e0;">
 
       <h3><b>Churn by Cohort</b></h3>
-    row: 39
+
+      <h4> <b><code>Original Subscription Start Date</code> is used to discard subscription removal due to plan changes(upgrades).</b> </h4>
+    row: 41
     col: 0
     width: 24
-    height: 2
+    height: 3
+  - name: " (5)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: |2-
+
+
+      <div style="border-top: solid 2px #e0e0e0;">
+
+      <h3><b>Churn by Plan</b></h3>
+
+      <h4> <b><code>Subscription Start Date</code> is used to track subscription removal due to plan changes(upgrades).</b> </h4>
+    row: 20
+    col: 0
+    width: 24
+    height: 3
+  - name: " (6)"
+    type: text
+    title_text: ''
+    body_text: |
+      <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px; color: red;">
+
+      <nav style="font-size: 20px;">
+
+        <img style="color: #efefef; padding: 5px 25px; float: left; height: 40px;" src="https://wwwstatic.lookercdn.com/logos/looker_all_white.svg"/>
+
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/412">
+
+       Active Subs</a>
+
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/416">
+
+       Subs Growth</a>
+
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/414">Retention</a>
+
+        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/413">Churn</a>
+
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; " href="https://mozilla.cloud.looker.com/dashboards/433">Revenue</a>
+
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1VtrTwm8Eqt9cPLZLaH1kjnM413gKtdaZArS29xcxXpA/edit?usp=sharing">Docs</a>
+
+      </nav>
+
+      </div>
+    row: 0
+    col: 0
+    width: 24
+    height: 3
   - title: Churn Rate Table (by Plan Interval Type)
     name: Churn Rate Table (by Plan Interval Type)
     model: mozilla_vpn
@@ -731,25 +833,13 @@
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Subscription Start Date: subscriptions.subscription_start_date
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 27
+      Product Name: subscriptions.product_name
+      Subscription Start Date: subscriptions.subscription_start_date
+    row: 29
     col: 0
     width: 24
     height: 6
-  - name: " (5)"
-    type: text
-    title_text: ''
-    body_text: |2-
-
-
-      <div style="border-top: solid 2px #e0e0e0;">
-
-      <h3><b>Churn by Plan</b></h3>
-    row: 19
-    col: 0
-    width: 24
-    height: 2
   - title: Churn Counts Table (by Plan Interval Type)
     name: Churn Counts Table (by Plan Interval Type)
     model: mozilla_vpn
@@ -859,9 +949,10 @@
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Subscription Start Date: subscriptions.subscription_start_date
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 33
+      Product Name: subscriptions.product_name
+      Subscription Start Date: subscriptions.subscription_start_date
+    row: 35
     col: 0
     width: 24
     height: 6
@@ -983,46 +1074,13 @@
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
       Provider: subscriptions.provider
-      Subscription Start Date: subscriptions.subscription_start_date
       Plan Interval Type: subscriptions.plan_interval_type
-    row: 21
+      Product Name: subscriptions.product_name
+      Subscription Start Date: subscriptions.subscription_start_date
+    row: 23
     col: 0
     width: 24
     height: 6
-  - name: " (6)"
-    type: text
-    title_text: ''
-    subtitle_text: ''
-    body_text: |
-      <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px; color: red;">
-
-      <nav style="font-size: 20px;">
-
-        <img style="color: #efefef; padding: 5px 25px; float: left; height: 40px;" src="https://wwwstatic.lookercdn.com/logos/looker_all_white.svg"/>
-
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/412">
-
-       Active Subs</a>
-
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/416">
-
-       Subs Growth</a>
-
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/414">Retention</a>
-
-        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/413">Churn</a>
-
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; " href="https://mozilla.cloud.looker.com/dashboards/433">Revenue</a>
-
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1VtrTwm8Eqt9cPLZLaH1kjnM413gKtdaZArS29xcxXpA/edit?usp=sharing">Docs</a>
-
-      </nav>
-
-      </div>
-    row: 0
-    col: 0
-    width: 24
-    height: 3
   filters:
   - name: Provider
     title: Provider
@@ -1094,3 +1152,30 @@
     explore: subscriptions
     listens_to_filters: [Subscription Start Date, Country, Pricing Plan, Provider]
     field: subscriptions.plan_interval_type
+  - name: Product Name
+    title: Product Name
+    type: field_filter
+    default_value: Mozilla VPN,Mozilla VPN & Firefox Relay
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: checkboxes
+      display: popover
+    model: mozilla_vpn
+    explore: subscriptions
+    listens_to_filters: []
+    field: subscriptions.product_name
+  - name: Original Subscription Start Date
+    title: Original Subscription Start Date
+    type: field_filter
+    default_value: 6 month
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: advanced
+      display: popover
+      options: []
+    model: mozilla_vpn
+    explore: subscriptions
+    listens_to_filters: []
+    field: subscriptions.original_subscription_start_date
