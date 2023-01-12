@@ -1,0 +1,7 @@
+connection: "telemetry"
+label: "Treeherder"
+include: "//looker-hub/treeherder/explores/*"
+include: "//looker-hub/treeherder/dashboards/*"
+include: "views/*"
+include: "explores/*"
+include: "dashboards/*"
