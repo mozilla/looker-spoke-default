@@ -30,7 +30,7 @@ view: missing_namespaces_and_document_types {
         mozdata.monitoring.payload_bytes_error_structured
       WHERE
         submission_timestamp >= TIMESTAMP_SUB(current_timestamp, INTERVAL 7 DAY)
-        AND error_message NOT LIKE 'com.mozilla.telemetry.decoder.MessageScrubber$UnwantedDataException%'
+        AND exception_class = 'com.mozilla.telemetry.ingestion.core.schema.SchemaNotFoundException'
       GROUP BY
         submission_date,
         document_namespace,
