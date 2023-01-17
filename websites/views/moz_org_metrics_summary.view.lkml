@@ -1,6 +1,14 @@
 include: "//looker-hub/websites/views/moz_org_metrics_summary.view.lkml"
 
 view: +moz_org_metrics_summary {
+
+  derived_table: {
+    sql:
+      SELECT *
+      FROM `moz-fx-data-marketing-prod.ga_derived.www_site_metrics_summary_v1`
+      ;;
+  }
+
   parameter: choose_breakdown {
     label: "Choose Grouping (Rows)"
     view_label: "Date/Period Selection"
@@ -155,6 +163,12 @@ view: +moz_org_metrics_summary {
     sql: ${non_fx_sessions} ;;
   }
 
+  measure: non_fx_sessions_average {
+    label: "Non Fx session Average"
+    type: average
+    sql: ${non_fx_sessions} ;;
+  }
+
   measure: downloads_sum {
     label: "Download Sum"
     type: sum
@@ -165,5 +179,23 @@ view: +moz_org_metrics_summary {
     label: "Non-Fx Download Sum"
     type: sum
     sql: ${non_fx_downloads} ;;
+  }
+
+  measure:  non_fx_downloads_average {
+    label: "Non-Fx Download Average"
+    type: average
+    sql: ${non_fx_downloads} ;;
+  }
+
+  measure:  non_fx_downloads_rate {
+    label: "Non-Fx Download Rate"
+    type: average
+    sql: ${TABLE}.non_fx_download_rate ;;
+  }
+
+  measure:  unique_days {
+    label: "Number of unique days"
+    type: count_distinct
+    sql: ${TABLE}.date ;;
   }
 }
