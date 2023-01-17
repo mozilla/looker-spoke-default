@@ -7,6 +7,30 @@ view: +ad_cost_breakdowns {
     type: string
   }
 
+  dimension: cost_per_dou_micros {
+    sql: ${TABLE}.cost_per_dou_micros ;;
+    type: number
+    hidden: yes
+  }
+
+  dimension: cost_per_install_micros {
+    sql: ${TABLE}.cost_per_install_micros ;;
+    type: number
+    hidden: yes
+  }
+
+  dimension: cost_per_marketing_ad_click_micros {
+    sql: ${TABLE}.cost_per_marketing_ad_click_micros ;;
+    type: number
+    hidden: yes
+  }
+
+  dimension: cost_per_revenue_generating_ad_click_micros {
+    sql: ${TABLE}.cost_per_revenue_generating_ad_click_micros ;;
+    type: number
+    hidden: yes
+  }
+
   dimension: ad_conversions {
     sql: ${TABLE}.ad_conversions ;;
     type: number
