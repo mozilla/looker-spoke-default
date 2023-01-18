@@ -34,7 +34,6 @@ view: +ad_cost_breakdowns {
   dimension: ad_conversions {
     sql: ${TABLE}.ad_conversions ;;
     type: number
-    hidden: yes
   }
 
   measure: measure_ad_conversions {
@@ -47,7 +46,6 @@ view: +ad_cost_breakdowns {
   dimension: ad_impressions {
     sql: ${TABLE}.ad_impressions ;;
     type: number
-    hidden: yes
   }
 
   measure: measure_ad_impressions {
@@ -84,7 +82,6 @@ view: +ad_cost_breakdowns {
   dimension: installs {
     sql: ${TABLE}.installs ;;
     type: number
-    hidden: yes
   }
 
   measure: measure_installs {
@@ -97,7 +94,6 @@ view: +ad_cost_breakdowns {
   dimension: marketing_ad_clicks {
     sql: ${TABLE}.marketing_ad_clicks ;;
     type: number
-    hidden: yes
   }
 
   measure: measure_marketing_ad_clicks {
@@ -110,7 +106,6 @@ view: +ad_cost_breakdowns {
   dimension: revenue_generating_ad_clicks {
     sql: ${TABLE}.revenue_generating_ad_clicks ;;
     type: number
-    hidden: yes
   }
 
   measure: measure_revenue_generating_ad_clicks {
