@@ -60,7 +60,6 @@ view: +ad_cost_breakdowns {
   dimension: campaign_spend_in_micros {
     sql: ${TABLE}.campaign_spend_in_micros ;;
     type: number
-    hidden: yes
   }
 
   measure: measure_campaign_spend_in_micros {
@@ -73,7 +72,6 @@ view: +ad_cost_breakdowns {
   dimension: dous {
     sql: ${TABLE}.dous ;;
     type: number
-    hidden: yes
   }
 
   measure: measure_dous {
