@@ -382,7 +382,7 @@ view: original_subscriptions__retention {
     description: "Count subscriptions previously retained on each months_since_original_subscription_start. It is used to calculate churn rate."
     type: sum
     sql:
-    CASE WHEN (${subscriptions.ended_reason} IS NULL OR ${subscriptions.ended_reason} <> "Plan Change") AND
+    CASE WHEN (${subscriptions.ended_reason} IS NULL OR ${subscriptions.ended_reason} != "Plan Change") AND
     if(${original_subscriptions__retention.months_since_original_subscription_start} > 0,
   ${original_subscriptions__retention.months_since_original_subscription_start} <= ${subscriptions.original_subscription_months_retained} + 1,
   null
@@ -396,7 +396,7 @@ view: original_subscriptions__retention {
     description: "Count subscriptions retained for each months_since_original_subscription_start. It is a cumulative count and used to calculate retention rate."
     type: count_distinct
     sql:
-    CASE WHEN (${subscriptions.ended_reason} IS NULL OR ${subscriptions.ended_reason} <> "Plan Change") AND ${original_subscriptions__retention.months_since_original_subscription_start} <= ${subscriptions.original_subscription_months_retained}
+    CASE WHEN (${subscriptions.ended_reason} IS NULL OR ${subscriptions.ended_reason} != "Plan Change") AND ${original_subscriptions__retention.months_since_original_subscription_start} <= ${subscriptions.original_subscription_months_retained}
     THEN COALESCE(${subscriptions.original_subscription_id},${subscriptions.subscription_id})
     ELSE NULL
     END ;;

@@ -1,9 +1,9 @@
-- dashboard: relay_saasboard_retention
-  title: Relay Saasboard Retention
+- dashboard: relay_saasboard__retention
+  title: Relay Saasboard - Retention
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
-  preferred_slug: cjmPRiu12swDkw5OG9VUpy
+  preferred_slug: UrYtdVUnYKZhYtrc2pl3dX
   elements:
   - name: ''
     type: text
@@ -22,22 +22,22 @@
     height: 3
   - title: Retention Rate Table (by Cohort)
     name: Retention Rate Table (by Cohort)
-    model: mozilla_vpn
-    explore: relay_subscriptions
+    model: relay
+    explore: subscriptions
     type: looker_grid
-    fields: [relay_original_subscriptions__retention.months_since_original_subscription_start,
-      relay_original_subscriptions__retention.retained, relay_original_subscriptions__retention.subscription_count,
-      relay_subscriptions.original_subscription_start_month]
-    pivots: [relay_original_subscriptions__retention.months_since_original_subscription_start]
-    fill_fields: [relay_subscriptions.original_subscription_start_month]
+    fields: [original_subscriptions__retention.months_since_original_subscription_start,
+      original_subscriptions__retention.retained, original_subscriptions__retention.subscription_count,
+      subscriptions.original_subscription_start_month]
+    pivots: [original_subscriptions__retention.months_since_original_subscription_start]
+    fill_fields: [subscriptions.original_subscription_start_month]
     filters:
-      relay_original_subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [relay_subscriptions.original_subscription_start_month]
+      original_subscriptions__retention.is_cohort_complete: 'Yes'
+    sorts: [subscriptions.original_subscription_start_month]
     total: true
-    dynamic_fields: [{category: table_calculation, expression: "${relay_subscriptions__retention.retained}/${relay_subscriptions.count}",
+    dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
         label: Retention Rate, value_format_name: percent_2, _kind_hint: measure,
         table_calculation: retention_rate, _type_hint: number, is_disabled: true},
-      {category: table_calculation, expression: "${relay_original_subscriptions__retention.retained}/${relay_original_subscriptions__retention.subscription_count}",
+      {category: table_calculation, expression: "${original_subscriptions__retention.retained}/${original_subscriptions__retention.subscription_count}",
         label: Total Retention Rate, value_format: !!null '', value_format_name: percent_0,
         _kind_hint: measure, table_calculation: total_retention_rate, _type_hint: number}]
     show_view_names: false
@@ -59,21 +59,21 @@
     show_totals: true
     show_row_totals: true
     series_labels:
-      relay_subscriptions__retention.age_in_months: Months Since Subcription Started
-      relay_subscriptions.subscription_start_month: Cohort
-      relay_subscriptions__retention.months_since_subscription_start: Months Since
-        Subscription Start
+      subscriptions__retention.age_in_months: Months Since Subcription Started
+      subscriptions.subscription_start_month: Cohort
+      subscriptions__retention.months_since_subscription_start: Months Since Subscription
+        Start
     series_column_widths:
-      relay_subscriptions.subscription_start_month: 243
+      subscriptions.subscription_start_month: 243
       retention_rate: 115
     series_cell_visualizations:
-      relay_subscriptions__retention.age_in_months:
+      subscriptions__retention.age_in_months:
         is_active: false
     series_text_format:
-      relay_subscriptions__retention.age_in_months: {}
+      subscriptions__retention.age_in_months: {}
       retention_rate:
         align: center
-      relay_subscriptions.subscription_start_month:
+      subscriptions.subscription_start_month:
         bold: true
         align: center
     header_background_color: "#D8D8D8"
@@ -143,50 +143,50 @@
               - retention_rate, name: 2021-08}], showLabels: true, showValues: true,
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     defaults_version: 1
-    hidden_fields: [relay_original_subscriptions__retention.retained, relay_original_subscriptions__retention.subscription_count]
+    hidden_fields: [original_subscriptions__retention.retained, original_subscriptions__retention.subscription_count]
     series_types: {}
     hidden_pivots: {}
     listen:
-      Provider: relay_subscriptions.provider
-      Pricing Plan: relay_subscriptions.pricing_plan
-      Country: relay_subscriptions.country_name
-      Original Subscription Start Date: relay_subscriptions.original_subscription_start_date
-      Plan Interval Type: relay_subscriptions.plan_interval_type
-      Product Name: relay_subscriptions.product_name
+      Provider: subscriptions.provider
+      Pricing Plan: subscriptions.pricing_plan
+      Country: subscriptions.country_name
+      Original Subscription Start Date: subscriptions.original_subscription_start_date
+      Plan Type: subscriptions.plan_type
+      Product Name: subscriptions.product_name
     row: 49
     col: 0
     width: 24
     height: 7
   - title: Current Retention by Cohort
     name: Current Retention by Cohort
-    model: mozilla_vpn
-    explore: relay_subscriptions
+    model: relay
+    explore: subscriptions
     type: looker_column
-    fields: [relay_subscriptions.original_subscription_start_month, filtered_original_subscription_retention_retained_updated,
-      relay_original_subscriptions__retention.subscription_count]
-    fill_fields: [relay_subscriptions.original_subscription_start_month]
+    fields: [subscriptions.original_subscription_start_month, filtered_original_subscription_retention_retained_updated,
+      original_subscriptions__retention.subscription_count]
+    fill_fields: [subscriptions.original_subscription_start_month]
     filters:
-      relay_original_subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [relay_subscriptions.original_subscription_start_month desc]
-    dynamic_fields: [{category: table_calculation, expression: "${relay_subscriptions__retention.retained}/${relay_subscriptions.count}",
+      original_subscriptions__retention.is_cohort_complete: 'Yes'
+    sorts: [subscriptions.original_subscription_start_month desc]
+    dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
         label: Retention Rate, value_format: !!null '', value_format_name: percent_1,
         _kind_hint: measure, table_calculation: retention_rate, _type_hint: number,
-        is_disabled: true}, {category: table_calculation, expression: "${relay_subscriptions.count}-${relay_subscriptions__retention.retained}",
+        is_disabled: true}, {category: table_calculation, expression: "${subscriptions.count}-${subscriptions__retention.retained}",
         label: Not Retained, value_format: !!null '', value_format_name: !!null '',
         _kind_hint: measure, table_calculation: not_retained, _type_hint: number,
         is_disabled: true}, {category: measure, expression: !!null '', label: Filtered
           Retention - Retained - Updated, value_format: !!null '', value_format_name: !!null '',
-        based_on: relay_subscriptions__retention.retained, _kind_hint: measure, measure: filtered_retention_retained_updated,
-        type: count_distinct, _type_hint: number, filters: {relay_subscriptions.is_ended: 'No'}},
-      {category: table_calculation, expression: "${filtered_retention_retained_updated}/${relay_subscriptions.count}",
+        based_on: subscriptions__retention.retained, _kind_hint: measure, measure: filtered_retention_retained_updated,
+        type: count_distinct, _type_hint: number, filters: {subscriptions.is_ended: 'No'}},
+      {category: table_calculation, expression: "${filtered_retention_retained_updated}/${subscriptions.count}",
         label: Retention Rate - Updated, value_format: !!null '', value_format_name: percent_1,
         _kind_hint: measure, table_calculation: retention_rate_updated, _type_hint: number,
         is_disabled: true}, {category: measure, expression: !!null '', label: Filtered
           Original Subscription Retention - Retained - Updated, value_format: !!null '',
-        value_format_name: !!null '', based_on: relay_original_subscriptions__retention.retained,
+        value_format_name: !!null '', based_on: original_subscriptions__retention.retained,
         _kind_hint: measure, measure: filtered_original_subscription_retention_retained_updated,
-        type: count_distinct, _type_hint: number, filters: {relay_subscriptions.is_ended: 'No'}},
-      {category: table_calculation, expression: "${filtered_original_subscription_retention_retained_updated}/${relay_original_subscriptions__retention.subscription_count}",
+        type: count_distinct, _type_hint: number, filters: {subscriptions.is_ended: 'No'}},
+      {category: table_calculation, expression: "${filtered_original_subscription_retention_retained_updated}/${original_subscriptions__retention.subscription_count}",
         label: Total Rentention Rate - Updated, value_format: !!null '', value_format_name: percent_0,
         _kind_hint: measure, table_calculation: total_rentention_rate_updated, _type_hint: number}]
     x_axis_gridlines: true
@@ -231,7 +231,7 @@
     x_axis_label: Cohort
     x_axis_zoom: true
     y_axis_zoom: true
-    hidden_series: [relay_subscriptions.count]
+    hidden_series: [subscriptions.count]
     series_types:
       retention_rate: line
       retention_rate_updated: line
@@ -241,7 +241,7 @@
       retention_rate: "#000000"
       churned: "#F9CB67"
       not_retained: "#F9CB67"
-      relay_subscriptions__retention.retained: "#0060E0"
+      subscriptions__retention.retained: "#0060E0"
       retention_rate_updated: "#000000"
       filtered_retention_retained_updated: "#1A73E8"
       total_rentention_rate_updated: "#000000"
@@ -254,39 +254,39 @@
     x_axis_label_rotation: -45
     column_group_spacing_ratio: 0.3
     defaults_version: 1
-    hidden_fields: [relay_original_subscriptions__retention.subscription_count]
+    hidden_fields: [original_subscriptions__retention.subscription_count]
     note_state: expanded
     note_display: hover
     note_text: This views show the current retention rate and counts for each cohort.
     hidden_pivots: {}
     listen:
-      Provider: relay_subscriptions.provider
-      Pricing Plan: relay_subscriptions.pricing_plan
-      Country: relay_subscriptions.country_name
-      Original Subscription Start Date: relay_subscriptions.original_subscription_start_date
-      Plan Interval Type: relay_subscriptions.plan_interval_type
-      Product Name: relay_subscriptions.product_name
+      Provider: subscriptions.provider
+      Pricing Plan: subscriptions.pricing_plan
+      Country: subscriptions.country_name
+      Original Subscription Start Date: subscriptions.original_subscription_start_date
+      Plan Type: subscriptions.plan_type
+      Product Name: subscriptions.product_name
     row: 8
     col: 12
     width: 12
     height: 10
   - title: Retention at Months Since Subscription Start
     name: Retention at Months Since Subscription Start
-    model: mozilla_vpn
-    explore: relay_subscriptions
+    model: relay
+    explore: subscriptions
     type: looker_column
-    fields: [relay_original_subscriptions__retention.months_since_original_subscription_start,
-      relay_original_subscriptions__retention.retained, relay_original_subscriptions__retention.subscription_count]
+    fields: [original_subscriptions__retention.months_since_original_subscription_start,
+      original_subscriptions__retention.retained, original_subscriptions__retention.subscription_count]
     filters:
-      relay_original_subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [relay_original_subscriptions__retention.retained desc]
-    dynamic_fields: [{category: table_calculation, expression: "${relay_subscriptions__retention.retained}/${relay_subscriptions.count}",
+      original_subscriptions__retention.is_cohort_complete: 'Yes'
+    sorts: [original_subscriptions__retention.retained desc]
+    dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
         label: Retention Rate, value_format: !!null '', value_format_name: percent_1,
         _kind_hint: measure, table_calculation: retention_rate, _type_hint: number,
-        is_disabled: true}, {category: table_calculation, expression: "${relay_subscriptions.count}-${relay_subscriptions__retention.retained}",
+        is_disabled: true}, {category: table_calculation, expression: "${subscriptions.count}-${subscriptions__retention.retained}",
         label: Not Retained, value_format: !!null '', value_format_name: !!null '',
         _kind_hint: measure, table_calculation: not_retained, _type_hint: number,
-        is_disabled: true}, {category: table_calculation, expression: "${relay_original_subscriptions__retention.retained}/${relay_original_subscriptions__retention.subscription_count}",
+        is_disabled: true}, {category: table_calculation, expression: "${original_subscriptions__retention.retained}/${original_subscriptions__retention.subscription_count}",
         label: Total Retention Rate, value_format: !!null '', value_format_name: percent_0,
         _kind_hint: measure, table_calculation: total_retention_rate, _type_hint: number}]
     x_axis_gridlines: false
@@ -321,15 +321,15 @@
       palette_id: 5d189dfc-4f46-46f3-822b-bfb0b61777b1
       options:
         steps: 5
-    y_axes: [{label: '', orientation: left, series: [{axisId: relay_original_subscriptions__retention.retained,
-            id: relay_original_subscriptions__retention.retained, name: Retained}],
-        showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
-        type: linear}, {label: '', orientation: left, series: [{axisId: relay_subscriptions.count,
-            id: relay_subscriptions.count, name: Subscriptions}], showLabels: true,
+    y_axes: [{label: '', orientation: left, series: [{axisId: original_subscriptions__retention.retained,
+            id: original_subscriptions__retention.retained, name: Retained}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: default, type: linear}, {
-        label: '', orientation: right, series: [{axisId: total_retention_rate, id: total_retention_rate,
-            name: Total Retention Rate}], showLabels: true, showValues: true, unpinAxis: false,
-        tickDensity: default, type: linear}]
+        label: '', orientation: left, series: [{axisId: subscriptions.count, id: subscriptions.count,
+            name: Subscriptions}], showLabels: true, showValues: true, unpinAxis: false,
+        tickDensity: default, type: linear}, {label: '', orientation: right, series: [
+          {axisId: total_retention_rate, id: total_retention_rate, name: Total Retention
+              Rate}], showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
+        type: linear}]
     x_axis_label: Months Since Subscription Start
     x_axis_zoom: true
     y_axis_zoom: true
@@ -345,7 +345,7 @@
     label_color: []
     column_group_spacing_ratio: 0.3
     defaults_version: 1
-    hidden_fields: [relay_original_subscriptions__retention.subscription_count]
+    hidden_fields: [original_subscriptions__retention.subscription_count]
     show_row_numbers: true
     transpose: false
     truncate_text: true
@@ -361,20 +361,20 @@
     conditional_formatting_include_nulls: false
     hidden_pivots: {}
     listen:
-      Provider: relay_subscriptions.provider
-      Pricing Plan: relay_subscriptions.pricing_plan
-      Country: relay_subscriptions.country_name
-      Original Subscription Start Date: relay_subscriptions.original_subscription_start_date
-      Plan Interval Type: relay_subscriptions.plan_interval_type
-      Product Name: relay_subscriptions.product_name
+      Provider: subscriptions.provider
+      Pricing Plan: subscriptions.pricing_plan
+      Country: subscriptions.country_name
+      Original Subscription Start Date: subscriptions.original_subscription_start_date
+      Plan Type: subscriptions.plan_type
+      Product Name: subscriptions.product_name
     row: 8
     col: 0
     width: 12
     height: 10
   - title: Untitled
     name: Untitled
-    model: mozilla_vpn
-    explore: relay_subscriptions
+    model: relay
+    explore: subscriptions
     type: single_value
     fields: [metadata.last_modified_date]
     fill_fields: [metadata.last_modified_date]
@@ -397,8 +397,8 @@
     defaults_version: 1
     hidden_fields: [metadata.last_modified_date]
     listen:
-      Provider: relay_subscriptions.provider
-      Product Name: relay_subscriptions.product_name
+      Provider: subscriptions.provider
+      Product Name: subscriptions.product_name
     row: 0
     col: 19
     width: 5
@@ -426,7 +426,7 @@
 
       <div style="border-top: solid 2px #e0e0e0;">
 
-      <h3><b>Retention by Plan Interval Type</b></h3>
+      <h3><b>Retention by Plan Type</b></h3>
 
       <h4> <b><code>Subscription Start Date</code> is used to track subscription removal due to plan changes(upgrades).</b> </h4>
     row: 18
@@ -435,21 +435,21 @@
     height: 3
   - title: Cohort Retention Rate By Months Since Subscription Start (A)
     name: Cohort Retention Rate By Months Since Subscription Start (A)
-    model: mozilla_vpn
-    explore: relay_subscriptions
+    model: relay
+    explore: subscriptions
     type: looker_line
-    fields: [relay_original_subscriptions__retention.months_since_original_subscription_start,
-      relay_original_subscriptions__retention.retained, relay_original_subscriptions__retention.subscription_count,
-      relay_subscriptions.original_subscription_start_month]
-    pivots: [relay_original_subscriptions__retention.months_since_original_subscription_start]
-    fill_fields: [relay_subscriptions.original_subscription_start_month]
+    fields: [original_subscriptions__retention.months_since_original_subscription_start,
+      original_subscriptions__retention.retained, original_subscriptions__retention.subscription_count,
+      subscriptions.original_subscription_start_month]
+    pivots: [original_subscriptions__retention.months_since_original_subscription_start]
+    fill_fields: [subscriptions.original_subscription_start_month]
     filters:
-      relay_original_subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [relay_subscriptions.original_subscription_start_month, relay_original_subscriptions__retention.months_since_original_subscription_start]
-    dynamic_fields: [{category: table_calculation, expression: "${relay_subscriptions__retention.retained}/${relay_subscriptions.count}",
+      original_subscriptions__retention.is_cohort_complete: 'Yes'
+    sorts: [subscriptions.original_subscription_start_month, original_subscriptions__retention.months_since_original_subscription_start]
+    dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
         label: Retention Rate, value_format: !!null '', value_format_name: percent_1,
         _kind_hint: measure, table_calculation: retention_rate, _type_hint: number,
-        is_disabled: true}, {category: table_calculation, expression: "${relay_original_subscriptions__retention.retained}/${relay_original_subscriptions__retention.subscription_count}",
+        is_disabled: true}, {category: table_calculation, expression: "${original_subscriptions__retention.retained}/${original_subscriptions__retention.subscription_count}",
         label: Total Retention Rate, value_format: !!null '', value_format_name: percent_0,
         _kind_hint: measure, table_calculation: total_retention_rate, _type_hint: number}]
     x_axis_gridlines: true
@@ -562,41 +562,41 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    hidden_fields: [relay_original_subscriptions__retention.retained, relay_original_subscriptions__retention.subscription_count]
+    hidden_fields: [original_subscriptions__retention.retained, original_subscriptions__retention.subscription_count]
     hide_totals: false
     hide_row_totals: false
     hidden_pivots: {}
     listen:
-      Provider: relay_subscriptions.provider
-      Pricing Plan: relay_subscriptions.pricing_plan
-      Country: relay_subscriptions.country_name
-      Original Subscription Start Date: relay_subscriptions.original_subscription_start_date
-      Plan Interval Type: relay_subscriptions.plan_interval_type
-      Product Name: relay_subscriptions.product_name
+      Provider: subscriptions.provider
+      Pricing Plan: subscriptions.pricing_plan
+      Country: subscriptions.country_name
+      Original Subscription Start Date: subscriptions.original_subscription_start_date
+      Plan Type: subscriptions.plan_type
+      Product Name: subscriptions.product_name
     row: 40
     col: 0
     width: 12
     height: 9
-  - title: Retention Rate Table (By Plan Interval Type)
-    name: Retention Rate Table (By Plan Interval Type)
-    model: mozilla_vpn
-    explore: relay_subscriptions
+  - title: Retention Rate Table (By Plan Type)
+    name: Retention Rate Table (By Plan Type)
+    model: relay
+    explore: subscriptions
     type: looker_grid
-    fields: [relay_subscriptions.count, relay_subscriptions__retention.months_since_subscription_start,
-      relay_subscriptions__retention.retained, relay_subscriptions.plan_interval_type]
-    pivots: [relay_subscriptions__retention.months_since_subscription_start]
+    fields: [subscriptions.count, subscriptions__retention.months_since_subscription_start,
+      subscriptions__retention.retained, subscriptions.plan_type]
+    pivots: [subscriptions__retention.months_since_subscription_start]
     filters:
-      relay_subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [relay_subscriptions__retention.months_since_subscription_start]
+      subscriptions__retention.is_cohort_complete: 'Yes'
+    sorts: [subscriptions__retention.months_since_subscription_start]
     column_limit: 50
     total: true
-    dynamic_fields: [{category: table_calculation, expression: "${relay_subscriptions__retention.retained}/${relay_subscriptions.count}",
+    dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
         label: Retention Rate, value_format: !!null '', value_format_name: percent_1,
         _kind_hint: measure, table_calculation: retention_rate, _type_hint: number},
-      {category: table_calculation, expression: 'max(pivot_row(if(is_null(${relay_subscriptions.count}),null,${relay_subscriptions__retention.months_since_subscription_start})))',
+      {category: table_calculation, expression: 'max(pivot_row(if(is_null(${subscriptions.count}),null,${subscriptions__retention.months_since_subscription_start})))',
         label: Months Since Plan Start, value_format: !!null '', value_format_name: !!null '',
         _kind_hint: supermeasure, table_calculation: months_since_plan_start, _type_hint: number},
-      {category: table_calculation, description: for sorting plans by volume, expression: 'pivot_offset(${relay_subscriptions.count},
+      {category: table_calculation, description: for sorting plans by volume, expression: 'pivot_offset(${subscriptions.count},
           0)', label: Total Subscribers, value_format: !!null '', value_format_name: !!null '',
         _kind_hint: measure, table_calculation: total_subscribers, _type_hint: number}]
     show_view_names: false
@@ -623,17 +623,17 @@
     show_totals: true
     show_row_totals: true
     series_labels:
-      relay_subscriptions__retention.months_since_subscription_start: Months Since
-        Subscription Start
+      subscriptions__retention.months_since_subscription_start: Months Since Subscription
+        Start
     series_cell_visualizations:
       retained:
         is_active: false
     series_text_format:
       retention_rate:
         align: center
-      relay_subscriptions.pricing_plan:
+      subscriptions.pricing_plan:
         bold: true
-      relay_subscriptions__retention.months_since_subscription_start:
+      subscriptions__retention.months_since_subscription_start:
         align: center
     header_background_color: "#D8D8D8"
     conditional_formatting: [{type: along a scale..., value: !!null '', background_color: !!null '',
@@ -670,41 +670,41 @@
     x_axis_label: Months Since Subscription Started
     series_colors: {}
     defaults_version: 1
-    hidden_fields: [relay_subscriptions.count, new_calculation, months_since_plan_start,
+    hidden_fields: [subscriptions.count, new_calculation, months_since_plan_start,
       pricing_plan_for_sorting, total_subscriptions, total_subscriptions_for_sorting,
-      total_subscribers, relay_subscriptions__retention.retained]
+      total_subscribers, subscriptions__retention.retained]
     series_types: {}
     listen:
-      Provider: relay_subscriptions.provider
-      Pricing Plan: relay_subscriptions.pricing_plan
-      Country: relay_subscriptions.country_name
-      Subscription Start Date: relay_subscriptions.subscription_start_date
-      Plan Interval Type: relay_subscriptions.plan_interval_type
-      Product Name: relay_subscriptions.product_name
+      Provider: subscriptions.provider
+      Pricing Plan: subscriptions.pricing_plan
+      Country: subscriptions.country_name
+      Subscription Start Date: subscriptions.subscription_start_date
+      Plan Type: subscriptions.plan_type
+      Product Name: subscriptions.product_name
     row: 27
     col: 0
     width: 24
     height: 5
-  - title: Retention Counts Table (By Plan Interval Type)
-    name: Retention Counts Table (By Plan Interval Type)
-    model: mozilla_vpn
-    explore: relay_subscriptions
+  - title: Retention Counts Table (By Plan Type)
+    name: Retention Counts Table (By Plan Type)
+    model: relay
+    explore: subscriptions
     type: looker_grid
-    fields: [relay_subscriptions.count, relay_subscriptions__retention.months_since_subscription_start,
-      relay_subscriptions__retention.retained, relay_subscriptions.plan_interval_type]
-    pivots: [relay_subscriptions__retention.months_since_subscription_start]
+    fields: [subscriptions.count, subscriptions__retention.months_since_subscription_start,
+      subscriptions__retention.retained, subscriptions.plan_type]
+    pivots: [subscriptions__retention.months_since_subscription_start]
     filters:
-      relay_subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [relay_subscriptions__retention.months_since_subscription_start]
+      subscriptions__retention.is_cohort_complete: 'Yes'
+    sorts: [subscriptions__retention.months_since_subscription_start]
     column_limit: 50
     total: true
-    dynamic_fields: [{category: table_calculation, expression: "${relay_subscriptions__retention.retained}/${relay_subscriptions.count}",
+    dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
         label: Retention Rate, value_format_name: percent_2, _kind_hint: measure,
         table_calculation: retention_rate, _type_hint: number}, {category: table_calculation,
-        expression: 'max(pivot_row(if(is_null(${relay_subscriptions.count}),null,${relay_subscriptions__retention.months_since_subscription_start})))',
+        expression: 'max(pivot_row(if(is_null(${subscriptions.count}),null,${subscriptions__retention.months_since_subscription_start})))',
         label: Months Since Plan Start, value_format: !!null '', value_format_name: !!null '',
         _kind_hint: supermeasure, table_calculation: months_since_plan_start, _type_hint: number},
-      {category: table_calculation, description: for sorting plans by volume, expression: 'pivot_offset(${relay_subscriptions.count},
+      {category: table_calculation, description: for sorting plans by volume, expression: 'pivot_offset(${subscriptions.count},
           0)', label: Total Subscribers, value_format: !!null '', value_format_name: !!null '',
         _kind_hint: measure, table_calculation: total_subscribers, _type_hint: number}]
     show_view_names: false
@@ -731,15 +731,15 @@
     show_totals: true
     show_row_totals: true
     series_labels:
-      relay_subscriptions__retention.months_since_subscription_start: Months Since
-        Subscription Start
+      subscriptions__retention.months_since_subscription_start: Months Since Subscription
+        Start
       retained: Subs Retained
     series_cell_visualizations:
       retained:
         is_active: false
     series_text_format:
       retention_rate: {}
-      relay_subscriptions.pricing_plan:
+      subscriptions.pricing_plan:
         bold: true
     header_background_color: "#D8D8D8"
     conditional_formatting: [{type: along a scale..., value: !!null '', background_color: !!null '',
@@ -776,42 +776,42 @@
     x_axis_label: Months Since Subscription Started
     series_colors: {}
     defaults_version: 1
-    hidden_fields: [relay_subscriptions.count, new_calculation, months_since_plan_start,
+    hidden_fields: [subscriptions.count, new_calculation, months_since_plan_start,
       pricing_plan_for_sorting, total_subscriptions, total_subscriptions_for_sorting,
       total_subscribers, retention_rate]
     series_types: {}
     listen:
-      Provider: relay_subscriptions.provider
-      Pricing Plan: relay_subscriptions.pricing_plan
-      Country: relay_subscriptions.country_name
-      Subscription Start Date: relay_subscriptions.subscription_start_date
-      Plan Interval Type: relay_subscriptions.plan_interval_type
-      Product Name: relay_subscriptions.product_name
+      Provider: subscriptions.provider
+      Pricing Plan: subscriptions.pricing_plan
+      Country: subscriptions.country_name
+      Subscription Start Date: subscriptions.subscription_start_date
+      Plan Type: subscriptions.plan_type
+      Product Name: subscriptions.product_name
     row: 32
     col: 0
     width: 24
     height: 5
-  - title: Retention Rate  (By Plan Interval Type)
-    name: Retention Rate  (By Plan Interval Type)
-    model: mozilla_vpn
-    explore: relay_subscriptions
+  - title: Retention Rate  (By Plan Type)
+    name: Retention Rate  (By Plan Type)
+    model: relay
+    explore: subscriptions
     type: looker_line
-    fields: [relay_subscriptions.count, relay_subscriptions__retention.months_since_subscription_start,
-      relay_subscriptions__retention.retained, relay_subscriptions.plan_interval_type]
-    pivots: [relay_subscriptions.plan_interval_type]
+    fields: [subscriptions.count, subscriptions__retention.months_since_subscription_start,
+      subscriptions__retention.retained, subscriptions.plan_type]
+    pivots: [subscriptions.plan_type]
     filters:
-      relay_subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [relay_subscriptions__retention.months_since_subscription_start, relay_subscriptions.plan_interval_type,
+      subscriptions__retention.is_cohort_complete: 'Yes'
+    sorts: [subscriptions__retention.months_since_subscription_start, subscriptions.plan_type,
       months_since_plan_start desc 0, total_subscribers desc 0]
     limit: 1000
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${relay_subscriptions__retention.retained}/${relay_subscriptions.count}",
+    dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
         label: Retention Rate, value_format: !!null '', value_format_name: percent_1,
         _kind_hint: measure, table_calculation: retention_rate, _type_hint: number},
-      {category: table_calculation, expression: 'max(pivot_row(if(is_null(${relay_subscriptions.count}),null,${relay_subscriptions__retention.months_since_subscription_start})))',
+      {category: table_calculation, expression: 'max(pivot_row(if(is_null(${subscriptions.count}),null,${subscriptions__retention.months_since_subscription_start})))',
         label: Months Since Plan Start, value_format: !!null '', value_format_name: !!null '',
         _kind_hint: supermeasure, table_calculation: months_since_plan_start, _type_hint: number},
-      {category: table_calculation, description: for sorting plans by volume, expression: 'pivot_offset(${relay_subscriptions.count},
+      {category: table_calculation, description: for sorting plans by volume, expression: 'pivot_offset(${subscriptions.count},
           0)', label: Total Subscribers, value_format: !!null '', value_format_name: !!null '',
         _kind_hint: measure, table_calculation: total_subscribers, _type_hint: number}]
     x_axis_gridlines: false
@@ -873,7 +873,7 @@
         is_active: false
     series_text_format:
       retention_rate: {}
-      relay_subscriptions.pricing_plan:
+      subscriptions.pricing_plan:
         bold: true
     header_background_color: "#D8D8D8"
     conditional_formatting: [{type: along a scale..., value: !!null '', background_color: !!null '',
@@ -888,37 +888,37 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    hidden_fields: [relay_subscriptions.count, new_calculation, months_since_plan_start,
+    hidden_fields: [subscriptions.count, new_calculation, months_since_plan_start,
       pricing_plan_for_sorting, total_subscriptions, total_subscriptions_for_sorting,
-      total_subscribers, relay_subscriptions__retention.retained]
+      total_subscribers, subscriptions__retention.retained]
     listen:
-      Provider: relay_subscriptions.provider
-      Pricing Plan: relay_subscriptions.pricing_plan
-      Country: relay_subscriptions.country_name
-      Subscription Start Date: relay_subscriptions.subscription_start_date
-      Plan Interval Type: relay_subscriptions.plan_interval_type
-      Product Name: relay_subscriptions.product_name
+      Provider: subscriptions.provider
+      Pricing Plan: subscriptions.pricing_plan
+      Country: subscriptions.country_name
+      Subscription Start Date: subscriptions.subscription_start_date
+      Plan Type: subscriptions.plan_type
+      Product Name: subscriptions.product_name
     row: 21
     col: 0
     width: 24
     height: 6
   - title: Cohort Retention Rate By Months Since Subscription Start (B)
     name: Cohort Retention Rate By Months Since Subscription Start (B)
-    model: mozilla_vpn
-    explore: relay_subscriptions
+    model: relay
+    explore: subscriptions
     type: looker_line
-    fields: [relay_original_subscriptions__retention.months_since_original_subscription_start,
-      relay_original_subscriptions__retention.retained, relay_original_subscriptions__retention.subscription_count,
-      relay_subscriptions.original_subscription_start_month]
-    pivots: [relay_subscriptions.original_subscription_start_month]
-    fill_fields: [relay_subscriptions.original_subscription_start_month]
+    fields: [original_subscriptions__retention.months_since_original_subscription_start,
+      original_subscriptions__retention.retained, original_subscriptions__retention.subscription_count,
+      subscriptions.original_subscription_start_month]
+    pivots: [subscriptions.original_subscription_start_month]
+    fill_fields: [subscriptions.original_subscription_start_month]
     filters:
-      relay_original_subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [relay_original_subscriptions__retention.retained desc 0, relay_subscriptions.original_subscription_start_month]
-    dynamic_fields: [{category: table_calculation, expression: "${relay_subscriptions__retention.retained}/${relay_subscriptions.count}",
+      original_subscriptions__retention.is_cohort_complete: 'Yes'
+    sorts: [original_subscriptions__retention.retained desc 0, subscriptions.original_subscription_start_month]
+    dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
         label: Retention Rate, value_format: !!null '', value_format_name: percent_1,
         _kind_hint: measure, table_calculation: retention_rate, _type_hint: number,
-        is_disabled: true}, {category: table_calculation, expression: "${relay_original_subscriptions__retention.retained}/${relay_original_subscriptions__retention.subscription_count}",
+        is_disabled: true}, {category: table_calculation, expression: "${original_subscriptions__retention.retained}/${original_subscriptions__retention.subscription_count}",
         label: Total Retention Rate, value_format: !!null '', value_format_name: percent_0,
         _kind_hint: measure, table_calculation: total_retention_rate, _type_hint: number}]
     x_axis_gridlines: true
@@ -1023,39 +1023,39 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    hidden_fields: [relay_original_subscriptions__retention.retained, relay_original_subscriptions__retention.subscription_count]
+    hidden_fields: [original_subscriptions__retention.retained, original_subscriptions__retention.subscription_count]
     hide_totals: false
     hide_row_totals: false
     hidden_pivots: {}
     listen:
-      Provider: relay_subscriptions.provider
-      Pricing Plan: relay_subscriptions.pricing_plan
-      Country: relay_subscriptions.country_name
-      Original Subscription Start Date: relay_subscriptions.original_subscription_start_date
-      Plan Interval Type: relay_subscriptions.plan_interval_type
-      Product Name: relay_subscriptions.product_name
+      Provider: subscriptions.provider
+      Pricing Plan: subscriptions.pricing_plan
+      Country: subscriptions.country_name
+      Original Subscription Start Date: subscriptions.original_subscription_start_date
+      Plan Type: subscriptions.plan_type
+      Product Name: subscriptions.product_name
     row: 40
     col: 12
     width: 12
     height: 9
   - title: Retention Counts Table (by Cohort)
     name: Retention Counts Table (by Cohort)
-    model: mozilla_vpn
-    explore: relay_subscriptions
+    model: relay
+    explore: subscriptions
     type: looker_grid
-    fields: [relay_original_subscriptions__retention.months_since_original_subscription_start,
-      relay_original_subscriptions__retention.retained, relay_original_subscriptions__retention.subscription_count,
-      relay_subscriptions.original_subscription_start_month]
-    pivots: [relay_original_subscriptions__retention.months_since_original_subscription_start]
-    fill_fields: [relay_subscriptions.original_subscription_start_month]
+    fields: [original_subscriptions__retention.months_since_original_subscription_start,
+      original_subscriptions__retention.retained, original_subscriptions__retention.subscription_count,
+      subscriptions.original_subscription_start_month]
+    pivots: [original_subscriptions__retention.months_since_original_subscription_start]
+    fill_fields: [subscriptions.original_subscription_start_month]
     filters:
-      relay_original_subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [relay_subscriptions.original_subscription_start_month]
+      original_subscriptions__retention.is_cohort_complete: 'Yes'
+    sorts: [subscriptions.original_subscription_start_month]
     total: true
-    dynamic_fields: [{category: table_calculation, expression: "${relay_subscriptions__retention.retained}/${relay_subscriptions.count}",
+    dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
         label: Retention Rate, value_format_name: percent_2, _kind_hint: measure,
         table_calculation: retention_rate, _type_hint: number, is_disabled: true},
-      {category: table_calculation, expression: "${relay_original_subscriptions__retention.retained}/${relay_original_subscriptions__retention.subscription_count}",
+      {category: table_calculation, expression: "${original_subscriptions__retention.retained}/${original_subscriptions__retention.subscription_count}",
         label: Total Retention Rate, value_format: !!null '', value_format_name: percent_0,
         _kind_hint: measure, table_calculation: total_retention_rate, _type_hint: number}]
     show_view_names: false
@@ -1077,21 +1077,21 @@
     show_totals: true
     show_row_totals: true
     series_labels:
-      relay_subscriptions__retention.age_in_months: Months Since Subcription Started
-      relay_subscriptions.subscription_start_month: Cohort
-      relay_subscriptions__retention.months_since_subscription_start: Months Since
-        Subscription Start
+      subscriptions__retention.age_in_months: Months Since Subcription Started
+      subscriptions.subscription_start_month: Cohort
+      subscriptions__retention.months_since_subscription_start: Months Since Subscription
+        Start
     series_column_widths:
-      relay_subscriptions.subscription_start_month: 243
+      subscriptions.subscription_start_month: 243
       retention_rate: 115
     series_cell_visualizations:
-      relay_subscriptions__retention.age_in_months:
+      subscriptions__retention.age_in_months:
         is_active: false
     series_text_format:
-      relay_subscriptions__retention.age_in_months: {}
+      subscriptions__retention.age_in_months: {}
       retention_rate:
         align: center
-      relay_subscriptions.subscription_start_month:
+      subscriptions.subscription_start_month:
         bold: true
         align: center
     header_background_color: "#D8D8D8"
@@ -1161,16 +1161,16 @@
               - retention_rate, name: 2021-08}], showLabels: true, showValues: true,
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     defaults_version: 1
-    hidden_fields: [relay_original_subscriptions__retention.subscription_count, total_retention_rate]
+    hidden_fields: [original_subscriptions__retention.subscription_count, total_retention_rate]
     series_types: {}
     hidden_pivots: {}
     listen:
-      Provider: relay_subscriptions.provider
-      Pricing Plan: relay_subscriptions.pricing_plan
-      Country: relay_subscriptions.country_name
-      Original Subscription Start Date: relay_subscriptions.original_subscription_start_date
-      Plan Interval Type: relay_subscriptions.plan_interval_type
-      Product Name: relay_subscriptions.product_name
+      Provider: subscriptions.provider
+      Pricing Plan: subscriptions.pricing_plan
+      Country: subscriptions.country_name
+      Original Subscription Start Date: subscriptions.original_subscription_start_date
+      Plan Type: subscriptions.plan_type
+      Product Name: subscriptions.product_name
     row: 56
     col: 0
     width: 24
@@ -1178,7 +1178,6 @@
   - name: " (4)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: '[{"type":"p","children":[{"text":"These visualizations capture "},{"text":"subscription
       retention","bold":true},{"text":"."}],"id":1672322115129},{"type":"ul","children":[{"type":"li","children":[{"type":"lic","children":[{"text":"Retention
       rate is the percentage of active subscriptions out of all subscriptions. "}],"id":1672322115153}],"id":1672322115131},{"type":"li","children":[{"type":"lic","children":[{"text":"Subscriptions
@@ -1190,8 +1189,8 @@
       cohort refers to a group of subscriptions that started their subscriptions in
       a particular month.  For example, cohort 07-2020 includes all subscriptions
       that started in the month of July 2020."}],"id":1672322115134}],"id":1672322115131}],"id":1672322115131},{"type":"p","id":1672322232651,"children":[{"text":"\nPlease
-      submit any questions in  "},{"type":"a","url":"https://mozilla.slack.com/messages/mozilla-vpn-data/","children":[{"text":"mozilla-vpn-data","bold":true}],"id":1672322115132},{"text":"
-      channel on Slack. \n"}]}]'
+      submit any questions to "},{"text":"@yeonjoo","bold":true},{"text":" in "},{"text":"#fx-private-relay
+      ","bold":true},{"text":"channel on Slack. \n \n"}]}]'
     rich_content_json: '{"format":"slate"}'
     row: 0
     col: 0
@@ -1207,12 +1206,12 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: mozilla_vpn
-    explore: relay_subscriptions
+    model: relay
+    explore: subscriptions
     listens_to_filters: []
-    field: relay_subscriptions.provider
-  - name: Plan Interval Type
-    title: Plan Interval Type
+    field: subscriptions.provider
+  - name: Plan Type
+    title: Plan Type
     type: field_filter
     default_value: ''
     allow_multiple_values: true
@@ -1220,10 +1219,10 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: mozilla_vpn
-    explore: relay_subscriptions
+    model: relay
+    explore: subscriptions
     listens_to_filters: []
-    field: relay_subscriptions.plan_interval_type
+    field: subscriptions.plan_type
   - name: Pricing Plan
     title: Pricing Plan
     type: field_filter
@@ -1233,10 +1232,10 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: mozilla_vpn
-    explore: relay_subscriptions
+    model: relay
+    explore: subscriptions
     listens_to_filters: []
-    field: relay_subscriptions.pricing_plan
+    field: subscriptions.pricing_plan
   - name: Country
     title: Country
     type: field_filter
@@ -1246,10 +1245,10 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: mozilla_vpn
-    explore: relay_subscriptions
+    model: relay
+    explore: subscriptions
     listens_to_filters: []
-    field: relay_subscriptions.country_name
+    field: subscriptions.country_name
   - name: Subscription Start Date
     title: Subscription Start Date
     type: field_filter
@@ -1260,10 +1259,10 @@
       type: advanced
       display: popover
       options: []
-    model: mozilla_vpn
-    explore: relay_subscriptions
+    model: relay
+    explore: subscriptions
     listens_to_filters: []
-    field: relay_subscriptions.subscription_start_date
+    field: subscriptions.subscription_start_date
   - name: Original Subscription Start Date
     title: Original Subscription Start Date
     type: field_filter
@@ -1274,10 +1273,10 @@
       type: advanced
       display: popover
       options: []
-    model: mozilla_vpn
-    explore: relay_subscriptions
+    model: relay
+    explore: subscriptions
     listens_to_filters: []
-    field: relay_subscriptions.original_subscription_start_date
+    field: subscriptions.original_subscription_start_date
   - name: Product Name
     title: Product Name
     type: field_filter
@@ -1287,7 +1286,7 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: mozilla_vpn
-    explore: relay_subscriptions
+    model: relay
+    explore: subscriptions
     listens_to_filters: []
-    field: relay_subscriptions.product_name
+    field: subscriptions.product_name

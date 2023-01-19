@@ -2,7 +2,8 @@
   title: Relay Business Metrics - Pooled Monthly Churn Rate
   layout: newspaper
   preferred_viewer: dashboards-next
-
+  description: ''
+  preferred_slug: oSQCnMn4EXozd0Pi62zSff
   elements:
   - name: Monthly Churn Rate (not monthly plan users)
     type: text
@@ -16,19 +17,19 @@
   - name: This dashboard takes a long time to load (up to 2 minutes)
     type: text
     title_text: This dashboard takes a long time to load (up to 2 minutes).
-    subtitle_text: ''
     body_text: "**\"Pooled\" churn rates** are calculated as follows:\n\n`n lost /\
       \ n start`\n\n* n start = number of subscribers active at start of period\n\
       * n lost = number of subscribers lost during period (of those active at start\
       \ of period)\n\n### Notes\n\n* This is **different to cohort-based** churn rates.\
-      \ Cohort-based churn rates are available [here](https://mozilla.cloud.looker.com/dashboards/413).\n\
-      * We are counting churn when a user stops having access to the product, not\
-      \ when a user cancels their subscription. For monthly customers, these are roughly\
-      \ the same thing, for annual customers they are not as customers can cancel\
-      \ (aka stop auto renew) long before their subscription end. However we do know\
-      \ that most people cancel close to the renewal time (when they get their renewal\
-      \ email).\n\n* This dashboard was changed to update the churn calculation after\
-      \ the upgrade to the bundle plan feature was released in October 11, 2022. "
+      \ Cohort-based churn rates are available in Relay SaaSboard - Churn(link will\
+      \ be added here).\n* We are counting churn when a user stops having access to\
+      \ the product, not when a user cancels their subscription. For monthly customers,\
+      \ these are roughly the same thing, for annual customers they are not as customers\
+      \ can cancel (aka stop auto renew) long before their subscription end. However\
+      \ we do know that most people cancel close to the renewal time (when they get\
+      \ their renewal email).\n\n* This dashboard was changed to update the churn\
+      \ calculation after the upgrade to the bundle plan feature was released in October\
+      \ 11, 2022. "
     row: 0
     col: 0
     width: 24
@@ -36,61 +37,58 @@
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
-      For queries, corrections please contact Sarah Bird (sbird@mozilla.com).
+      For queries, corrections please contact Yeonjoo Yoo (yeonjoo@mozilla.com).
 
-      1) The number of subscriptions at the start of the period is slightly different to the number of subscriptions shown as active on the [active subscriptions dashboard](https://mozilla.cloud.looker.com/dashboards/412). I believe this is due to slightly different counting methods between `active_subscriptions` table and the query that powers this dashboard being against `all_subscriptions` table.
+      1) The number of subscriptions at the start of the period is slightly different to the number of subscriptions shown as active on the Relay SaaSboard - Active Subscriptions(the link will be added here). I believe this is due to slightly different counting methods between `active_subscriptions` table and the query that powers this dashboard being against `subscriptions` table.
     row: 21
     col: 0
     width: 24
     height: 3
   - title: All
     name: All
-    model: mozilla_vpn
-    explore: relay_subscriptions
+    model: relay
+    explore: subscriptions
     type: looker_line
-    fields: [relay_original_subscriptions__active.active_date, period_start, period_end,
-      relay_original_subscriptions__retention.subscription_count, n_start, n_lost]
-    filters:
-      relay_original_subscriptions__active.active_date: after 13 months ago
+    fields: [original_subscriptions__active.active_date, period_start, period_end,
+      original_subscriptions__retention.subscription_count, n_start, n_lost]
     sorts: [period_start desc]
     limit: 100
     column_limit: 50
     row_total: right
-    dynamic_fields: [{category: table_calculation, expression: "${relay_original_subscriptions__retention.subscription_count}\
+    dynamic_fields: [{category: table_calculation, expression: "${original_subscriptions__retention.subscription_count}\
           \ - ${n_start}", label: Count - N Start, value_format: !!null '', value_format_name: !!null '',
         _kind_hint: measure, table_calculation: count_n_start, _type_hint: number,
-        is_disabled: false}, {category: dimension, expression: 'add_months(1, ${relay_original_subscriptions__active.active_date})',
+        is_disabled: false}, {category: dimension, expression: 'add_months(1, ${original_subscriptions__active.active_date})',
         label: Period End, value_format: !!null '', value_format_name: !!null '',
         dimension: period_end, _kind_hint: dimension, _type_hint: date}, {category: dimension,
-        expression: "${relay_original_subscriptions__active.active_date}", label: Period
+        expression: "${original_subscriptions__active.active_date}", label: Period
           Start, value_format: !!null '', value_format_name: !!null '', dimension: period_start,
-        _kind_hint: dimension, _type_hint: date}, {category: measure, expression: "(is_null(${relay_subscriptions.ended_reason})\
-          \ OR (${relay_subscriptions.ended_reason} != \"Plan Change\"))\nAND\n${relay_subscriptions.original_subscription_start_date}\
-          \ <= ${period_start}\nAND\n${relay_subscriptions.end_date} > ${period_start}\n\
-          AND \n${relay_subscriptions.end_date} <= ${period_end}\n\n", label: N Lost, value_format: !!null '',
-        value_format_name: !!null '', based_on: relay_original_subscriptions__retention.subscription_count,
-        filter_expression: "(is_null(${relay_subscriptions.ended_reason}) OR (${relay_subscriptions.ended_reason}\
-          \ != \"Plan Change\"))\nAND\n${relay_subscriptions.original_subscription_start_date}\
-          \ <= ${period_start}\nAND\n${relay_subscriptions.end_date} > ${period_start}\n\
-          AND \n${relay_subscriptions.end_date} <= ${period_end}\n\n", _kind_hint: measure,
+        _kind_hint: dimension, _type_hint: date}, {category: measure, expression: "(is_null(${subscriptions.ended_reason})\
+          \ OR (${subscriptions.ended_reason} != \"Plan Change\"))\nAND\n${subscriptions.original_subscription_start_date}\
+          \ <= ${period_start}\nAND\n${subscriptions.end_date} > ${period_start}\n\
+          AND \n${subscriptions.end_date} <= ${period_end}\n\n", label: N Lost, value_format: !!null '',
+        value_format_name: !!null '', based_on: original_subscriptions__retention.subscription_count,
+        filter_expression: "(is_null(${subscriptions.ended_reason}) OR (${subscriptions.ended_reason}\
+          \ != \"Plan Change\"))\nAND\n${subscriptions.original_subscription_start_date}\
+          \ <= ${period_start}\nAND\n${subscriptions.end_date} > ${period_start}\n\
+          AND \n${subscriptions.end_date} <= ${period_end}\n\n", _kind_hint: measure,
         measure: n_lost, type: count_distinct, _type_hint: number}, {category: measure,
-        expression: "${relay_subscriptions.original_subscription_start_date} <= ${period_start}\n\
-          AND\n${relay_subscriptions.end_date} > ${period_start}\nAND \n(is_null(${relay_subscriptions.ended_reason})OR${relay_subscriptions.ended_reason}\
+        expression: "${subscriptions.original_subscription_start_date} <= ${period_start}\n\
+          AND\n${subscriptions.end_date} > ${period_start}\nAND \n(is_null(${subscriptions.ended_reason})OR${subscriptions.ended_reason}\
           \ != \"Plan Change\") ", label: N Start, value_format: !!null '', value_format_name: !!null '',
-        based_on: relay_original_subscriptions__retention.subscription_count, filter_expression: "${relay_subscriptions.original_subscription_start_date}\
-          \ <= ${period_start}\nAND\n${relay_subscriptions.end_date} > ${period_start}\n\
-          AND \n(is_null(${relay_subscriptions.ended_reason})OR${relay_subscriptions.ended_reason}\
+        based_on: original_subscriptions__retention.subscription_count, filter_expression: "${subscriptions.original_subscription_start_date}\
+          \ <= ${period_start}\nAND\n${subscriptions.end_date} > ${period_start}\n\
+          AND \n(is_null(${subscriptions.ended_reason})OR${subscriptions.ended_reason}\
           \ != \"Plan Change\") ", _kind_hint: measure, measure: n_start, type: count_distinct,
         _type_hint: number}, {category: table_calculation, expression: "${n_lost}/${n_start}",
         label: Churn rate, value_format: !!null '', value_format_name: percent_1,
         _kind_hint: measure, table_calculation: churn_rate, _type_hint: number, id: YQl7meS99Q,
         is_disabled: false}]
     filter_expression: |
-      ${relay_original_subscriptions__active.active_date} = trunc_months(${relay_original_subscriptions__active.active_date})
+      ${original_subscriptions__active.active_date} = trunc_months(${original_subscriptions__active.active_date})
       AND
-      ${relay_original_subscriptions__active.active_date} <= add_months(-1, now())
+      ${original_subscriptions__active.active_date} <= add_months(-1, now())
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -116,18 +114,20 @@
     show_null_points: false
     interpolation: linear
     y_axes: [{label: '', orientation: left, series: [{axisId: churn_rate, id: churn_rate,
-            name: Churn rate}], showLabels: true, showValues: true, maxValue: 0.07,
+            name: Churn rate}], showLabels: true, showValues: true, maxValue: !!null '',
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: ''
+    x_axis_zoom: true
+    y_axis_zoom: true
     series_types: {}
     series_colors:
       churn_rate: "#073072"
     series_labels:
       1 - churn_rate: Month 1
       churned: Subs Churned
-      relay_subscriptions__retention.months_since_subscription_start: Months Since Subscription
+      subscriptions__retention.months_since_subscription_start: Months Since Subscription
         Start
-      relay_subscriptions.subscription_start_month: Cohort
+      subscriptions.subscription_start_month: Cohort
     x_axis_datetime_label: "%Y-%m-%d"
     reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
         margin_value: mean, margin_bottom: deviation, label_position: right, color: "#000000",
@@ -151,16 +151,16 @@
     show_totals: true
     show_row_totals: true
     series_column_widths:
-      relay_subscriptions.subscription_start_month: 256
+      subscriptions.subscription_start_month: 256
       churned: 115
     series_cell_visualizations:
       churned:
         is_active: false
     series_text_format:
-      relay_subscriptions__retention.months_since_subscription_start:
+      subscriptions__retention.months_since_subscription_start:
         bold: true
         align: center
-      relay_subscriptions.subscription_start_month:
+      subscriptions.subscription_start_month:
         bold: true
         align: center
       churned:
@@ -176,7 +176,7 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    hidden_fields: [relay_original_subscriptions__active.active_date, period_start, relay_original_subscriptions__retention.subscription_count,
+    hidden_fields: [original_subscriptions__active.active_date, period_start, original_subscriptions__retention.subscription_count,
       n_start, n_lost, count_n_start]
     defaults_version: 1
     hidden_pivots: {}
@@ -188,69 +188,60 @@
       \ plan start date and the last subscription plan end date regardless of plan\
       \ changes. \n"
     listen:
-      Product Name: relay_subscriptions.product_name
+      Product Name: subscriptions.product_name
+      'Active Date for Churn for All ': original_subscriptions__active.active_date
     row: 9
     col: 0
     width: 12
     height: 12
   - title: By Plan Type
     name: By Plan Type
-    model: mozilla_vpn
-    explore: relay_subscriptions
+    model: relay
+    explore: subscriptions
     type: looker_line
-    fields: [relay_subscriptions__active.active_date, period_start, period_end, relay_subscriptions.count,
-      n_start, n_lost, plan_type]
-    pivots: [plan_type]
-    filters:
-      relay_subscriptions.plan_interval_type: '"1_month","1_year","6_month"'
-      relay_subscriptions__active.active_date: after 13 months ago
-    sorts: [plan_type, period_start desc]
+    fields: [subscriptions__active.active_date, period_start, period_end, subscriptions.count,
+      n_start, n_lost, subscriptions.plan_type]
+    pivots: [subscriptions.plan_type]
+    sorts: [period_start desc, subscriptions.plan_type]
     limit: 100
     column_limit: 50
-    row_total: right
-    dynamic_fields: [{category: table_calculation, expression: "${relay_subscriptions.count}\
+    dynamic_fields: [{category: table_calculation, expression: "${subscriptions.count}\
           \ - ${n_start}", label: Count - N Start, value_format: !!null '', value_format_name: !!null '',
         _kind_hint: measure, table_calculation: count_n_start, _type_hint: number,
-        id: 0uW4QDFycp}, {category: dimension, expression: 'add_months(1, ${relay_subscriptions__active.active_date})',
+        id: 0uW4QDFycp}, {category: dimension, expression: 'add_months(1, ${subscriptions__active.active_date})',
         label: Period End, value_format: !!null '', value_format_name: !!null '',
         dimension: period_end, _kind_hint: dimension, _type_hint: date, id: WsAtxE40zP},
-      {category: dimension, expression: "${relay_subscriptions__active.active_date}", label: Period
+      {category: dimension, expression: "${subscriptions__active.active_date}", label: Period
           Start, value_format: !!null '', value_format_name: !!null '', dimension: period_start,
         _kind_hint: dimension, _type_hint: date, id: zT4PEpg8iM}, {category: measure,
-        expression: "${relay_subscriptions.subscription_start_date} <= ${period_start}\n\
-          AND\n${relay_subscriptions.end_date} > ${period_start}\nAND \n${relay_subscriptions.end_date}\
+        expression: "${subscriptions.subscription_start_date} <= ${period_start}\n\
+          AND\n${subscriptions.end_date} > ${period_start}\nAND \n${subscriptions.end_date}\
           \ <= ${period_end}", label: N Lost, value_format: !!null '', value_format_name: !!null '',
-        based_on: relay_subscriptions.count, filter_expression: "${relay_subscriptions.subscription_start_date}\
-          \ <= ${period_start}\nAND\n${relay_subscriptions.end_date} > ${period_start}\n\
-          AND \n${relay_subscriptions.end_date} <= ${period_end}", _kind_hint: measure,
+        based_on: subscriptions.count, filter_expression: "${subscriptions.subscription_start_date}\
+          \ <= ${period_start}\nAND\n${subscriptions.end_date} > ${period_start}\n\
+          AND \n${subscriptions.end_date} <= ${period_end}", _kind_hint: measure,
         measure: n_lost, type: count, _type_hint: number, id: PDTZJ6FOv8}, {category: measure,
-        expression: "${relay_subscriptions.subscription_start_date} <= ${period_start}\n\
-          AND\n${relay_subscriptions.end_date} > ${period_start}", label: N Start, value_format: !!null '',
-        value_format_name: !!null '', based_on: relay_subscriptions.count, filter_expression: "${relay_subscriptions.subscription_start_date}\
-          \ <= ${period_start}\nAND\n${relay_subscriptions.end_date} > ${period_start}",
+        expression: "${subscriptions.subscription_start_date} <= ${period_start}\n\
+          AND\n${subscriptions.end_date} > ${period_start}", label: N Start, value_format: !!null '',
+        value_format_name: !!null '', based_on: subscriptions.count, filter_expression: "${subscriptions.subscription_start_date}\
+          \ <= ${period_start}\nAND\n${subscriptions.end_date} > ${period_start}",
         _kind_hint: measure, measure: n_start, type: count, _type_hint: number, id: rBze1PU7zA},
       {category: table_calculation, expression: "${n_lost}/${n_start}", label: Churn
           rate, value_format: !!null '', value_format_name: percent_1, _kind_hint: measure,
-        table_calculation: churn_rate, _type_hint: number, id: Zhd7xjaxKR}, {category: dimension,
-        expression: "case(when(${relay_subscriptions.pricing_plan}=\"1-month-usd-4.99\"\
-          , \"Monthly legacy\"), \n  case(when(${relay_subscriptions.plan_interval_type}=\"\
-          1_month\", \"Monthly\"),\n  when(${relay_subscriptions.plan_interval_type}=\"\
-          6_month\", \"Six Monthly\"),\n  when(${relay_subscriptions.plan_interval_type}=\"\
-          1_year\", \"Annual\"), \"N/A\")\n)", label: Plan Type, value_format: !!null '',
-        value_format_name: !!null '', dimension: plan_type, _kind_hint: dimension,
-        _type_hint: string, id: mL5VT19tvy}, {category: measure, expression: "${relay_subscriptions.subscription_start_date}\
-          \ <= ${period_start}\nAND\n${relay_subscriptions.end_date} > ${period_start}\n\
-          AND \n${relay_subscriptions.end_date} <= ${period_end}\nAND\n ${relay_subscriptions.ended_reason}\
-          \ = \"Plan Change\" ", label: N Lost due to Upgrades, value_format: !!null '',
-        value_format_name: !!null '', based_on: relay_subscriptions.count, filter_expression: "${relay_subscriptions.subscription_start_date}\
-          \ <= ${period_start}\nAND\n${relay_subscriptions.end_date} > ${period_start}\n\
-          AND \n${relay_subscriptions.end_date} <= ${period_end}\nAND\n ${relay_subscriptions.ended_reason}\
+        table_calculation: churn_rate, _type_hint: number, id: Zhd7xjaxKR}, {category: measure,
+        expression: "${subscriptions.subscription_start_date} <= ${period_start}\n\
+          AND\n${subscriptions.end_date} > ${period_start}\nAND \n${subscriptions.end_date}\
+          \ <= ${period_end}\nAND\n ${subscriptions.ended_reason} = \"Plan Change\"\
+          \ ", label: N Lost due to Upgrades, value_format: !!null '', value_format_name: !!null '',
+        based_on: subscriptions.count, filter_expression: "${subscriptions.subscription_start_date}\
+          \ <= ${period_start}\nAND\n${subscriptions.end_date} > ${period_start}\n\
+          AND \n${subscriptions.end_date} <= ${period_end}\nAND\n ${subscriptions.ended_reason}\
           \ = \"Plan Change\" ", _kind_hint: measure, measure: n_lost_due_to_upgrades,
         type: count, _type_hint: number}]
     filter_expression: |
-      ${relay_subscriptions__active.active_date} = trunc_months(${relay_subscriptions__active.active_date})
+      ${subscriptions__active.active_date} = trunc_months(${subscriptions__active.active_date})
       AND
-      ${relay_subscriptions__active.active_date} <= add_months(-1, now())
+      ${subscriptions__active.active_date} <= add_months(-1, now())
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -285,9 +276,9 @@
     series_labels:
       1 - churn_rate: Month 1
       churned: Subs Churned
-      relay_subscriptions__retention.months_since_subscription_start: Months Since Subscription
+      subscriptions__retention.months_since_subscription_start: Months Since Subscription
         Start
-      relay_subscriptions.subscription_start_month: Cohort
+      subscriptions.subscription_start_month: Cohort
     x_axis_datetime_label: "%Y-%m-%d"
     x_axis_label_rotation: -45
     discontinuous_nulls: true
@@ -308,16 +299,16 @@
     show_totals: true
     show_row_totals: true
     series_column_widths:
-      relay_subscriptions.subscription_start_month: 256
+      subscriptions.subscription_start_month: 256
       churned: 115
     series_cell_visualizations:
       churned:
         is_active: false
     series_text_format:
-      relay_subscriptions__retention.months_since_subscription_start:
+      subscriptions__retention.months_since_subscription_start:
         bold: true
         align: center
-      relay_subscriptions.subscription_start_month:
+      subscriptions.subscription_start_month:
         bold: true
         align: center
       churned:
@@ -333,8 +324,8 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    hidden_fields: [relay_subscriptions__active.active_date, count_n_start, period_start,
-      relay_subscriptions.count, n_start, n_lost]
+    hidden_fields: [subscriptions__active.active_date, count_n_start, period_start,
+      subscriptions.count, n_start, n_lost]
     defaults_version: 1
     hidden_pivots: {}
     note_state: expanded
@@ -344,7 +335,8 @@
       \ by upgrade events i.e. This churn represents how each subscription plan count\
       \ is lost either by the subscription end or by upgrade to another plan. \n"
     listen:
-      Product Name: relay_subscriptions.product_name
+      Product Name: subscriptions.product_name
+      Active Date for Churn by Plan type: subscriptions__active.active_date
     row: 9
     col: 12
     width: 12
@@ -353,31 +345,31 @@
   - name: 'Active Date for Churn for All '
     title: 'Active Date for Churn for All '
     type: field_filter
-    default_value: after 13 months ago
+    default_value: after 6 month ago
     allow_multiple_values: true
     required: false
     ui_config:
       type: advanced
       display: popover
       options: []
-    model: mozilla_vpn
-    explore: relay_subscriptions
+    model: relay
+    explore: subscriptions
     listens_to_filters: []
-    field: relay_original_subscriptions__active.active_date
+    field: original_subscriptions__active.active_date
   - name: Active Date for Churn by Plan type
     title: Active Date for Churn by Plan type
     type: field_filter
-    default_value: after 13 month ago
+    default_value: after 6 month ago
     allow_multiple_values: true
     required: false
     ui_config:
       type: advanced
       display: popover
       options: []
-    model: mozilla_vpn
-    explore: relay_subscriptions
+    model: relay
+    explore: subscriptions
     listens_to_filters: []
-    field: relay_subscriptions__active.active_date
+    field: subscriptions__active.active_date
   - name: Product Name
     title: Product Name
     type: field_filter
@@ -387,7 +379,7 @@
     ui_config:
       type: checkboxes
       display: popover
-    model: mozilla_vpn
-    explore: relay_subscriptions
+    model: relay
+    explore: subscriptions
     listens_to_filters: []
-    field: relay_subscriptions.product_name
+    field: subscriptions.product_name
