@@ -10,24 +10,19 @@ view: +subscription_events {
   dimension: plan_type {
     description: "Indicates the plan type (bundle, email month, phone year etc)"
     type: string
-    sql:  CASE
-            WHEN ${product_name} ="Mozilla VPN & Firefox Relay" THEN CONCAT("bundle","_",${plan_interval})
-            ELSE
-              (CASE
-                WHEN (${plan_amount} > 200 AND ${plan_interval} = "month") OR (${plan_amount}  > 1200 AND ${plan_interval} = "year") THEN CONCAT("phone","_",plan_interval)
-                ELSE CONCAT("email","_",${plan_interval})
-              END)
-            END;;
+    sql:  CONCAT(
+            CASE
+              WHEN ${product_name} LIKE "%Relay%" THEN "bundle"
+              WHEN (${plan_interval} = "month" AND ${plan_amount} > 400)
+                OR (${plan_interval} = "year" AND ${plan_amount} > 4000)
+                THEN "phone"
+              ELSE "email"
+            END,
+            "_", ${plan_interval_count},
+            "_", ${plan_interval}
+);;
   }
 
-  dimension: forecast_region {
-    description: "Indicates region used in financial forecasting.  This is to primarily support finance forecasting work."
-    type: string
-    sql: CASE
-        WHEN ${pricing_plan} LIKE "%-eur-%" THEN "Europe"
-        WHEN ${pricing_plan} LIKE "%-chf-%" THEN "Switzerland"
-        WHEN ${pricing_plan} = "1-month-usd-4.99" THEN "Wave_1 monthly legacy only"
-        ELSE "Wave_1 (excluding monthly legacy) & other"
         END;;
     hidden:  yes
   }
@@ -47,4 +42,4 @@ view: +subscription_events {
     sql: IF(${event_type} LIKE "%New%", ${count}, -${count});;
   }
 
-  }
+}

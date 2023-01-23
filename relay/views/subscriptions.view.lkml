@@ -40,15 +40,17 @@ include: "//looker-hub/relay/views/subscriptions.view"
     dimension: plan_type {
       description: "Indicates the plan type (bundle, email month, phone year etc)"
       type: string
-      sql:  CASE
-            WHEN ${product_name} ="Mozilla VPN & Firefox Relay" THEN CONCAT("bundle","_",${plan_interval})
-            ELSE
-              (CASE
-                WHEN (${plan_amount} > 200 AND ${plan_interval} = "month") OR (${plan_amount}  > 1200 AND ${plan_interval} = "year") THEN CONCAT("phone","_",plan_interval)
-                ELSE CONCAT("email","_",${plan_interval})
-              END)
-            END;;
-    }
+      sql:  CONCAT(
+            CASE
+              WHEN ${product_name} LIKE "%Relay%" THEN "bundle"
+              WHEN (${plan_interval} = "month" AND ${plan_amount} > 400)
+                OR (${plan_interval} = "year" AND ${plan_amount} > 4000)
+                THEN "phone"
+              ELSE "email"
+            END,
+            "_", ${plan_interval_count},
+            "_", ${plan_interval}
+);;
 
     dimension: promotion_discounts_amount {
       group_label: "Coupon"

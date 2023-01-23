@@ -40,14 +40,17 @@ view: +active_subscriptions {
   dimension: plan_type {
     description: "Indicates the plan type (bundle, email month, phone year etc)"
     type: string
-    sql:  CASE
-            WHEN ${product_name} ="Mozilla VPN & Firefox Relay" THEN CONCAT("bundle","_",${plan_interval})
-            ELSE
-              (CASE
-                WHEN (${plan_amount} > 200 AND ${plan_interval} = "month") OR (${plan_amount}  > 1200 AND ${plan_interval} = "year") THEN CONCAT("phone","_",plan_interval)
-                ELSE CONCAT("email","_",${plan_interval})
-              END)
-            END;;
+    sql:  CONCAT(
+            CASE
+              WHEN ${product_name} LIKE "%Relay%" THEN "bundle"
+              WHEN (${plan_interval} = "month" AND ${plan_amount} > 400)
+                OR (${plan_interval} = "year" AND ${plan_amount} > 4000)
+                THEN "phone"
+              ELSE "email"
+            END,
+            "_", ${plan_interval_count},
+            "_", ${plan_interval}
+          );;
   }
 
   dimension: promotion_discounts_amount {
@@ -100,12 +103,12 @@ view: +active_subscriptions {
         WHEN
           ${plan_interval} = "year"
         THEN
-          1 / 12 * ${plan_interval_count}
+          1 / (12 * ${plan_interval_count})
         WHEN
           ${plan_interval} = "month"
         THEN
           1 / ${plan_interval_count}
-        END * ${count} * (${normalized_plan_amount} - IFNULL(${promotion_discounts_amount}, 0)) / (1 + IFNULL(${vat_rates.vat}, 0)) * IFNULL(${exchange_rates_table.price}, 1) / 100;;
+        END * ${count} * (${plan_amount} - IFNULL(${promotion_discounts_amount}, 0)) / (1 + IFNULL(${vat_rates.vat}, 0)) * IFNULL(${exchange_rates_table.price}, 1) / 100;;
     hidden: yes
   }
 
