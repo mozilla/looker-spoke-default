@@ -12,19 +12,14 @@ view: +subscription_events {
     type: string
     sql:  CONCAT(
             CASE
-              WHEN ${product_name} LIKE "%Relay%" THEN "bundle"
+              WHEN ${product_name} LIKE "%VPN%" THEN "bundle"
               WHEN (${plan_interval} = "month" AND ${plan_amount} > 400)
                 OR (${plan_interval} = "year" AND ${plan_amount} > 4000)
                 THEN "phone"
               ELSE "email"
             END,
             "_", ${plan_interval_count},
-            "_", ${plan_interval}
-);;
-  }
-
-        END;;
-    hidden:  yes
+            "_", ${plan_interval});;
   }
 
   dimension: coupon_code {

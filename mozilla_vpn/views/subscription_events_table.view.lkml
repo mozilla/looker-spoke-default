@@ -11,8 +11,7 @@ view: +subscription_events_table {
   dimension: plan_interval_type {
     description: "Indicates the plan interval type (1 year, 6 month, 1 month, etc)"
     type: string
-    sql: CASE WHEN ${product_name} = "Mozilla VPN & Firefox Relay" THEN CONCAT("bundle","_", ${plan_interval})
-      ELSE CONCAT(${plan_interval_count},"_",  ${plan_interval}) END;;
+    sql: CONCAT(IF(${product_name} LIKE "%Relay%", CONCAT("bundle", "_"), ""), ${plan_interval_count}, "_", ${plan_interval});;
   }
 
   dimension: forecast_region {

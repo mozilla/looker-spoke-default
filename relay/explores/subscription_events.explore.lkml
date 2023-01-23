@@ -2,7 +2,7 @@ include: "../views/subscription_events.view"
 include: "../views/table_metadata.view"
 
 explore: subscription_events {
-  from: subscription_events
+  # from: subscription_events
 
 
   join: metadata {
