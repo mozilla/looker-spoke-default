@@ -60,12 +60,6 @@ explore: subscriptions {
           OR (${subscriptions__active.active_raw} < ${vat_rates.effective_raw} AND ${vat_rates.prev_effective_raw} IS NULL)
           OR (${subscriptions__active.active_raw} >= ${vat_rates.effective_raw} AND ${vat_rates.next_effective_raw} IS NULL)
           );;
-          # sql_on: LOWER(${subscriptions.country}) = LOWER(${vat_rates.country_code})
-          #       AND (
-          #         ${subscriptions__active.active_raw} BETWEEN ${vat_rates.effective_raw} AND ${vat_rates.next_effective_raw} - 1
-          #         OR (${subscriptions__active.active_raw} < ${vat_rates.effective_raw} AND ${vat_rates.prev_effective_raw} IS NULL)
-          #         OR (${subscriptions__active.active_raw} >= ${vat_rates.effective_raw} AND ${vat_rates.next_effective_raw} IS NULL)
-          #       );;
       relationship: one_to_one
     }
 
@@ -74,13 +68,11 @@ explore: subscriptions {
       fields: [price]
       sql_on: UPPER(${subscriptions.plan_currency}) = UPPER(${exchange_rates_table.base_currency})
         AND ${subscriptions__active.active_raw} = ${exchange_rates_table.date_raw};;
-      # sql_on: UPPER(${subscriptions.plan_currency}) = UPPER(${exchange_rates_table.base_currency})
-      #   AND ${subscriptions__active.active_raw} = ${exchange_rates_table.date_raw};;
       relationship: one_to_one
     }
   }
 
-# Add aggregate tables lookML from VPN SaaSboard
+# Add aggregate tables lookML from Relay SaaSboard
 
 explore: +subscriptions {
   aggregate_table: rollup__original_subscription_start_month__original_subscriptions__retention_months_since_original_subscription_start__0 {
@@ -102,7 +94,7 @@ explore: +subscriptions {
       FROM
         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
-        table_name = "all_subscriptions_v1";;
+        table_name = "subscriptions_v1";;
     }
   }
 
@@ -125,7 +117,7 @@ explore: +subscriptions {
       FROM
         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
-        table_name = "all_subscriptions_v1";;
+        table_name = "subscriptions_v1";;
     }
   }
 
@@ -140,7 +132,7 @@ explore: +subscriptions {
       FROM
         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
-        table_name = "all_subscriptions_v1";;
+        table_name = "subscriptions_v1";;
     }
   }
 
@@ -163,7 +155,7 @@ explore: +subscriptions {
       FROM
         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
-        table_name = "all_subscriptions_v1";;
+        table_name = "subscriptions_v1";;
     }
   }
 
@@ -186,7 +178,7 @@ explore: +subscriptions {
       FROM
         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
-        table_name = "all_subscriptions_v1";;
+        table_name = "subscriptions_v1";;
     }
   }
 
@@ -209,7 +201,7 @@ explore: +subscriptions {
       FROM
         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
-        table_name = "all_subscriptions_v1";;
+        table_name = "subscriptions_v1";;
     }
   }
 
@@ -232,7 +224,7 @@ explore: +subscriptions {
       FROM
         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
-        table_name = "all_subscriptions_v1";;
+        table_name = "subscriptions_v1";;
     }
   }
 
@@ -255,7 +247,7 @@ explore: +subscriptions {
       FROM
         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
-        table_name = "all_subscriptions_v1";;
+        table_name = "subscriptions_v1";;
     }
   }
 
@@ -278,7 +270,7 @@ explore: +subscriptions {
       FROM
         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
-        table_name = "all_subscriptions_v1";;
+        table_name = "subscriptions_v1";;
     }
   }
 
@@ -299,7 +291,7 @@ explore: +subscriptions {
       FROM
         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
-        table_name = "all_subscriptions_v1";;
+        table_name = "subscriptions_v1";;
     }
   }
 
@@ -327,7 +319,7 @@ explore: +subscriptions {
       FROM
         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
-        table_name = "all_subscriptions_v1";;
+        table_name = "subscriptions_v1";;
     }
   }
 
@@ -351,7 +343,7 @@ explore: +subscriptions {
       FROM
         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
-        table_name = "all_subscriptions_v1";;
+        table_name = "subscriptions_v1";;
     }
   }
 
@@ -376,7 +368,7 @@ explore: +subscriptions {
       FROM
         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
-        table_name = "all_subscriptions_v1";;
+        table_name = "subscriptions_v1";;
     }
   }
 
@@ -404,7 +396,7 @@ explore: +subscriptions {
       FROM
         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
-        table_name = "all_subscriptions_v1";;
+        table_name = "subscriptions_v1";;
     }
   }
 
@@ -432,7 +424,7 @@ explore: +subscriptions {
       FROM
         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
-        table_name = "all_subscriptions_v1";;
+        table_name = "subscriptions_v1";;
     }
   }
 
@@ -448,7 +440,7 @@ explore: +subscriptions {
       FROM
         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
-        table_name = "all_subscriptions_v1";;
+        table_name = "subscriptions_v1";;
     }
   }
 
@@ -476,7 +468,7 @@ explore: +subscriptions {
       FROM
         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
-        table_name = "all_subscriptions_v1";;
+        table_name = "subscriptions_v1";;
     }
   }
 
@@ -504,7 +496,7 @@ explore: +subscriptions {
       FROM
         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
-        table_name = "all_subscriptions_v1";;
+        table_name = "subscriptions_v1";;
     }
   }
 
@@ -532,7 +524,7 @@ explore: +subscriptions {
       FROM
         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
-        table_name = "all_subscriptions_v1";;
+        table_name = "subscriptions_v1";;
     }
   }
 }
