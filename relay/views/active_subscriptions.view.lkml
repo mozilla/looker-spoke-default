@@ -1,6 +1,5 @@
-include: "//looker-hub/mozilla_vpn/views/active_subscriptions_table.view"
-
-view: +active_subscriptions_table {
+include: "//looker-hub/relay/views/active_subscriptions.view"
+view: +active_subscriptions {
 
   dimension: country_name {
     description: "Add placeholder string for null values.  This is to allow selection of Null values in country name checkbox filters in dashboards"
@@ -28,9 +27,9 @@ view: +active_subscriptions_table {
     hidden: yes
     type: date
     sql: LEAST(
-      IFNULL({% date_end active_date %}, ${metadata.last_modified_date}),
-      ${metadata.last_modified_date}
-    )-1 ;;
+            IFNULL({% date_end active_date %}, ${metadata.last_modified_date}),
+            ${metadata.last_modified_date}
+          )-1 ;;
   }
 
   dimension: is_max_active_date {
@@ -38,10 +37,19 @@ view: +active_subscriptions_table {
     sql:  ${active_raw}=${max_active_date};;
   }
 
-  dimension: plan_interval_type {
-    description: "Indicates the plan interval type (1 year, 6 month, 1 month, etc)"
+  dimension: plan_type {
+    description: "Indicates the plan type (bundle, email month, phone year etc)"
     type: string
-    sql: CONCAT(IF(${product_name} LIKE "%Relay%", CONCAT("bundle", "_"), ""), ${plan_interval_count}, "_", ${plan_interval});;
+    sql:  CONCAT(
+            CASE
+              WHEN ${product_name} LIKE "%VPN%" THEN "bundle"
+              WHEN (${plan_interval} = "month" AND ${plan_amount} > 400)
+                OR (${plan_interval} = "year" AND ${plan_amount} > 4000)
+                THEN "phone"
+              ELSE "email"
+            END,
+            "_", ${plan_interval_count},
+            "_", ${plan_interval});;
   }
 
   dimension: promotion_discounts_amount {
@@ -71,35 +79,35 @@ view: +active_subscriptions_table {
   dimension: normalized_plan_amount {
     description: "Plan amount (inc. USD estimate for Apple based on pricing plan)"
     sql: IFNULL(${plan_amount},
-      CASE
-        WHEN
-          ${pricing_plan} = "1-year-apple"
-        THEN
-          5988
-        WHEN
-          ${pricing_plan} = "6-month-apple"
-        THEN
-          4194
-        WHEN
-          ${pricing_plan} = "1-month-apple"
-        THEN
-          999
-        ELSE
-          NULL
-        END);;
+            CASE
+              WHEN
+                ${pricing_plan} = "1-year-apple"
+              THEN
+                5988
+              WHEN
+                ${pricing_plan} = "6-month-apple"
+              THEN
+                4194
+              WHEN
+                ${pricing_plan} = "1-month-apple"
+              THEN
+                999
+              ELSE
+                NULL
+              END);;
   }
 
   dimension: monthly_recurring_revenue_raw {
     sql: CASE
-          WHEN
-            ${plan_interval} = "year"
-          THEN
-            1 / 12 * ${plan_interval_count}
-          WHEN
-            ${plan_interval} = "month"
-          THEN
-            1 / ${plan_interval_count}
-          END * ${count} * (${normalized_plan_amount} - IFNULL(${promotion_discounts_amount}, 0)) / (1 + IFNULL(${vat_rates.vat}, 0)) * IFNULL(${exchange_rates_table.price}, 1) / 100;;
+        WHEN
+          ${plan_interval} = "year"
+        THEN
+          1 / (12 * ${plan_interval_count})
+        WHEN
+          ${plan_interval} = "month"
+        THEN
+          1 / ${plan_interval_count}
+        END * ${count} * (${plan_amount} - IFNULL(${promotion_discounts_amount}, 0)) / (1 + IFNULL(${vat_rates.vat}, 0)) * IFNULL(${exchange_rates_table.price}, 1) / 100;;
     hidden: yes
   }
 
