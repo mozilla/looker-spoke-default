@@ -53,7 +53,7 @@ explore: active_users_aggregates {
       dimensions: [active_users_aggregates.app_name, active_users_aggregates.submission_date, active_users_aggregates.country, active_users_aggregates.channel, active_users_aggregates.attribution_medium]
       measures: [daily_active_users, weekly_active_users, monthly_active_users, new_profile, ad_click, organic_search_counts, search_counts, search_with_ad, uri_counts, active_hour]
       filters: [
-        active_users_aggregates.submission_date: "2 years"
+        active_users_aggregates.submission_date: "after 2021-01-01"
       ]
     }
 
