@@ -20,7 +20,7 @@ view: firefox_whats_new_page_summary {
         )
     select date, country, locale, version,
            COUNT(distinct visit_identifier) as visits,
-           COUNT(distinct case when is_bounce = 1 then visit_identifier end) as bounces
+           COUNT(distinct case when is_bounce = TRUE then visit_identifier end) as bounces
     from wnp_visits
     group by 1, 2, 3, 4
         ;;
