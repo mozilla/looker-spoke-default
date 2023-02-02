@@ -1,7 +1,2 @@
 connection: "telemetry"
 label: "Fivetran"
-include: "//looker-hub/fivetran/explores/*"
-include: "//looker-hub/fivetran/dashboards/*"
-include: "views/*"
-include: "explores/*"
-include: "dashboards/*"
