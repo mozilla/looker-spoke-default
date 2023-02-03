@@ -251,14 +251,12 @@ explore: experiment_enrollment_other_events_overall {
 }
 
 explore: experiment_enrollment_overall {
-  hidden: yes
   sql_always_where:
     ${branch} IS NOT NULL AND
     {% condition experiment_enrollment_overall.timeframe %} TIMESTAMP(${time_time}) {% endcondition %};;
 }
 
 explore: experiment_unenrollment_overall {
-  hidden: yes
   sql_always_where:
     ${branch} IS NOT NULL AND
     {% condition experiment_unenrollment_overall.timeframe %} TIMESTAMP(${time_time}) {% endcondition %};;
@@ -271,9 +269,7 @@ explore: experiment_search_aggregates_live {
     {% condition experiment_search_aggregates_live.timeframe %} TIMESTAMP(${window_start_time}) {% endcondition %};;
 }
 
-explore: experiment_enrollment_daily_active_population {
-  hidden: yes
-}
+explore: experiment_enrollment_daily_active_population {}
 
 view: +events {
   dimension: reason {
@@ -321,9 +317,7 @@ explore: unenrollment_reasons {
     hidden: yes
   }
 
-  explore: experimenter_experiments {
-    hidden: yes
-  }
+  explore: experimenter_experiments {}
 
   explore: mr_2022_weekly_statistics_desktop_existing_users {}
 
