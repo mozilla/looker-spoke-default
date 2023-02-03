@@ -321,9 +321,7 @@ explore: unenrollment_reasons {
     hidden: yes
   }
 
-  explore: experimenter_experiments {
-    hidden: yes
-  }
+  explore: experimenter_experiments {}
 
   explore: mr_2022_weekly_statistics_desktop_existing_users {}
 
