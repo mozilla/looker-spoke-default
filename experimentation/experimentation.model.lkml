@@ -248,18 +248,36 @@ explore: experiment_enrollment_other_events_overall {
   sql_always_where:
   ${branch} IS NOT NULL AND
   {% condition experiment_enrollment_other_events_overall.timeframe %} TIMESTAMP(${time_time}) {% endcondition %};;
+
+  join: experimenter_experiments {
+    type: full_outer
+    sql_on: ${experiment_enrollment_other_events_overall.experiment} = ${experimenter_experiments.normandy_slug} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: experiment_enrollment_overall {
   sql_always_where:
     ${branch} IS NOT NULL AND
     {% condition experiment_enrollment_overall.timeframe %} TIMESTAMP(${time_time}) {% endcondition %};;
+
+  join: experimenter_experiments {
+    type: full_outer
+    sql_on: ${experiment_enrollment_overall.experiment} = ${experimenter_experiments.normandy_slug} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: experiment_unenrollment_overall {
   sql_always_where:
     ${branch} IS NOT NULL AND
     {% condition experiment_unenrollment_overall.timeframe %} TIMESTAMP(${time_time}) {% endcondition %};;
+
+  join: experimenter_experiments {
+    type: full_outer
+    sql_on: ${experiment_unenrollment_overall.experiment} = ${experimenter_experiments.normandy_slug} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: experiment_search_aggregates_live {
@@ -269,7 +287,13 @@ explore: experiment_search_aggregates_live {
     {% condition experiment_search_aggregates_live.timeframe %} TIMESTAMP(${window_start_time}) {% endcondition %};;
 }
 
-explore: experiment_enrollment_daily_active_population {}
+explore: experiment_enrollment_daily_active_population {
+  join: experimenter_experiments {
+    type: full_outer
+    sql_on: ${experiment_enrollment_daily_active_population.experiment} = ${experimenter_experiments.normandy_slug} ;;
+    relationship: many_to_one
+  }
+}
 
 view: +events {
   dimension: reason {
