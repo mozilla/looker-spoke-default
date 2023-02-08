@@ -9,8 +9,8 @@ view: whats_new_page_events {
              sum(total_events) as total_events,
             sum(unique_events) as unique_events
      FROM `moz-fx-data-marketing-prod.ga_derived.www_site_events_metrics_v1`
-     WHERE page_name LIKE '/firefox/%/whatsnew%'
-    AND page_level_1 = 'firefox'
+     WHERE page_level_1 = 'firefox'
+    AND REGEXP_CONTAINS(page_level_2, r'^\d{1,3}(\.\d{1,3}){1,3}((a|b(eta)?)\d*)?(pre\d*)?(esr)?$')
     AND page_level_3 = 'whatsnew'
      GROUP by 1, 2, 3, 4, 5
       ;;
@@ -61,4 +61,4 @@ view: whats_new_page_events {
     type: sum
     sql: ${TABLE}.unique_events ;;
   }
- }
+}
