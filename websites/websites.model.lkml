@@ -12,3 +12,5 @@ explore: moz_org_page_metrics{}
 explore: whats_new_page_events {}
 explore: firefox_whats_new_page_summary {}
 explore: website_conv_with_pop {}
+explore: www_site_events_metrics {}
+explore: firefox_whatsnew_summary {}
