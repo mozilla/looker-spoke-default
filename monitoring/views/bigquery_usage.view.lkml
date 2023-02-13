@@ -28,20 +28,6 @@ view: +bigquery_usage {
     type: string
   }
 
-  measure: avg_total_job_cost_usd{
-    type: average_distinct
-    sql_distinct_key: ${job_id} ;;
-    sql: ${cost_usd} ;;
-    value_format:"$#,##0.00"
-    }
-
-  measure: sum_total_job_cost_usd{
-    type: sum_distinct
-    sql_distinct_key: ${job_id};;
-    sql: ${cost_usd} ;;
-    value_format:"$#,##0.00"
-  }
-
   measure: avg_total_terabytes_processed{
     type: average_distinct
     sql_distinct_key: ${job_id} ;;
