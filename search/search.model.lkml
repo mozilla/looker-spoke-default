@@ -6,6 +6,11 @@ include: "views/*"
 include: "explores/*"
 include: "/shared/views/*"
 
+explore: search_aggregates {
+
+  description: " Includes aggregated search metrics per day "
+}
+
 explore: +desktop_search_counts {
   description: "Desktop search counts and ad clicks.
   Includes searches from ways to search in the browser (called Search Access Points or SAPs),
