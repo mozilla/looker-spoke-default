@@ -7,8 +7,16 @@ include: "explores/*"
 include: "/shared/views/*"
 
 explore: search_aggregates {
-
   description: " Includes aggregated search metrics per day "
+ join: countries {
+  type: left_outer
+  relationship: one_to_one
+  sql_on: ${search_aggregates.country} = ${countries.code} ;;
+}
+
+  always_filter: {
+    filters: [submission_date: "3 months"]
+  }
 }
 
 explore: +desktop_search_counts {
