@@ -9,7 +9,7 @@ view: +bigquery_usage_costs {
   }
 
   measure: count_unique_job_ids{
-    description: "count distinct number of job ids"
+    description: "Count of unique job ids"
     type: count_distinct
     sql: ${job_id};;
   }
