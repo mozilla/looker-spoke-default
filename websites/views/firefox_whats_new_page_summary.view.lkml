@@ -28,7 +28,7 @@ view: firefox_whats_new_page_summary {
 
   dimension_group: date {
     type: time
-    view_label: "Date/Period Selection"
+    # view_label: "Date/Period Selection"
     timeframes: [
       raw,
       date,
