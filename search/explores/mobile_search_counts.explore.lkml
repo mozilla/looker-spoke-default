@@ -1,5 +1,6 @@
 include: "//looker-hub/search/explores/*"
 include: "/shared/views/*"
+include: "//looker-hub/search/datagroups/mobile_search_clients_daily_v1_last_updated.datagroup.lkml"
 
 explore: +mobile_search_counts {
   description: "Mobile search counts and ad clicks.
@@ -13,5 +14,7 @@ explore: +mobile_search_counts {
     relationship: one_to_one
     sql_on: ${mobile_search_clients_engines_sources_daily.country} = ${countries.code} ;;
   }
+
+  persist_with: mobile_search_clients_daily_v1_last_updated
 
 }

@@ -5,6 +5,7 @@ include: "//looker-hub/search/views/desktop_search_alert_latest_daily.view.lkml"
 include: "views/*"
 include: "explores/*"
 include: "/shared/views/*"
+include: "//looker-hub/search/datagroups/search_clients_daily_v8_last_updated.datagroup.lkml"
 
 explore: search_aggregates {
   description: " Includes aggregated search metrics per day "
@@ -37,6 +38,8 @@ explore: +desktop_search_counts {
   Includes searches from ways to search in the browser (called Search Access Points or SAPs),
   like the URL bar and newtab page. Follow-on searches are those that are after entry from a
   SAP, and organic searches are those that occur directly on a search webpage (e.g. www.google.com)."
+
+  persist_with: search_clients_daily_v8_last_updated
 }
 
 explore: desktop_search_alert_latest_daily {}
