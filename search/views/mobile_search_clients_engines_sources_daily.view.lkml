@@ -193,6 +193,12 @@ view: +mobile_search_clients_engines_sources_daily {
             WHEN ${submission_date} between ${period_2_start} and ${period_2_end} THEN 'last' END
         {% else %} NULL {% endif %} ;;
     }
+
+  measure: clients {
+    type: count_distinct
+    sql: ${client_id} ;;
+  }
+
   measure: total_searches {
     label: "SAP Searches"
     type: sum
