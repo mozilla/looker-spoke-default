@@ -72,10 +72,6 @@ explore: +schema_error_counts {
   }
 }
 
-explore: all_schema_errors_last_14_days {
-  hidden: yes
-}
-
 explore: +telemetry_missing_columns {
   hidden: yes
 
