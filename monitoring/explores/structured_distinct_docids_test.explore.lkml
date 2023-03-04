@@ -1,0 +1,28 @@
+include: "../views/structured_distinct_docids.view.lkml"
+
+
+explore: structured_distinct_docids_test {
+  view_name: structured_distinct_docids
+  hidden: no
+  sql_always_where: ${structured_distinct_docids.submission_date} >= '2010-01-01' ;;
+  description:
+  "
+  The table lists all doctypes where the number
+  of distinct doc ids doesn't match between decoded, live, and stable.
+  non_matching_count is the number of non-matching doctypes on the given day.
+
+  As of 2021-05-02, we filter out all pings containing
+  \"automation\" in the X-Source-Tags header, so these counts
+  may appear lower in some cases compared to a direct
+  COUNT(DISTINCT document_id) on the relevant table partition.
+  Prior to adding this filtering, document types under
+  org_mozilla_fenix would consistently show mismatches due
+  to test pings present in the decoded and live tables.
+  "
+
+  always_filter: {
+    filters: [
+      submission_date: "3 years",
+    ]
+  }
+}
