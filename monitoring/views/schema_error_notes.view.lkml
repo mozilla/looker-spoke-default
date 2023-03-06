@@ -17,7 +17,7 @@ view: +schema_errors_notes {
       END
       ;;
     link: {
-      label: "{% if value != '' %} view on BugZilla {% endif %}"
+      label: "{% if value != '' %} view on Bugzilla {% endif %}"
       url: "
       {% if value != '' %}
       {{ bug }}

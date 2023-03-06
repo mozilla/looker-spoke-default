@@ -17,7 +17,7 @@ view: +missing_document_namespaces_notes {
       END
       ;;
     link: {
-      label: "{% if value != '' %} view on BugZilla {% endif %}"
+      label: "{% if value != '' %} view on Bugzilla {% endif %}"
       url: "
       {% if value != '' %}
       {{ bug }}
