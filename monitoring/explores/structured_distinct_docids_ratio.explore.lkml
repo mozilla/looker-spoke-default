@@ -1,7 +1,7 @@
 include: "../views/structured_distinct_docids.view.lkml"
 
 
-explore: structured_distinct_docids_test {
+explore: structured_distinct_docids_ratio {
   view_name: structured_distinct_docids
   hidden: no
   sql_always_where: ${structured_distinct_docids.submission_date} >= '2010-01-01' ;;
@@ -22,7 +22,7 @@ explore: structured_distinct_docids_test {
 
   always_filter: {
     filters: [
-      submission_date: "3 years",
+      submission_date: "3 months",
     ]
   }
 }
