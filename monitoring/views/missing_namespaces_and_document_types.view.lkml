@@ -76,6 +76,7 @@ view: missing_namespaces_and_document_types {
     ;;
   }
 
+  # Dimensions
   dimension_group: submission {
     sql: ${TABLE}.submission_date ;;
     type: time
@@ -102,6 +103,29 @@ view: missing_namespaces_and_document_types {
     sql:  ${TABLE}.document_version ;;
   }
 
+  dimension: new_bug_namespace_only {
+    label: "New Bug Namespace"
+    type: string
+    sql: "create Bug" ;;
+    link: {
+      label: "create new Bug"
+      url: "https://bugzilla.mozilla.org/enter_bug.cgi?product=Data+Platform+and+Tools&component=General&bug_status=NEW&bug_type=defect&short_desc=Investigate+missing+namespaces+and+document+types+in+%60{{ document_namespace }}%60+ADD+LIST+OF+DOCUMENT+TYPES+HERE"
+      icon_url: "https://bugzilla.mozilla.org/favicon.ico"
+    }
+  }
+
+  dimension: new_bug_namespace_and_type{
+    label: "New Bug Namespace and Type"
+    type: string
+    sql: "create Bug" ;;
+    link: {
+      label: "create new Bug"
+      url: "https://bugzilla.mozilla.org/enter_bug.cgi?product=Data+Platform+and+Tools&component=General&bug_status=NEW&bug_type=defect&short_desc=Investigate+missing+namespaces+and+document+types+in+%60{{ document_namespace }}+{{ document_type }}%60"
+      icon_url: "https://bugzilla.mozilla.org/favicon.ico"
+    }
+  }
+
+  # Measures
   measure: total_pings {
     type: sum
     sql: ${TABLE}.total_pings ;;

@@ -21,6 +21,7 @@ view: distinct_docids {
     ;;
   }
 
+  # Dimensions
   dimension_group: submission {
     sql: ${TABLE}.submission_date ;;
     type: time
@@ -61,6 +62,17 @@ view: distinct_docids {
     type: number
   }
 
+  dimension: new_bug {
+    type: string
+    sql: "create Bug" ;;
+    link: {
+      label: "create new Bug"
+      url: "https://bugzilla.mozilla.org/enter_bug.cgi?product=Data+Platform+and+Tools&component=General&bug_status=NEW&bug_type=defect&short_desc=Investigate+distinct+docId+mismatche+on+{{ submission_date }}+in+%60{{ namespace }}.{{ doc_type }}%60"
+      icon_url: "https://bugzilla.mozilla.org/favicon.ico"
+    }
+  }
+
+  # Measures
   measure: non_matching_count {
     type: number
     sql: COUNTIF(
