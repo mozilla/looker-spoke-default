@@ -8,7 +8,25 @@ view: +structured_missing_columns {
     sql: "create Bug" ;;
     link: {
       label: "create new Bug"
-      url: "https://bugzilla.mozilla.org/enter_bug.cgi?product=Data+Platform+and+Tools&component=General&bug_status=NEW&bug_type=defect&short_desc=Investigate+structured+missing+columns+in+%60{{ document_namespace }}.{{ document_type }}%60+for+{{ path | encode_uri }}"
+      url: "{{
+        'https://bugzilla.mozilla.org/enter_bug.cgi?'
+      }}{{
+        'product=Data+Platform+and+Tools'
+      }}{{
+        '&component=General'
+      }}{{
+        '&bug_type=defect'
+      }}{{
+        '&status_whiteboard=%5Bdata-quality%5D'
+      }}{{
+        '&short_desc=structured+missing+columns+in+%60'
+      }}{{
+        document_namespace }}.{{ document_type }}_v{{ document_version
+      }}{{
+        '%60+for+'
+      }}{{
+        path | encode_uri
+      }}"
       icon_url: "https://bugzilla.mozilla.org/favicon.ico"
     }
   }

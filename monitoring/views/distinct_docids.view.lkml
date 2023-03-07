@@ -67,7 +67,24 @@ view: distinct_docids {
     sql: "create Bug" ;;
     link: {
       label: "create new Bug"
-      url: "https://bugzilla.mozilla.org/enter_bug.cgi?product=Data+Platform+and+Tools&component=General&bug_status=NEW&bug_type=defect&short_desc=Investigate+distinct+docId+mismatche+on+{{ submission_date }}+in+%60{{ namespace }}.{{ doc_type }}%60"
+      url: "{{
+        'https://bugzilla.mozilla.org/enter_bug.cgi?'
+      }}{{
+        'product=Data+Platform+and+Tools'
+      }}{{
+        '&component=General'
+      }}{{
+        '&bug_type=defect'
+      }}{{
+        '&status_whiteboard=%5Bdata-quality%5D'
+      }}{{
+        '&short_desc=distinct+docId+mismatch+on'
+      }}{{
+        submission_date
+      }}{{
+        '+in+%60'
+      }}{{
+        namespace }}.{{ doc_type }}%60"
       icon_url: "https://bugzilla.mozilla.org/favicon.ico"
     }
   }
