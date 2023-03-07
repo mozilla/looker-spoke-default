@@ -9,7 +9,7 @@ view: +events {
   }
   dimension: message_id {
     sql: mozfun.map.get_key(${event_extra},'message_id') ;;
-    description: "message_state value(Addon identifier) in event_extra key = 'message_id' for event_name = 'addon_message_state_changed' "
+    description: "message_state value (Addon identifier) in event_extra key = 'message_id' for event_name = 'addon_message_state_changed' "
     group_label: "Granular Event Category"
   }
 }
