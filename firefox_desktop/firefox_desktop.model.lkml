@@ -102,71 +102,6 @@ view: +metrics {
   }
 }
 
-view: +clients_daily_table__contextual_services_quicksuggest_block_nonsponsored_bestmatch_sum {
-  dimension: value {
-    hidden: yes
-  }
-
-  measure: count {
-   sql: SUM(${TABLE}.value) ;;
-    type: number
-  }
-}
-
-view: +clients_daily_table__contextual_services_quicksuggest_block_nonsponsored_sum {
-  dimension: value {
-    hidden: yes
-  }
-
-  measure: count {
-    sql:  SUM(${TABLE}.value) ;;
-    type: number
-  }
-}
-
-view: +clients_daily_table__contextual_services_quicksuggest_block_sponsored_bestmatch_sum {
-  dimension: value {
-    hidden: yes
-  }
-
-  measure: count {
-    sql:  SUM(${TABLE}.value) ;;
-    type: number
-  }
-}
-
-view: +clients_daily_table__contextual_services_quicksuggest_block_sponsored_sum {
-  dimension: value {
-    hidden: yes
-  }
-
-  measure: count {
-    sql:  SUM(${TABLE}.value) ;;
-    type: number
-  }
-}
-
-view: +clients_daily_table__contextual_services_quicksuggest_click_nonsponsored_bestmatch_sum {
-  dimension: value {
-    hidden: yes
-  }
-
-  measure: count {
-    sql:  SUM(${TABLE}.value) ;;
-    type: number
-  }
-}
-
-view: +clients_daily_table__contextual_services_quicksuggest_click_sponsored_bestmatch_sum {
-  dimension: value {
-    hidden: yes
-  }
-
-  measure: count {
-    sql:  SUM(${TABLE}.value) ;;
-    type: number
-  }
-}
 
 view: +clients_daily_table__contextual_services_quicksuggest_click_sum {
   dimension: value {
@@ -179,51 +114,7 @@ view: +clients_daily_table__contextual_services_quicksuggest_click_sum {
   }
 }
 
-view: +clients_daily_table__contextual_services_quicksuggest_help_nonsponsored_bestmatch_sum {
-  dimension: value {
-    hidden: yes
-  }
-
-  measure: count {
-    sql: SUM(${TABLE}.value) ;;
-    type: number
-  }
-}
-
-view: +clients_daily_table__contextual_services_quicksuggest_help_sponsored_bestmatch_sum {
-  dimension: value {
-    hidden: yes
-  }
-
-  measure: count {
-    sql:  SUM(${TABLE}.value) ;;
-    type: number
-  }
-}
-
 view: +clients_daily_table__contextual_services_quicksuggest_help_sum {
-  dimension: value {
-    hidden: yes
-  }
-
-  measure: count {
-    sql:  SUM(${TABLE}.value) ;;
-    type: number
-  }
-}
-
-view: +clients_daily_table__contextual_services_quicksuggest_impression_nonsponsored_bestmatch_sum {
-  dimension: value {
-    hidden: yes
-  }
-
-  measure: count {
-    sql:  SUM(${TABLE}.value) ;;
-    type: number
-  }
-}
-
-view: +clients_daily_table__contextual_services_quicksuggest_impression_sponsored_bestmatch_sum {
   dimension: value {
     hidden: yes
   }
