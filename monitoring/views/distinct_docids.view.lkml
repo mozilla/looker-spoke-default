@@ -78,7 +78,7 @@ view: distinct_docids {
       }}{{
         '&status_whiteboard=%5Bdata-quality%5D'
       }}{{
-        '&short_desc=distinct+docId+mismatch+on'
+        '&short_desc=distinct+docId+mismatch+on+'
       }}{{
         submission_date
       }}{{
