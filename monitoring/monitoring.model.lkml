@@ -43,10 +43,6 @@ explore: +stable_table_column_counts {
   hidden: yes
 }
 
-explore: +structured_distinct_docids  {
-  hidden: yes
-}
-
 explore: +structured_missing_columns {
   hidden: yes
 
