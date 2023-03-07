@@ -18,7 +18,25 @@ view: +schema_error_counts {
     sql: "create Bug" ;;
     link: {
       label: "create new Bug"
-      url: "https://bugzilla.mozilla.org/enter_bug.cgi?product=Data+Platform+and+Tools&component=General&bug_status=NEW&bug_type=defect&short_desc=Investigate+schema+error+in+%60{{ document_namespace }}.{{ document_type }}%60+for+%60{{ path | encode_uri }}%60"
+      url: "{{
+        'https://bugzilla.mozilla.org/enter_bug.cgi?'
+      }}{{
+        'product=Data+Platform+and+Tools'
+      }}{{
+        '&component=General'
+      }}{{
+        '&bug_type=defect'
+      }}{{
+        '&status_whiteboard=%5Bdata-quality%5D'
+      }}{{
+        '&short_desc=schema+error+in+%60'
+      }}{{
+        document_namespace }}.{{ document_type }}_v{{ document_version
+      }}{{
+        '%60+for+'
+      }}{{
+        path | encode_uri
+      }}"
       icon_url: "https://bugzilla.mozilla.org/favicon.ico"
     }
   }
