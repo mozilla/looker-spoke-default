@@ -58,6 +58,19 @@ view: +subscriptions {
     hidden: yes
   }
 
+  dimension_group: original_subscription_start {
+    sql: COALESCE(${TABLE}.original_subscription_start_date, ${TABLE}.subscription_start_date) ;;
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year,
+    ]
+  }
   dimension: is_ended {
     description: "Indicates if subscription has ended"
     type: yesno
