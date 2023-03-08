@@ -1,0 +1,5 @@
+connection: "telemetry"
+label: "Hubs"
+include: "views/*"
+include: "explores/*"
+include: "dashboards/*"
