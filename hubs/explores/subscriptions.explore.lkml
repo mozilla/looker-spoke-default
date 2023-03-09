@@ -1,5 +1,4 @@
 include: "../views/subscriptions.view"
-include: "/mozilla_vpn/views/devices.view"
 include: "../views/table_metadata.view"
 include: "/mozilla_vpn/views/vat_rates.view"
 include: "//looker-hub/mozilla_vpn/views/exchange_rates_table.view"
@@ -14,11 +13,6 @@ explore: subscriptions {
     # Looker understand that this join does not impact aggregation, which only works because this
     # view does not contain any aggregates.
     relationship: one_to_one
-  }
-
-  join: devices {
-    relationship: many_to_one
-    sql_on: ${devices.user_id} = ${user_id};;
   }
 
   join: subscriptions__active {
