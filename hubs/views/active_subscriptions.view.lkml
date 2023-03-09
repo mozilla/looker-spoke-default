@@ -1,6 +1,6 @@
-include: "//looker-hub/mozilla_vpn/views/active_subscriptions_table.view"
+include: "//looker-hub/hubs/views/active_subscriptions.view"
 
-view: +active_subscriptions_table {
+view: +active_subscriptions {
 
   dimension: country_name {
     description: "Add placeholder string for null values.  This is to allow selection of Null values in country name checkbox filters in dashboards"

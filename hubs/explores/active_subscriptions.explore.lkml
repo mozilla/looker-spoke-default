@@ -1,12 +1,9 @@
-include: "../views/active_subscriptions_table.view"
+include: "../views/active_subscriptions.view"
 include: "../views/table_metadata.view"
-include: "../views/vat_rates.view"
+include: "/mozilla_vpn/views/vat_rates.view"
 include: "//looker-hub/mozilla_vpn/views/exchange_rates_table.view"
 
 explore: active_subscriptions {
-  # from: active_subscriptions
-  from: active_subscriptions_table
-
 
   join: metadata {
     from: table_metadata
@@ -52,7 +49,7 @@ explore: +active_subscriptions {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
       FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+        moz-fx-data-shared-prod.hubs_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
         table_name = "all_subscriptions_v1";;
     }
@@ -76,7 +73,7 @@ explore: +active_subscriptions {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
       FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+        moz-fx-data-shared-prod.hubs_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
         table_name = "all_subscriptions_v1";;
     }
@@ -98,7 +95,7 @@ explore: +active_subscriptions {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
       FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+        moz-fx-data-shared-prod.hubs_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
         table_name = "all_subscriptions_v1";;
     }
@@ -122,7 +119,7 @@ explore: +active_subscriptions {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
       FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+        moz-fx-data-shared-prod.hubs_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
         table_name = "all_subscriptions_v1";;
     }
@@ -145,7 +142,7 @@ explore: +active_subscriptions {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
       FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+        moz-fx-data-shared-prod.hubs_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
         table_name = "all_subscriptions_v1";;
     }
@@ -169,7 +166,7 @@ explore: +active_subscriptions {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
       FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+        moz-fx-data-shared-prod.hubs_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
         table_name = "all_subscriptions_v1";;
     }
@@ -193,7 +190,7 @@ explore: +active_subscriptions {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
       FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+        moz-fx-data-shared-prod.hubs_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
         table_name = "all_subscriptions_v1";;
     }
@@ -217,7 +214,7 @@ explore: +active_subscriptions {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
       FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+        moz-fx-data-shared-prod.hubs_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
         table_name = "all_subscriptions_v1";;
     }
@@ -241,7 +238,7 @@ explore: +active_subscriptions {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
       FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+        moz-fx-data-shared-prod.hubs_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
         table_name = "all_subscriptions_v1";;
     }
@@ -265,7 +262,7 @@ explore: +active_subscriptions {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
       FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+        moz-fx-data-shared-prod.hubs_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
         table_name = "all_subscriptions_v1";;
     }
@@ -289,7 +286,7 @@ explore: +active_subscriptions {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
       FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+        moz-fx-data-shared-prod.hubs_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
         table_name = "all_subscriptions_v1";;
     }
@@ -313,7 +310,7 @@ explore: +active_subscriptions {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
       FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+        moz-fx-data-shared-prod.hubs_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
         table_name = "all_subscriptions_v1";;
     }
@@ -330,7 +327,7 @@ explore: +active_subscriptions {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
       FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+        moz-fx-data-shared-prod.hubs_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
         table_name = "all_subscriptions_v1";;
     }
@@ -347,7 +344,7 @@ explore: +active_subscriptions {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
       FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+        moz-fx-data-shared-prod.hubs_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
         table_name = "all_subscriptions_v1";;
     }
@@ -364,7 +361,7 @@ explore: +active_subscriptions {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
       FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+        moz-fx-data-shared-prod.hubs_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
         table_name = "all_subscriptions_v1";;
     }
@@ -381,7 +378,7 @@ explore: +active_subscriptions {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
       FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+        moz-fx-data-shared-prod.hubs_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
         table_name = "all_subscriptions_v1";;
     }
@@ -398,7 +395,7 @@ explore: +active_subscriptions {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
       FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+        moz-fx-data-shared-prod.hubs_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
         table_name = "all_subscriptions_v1";;
     }

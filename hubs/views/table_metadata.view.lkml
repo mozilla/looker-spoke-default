@@ -4,7 +4,7 @@ view: table_metadata {
       table_name,
       MAX(last_modified_time) AS last_modified_time,
     FROM
-      `moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS`
+      `moz-fx-data-shared-prod.hubs_derived.INFORMATION_SCHEMA.PARTITIONS`
     GROUP BY
       table_name
     ;;

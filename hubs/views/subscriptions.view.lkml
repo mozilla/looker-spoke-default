@@ -1,4 +1,4 @@
-include: "//looker-hub/mozilla_vpn/views/subscriptions.view"
+include: "//looker-hub/hubs/views/subscriptions.view"
 
 view: +subscriptions {
   dimension: customer_id {

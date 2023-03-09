@@ -1,9 +1,7 @@
-include: "../views/subscription_events_table.view"
+include: "../views/subscription_events.view"
 include: "../views/table_metadata.view"
 
 explore: subscription_events {
-  from: subscription_events_table
-
 
   join: metadata {
     from: table_metadata
@@ -38,7 +36,7 @@ explore: +subscription_events {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
       FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+        moz-fx-data-shared-prod.hubs_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
         table_name = "all_subscriptions_v1";;
     }
@@ -63,7 +61,7 @@ explore: +subscription_events {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
       FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+        moz-fx-data-shared-prod.hubs_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
         table_name = "all_subscriptions_v1";;
     }
@@ -91,7 +89,7 @@ explore: +subscription_events {
       sql_trigger_value: SELECT
         MAX(last_modified_time)
       FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+        moz-fx-data-shared-prod.hubs_derived.INFORMATION_SCHEMA.PARTITIONS
       WHERE
         table_name = "all_subscriptions_v1";;
     }
