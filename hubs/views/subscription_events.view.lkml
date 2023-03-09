@@ -11,18 +11,7 @@ view: +subscription_events {
   dimension: plan_interval_type {
     description: "Indicates the plan interval type (1 year, 6 month, 1 month, etc)"
     type: string
-    sql: CONCAT(IF(${product_name} LIKE "%Relay%", CONCAT("bundle", "_"), ""), ${plan_interval_count}, "_", ${plan_interval});;
-  }
-
-  dimension: forecast_region {
-    description: "Indicates region used in financial forecasting.  This is to primarily support finance forecasting work."
-    type: string
-    sql: CASE
-          WHEN ${pricing_plan} LIKE "%-eur-%" THEN "Europe"
-          WHEN ${pricing_plan} LIKE "%-chf-%" THEN "Switzerland"
-          WHEN ${pricing_plan} = "1-month-usd-4.99" THEN "Wave_1 monthly legacy only"
-          ELSE "Wave_1 (excluding monthly legacy) & other"
-          END;;
+    sql: CONCAT(${plan_interval_count}, "_", ${plan_interval});;
   }
 
   dimension: coupon_code {

@@ -26,10 +26,6 @@ view: +subscriptions {
     hidden: yes
   }
 
-  dimension: user_id {
-    hidden: yes
-  }
-
   dimension: country {
     hidden: yes
   }
@@ -80,18 +76,7 @@ view: +subscriptions {
   dimension: plan_interval_type {
     description: "Indicates the plan interval type (1 year, 6 month, 1 month, etc)"
     type: string
-    sql: CONCAT(IF(${product_name} LIKE "%Relay%", CONCAT("bundle", "_"), ""), ${plan_interval_count}, "_", ${plan_interval});;
-  }
-
-  dimension: forecast_region {
-    description: "Indicates region used in financial forecasting.  This is to primarily support finance forecasting work."
-    type: string
-    sql: CASE
-          WHEN ${pricing_plan} LIKE "%-eur-%" THEN "Europe"
-          WHEN ${pricing_plan} LIKE "%-chf-%" THEN "Switzerland"
-          WHEN ${pricing_plan} = "1-month-usd-4.99" THEN "Wave_1 monthly legacy only"
-          ELSE "Wave_1 (excluding monthly legacy) & other"
-          END;;
+    sql: CONCAT(${plan_interval_count}, "_", ${plan_interval});;
   }
 
   dimension: promotion_discounts_amount {
@@ -106,58 +91,6 @@ view: +subscriptions {
     description: "The coupon code applied to a subscription."
     type: string
     sql: ${TABLE}.promotion_codes[SAFE_ORDINAL(1)] ;;
-  }
-
-  dimension: normalized_source {
-    group_label: "Attribution"
-  }
-
-  dimension: normalized_medium {
-    group_label: "Attribution"
-  }
-
-  dimension: normalized_campaign {
-    group_label: "Attribution"
-  }
-
-  dimension: normalized_content {
-    group_label: "Attribution"
-  }
-
-  dimension: utm_source {
-    group_label: "Attribution"
-  }
-
-  dimension: utm_medium {
-    group_label: "Attribution"
-  }
-
-  dimension: utm_campaign {
-    group_label: "Attribution"
-  }
-
-  dimension: utm_content {
-    group_label: "Attribution"
-  }
-
-  dimension: normalized_acquisition_channel {
-    group_label: "Attribution"
-  }
-
-  dimension: website_channel_group {
-    group_label: "Attribution"
-  }
-
-  dimension: website_channel_group {
-    group_label: "Attribution"
-  }
-
-  dimension: attribution_category {
-    group_label: "Attribution"
-  }
-
-  dimension: coarse_attribution_category {
-    group_label: "Attribution"
   }
 
   dimension: canceled_for_customer {
