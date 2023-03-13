@@ -1,0 +1,7 @@
+connection: "telemetry"
+label: "mach"
+include: "//looker-hub/mach/explores/*"
+include: "//looker-hub/mach/dashboards/*"
+include: "views/*"
+include: "explores/*"
+include: "dashboards/*"
