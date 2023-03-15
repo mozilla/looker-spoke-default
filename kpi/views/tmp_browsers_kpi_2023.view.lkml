@@ -3,28 +3,13 @@ view: tmp_browser_kpis_2023 {
     sql:
       WITH
       observed_dau AS (
-      -- cannot use active_users_aggregates.qdau_desktop until backfill is completed.
-      -- see: https://mozilla-hub.atlassian.net/browse/DENG-651
       SELECT
       submission_date,
       'DAU' AS metric,
-      -- about below: the first probe that counts URIs in private mode landed about 2020-11-18.
-      -- before that point, we only had uri counts in non-private (normal mode). so we check the
-      -- new probe first and fall back on the old if its NULL.
-      -- see https://bugzilla.mozilla.org/show_bug.cgi?id=1737674
-      COUNTIF(COALESCE(
-      scalar_parent_browser_engagement_total_uri_count_normal_and_private_mode_sum,
-      scalar_parent_browser_engagement_total_uri_count_sum,
-      0) > 0 AND active_hours_sum > 0) AS point,
-      COUNTIF(COALESCE(
-      scalar_parent_browser_engagement_total_uri_count_normal_and_private_mode_sum,
-      scalar_parent_browser_engagement_total_uri_count_sum,
-      0) > 0 AND active_hours_sum > 0) AS lower,
-      COUNTIF(COALESCE(
-      scalar_parent_browser_engagement_total_uri_count_normal_and_private_mode_sum,
-      scalar_parent_browser_engagement_total_uri_count_sum,
-      0) > 0 AND active_hours_sum > 0) AS upper
-      FROM telemetry.clients_daily
+      SUM(qdau) AS point,
+      SUM(qdau) AS lower,
+      SUM(qdau) AS upper
+      FROM `mozdata.firefox_desktop.active_users_aggregates`
       WHERE submission_date >= DATE_SUB('2022-12-16', INTERVAL 27 DAY)
       GROUP BY 1
       ),
