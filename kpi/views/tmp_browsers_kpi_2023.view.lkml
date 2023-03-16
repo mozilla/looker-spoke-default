@@ -2,110 +2,86 @@ view: tmp_browser_kpis_2023 {
   derived_table: {
     sql:
       WITH
-      observed_dau AS (
-      SELECT
-      submission_date,
-      'DAU' AS metric,
-      SUM(qdau) AS point,
-      SUM(qdau) AS lower,
-      SUM(qdau) AS upper
-      FROM `mozdata.firefox_desktop.active_users_aggregates`
+      desktop_dau AS (
+      SELECT submission_date,
+        'DAU' AS metric,
+        'desktop' AS product,
+        COUNTIF(
+          active_hours_sum > 0 AND
+          COALESCE(
+            scalar_parent_browser_engagement_total_uri_count_normal_and_private_mode_sum,
+            scalar_parent_browser_engagement_total_uri_count_sum,
+            0
+          ) > 0
+        ) AS value
+      FROM `mozdata.telemetry.clients_daily`
+      WHERE submission_date >= '2022-12-16'
+      GROUP BY 1
+      ),
+
+      desktop_dau_28_ma AS (
+      SELECT submission_date,
+        'DAU 28MA' AS metric,
+        'desktop' AS product,
+        AVG(COUNTIF(
+          active_hours_sum > 0 AND
+          COALESCE(
+            scalar_parent_browser_engagement_total_uri_count_normal_and_private_mode_sum,
+            scalar_parent_browser_engagement_total_uri_count_sum,
+            0
+          ) > 0
+        )) OVER (ORDER BY submission_date ROWS BETWEEN 27 PRECEDING AND CURRENT ROW) AS value
+      FROM `mozdata.telemetry.clients_daily`
       WHERE submission_date >= DATE_SUB('2022-12-16', INTERVAL 27 DAY)
       GROUP BY 1
       ),
 
-      projected_dau AS (
-      SELECT
-      submission_date,
-      'DAU Projected' AS metric,
-      point,
-      lower,
-      upper
-      FROM (
-      SELECT
-      DATE(ds) AS submission_date,
-      FLOOR(yhat) AS point,
-      FLOOR(yhat_lower) AS lower,
-      FLOOR(yhat_upper) AS upper,
-      RANK() OVER(PARTITION BY ds ORDER BY forecast_date DESC) AS rank
-      FROM `moz-fx-data-shared-prod.telemetry_derived.kpi_automated_forecast_v1`
-      WHERE DATE(ds) BETWEEN DATE_SUB('2022-12-16', INTERVAL 27 DAY) AND '2023-12-15'
-      AND LOWER(metric) = 'qdau'
-      AND LOWER(target) = 'desktop'
-      )
-      WHERE rank = 1
+      mobile_dau AS (
+      SELECT submission_date,
+        'DAU' AS metric,
+        'mobile' AS product,
+        COUNTIF(
+          `mozfun`.bits28.active_in_range(days_seen_bits, 0, 1) AND
+          normalized_app_name IN ('Fenix', 'Firefox iOS')
+        ) as value
+      FROM `mozdata.telemetry.unified_metrics`
+      WHERE submission_date >= '2022-12-16'
+      GROUP BY 1
       ),
 
-      forecasted_dau AS (
-      SELECT
-      DATE(date) AS submission_date,
-      'DAU Forecast' AS metric,
-      FLOOR(qualified_dau) AS point,
-      FLOOR(qualified_dau_lower) AS lower,
-      FLOOR(qualified_dau_upper) AS upper
-      FROM `mozdata.analysis.bochocki_desktop_kpi_forecast_2023`
-      WHERE DATE(date) BETWEEN '2022-12-16' AND '2023-12-15'
-      ),
-
-      observed_dau_28_ma AS (
-      SELECT
-      submission_date,
-      'DAU 28MA' AS metric,
-      FLOOR(AVG(point) OVER rolling_average_window) AS point,
-      FLOOR(AVG(point) OVER rolling_average_window) AS lower,
-      FLOOR(AVG(point) OVER rolling_average_window) AS upper
-      FROM observed_dau
-      WINDOW rolling_average_window AS (ORDER BY submission_date ROWS BETWEEN 27 PRECEDING AND CURRENT ROW)
-      ORDER BY 1
-      ),
-
-      projected_dau_28_ma AS (
-      SELECT
-      submission_date,
-      'DAU 28MA Projected' AS metric,
-      FLOOR(AVG(point) OVER rolling_average_window) AS point,
-      FLOOR(AVG(lower) OVER rolling_average_window) AS lower,
-      FLOOR(AVG(upper) OVER rolling_average_window) AS upper
-      FROM projected_dau
-      WINDOW rolling_average_window AS (ORDER BY submission_date ROWS BETWEEN 27 PRECEDING AND CURRENT ROW)
-      ORDER BY 1
-      ),
-
-      forecasted_dau_28_ma AS (
-      SELECT
-      DATE(date) AS submission_date,
-      'DAU 28MA Forecast' AS metric,
-      FLOOR(qualified_dau_28MA) AS point,
-      FLOOR(qualified_dau_28MA_lower) AS lower,
-      FLOOR(qualified_dau_28MA_upper) AS upper
-      FROM `mozdata.analysis.bochocki_desktop_kpi_forecast_2023`
-      WHERE DATE(date) BETWEEN '2022-12-16' AND '2023-12-15'
+      mobile_dau_28_ma AS (
+      SELECT submission_date,
+        'DAU 28MA' AS metric,
+        'mobile' AS product,
+        AVG(COUNTIF(
+          `mozfun`.bits28.active_in_range(days_seen_bits, 0, 1) AND
+          normalized_app_name IN ('Fenix', 'Firefox iOS')
+        )) OVER (ORDER BY submission_date ROWS BETWEEN 27 PRECEDING AND CURRENT ROW) AS value
+      FROM `mozdata.telemetry.unified_metrics`
+      WHERE submission_date >= DATE_SUB('2022-12-16', INTERVAL 27 DAY)
+      GROUP BY 1
       ),
 
       joined AS (
-      SELECT * FROM observed_dau WHERE submission_date < CURRENT_DATE()
+      SELECT * FROM desktop_dau_28_ma
       UNION ALL
-      SELECT * FROM projected_dau WHERE submission_date >= DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)
+      SELECT * FROM desktop_dau
       UNION ALL
-      SELECT * FROM forecasted_dau
+      SELECT * FROM mobile_dau_28_ma
       UNION ALL
-      SELECT * FROM observed_dau_28_ma WHERE submission_date < CURRENT_DATE()
-      UNION ALL
-      SELECT * FROM projected_dau_28_ma WHERE submission_date >= DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)
-      UNION ALL
-      SELECT * FROM forecasted_dau_28_ma
+      SELECT * FROM mobile_dau
       )
 
       SELECT *
       FROM joined
-      WHERE submission_date BETWEEN '2022-12-16' AND '2023-12-15'
-      ORDER BY submission_date
+      WHERE submission_date >= '2022-12-16'
+      ORDER BY metric ASC, submission_date
       ;;
   }
 
   dimension_group: submission {
     sql: DATE(${TABLE}.submission_date) ;;
-    label: "Submission Date"
+    label: "Submission"
     description: "The date we received pings from clients"
     type: time
     timeframes: [
@@ -119,34 +95,22 @@ view: tmp_browser_kpis_2023 {
   dimension: metric {
     type: string
     label: "Metric"
-    description: "
-    DAU [Daily Active Users]: The number of unique client_ids counted on a given submission_date.
-    DAU_28MA [DAU 28-day moving average]: The average DAU over the preceding 28-day period, inclusive of the end date.
-    Observed: The metric value that was actually observed from our users.
-    Forecasted: The metric value that was forecast at the start of Q1, along with its lower/upper confidence intervals.
-    Projected: The most revent metric value that was forecast given our observed performance, along its lower/upper confidence intervals.
-    "
+    description: "The metric of interest, either 'DAU' or 'DAU 28MA'"
     sql: ${TABLE}.metric ;;
   }
 
-  measure: point {
-    type: sum
-    label: "Point"
-    description: "The point estimate for a metric"
-    sql: ${TABLE}.point ;;
+  dimension: product {
+    type: string
+    label: "Product"
+    description: "The product of interest, either 'desktop' or 'mobile'"
+    sql: ${TABLE}.product ;;
   }
 
-  measure: lower {
+  measure: value {
     type: sum
-    label: "Lower CI"
-    description: "The lower confidence interval for a metric"
-    sql: ${TABLE}.lower ;;
+    label: "Value"
+    description: "The calculated value of the metric"
+    sql: ${TABLE}.value ;;
   }
 
-  measure: upper {
-    type: sum
-    label: "Upper CI"
-    description: "The upper confidence interval for a metric"
-    sql: ${TABLE}.upper ;;
-  }
 }
