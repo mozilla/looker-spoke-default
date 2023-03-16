@@ -23,7 +23,7 @@ view: fxa_flow_aggregates {
               FROM firefox_accounts.fxa_all_events
               WHERE DATE(timestamp) >= DATE(2022,9,1)
               AND event_type = 'fxa_email_first - view'
-              AND event_category IN ('content', 'auth', 'oauth')
+              AND fxa_log IN ('content', 'auth', 'oauth')
               GROUP BY 1
           ),
 
@@ -46,7 +46,7 @@ view: fxa_flow_aggregates {
         LEFT JOIN firefox_accounts.fxa_all_events e
         USING(flow_id)
         WHERE DATE(e.timestamp) >= DATE(2022,9,1)
-        AND e.event_category IN ('content', 'auth', 'oauth')
+        AND e.fxa_log IN ('content', 'auth', 'oauth')
       GROUP BY
           f.flow_id,
           f.entrypoint,
