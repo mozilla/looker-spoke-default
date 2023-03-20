@@ -12,7 +12,6 @@
     type: ci-line-chart
     fields: [preview.point, preview.window_index, preview.branch, preview.lower, preview.upper]
     pivots: [preview.branch]
-    filters: {}
     sorts: [preview.branch, preview.point desc 0]
     limit: 500
     column_limit: 50
@@ -38,13 +37,15 @@
     defaults_version: 0
     listen:
       Analysis Basis: preview.analysis_basis
-      Comparison: preview.comparison
       Metric: preview.metric
       Parameter: preview.parameter
       Segment: preview.segment
       Analysis Period: preview.analysis_period
       Statistic: preview.statistic
-      Table: preview.table
+      Project: preview.project
+      Dataset: preview.dataset
+      Slug: preview.slug
+      Comparison: preview.comparison
     row: 2
     col: 0
     width: 24
@@ -57,7 +58,6 @@
     fields: [preview.lower, preview.point, preview.upper, preview.window_index, preview.branch,
       preview.metric, preview.parameter, preview.segment, preview.statistic, preview.comparison,
       preview.ci_width, preview.analysis_basis]
-    filters: {}
     sorts: [preview.upper desc]
     limit: 5000
     column_limit: 50
@@ -98,9 +98,11 @@
       Metric: preview.metric
       Analysis Period: preview.analysis_period
       Segment: preview.segment
-      Comparison: preview.comparison
       Statistic: preview.statistic
-      Table: preview.table
+      Project: preview.project
+      Dataset: preview.dataset
+      Slug: preview.slug
+      Comparison: preview.comparison
     row: 11
     col: 0
     width: 24
@@ -112,7 +114,6 @@
     type: single_value
     fields: [experimenter_experiments.start_date]
     fill_fields: [experimenter_experiments.start_date]
-    filters: {}
     sorts: [experimenter_experiments.start_date desc]
     limit: 1
     column_limit: 50
@@ -148,16 +149,18 @@
     defaults_version: 1
     hidden_pivots: {}
     listen:
-      Table: preview.table
       Analysis Basis: preview.analysis_basis
       Parameter: preview.parameter
       Metric: preview.metric
       Analysis Period: preview.analysis_period
       Segment: preview.segment
-      Comparison: preview.comparison
       Statistic: preview.statistic
+      Project: preview.project
+      Dataset: preview.dataset
+      Slug: preview.slug
+      Comparison: preview.comparison
     row: 0
-    col: 2
+    col: 0
     width: 5
     height: 2
   - title: Status
@@ -166,7 +169,6 @@
     explore: preview
     type: single_value
     fields: [experimenter_experiments.status]
-    filters: {}
     sorts: [experimenter_experiments.status]
     limit: 1
     column_limit: 50
@@ -202,16 +204,18 @@
     defaults_version: 1
     hidden_pivots: {}
     listen:
-      Table: preview.table
       Analysis Basis: preview.analysis_basis
       Parameter: preview.parameter
       Metric: preview.metric
       Analysis Period: preview.analysis_period
       Segment: preview.segment
-      Comparison: preview.comparison
       Statistic: preview.statistic
+      Project: preview.project
+      Dataset: preview.dataset
+      Slug: preview.slug
+      Comparison: preview.comparison
     row: 0
-    col: 7
+    col: 5
     width: 5
     height: 2
   - title: End Date
@@ -221,7 +225,6 @@
     type: single_value
     fields: [experimenter_experiments.end_date]
     fill_fields: [experimenter_experiments.end_date]
-    filters: {}
     sorts: [experimenter_experiments.end_date desc]
     limit: 1
     column_limit: 50
@@ -257,16 +260,18 @@
     defaults_version: 1
     hidden_pivots: {}
     listen:
-      Table: preview.table
       Analysis Basis: preview.analysis_basis
       Parameter: preview.parameter
       Metric: preview.metric
       Analysis Period: preview.analysis_period
       Segment: preview.segment
-      Comparison: preview.comparison
       Statistic: preview.statistic
+      Project: preview.project
+      Dataset: preview.dataset
+      Slug: preview.slug
+      Comparison: preview.comparison
     row: 0
-    col: 12
+    col: 10
     width: 5
     height: 2
   - title: Enrollment End Date
@@ -276,7 +281,6 @@
     type: single_value
     fields: [experimenter_experiments.enrollment_end_date]
     fill_fields: [experimenter_experiments.enrollment_end_date]
-    filters: {}
     sorts: [experimenter_experiments.enrollment_end_date desc]
     limit: 1
     column_limit: 50
@@ -312,21 +316,146 @@
     defaults_version: 1
     hidden_pivots: {}
     listen:
-      Table: preview.table
       Analysis Basis: preview.analysis_basis
       Parameter: preview.parameter
       Metric: preview.metric
       Analysis Period: preview.analysis_period
       Segment: preview.segment
-      Comparison: preview.comparison
       Statistic: preview.statistic
+      Project: preview.project
+      Dataset: preview.dataset
+      Slug: preview.slug
+      Comparison: preview.comparison
     row: 0
-    col: 17
+    col: 15
     width: 5
     height: 2
+  - title: Logs
+    name: Logs
+    model: experimentation
+    explore: preview_logs
+    type: looker_grid
+    fields: [preview_logs.analysis_basis, preview_logs.exception, preview_logs.filename,
+      preview_logs.func_name, preview_logs.message, preview_logs.metric, preview_logs.segment,
+      preview_logs.statistic, preview_logs.timestamp]
+    filters:
+      preview_logs.dataset: tmp
+      preview_logs.project: mozdata
+      preview_logs.slug: ''
+      preview_logs.log_level: "-INFO"
+    sorts: [preview_logs.timestamp desc]
+    limit: 500
+    column_limit: 50
+    show_view_names: false
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    limit_displayed_rows: false
+    enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: 12
+    rows_font_size: 12
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    series_types: {}
+    defaults_version: 1
+    column_order: ["$$$_row_numbers_$$$", preview_logs.timestamp, preview_logs.experiment,
+      preview_logs.analysis_basis, preview_logs.exception, preview_logs.exception_type,
+      preview_logs.filename, preview_logs.func_name, preview_logs.log_level, preview_logs.message,
+      preview_logs.metric, preview_logs.normalized_slug, preview_logs.segment, preview_logs.statistic]
+    listen: {}
+    row: 19
+    col: 0
+    width: 24
+    height: 4
+  - title: New Tile
+    name: New Tile (2)
+    model: experimentation
+    explore: preview_logs
+    type: single_value
+    fields: [query_cost, preview_logs.experiment]
+    filters:
+      preview_logs.dataset: tmp
+      preview_logs.project: mozdata
+      preview_logs.slug: ''
+      preview_logs.log_level: INFO
+      preview_logs.message: "%query cost%"
+    sorts: [query_cost desc]
+    limit: 400
+    column_limit: 50
+    dynamic_fields: [{category: measure, expression: !!null '', label: Query Cost,
+        value_format: !!null '', value_format_name: decimal_3, based_on: preview_logs.cost,
+        _kind_hint: measure, measure: query_cost, type: sum, _type_hint: number}]
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: Total Query Cost ($)
+    value_format: ''
+    show_view_names: false
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    limit_displayed_rows: false
+    header_text_alignment: left
+    header_font_size: 12
+    rows_font_size: 12
+    series_types: {}
+    defaults_version: 1
+    column_order: ["$$$_row_numbers_$$$", preview_logs.timestamp, preview_logs.experiment,
+      preview_logs.analysis_basis, preview_logs.exception, preview_logs.exception_type,
+      preview_logs.filename, preview_logs.func_name, preview_logs.log_level, preview_logs.message,
+      preview_logs.metric, preview_logs.normalized_slug, preview_logs.segment, preview_logs.statistic]
+    hidden_pivots: {}
+    listen: {}
+    row: 0
+    col: 20
+    width: 4
+    height: 2
   filters:
-  - name: Table
-    title: Table
+  - name: Project
+    title: Project
+    type: field_filter
+    default_value: mozdata
+    allow_multiple_values: true
+    required: true
+    ui_config:
+      type: advanced
+      display: popover
+      options: []
+    model: experimentation
+    explore: preview
+    listens_to_filters: []
+    field: preview.project
+  - name: Parameter
+    title: Parameter
+    type: field_filter
+    default_value: 'null'
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: advanced
+      display: popover
+      options: []
+    model: experimentation
+    explore: preview
+    listens_to_filters: []
+    field: preview.parameter
+  - name: Slug
+    title: Slug
     type: field_filter
     default_value: ''
     allow_multiple_values: true
@@ -338,7 +467,21 @@
     model: experimentation
     explore: preview
     listens_to_filters: []
-    field: preview.table
+    field: preview.slug
+  - name: Dataset
+    title: Dataset
+    type: field_filter
+    default_value: tmp
+    allow_multiple_values: true
+    required: true
+    ui_config:
+      type: advanced
+      display: popover
+      options: []
+    model: experimentation
+    explore: preview
+    listens_to_filters: []
+    field: preview.dataset
   - name: Analysis Period
     title: Analysis Period
     type: field_filter
@@ -379,7 +522,7 @@
       display: popover
     model: experimentation
     explore: preview
-    listens_to_filters: [Table, Analysis Period, Statistic]
+    listens_to_filters: [Statistic, Project, Analysis Period, Dataset, Slug]
     field: preview.metric
   - name: Statistic
     title: Statistic
@@ -393,7 +536,7 @@
       options: []
     model: experimentation
     explore: preview
-    listens_to_filters: [Metric]
+    listens_to_filters: [Metric, Project, Dataset, Slug]
     field: preview.statistic
   - name: Segment
     title: Segment
@@ -407,12 +550,12 @@
       options: []
     model: experimentation
     explore: preview
-    listens_to_filters: [Table, Analysis Period]
+    listens_to_filters: [Analysis Period]
     field: preview.segment
-  - name: Parameter
-    title: Parameter
+  - name: Comparison
+    title: Comparison
     type: field_filter
-    default_value: 'null'
+    default_value: 'NULL'
     allow_multiple_values: true
     required: false
     ui_config:
@@ -422,18 +565,4 @@
     model: experimentation
     explore: preview
     listens_to_filters: []
-    field: preview.parameter
-  - name: Comparison
-    title: Comparison
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: false
-    required: false
-    ui_config:
-      type: advanced
-      display: popover
-      options: []
-    model: experimentation
-    explore: preview
-    listens_to_filters: [Table, Analysis Period]
     field: preview.comparison

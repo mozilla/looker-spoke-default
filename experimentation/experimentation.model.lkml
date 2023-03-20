@@ -353,6 +353,6 @@ explore: unenrollment_reasons {
     join: experimenter_experiments {
       type: full_outer
       relationship: many_to_one
-      sql_on: ${preview.table_identifier} LIKE CONCAT("%", REPLACE(${experimenter_experiments.normandy_slug}, "-", "_"), "%")  ;;
+      sql_on: ${preview.normalized_slug} LIKE CONCAT("%", REPLACE(${experimenter_experiments.normandy_slug}, "-", "_"), "%")  ;;
     }
   }
