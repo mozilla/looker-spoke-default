@@ -4,6 +4,7 @@ include: "//looker-hub/experimentation/views/*"
 include: "//looker-hub/firefox_desktop/views/events.view.lkml"
 include: "views/*"
 include: "explores/*"
+include: "dashboards/*"
 
 # View customizations
 
@@ -347,3 +348,11 @@ explore: unenrollment_reasons {
   explore: mr_2022_weekly_statistics_desktop_existing_users {}
 
   explore: mr_2022_weekly_statistic_desktop_new_users {}
+
+  explore: +preview {
+    join: experimenter_experiments {
+      type: full_outer
+      relationship: many_to_one
+      sql_on: ${preview.table_identifier} LIKE CONCAT("%", REPLACE(${experimenter_experiments.normandy_slug}, "-", "_"), "%")  ;;
+    }
+  }

@@ -26,6 +26,11 @@ view: preview {
     default_value: "daily"
   }
 
+  dimension: table_identifier {
+    sql: "{% parameter table %}" ;;
+    type: string
+  }
+
   dimension: window_index {
     sql:  ${TABLE}.window_index ;;
     type: number
