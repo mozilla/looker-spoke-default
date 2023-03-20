@@ -1,9 +1,19 @@
 view: preview {
-  parameter: table {
+  parameter: project {
+    type: unquoted
+    default_value: "mozdata"
+  }
+
+  parameter: dataset {
+    type: unquoted
+    default_value: "tmp"
+  }
+
+  parameter: slug {
     type: unquoted
   }
 
-  sql_table_name: {% parameter table %}_{% parameter analysis_period %} ;;
+  sql_table_name: {% parameter project %}.{% parameter dataset %}.statistics_{% parameter slug %}_{% parameter analysis_period %} ;;
 
   parameter: analysis_period {
     type: unquoted
@@ -26,8 +36,8 @@ view: preview {
     default_value: "daily"
   }
 
-  dimension: table_identifier {
-    sql: "{% parameter table %}" ;;
+  dimension: normalized_slug {
+    sql: "{% parameter slug %}" ;;
     type: string
   }
 
