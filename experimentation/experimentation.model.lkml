@@ -3,6 +3,7 @@ label: "Experimentation"
 include: "//looker-hub/experimentation/views/*"
 include: "//looker-hub/firefox_desktop/views/events.view.lkml"
 include: "views/*"
+include: "explores/*"
 
 # View customizations
 
