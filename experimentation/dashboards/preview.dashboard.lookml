@@ -44,8 +44,8 @@
       Statistic: preview.statistic
       Project: preview.project
       Dataset: preview.dataset
-      Slug: preview.slug
       Comparison: preview.comparison
+      Slug: preview.slug
     row: 2
     col: 0
     width: 24
@@ -101,8 +101,8 @@
       Statistic: preview.statistic
       Project: preview.project
       Dataset: preview.dataset
-      Slug: preview.slug
       Comparison: preview.comparison
+      Slug: preview.slug
     row: 11
     col: 0
     width: 24
@@ -157,8 +157,8 @@
       Statistic: preview.statistic
       Project: preview.project
       Dataset: preview.dataset
-      Slug: preview.slug
       Comparison: preview.comparison
+      Slug: preview.slug
     row: 0
     col: 0
     width: 5
@@ -212,8 +212,8 @@
       Statistic: preview.statistic
       Project: preview.project
       Dataset: preview.dataset
-      Slug: preview.slug
       Comparison: preview.comparison
+      Slug: preview.slug
     row: 0
     col: 5
     width: 5
@@ -268,8 +268,8 @@
       Statistic: preview.statistic
       Project: preview.project
       Dataset: preview.dataset
-      Slug: preview.slug
       Comparison: preview.comparison
+      Slug: preview.slug
     row: 0
     col: 10
     width: 5
@@ -324,8 +324,8 @@
       Statistic: preview.statistic
       Project: preview.project
       Dataset: preview.dataset
-      Slug: preview.slug
       Comparison: preview.comparison
+      Slug: preview.slug
     row: 0
     col: 15
     width: 5
@@ -341,7 +341,6 @@
     filters:
       preview_logs.dataset: tmp
       preview_logs.project: mozdata
-      preview_logs.slug: ''
       preview_logs.log_level: "-INFO"
     sorts: [preview_logs.timestamp desc]
     limit: 500
@@ -367,7 +366,8 @@
       preview_logs.analysis_basis, preview_logs.exception, preview_logs.exception_type,
       preview_logs.filename, preview_logs.func_name, preview_logs.log_level, preview_logs.message,
       preview_logs.metric, preview_logs.normalized_slug, preview_logs.segment, preview_logs.statistic]
-    listen: {}
+    listen:
+      Slug: preview_logs.slug
     row: 19
     col: 0
     width: 24
@@ -381,7 +381,6 @@
     filters:
       preview_logs.dataset: tmp
       preview_logs.project: mozdata
-      preview_logs.slug: ''
       preview_logs.log_level: INFO
       preview_logs.message: "%query cost%"
     sorts: [query_cost desc]
@@ -420,7 +419,8 @@
       preview_logs.filename, preview_logs.func_name, preview_logs.log_level, preview_logs.message,
       preview_logs.metric, preview_logs.normalized_slug, preview_logs.segment, preview_logs.statistic]
     hidden_pivots: {}
-    listen: {}
+    listen:
+      Slug: preview_logs.slug
     row: 0
     col: 20
     width: 4
