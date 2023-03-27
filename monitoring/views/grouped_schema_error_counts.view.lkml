@@ -46,4 +46,26 @@ view: +schema_error_counts {
     type: sum
     sql: (${error_count}) ;;
   }
+
+  measure: error_count_last_week {
+    label: "Error Count (last 7 days)"
+    type: sum
+    sql: ${error_count} ;;
+    filters: [submission_date: "7 days ago for 7 days"]
+  }
+
+  measure: error_count_prev_week {
+    label: "Error Count (2 weeks ago)"
+    type: sum
+    sql: ${error_count} ;;
+    filters: [submission_date: "14 days ago for 7 days"]
+  }
+
+  measure: percent_change {
+    label: "Diff % to two weeks ago"
+    type: number
+    sql: (${error_count_last_week} - ${error_count_prev_week}) / nullif(${error_count_last_week}, 0)  ;;
+    value_format_name: percent_2
+  }
+
 }
