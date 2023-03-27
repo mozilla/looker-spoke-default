@@ -31,7 +31,7 @@ view: +schema_error_counts {
       }}{{
         '&short_desc=schema+error+in+%60'
       }}{{
-        document_namespace }}.{{ document_type }}_v{{ document_version
+        document_namespace }}.{{ document_type
       }}{{
         '%60+for+'
       }}{{
