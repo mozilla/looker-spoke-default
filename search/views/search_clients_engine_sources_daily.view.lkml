@@ -289,4 +289,12 @@ view: +search_clients_engines_sources_daily {
     hidden:  yes
   }
 
+  dimension: tagged_follow_on {
+    hidden: yes
+  }
+
+dimension: tagged_sap {
+  hidden: yes
+}
+
 }
