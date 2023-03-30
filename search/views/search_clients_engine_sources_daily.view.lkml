@@ -262,4 +262,39 @@ view: +search_clients_engines_sources_daily {
     sql: ${ad_click_organic} ;;
     description: "Total organic ad clicks."
   }
+
+## hide numeric search dimensions ##
+
+  dimension: ad_click {
+    hidden: yes
+  }
+
+  dimension: ad_click_organic {
+    hidden:  yes
+  }
+
+  dimension: organic {
+    hidden:  yes
+  }
+
+  dimension: sap {
+    hidden:  yes
+  }
+
+  dimension: search_with_ads {
+    hidden:  yes
+  }
+
+  dimension: search_with_ads_organic {
+    hidden:  yes
+  }
+
+  dimension: tagged_follow_on {
+    hidden: yes
+  }
+
+dimension: tagged_sap {
+  hidden: yes
+}
+
 }
