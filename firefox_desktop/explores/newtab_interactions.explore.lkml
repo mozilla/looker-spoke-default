@@ -1,9 +1,8 @@
 include: "../views/newtab_interactions.view.lkml"
 include: "../../shared/views/countries.view.lkml"
-include: "//looker-hub/firefox_desktop/datagroups/newtab_interactions_v1_last_updated.datagroup"
+include: "//looker-hub/firefox_desktop/datagroups/newtab_interactions_v1_last_updated.datagroup.lkml"
 
 explore: newtab_interactions {
-  persist_with: newtab_interactions_v1_last_updated
   sql_always_where: ${newtab_interactions.submission_date} >= '2022-07-01' ;;
   label: "New Tab Interactions"
   from: newtab_interactions
@@ -32,6 +31,8 @@ explore: newtab_interactions {
         newtab_interactions.pocket_sponsored_stories_enabled,
         newtab_interactions.topsites_enabled,
         countries.tier,
+        countries.name,
+        countries.pocket_available_on_newtab,
       ]
       measures: [
         newtab_interactions.visits,
@@ -41,13 +42,7 @@ explore: newtab_interactions {
     }
 
     materialization: {
-      sql_trigger_value:
-      SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.telemetry_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "newtab_interactions_v1";;
+      datagroup_trigger: newtab_interactions_v1_last_updated
       increment_key: newtab_interactions.submission_date
       increment_offset: 1
     }
@@ -61,6 +56,8 @@ explore: newtab_interactions {
         newtab_interactions.country_code,
         newtab_interactions.pocket_story_position,
         countries.tier,
+        countries.name,
+        countries.pocket_available_on_newtab,
       ]
       measures: [
         newtab_interactions.visits_with_pocket_impressions,
@@ -97,13 +94,7 @@ explore: newtab_interactions {
     }
 
     materialization: {
-      sql_trigger_value:
-      SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.telemetry_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "newtab_interactions_v1";;
+      datagroup_trigger: newtab_interactions_v1_last_updated
       increment_key: newtab_interactions.submission_date
       increment_offset: 1
     }
@@ -117,6 +108,8 @@ explore: newtab_interactions {
         newtab_interactions.country_code,
         newtab_interactions.search_engine,
         countries.tier,
+        countries.name,
+        countries.pocket_available_on_newtab,
       ]
       measures: [
         newtab_interactions.visits_with_search,
@@ -147,13 +140,7 @@ explore: newtab_interactions {
     }
 
     materialization: {
-      sql_trigger_value:
-      SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.telemetry_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "newtab_interactions_v1";;
+      datagroup_trigger: newtab_interactions_v1_last_updated
       increment_key: newtab_interactions.submission_date
       increment_offset: 1
     }
@@ -166,6 +153,7 @@ explore: newtab_interactions {
         newtab_interactions.channel,
         newtab_interactions.country_code,
         countries.tier,
+        countries.name,
       ]
       measures: [
         newtab_interactions.visits_with_topsite_click,
@@ -185,13 +173,7 @@ explore: newtab_interactions {
     }
 
     materialization: {
-      sql_trigger_value:
-      SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.telemetry_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "newtab_interactions_v1";;
+      datagroup_trigger: newtab_interactions_v1_last_updated
       increment_key: newtab_interactions.submission_date
       increment_offset: 1
     }
