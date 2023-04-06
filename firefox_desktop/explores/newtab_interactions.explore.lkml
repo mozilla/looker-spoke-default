@@ -31,6 +31,7 @@ explore: newtab_interactions {
         newtab_interactions.pocket_is_signed_in,
         newtab_interactions.pocket_sponsored_stories_enabled,
         newtab_interactions.topsites_enabled,
+        newtab_interactions.topsites_rows,
         countries.tier,
         countries.name,
         countries.pocket_available_on_newtab,
@@ -153,22 +154,30 @@ explore: newtab_interactions {
         newtab_interactions.submission_date,
         newtab_interactions.channel,
         newtab_interactions.country_code,
+        newtab_interactions.topsites_rows,
         countries.tier,
         countries.name,
+        countries.pocket_available_on_newtab,
       ]
       measures: [
         newtab_interactions.visits_with_topsite_click,
         newtab_interactions.visits_with_topsite_impression,
         newtab_interactions.visits_with_sponsored_topsite_click,
+        newtab_interactions.visits_with_organic_topsite_click,
         newtab_interactions.visits_with_sponsored_topsite_impression,
+        newtab_interactions.visits_with_organic_topsite_impression,
         newtab_interactions.sum_topsite_clicks,
         newtab_interactions.sum_topsite_impressions,
         newtab_interactions.sum_sponsored_topsite_clicks,
+        newtab_interactions.sum_organic_topsite_clicks,
         newtab_interactions.sum_sponsored_topsite_impressions,
+        newtab_interactions.sum_organic_topsite_impressions,
         newtab_interactions.clients_with_topsite_click,
         newtab_interactions.clients_with_topsite_impression,
         newtab_interactions.clients_with_sponsored_topsite_click,
+        newtab_interactions.clients_with_organic_topsite_click,
         newtab_interactions.clients_with_sponsored_topsite_impression,
+        newtab_interactions.clients_with_organic_topsite_impression
       ]
       filters: [newtab_interactions.submission_date: "after 2022-07-01"]
     }
