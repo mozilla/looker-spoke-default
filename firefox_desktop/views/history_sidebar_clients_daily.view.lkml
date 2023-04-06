@@ -11,7 +11,7 @@ view: history_sidebar_clients_daily {
   dimension: submission_date {
     type: date
     sql: CAST(${TABLE}.submission_date AS TIMESTAMP);;
-    description: "Submission date of the crash"
+    description: "Submission date of the interaction"
   }
 
   dimension: major_version {
