@@ -86,7 +86,8 @@ explore: +distinct_docids {
     relationship: many_to_one
     sql_on: (${distinct_docids_notes.document_namespace} IS NULL OR ${distinct_docids.namespace} LIKE ${distinct_docids_notes.document_namespace})
       AND (${distinct_docids_notes.document_type} IS NULL OR ${distinct_docids.doc_type} LIKE ${distinct_docids_notes.document_type})
-      AND (${distinct_docids_notes.notes} IS NOT NULL OR ${distinct_docids_notes.bug} IS NOT NULL);;
+      AND (${distinct_docids_notes.notes} IS NOT NULL OR ${distinct_docids_notes.bug} IS NOT NULL)
+      AND (${distinct_docids.submission_date} BETWEEN ${distinct_docids_notes.start_date} AND ${distinct_docids_notes.end_date});;
   }
 }
 
