@@ -1,6 +1,8 @@
+include: "//looker-hub/firefox_desktop/views/clients_daily_joined_table.view"
+
 view: history_sidebar_clients_daily {
 
-  sql_table_name: `moz-fx-data-shared-prod`.telemetry_derived.clients_daily_joined_v1 ;;
+  extends: [clients_daily_joined_table]
 
   dimension: client_id {
     type: string
@@ -8,10 +10,19 @@ view: history_sidebar_clients_daily {
     hidden: yes
   }
 
-  dimension: submission_date {
-    type: date
-    sql: CAST(${TABLE}.submission_date AS TIMESTAMP);;
-    description: "Submission date of the interaction"
+  dimension_group: submission {
+    sql: ${TABLE}.submission_date ;;
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year,
+    ]
+    convert_tz: no
+    datatype: date
   }
 
   dimension: major_version {
@@ -33,6 +44,11 @@ view: history_sidebar_clients_daily {
     sql: ${TABLE}.normalized_channel ;;
     suggestions: ["release", "beta", "nightly", "esr", "aurora", "Other"]
     description: "Release channel for the associated installation."
+  }
+
+  measure: client_count {
+    type:  count_distinct
+    sql: ${TABLE}.client_id ;;
   }
 
   measure: sidebar_history_opened {
@@ -81,6 +97,96 @@ view: history_sidebar_clients_daily {
     sql: ${TABLE}.places_searchbar_cumulative_filter_count_sum ;;
     type: sum
     description: "Cumulative filters in the sidebar before action"
+  }
+
+  measure:  clients_with_any_history_searches {
+    type: count_distinct
+    sql: IF(mozfun.map.get_key(${TABLE}.scalar_parent_sidebar_search_sum, "history") > 0, ${client_id}, NULL) ;;
+    approximate: yes
+    description: "Count of clients that searched the history sidebar"
+    group_label: "Client counts"
+  }
+
+  measure:  clients_with_any_bookmark_searches {
+    type: count_distinct
+    sql: IF(mozfun.map.get_key(${TABLE}.scalar_parent_sidebar_search_sum, "bookmarks") > 0, ${client_id}, NULL) ;;
+    approximate: yes
+    description: "Count of clients that searched the bookmarks sidebar"
+    group_label: "Client counts"
+  }
+
+  measure:  clients_with_any_history_opened {
+    type: count_distinct
+    sql: IF(mozfun.map.get_key(${TABLE}.scalar_parent_sidebar_opened_sum, "history") > 0, ${client_id}, NULL) ;;
+    approximate: yes
+    description: "Count of clients that opened the history sidebar"
+    group_label: "Client counts"
+  }
+
+  measure:  clients_with_any_bookmark_opened {
+    type: count_distinct
+    sql: IF(mozfun.map.get_key(${TABLE}.scalar_parent_sidebar_opened_sum, "bookmarks") > 0, ${client_id}, NULL) ;;
+    approximate: yes
+    description: "Count of clients that opened the bookmarks sidebar"
+    group_label: "Client counts"
+  }
+
+  measure:  clients_with_any_history_link_clicked{
+    type: count_distinct
+    sql: IF(mozfun.map.get_key(${TABLE}.scalar_parent_sidebar_link_sum, "history") > 0, ${client_id}, NULL) ;;
+    approximate: yes
+    description: "Count of clients that clicked a link in the history sidebar"
+    group_label: "Client counts"
+  }
+
+  measure:  clients_with_any_bookmark_link_clicked {
+    type: count_distinct
+    sql: IF(mozfun.map.get_key(${TABLE}.scalar_parent_sidebar_link_sum, "bookmarks") > 0, ${client_id}, NULL) ;;
+    approximate: yes
+    description: "Count of clients that clicked a link in the bookmarks sidebar"
+    group_label: "Client counts"
+  }
+
+  measure: history_opened_client_share {
+    type: number
+    sql: 100.0 * ${clients_with_any_history_opened}/${client_count} ;;
+    description: "Percent of clients that opened the history sidebar"
+    group_label: "Client shares"
+  }
+
+  measure: bookmarks_opened_client_share {
+    type: number
+    sql: 100.0 * ${clients_with_any_bookmark_opened}/${client_count} ;;
+    description: "Percent of clients that opened the bookmarks sidebar"
+    group_label: "Client shares"
+  }
+
+  measure: history_searched_client_share {
+    type: number
+    sql: 100.0 * ${clients_with_any_history_searches}/${client_count} ;;
+    description: "Percent of clients that searched the history sidebar"
+    group_label: "Client shares"
+  }
+
+  measure: bookmarks_searched_client_share {
+    type: number
+    sql: 100.0 * ${clients_with_any_bookmark_searches}/${client_count} ;;
+    description: "Percent of clients that searched the bookmarks sidebar"
+    group_label: "Client shares"
+  }
+
+  measure: history_link_clicked_client_share {
+    type: number
+    sql: 100.0 * ${clients_with_any_history_link_clicked}/${client_count} ;;
+    description: "Percent of clients that clicked a link in the history sidebar"
+    group_label: "Client shares"
+  }
+
+  measure: bookmarks_link_clicked_client_share {
+    type: number
+    sql: 100.0 * ${clients_with_any_bookmark_link_clicked}/${client_count} ;;
+    description: "Percent of clients that clicked a link in the bookmarks sidebar"
+    group_label: "Client shares"
   }
 
 }
