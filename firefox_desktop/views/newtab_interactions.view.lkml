@@ -20,7 +20,15 @@ view: newtab_interactions {
     hidden: yes
   }
 
+  dimension: organic_topsite_clicks {
+    hidden: yes
+  }
+
   dimension: sponsored_topsite_impressions {
+    hidden: yes
+  }
+
+  dimension: organic_topsite_impressions {
     hidden: yes
   }
 
@@ -130,6 +138,11 @@ view: newtab_interactions {
   dimension: newtab_search_enabled {
     sql: ${TABLE}.newtab_search_enabled ;;
     type: yesno
+  }
+
+  dimension: topsites_rows {
+    sql: ${TABLE}.topsites_rows ;;
+    type: number
   }
 
   measure: visits {
@@ -309,6 +322,13 @@ view: newtab_interactions {
     sql: ${sponsored_topsite_clicks} ;;
   }
 
+  measure: sum_organic_topsite_clicks {
+    group_label: "Topsites"
+    label: "Organic Topsite Clicks"
+    type: sum
+    sql: ${organic_topsite_clicks} ;;
+  }
+
   measure: sum_topsite_impressions {
     group_label: "Topsites"
     label: "Topsite Impressions"
@@ -323,6 +343,13 @@ view: newtab_interactions {
     sql: ${sponsored_topsite_impressions} ;;
   }
 
+  measure: sum_organic_topsite_impressions {
+    group_label: "Topsites"
+    label: "Organic Topsite Impressions"
+    type: sum
+    sql: ${organic_topsite_impressions} ;;
+  }
+
   measure: visits_with_topsite_click {
     group_label: "Topsites"
     type: count_distinct
@@ -334,6 +361,13 @@ view: newtab_interactions {
     group_label: "Topsites"
     type: count_distinct
     sql: IF(${sponsored_topsite_clicks} > 0, ${newtab_visit_id}, NULL) ;;
+    approximate: yes
+  }
+
+  measure: visits_with_organic_topsite_click {
+    group_label: "Topsites"
+    type: count_distinct
+    sql: IF(${organic_topsite_clicks} > 0, ${newtab_visit_id}, NULL) ;;
     approximate: yes
   }
 
@@ -351,6 +385,13 @@ view: newtab_interactions {
     approximate: yes
   }
 
+  measure: visits_with_organic_topsite_impression {
+    group_label: "Topsites"
+    type: count_distinct
+    sql: IF(${organic_topsite_impressions} > 0, ${newtab_visit_id}, NULL) ;;
+    approximate: yes
+  }
+
   measure: clients_with_topsite_click {
     group_label: "Topsites"
     type: count_distinct
@@ -365,6 +406,13 @@ view: newtab_interactions {
     approximate: yes
   }
 
+  measure: clients_with_organic_topsite_click {
+    group_label: "Topsites"
+    type: count_distinct
+    sql: IF(${organic_topsite_clicks} > 0, ${client_id}, NULL) ;;
+    approximate: yes
+  }
+
   measure: clients_with_topsite_impression {
     group_label: "Topsites"
     type: count_distinct
@@ -376,6 +424,13 @@ view: newtab_interactions {
     group_label: "Topsites"
     type: count_distinct
     sql: IF(${sponsored_topsite_impressions} > 0, ${client_id}, NULL) ;;
+    approximate: yes
+  }
+
+  measure: clients_with_organic_topsite_impression {
+    group_label: "Topsites"
+    type: count_distinct
+    sql: IF(${organic_topsite_impressions} > 0, ${client_id}, NULL) ;;
     approximate: yes
   }
 
