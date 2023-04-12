@@ -118,7 +118,7 @@ view: missing_namespaces_and_document_types {
       }}{{
         '&bug_type=defect'
       }}{{
-        '&status_whiteboard=%5Bdata-quality%5D'
+        '&status_whiteboard=%5Bdataquality%5D'
       }}{{
         '&short_desc=missing+namespaces+and+document+types+in+%60'
       }}{{
@@ -145,7 +145,7 @@ view: missing_namespaces_and_document_types {
       }}{{
         '&bug_type=defect'
       }}{{
-        '&status_whiteboard=%5Bdata-quality%5D'
+        '&status_whiteboard=%5Bdataquality%5D'
       }}{{
         '&short_desc=missing+namespace+and+document+types+in+%60'
       }}{{

@@ -2161,8 +2161,8 @@
   - name: Open Issues
     type: text
     title_text: Open Issues
-    subtitle_text: All open issues tagged with [data-quality], P1-P3
-    body_text: <center> <a href="https://bugzilla.mozilla.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=NEW&bug_status=ASSIGNED&bug_status=REOPENED&classification=Client%20Software&classification=Developer%20Infrastructure&classification=Components&classification=Server%20Software&classification=Other&priority=P1&priority=P2&priority=P3&priority=--&resolution=---&status_whiteboard=[data-quality]&status_whiteboard_type=allwordssubstr&list_id=15652480">
+    subtitle_text: All open issues tagged with [dataquality], P1-P3
+    body_text: <center> <a href="https://bugzilla.mozilla.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=NEW&bug_status=ASSIGNED&bug_status=REOPENED&classification=Client%20Software&classification=Developer%20Infrastructure&classification=Components&classification=Server%20Software&classification=Other&priority=P1&priority=P2&priority=P3&priority=--&resolution=---&status_whiteboard=[dataquality]&status_whiteboard_type=allwordssubstr&list_id=15652480">
       Bugzilla</a> </center>
     row: 0
     col: 0
