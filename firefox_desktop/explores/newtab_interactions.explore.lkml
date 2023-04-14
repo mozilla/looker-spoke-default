@@ -20,35 +20,7 @@ explore: newtab_interactions {
     sql_on: ${newtab_interactions.country_code} = ${countries.code} ;;
   }
 
-  aggregate_table: rollup__newtab_interactions_general_per_day {
-    query: {
-      dimensions: [
-        newtab_interactions.submission_date,
-        newtab_interactions.channel,
-        newtab_interactions.country_code,
-        newtab_interactions.activity_segment,
-        newtab_interactions.pocket_enabled,
-        newtab_interactions.pocket_is_signed_in,
-        newtab_interactions.pocket_sponsored_stories_enabled,
-        newtab_interactions.topsites_enabled,
-        newtab_interactions.topsites_rows,
-        countries.tier,
-        countries.name,
-        countries.pocket_available_on_newtab,
-      ]
-      measures: [
-        newtab_interactions.visits,
-        newtab_interactions.clients,
-      ]
-      filters: [newtab_interactions.submission_date: "after 2022-07-01"]
-    }
-
-    materialization: {
-      datagroup_trigger: newtab_interactions_v1_last_updated
-      increment_key: newtab_interactions.submission_date
-      increment_offset: 1
-    }
-  }
+  ## Additive Rollups
 
   aggregate_table: rollup__newtab_interactions_pocket_per_day {
     query: {
@@ -62,16 +34,6 @@ explore: newtab_interactions {
         countries.pocket_available_on_newtab,
       ]
       measures: [
-        newtab_interactions.visits_with_pocket_impressions,
-        newtab_interactions.visits_with_pocket_saves,
-        newtab_interactions.visits_with_pocket_clicks,
-        newtab_interactions.visits_with_organic_pocket_impressions,
-        newtab_interactions.visits_with_organic_pocket_saves,
-        newtab_interactions.visits_with_organic_pocket_clicks,
-        newtab_interactions.visits_with_sponsored_pocket_impressions,
-        newtab_interactions.visits_with_sponsored_pocket_saves,
-        newtab_interactions.visits_with_sponsored_pocket_clicks,
-
         newtab_interactions.sum_pocket_impressions,
         newtab_interactions.sum_pocket_saves,
         newtab_interactions.sum_pocket_clicks,
@@ -81,16 +43,6 @@ explore: newtab_interactions {
         newtab_interactions.sum_sponsored_pocket_impressions,
         newtab_interactions.sum_sponsored_pocket_saves,
         newtab_interactions.sum_sponsored_pocket_clicks,
-
-        newtab_interactions.clients_with_pocket_impressions,
-        newtab_interactions.clients_with_pocket_saves,
-        newtab_interactions.clients_with_pocket_clicks,
-        newtab_interactions.clients_with_organic_pocket_impressions,
-        newtab_interactions.clients_with_organic_pocket_saves,
-        newtab_interactions.clients_with_organic_pocket_clicks,
-        newtab_interactions.clients_with_sponsored_pocket_impressions,
-        newtab_interactions.clients_with_sponsored_pocket_saves,
-        newtab_interactions.clients_with_sponsored_pocket_clicks,
       ]
       filters: [newtab_interactions.submission_date: "after 2022-07-01"]
     }
@@ -114,14 +66,6 @@ explore: newtab_interactions {
         countries.pocket_available_on_newtab,
       ]
       measures: [
-        newtab_interactions.visits_with_search,
-        newtab_interactions.visits_with_tagged_search_ad_impression,
-        newtab_interactions.visits_with_tagged_search_ad_click,
-        newtab_interactions.visits_with_tagged_follow_on_search_ad_impression,
-        newtab_interactions.visits_with_tagged_follow_on_search_ad_click,
-        newtab_interactions.visits_with_any_ad_click,
-        newtab_interactions.visits_with_any_ad_impression,
-
         newtab_interactions.sum_searches,
         newtab_interactions.sum_tagged_search_ad_impressions,
         newtab_interactions.sum_tagged_search_ad_clicks,
@@ -129,14 +73,6 @@ explore: newtab_interactions {
         newtab_interactions.sum_tagged_follow_on_search_ad_clicks,
         newtab_interactions.sum_all_search_ad_clicks,
         newtab_interactions.sum_all_search_ad_impressions,
-
-        newtab_interactions.clients_with_search,
-        newtab_interactions.clients_with_tagged_search_ad_impression,
-        newtab_interactions.clients_with_tagged_search_ad_click,
-        newtab_interactions.clients_with_tagged_follow_on_search_ad_impression,
-        newtab_interactions.clients_with_tagged_follow_on_search_ad_click,
-        newtab_interactions.clients_with_any_ad_click,
-        newtab_interactions.clients_with_any_ad_impression,
       ]
       filters: [newtab_interactions.submission_date: "after 2022-07-01"]
     }
@@ -160,24 +96,12 @@ explore: newtab_interactions {
         countries.pocket_available_on_newtab,
       ]
       measures: [
-        newtab_interactions.visits_with_topsite_click,
-        newtab_interactions.visits_with_topsite_impression,
-        newtab_interactions.visits_with_sponsored_topsite_click,
-        newtab_interactions.visits_with_organic_topsite_click,
-        newtab_interactions.visits_with_sponsored_topsite_impression,
-        newtab_interactions.visits_with_organic_topsite_impression,
         newtab_interactions.sum_topsite_clicks,
         newtab_interactions.sum_topsite_impressions,
         newtab_interactions.sum_sponsored_topsite_clicks,
         newtab_interactions.sum_organic_topsite_clicks,
         newtab_interactions.sum_sponsored_topsite_impressions,
         newtab_interactions.sum_organic_topsite_impressions,
-        newtab_interactions.clients_with_topsite_click,
-        newtab_interactions.clients_with_topsite_impression,
-        newtab_interactions.clients_with_sponsored_topsite_click,
-        newtab_interactions.clients_with_organic_topsite_click,
-        newtab_interactions.clients_with_sponsored_topsite_impression,
-        newtab_interactions.clients_with_organic_topsite_impression
       ]
       filters: [newtab_interactions.submission_date: "after 2022-07-01"]
     }
