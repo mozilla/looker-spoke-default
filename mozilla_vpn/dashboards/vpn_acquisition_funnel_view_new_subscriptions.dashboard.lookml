@@ -1101,7 +1101,7 @@
   - name: Granular Event Type
     title: Granular Event Type
     type: field_filter
-    default_value: New
+    default_value: New,Converted Trial
     allow_multiple_values: true
     required: false
     ui_config:
