@@ -10,36 +10,6 @@
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ''
-    body_text: |
-      <div style="border-radius: 5px; padding: 5px 10px; background: #FFFFFF; height: 60px; color: red;">
-
-      <nav style="font-size: 20px;">
-
-        <img style="color: #000000; padding: 5px 10px; float: left; height: 40px;" src="https://www.mozilla.org/media/img/logos/vpn/logo-with-wordmark.c1659f9e6dd6.svg"/>
-
-        <a style="color: #000000; border: 1px solid white; padding: 5px 80px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/501?Partition+Date=28+day&Country=&Channel+Group=&UTM+Medium=&UTM+Source=&UTM+Campaign=&UTM+Content=&UTM+Term=&Entrypoint+Experiment=&Entrypoint+Variation=&Pricing+Plan=&OS+Name=&OS+Version=">
-
-      User Journey</a>
-
-        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/499?Start%20Date=28%20day&Country=&Channel%20Group=&Provider=&Pricing%20Plan=&UTM%20Medium=&UTM%20Source=&UTM%20Campaign=&UTM%20Content=&Entrypoint%20Experiment=&Entrypoint%20Variation=">
-
-       New Subs</a>
-
-        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1_l-ZsbKsxRh7HGqtODz8w8eDBqkw2N9SIZxEE9qG-DQ/edit?usp=sharing">
-
-        Docs</a>
-
-      </nav>
-
-      </div>
-    row: 0
-    col: 0
-    width: 24
-    height: 2
-  - name: " (2)"
-    type: text
-    title_text: ''
     body_text: |2-
 
       <div style="border-top: solid 2px #e0e0e0;">
@@ -71,7 +41,8 @@
     defaults_version: 1
     hidden_fields: [channel_group_proportions_table.new_subscription_count]
     refresh: 1 day
-    listen: {}
+    listen:
+      Granular Event Type: channel_group_proportions_table.granular_event_type
     row: 4
     col: 0
     width: 7
@@ -123,6 +94,7 @@
       Entrypoint Variation: channel_group_proportions_table.entrypoint_variation
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
+      Granular Event Type: channel_group_proportions_table.granular_event_type
     row: 4
     col: 7
     width: 9
@@ -234,6 +206,7 @@
       Entrypoint Variation: channel_group_proportions_table.entrypoint_variation
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
+      Granular Event Type: channel_group_proportions_table.granular_event_type
     row: 8
     col: 12
     width: 12
@@ -264,6 +237,7 @@
       Entrypoint Variation: channel_group_proportions_table.entrypoint_variation
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
+      Granular Event Type: channel_group_proportions_table.granular_event_type
     row: 8
     col: 0
     width: 12
@@ -379,6 +353,7 @@
       Entrypoint Variation: channel_group_proportions_table.entrypoint_variation
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
+      Granular Event Type: channel_group_proportions_table.granular_event_type
     row: 46
     col: 3
     width: 19
@@ -444,6 +419,7 @@
       Entrypoint Variation: channel_group_proportions_table.entrypoint_variation
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
+      Granular Event Type: channel_group_proportions_table.granular_event_type
     row: 53
     col: 3
     width: 19
@@ -527,6 +503,7 @@
       Entrypoint Variation: channel_group_proportions_table.entrypoint_variation
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
+      Granular Event Type: channel_group_proportions_table.granular_event_type
     row: 35
     col: 3
     width: 19
@@ -562,6 +539,7 @@
       Entrypoint Variation: channel_group_proportions_table.entrypoint_variation
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
+      Granular Event Type: channel_group_proportions_table.granular_event_type
     row: 4
     col: 16
     width: 8
@@ -633,6 +611,7 @@
       Entrypoint Variation: channel_group_proportions_table.entrypoint_variation
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
+      Granular Event Type: channel_group_proportions_table.granular_event_type
     row: 14
     col: 12
     width: 12
@@ -704,10 +683,40 @@
       Entrypoint Variation: channel_group_proportions_table.entrypoint_variation
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
+      Granular Event Type: channel_group_proportions_table.granular_event_type
     row: 14
     col: 0
     width: 12
     height: 6
+  - name: " (2)"
+    type: text
+    title_text: ''
+    body_text: |
+      <div style="border-radius: 5px; padding: 5px 10px; background: #FFFFFF; height: 60px; color: red;">
+
+      <nav style="font-size: 20px;">
+
+        <img style="color: #000000; padding: 5px 10px; float: left; height: 40px;" src="https://www.mozilla.org/media/img/logos/vpn/logo-with-wordmark.c1659f9e6dd6.svg"/>
+
+        <a style="color: #000000; border: 1px solid white; padding: 5px 80px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/501?Partition+Date=28+day&Country=&Channel+Group=&UTM+Medium=&UTM+Source=&UTM+Campaign=&UTM+Content=&UTM+Term=&Entrypoint+Experiment=&Entrypoint+Variation=&Pricing+Plan=&OS+Name=&OS+Version=">
+
+      User Journey</a>
+
+        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/499?Start%20Date=28%20day&Country=&Channel%20Group=&Provider=&Pricing%20Plan=&UTM%20Medium=&UTM%20Source=&UTM%20Campaign=&UTM%20Content=&Entrypoint%20Experiment=&Entrypoint%20Variation=">
+
+       New Subs</a>
+
+        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1_l-ZsbKsxRh7HGqtODz8w8eDBqkw2N9SIZxEE9qG-DQ/edit?usp=sharing">
+
+        Docs</a>
+
+      </nav>
+
+      </div>
+    row: 0
+    col: 0
+    width: 24
+    height: 2
   - title: New Subscription by Provider
     name: New Subscription by Provider
     model: mozilla_vpn
@@ -767,6 +776,7 @@
       Entrypoint Variation: channel_group_proportions_table.entrypoint_variation
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
+      Granular Event Type: channel_group_proportions_table.granular_event_type
     row: 20
     col: 0
     width: 12
@@ -827,6 +837,7 @@
       Entrypoint Variation: channel_group_proportions_table.entrypoint_variation
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
+      Granular Event Type: channel_group_proportions_table.granular_event_type
     row: 64
     col: 3
     width: 19
@@ -834,7 +845,6 @@
   - name: Coupon Usage Monitoring
     type: text
     title_text: Coupon Usage Monitoring
-    subtitle_text: ''
     body_text: "* [Suggested ways to monitor coupon usage](https://docs.google.com/document/d/1TbXKLuLmAN6Soz2o7qE3c-quz06i9qti3NfkV901X2E/edit?usp=sharing)\n\
       * User Tip: You may filter Coupon Code = \"is not null\" to only display the\
       \ subscriptions linked with a coupon\n* Leave a comment in [this ticket](https://mozilla-hub.atlassian.net/browse/DVPN-123)\
@@ -908,6 +918,7 @@
       Entrypoint Variation: channel_group_proportions_table.entrypoint_variation
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
+      Granular Event Type: channel_group_proportions_table.granular_event_type
     row: 71
     col: 3
     width: 19
@@ -1087,3 +1098,16 @@
     explore: channel_group_proportions_table
     listens_to_filters: []
     field: channel_group_proportions_table.coupon_code
+  - name: Granular Event Type
+    title: Granular Event Type
+    type: field_filter
+    default_value: New,Converted Trial
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: advanced
+      display: popover
+    model: mozilla_vpn
+    explore: channel_group_proportions_table
+    listens_to_filters: []
+    field: channel_group_proportions_table.granular_event_type
