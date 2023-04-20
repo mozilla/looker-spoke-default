@@ -17,7 +17,7 @@ view: +structured_missing_columns {
       }}{{
         '&bug_type=defect'
       }}{{
-        '&status_whiteboard=%5Bdata-quality%5D'
+        '&status_whiteboard=%5Bdataquality%5D'
       }}{{
         '&short_desc=structured+missing+columns+in+%60'
       }}{{

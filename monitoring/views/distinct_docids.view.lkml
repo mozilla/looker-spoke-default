@@ -76,7 +76,7 @@ view: distinct_docids {
       }}{{
         '&bug_type=defect'
       }}{{
-        '&status_whiteboard=%5Bdata-quality%5D'
+        '&status_whiteboard=%5Bdataquality%5D'
       }}{{
         '&short_desc=distinct+docId+mismatch+on+'
       }}{{

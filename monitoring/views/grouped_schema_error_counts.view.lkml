@@ -27,7 +27,7 @@ view: +schema_error_counts {
       }}{{
         '&bug_type=defect'
       }}{{
-        '&status_whiteboard=%5Bdata-quality%5D'
+        '&status_whiteboard=%5Bdataquality%5D'
       }}{{
         '&short_desc=schema+error+in+%60'
       }}{{
