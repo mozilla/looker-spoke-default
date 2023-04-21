@@ -1,9 +1,8 @@
 include: "../views//active_users_aggregates.view.lkml"
-include: "//looker-hub/combined_browser_metrics/datagroups/active_users_aggregates_v1_last_updated.datagroup.lkml"
 include: "/shared/views/*"
 
 explore: active_users_aggregates {
-  persist_with: active_users_aggregates_v1_last_updated
+  # persist_with: active_users_aggregates_v1_last_updated
   always_filter: {
     filters: [active_users_aggregates.app_name: "Firefox Desktop, Fenix, Fenix BrowserStack, Firefox iOS, Firefox iOS BrowserStack,
       Focus Android,  Focus iOS, Focus iOS BrowserStack",

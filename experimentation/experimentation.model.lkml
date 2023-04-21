@@ -356,3 +356,32 @@ explore: unenrollment_reasons {
       sql_on: ${preview.normalized_slug} LIKE CONCAT("%", REPLACE(${experimenter_experiments.normandy_slug}, "-", "_"), "%")  ;;
     }
   }
+
+  explore: analysis_statistics {
+    always_filter: {
+      filters: [
+        analysis_statistics.analysis_period: "daily",
+        analysis_statistics.slug: ""
+      ]
+    }
+  }
+
+  explore: analysis_aggregates {
+    always_filter: {
+      filters: [
+        analysis_aggregates.slug: "",
+        analysis_aggregates.analysis_basis: "enrollments",
+        analysis_aggregates.window_index: "1",
+        analysis_aggregates.analysis_period: "day",
+        analysis_aggregates.metric: ""
+      ]
+    }
+  }
+
+  explore: analysis_enrollments {
+    always_filter: {
+      filters: [
+        analysis_enrollments.slug: ""
+      ]
+    }
+  }
