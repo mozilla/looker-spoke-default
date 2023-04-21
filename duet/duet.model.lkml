@@ -20,5 +20,5 @@ explore: releases {
 }
 
 explore: kpi_dau {
-  sql_always_where: ${submission_date} >= "2022-01-01" ;;
+  sql_always_where: ${submission_date} >= "2022-01-01" AND ${period_filtered_measures} in ("this", "last");;
 }
