@@ -18,3 +18,5 @@ explore: releases {
     ]
   }
 }
+
+explore: kpi_dau {}
