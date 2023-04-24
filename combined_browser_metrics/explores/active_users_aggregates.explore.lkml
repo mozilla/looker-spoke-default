@@ -20,10 +20,10 @@ explore: active_users_aggregates {
       dimensions: [period_over_period_pivot, period_over_period_row, active_users_aggregates.app_name, active_users_aggregates.submission_date]
       measures: [daily_active_users, weekly_active_users, monthly_active_users, new_profile, ad_click, organic_search_counts, search_counts, search_with_ad, uri_counts, active_hour]
       filters: [
-        # active_users_aggregates.choose_breakdown: "Month^_Day",
-        # active_users_aggregates.choose_comparison: "Year",
+        active_users_aggregates.choose_breakdown: "Month^_Day",
+        active_users_aggregates.choose_comparison: "Year",
         active_users_aggregates.submission_date: "after 1 year ago",
-        # active_users_aggregates.ytd_only: "Yes"
+        active_users_aggregates.ytd_only: "Yes"
       ]
     }
 
