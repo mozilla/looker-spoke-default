@@ -59,7 +59,7 @@ view: +structured_missing_columns {
   measure: percent_change {
     label: "Diff % to two weeks ago"
     type: number
-    sql: (${path_count_last_week} - ${path_count_prev_week}) / nullif(${path_count_last_week}, 0)  ;;
+    sql: (${path_count_last_week} - ${path_count_prev_week}) / nullif(${path_count_prev_week}, 0)  ;;
     value_format_name: percent_2
   }
 }

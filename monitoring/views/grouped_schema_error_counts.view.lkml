@@ -64,7 +64,7 @@ view: +schema_error_counts {
   measure: percent_change {
     label: "Diff % to two weeks ago"
     type: number
-    sql: (${error_count_last_week} - ${error_count_prev_week}) / nullif(${error_count_last_week}, 0)  ;;
+    sql: (${error_count_last_week} - ${error_count_prev_week}) / nullif(${error_count_prev_week}, 0)  ;;
     value_format_name: percent_2
   }
 
