@@ -128,11 +128,34 @@ view: kpi_dau {
     filters: [period_filtered_measures: "last"]
   }
 
+  measure: dau_goal {
+    view_label: "KPI filtered metrics"
+    type: sum
+    sql: CASE WHEN ${country} = "CA" AND ${app_name} = "Firefox Desktop" THEN ${TABLE}.dau * .9679
+              WHEN ${country} = "IT" AND ${app_name} = "Firefox Desktop" THEN ${TABLE}.dau * .9565
+              WHEN ${country} = "PL" AND ${app_name} = "Firefox Desktop" THEN ${TABLE}.dau * .9576
+              WHEN ${country} = "US" AND ${app_name} = "Firefox Desktop" THEN ${TABLE}.dau * .9703
+              WHEN ${country} = "DE" AND ${app_name} = "Firefox Desktop" THEN ${TABLE}.dau * .9549
+              WHEN ${country} = "ES" AND ${app_name} = "Firefox Desktop" THEN ${TABLE}.dau * .98
+              WHEN ${country} = "FR" AND ${app_name} = "Firefox Desktop" THEN ${TABLE}.dau * .9685
+              WHEN ${country} = "GB" AND ${app_name} = "Firefox Desktop" THEN ${TABLE}.dau * .9679
+              WHEN ${country} NOT IN   ("US", "GB", "DE", "FR", "CA", "PL", "IT", "ES") AND ${app_name} = "Firefox Desktop" THEN ${TABLE}.dau * .9661
+              ELSE ${TABLE}.dau * 1.1 END;;
+    filters: [period_filtered_measures: "last"]
+  }
+
   measure:  unique_days_prefiltered {
     label: "Number of unique days in period"
     type: count_distinct
     sql: ${submission_date};;
     filters: [period_filtered_measures: "this"]
+  }
+
+  measure:  unique_days_prev_prefiltered {
+    label: "Number of unique days previous period"
+    type: count_distinct
+    sql: ${submission_date};;
+    filters: [period_filtered_measures: "last"]
   }
 
   measure:  unique_days {
@@ -183,4 +206,5 @@ view: kpi_dau {
               WHEN ${os} LIKE "%iOS%" THEN "iOS"
               ELSE "Other" END ;;
   }
+
 }
