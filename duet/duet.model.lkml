@@ -26,3 +26,7 @@ explore: kpi_dau {
 explore: kpi_downloads {
   sql_always_where: ${submission_date} >= "2022-01-01" AND ${period_filtered_measures} in ("this", "last") AND ${device_category} = "desktop" ;;
 }
+
+explore: kpi_installs{
+  sql_always_where: ${period_filtered_measures} in ("this", "last");;
+}
