@@ -12,4 +12,9 @@ view: +events {
     description: "message_state value (Addon identifier) in event_extra key = 'message_id' for event_name = 'addon_message_state_changed' "
     group_label: "Granular Event Category"
   }
+  dimension: guide_and_tutorial_id {
+    sql:  mozfun.map.get_key(${event_extra},'id');;
+    description: "id describing tutorial/guide in the value of event_extra key = 'id' for guide and tutorial related event e.g. 'tutorial_opened/closed'"
+    group_label: "Granular Event Category"
+  }
 }
