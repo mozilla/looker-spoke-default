@@ -33,8 +33,8 @@
     col: 0
     width: 24
     height: 2
-  - name: Mobile installs
-    title: Mobile installs
+  - name: Daily Mobile installs
+    title: Daily Mobile installs
     model: duet
     explore: kpi_installs
     type: looker_line
@@ -95,8 +95,8 @@
     col: 0
     width: 8
     height: 6
-  - name: Monthly Installs adjust
-    title: Monthly Installs adjust
+  - name: Monthly Mobile Installs
+    title: Monthly Mobile Installs
     model: duet
     explore: kpi_installs
     type: looker_line
@@ -154,8 +154,8 @@
     col: 8
     width: 8
     height: 6
-  - name: Quarterly installs Adjust
-    title: Quarterly installs Adjust
+  - name: Quarterly Mobile Installs
+    title: Quarterly Mobile Installs
     model: duet
     explore: kpi_installs
     type: looker_line
@@ -221,7 +221,7 @@
     fields: [kpi_installs.day_month, kpi_installs.current_period_installs, kpi_installs.previous_period_installs]
     filters:
       kpi_installs.compare_to: Year
-    sorts: [kpi_installs.current_period_installs desc]
+    sorts: [kpi_installs.day_month desc]
     limit: 500
     column_limit: 50
     dynamic_fields: [{category: table_calculation, expression: "(${kpi_installs.current_period_installs}\

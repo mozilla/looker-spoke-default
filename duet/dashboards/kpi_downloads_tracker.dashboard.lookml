@@ -112,8 +112,8 @@
     col: 15
     width: 5
     height: 4
-  - name: Quaterly desktop download kpi
-    title: Quaterly desktop download kpi
+  - name: Quaterly Desktop Downloads
+    title: Quaterly Desktop Downloads
     model: duet
     explore: kpi_downloads
     type: looker_line
@@ -171,8 +171,8 @@
     col: 16
     width: 8
     height: 6
-  - name: Monthly desktop download KPIs
-    title: Monthly desktop download KPIs
+  - name: Monthly Desktop Downloads
+    title: Monthly Desktop Downloads
     model: duet
     explore: kpi_downloads
     type: looker_line
@@ -230,8 +230,8 @@
     col: 8
     width: 8
     height: 6
-  - name: Desktop Download KPIs
-    title: Desktop Download KPIs
+  - name: Daily Desktop Downloads
+    title: Daily Desktop Downloads
     model: duet
     explore: kpi_downloads
     type: looker_line
