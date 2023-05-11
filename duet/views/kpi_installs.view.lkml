@@ -1,7 +1,7 @@
-include: "/websites/views/moz_org_metrics_summary.view.lkml"
+include: "//looker-hub/duet/views/firefox_mobile_installs.view.lkml"
+view: kpi_installs {
 
-view: kpi_downloads {
-  extends: [moz_org_metrics_summary]
+  extends: [firefox_mobile_installs]
 
   filter: current_date {
     type: date
@@ -16,7 +16,7 @@ view: kpi_downloads {
     type:  string
     hidden: no
     view_label: "KPI date axis"
-    sql: FORMAT_DATE("%m-%d", ${submission_date});;
+    sql: FORMAT_DATE("%m-%d", ${date_date});;
   }
 
   dimension: month {
@@ -24,7 +24,7 @@ view: kpi_downloads {
     type:  string
     hidden: no
     view_label: "KPI date axis"
-    sql: FORMAT_DATE("%m-%B", ${submission_date});;
+    sql: FORMAT_DATE("%m-%B", ${date_date});;
   }
 
   dimension: quarter_abr {
@@ -32,9 +32,9 @@ view: kpi_downloads {
     type:  string
     hidden: no
     view_label: "KPI date axis"
-    sql: CASE WHEN FORMAT_DATE("%m",  DATE_TRUNC(${submission_date}, QUARTER)) = "01" then "Q1"
-              WHEN FORMAT_DATE("%m",  DATE_TRUNC(${submission_date}, QUARTER)) = "04" then "Q2"
-              WHEN FORMAT_DATE("%m",  DATE_TRUNC(${submission_date}, QUARTER)) = "07" then "Q3"
+    sql: CASE WHEN FORMAT_DATE("%m",  DATE_TRUNC(${date_date}, QUARTER)) = "01" then "Q1"
+              WHEN FORMAT_DATE("%m",  DATE_TRUNC(${date_date}, QUARTER)) = "04" then "Q2"
+              WHEN FORMAT_DATE("%m",  DATE_TRUNC(${date_date}, QUARTER)) = "07" then "Q3"
               ELSE "Q4" end;;
   }
 
@@ -105,37 +105,67 @@ view: kpi_downloads {
     sql:
         {% if current_date._is_filtered %}
             CASE
-            WHEN DATE(${submission_date}) BETWEEN DATE(${first_date_in_period}) AND DATE(${filter_end_date}) THEN 'this'
-            WHEN DATE(${submission_date}) between ${period_2_start} and ${period_2_end} THEN 'last' END
+            WHEN DATE(${date_date}) BETWEEN DATE(${first_date_in_period}) AND DATE(${filter_end_date}) THEN 'this'
+            WHEN DATE(${date_date}) between ${period_2_start} and ${period_2_end} THEN 'last' END
         {% else %} NULL {% endif %} ;;
   }
 
-
-  measure: current_period_downloads {
+  measure: current_period_installs {
     view_label: "KPI filtered metrics"
     type: sum
-    sql: ${non_fx_downloads};;
+    sql: ${installs};;
     filters: [period_filtered_measures: "this"]
   }
 
-  measure: previous_period_downloads {
+  measure: previous_period_installs {
     view_label: "KPI filtered metrics"
     type: sum
-    sql: ${non_fx_downloads};;
+    sql: ${installs};;
     filters: [period_filtered_measures: "last"]
   }
 
   measure:  unique_days_prefiltered {
     label: "Number of unique days in period"
     type: count_distinct
-    sql: ${submission_date};;
+    sql: ${date_date};;
     filters: [period_filtered_measures: "this"]
   }
 
   measure:  unique_days_prev_prefiltered {
     label: "Number of unique days previous period"
     type: count_distinct
-    sql: ${submission_date};;
+    sql: ${date_date};;
+    filters: [period_filtered_measures: "last"]
+  }
+
+  measure: current_period_installs_nu {
+    view_label: "KPI filtered metrics"
+    label: "Total Current Period installs no UD"
+    type: sum
+    sql: CASE WHEN ${network} <> "Untrusted Devices" THEN ${installs} END;;
+    filters: [period_filtered_measures: "this"]
+  }
+
+  measure: previous_period_installs_nu {
+    view_label: "KPI filtered metrics"
+    label: "Total Prev Period installs no UD"
+    type: sum
+    sql: CASE WHEN ${network} <> "Untrusted Devices" THEN ${installs} END;;
+    filters: [period_filtered_measures: "last"]
+  }
+
+  measure: installs_goal {
+    view_label: "KPI filtered metrics"
+    type: sum
+    sql: CASE WHEN ${country} = "CA" THEN ${installs}  * 1.105
+              WHEN ${country} = "DE" THEN ${installs} * 1.103
+              WHEN ${country} = "FR" THEN ${installs} * 1.105
+              WHEN ${country} = "PL" THEN ${installs} * 1.077
+              WHEN ${country} = "IT" THEN ${installs} * 1.111
+              WHEN ${country} = "ES" THEN ${installs} * 1.118
+              WHEN ${country} = "GB" THEN ${installs} * 1.103
+              WHEN ${country} = "US" THEN ${installs} * 1.099
+              ELSE ${installs} * 1.112 END;;
     filters: [period_filtered_measures: "last"]
   }
 
@@ -143,30 +173,8 @@ view: kpi_downloads {
     description: "Normalizing country name to the names we want"
     type: string
     hidden: no
-    sql: CASE WHEN ${country} = "United States" THEN "US"
-              WHEN ${country} = "Germany" THEN "DE"
-              WHEN ${country} = "France" THEN "FR"
-              WHEN ${country} = "Poland" THEN "PL"
-              WHEN ${country} = "Italy" THEN "IT"
-              WHEN ${country} = "Spain" THEN "ES"
-              WHEN ${country} = "United Kingdom" THEN "GB"
-              WHEN ${country} = "Canada" THEN "CA"
+    sql: CASE WHEN ${country} IN ("US","DE", "FR","PL", "IT", "ES", "GB", "CA") THEN ${country}
               ELSE "Other" END ;;
-  }
-
-  measure: download_goal {
-    view_label: "KPI filtered metrics"
-    type: sum
-    sql: CASE WHEN ${country} = "Canada" THEN ${non_fx_downloads}  * 1.0375
-              WHEN ${country} = "Germany" THEN ${non_fx_downloads} * 1.099
-              WHEN ${country} = "France" THEN ${non_fx_downloads} * 1.0607
-              WHEN ${country} = "Poland" THEN ${non_fx_downloads} * 1.1011
-              WHEN ${country} = "Italy" THEN ${non_fx_downloads} * 1.093
-              WHEN ${country} = "Spain" THEN ${non_fx_downloads} * 1.0224
-              WHEN ${country} = "United Kingdom" THEN ${non_fx_downloads} * 1.0418
-              WHEN ${country} = "United States" THEN ${non_fx_downloads} * 1.428
-              ELSE ${non_fx_downloads} * 1.0102 END;;
-    filters: [period_filtered_measures: "last"]
   }
 
 }
