@@ -5,34 +5,6 @@
   description: ''
   preferred_slug: bYsXF5eYjbH1qmKUkUVlv3
   elements:
-  - name: " (8)"
-    type: text
-    title_text: ''
-    body_text: |
-      <div style="border-radius: 5px; padding: 5px 10px; background: #000000; height: 60px; color: red;">
-
-      <nav style="font-size: 18px;">
-
-        <img style="color: #efefef; padding: 5px 25px; float: left; height: 40px;" src="https://www.mozilla.org/media/protocol/img/logos/mozilla/logo-word-hor.e20791bb4dd4.svg"/>
-
-        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/duet::kpi_tracker_all_combined">
-
-       DAU KPIs</a>
-
-        <a style="color: #efefef;  padding: 5px 80px; float: left; line-height: 40px; font-weight: bold" href="https://mozilla.cloud.looker.com/dashboards/duet::kpi_downloads_tracker">
-
-      Desktop Downloads KPIs </a>
-
-        <a style="color: #efefef; padding: 5px 80px; float: left; line-height: 40px;font-weight: bold" href="https://mozilla.cloud.looker.com/dashboards/duet::kpi_installs_tracker">
-
-       Mobile Installs KPIs </a>
-      </nav>
-
-      </div>
-    row: 0
-    col: 0
-    width: 24
-    height: 2
   - name: Current 28-Day DAU
     title: Current 28-Day DAU
     model: duet
@@ -108,9 +80,9 @@
     series_types: {}
     listen:
       Platform: kpi_dau.Platform
-      Current_Date: kpi_dau.current_date
       Country_Filter: kpi_dau.country_filter
       OS_Filter: kpi_dau.os_filter
+      Current_Date: kpi_dau.current_date
     row: 5
     col: 4
     width: 4
@@ -194,9 +166,9 @@
     series_types: {}
     listen:
       Platform: kpi_dau.Platform
-      Current_Date: kpi_dau.current_date
       Country_Filter: kpi_dau.country_filter
       OS_Filter: kpi_dau.os_filter
+      Current_Date: kpi_dau.current_date
     row: 5
     col: 0
     width: 4
@@ -268,9 +240,9 @@
     series_types: {}
     listen:
       Platform: kpi_dau.Platform
-      Current_Date: kpi_dau.current_date
       Country_Filter: kpi_dau.country_filter
       OS_Filter: kpi_dau.os_filter
+      Current_Date: kpi_dau.current_date
     row: 5
     col: 8
     width: 4
@@ -284,7 +256,7 @@
       kpi_dau.dau_goal]
     filters:
       kpi_dau.compare_to: Year
-    sorts: [kpi_dau.day_month]
+    sorts: [kpi_dau.day_month desc]
     limit: 500
     column_limit: 50
     dynamic_fields: [{category: table_calculation, expression: "${kpi_dau.current_period_dau}/${kpi_dau.unique_days}",
@@ -312,7 +284,7 @@
     show_x_axis_label: true
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
-    x_axis_reversed: false
+    x_axis_reversed: true
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
@@ -339,9 +311,9 @@
     hidden_pivots: {}
     listen:
       Platform: kpi_dau.Platform
-      Current_Date: kpi_dau.current_date
       Country_Filter: kpi_dau.country_filter
       OS_Filter: kpi_dau.os_filter
+      Current_Date: kpi_dau.current_date
     row: 12
     col: 0
     width: 10
@@ -395,8 +367,8 @@
     hidden_pivots: {}
     listen:
       Platform: kpi_dau.Platform
-      Current_Date: kpi_dau.current_date
       Country_Filter: kpi_dau.country_filter
+      Current_Date: kpi_dau.current_date
     row: 35
     col: 13
     width: 10
@@ -450,9 +422,9 @@
     hidden_pivots: {}
     listen:
       Platform: kpi_dau.Platform
-      Current_Date: kpi_dau.current_date
       Country_Filter: kpi_dau.country_filter
       OS_Filter: kpi_dau.os_filter
+      Current_Date: kpi_dau.current_date
     row: 35
     col: 0
     width: 10
@@ -504,9 +476,9 @@
     series_types: {}
     listen:
       Platform: kpi_dau.Platform
-      Current_Date: kpi_dau.current_date
       Country_Filter: kpi_dau.country_filter
       OS_Filter: kpi_dau.os_filter
+      Current_Date: kpi_dau.current_date
     row: 12
     col: 12
     width: 10
@@ -578,9 +550,9 @@
     series_types: {}
     listen:
       Platform: kpi_dau.Platform
-      Current_Date: kpi_dau.current_date
       Country_Filter: kpi_dau.country_filter
       OS_Filter: kpi_dau.os_filter
+      Current_Date: kpi_dau.current_date
     row: 5
     col: 12
     width: 4
@@ -642,9 +614,9 @@
       kpi_dau.unique_days_prefiltered, kpi_dau.unique_days_prev_prefiltered]
     listen:
       Platform: kpi_dau.Platform
-      Current_Date: kpi_dau.current_date
       Country_Filter: kpi_dau.country_filter
       OS_Filter: kpi_dau.os_filter
+      Current_Date: kpi_dau.current_date
     row: 21
     col: 0
     width: 8
@@ -713,9 +685,9 @@
       kpi_dau.unique_days_prefiltered, kpi_dau.unique_days_prev_prefiltered]
     listen:
       Platform: kpi_dau.Platform
-      Current_Date: kpi_dau.current_date
       Country_Filter: kpi_dau.country_filter
       OS_Filter: kpi_dau.os_filter
+      Current_Date: kpi_dau.current_date
     row: 29
     col: 0
     width: 10
@@ -766,9 +738,9 @@
     series_types: {}
     listen:
       Platform: kpi_dau.Platform
-      Current_Date: kpi_dau.current_date
       Country_Filter: kpi_dau.country_filter
       OS_Filter: kpi_dau.os_filter
+      Current_Date: kpi_dau.current_date
     row: 29
     col: 13
     width: 10
@@ -818,9 +790,9 @@
     series_types: {}
     listen:
       Platform: kpi_dau.Platform
-      Current_Date: kpi_dau.current_date
       Country_Filter: kpi_dau.country_filter
       OS_Filter: kpi_dau.os_filter
+      Current_Date: kpi_dau.current_date
     row: 21
     col: 13
     width: 9
@@ -925,9 +897,9 @@
     series_types: {}
     listen:
       Platform: kpi_dau.Platform
-      Current_Date: kpi_dau.current_date
       Country_Filter: kpi_dau.country_filter
       OS_Filter: kpi_dau.os_filter
+      Current_Date: kpi_dau.current_date
     row: 5
     col: 16
     width: 4
@@ -949,13 +921,77 @@
     rich_content_json: '{"format":"slate"}'
     row: 0
     col: 0
-    width: 24
+    width: 17
     height: 5
+  - name: most recent available date DAU
+    title: most recent available date DAU
+    model: duet
+    explore: kpi_dau
+    type: single_value
+    fields: [kpi_dau.submission_date]
+    fill_fields: [kpi_dau.submission_date]
+    filters: {}
+    sorts: [kpi_dau.submission_date desc]
+    limit: 500
+    column_limit: 50
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: change
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: Most recent available date
+    comparison_label: YoY % change
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: normal
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    x_axis_zoom: true
+    y_axis_zoom: true
+    defaults_version: 1
+    hidden_fields: [28_day_ma_previous_period_dau, 28_day_ma_current_period_dau, percentage_change]
+    hidden_pivots: {}
+    series_types: {}
+    listen:
+      OS_Filter: kpi_dau.os_filter
+      Country_Filter: kpi_dau.country_filter
+      Platform: kpi_dau.Platform
+      Current_Date: kpi_dau.current_date
+    row: 0
+    col: 17
+    width: 6
+    height: 4
   filters:
   - name: Current_Date
     title: Current_Date
     type: field_filter
-    default_value: before 2023/04/21
+    default_value: before 2023/05/17
     allow_multiple_values: true
     required: false
     ui_config:
@@ -1012,7 +1048,7 @@
   - name: Platform
     title: Platform
     type: field_filter
-    default_value: ''
+    default_value: Desktop,Mobile
     allow_multiple_values: true
     required: false
     ui_config:
