@@ -1,2 +1,10 @@
 include: "../views/channel_group_proportions_table.view"
-explore: channel_group_proportions_table {}
+include: "/shared/views/*"
+explore: channel_group_proportions_table {
+
+  join: countries {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: UPPER(${channel_group_proportions_table.country})= ${countries.code} ;;
+  }
+}
