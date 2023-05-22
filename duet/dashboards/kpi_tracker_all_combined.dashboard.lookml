@@ -5,6 +5,34 @@
   description: ''
   preferred_slug: bYsXF5eYjbH1qmKUkUVlv3
   elements:
+  - name: " (8)"
+    type: text
+    title_text: ''
+    body_text: |
+      <div style="border-radius: 5px; padding: 5px 10px; background: #000000; height: 60px; color: red;">
+
+      <nav style="font-size: 18px;">
+
+        <img style="color: #efefef; padding: 5px 25px; float: left; height: 40px;" src="https://www.mozilla.org/media/protocol/img/logos/mozilla/logo-word-hor.e20791bb4dd4.svg"/>
+
+        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px; font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/duet::kpi_tracker_all_combined">
+
+       DAU KPIs</a>
+
+        <a style="color: #efefef; padding: 5px 80px; float: left; line-height: 40px; font-weight: bold" href="https://mozilla.cloud.looker.com/dashboards/duet::kpi_downloads_tracker">
+
+      Desktop Downloads KPIs </a>
+
+        <a style="color: #efefef; padding: 5px 80px; float: left; line-height: 40px;font-weight: bold" href="https://mozilla.cloud.looker.com/dashboards/duet::kpi_installs_tracker">
+
+       Mobile Installs KPIs </a>
+      </nav>
+
+      </div>
+    row: 0
+    col: 0
+    width: 24
+    height: 2
   - name: Current 28-Day DAU
     title: Current 28-Day DAU
     model: duet
