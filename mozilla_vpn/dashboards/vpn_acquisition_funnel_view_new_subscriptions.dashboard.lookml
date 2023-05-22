@@ -10,13 +10,29 @@
   - name: ''
     type: text
     title_text: ''
-    body_text: |2-
+    body_text: |
+      <div style="border-radius: 5px; padding: 5px 10px; background: #FFFFFF; height: 60px; color: red;">
 
-      <div style="border-top: solid 2px #e0e0e0;">
+      <nav style="font-size: 20px;">
 
-      <h3><b>Contact @yeonjoo for questions in #mozilla-vpn-data </b></h3>
-       <div style="border-bottom: solid 2px #e0e0e0;">
-    row: 2
+        <img style="color: #000000; padding: 5px 10px; float: left; height: 40px;" src="https://www.mozilla.org/media/img/logos/vpn/logo-with-wordmark.c1659f9e6dd6.svg"/>
+
+        <a style="color: #000000; border: 1px solid white; padding: 5px 80px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/501?Partition+Date=28+day&Country=&Channel+Group=&UTM+Medium=&UTM+Source=&UTM+Campaign=&UTM+Content=&UTM+Term=&Entrypoint+Experiment=&Entrypoint+Variation=&Pricing+Plan=&OS+Name=&OS+Version=">
+
+      User Journey</a>
+
+        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/499?Start%20Date=28%20day&Country=&Channel%20Group=&Provider=&Pricing%20Plan=&UTM%20Medium=&UTM%20Source=&UTM%20Campaign=&UTM%20Content=&Entrypoint%20Experiment=&Entrypoint%20Variation=">
+
+       New Subs</a>
+
+        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1_l-ZsbKsxRh7HGqtODz8w8eDBqkw2N9SIZxEE9qG-DQ/edit?usp=sharing">
+
+        Docs</a>
+
+      </nav>
+
+      </div>
+    row: 0
     col: 0
     width: 24
     height: 2
@@ -43,6 +59,7 @@
     refresh: 1 day
     listen:
       Granular Event Type: channel_group_proportions_table.granular_event_type
+      Region Name: countries.region_name
     row: 4
     col: 0
     width: 7
@@ -95,6 +112,8 @@
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
       Granular Event Type: channel_group_proportions_table.granular_event_type
+      Subregion Name: countries.subregion_name
+      Region Name: countries.region_name
     row: 4
     col: 7
     width: 9
@@ -207,6 +226,8 @@
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
       Granular Event Type: channel_group_proportions_table.granular_event_type
+      Subregion Name: countries.subregion_name
+      Region Name: countries.region_name
     row: 8
     col: 12
     width: 12
@@ -238,6 +259,8 @@
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
       Granular Event Type: channel_group_proportions_table.granular_event_type
+      Subregion Name: countries.subregion_name
+      Region Name: countries.region_name
     row: 8
     col: 0
     width: 12
@@ -354,6 +377,8 @@
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
       Granular Event Type: channel_group_proportions_table.granular_event_type
+      Subregion Name: countries.subregion_name
+      Region Name: countries.region_name
     row: 46
     col: 3
     width: 19
@@ -420,6 +445,8 @@
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
       Granular Event Type: channel_group_proportions_table.granular_event_type
+      Subregion Name: countries.subregion_name
+      Region Name: countries.region_name
     row: 53
     col: 3
     width: 19
@@ -504,6 +531,8 @@
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
       Granular Event Type: channel_group_proportions_table.granular_event_type
+      Subregion Name: countries.subregion_name
+      Region Name: countries.region_name
     row: 35
     col: 3
     width: 19
@@ -540,6 +569,8 @@
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
       Granular Event Type: channel_group_proportions_table.granular_event_type
+      Subregion Name: countries.subregion_name
+      Region Name: countries.region_name
     row: 4
     col: 16
     width: 8
@@ -612,6 +643,8 @@
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
       Granular Event Type: channel_group_proportions_table.granular_event_type
+      Subregion Name: countries.subregion_name
+      Region Name: countries.region_name
     row: 14
     col: 12
     width: 12
@@ -684,6 +717,8 @@
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
       Granular Event Type: channel_group_proportions_table.granular_event_type
+      Subregion Name: countries.subregion_name
+      Region Name: countries.region_name
     row: 14
     col: 0
     width: 12
@@ -691,29 +726,13 @@
   - name: " (2)"
     type: text
     title_text: ''
-    body_text: |
-      <div style="border-radius: 5px; padding: 5px 10px; background: #FFFFFF; height: 60px; color: red;">
+    body_text: |2-
 
-      <nav style="font-size: 20px;">
+      <div style="border-top: solid 2px #e0e0e0;">
 
-        <img style="color: #000000; padding: 5px 10px; float: left; height: 40px;" src="https://www.mozilla.org/media/img/logos/vpn/logo-with-wordmark.c1659f9e6dd6.svg"/>
-
-        <a style="color: #000000; border: 1px solid white; padding: 5px 80px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/501?Partition+Date=28+day&Country=&Channel+Group=&UTM+Medium=&UTM+Source=&UTM+Campaign=&UTM+Content=&UTM+Term=&Entrypoint+Experiment=&Entrypoint+Variation=&Pricing+Plan=&OS+Name=&OS+Version=">
-
-      User Journey</a>
-
-        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/499?Start%20Date=28%20day&Country=&Channel%20Group=&Provider=&Pricing%20Plan=&UTM%20Medium=&UTM%20Source=&UTM%20Campaign=&UTM%20Content=&Entrypoint%20Experiment=&Entrypoint%20Variation=">
-
-       New Subs</a>
-
-        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1_l-ZsbKsxRh7HGqtODz8w8eDBqkw2N9SIZxEE9qG-DQ/edit?usp=sharing">
-
-        Docs</a>
-
-      </nav>
-
-      </div>
-    row: 0
+      <h3><b>Contact @yeonjoo for questions in #mozilla-vpn-data </b></h3>
+       <div style="border-bottom: solid 2px #e0e0e0;">
+    row: 2
     col: 0
     width: 24
     height: 2
@@ -777,6 +796,8 @@
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
       Granular Event Type: channel_group_proportions_table.granular_event_type
+      Subregion Name: countries.subregion_name
+      Region Name: countries.region_name
     row: 20
     col: 0
     width: 12
@@ -838,6 +859,8 @@
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
       Granular Event Type: channel_group_proportions_table.granular_event_type
+      Subregion Name: countries.subregion_name
+      Region Name: countries.region_name
     row: 64
     col: 3
     width: 19
@@ -919,6 +942,8 @@
       Coupon Code: channel_group_proportions_table.coupon_code
       Channel Group: channel_group_proportions_table.channel_group
       Granular Event Type: channel_group_proportions_table.granular_event_type
+      Subregion Name: countries.subregion_name
+      Region Name: countries.region_name
     row: 71
     col: 3
     width: 19
@@ -938,6 +963,32 @@
     explore: channel_group_proportions_table
     listens_to_filters: []
     field: channel_group_proportions_table.subscription_start_date
+  - name: Region Name
+    title: Region Name
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: tag_list
+      display: popover
+    model: mozilla_vpn
+    explore: channel_group_proportions_table
+    listens_to_filters: []
+    field: countries.region_name
+  - name: Subregion Name
+    title: Subregion Name
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: tag_list
+      display: popover
+    model: mozilla_vpn
+    explore: channel_group_proportions_table
+    listens_to_filters: [Region Name]
+    field: countries.subregion_name
   - name: Country
     title: Country
     type: field_filter
@@ -951,7 +1002,7 @@
     model: mozilla_vpn
     explore: channel_group_proportions_table
     listens_to_filters: [Start Date, Channel Group, Provider, Pricing Plan, UTM Source,
-      Entrypoint Variation, Coupon Code]
+      Entrypoint Variation, Coupon Code, Subregion Name, Region Name]
     field: channel_group_proportions_table.country_name
   - name: Channel Group
     title: Channel Group
