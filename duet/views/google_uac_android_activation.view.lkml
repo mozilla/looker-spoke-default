@@ -79,6 +79,7 @@ view: google_uac_android_activation {
     datatype: date
     timeframes: [date, week, month, year]
     sql: ${TABLE}.date ;;
+    convert_tz: no
   }
 
   measure: new_profiles {
