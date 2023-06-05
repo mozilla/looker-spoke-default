@@ -33,7 +33,7 @@ view: google_uac_android_activation {
           CASE WHEN campaign LIKE '%_US_%' OR campaign LIKE '%_CA_%' OR campaign LIKE '%NA%' THEN 'NA' ELSE 'EU' END AS region,
           REGEXP_EXTRACT(campaign, '.*(Event\\d).*') as event,
           REGEXP_EXTRACT(campaign, '.*(Group\\d).*') as group_number,
-          REGEXP_EXTRACT(campaign, 'Mozilla_FF_UAC_[\\w]{2}_([\\w]{2})_[\\w]{2}_Group\\d_Event\\d') as country_code,
+          REGEXP_EXTRACT(campaign, 'Mozilla_FF_UAC_[\\w]{2}_([\\w]{2})_[\\w]{2}_Group\\d_Event\\d') as campaign_country_code,
           SUM(new_profiles) as new_profiles,
           SUM(activated) as activated,
           SUM(cost) as cost
@@ -64,10 +64,10 @@ view: google_uac_android_activation {
     sql: ${TABLE}.group_number ;;
   }
 
-  dimension: country_code {
+  dimension: campaign_country_code {
     description: "Country code from campaign name"
     type: string
-    sql: ${TABLE}.country_code ;;
+    sql: ${TABLE}.campaign_country_code ;;
   }
 
   dimension: campaign {
