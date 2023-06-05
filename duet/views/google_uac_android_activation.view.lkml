@@ -4,15 +4,13 @@ view: google_uac_android_activation {
     sql: WITH uac AS (
          SELECT
            date,
-           REGEXP_REPLACE(campaign_name, '(.*) - NULL', '\\1') as campaign,
-           SUM(spend) as cost
+           campaign_name as campaign,
+           spend as cost
          FROM
            mozdata.google_ads.daily_campaign_stats
          WHERE
             campaign_name NOT LIKE '%iOS%'
             AND date >= '2022-12-01'
-         GROUP BY
-            1, 2
         ), activation AS (
          SELECT
            first_seen_date as date,
@@ -20,11 +18,14 @@ view: google_uac_android_activation {
            SUM(activated) as activated,
            COUNT(*) as new_profiles,
          FROM `moz-fx-data-shared-prod.fenix.new_profile_activation`
-         WHERE submission_date >= '2022-12-01'
+         WHERE
+           submission_date >= '2022-12-01'
            AND first_seen_date >= '2022-12-01'
            AND adjust_network = 'Google Ads ACI'
            AND adjust_campaign LIKE 'Mozilla_%'
-         GROUP BY 1, 2
+         GROUP BY
+           date,
+           campaign
         )
         SELECT
           date,
@@ -39,7 +40,9 @@ view: google_uac_android_activation {
         FROM uac
         LEFT JOIN activation USING (date, campaign)
         WHERE date < DATE_ADD(CURRENT_DATE(), INTERVAL -7 DAY)
-        GROUP BY date, campaign
+        GROUP BY
+          date,
+          campaign
     ;;
   }
 
