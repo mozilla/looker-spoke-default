@@ -135,3 +135,158 @@ view: +newtab_visits_table__topsite_tile_interactions {
     type: sum
   }
 }
+
+view: +newtab_visits_table__pocket_interactions {
+
+  dimension: pocket_story_position {
+    primary_key: yes
+  }
+
+  dimension: pocket_impressions {
+    hidden: yes
+  }
+
+  dimension: sponsored_pocket_impressions {
+    hidden: yes
+  }
+
+  dimension: organic_pocket_impressions {
+    hidden: yes
+  }
+
+  dimension: pocket_clicks {
+    hidden: yes
+  }
+
+  dimension: sponsored_pocket_clicks {
+    hidden: yes
+  }
+
+  dimension: organic_pocket_clicks {
+    hidden: yes
+  }
+
+  dimension: pocket_saves {
+    hidden: yes
+  }
+
+  dimension: sponsored_pocket_saves {
+    hidden: yes
+  }
+
+  dimension: organic_pocket_saves {
+    hidden: yes
+  }
+
+  measure: sum_pocket_impressions {
+    sql: ${TABLE}.pocket_impressions ;;
+    type: sum
+  }
+
+  measure: sum_sponsored_pocket_impressions {
+    sql: ${TABLE}.sponsored_pocket_impressions ;;
+    type: sum
+  }
+
+  measure: sum_organic_pocket_impressions {
+    sql: ${TABLE}.organic_pocket_impressions ;;
+    type: sum
+  }
+
+  measure: sum_pocket_clicks {
+    sql: ${TABLE}.pocket_clicks ;;
+    type: sum
+  }
+
+  measure: sum_sponsored_pocket_clicks {
+    sql: ${TABLE}.sponsored_pocket_clicks ;;
+    type: sum
+  }
+
+  measure: sum_organic_pocket_clicks {
+    sql: ${TABLE}.organic_pocket_clicks ;;
+    type: sum
+  }
+
+  measure: sum_pocket_saves {
+    sql: ${TABLE}.pocket_saves ;;
+    type: sum
+  }
+
+  measure: sum_sponsored_pocket_saves {
+    sql: ${TABLE}.sponsored_pocket_saves ;;
+    type: sum
+  }
+}
+
+view: +newtab_visits_table__search_interactions {
+
+  dimension: primary_key {
+    sql: CONCAT(${search_engine}, ${search_access_point} ;;
+    hidden: yes
+    primary_key: yes
+  }
+
+  dimension: searches {
+    hidden: yes
+  }
+
+  dimension: tagged_search_ad_clicks {
+    hidden: yes
+  }
+
+  dimension: tagged_search_ad_impressions {
+    hidden: yes
+  }
+
+  dimension: follow_on_search_ad_clicks {
+    hidden: yes
+  }
+
+  dimension: follow_on_search_ad_impressions {
+    hidden: yes
+  }
+
+  dimension: tagged_follow_on_search_ad_clicks {
+    hidden: yes
+  }
+
+  dimension: tagged_follow_on_search_ad_impressions {
+    hidden: yes
+  }
+
+  measure: sum_searches {
+    sql: ${TABLE}.searches ;;
+    type: sum
+  }
+
+  measure: sum_tagged_search_ad_clicks {
+    sql: ${TABLE}.tagged_search_ad_clicks ;;
+    type: sum
+  }
+
+  measure: sum_tagged_search_ad_impressions {
+    sql: ${TABLE}.tagged_search_ad_impressions ;;
+    type: sum
+  }
+
+  measure: sum_follow_on_search_ad_clicks {
+    sql: ${TABLE}.follow_on_search_ad_clicks ;;
+    type: sum
+  }
+
+  measure: sum_follow_on_search_ad_impressions {
+    sql: ${TABLE}.follow_on_search_ad_impressions ;;
+    type: sum
+  }
+
+  measure: sum_tagged_follow_on_search_ad_clicks {
+    sql: ${TABLE}.tagged_follow_on_search_ad_clicks ;;
+    type: sum
+  }
+
+  measure: sum_tagged_follow_on_search_ad_impressions {
+    sql: ${TABLE}.tagged_follow_on_search_ad_impressions ;;
+    type: sum
+  }
+}

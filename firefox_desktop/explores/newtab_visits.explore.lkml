@@ -25,4 +25,17 @@ explore: newtab_visits {
     view_label: "Topsite Interactions"
     sql: LEFT JOIN UNNEST(${newtab_visits.topsite_tile_interactions}) AS newtab_visits_table__topsite_tile_interactions ;;
   }
+
+  join: newtab_visits_table__pocket_interactions {
+    relationship: one_to_many
+    view_label: "Pocket Interactions"
+    sql: LEFT JOIN UNNEST(${newtab_visits.pocket_interactions}) AS newtab_visits_table__pocket_interactions ;;
+  }
+
+  join: newtab_visits_table__search_interactions {
+    relationship: one_to_many
+    view_label: "Search Interactions"
+    sql: LEFT JOIN UNNEST(${newtab_visits.search_interactions}) AS newtab_visits_table__search_interactions ;;
+  }
+
 }
