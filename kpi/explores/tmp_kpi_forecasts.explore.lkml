@@ -8,7 +8,7 @@ explore: tmp_kpi_forecasts {
     filters: [
         tmp_kpi_forecasts.aggregation_period: "day",
         tmp_kpi_forecasts.measurement: "observed, p50",
-        tmp_kpi_forecasts.metric_alias: "desktop_dau,"
+        tmp_kpi_forecasts.metric_alias: "desktop_dau"
     ]
   }
 }

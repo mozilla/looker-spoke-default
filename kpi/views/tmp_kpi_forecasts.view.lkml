@@ -48,7 +48,7 @@ view: tmp_kpi_forecasts {
     label: "Measurement"
     description: "
     The measure whose value is being reported. This is always 'observed' for
-    historical data, but generally represents statistical measures, such as 'mean'
+    historical data, but for forecasts represents statistical measures, such as 'mean'
     or 'p50' (i.e. the median).
     "
     sql: ${TABLE}.measure ;;
