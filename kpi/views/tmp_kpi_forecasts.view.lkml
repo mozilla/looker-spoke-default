@@ -25,6 +25,16 @@ view: tmp_kpi_forecasts {
     sql: ${TABLE}.submission_date ;;
   }
 
+  dimension_group: submission_date {
+    type: time
+    datatype: date
+    timeframes: [date]
+    convert_tz: no
+    label: "Submission Date"
+    description: "The date we received pings from clients"
+    sql: ${TABLE}.submission_date ;;
+  }
+
   dimension: aggregation_period {
     type: string
     label: "Aggregation Period"
