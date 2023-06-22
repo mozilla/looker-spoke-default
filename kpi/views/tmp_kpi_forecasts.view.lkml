@@ -15,6 +15,7 @@ view: tmp_kpi_forecasts {
         FROM `moz-fx-data-shared-prod.telemetry_derived.kpi_forecasts_v0` AS forecasts
         JOIN most_recent_forecasts
        USING(aggregation_period, metric_alias, metric_hub_app_name, metric_hub_slug, forecast_predicted_at)
+       ORDER BY submission_date ASC
       ;;
   }
 
