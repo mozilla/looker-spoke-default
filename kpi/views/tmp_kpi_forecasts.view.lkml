@@ -68,14 +68,7 @@ view: tmp_kpi_forecasts {
     type: string
     label: "Metric Hub Slug"
     description: "The slug for the metric in Metric Hub."
-    sql: ${TABLE}.measure ;;
-  }
-
-  dimension: metric_start_date {
-    type: string
-    label: "Metric Hub Slug"
-    description: "The slug for the metric in Metric Hub."
-    sql: ${TABLE}.measure ;;
+    sql: ${TABLE}.metric_hub_slug ;;
   }
 
   dimension: metric_start_date {
