@@ -20,10 +20,9 @@ view: tmp_kpi_forecasts {
   }
 
   dimension: submission_date {
-    type: date
     label: "Submission Date"
     description: "The date we received pings from clients."
-    sql: DATE(${TABLE}.submission_date) ;;
+    sql: ${TABLE}.submission_date ;;
   }
 
   dimension: aggregation_period {
@@ -73,17 +72,15 @@ view: tmp_kpi_forecasts {
   }
 
   dimension: metric_start_date {
-    type: date
     label: "Metric Start Date"
     description: "The first metric date that was available for model training."
-    sql: DATE(${TABLE}.metric_start_date) ;;
+    sql: ${TABLE}.metric_start_date ;;
   }
 
   dimension: metric_end_date {
-    type: date
     label: "Metric End Date"
     description: "The final metric date that was available for model training."
-    sql: DATE(${TABLE}.metric_end_date) ;;
+    sql: ${TABLE}.metric_end_date ;;
   }
 
   dimension: metric_collected_at {
@@ -94,17 +91,15 @@ view: tmp_kpi_forecasts {
   }
 
   dimension: forecast_start_date {
-    type: date
     label: "Forecast Start Date"
     description: "The first date that was forecasted."
-    sql: DATE(${TABLE}.forecast_start_date) ;;
+    sql: ${TABLE}.forecast_start_date ;;
   }
 
   dimension: forecast_end_date {
-    type: date
     label: "Forecast End Date"
     description: "The final date that was forecasted."
-    sql: DATE(${TABLE}.forecast_end_date) ;;
+    sql: ${TABLE}.forecast_end_date ;;
   }
 
   dimension: forecast_trained_at {
