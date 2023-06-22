@@ -117,7 +117,7 @@ view: tmp_kpi_forecasts {
   }
 
   measure: value {
-    type: number
+    type: average
     label: "Value"
     description: "The value of a particular Measurement."
     sql: ${TABLE}.value ;;
