@@ -75,35 +75,11 @@ view: tmp_kpi_forecasts {
     sql: ${TABLE}.metric_hub_slug ;;
   }
 
-  dimension: metric_start_date {
-    label: "Metric Start Date"
-    description: "The first metric date that was available for model training."
-    sql: ${TABLE}.metric_start_date ;;
-  }
-
-  dimension: metric_end_date {
-    label: "Metric End Date"
-    description: "The final metric date that was available for model training."
-    sql: ${TABLE}.metric_end_date ;;
-  }
-
   dimension: metric_collected_at {
     type: date_time
     label: "Metric Collected At"
     description: "The time that the metric was queried from its source dataset."
     sql: ${TABLE}.metric_collected_at ;;
-  }
-
-  dimension: forecast_start_date {
-    label: "Forecast Start Date"
-    description: "The first date that was forecasted."
-    sql: ${TABLE}.forecast_start_date ;;
-  }
-
-  dimension: forecast_end_date {
-    label: "Forecast End Date"
-    description: "The final date that was forecasted."
-    sql: ${TABLE}.forecast_end_date ;;
   }
 
   dimension: forecast_trained_at {
@@ -121,7 +97,7 @@ view: tmp_kpi_forecasts {
   }
 
   measure: value {
-    type: average
+    type: numeric
     label: "Value"
     description: "The value of a particular Measurement."
     sql: ${TABLE}.value ;;
