@@ -8,7 +8,7 @@ view: tmp_kpi_forecasts {
                metric_hub_slug,
                MAX(forecast_predicted_at) AS forecast_predicted_at
           FROM `moz-fx-data-shared-prod.telemetry_derived.kpi_forecasts_v0`
-         GROUP BY 1, 2, 3, 4
+         GROUP BY aggregation_period, metric_alias, metric_hub_app_name, metric_hub_slug
       )
       
       SELECT forecasts.* EXCEPT(forecast_parameters)
