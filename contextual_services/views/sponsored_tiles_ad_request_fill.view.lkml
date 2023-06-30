@@ -6,7 +6,7 @@ view: +sponsored_tiles_ad_request_fill {
     hidden: yes
   }
 
-  measure: adm_empty_response_sum {
+  measure: amp_empty_response_sum {
     sql: ${TABLE}.adm_empty_response_sum ;;
     type: sum
   }
@@ -15,7 +15,7 @@ view: +sponsored_tiles_ad_request_fill {
     hidden: yes
   }
 
-  measure: adm_request_sum {
+  measure: amp_request_sum {
     sql: ${TABLE}.adm_request_sum ;;
     type: sum
   }
@@ -24,7 +24,7 @@ view: +sponsored_tiles_ad_request_fill {
     hidden:  yes
   }
 
-  measure: adm_response_rate {
+  measure: amp_response_rate {
     sql: ${TABLE}.adm_response_rate ;;
     type: sum
   }
@@ -33,7 +33,7 @@ view: +sponsored_tiles_ad_request_fill {
     hidden:  yes
   }
 
-  measure: adm_response_tiles_min {
+  measure: amp_response_tiles_min {
     sql: ${TABLE}.adm_response_tiles_min ;;
     type: min
   }
