@@ -3,8 +3,8 @@ include: "/contextual_services/views/sponsored_tiles_ad_request_fill.view.lkml"
 explore: sponsored_tiles_ad_request_fill {
 
   view_name: sponsored_tiles_ad_request_fill
-  view_label: "Sponsored Tiles ad request fill"
-  description: "Sponsored tiles advertising request fill rate from advertising partners."
+  view_label: "Sponsored Tiles Ad Request Fill"
+  description: "Sponsored Tiles adMarketplace advertiser request fill and related metrics."
 
   # always_filter: {
   #   filters: [
