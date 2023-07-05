@@ -17,7 +17,7 @@ explore: +growth_accounting {
   }
 }
 
-explore: +event_counts {
+explore: +all_event_counts {
   always_filter: {
     filters: [events.submission_date: "14 days"]
   }
