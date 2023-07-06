@@ -39,7 +39,6 @@
     interpolation: linear
     x_axis_label: Date
     label_value_format: ''
-    series_types: {}
     x_axis_datetime_label: "%d-%b-'%y"
     defaults_version: 1
     listen:
@@ -48,6 +47,7 @@
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
+      Product Name: active_subscriptions.product_name
     row: 9
     col: 8
     width: 16
@@ -75,7 +75,6 @@
     conditional_formatting: [{type: greater than, value: 0, background_color: "#bcb8ff",
         font_color: !!null '', color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
         bold: false, italic: false, strikethrough: false, fields: !!null ''}]
-    series_types: {}
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -109,6 +108,7 @@
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
+      Product Name: active_subscriptions.product_name
     row: 9
     col: 0
     width: 8
@@ -127,7 +127,6 @@
   - name: " (2)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: "<div style='background-color: #ffffdd; padding: 5px 10px; border:\
       \ solid 3px #ededed; border-radius: 5px; height:150px'>\n\nThis dashboard captures\
       \ the current state and monthly trend of <strong>active subscriptions</strong>.\n\
@@ -147,9 +146,15 @@
     fill_fields: [metadata.last_modified_date]
     sorts: [metadata.last_modified_date desc]
     limit: 1
-    dynamic_fields: [{category: table_calculation, expression: 'add_days(-1, ${metadata.last_modified_date})',
-        label: New Calculation, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: dimension, table_calculation: new_calculation, _type_hint: date}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: add_days(-1, ${metadata.last_modified_date})
+      label: New Calculation
+      value_format:
+      value_format_name:
+      _kind_hint: dimension
+      table_calculation: new_calculation
+      _type_hint: date
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -163,7 +168,6 @@
     conditional_formatting: [{type: not equal to, value: 0, background_color: "#cdbfff",
         font_color: !!null '', color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
         bold: false, italic: false, strikethrough: false, fields: !!null ''}]
-    series_types: {}
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -198,6 +202,7 @@
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
+      Product Name: active_subscriptions.product_name
     row: 2
     col: 19
     width: 5
@@ -271,7 +276,6 @@
       options:
         steps: 5
     x_axis_label: Month
-    series_types: {}
     series_colors: {}
     defaults_version: 1
     note_state: collapsed
@@ -285,6 +289,7 @@
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
+      Product Name: active_subscriptions.product_name
     row: 53
     col: 13
     width: 11
@@ -298,9 +303,16 @@
     sorts: [active_subscriptions.active_date desc]
     limit: 3
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "(${active_subscriptions.count_sum}-offset(${active_subscriptions.count_sum},\
-          \ 1))", label: delta_1_day, value_format: !!null '', value_format_name: '',
-        _kind_hint: measure, table_calculation: delta_1_day, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "(${active_subscriptions.count_sum}-offset(${active_subscriptions.count_sum},\
+        \ 1))"
+      label: delta_1_day
+      value_format:
+      value_format_name: ''
+      _kind_hint: measure
+      table_calculation: delta_1_day
+      _type_hint: number
     custom_color_enabled: true
     show_single_value_title: false
     show_comparison: true
@@ -319,7 +331,6 @@
           than, value: 0, background_color: '', font_color: "#008000", color_application: {
           collection_id: mozilla, palette_id: mozilla-sequential-0}, bold: false,
         italic: false, strikethrough: false, fields: !!null ''}]
-    series_types: {}
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -363,6 +374,7 @@
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
+      Product Name: active_subscriptions.product_name
     row: 16
     col: 0
     width: 4
@@ -376,9 +388,16 @@
     sorts: [active_subscriptions.active_date desc]
     limit: 10
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "(${active_subscriptions.count_sum}-offset(${active_subscriptions.count_sum},\
-          \ 7))", label: delta_7_days, value_format: !!null '', value_format_name: '',
-        _kind_hint: measure, table_calculation: delta_7_days, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "(${active_subscriptions.count_sum}-offset(${active_subscriptions.count_sum},\
+        \ 7))"
+      label: delta_7_days
+      value_format:
+      value_format_name: ''
+      _kind_hint: measure
+      table_calculation: delta_7_days
+      _type_hint: number
     custom_color_enabled: true
     show_single_value_title: false
     show_comparison: true
@@ -397,7 +416,6 @@
           than, value: 0, background_color: '', font_color: "#008000", color_application: {
           collection_id: mozilla, palette_id: mozilla-sequential-0}, bold: false,
         italic: false, strikethrough: false, fields: !!null ''}]
-    series_types: {}
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -441,6 +459,7 @@
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
+      Product Name: active_subscriptions.product_name
     row: 16
     col: 4
     width: 4
@@ -510,7 +529,6 @@
     stacking: ''
     limit_displayed_rows: false
     legend_position: center
-    series_types: {}
     point_style: none
     label_density: 25
     x_axis_scale: auto
@@ -549,6 +567,7 @@
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
+      Product Name: active_subscriptions.product_name
     row: 23
     col: 0
     width: 13
@@ -592,7 +611,6 @@
     stacking: ''
     limit_displayed_rows: false
     legend_position: center
-    series_types: {}
     point_style: none
     label_density: 25
     x_axis_scale: auto
@@ -631,6 +649,7 @@
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
+      Product Name: active_subscriptions.product_name
     row: 45
     col: 13
     width: 11
@@ -638,7 +657,6 @@
   - name: " (4)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |
       <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px; color: red;">
 
@@ -694,7 +712,6 @@
   - name: " (6)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
@@ -748,7 +765,6 @@
       options:
         steps: 5
     x_axis_label: Month
-    series_types: {}
     series_colors:
       1-month-usd-4.99 - active_subscriptions.count_sum: "#7363A9"
       6-month-chf-47.94 - active_subscriptions.count_sum: "#82a6a8"
@@ -766,6 +782,7 @@
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
+      Product Name: active_subscriptions.product_name
     row: 30
     col: 13
     width: 11
@@ -836,7 +853,6 @@
     stacking: ''
     limit_displayed_rows: false
     legend_position: center
-    series_types: {}
     point_style: none
     label_density: 25
     x_axis_scale: auto
@@ -875,6 +891,7 @@
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
+      Product Name: active_subscriptions.product_name
     row: 23
     col: 13
     width: 11
@@ -924,7 +941,6 @@
       options:
         steps: 5
     x_axis_label: Month
-    series_types: {}
     series_colors:
       1-month-usd-4.99 - active_subscriptions.count_sum: "#7363A9"
       1-month-apple - active_subscriptions.count_sum: "#4276BE"
@@ -964,6 +980,7 @@
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
+      Product Name: active_subscriptions.product_name
     row: 30
     col: 0
     width: 13
@@ -1037,7 +1054,6 @@
     stacking: ''
     limit_displayed_rows: false
     legend_position: center
-    series_types: {}
     point_style: none
     label_density: 25
     x_axis_scale: auto
@@ -1079,6 +1095,7 @@
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
+      Product Name: active_subscriptions.product_name
     row: 45
     col: 0
     width: 13
@@ -1129,7 +1146,6 @@
       options:
         steps: 5
     x_axis_label: Month
-    series_types: {}
     series_colors:
       USA - active_subscriptions.count_sum: "#347be3"
       United Kingdom - active_subscriptions.count_sum: "#a9c574"
@@ -1171,6 +1187,7 @@
       Country: active_subscriptions.country_name
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
+      Product Name: active_subscriptions.product_name
     row: 53
     col: 0
     width: 13
@@ -1246,3 +1263,16 @@
     explore: active_subscriptions
     listens_to_filters: [Active Date, Country, Pricing Plan, Provider]
     field: active_subscriptions.plan_interval_type
+  - name: Product Name
+    title: Product Name
+    type: field_filter
+    default_value: Mozilla VPN,Mozilla VPN & Firefox Relay
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: advanced
+      display: popover
+    model: mozilla_vpn
+    explore: active_subscriptions
+    listens_to_filters: []
+    field: active_subscriptions.product_name
