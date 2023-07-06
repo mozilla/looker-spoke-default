@@ -15,6 +15,7 @@ explore: subscription_events {
     relationship: one_to_one
   }
 }
+
 #Add aggregate tables lookML from Relay SaaSboard - Subscriptions Growth
 
 explore: +subscription_events {
