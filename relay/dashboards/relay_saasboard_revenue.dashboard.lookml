@@ -84,7 +84,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 22
+    row: 32
     col: 0
     width: 12
     height: 9
@@ -160,7 +160,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 13
+    row: 23
     col: 0
     width: 12
     height: 9
@@ -232,7 +232,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 13
+    row: 23
     col: 12
     width: 12
     height: 9
@@ -292,7 +292,7 @@
     note_display: below
     hidden_fields: [metadata.last_modified_date]
     listen: {}
-    row: 0
+    row: 1
     col: 18
     width: 6
     height: 4
@@ -368,7 +368,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 4
+    row: 14
     col: 0
     width: 12
     height: 9
@@ -440,7 +440,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 4
+    row: 14
     col: 12
     width: 12
     height: 9
@@ -455,10 +455,120 @@
       submit any questions to "},{"text":"@yeonjoo","bold":true},{"text":" in "},{"text":"#fx-private-relay
       ","bold":true},{"text":"channel on Slack. \n \n\n"}]}]'
     rich_content_json: '{"format":"slate"}'
-    row: 0
+    row: 1
     col: 0
     width: 18
     height: 4
+  - type: button
+    name: button_13661
+    rich_content_json: '{"text":"Relay SaaSboard Documentation","description":"User
+      guide/definitions of metrics/event logs that may have affected Relay data.","newTab":true,"alignment":"center","size":"medium","style":"FILLED","color":"#1A73E8","href":"https://docs.google.com/document/d/1attwr_1afDim9v-h4eDbA5XL09yKZez-RddSO-A0P8U/edit?usp=sharing"}'
+    row: 0
+    col: 0
+    width: 13
+    height: 1
+  - type: button
+    name: button_13662
+    rich_content_json: '{"text":"SaaSboard Explained","description":"This deck explains
+      how the subscription data is recorded in databases and how metrics are counted
+      to load in the SaaSBoard.","newTab":true,"alignment":"center","size":"medium","style":"FILLED","color":"#1A73E8","href":"https://docs.google.com/presentation/d/1Y3lDe1IktTbF-Xaw8dmlcNgWMhRosyH3p9G6ITQBPhc/edit?usp=sharing"}'
+    row: 0
+    col: 13
+    width: 11
+    height: 1
+  - title: Monthly Recurring Revenue(MRR) and Average Revenue Per Unit(ARPU)
+    name: Monthly Recurring Revenue(MRR) and Average Revenue Per Unit(ARPU)
+    model: relay
+    explore: active_subscriptions
+    type: looker_column
+    fields: [active_subscriptions.active_month, active_subscriptions.monthly_recurring_revenue,
+      active_subscriptions.count_sum]
+    fill_fields: [active_subscriptions.active_month]
+    filters:
+      active_subscriptions.is_end_of_month: 'Yes'
+    sorts: [active_subscriptions.active_month desc]
+    limit: 500
+    column_limit: 50
+    dynamic_fields: [{category: table_calculation, label: "% change from previous\
+          \ month", value_format: !!null '', value_format_name: percent_0, calculation_type: percent_difference_from_previous,
+        table_calculation: change_from_previous_month, args: [active_subscriptions.monthly_recurring_revenue],
+        _kind_hint: measure, _type_hint: number, is_disabled: true}, {category: table_calculation,
+        expression: "${active_subscriptions.monthly_recurring_revenue}/${active_subscriptions.count_sum}",
+        label: ARPU(MRR/EoM Active subs), value_format: !!null '', value_format_name: decimal_1,
+        _kind_hint: measure, table_calculation: arpumrreom_active_subs, _type_hint: number}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: normal
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: circle
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: desc
+    show_null_labels: false
+    show_totals_labels: true
+    show_silhouette: false
+    totals_color: "#808080"
+    color_application:
+      collection_id: legacy
+      palette_id: looker_classic
+      options:
+        steps: 5
+        reverse: false
+    y_axes: [{label: "$ in thousands", orientation: left, series: [{axisId: active_subscriptions.monthly_recurring_revenue,
+            id: active_subscriptions.monthly_recurring_revenue, name: Monthly Recurring
+              Revenue}], showLabels: true, showValues: true, valueFormat: '$#, "K"',
+        unpinAxis: false, tickDensity: default, tickDensityCustom: 34, type: linear},
+      {label: ARPU in $, orientation: right, series: [{axisId: arpumrreom_active_subs,
+            id: arpumrreom_active_subs, name: ARPU(MRR/EoM Active subs)}], showLabels: true,
+        showValues: true, valueFormat: "$0.0", unpinAxis: false, tickDensity: default,
+        type: linear}]
+    x_axis_label: Month
+    x_axis_zoom: true
+    y_axis_zoom: true
+    font_size: 13px
+    label_value_format: $0.0, "K"
+    series_types:
+      percent_change_from_previous_active_subscriptions_monthly_recurring_revenue: line
+      change_from_previous_month: line
+      arpumrreom_active_subs: line
+    series_colors:
+      USA - active_subscriptions.annual_recurring_revenue: "#347be3"
+    x_axis_datetime_label: ''
+    trend_lines: []
+    show_null_points: true
+    interpolation: linear
+    defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: Country is based on customer billing address.
+    hidden_pivots: {}
+    hidden_fields: [active_subscriptions.count_sum]
+    listen:
+      Provider: active_subscriptions.provider
+      Pricing Plan: active_subscriptions.pricing_plan
+      Country: active_subscriptions.country_name
+      Active Date: active_subscriptions.active_date
+      Plan Type: active_subscriptions.plan_type
+      Product Name: active_subscriptions.product_name
+    row: 5
+    col: 0
+    width: 24
+    height: 9
   filters:
   - name: Provider
     title: Provider

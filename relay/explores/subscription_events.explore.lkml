@@ -15,7 +15,8 @@ explore: subscription_events {
     relationship: one_to_one
   }
 }
-# # Add aggregate tables lookML from Relay SaaSboard - Subscriptions Growth
+
+#Add aggregate tables lookML from Relay SaaSboard - Subscriptions Growth
 
 explore: +subscription_events {
   aggregate_table: rollup__country_name__event_date__granular_event_type__plan_type__pricing_plan__product_name__provider__0 {
