@@ -1,6 +1,6 @@
-include: "//looker-hub/firefox_accounts/views/all_events.view.lkml"
+include: "//looker-hub/firefox_accounts/views/events.view.lkml"
 
-view: +all_events {
+view: +events {
   dimension_group: submission {
     type: time
     sql: ${TABLE}.timestamp ;;
