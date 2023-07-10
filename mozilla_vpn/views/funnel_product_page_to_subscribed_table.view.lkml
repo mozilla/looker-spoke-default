@@ -34,19 +34,19 @@ view: +funnel_product_page_to_subscribed_table {
   measure: CTR_from_product_page_visit_to_entering_subscription_flow {
     type: number
     sql: CASE WHEN SUM(${TABLE}.vpn_site_hits)= 0 then 0
-            ELSE round(cast(SUM(${TABLE}.total_acquisition_process_start)/SUM(${TABLE}.vpn_site_hits) *100 AS Float64))
+            ELSE round(cast(SUM(${TABLE}.total_acquisition_process_start)/SUM(${TABLE}.vpn_site_hits) *100 AS Float64),1)
             END;;
   }
   measure:CVR_from_product_page_visit_to_payment_complete {
-    type: average
-    sql:CASE WHEN ${TABLE}.vpn_site_hits = 0 then 0
-            ELSE round(cast(${TABLE}.total_payment_setup_complete/${TABLE}.vpn_site_hits *100 AS Float64))
+    type: number
+    sql:CASE WHEN SUM(${TABLE}.vpn_site_hits) = 0 then 0
+            ELSE round(cast(SUM(${TABLE}.total_payment_setup_complete)/SUM(${TABLE}.vpn_site_hits) *100 AS Float64),1)
             END;;
   }
   measure: CVR_from_payment_page_visit_to_payment_complete {
     type: number
     sql:CASE WHEN SUM(${TABLE}.total_acquisition_process_start)= 0 then 0
-      ELSE round(cast(SUM(${TABLE}.total_payment_setup_complete)/SUM(${TABLE}.total_acquisition_process_start) *100 AS Float64))
+      ELSE round(cast(SUM(${TABLE}.total_payment_setup_complete)/SUM(${TABLE}.total_acquisition_process_start) *100 AS Float64),1)
       END;;
   }
   #FxA signed in
@@ -75,7 +75,7 @@ view: +funnel_product_page_to_subscribed_table {
   measure: signed_in_fxa_CVR {
     type: number
     sql:CASE WHEN SUM(${TABLE}.existing_fxa_signedin_payment_setup_view) = 0 then 0
-      ELSE round(cast(SUM(${TABLE}.existing_fxa_signedin_payment_setup_complete)/SUM(${TABLE}.existing_fxa_signedin_payment_setup_view) *100 AS Float64))
+      ELSE round(cast(SUM(${TABLE}.existing_fxa_signedin_payment_setup_complete)/SUM(${TABLE}.existing_fxa_signedin_payment_setup_view) *100 AS Float64),1)
       END;;
   }
 
@@ -111,7 +111,7 @@ view: +funnel_product_page_to_subscribed_table {
   measure: signed_out_fxa_CVR {
     type: number
     sql:CASE WHEN SUM(${TABLE}.existing_fxa_signedoff_signin_cta_click) = 0 then 0
-        ELSE round(cast(SUM(${TABLE}.existing_fxa_signedoff_payment_setup_complete)/SUM(${TABLE}.existing_fxa_signedoff_signin_cta_click) *100 AS Float64))
+        ELSE round(cast(SUM(${TABLE}.existing_fxa_signedoff_payment_setup_complete)/SUM(${TABLE}.existing_fxa_signedoff_signin_cta_click) *100 AS Float64),1)
         END;;
   }
 #new fxa users
@@ -139,7 +139,7 @@ view: +funnel_product_page_to_subscribed_table {
   measure: new_fxa_CVR {
     type: number
     sql: CASE WHEN SUM(${TABLE}.new_fxa_user_input_emails) = 0 then 0
-            ELSE round(cast(SUM(${TABLE}.new_fxa_payment_setup_complete)/SUM(${TABLE}.new_fxa_user_input_emails) *100 AS Float64))
+            ELSE round(cast(SUM(${TABLE}.new_fxa_payment_setup_complete)/SUM(${TABLE}.new_fxa_user_input_emails) *100 AS Float64),1)
             END;;
   }
   #Coupon activities
