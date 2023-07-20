@@ -18,6 +18,7 @@ view: google_uac_android_activation {
          SELECT
            first_seen_date as date,
            REGEXP_REPLACE(adjust_campaign, '([\\w]+).*', '\\1') as campaign,
+           -- From e.g. "EN Ad Group - Benchmark (1234)" to "En Ad Group"
            REGEXP_REPLACE(REGEXP_REPLACE(adjust_adgroup, '(.*) \\([\\d]+\\)', '\\1'), ' - benchmark$', '') as ad_group,
            SUM(activated) as activated,
            COUNT(*) as new_profiles,
