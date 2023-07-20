@@ -5,7 +5,7 @@ view: google_uac_android_activation {
          SELECT
            date,
            REGEXP_REPLACE(campaign_name, '(.*) - NULL', '\\1') as campaign,
-           ad_group_name as ad_group,
+           REGEXP_REPLACE(ad_group_name, ' - benchmark$', '') as ad_group,
            spend as cost,
            clicks,
            impressions,
@@ -18,7 +18,8 @@ view: google_uac_android_activation {
          SELECT
            first_seen_date as date,
            REGEXP_REPLACE(adjust_campaign, '([\\w]+).*', '\\1') as campaign,
-           adjust_adgroup as ad_group,
+           -- From e.g. "EN Ad Group - Benchmark (1234)" to "En Ad Group"
+           REGEXP_REPLACE(REGEXP_REPLACE(adjust_adgroup, '(.*) \\([\\d]+\\)', '\\1'), ' - benchmark$', '') as ad_group,
            SUM(activated) as activated,
            COUNT(*) as new_profiles,
          FROM `moz-fx-data-shared-prod.fenix.new_profile_activation`
