@@ -19,7 +19,7 @@
     row: 2
     col: 0
     width: 24
-    height: 2
+    height: 3
   - title: Last Updated Date
     name: Last Updated Date
     model: mozilla_vpn
@@ -43,7 +43,7 @@
     listen:
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Region Name: countries.region_name
-    row: 4
+    row: 10
     col: 0
     width: 7
     height: 4
@@ -110,7 +110,7 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 4
+    row: 10
     col: 7
     width: 9
     height: 4
@@ -223,7 +223,7 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 8
+    row: 14
     col: 12
     width: 12
     height: 6
@@ -255,7 +255,7 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 8
+    row: 14
     col: 0
     width: 12
     height: 6
@@ -270,7 +270,7 @@
       \ logging system missing a part or all of utm parameters consisting of attributions.\
       \ If the rates of those two groups increase, then it can be a sign of a problem\
       \ for the system passing the data. "
-    row: 42
+    row: 48
     col: 0
     width: 24
     height: 4
@@ -294,7 +294,7 @@
       \ be that some of the attribution parameters got lost or attributions that were\
       \ not well documented.  \n* For a more detailed explanation for the categorization\
       \ of the channel groups, please refer to [this documentation](https://docs.google.com/document/d/1ojf1XHb3Iu5GNzMfozDcxWhEw6d9A4QuiaoAm-gDIrk/edit?usp=sharing). "
-    row: 26
+    row: 32
     col: 0
     width: 24
     height: 9
@@ -395,7 +395,7 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 46
+    row: 52
     col: 3
     width: 19
     height: 7
@@ -485,7 +485,7 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 53
+    row: 59
     col: 3
     width: 19
     height: 8
@@ -592,7 +592,7 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 35
+    row: 41
     col: 3
     width: 19
     height: 7
@@ -629,7 +629,7 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 4
+    row: 10
     col: 16
     width: 8
     height: 4
@@ -725,7 +725,7 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 14
+    row: 20
     col: 12
     width: 12
     height: 6
@@ -821,7 +821,7 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 14
+    row: 20
     col: 0
     width: 12
     height: 6
@@ -916,7 +916,7 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 20
+    row: 26
     col: 0
     width: 12
     height: 6
@@ -978,7 +978,7 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 64
+    row: 70
     col: 3
     width: 19
     height: 7
@@ -989,7 +989,7 @@
       * User Tip: You may filter Coupon Code = \"is not null\" to only display the\
       \ subscriptions linked with a coupon\n* Leave a comment in [this ticket](https://mozilla-hub.atlassian.net/browse/DVPN-123)\
       \ for feedback and questions. "
-    row: 61
+    row: 67
     col: 0
     width: 24
     height: 3
@@ -1060,10 +1060,24 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 71
+    row: 77
     col: 3
     width: 19
     height: 7
+  - name: " (3)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: "### Caveat: **the default setting** of this dashboard filters only\
+      \ show  first time subscribers (i.e. Granular event type = 'New') who purchased\
+      \ a subscription through the website. The recorded attributions in this dashboard\
+      \ are for the web subscription flow and only the attributions for the first\
+      \ time subscribers are correct. To monitor total subscription growth , please\
+      \ refer to [VPN SaaSboard - Subscriptions Growth](https://mozilla.cloud.looker.com/dashboards/416?Provider=&Pricing%20Plan=&Country=&Event%20Date=6%20month&Plan%20Interval%20Type=&Granular%20Event%20Type=-Plan%20Change)"
+    row: 5
+    col: 0
+    width: 24
+    height: 5
   filters:
   - name: Start Date
     title: Start Date
@@ -1137,13 +1151,12 @@
   - name: Provider
     title: Provider
     type: field_filter
-    default_value: ''
+    default_value: Paypal,Stripe
     allow_multiple_values: true
     required: false
     ui_config:
       type: checkboxes
       display: popover
-      options: []
     model: mozilla_vpn
     explore: channel_group_proportions_table
     listens_to_filters: [Start Date, Pricing Plan, Coupon Code]
