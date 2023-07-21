@@ -30,3 +30,7 @@ explore: kpi_downloads {
 explore: kpi_installs{
   sql_always_where: ${period_filtered_measures} in ("this", "last");;
 }
+
+explore: funnel_android_new {
+  sql_always_where: ${period_filtered_measures} in ("this", "last");;
+}
