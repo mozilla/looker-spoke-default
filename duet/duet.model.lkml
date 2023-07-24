@@ -34,3 +34,7 @@ explore: kpi_installs{
 explore: app_store_territory_source_type_report {
   label: "App Store Data Report"
 }
+
+explore: funnel_android_new {
+  sql_always_where: ${period_filtered_measures} in ("this", "last");;
+}
