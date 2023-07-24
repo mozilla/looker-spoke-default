@@ -10,32 +10,16 @@
   - name: ''
     type: text
     title_text: ''
-    body_text: |
-      <div style="border-radius: 5px; padding: 5px 10px; background: #FFFFFF; height: 60px; color: red;">
+    body_text: |2-
 
-      <nav style="font-size: 20px;">
+      <div style="border-top: solid 2px #e0e0e0;">
 
-        <img style="color: #000000; padding: 5px 10px; float: left; height: 40px;" src="https://www.mozilla.org/media/img/logos/vpn/logo-with-wordmark.c1659f9e6dd6.svg"/>
-
-        <a style="color: #000000; border: 1px solid white; padding: 5px 80px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/501?Partition+Date=28+day&Country=&Channel+Group=&UTM+Medium=&UTM+Source=&UTM+Campaign=&UTM+Content=&UTM+Term=&Entrypoint+Experiment=&Entrypoint+Variation=&Pricing+Plan=&OS+Name=&OS+Version=">
-
-      User Journey</a>
-
-        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/499?Start%20Date=28%20day&Country=&Channel%20Group=&Provider=&Pricing%20Plan=&UTM%20Medium=&UTM%20Source=&UTM%20Campaign=&UTM%20Content=&Entrypoint%20Experiment=&Entrypoint%20Variation=">
-
-       New Subs</a>
-
-        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1_l-ZsbKsxRh7HGqtODz8w8eDBqkw2N9SIZxEE9qG-DQ/edit?usp=sharing">
-
-        Docs</a>
-
-      </nav>
-
-      </div>
-    row: 0
+      <h3><b>Contact @yeonjoo for questions in #mozilla-vpn-data </b></h3>
+       <div style="border-bottom: solid 2px #e0e0e0;">
+    row: 2
     col: 0
     width: 24
-    height: 2
+    height: 3
   - title: Last Updated Date
     name: Last Updated Date
     model: mozilla_vpn
@@ -53,14 +37,13 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    series_types: {}
     defaults_version: 1
     hidden_fields: [channel_group_proportions_table.new_subscription_count]
     refresh: 1 day
     listen:
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Region Name: countries.region_name
-    row: 4
+    row: 10
     col: 0
     width: 7
     height: 4
@@ -73,15 +56,29 @@
       channel_group_proportions_table]
     sorts: [channel_group_proportions_table.subscription_start_date desc]
     limit: 2
-    dynamic_fields: [{category: measure, expression: !!null '', label: New Subscriptions,
-        value_format: !!null '', value_format_name: !!null '', based_on: channel_group_proportions_table.new_subscription_count,
-        _kind_hint: measure, measure: channel_group_proportions_table, type: sum,
-        _type_hint: number}, {category: table_calculation, description: 'Difference
-          between the current row’s value and value of the row below, divided by the
-          value of the row below.', label: "% Change New Subs", value_format: !!null '',
-        value_format_name: percent_0, calculation_type: percent_difference_from_previous,
-        table_calculation: change_new_subs, args: [channel_group_proportions_table],
-        _kind_hint: measure, _type_hint: number}]
+    dynamic_fields:
+    - category: measure
+      expression:
+      label: New Subscriptions
+      value_format:
+      value_format_name:
+      based_on: channel_group_proportions_table.new_subscription_count
+      _kind_hint: measure
+      measure: channel_group_proportions_table
+      type: sum
+      _type_hint: number
+    - category: table_calculation
+      description: Difference between the current row’s value and value of the row
+        below, divided by the value of the row below.
+      label: "% Change New Subs"
+      value_format:
+      value_format_name: percent_0
+      calculation_type: percent_difference_from_previous
+      table_calculation: change_new_subs
+      args:
+      - channel_group_proportions_table
+      _kind_hint: measure
+      _type_hint: number
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -95,7 +92,6 @@
     conditional_formatting: [{type: equal to, value: !!null '', background_color: "#3FE1B0",
         font_color: !!null '', color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
         bold: false, italic: false, strikethrough: false, fields: !!null ''}]
-    series_types: {}
     defaults_version: 1
     hidden_fields: [channel_group_proportions_table]
     refresh: 1 day
@@ -114,7 +110,7 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 4
+    row: 10
     col: 7
     width: 9
     height: 4
@@ -197,7 +193,6 @@
     stacking: ''
     limit_displayed_rows: false
     legend_position: center
-    series_types: {}
     point_style: circle
     show_value_labels: false
     label_density: 25
@@ -228,7 +223,7 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 8
+    row: 14
     col: 12
     width: 12
     height: 6
@@ -242,7 +237,6 @@
     limit: 500
     value_labels: labels
     label_type: labPer
-    series_types: {}
     defaults_version: 1
     refresh: 1 day
     listen:
@@ -261,7 +255,7 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 8
+    row: 14
     col: 0
     width: 12
     height: 6
@@ -276,7 +270,7 @@
       \ logging system missing a part or all of utm parameters consisting of attributions.\
       \ If the rates of those two groups increase, then it can be a sign of a problem\
       \ for the system passing the data. "
-    row: 42
+    row: 48
     col: 0
     width: 24
     height: 4
@@ -300,7 +294,7 @@
       \ be that some of the attribution parameters got lost or attributions that were\
       \ not well documented.  \n* For a more detailed explanation for the categorization\
       \ of the channel groups, please refer to [this documentation](https://docs.google.com/document/d/1ojf1XHb3Iu5GNzMfozDcxWhEw6d9A4QuiaoAm-gDIrk/edit?usp=sharing). "
-    row: 26
+    row: 32
     col: 0
     width: 24
     height: 9
@@ -314,20 +308,42 @@
     pivots: [channel_group_proportions_table.channel_group]
     sorts: [channel_group_proportions_table.subscription_start_date, channel_group_proportions_table.channel_group]
     limit: 500
-    dynamic_fields: [{category: measure, expression: !!null '', label: New Subscriptions,
-        value_format: !!null '', value_format_name: !!null '', based_on: channel_group_proportions_table.new_subscription_count,
-        _kind_hint: measure, measure: channel_group_proportions_table, type: sum,
-        _type_hint: number}, {category: table_calculation, description: 'Difference
-          between the current row’s value and value of the row below, divided by the
-          value of the row below.', label: "% Change New Subs", value_format: !!null '',
-        value_format_name: percent_1, calculation_type: percent_difference_from_previous,
-        table_calculation: change_new_subs, args: [channel_group_proportions_table],
-        _kind_hint: dimension, _type_hint: number, is_disabled: true}, {category: table_calculation,
-        description: Cumulative sum of this row and all previous rows in the column,
-        label: Running row total New Subs, value_format: !!null '', value_format_name: Default
-          formatting, calculation_type: running_total, table_calculation: running_row_total_new_subs,
-        args: [channel_group_proportions_table], _kind_hint: dimension, _type_hint: number,
-        is_disabled: true}]
+    dynamic_fields:
+    - category: measure
+      expression:
+      label: New Subscriptions
+      value_format:
+      value_format_name:
+      based_on: channel_group_proportions_table.new_subscription_count
+      _kind_hint: measure
+      measure: channel_group_proportions_table
+      type: sum
+      _type_hint: number
+    - category: table_calculation
+      description: Difference between the current row’s value and value of the row
+        below, divided by the value of the row below.
+      label: "% Change New Subs"
+      value_format:
+      value_format_name: percent_1
+      calculation_type: percent_difference_from_previous
+      table_calculation: change_new_subs
+      args:
+      - channel_group_proportions_table
+      _kind_hint: dimension
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      description: Cumulative sum of this row and all previous rows in the column
+      label: Running row total New Subs
+      value_format:
+      value_format_name: Default formatting
+      calculation_type: running_total
+      table_calculation: running_row_total_new_subs
+      args:
+      - channel_group_proportions_table
+      _kind_hint: dimension
+      _type_hint: number
+      is_disabled: true
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -379,7 +395,7 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 46
+    row: 52
     col: 3
     width: 19
     height: 7
@@ -393,20 +409,43 @@
       channel_group_proportions_table.utm_campaign, channel_group_proportions_table.utm_content]
     sorts: [channel_group_proportions_table.new_subscription_count desc]
     limit: 10
-    dynamic_fields: [{category: measure, expression: !!null '', label: New Subscriptions,
-        value_format: !!null '', value_format_name: !!null '', based_on: channel_group_proportions_table.new_subscription_count,
-        _kind_hint: measure, measure: channel_group_proportions_table, type: sum,
-        _type_hint: number}, {category: table_calculation, description: "% change\
-          \ of the previous row \nDifference between the current row’s value and value\
-          \ of the row below, divided by the value of the row below.", label: "% Change\
-          \ New Subs", value_format: !!null '', value_format_name: percent_1, calculation_type: percent_difference_from_previous,
-        table_calculation: change_new_subs, args: [channel_group_proportions_table],
-        _kind_hint: dimension, _type_hint: number, is_disabled: true}, {category: table_calculation,
-        description: Cumulative sum of this row and all previous rows in the column,
-        label: Running Total New Subs, value_format: !!null '', value_format_name: Default
-          formatting, calculation_type: running_total, table_calculation: running_total_new_subs,
-        args: [channel_group_proportions_table.new_subscription_count], _kind_hint: measure,
-        _type_hint: number, is_disabled: true}]
+    dynamic_fields:
+    - category: measure
+      expression:
+      label: New Subscriptions
+      value_format:
+      value_format_name:
+      based_on: channel_group_proportions_table.new_subscription_count
+      _kind_hint: measure
+      measure: channel_group_proportions_table
+      type: sum
+      _type_hint: number
+    - category: table_calculation
+      description: "% change of the previous row \nDifference between the current\
+        \ row’s value and value of the row below, divided by the value of the row\
+        \ below."
+      label: "% Change New Subs"
+      value_format:
+      value_format_name: percent_1
+      calculation_type: percent_difference_from_previous
+      table_calculation: change_new_subs
+      args:
+      - channel_group_proportions_table
+      _kind_hint: dimension
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      description: Cumulative sum of this row and all previous rows in the column
+      label: Running Total New Subs
+      value_format:
+      value_format_name: Default formatting
+      calculation_type: running_total
+      table_calculation: running_total_new_subs
+      args:
+      - channel_group_proportions_table.new_subscription_count
+      _kind_hint: measure
+      _type_hint: number
+      is_disabled: true
     show_view_names: false
     show_row_numbers: true
     transpose: false
@@ -428,7 +467,6 @@
     series_cell_visualizations:
       channel_group_proportions_table.new_subscription_count:
         is_active: true
-    series_types: {}
     defaults_version: 1
     hidden_fields: []
     listen:
@@ -447,7 +485,7 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 53
+    row: 59
     col: 3
     width: 19
     height: 8
@@ -461,20 +499,42 @@
     pivots: [channel_group_proportions_table.channel_group]
     sorts: [channel_group_proportions_table.subscription_start_date desc, channel_group_proportions_table.channel_group]
     limit: 500
-    dynamic_fields: [{category: measure, expression: !!null '', label: New Subscriptions,
-        value_format: !!null '', value_format_name: !!null '', based_on: channel_group_proportions_table.new_subscription_count,
-        _kind_hint: measure, measure: channel_group_proportions_table, type: sum,
-        _type_hint: number}, {category: table_calculation, description: Cumulative
-          sum of this row and all previous rows in the column, label: Running Total
-          New Subs, value_format: !!null '', value_format_name: Default formatting,
-        calculation_type: running_total, table_calculation: running_total_new_subs,
-        args: [channel_group_proportions_table], _kind_hint: dimension, _type_hint: number,
-        is_disabled: true}, {category: table_calculation, description: 'Difference
-          between the current row’s value and value of the row below, divided by the
-          value of the row below.', label: "% Change New Subs", value_format: !!null '',
-        value_format_name: percent_1, calculation_type: percent_difference_from_previous,
-        table_calculation: change_new_subs, args: [channel_group_proportions_table],
-        _kind_hint: dimension, _type_hint: number, is_disabled: true}]
+    dynamic_fields:
+    - category: measure
+      expression:
+      label: New Subscriptions
+      value_format:
+      value_format_name:
+      based_on: channel_group_proportions_table.new_subscription_count
+      _kind_hint: measure
+      measure: channel_group_proportions_table
+      type: sum
+      _type_hint: number
+    - category: table_calculation
+      description: Cumulative sum of this row and all previous rows in the column
+      label: Running Total New Subs
+      value_format:
+      value_format_name: Default formatting
+      calculation_type: running_total
+      table_calculation: running_total_new_subs
+      args:
+      - channel_group_proportions_table
+      _kind_hint: dimension
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      description: Difference between the current row’s value and value of the row
+        below, divided by the value of the row below.
+      label: "% Change New Subs"
+      value_format:
+      value_format_name: percent_1
+      calculation_type: percent_difference_from_previous
+      table_calculation: change_new_subs
+      args:
+      - channel_group_proportions_table
+      _kind_hint: dimension
+      _type_hint: number
+      is_disabled: true
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -509,7 +569,6 @@
             id: Unpaid Channels - channel_group_proportions_table.new_subscription_count,
             name: Unpaid Channels}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: custom, tickDensityCustom: 97, type: linear}]
-    series_types: {}
     ordering: none
     show_null_labels: false
     show_totals_labels: false
@@ -533,7 +592,7 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 35
+    row: 41
     col: 3
     width: 19
     height: 7
@@ -553,7 +612,6 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    series_types: {}
     defaults_version: 1
     listen:
       Start Date: channel_group_proportions_table.subscription_start_date
@@ -571,7 +629,7 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 4
+    row: 10
     col: 16
     width: 8
     height: 4
@@ -584,18 +642,40 @@
     fill_fields: [channel_group_proportions_table.subscription_start_date]
     sorts: [channel_group_proportions_table.subscription_start_date]
     limit: 500
-    dynamic_fields: [{category: measure, expression: !!null '', label: New Subscriptions,
-        value_format: !!null '', value_format_name: !!null '', based_on: channel_group_proportions_table.new_subscription_count,
-        _kind_hint: measure, measure: channel_group_proportions_table, type: sum,
-        _type_hint: number}, {category: table_calculation, description: cumulative
-          sum of new subscriptions, label: Accumulative subscriptions, value_format: !!null '',
-        value_format_name: Default formatting, calculation_type: running_total, table_calculation: accumulative_subscriptions,
-        args: [channel_group_proportions_table], _kind_hint: measure, _type_hint: number},
-      {category: table_calculation, description: Current row’s value divided by the
-          value of the row below., label: "% Change New Subs", value_format: !!null '',
-        value_format_name: percent_0, calculation_type: percent_of_previous, table_calculation: change_new_subs,
-        args: [channel_group_proportions_table], _kind_hint: measure, _type_hint: number,
-        is_disabled: true}]
+    dynamic_fields:
+    - category: measure
+      expression:
+      label: New Subscriptions
+      value_format:
+      value_format_name:
+      based_on: channel_group_proportions_table.new_subscription_count
+      _kind_hint: measure
+      measure: channel_group_proportions_table
+      type: sum
+      _type_hint: number
+    - category: table_calculation
+      description: cumulative sum of new subscriptions
+      label: Accumulative subscriptions
+      value_format:
+      value_format_name: Default formatting
+      calculation_type: running_total
+      table_calculation: accumulative_subscriptions
+      args:
+      - channel_group_proportions_table
+      _kind_hint: measure
+      _type_hint: number
+    - category: table_calculation
+      description: Current row’s value divided by the value of the row below.
+      label: "% Change New Subs"
+      value_format:
+      value_format_name: percent_0
+      calculation_type: percent_of_previous
+      table_calculation: change_new_subs
+      args:
+      - channel_group_proportions_table
+      _kind_hint: measure
+      _type_hint: number
+      is_disabled: true
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -645,7 +725,7 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 14
+    row: 20
     col: 12
     width: 12
     height: 6
@@ -658,19 +738,41 @@
     fill_fields: [channel_group_proportions_table.subscription_start_date]
     sorts: [channel_group_proportions_table.subscription_start_date desc]
     limit: 500
-    dynamic_fields: [{category: measure, expression: !!null '', label: New Subscriptions,
-        value_format: !!null '', value_format_name: !!null '', based_on: channel_group_proportions_table.new_subscription_count,
-        _kind_hint: measure, measure: channel_group_proportions_table, type: sum,
-        _type_hint: number}, {category: table_calculation, description: Cumulative
-          sum of this row and all previous rows in the column, label: Running Total
-          New Subs, value_format: !!null '', value_format_name: Default formatting,
-        calculation_type: running_total, table_calculation: running_total_new_subs,
-        args: [channel_group_proportions_table.new_subscription_count], _kind_hint: measure,
-        _type_hint: number, is_disabled: true}, {category: table_calculation, description: Current
-          row’s value divided by the value of the row below., label: "% Change New\
-          \ Subs", value_format: !!null '', value_format_name: percent_1, calculation_type: percent_of_previous,
-        table_calculation: change_new_subs, args: [channel_group_proportions_table.new_subscription_count],
-        _kind_hint: measure, _type_hint: number, is_disabled: true}]
+    dynamic_fields:
+    - category: measure
+      expression:
+      label: New Subscriptions
+      value_format:
+      value_format_name:
+      based_on: channel_group_proportions_table.new_subscription_count
+      _kind_hint: measure
+      measure: channel_group_proportions_table
+      type: sum
+      _type_hint: number
+    - category: table_calculation
+      description: Cumulative sum of this row and all previous rows in the column
+      label: Running Total New Subs
+      value_format:
+      value_format_name: Default formatting
+      calculation_type: running_total
+      table_calculation: running_total_new_subs
+      args:
+      - channel_group_proportions_table.new_subscription_count
+      _kind_hint: measure
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      description: Current row’s value divided by the value of the row below.
+      label: "% Change New Subs"
+      value_format:
+      value_format_name: percent_1
+      calculation_type: percent_of_previous
+      table_calculation: change_new_subs
+      args:
+      - channel_group_proportions_table.new_subscription_count
+      _kind_hint: measure
+      _type_hint: number
+      is_disabled: true
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -719,20 +821,36 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 14
+    row: 20
     col: 0
     width: 12
     height: 6
   - name: " (2)"
     type: text
     title_text: ''
-    body_text: |2-
+    body_text: |
+      <div style="border-radius: 5px; padding: 5px 10px; background: #FFFFFF; height: 60px; color: red;">
 
-      <div style="border-top: solid 2px #e0e0e0;">
+      <nav style="font-size: 20px;">
 
-      <h3><b>Contact @yeonjoo for questions in #mozilla-vpn-data </b></h3>
-       <div style="border-bottom: solid 2px #e0e0e0;">
-    row: 2
+        <img style="color: #000000; padding: 5px 10px; float: left; height: 40px;" src="https://www.mozilla.org/media/img/logos/vpn/logo-with-wordmark.c1659f9e6dd6.svg"/>
+
+        <a style="color: #000000; border: 1px solid white; padding: 5px 80px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/501?Partition+Date=28+day&Country=&Channel+Group=&UTM+Medium=&UTM+Source=&UTM+Campaign=&UTM+Content=&UTM+Term=&Entrypoint+Experiment=&Entrypoint+Variation=&Pricing+Plan=&OS+Name=&OS+Version=">
+
+      User Journey</a>
+
+        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/499?Start%20Date=28%20day&Country=&Channel%20Group=&Provider=&Pricing%20Plan=&UTM%20Medium=&UTM%20Source=&UTM%20Campaign=&UTM%20Content=&Entrypoint%20Experiment=&Entrypoint%20Variation=">
+
+       New Subs</a>
+
+        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1_l-ZsbKsxRh7HGqtODz8w8eDBqkw2N9SIZxEE9qG-DQ/edit?usp=sharing">
+
+        Docs</a>
+
+      </nav>
+
+      </div>
+    row: 0
     col: 0
     width: 24
     height: 2
@@ -798,7 +916,7 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 20
+    row: 26
     col: 0
     width: 12
     height: 6
@@ -843,7 +961,6 @@
               - channel_group_proportions_table.new_subscription_count, name: "∅"}],
         showLabels: true, showValues: true, unpinAxis: false, tickDensity: custom,
         tickDensityCustom: 100, type: linear}]
-    series_types: {}
     defaults_version: 1
     listen:
       Start Date: channel_group_proportions_table.subscription_start_date
@@ -861,7 +978,7 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 64
+    row: 70
     col: 3
     width: 19
     height: 7
@@ -872,7 +989,7 @@
       * User Tip: You may filter Coupon Code = \"is not null\" to only display the\
       \ subscriptions linked with a coupon\n* Leave a comment in [this ticket](https://mozilla-hub.atlassian.net/browse/DVPN-123)\
       \ for feedback and questions. "
-    row: 61
+    row: 67
     col: 0
     width: 24
     height: 3
@@ -927,7 +1044,6 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    series_types: {}
     listen:
       Start Date: channel_group_proportions_table.subscription_start_date
       Country: channel_group_proportions_table.country_name
@@ -944,10 +1060,24 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 71
+    row: 77
     col: 3
     width: 19
     height: 7
+  - name: " (3)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: "### Caveat: **the default setting** of this dashboard filters only\
+      \ show  first time subscribers (i.e. Granular event type = 'New') who purchased\
+      \ a subscription through the website. The recorded attributions in this dashboard\
+      \ are for the web subscription flow and only the attributions for the first\
+      \ time subscribers are correct. To monitor total subscription growth , please\
+      \ refer to [VPN SaaSboard - Subscriptions Growth](https://mozilla.cloud.looker.com/dashboards/416?Provider=&Pricing%20Plan=&Country=&Event%20Date=6%20month&Plan%20Interval%20Type=&Granular%20Event%20Type=-Plan%20Change)"
+    row: 5
+    col: 0
+    width: 24
+    height: 5
   filters:
   - name: Start Date
     title: Start Date
@@ -1021,13 +1151,12 @@
   - name: Provider
     title: Provider
     type: field_filter
-    default_value: ''
+    default_value: Paypal,Stripe
     allow_multiple_values: true
     required: false
     ui_config:
       type: checkboxes
       display: popover
-      options: []
     model: mozilla_vpn
     explore: channel_group_proportions_table
     listens_to_filters: [Start Date, Pricing Plan, Coupon Code]
@@ -1152,7 +1281,7 @@
   - name: Granular Event Type
     title: Granular Event Type
     type: field_filter
-    default_value: New,Converted Trial
+    default_value: New
     allow_multiple_values: true
     required: false
     ui_config:
