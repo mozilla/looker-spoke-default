@@ -133,7 +133,7 @@ view: app_store_territory_source_type_report {
     group_label: "App Store Listing Metrics"
     type: sum
     sql: ${TABLE}.page_views_unique_device ;;
-    description: "The number of unique devices that have viewed your App Store product page."
+    description: "The number of unique devices that have viewed the App Store product page."
   }
 
 }
