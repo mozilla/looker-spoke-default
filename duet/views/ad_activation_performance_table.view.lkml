@@ -11,6 +11,7 @@ view: +ad_activation_performance_table {
     label: "Spend"
     type: sum
     sql: ${TABLE}.campaign_spend ;;
+    description: "Total spend in USD"
   }
 
   dimension: clients_activated {
