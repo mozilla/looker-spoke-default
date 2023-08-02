@@ -38,6 +38,14 @@ view: +ad_activation_performance_table {
     sql: ${campaign_spend_sum}/ NULLIF(${clients_activated_sum},0) ;;
   }
 
+  measure: campaign_spend_per_new_profile_ratio {
+    label: "Cost per New Profile"
+    type: number
+    value_format_name: usd
+    sql: ${campaign_spend_sum}/ NULLIF(${new_profiles_sum},0) ;;
+    description: "Campaign Spend per new profile. Can be directly compared to iOS Paid User LTV"
+  }
+
   dimension: impressions {
     hidden: yes
     sql: ${TABLE}.impressions ;;
@@ -47,6 +55,7 @@ view: +ad_activation_performance_table {
     label: "Impressions"
     type: sum
     sql: ${TABLE}.impressions ;;
+    description: "The number of times your ad appeared on the App Store"
   }
 
   dimension: new_downloads {
@@ -59,6 +68,7 @@ view: +ad_activation_performance_table {
     group_label: "Downloads"
     type: sum
     sql: ${TABLE}.new_downloads ;;
+    description: "These represent app downloads from new users who have never before downloaded your app"
   }
 
   dimension: redownloads {
@@ -71,6 +81,7 @@ view: +ad_activation_performance_table {
     group_label: "Downloads"
     type: sum
     sql: ${TABLE}.redownloads ;;
+    description: "Redownloads occur when a user downloads your app, deletes it, and downloads the same app again following a tap on an ad on the App Store, or downloads the same app on an additional device."
   }
 
   dimension: total_downloads {
@@ -94,6 +105,7 @@ view: +ad_activation_performance_table {
     label: "Taps"
     type: sum
     sql: ${TABLE}.taps ;;
+    description: "The number of times your ad was tapped by users"
   }
 
   dimension: new_profiles {
@@ -105,6 +117,7 @@ view: +ad_activation_performance_table {
     label: "New Profiles"
     type: sum
     sql: ${TABLE}.new_profiles ;;
+    description: "Number of new profiles, as reported by telemetry"
   }
 
   measure: activation_rate {
@@ -112,6 +125,7 @@ view: +ad_activation_performance_table {
     type: number
     value_format_name: percent_2
     sql: ${clients_activated_sum}/ NULLIF(${new_profiles_sum},0) ;;
+    description: "Fraction of new profiles that activate, as reported by telemetry"
   }
 
   dimension: campaign_name {
@@ -124,6 +138,7 @@ view: +ad_activation_performance_table {
     label: "Campaign ID"
     type: string
     sql: ${TABLE}.campaign_id ;;
+    hidden: yes
   }
 
   dimension_group: date_day {
