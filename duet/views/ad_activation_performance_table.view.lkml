@@ -23,6 +23,7 @@ view: +ad_activation_performance_table {
     label: "Clients Activated"
     type: sum
     sql: ${TABLE}.clients_activated ;;
+    description: "Number of clients who activated. Activation is defined as active at least 3 days in the first week, and search at least once in the latter half of that week. Reported by telemetry"
   }
 
   dimension: campaign_spend_per_activation {
