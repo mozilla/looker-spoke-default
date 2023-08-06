@@ -1,66 +1,49 @@
 view: funnel_ios_new {
 
     derived_table: {
-      sql: WITH views_data AS (
-                SELECT
-                   date,
-                   territory AS country_name,
-                    SUM(impressions_unique_device) AS views
-                FROM `mozdata.analysis.firefox_app_store_territory_source_type_report`
-                WHERE date >= '2022-01-01'
-                GROUP BY 1, 2
-                ), downloads_data AS (
-                    SELECT
-                      date,
-                      territory AS country_name,
-                      SUM(total_downloads) AS downloads
-                    FROM
-                      `mozdata.analysis.firefox_app_store_downloads_territory_source_type_report`
-                    WHERE
-                      date >= '2022-01-01'
-                      AND source_type <> 'Institutional Purchase'
-                    GROUP BY 1, 2
-                  ), top AS (
-                      SELECT
-                        DATE(date) as date,
-                        code AS country,
-                        views,
-                        downloads
-                      FROM views_data
-                      JOIN downloads_data USING (date, country_name)
-                      JOIN `moz-fx-data-shared-prod.static.country_codes_v1` ON country_name = name
-                    ), bottom AS (
-                      SELECT
-                        first_seen_date AS date,
-                        country,
-                        SUM(new_profile) AS new_profiles,
-                        SUM(activated) AS activations
-                      FROM `moz-fx-data-shared-prod.firefox_ios.new_profile_activation`
-                      WHERE submission_date >= '2022-01-01'
-                      AND first_seen_date >= '2022-01-01'
-                      AND NOT (app_display_version = '107.2' AND submission_date >= '2023-02-01') -- incident filter
-                      GROUP BY 1, 2
-                    ), retention AS (
-                      SELECT client_id, first_seen_date, country
-                           , COALESCE(MAX(IF(submission_date = DATE_ADD(first_run_date, INTERVAL 27 DAY), mozfun.bits28.active_in_range(days_seen_bits, -6, 7), NULL) ), FALSE) AS week_4_retention
-                           , COUNT(DISTINCT CASE WHEN DATE_DIFF(submission_date, first_run_date, day) >= 1 AND DATE_DIFF(submission_date, first_run_date, day) <= 28 AND days_since_seen = 0 THEN submission_date END) AS first_28_days_active_days
-            FROM `mozdata.firefox_ios.baseline_clients_last_seen`
-            WHERE
-              submission_date >= '2022-01-01'
-                      AND first_seen_date >= '2022-01-01'
-              AND NOT (app_display_version = '107.2' AND submission_date >= '2023-02-01') -- incident filter
-            GROUP BY 1, 2, 3
-                    ), ret_aggs as (
-                      SELECT first_seen_date AS date,
-                        country, count(distinct case when first_28_days_active_days > 1 then client_id end) multi_days_users
-                               , count(distinct case when week_4_retention = True then client_id end) week_4_retained
-                      FROM retention
-                      group by 1, 2
-                    )
-                    SELECT date, country, views, downloads, new_profiles, activations, multi_days_users, week_4_retained
-                    FROM top
-                    JOIN bottom USING (date, country)
-                    JOIN ret_aggs USING (date, country)
+      sql: WITH
+  retention AS (
+  SELECT
+    client_id,
+    first_seen_date,
+    country,
+    COALESCE(MAX(IF (submission_date = DATE_ADD(first_run_date, INTERVAL 27 DAY), mozfun.bits28.active_in_range(days_seen_bits, -6, 7), NULL) ), FALSE) AS week_4_retention,
+    COUNT(DISTINCT CASE WHEN DATE_DIFF(submission_date, first_run_date, day) >= 1 AND DATE_DIFF(submission_date, first_run_date, day) <= 28 AND days_since_seen = 0 THEN submission_date END) AS first_28_days_active_days
+  FROM
+    `mozdata.firefox_ios.baseline_clients_last_seen`
+  WHERE
+    submission_date >= '2022-01-01'
+    AND first_seen_date >= '2022-01-01'
+    AND NOT (app_display_version = '107.2' AND submission_date >= '2023-02-01') -- incident filter
+  GROUP BY
+    1,
+    2,
+    3 ),
+  ret_aggs AS (
+  SELECT
+    first_seen_date AS date,
+    country,
+    COUNT(DISTINCT CASE WHEN first_28_days_active_days > 1 THEN client_id END) multi_days_users,
+    COUNT(DISTINCT CASE WHEN week_4_retention = TRUE THEN client_id END) week_4_retained
+  FROM
+    retention
+  GROUP BY
+    1,
+    2 )
+SELECT
+  date,
+  country,
+  views,
+  total_downloads AS downloads,
+  new_profiles,
+  activations,
+  multi_days_users,
+  week_4_retained
+FROM
+  `moz-fx-data-shared-prod.firefox_ios.app_store_funnel`
+JOIN ret_aggs
+USING (date, country)
+
 ;;
     }
 
