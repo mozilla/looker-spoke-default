@@ -35,6 +35,8 @@ SELECT
   country,
   views,
   total_downloads AS downloads,
+  first_time_downloads,
+  redownloads,
   new_profiles,
   activations,
   multi_days_users,
@@ -65,6 +67,17 @@ USING (date, country)
       type: sum
       sql: ${TABLE}.views ;;
     }
+
+  measure: redownloads {
+    description: "Redownloads"
+    type: sum
+    sql: ${TABLE}.redownloads ;;
+  }
+  measure: first_time_downloads {
+    description: "first-time downloads"
+    type: sum
+    sql: ${TABLE}.first_time_downloads ;;
+  }
 
     measure: downloads {
       description: "Total downloads, including first-time downloads and redownloads"
@@ -265,6 +278,34 @@ USING (date, country)
     view_label: "filtered metrics"
     type: sum
     sql: ${TABLE}.downloads ;;
+    filters: [period_filtered_measures: "last"]
+  }
+
+  measure: current_period_redownloads {
+    view_label: "filtered metrics"
+    type: sum
+    sql: ${TABLE}.redownloads ;;
+    filters: [period_filtered_measures: "this"]
+  }
+
+  measure: previous_period_redownloads {
+    view_label: "filtered metrics"
+    type: sum
+    sql: ${TABLE}.redownloads ;;
+    filters: [period_filtered_measures: "last"]
+  }
+
+  measure: current_period_rfirst_time_downloads {
+    view_label: "filtered metrics"
+    type: sum
+    sql: ${TABLE}.first_time_downloads ;;
+    filters: [period_filtered_measures: "this"]
+  }
+
+  measure: previous_period_first_time_downloads {
+    view_label: "filtered metrics"
+    type: sum
+    sql: ${TABLE}.first_time_downloads ;;
     filters: [period_filtered_measures: "last"]
   }
 
