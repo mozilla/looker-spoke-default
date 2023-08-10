@@ -12,7 +12,7 @@ view: +channel_group_proportions_table {
 
   measure: total_new_subscription_count_for_date {
     sql: ${TABLE}.total_new_subscriptions_for_date ;;
-    type: average
+    type: sum
   }
 
   dimension: coupon_code {

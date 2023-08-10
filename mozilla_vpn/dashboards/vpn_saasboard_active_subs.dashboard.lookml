@@ -985,8 +985,8 @@
     col: 0
     width: 13
     height: 11
-  - title: Current Active Subscriptions (by Country)
-    name: Current Active Subscriptions (by Country)
+  - title: Current Active Subscriptions (by Top 50 Country)
+    name: Current Active Subscriptions (by Top 50 Country)
     model: mozilla_vpn
     explore: active_subscriptions
     type: looker_pie
@@ -994,7 +994,7 @@
     filters:
       active_subscriptions.is_max_active_date: 'Yes'
     sorts: [active_subscriptions.count_sum desc]
-    limit: 1000
+    limit: 50
     column_limit: 50
     value_labels: labels
     label_type: labPer
