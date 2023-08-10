@@ -189,4 +189,159 @@ view: history_sidebar_clients_daily {
     group_label: "Client shares"
   }
 
+#new measures
+
+  measure: history_visits_all_surfaces_mean {
+    type: average
+    sql: ${TABLE}.places_previousday_visits_mean ;;
+    description: "Average history items visited per day across all surfaces"
+  }
+
+  measure: history_library_items {
+    type: sum
+    sql: mozfun.map.get_key(${TABLE}.scalar_parent_library_link_sum, "history");;
+    description: "The number of history items opened from the Library window"
+  }
+
+  measure: bookmarks_library_items {
+    type: sum
+    sql: mozfun.map.get_key(${TABLE}.scalar_parent_library_link_sum, "bookmarks");;
+    description: "The number of bookmark items opened from the Library window"
+  }
+
+  measure: history_library_opened {
+    type: sum
+    sql: mozfun.map.get_key(${TABLE}.scalar_parent_library_opened_sum, "history");;
+    description: "The number of times the history Library window was opened"
+  }
+
+  measure: bookmarks_library_opened {
+    type: sum
+    sql: mozfun.map.get_key(${TABLE}.scalar_parent_library_opened_sum, "bookmarks");;
+    description: "The number of times the bookmarks Library window was opened"
+  }
+
+  measure: history_library_search {
+    type: sum
+    sql: mozfun.map.get_key(${TABLE}.scalar_parent_library_search_sum, "history");;
+    description: "The number of history-specific searches made from the Library window"
+  }
+
+  measure: bookmarks_library_search {
+    type: sum
+    sql: mozfun.map.get_key(${TABLE}.scalar_parent_library_search_sum, "bookmarks");;
+    description: "The number of bookmarks-specific searches made from the Library window"
+  }
+
+  measure: history_cumulative_library_searches {
+    sql: ${TABLE}.places_library_cumulative_history_searches_sum ;;
+    type: sum
+    description: "Cumulative number of history-specific searches performed before selecting a history link in the Library window"
+  }
+
+  measure: bookmarks_searchbar_cumulative_searches {
+    sql: ${TABLE}.places_bookmarks_searchbar_cumulative_searches_sum ;;
+    type: sum
+    description: "Cumulative number of bookmark searches performed before selecting a link"
+  }
+
+  measure: bookmarks_library_cumulative_searches {
+    sql: ${TABLE}.places_library_cumulative_bookmark_searches_sum ;;
+    type: sum
+    description:"Cumulative number of bookmark-specific searches performed before selecting a bookmark link in the Library window"
+  }
+
+  #new client counts
+
+  measure:  clients_with_any_history_items {
+    type: count_distinct
+    sql: IF(mozfun.map.get_key(${TABLE}.scalar_parent_library_link_sum, "history") > 0, ${client_id}, NULL) ;;
+    approximate: yes
+    description: "Count of clients that open history items from the Library window"
+    group_label: "Client counts"
+  }
+
+  measure:  clients_with_any_bookmarks_items {
+    type: count_distinct
+    sql: IF(mozfun.map.get_key(${TABLE}.scalar_parent_library_link_sum, "bookmarks") > 0, ${client_id}, NULL) ;;
+    approximate: yes
+    description: "Count of clients that open bookmark items from the Library window"
+    group_label: "Client counts"
+  }
+  measure:  clients_with_any_history_library_opened {
+    type: count_distinct
+    sql: IF(mozfun.map.get_key(${TABLE}.scalar_parent_library_opened_sum, "history") > 0, ${client_id}, NULL) ;;
+    approximate: yes
+    description: "Count of clients that open history Library window"
+    group_label: "Client counts"
+  }
+
+  measure:  clients_with_any_bookmarks_library_opened {
+    type: count_distinct
+    sql: IF(mozfun.map.get_key(${TABLE}.scalar_parent_library_opened_sum, "bookmarks") > 0, ${client_id}, NULL) ;;
+    approximate: yes
+    description: "Count of clients that open bookmarks Library window"
+    group_label: "Client counts"
+  }
+
+  measure:  clients_with_any_history_library_searches {
+    type: count_distinct
+    sql: IF(mozfun.map.get_key(${TABLE}.scalar_parent_library_search_sum, "history") > 0, ${client_id}, NULL) ;;
+    approximate: yes
+    description: "Count of clients with history-specific searches from the Library window"
+    group_label: "Client counts"
+  }
+
+  measure:  clients_with_any_bookmarks_library_searches {
+    type: count_distinct
+    sql: IF(mozfun.map.get_key(${TABLE}.scalar_parent_library_search_sum, "bookmarks") > 0, ${client_id}, NULL) ;;
+    approximate: yes
+    description: "Count of clients with bookmark-specific searches from the Library window"
+    group_label: "Client counts"
+  }
+
+  #New client share measures
+
+  measure: history_library_items_client_share {
+    type: number
+    sql: 100.0 * ${clients_with_any_history_items}/${client_count} ;;
+    description: "Percent of clients that open history items from the Library window"
+    group_label: "Client shares"
+  }
+
+  measure: bookmarks_library_items_client_share {
+    type: number
+    sql: 100.0 * ${clients_with_any_bookmarks_items}/${client_count} ;;
+    description: "Percent of clients that open bookmarks items from the Library window"
+    group_label: "Client shares"
+  }
+
+  measure: history_library_opened_client_share {
+    type: number
+    sql: 100.0 * ${clients_with_any_history_library_opened}/${client_count} ;;
+    description: "Percent of clients that open history Library window"
+    group_label: "Client shares"
+  }
+
+  measure: bookmarks_library_opened_client_share {
+    type: number
+    sql: 100.0 * ${clients_with_any_bookmarks_library_opened}/${client_count} ;;
+    description: "Percent of clients that open bookmarks Library window"
+    group_label: "Client shares"
+  }
+
+  measure: history_library_search_client_share {
+    type: number
+    sql: 100.0 * ${clients_with_any_history_library_searches}/${client_count} ;;
+    description: "Percent of clients with history-specific searches made from the Library window"
+    group_label: "Client shares"
+  }
+
+  measure: bookmarks_library_search_client_share {
+    type: number
+    sql: 100.0 * ${clients_with_any_bookmarks_library_searches}/${client_count} ;;
+    description: "Percent of clients with bookmarks-specific searches made from the Library window"
+    group_label: "Client shares"
+  }
+
 }
