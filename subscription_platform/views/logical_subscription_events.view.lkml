@@ -7,14 +7,39 @@ view: +logical_subscription_events {
     hidden: yes
   }
 
+  dimension_group: timestamp {
+    label: "Event Timestamp"
+  }
+  dimension: type {
+    group_label: "Event"
+  }
+  dimension: reason {
+    group_label: "Event"
+  }
+
   dimension: logical_subscriptions_history_id {
     hidden: yes
   }
 
+  dimension: subscription__id {
+    group_item_label: "ID"
+  }
+
+  dimension: subscription__provider_subscription_id {
+    group_label: "Subscription Provider IDs"
+    group_item_label: "Subscription ID"
+  }
   dimension: subscription__provider_subscription_item_id {
     hidden: yes
   }
+  dimension: subscription__provider_customer_id {
+    group_label: "Subscription Provider IDs"
+    group_item_label: "Customer ID"
+  }
 
+  dimension: subscription__mozilla_account_id {
+    group_item_label: "Mozilla Account ID"
+  }
   dimension: subscription__mozilla_account_id_sha256 {
     hidden: yes
   }
@@ -29,34 +54,90 @@ view: +logical_subscription_events {
   dimension: subscription__service_1__id {
     type: string
     sql: ${TABLE}.subscription.services[SAFE_ORDINAL(1)].id ;;
+    group_label: "Subscription Service 1"
+    group_item_label: "ID"
   }
   dimension: subscription__service_1__name {
     type: string
     sql: ${TABLE}.subscription.services[SAFE_ORDINAL(1)].name ;;
+    group_label: "Subscription Service 1"
+    group_item_label: "Name"
   }
   dimension: subscription__service_1__tier {
     type: string
     sql: ${TABLE}.subscription.services[SAFE_ORDINAL(1)].tier ;;
+    group_label: "Subscription Service 1"
+    group_item_label: "Tier"
   }
 
   dimension: subscription__service_2__id {
     type: string
     sql: ${TABLE}.subscription.services[SAFE_ORDINAL(2)].id ;;
+    group_label: "Subscription Service 2"
+    group_item_label: "ID"
   }
   dimension: subscription__service_2__name {
     type: string
     sql: ${TABLE}.subscription.services[SAFE_ORDINAL(2)].name ;;
+    group_label: "Subscription Service 2"
+    group_item_label: "Name"
   }
   dimension: subscription__service_2__tier {
     type: string
     sql: ${TABLE}.subscription.services[SAFE_ORDINAL(2)].tier ;;
+    group_label: "Subscription Service 2"
+    group_item_label: "Tier"
   }
 
+  dimension: subscription__provider_product_id {
+    group_label: "Subscription Provider IDs"
+    group_item_label: "Product ID"
+  }
+
+  dimension: subscription__provider_plan_id {
+    group_label: "Subscription Provider IDs"
+    group_item_label: "Plan ID"
+  }
   dimension: subscription__plan_interval_type {
     hidden: yes
   }
   dimension: subscription__plan_interval_count {
     hidden: yes
+  }
+  dimension: subscription__plan_amount {
+    value_format_name: decimal_2
+  }
+
+  dimension: subscription__first_touch_attribution__utm_campaign {
+    group_item_label: "UTM Campaign"
+  }
+  dimension: subscription__first_touch_attribution__utm_content {
+    group_item_label: "UTM Content"
+  }
+  dimension: subscription__first_touch_attribution__utm_medium {
+    group_item_label: "UTM Medium"
+  }
+  dimension: subscription__first_touch_attribution__utm_source {
+    group_item_label: "UTM Source"
+  }
+  dimension: subscription__first_touch_attribution__utm_term {
+    group_item_label: "UTM Term"
+  }
+
+  dimension: subscription__last_touch_attribution__utm_campaign {
+    group_item_label: "UTM Campaign"
+  }
+  dimension: subscription__last_touch_attribution__utm_content {
+    group_item_label: "UTM Content"
+  }
+  dimension: subscription__last_touch_attribution__utm_medium {
+    group_item_label: "UTM Medium"
+  }
+  dimension: subscription__last_touch_attribution__utm_source {
+    group_item_label: "UTM Source"
+  }
+  dimension: subscription__last_touch_attribution__utm_term {
+    group_item_label: "UTM Term"
   }
 
   dimension: old_subscription__id {
@@ -80,6 +161,9 @@ view: +logical_subscription_events {
   dimension: old_subscription__provider_customer_id {
     hidden: yes
   }
+  dimension: old_subscription__mozilla_account_id {
+    group_item_label: "Mozilla Account ID"
+  }
   dimension: old_subscription__mozilla_account_id_sha256 {
     hidden: yes
   }
@@ -96,34 +180,65 @@ view: +logical_subscription_events {
 
   dimension: old_subscription__service_1__id {
     type: string
-    sql: ${TABLE}.old_subscription.services[SAFE_ORDINAL(1)].id ;;
+    sql: ${TABLE}.subscription.services[SAFE_ORDINAL(1)].id ;;
+    group_label: "Old Subscription Service 1"
+    group_item_label: "ID"
   }
   dimension: old_subscription__service_1__name {
     type: string
-    sql: ${TABLE}.old_subscription.services[SAFE_ORDINAL(1)].name ;;
+    sql: ${TABLE}.subscription.services[SAFE_ORDINAL(1)].name ;;
+    group_label: "Old Subscription Service 1"
+    group_item_label: "Name"
   }
   dimension: old_subscription__service_1__tier {
     type: string
-    sql: ${TABLE}.old_subscription.services[SAFE_ORDINAL(1)].tier ;;
+    sql: ${TABLE}.subscription.services[SAFE_ORDINAL(1)].tier ;;
+    group_label: "Old Subscription Service 1"
+    group_item_label: "Tier"
   }
 
   dimension: old_subscription__service_2__id {
     type: string
-    sql: ${TABLE}.old_subscription.services[SAFE_ORDINAL(2)].id ;;
+    sql: ${TABLE}.subscription.services[SAFE_ORDINAL(2)].id ;;
+    group_label: "Old Subscription Service 2"
+    group_item_label: "ID"
   }
   dimension: old_subscription__service_2__name {
     type: string
-    sql: ${TABLE}.old_subscription.services[SAFE_ORDINAL(2)].name ;;
+    sql: ${TABLE}.subscription.services[SAFE_ORDINAL(2)].name ;;
+    group_label: "Old Subscription Service 2"
+    group_item_label: "Name"
   }
   dimension: old_subscription__service_2__tier {
     type: string
-    sql: ${TABLE}.old_subscription.services[SAFE_ORDINAL(2)].tier ;;
+    sql: ${TABLE}.subscription.services[SAFE_ORDINAL(2)].tier ;;
+    group_label: "Old Subscription Service 2"
+    group_item_label: "Tier"
   }
 
+  dimension: old_subscription__provider_product_id {
+    group_label: "Old Subscription Provider IDs"
+    group_item_label: "Product ID"
+  }
+
+  dimension: old_subscription__provider_plan_id {
+    group_label: "Old Subscription Provider IDs"
+    group_item_label: "Plan ID"
+  }
   dimension: old_subscription__plan_interval_type {
     hidden: yes
   }
   dimension: old_subscription__plan_interval_count {
+    hidden: yes
+  }
+  dimension: old_subscription__plan_amount {
+    value_format_name: decimal_2
+  }
+
+  dimension_group: old_subscription__started_at {
+    hidden: yes
+  }
+  dimension_group: old_subscription__ended_at {
     hidden: yes
   }
 

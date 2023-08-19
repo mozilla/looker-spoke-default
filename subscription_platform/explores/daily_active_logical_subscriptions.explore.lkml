@@ -1,6 +1,6 @@
 include: "../views/daily_active_logical_subscriptions.view.lkml"
 include: "../views/logical_subscriptions.view.lkml"
-include: "//looker-hub/shared/views/countries.view.lkml"
+include: "/shared/views/countries.view.lkml"
 
 explore: daily_active_logical_subscriptions {
 
