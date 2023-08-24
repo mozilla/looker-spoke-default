@@ -26,4 +26,22 @@ explore: monthly_active_logical_subscriptions {
     relationship: one_to_one
   }
 
+  join: previous_month_active_subscriptions {
+    from: monthly_active_logical_subscriptions
+    sql_on:
+      ${monthly_active_logical_subscriptions.subscription__id} = ${previous_month_active_subscriptions.subscription__id}
+      AND DATE_SUB(${monthly_active_logical_subscriptions.month_start_date}, INTERVAL 1 MONTH) = ${previous_month_active_subscriptions.month_start_date} ;;
+    type: left_outer
+    relationship: one_to_one
+  }
+
+  join: previous_year_active_subscriptions {
+    from: monthly_active_logical_subscriptions
+    sql_on:
+      ${monthly_active_logical_subscriptions.subscription__id} = ${previous_year_active_subscriptions.subscription__id}
+      AND DATE_SUB(${monthly_active_logical_subscriptions.month_start_date}, INTERVAL 1 YEAR) = ${previous_year_active_subscriptions.month_start_date} ;;
+    type: left_outer
+    relationship: one_to_one
+  }
+
 }
