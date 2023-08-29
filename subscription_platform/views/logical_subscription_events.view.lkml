@@ -321,6 +321,16 @@ view: +logical_subscription_events {
     sql: ${TABLE}.subscription.id ;;
   }
 
+  measure: net_logical_subscription_count {
+    type: sum
+    sql:
+      CASE ${TABLE}.type
+        WHEN 'Subscription Start' THEN 1
+        WHEN 'Subscription End' THEN -1
+        ELSE 0
+      END ;;
+  }
+
   measure: provider_subscription_count {
     type: count_distinct
     sql: ${TABLE}.subscription.provider_subscription_id ;;
