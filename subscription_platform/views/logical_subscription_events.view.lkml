@@ -312,6 +312,10 @@ view: +logical_subscription_events {
     hidden: yes
   }
 
+  measure: event_count {
+    type: count
+  }
+
   measure: logical_subscription_count {
     type: count_distinct
     sql: ${TABLE}.subscription.id ;;
