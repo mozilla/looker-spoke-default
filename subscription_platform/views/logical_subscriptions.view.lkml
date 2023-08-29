@@ -29,6 +29,11 @@ view: +logical_subscriptions {
     map_layer_name: countries
   }
 
+  dimension: services_quantity {
+    type: number
+    sql: ARRAY_LENGTH(${TABLE}.services) ;;
+  }
+
   dimension: service_1__id {
     type: string
     sql: ${TABLE}.services[SAFE_ORDINAL(1)].id ;;

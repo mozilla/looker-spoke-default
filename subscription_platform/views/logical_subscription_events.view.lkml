@@ -51,6 +51,13 @@ view: +logical_subscription_events {
     map_layer_name: countries
   }
 
+  dimension: subscription__services_quantity {
+    type: number
+    sql: ARRAY_LENGTH(${TABLE}.subscription.services) ;;
+    group_label: "Subscription"
+    group_item_label: "Services Quantity"
+  }
+
   dimension: subscription__service_1__id {
     type: string
     sql: ${TABLE}.subscription.services[SAFE_ORDINAL(1)].id ;;
@@ -178,40 +185,47 @@ view: +logical_subscription_events {
     map_layer_name: countries
   }
 
+  dimension: old_subscription__services_quantity {
+    type: number
+    sql: ARRAY_LENGTH(${TABLE}.old_subscription.services) ;;
+    group_label: "Old Subscription"
+    group_item_label: "Services Quantity"
+  }
+
   dimension: old_subscription__service_1__id {
     type: string
-    sql: ${TABLE}.subscription.services[SAFE_ORDINAL(1)].id ;;
+    sql: ${TABLE}.old_subscription.services[SAFE_ORDINAL(1)].id ;;
     group_label: "Old Subscription Service 1"
     group_item_label: "ID"
   }
   dimension: old_subscription__service_1__name {
     type: string
-    sql: ${TABLE}.subscription.services[SAFE_ORDINAL(1)].name ;;
+    sql: ${TABLE}.old_subscription.services[SAFE_ORDINAL(1)].name ;;
     group_label: "Old Subscription Service 1"
     group_item_label: "Name"
   }
   dimension: old_subscription__service_1__tier {
     type: string
-    sql: ${TABLE}.subscription.services[SAFE_ORDINAL(1)].tier ;;
+    sql: ${TABLE}.old_subscription.services[SAFE_ORDINAL(1)].tier ;;
     group_label: "Old Subscription Service 1"
     group_item_label: "Tier"
   }
 
   dimension: old_subscription__service_2__id {
     type: string
-    sql: ${TABLE}.subscription.services[SAFE_ORDINAL(2)].id ;;
+    sql: ${TABLE}.old_subscription.services[SAFE_ORDINAL(2)].id ;;
     group_label: "Old Subscription Service 2"
     group_item_label: "ID"
   }
   dimension: old_subscription__service_2__name {
     type: string
-    sql: ${TABLE}.subscription.services[SAFE_ORDINAL(2)].name ;;
+    sql: ${TABLE}.old_subscription.services[SAFE_ORDINAL(2)].name ;;
     group_label: "Old Subscription Service 2"
     group_item_label: "Name"
   }
   dimension: old_subscription__service_2__tier {
     type: string
-    sql: ${TABLE}.subscription.services[SAFE_ORDINAL(2)].tier ;;
+    sql: ${TABLE}.old_subscription.services[SAFE_ORDINAL(2)].tier ;;
     group_label: "Old Subscription Service 2"
     group_item_label: "Tier"
   }

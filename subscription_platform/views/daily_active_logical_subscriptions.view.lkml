@@ -41,6 +41,13 @@ view: +daily_active_logical_subscriptions {
     map_layer_name: countries
   }
 
+  dimension: subscription__services_quantity {
+    type: number
+    sql: ARRAY_LENGTH(${TABLE}.subscription.services) ;;
+    group_label: "Subscription"
+    group_item_label: "Services Quantity"
+  }
+
   dimension: subscription__service_1__id {
     type: string
     sql: ${TABLE}.subscription.services[SAFE_ORDINAL(1)].id ;;
