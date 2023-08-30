@@ -91,6 +91,13 @@ view: +logical_subscriptions {
     value_format_name: decimal_2
   }
 
+  dimension_group: active {
+    type: duration
+    sql_start: ${TABLE}.started_at ;;
+    sql_end: COALESCE(${TABLE}.ended_at, TIMESTAMP(CURRENT_DATE())) ;;
+    intervals: [day, week, month, quarter, year]
+  }
+
   dimension: first_touch_attribution__utm_campaign {
     group_item_label: "UTM Campaign"
   }
