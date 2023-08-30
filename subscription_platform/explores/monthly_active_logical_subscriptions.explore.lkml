@@ -24,6 +24,11 @@ explore: monthly_active_logical_subscriptions {
       AND DATE_ADD(${monthly_active_logical_subscriptions.month_start_date}, INTERVAL 1 MONTH) = ${next_month_still_active_subscriptions.month_start_date} ;;
     type: left_outer
     relationship: one_to_one
+    fields: [
+      logical_subscription_count,
+      provider_subscription_count,
+      customer_count
+    ]
   }
 
 }
