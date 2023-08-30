@@ -1,5 +1,6 @@
 include: "../views/monthly_active_logical_subscriptions.view.lkml"
 include: "../views/logical_subscriptions.view.lkml"
+include: "../views/table_metadata.view.lkml"
 include: "/shared/views/countries.view.lkml"
 
 explore: monthly_active_logical_subscriptions {
@@ -29,6 +30,12 @@ explore: monthly_active_logical_subscriptions {
       provider_subscription_count,
       customer_count
     ]
+  }
+
+  join: table_metadata {
+    sql_on: ${table_metadata.table_name} = 'monthly_active_logical_subscriptions_v1' ;;
+    type: left_outer
+    relationship: many_to_one
   }
 
 }
