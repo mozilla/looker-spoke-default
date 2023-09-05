@@ -81,7 +81,7 @@ explore: crash_usage {
     }
     materialization: {
       datagroup_trigger: clients_daily_joined_partitions
-      increment_key: "submission_date"
+      #increment_key: "submission_date"
     }
   }
 
@@ -163,7 +163,7 @@ explore: crash_usage {
     }
     materialization: {
       datagroup_trigger: clients_daily_joined_partitions
-      increment_key: "submission_date"
+      #increment_key: "submission_date"
     }
   }
 
@@ -244,7 +244,7 @@ explore: crash_usage {
     }
     materialization: {
       datagroup_trigger: clients_daily_joined_partitions
-      increment_key: "submission_date"
+      #increment_key: "submission_date"
     }
   }
 
