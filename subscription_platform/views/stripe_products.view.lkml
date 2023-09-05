@@ -6,4 +6,8 @@ view: +stripe_products {
     primary_key: yes
   }
 
+  dimension: statement_descriptor {
+    hidden:  yes
+  }
+
 }
