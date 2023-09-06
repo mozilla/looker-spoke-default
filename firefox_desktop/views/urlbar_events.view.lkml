@@ -165,7 +165,7 @@ measure: urlbar_impressions {
 
 measure: urlbar_CTR {
   group_label: "Urlbar Metrics"
-  description: "Urlbar Clicks / Urlbar Impressions"
+  description: "Clicks / Impressions"
     sql: safe_divide(${urlbar_clicks}, ${urlbar_impressions});;
     type: number
 }
@@ -175,5 +175,30 @@ measure: urlbar_annoyances {
     sql: sum(case when ${session_action_type} = "annoyance" then 1 else 0 end);;
     type: number
 }
+
+  measure: DPSS_clicks {
+    group_label: "Default Partner Search Suggestion"
+    sql: sum(case when product_engaged_result_type = "default_partner_search_suggestion" and ${is_terminal} and ${session_action_type} = "engaged" then 1 else 0 end);;
+    type: number
+  }
+
+  measure: DPSS_impressions {
+    group_label: "Default Partner Search Suggestion"
+    sql: sum(case when ${num_default_partner_search_suggestion_impressions} > 0 and ${is_terminal} then 1 else 0 end);;
+    type: number
+  }
+
+  measure: DPSS_CTR {
+    group_label: "Default Partner Search Suggestion"
+    description: "Clicks /Impressions"
+    sql: safe_divide(${urlbar_clicks}, ${urlbar_impressions});;
+    type: number
+  }
+
+  measure: DPSS_annoyances {
+    group_label: "Default Partner Search Suggestion"
+    sql: sum(case when product_engaged_result_type = "default_partner_search_suggestion" and ${session_action_type} = "annoyance" then 1 else 0 end);;
+    type: number
+  }
 
 }
