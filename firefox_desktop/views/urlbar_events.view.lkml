@@ -153,12 +153,14 @@ dimension_group: submission {
 
 measure: urlbar_clicks {
   group_label: "Urlbar Metrics"
+  description: "Count of clicks on any result shown in the urlbar dropdown menu"
   sql: COUNTIF(${is_terminal} and ${session_action_type} = "engaged");;
   type: number
 }
 
 measure: urlbar_impressions {
   group_label: "Urlbar Metrics"
+  description: "The number of times a user exits the urlbar dropdown menu, either by abandoning the urlbar, engaging with a urlbar result, or selecting an annoyance signal that closes the urlbar dropdown menu"
     sql: COUNTIF(${is_terminal});;
     type: number
 }
@@ -172,6 +174,7 @@ measure: urlbar_CTR {
 
 measure: urlbar_annoyances {
   group_label: "Urlbar Metrics"
+  description: "Count of clicks on annoyance signals across all results shown in the urlbar dropdown menu"
     sql: COUNTIF(${session_action_type} = "annoyance");;
     type: number
 }
@@ -184,6 +187,7 @@ measure: urlbar_annoyances {
 
   measure: addon_impressions {
     group_label: "Addon"
+    description: "The number of times a user exits the urlbar dropdown menu while an addon result was visible"
     sql: COUNTIF(${num_add_on_impressions} > 0 and ${is_terminal});;
     type: number
   }
@@ -209,6 +213,7 @@ measure: urlbar_annoyances {
 
   measure: amp_spons_impressions {
     group_label: "AdMarketplace Sponsored"
+    description: "The number of times a user exits the urlbar dropdown menu while an AdMarketplace Sponsored result was visible"
     sql: COUNTIF(${num_admarketplace_sponsored_impressions} > 0 and ${is_terminal});;
     type: number
   }
@@ -234,6 +239,7 @@ measure: urlbar_annoyances {
 
   measure: bookmark_impressions {
     group_label: "Bookmark"
+    description: "The number of times a user exits the urlbar dropdown menu while a bookmark result was visible"
     sql: COUNTIF(${num_bookmark_impressions} > 0 and ${is_terminal});;
     type: number
   }
@@ -259,6 +265,7 @@ measure: urlbar_annoyances {
 
   measure: DPSS_impressions {
     group_label: "Default Partner Search Suggestion"
+    description: "The number of times a user exits the urlbar dropdown menu while a Default Partner Search Suggestion result was visible"
     sql: COUNTIF(${num_default_partner_search_suggestion_impressions} > 0 and ${is_terminal});;
     type: number
   }
@@ -284,6 +291,7 @@ measure: urlbar_annoyances {
 
   measure: history_impressions {
     group_label: "History"
+    description: "The number of times a user exits the urlbar dropdown menu while a history result was visible"
     sql: COUNTIF(${num_history_impressions} > 0 and ${is_terminal});;
     type: number
   }
@@ -309,6 +317,7 @@ measure: urlbar_annoyances {
 
   measure: navigational_impressions {
     group_label: "Navigational"
+    description: "The number of times a user exits the urlbar dropdown menu while a navigational result was visible"
     sql: COUNTIF(${num_navigational_impressions} > 0 and ${is_terminal});;
     type: number
   }
@@ -334,6 +343,7 @@ measure: urlbar_annoyances {
 
   measure: open_tab_impressions {
     group_label: "Open Tab"
+    description: "The number of times a user exits the urlbar dropdown menu while a open tab result was visible"
     sql: COUNTIF(${num_open_tab_impressions} > 0 and ${is_terminal});;
     type: number
   }
@@ -359,6 +369,7 @@ measure: urlbar_annoyances {
 
   measure: pocket_collection_impressions {
     group_label: "Pocket Collection"
+    description: "The number of times a user exits the urlbar dropdown menu while a Pocket Collection result was visible"
     sql: COUNTIF(${num_pocket_collection_impressions} > 0 and ${is_terminal});;
     type: number
   }
@@ -384,6 +395,7 @@ measure: urlbar_annoyances {
 
   measure: quick_action_impressions {
     group_label: "Quick Action"
+    description: "The number of times a user exits the urlbar dropdown menu while a quick action result was visible"
     sql: COUNTIF(${num_quick_action_impressions} > 0 and ${is_terminal});;
     type: number
   }
@@ -409,6 +421,7 @@ measure: urlbar_annoyances {
 
   measure: search_engine_impressions {
     group_label: "Search Engine"
+    description: "The number of times a user exits the urlbar dropdown menu while a search engine result was visible"
     sql: COUNTIF(${num_search_engine_impressions} > 0 and ${is_terminal});;
     type: number
   }
@@ -434,6 +447,7 @@ measure: urlbar_annoyances {
 
   measure: weather_impressions {
     group_label: "Weather"
+    description: "The number of times a user exits the urlbar dropdown menu while a weather result was visible"
     sql: COUNTIF(${num_weather_impressions} > 0 and ${is_terminal});;
     type: number
   }
@@ -459,6 +473,7 @@ measure: urlbar_annoyances {
 
   measure: wikipedia_dynamic_impressions {
     group_label: "Wikipedia Dynamic"
+    description: "The number of times a user exits the urlbar dropdown menu while a Wikipedia Dynamic result was visible"
     sql: COUNTIF(${num_wikipedia_dynamic_impressions} > 0 and ${is_terminal});;
     type: number
   }
@@ -484,6 +499,7 @@ measure: urlbar_annoyances {
 
   measure: wikipedia_enhanced_impressions {
     group_label: "Wikipedia Enhanced"
+    description: "The number of times a user exits the urlbar dropdown menu while a Wikipedia Enhanced result was visible"
     sql: COUNTIF(${num_wikipedia_enhanced_impressions} > 0 and ${is_terminal});;
     type: number
   }
