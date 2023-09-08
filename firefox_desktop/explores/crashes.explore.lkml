@@ -12,7 +12,7 @@ datagroup: clients_daily_joined_partitions {
 }
 
 explore: crash_usage {
-  label: "Crashes"
+  label: "Crashes Daily"
   description: "Crash counts for Desktop Firefox, derived from the crash ping."
   persist_with: clients_daily_joined_partitions
 
