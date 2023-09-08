@@ -1,13 +1,24 @@
-include: "//looker-hub/monitoring/views/dag.view.lkml"
+include: "//looker-hub/monitoring/views/airflow_dag.view.lkml"
 
-view: +dag {
-  measure: count {
-    type: count_distinct
-    sql: ${root_dag_id} ;;
+view: +airflow_dag {
+
+  dimension: dag_id {
+    type: string
+    link: {
+      label: "go to (sub-)DAG"
+      url: "https://workflow.telemetry.mozilla.org/dags/{{ dag_id }}/grid"
+    }
+    primary_key: yes
   }
+
+  dimension: description {
+    hidden: yes # as long as this field is always empty there is no reason to show it
+  }
+
 }
 
-view: dag_owner {
+view: airflow_dag_owner {
+
   derived_table: {
     sql:
       select
@@ -16,12 +27,13 @@ view: dag_owner {
       from `mozdata.monitoring.airflow_dag`, unnest(split(owners, ", ")) as owner
     ;;
   }
+
   dimension: root_dag_id {
     hidden: yes
   }
-  dimension: owner {
 
-  }
+  dimension: owner {}
+
   measure: count {
     type: count_distinct
     sql: ${root_dag_id} ;;
