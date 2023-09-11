@@ -494,14 +494,14 @@ view: buildhub {
   derived_table: {
     sql:
       SELECT
-          build.target.version,
+          REGEXP_EXTRACT(build.target.version, r"(^\d+\.\d+(?:\.\d+)?)") AS version,
           build.target.channel,
           MIN(build.download.date) AS publish_date,
       FROM
           mozdata.telemetry.buildhub2
       GROUP BY
-          build.target.version,
-          build.target.channel
+          version,
+          channel
     ;;
   }
 
