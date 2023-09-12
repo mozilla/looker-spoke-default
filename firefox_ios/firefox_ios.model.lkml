@@ -90,3 +90,7 @@ explore: +client_counts {
     ]
   }
 }
+
+explore: app_store_funnel_table {
+  sql_always_where: ${period_filtered_measures} in ("this", "last");;
+}
