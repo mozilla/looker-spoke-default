@@ -21,6 +21,7 @@ view: clients_counts_pop_method1 {
     convert_tz: no
   }
 
+  # Testing comment
   # (Method 1a) you may also wish to create MTD and YTD filters in LookML
 
   dimension: wtd_only {
