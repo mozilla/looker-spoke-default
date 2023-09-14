@@ -11,11 +11,18 @@ explore: logical_subscription_events {
     relationship: many_to_one
   }
 
-  join: current_subscriptions {
+  join: current_subscription_state {
     from: logical_subscriptions
-    sql_on: ${logical_subscription_events.subscription__id} = ${current_subscriptions.id} ;;
+    sql_on: ${logical_subscription_events.subscription__id} = ${current_subscription_state.id} ;;
     type: left_outer
     relationship: many_to_one
+    fields: [
+      is_trial,
+      is_active,
+      auto_renew,
+      has_refunds,
+      has_fraudulent_charges
+    ]
   }
 
   join: table_metadata {
