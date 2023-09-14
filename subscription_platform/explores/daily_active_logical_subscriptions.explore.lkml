@@ -16,6 +16,13 @@ explore: daily_active_logical_subscriptions {
     sql_on: ${daily_active_logical_subscriptions.subscription__id} = ${current_subscription_state.id} ;;
     type: left_outer
     relationship: many_to_one
+    fields: [
+      is_trial,
+      is_active,
+      auto_renew,
+      has_refunds,
+      has_fraudulent_charges
+    ]
   }
 
   join: table_metadata {

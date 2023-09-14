@@ -16,6 +16,13 @@ explore: logical_subscription_events {
     sql_on: ${logical_subscription_events.subscription__id} = ${current_subscription_state.id} ;;
     type: left_outer
     relationship: many_to_one
+    fields: [
+      is_trial,
+      is_active,
+      auto_renew,
+      has_refunds,
+      has_fraudulent_charges
+    ]
   }
 
   join: table_metadata {
