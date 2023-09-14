@@ -11,9 +11,9 @@ explore: daily_active_logical_subscriptions {
     relationship: many_to_one
   }
 
-  join: current_subscriptions {
+  join: current_subscription_state {
     from: logical_subscriptions
-    sql_on: ${daily_active_logical_subscriptions.subscription__id} = ${current_subscriptions.id} ;;
+    sql_on: ${daily_active_logical_subscriptions.subscription__id} = ${current_subscription_state.id} ;;
     type: left_outer
     relationship: many_to_one
   }
