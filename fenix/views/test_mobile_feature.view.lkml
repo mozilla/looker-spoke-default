@@ -1,5 +1,5 @@
 
-view: test_mobile_feature_usage {
+view: test_mobile_feature {
   derived_table: {
     sql: WITH dau_segments AS 
           (SELECT submission_date, SUM(DAU) as dau
