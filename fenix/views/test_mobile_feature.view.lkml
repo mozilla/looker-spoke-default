@@ -37,6 +37,9 @@ view: test_mobile_feature {
       select d.submission_date
       -- credit card deleted
       , SAFE_DIVIDE(p.credit_cards_deleted, p.credit_cards_deleted_users) AS credit_cards_deleted_avg
+      , dau
+      , p.credit_cards_deleted
+      , p.currently_stored_credit_cards
       , p.credit_cards_deleted_users
       , 100*SAFE_DIVIDE(p.credit_cards_deleted_users, dau) AS credit_cards_deleted_frac
       -- credit card currently stored
@@ -54,45 +57,40 @@ view: test_mobile_feature {
     sql: ${TABLE}.submission_date ;;
   }
 
-  measure: credit_cards_deleted_avg {
-    type: number
-    sql: ${TABLE}.credit_cards_deleted_avg ;;
+  measure: dau {
+    type: sum
+    sql: ${TABLE}.dau ;;
   }
 
   measure: credit_cards_deleted_users {
-    type: number
+    type: sum
     sql: ${TABLE}.credit_cards_deleted_users ;;
   }
 
-  measure: credit_cards_deleted_frac {
-    type: number
-    sql: ${TABLE}.credit_cards_deleted_frac ;;
-  }
-
-  measure: currently_stored_credit_cards_avg {
-    type: number
-    sql: ${TABLE}.currently_stored_credit_cards_avg ;;
-  }
-
   measure: currently_stored_credit_cards_users {
-    type: number
+    type: sum
     sql: ${TABLE}.currently_stored_credit_cards_users ;;
   }
 
-  measure: currently_stored_credit_cards_frac {
-    type: number
-    sql: ${TABLE}.currently_stored_credit_cards_frac ;;
+  measure: credit_cards_deleted {
+    type: sum
+    sql: ${TABLE}.credit_cards_deleted ;;
   }
+
+  measure: currently_stored_credit_cards {
+    type: sum
+    sql: ${TABLE}.currently_stored_credit_cards ;;
+  }
+
 
   set: detail {
     fields: [
         submission_date,
-  credit_cards_deleted_avg,
+  dau,
   credit_cards_deleted_users,
-  credit_cards_deleted_frac,
-  currently_stored_credit_cards_avg,
   currently_stored_credit_cards_users,
-  currently_stored_credit_cards_frac
+  credit_cards_deleted,
+  currently_stored_credit_cards
     ]
   }
 }
