@@ -10,6 +10,11 @@ view: +stripe_plans {
     hidden:  yes
   }
 
+  dimension: amount {
+    sql: CAST(${TABLE}.amount AS DECIMAL) / 100 ;;
+    value_format_name: decimal_2
+  }
+
   dimension: billing_scheme {
     hidden:  yes
   }
