@@ -46,6 +46,19 @@ view: +stripe_plans {
       END ;;
   }
 
+  dimension: summary {
+    type: string
+    sql:
+      CONCAT(
+        ${interval_description},
+        IF(
+          ${amount} IS NOT NULL,
+          CONCAT(' ', ${currency}, ' ', FORMAT('%.2f', ${amount})),
+          ''
+        )
+      ) ;;
+  }
+
   dimension: tiers_mode {
     hidden:  yes
   }
