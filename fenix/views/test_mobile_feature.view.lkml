@@ -1,14 +1,14 @@
 
 view: test_mobile_feature {
   derived_table: {
-    sql: WITH dau_segments AS 
+    sql: WITH dau_segments AS
           (SELECT submission_date, SUM(DAU) as dau
-          FROM `moz-fx-data-shared-prod.telemetry.active_users_aggregates` 
+          FROM `moz-fx-data-shared-prod.telemetry.active_users_aggregates`
           WHERE app_name = 'Fenix'
           --AND channel = 'release'
           AND submission_date >= '2022-12-04'
           GROUP BY 1),
-          
+
       product_features AS
       (SELECT
           client_info.client_id,
@@ -19,7 +19,7 @@ view: test_mobile_feature {
       where DATE(submission_timestamp) >= '2022-12-04'
       AND sample_id = 0
       group by 1,2),
-      
+
       product_features_agg AS
       (SELECT
           submission_date,
@@ -32,8 +32,8 @@ view: test_mobile_feature {
           FROM product_features
       where submission_date >= '2022-12-04'
       group by 1)
-          
-          
+
+
       select d.submission_date
       -- credit card deleted
       , SAFE_DIVIDE(p.credit_cards_deleted, p.credit_cards_deleted_users) AS credit_cards_deleted_avg
@@ -48,43 +48,38 @@ view: test_mobile_feature {
       ON d.submission_date = p.submission_date ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [detail*]
-  }
-
   dimension: submission_date {
     type: date
     datatype: date
     sql: ${TABLE}.submission_date ;;
   }
 
-  dimension: credit_cards_deleted_avg {
+  measure: credit_cards_deleted_avg {
     type: number
     sql: ${TABLE}.credit_cards_deleted_avg ;;
   }
 
-  dimension: credit_cards_deleted_users {
+  measure: credit_cards_deleted_users {
     type: number
     sql: ${TABLE}.credit_cards_deleted_users ;;
   }
 
-  dimension: credit_cards_deleted_frac {
+  measure: credit_cards_deleted_frac {
     type: number
     sql: ${TABLE}.credit_cards_deleted_frac ;;
   }
 
-  dimension: currently_stored_credit_cards_avg {
+  measure: currently_stored_credit_cards_avg {
     type: number
     sql: ${TABLE}.currently_stored_credit_cards_avg ;;
   }
 
-  dimension: currently_stored_credit_cards_users {
+  measure: currently_stored_credit_cards_users {
     type: number
     sql: ${TABLE}.currently_stored_credit_cards_users ;;
   }
 
-  dimension: currently_stored_credit_cards_frac {
+  measure: currently_stored_credit_cards_frac {
     type: number
     sql: ${TABLE}.currently_stored_credit_cards_frac ;;
   }
@@ -92,12 +87,12 @@ view: test_mobile_feature {
   set: detail {
     fields: [
         submission_date,
-	credit_cards_deleted_avg,
-	credit_cards_deleted_users,
-	credit_cards_deleted_frac,
-	currently_stored_credit_cards_avg,
-	currently_stored_credit_cards_users,
-	currently_stored_credit_cards_frac
+  credit_cards_deleted_avg,
+  credit_cards_deleted_users,
+  credit_cards_deleted_frac,
+  currently_stored_credit_cards_avg,
+  currently_stored_credit_cards_users,
+  currently_stored_credit_cards_frac
     ]
   }
 }
