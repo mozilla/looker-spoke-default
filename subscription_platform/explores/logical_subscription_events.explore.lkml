@@ -25,6 +25,22 @@ explore: logical_subscription_events {
     ]
   }
 
+  join: subscription_services {
+    from: logical_subscription_events__subscription__services
+    sql_table_name: UNNEST(logical_subscription_events.subscription.services) ;;
+    sql_on: TRUE ;;
+    type: left_outer
+    relationship: one_to_many
+  }
+
+  join: old_subscription_services {
+    from: logical_subscription_events__old_subscription__services
+    sql_table_name: UNNEST(logical_subscription_events.old_subscription.services) ;;
+    sql_on: TRUE ;;
+    type: left_outer
+    relationship: one_to_many
+  }
+
   join: table_metadata {
     sql_on: ${table_metadata.table_name} = 'logical_subscription_events_v1' ;;
     type: left_outer

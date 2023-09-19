@@ -25,6 +25,14 @@ explore: daily_active_logical_subscriptions {
     ]
   }
 
+  join: subscription_services {
+    from: daily_active_logical_subscriptions__subscription__services
+    sql_table_name: UNNEST(daily_active_logical_subscriptions.subscription.services) ;;
+    sql_on: TRUE ;;
+    type: left_outer
+    relationship: one_to_many
+  }
+
   join: table_metadata {
     sql_on: ${table_metadata.table_name} = 'daily_active_logical_subscriptions_v1' ;;
     type: left_outer
