@@ -18,6 +18,17 @@ view: +stripe_plans {
     sql: UPPER(${TABLE}.currency) ;;
   }
 
+  dimension: interval_description {
+    type: string
+    sql:
+      CONCAT(
+        ${interval_count},
+        ' ',
+        ${interval},
+        IF(${interval_count} > 1, 's', '')
+      ) ;;
+  }
+
   dimension: tiers_mode {
     hidden:  yes
   }
