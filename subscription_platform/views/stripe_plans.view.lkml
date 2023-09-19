@@ -29,6 +29,18 @@ view: +stripe_plans {
       ) ;;
   }
 
+  dimension: interval_months {
+    type: number
+    sql:
+      CASE
+        ${interval}
+        WHEN 'month'
+          THEN ${interval_count}
+        WHEN 'year'
+          THEN ${interval_count} * 12
+      END ;;
+  }
+
   dimension: tiers_mode {
     hidden:  yes
   }
