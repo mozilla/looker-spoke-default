@@ -14,6 +14,10 @@ view: +stripe_plans {
     hidden:  yes
   }
 
+  dimension: currency {
+    sql: UPPER(${TABLE}.currency) ;;
+  }
+
   dimension: tiers_mode {
     hidden:  yes
   }
