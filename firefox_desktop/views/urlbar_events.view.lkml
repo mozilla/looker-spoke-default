@@ -125,7 +125,8 @@ dimension: product_first_result_type {
 }
 
 dimension: sample_id {
-  hidden:  yes
+  group_label: "Filters to speed up Looker"
+  description: "Filtering `sample_id < 10` will select a random 10% sample of the data, instead of all the data."
 }
 
 dimension: session_action_type {
