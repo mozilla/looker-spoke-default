@@ -125,7 +125,8 @@ dimension: product_first_result_type {
 }
 
 dimension: sample_id {
-  hidden:  yes
+  group_label: "Filters to speed up Looker"
+  description: "Filter on this Dimension to speed up Looker while prototyping a dashboard. For example, filtering `sample_id < 10` will select a random 10% sample of the data, instead of all the data. DO NOT use this filter in a production dashboard for metrics with rare events (e.g., when click counts on a result type are low)."
 }
 
 dimension: session_action_type {
