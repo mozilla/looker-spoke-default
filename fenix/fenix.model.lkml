@@ -12,6 +12,7 @@ explore: +topsites_impression {
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1764332
 
 include: "//looker-hub/fenix/views/metrics.view.lkml"
+include: "/fenix/views/test_mobile_feature.view.lkml"
 
 view: +metrics {
   dimension: metrics__labeled_counter__recent_synced_tabs_recent_synced_tab_opened {
