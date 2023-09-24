@@ -166,7 +166,7 @@ view: kpi_installs {
               WHEN UPPER(${country}) = "ES" THEN ${installs} * 1.118
               WHEN UPPER(${country}) = "GB" THEN ${installs} * 1.103
               WHEN UPPER(${country}) = "US" THEN ${installs} * 1.099
-              ELSE UPPER(${country}) * 1.112 END;;
+              ELSE ${installs} * 1.112 END;;
     filters: [period_filtered_measures: "last"]
   }
 
