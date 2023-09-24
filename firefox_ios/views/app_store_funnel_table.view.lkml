@@ -31,11 +31,6 @@ view: +app_store_funnel_table {
     sql: ${TABLE}.new_profiles ;;
   }
 
-  measure: activations_sum {
-    description: "Early indicator for LTV based on days of app open and searches on the first week"
-    type: sum
-    sql: ${TABLE}.activations ;;
-  }
 
   measure: view_ctr {
     label: "View Click Through Rate"
@@ -49,13 +44,6 @@ view: +app_store_funnel_table {
     type: number
     value_format_name: percent_2
     sql: ${new_profiles}/ NULLIF(${total_downloads},0) ;;
-  }
-
-  measure: activation_rate {
-    label: "Activation Rate"
-    type: number
-    value_format_name: percent_2
-    sql: ${activations}/ NULLIF(${new_profiles},0) ;;
   }
 
   # measure: multi_days_users_conversion {
@@ -251,19 +239,6 @@ view: +app_store_funnel_table {
     filters: [period_filtered_measures: "last"]
   }
 
-  measure: current_period_activations {
-    view_label: "filtered metrics"
-    type: sum
-    sql: ${TABLE}.activations ;;
-    filters: [period_filtered_measures: "this"]
-  }
-
-  measure: previous_period_activations {
-    view_label: "filtered metrics"
-    type: sum
-    sql: ${TABLE}.activations ;;
-    filters: [period_filtered_measures: "last"]
-  }
 
   # measure: current_period_multi_days_users {
   #   view_label: "filtered metrics"
@@ -293,19 +268,7 @@ view: +app_store_funnel_table {
   #   filters: [period_filtered_measures: "last"]
   # }
 
-  measure: current_period_activation_rate {
-    view_label: "filtered metrics"
-    type: sum
-    sql: ${TABLE}.activation_rate ;;
-    filters: [period_filtered_measures: "this"]
-  }
 
-  measure: previous_period_activation_rate {
-    view_label: "filtered metrics"
-    type: sum
-    sql: ${TABLE}.activation_rate ;;
-    filters: [period_filtered_measures: "last"]
-  }
 
   # measure: current_period_multi_days_users_conversion {
   #   view_label: "filtered metrics"

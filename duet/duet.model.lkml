@@ -28,7 +28,9 @@ explore: kpi_downloads {
 }
 
 explore: kpi_installs{
-  sql_always_where: ${period_filtered_measures} in ("this", "last");;
+  sql_always_where: ${period_filtered_measures} in ("this", "last") AND
+                    ${app} = "Firefox Android and iOS" AND ${os} in ( "ios", "android")
+                    AND ${network} <> "Untrusted Devices";;
 }
 
 explore: app_store_territory_source_type_report {
