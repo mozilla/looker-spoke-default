@@ -10,6 +10,14 @@ explore: logical_subscriptions {
     relationship: many_to_one
   }
 
+  join: subscription_services {
+    from: logical_subscriptions__services
+    sql_table_name: UNNEST(logical_subscriptions.services) ;;
+    sql_on: TRUE ;;
+    type: left_outer
+    relationship: one_to_many
+  }
+
   join: table_metadata {
     sql_on: ${table_metadata.table_name} = 'logical_subscriptions_history_v1' ;;
     type: left_outer
