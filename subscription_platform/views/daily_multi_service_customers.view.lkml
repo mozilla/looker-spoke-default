@@ -65,6 +65,11 @@ view: daily_multi_service_customers {
     sql: ARRAY_TO_STRING(${TABLE}.service_names, ' + ') ;;
   }
 
+  dimension: product_names {
+    type: string
+    sql: ARRAY_TO_STRING(${TABLE}.product_names, ' + ') ;;
+  }
+
   dimension: country_code {
     type: string
     sql: ${TABLE}.country_code ;;
