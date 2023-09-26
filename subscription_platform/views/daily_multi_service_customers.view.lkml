@@ -6,10 +6,10 @@ view: daily_multi_service_customers {
       SELECT
         date,
         subscription.mozilla_account_id,
-        ARRAY_AGG(DISTINCT service.id ORDER BY service.id) AS service_ids,
-        ARRAY_AGG(DISTINCT service.name ORDER BY service.name) AS service_names,
-        ARRAY_AGG(DISTINCT subscription.product_name ORDER BY subscription.product_name) AS product_names,
-        ARRAY_AGG(DISTINCT subscription.plan_interval ORDER BY subscription.plan_interval) AS plan_intervals,
+        ARRAY_AGG(DISTINCT service.id IGNORE NULLS ORDER BY service.id) AS service_ids,
+        ARRAY_AGG(DISTINCT service.name IGNORE NULLS ORDER BY service.name) AS service_names,
+        ARRAY_AGG(DISTINCT subscription.product_name IGNORE NULLS ORDER BY subscription.product_name) AS product_names,
+        ARRAY_AGG(DISTINCT subscription.plan_interval IGNORE NULLS ORDER BY subscription.plan_interval) AS plan_intervals,
         MAX_BY(subscription.country_code, subscription.customer_subscription_number) AS country_code,
         MAX_BY(subscription.country_name, subscription.customer_subscription_number) AS country_name,
       FROM
