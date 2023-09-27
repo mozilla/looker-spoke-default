@@ -58,44 +58,6 @@ view: +logical_subscription_events {
     group_item_label: "Services Quantity"
   }
 
-  dimension: subscription__service_1__id {
-    type: string
-    sql: ${TABLE}.subscription.services[SAFE_ORDINAL(1)].id ;;
-    group_label: "Subscription Service 1"
-    group_item_label: "ID"
-  }
-  dimension: subscription__service_1__name {
-    type: string
-    sql: ${TABLE}.subscription.services[SAFE_ORDINAL(1)].name ;;
-    group_label: "Subscription Service 1"
-    group_item_label: "Name"
-  }
-  dimension: subscription__service_1__tier {
-    type: string
-    sql: ${TABLE}.subscription.services[SAFE_ORDINAL(1)].tier ;;
-    group_label: "Subscription Service 1"
-    group_item_label: "Tier"
-  }
-
-  dimension: subscription__service_2__id {
-    type: string
-    sql: ${TABLE}.subscription.services[SAFE_ORDINAL(2)].id ;;
-    group_label: "Subscription Service 2"
-    group_item_label: "ID"
-  }
-  dimension: subscription__service_2__name {
-    type: string
-    sql: ${TABLE}.subscription.services[SAFE_ORDINAL(2)].name ;;
-    group_label: "Subscription Service 2"
-    group_item_label: "Name"
-  }
-  dimension: subscription__service_2__tier {
-    type: string
-    sql: ${TABLE}.subscription.services[SAFE_ORDINAL(2)].tier ;;
-    group_label: "Subscription Service 2"
-    group_item_label: "Tier"
-  }
-
   dimension: subscription__provider_product_id {
     group_label: "Subscription Provider IDs"
     group_item_label: "Product ID"
@@ -197,44 +159,6 @@ view: +logical_subscription_events {
     sql: ARRAY_LENGTH(${TABLE}.old_subscription.services) ;;
     group_label: "Old Subscription"
     group_item_label: "Services Quantity"
-  }
-
-  dimension: old_subscription__service_1__id {
-    type: string
-    sql: ${TABLE}.old_subscription.services[SAFE_ORDINAL(1)].id ;;
-    group_label: "Old Subscription Service 1"
-    group_item_label: "ID"
-  }
-  dimension: old_subscription__service_1__name {
-    type: string
-    sql: ${TABLE}.old_subscription.services[SAFE_ORDINAL(1)].name ;;
-    group_label: "Old Subscription Service 1"
-    group_item_label: "Name"
-  }
-  dimension: old_subscription__service_1__tier {
-    type: string
-    sql: ${TABLE}.old_subscription.services[SAFE_ORDINAL(1)].tier ;;
-    group_label: "Old Subscription Service 1"
-    group_item_label: "Tier"
-  }
-
-  dimension: old_subscription__service_2__id {
-    type: string
-    sql: ${TABLE}.old_subscription.services[SAFE_ORDINAL(2)].id ;;
-    group_label: "Old Subscription Service 2"
-    group_item_label: "ID"
-  }
-  dimension: old_subscription__service_2__name {
-    type: string
-    sql: ${TABLE}.old_subscription.services[SAFE_ORDINAL(2)].name ;;
-    group_label: "Old Subscription Service 2"
-    group_item_label: "Name"
-  }
-  dimension: old_subscription__service_2__tier {
-    type: string
-    sql: ${TABLE}.old_subscription.services[SAFE_ORDINAL(2)].tier ;;
-    group_label: "Old Subscription Service 2"
-    group_item_label: "Tier"
   }
 
   dimension: old_subscription__provider_product_id {
