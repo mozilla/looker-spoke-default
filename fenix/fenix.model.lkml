@@ -13,6 +13,7 @@ explore: +topsites_impression {
 
 include: "//looker-hub/fenix/views/metrics.view.lkml"
 include: "/fenix/views/test_mobile_feature.view.lkml"
+include: "/fenix/views/android_credential_management_metrics.view.lkml"
 
 view: +metrics {
   dimension: metrics__labeled_counter__recent_synced_tabs_recent_synced_tab_opened {
