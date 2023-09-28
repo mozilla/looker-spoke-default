@@ -1,43 +1,43 @@
 
 view: android_credential_management_metrics {
   derived_table: {
-    sql: WITH dau_segments AS 
+    sql: WITH dau_segments AS
           (SELECT submission_date, SUM(DAU) as dau
-          FROM `moz-fx-data-shared-prod.telemetry.active_users_aggregates` 
+          FROM `moz-fx-data-shared-prod.telemetry.active_users_aggregates`
           WHERE app_name = 'Fenix'
           --AND channel = 'release'
           AND submission_date >= '2021-09-04'
           GROUP BY 1),
-          
+
       product_features AS
       (SELECT
           client_info.client_id,
           DATE(submission_timestamp) as submission_date,
-          
+
           --Credential Management: Logins
           COALESCE(SUM(metrics.counter.logins_deleted), 0) AS logins_deleted,
           COALESCE(SUM(metrics.counter.logins_modified), 0) AS logins_modified,
           COALESCE(SUM(metrics.quantity.logins_saved_all), 0) AS currently_stored_logins,
-          
+
           --Credential Management: Credit Cards
           COALESCE(SUM(metrics.counter.credit_cards_deleted), 0) AS credit_cards_deleted,
           COALESCE(SUM(metrics.quantity.credit_cards_saved_all), 0) AS currently_stored_credit_cards,
-          
+
           --Credential Management: Addresses
           COALESCE(SUM(metrics.counter.addresses_deleted), 0) AS addresses_deleted,
           COALESCE(SUM(metrics.counter.addresses_updated), 0) AS addresses_modified,
           COALESCE(SUM(metrics.quantity.addresses_saved_all), 0) AS currently_stored_addresses,
-      
-          
+
+
           FROM `mozdata.fenix.metrics`
       where DATE(submission_timestamp) >= '2021-09-04'
       AND sample_id = 0
       group by 1,2),
-      
+
       product_features_agg AS
       (SELECT
           submission_date,
-          
+
           /*Logins*/
           --logins deleted
           100*COUNT(DISTINCT CASE WHEN logins_deleted > 0 THEN client_id END) AS logins_deleted_users,
@@ -48,7 +48,7 @@ view: android_credential_management_metrics {
           --logins currently stored
           100*COUNT(DISTINCT CASE WHEN currently_stored_logins > 0 THEN client_id END) AS currently_stored_logins_users,
           100*COALESCE(SUM(currently_stored_logins), 0) AS currently_stored_logins,
-          
+
           /*Credit Card*/
           --credit card deleted
           100*COUNT(DISTINCT CASE WHEN credit_cards_deleted > 0 THEN client_id END) AS credit_cards_deleted_users,
@@ -56,7 +56,7 @@ view: android_credential_management_metrics {
           --credit card currently stored
           100*COUNT(DISTINCT CASE WHEN currently_stored_credit_cards > 0 THEN client_id END) AS currently_stored_credit_cards_users,
           100*COALESCE(SUM(currently_stored_credit_cards), 0) AS currently_stored_credit_cards,
-          
+
           /*Address*/
           --address deleted
           100*COUNT(DISTINCT CASE WHEN addresses_deleted > 0 THEN client_id END) AS addresses_deleted_users,
@@ -67,12 +67,12 @@ view: android_credential_management_metrics {
           -- addresses currently stored
           100*COUNT(DISTINCT CASE WHEN currently_stored_addresses > 0 THEN client_id END) AS currently_stored_addresses_users,
           100*COALESCE(SUM(currently_stored_addresses), 0) AS currently_stored_addresses
-          
+
       FROM product_features
       where submission_date >= '2021-09-04'
       group by 1)
-          
-          
+
+
       select d.submission_date
       , dau
       /*logins*/
@@ -82,13 +82,13 @@ view: android_credential_management_metrics {
       , logins_modified
       , currently_stored_logins_users
       , currently_stored_logins
-      
+
       /*credit card*/
       , credit_cards_deleted_users
       , credit_cards_deleted
       , currently_stored_credit_cards_users
       , currently_stored_credit_cards
-      
+
       /*addresses*/
       , addresses_deleted_users
       , addresses_deleted
@@ -96,7 +96,7 @@ view: android_credential_management_metrics {
       , addresses_modified
       , currently_stored_addresses_users
       , currently_stored_addresses
-      
+
       from dau_segments d
       LEFT JOIN product_features_agg p
       ON d.submission_date = p.submission_date ;;
@@ -113,111 +113,111 @@ view: android_credential_management_metrics {
     sql: ${TABLE}.submission_date ;;
   }
 
-  dimension: dau {
-    type: number
+  measure: dau {
+    type: sum
     sql: ${TABLE}.dau ;;
   }
 
-  dimension: logins_deleted_users {
-    type: number
+  measure: logins_deleted_users {
+    type: sum
     sql: ${TABLE}.logins_deleted_users ;;
   }
 
-  dimension: logins_deleted {
-    type: number
+  measure: logins_deleted {
+    type: sum
     sql: ${TABLE}.logins_deleted ;;
   }
 
-  dimension: logins_modified_users {
-    type: number
+  measure: logins_modified_users {
+    type: sum
     sql: ${TABLE}.logins_modified_users ;;
   }
 
-  dimension: logins_modified {
-    type: number
+  measure: logins_modified {
+    type: sum
     sql: ${TABLE}.logins_modified ;;
   }
 
-  dimension: currently_stored_logins_users {
-    type: number
+  measure: currently_stored_logins_users {
+    type: sum
     sql: ${TABLE}.currently_stored_logins_users ;;
   }
 
-  dimension: currently_stored_logins {
-    type: number
+  measure: currently_stored_logins {
+    type: sum
     sql: ${TABLE}.currently_stored_logins ;;
   }
 
-  dimension: credit_cards_deleted_users {
-    type: number
+  measure: credit_cards_deleted_users {
+    type: sum
     sql: ${TABLE}.credit_cards_deleted_users ;;
   }
 
-  dimension: credit_cards_deleted {
-    type: number
+  measure: credit_cards_deleted {
+    type: sum
     sql: ${TABLE}.credit_cards_deleted ;;
   }
 
-  dimension: currently_stored_credit_cards_users {
-    type: number
+  measure: currently_stored_credit_cards_users {
+    type: sum
     sql: ${TABLE}.currently_stored_credit_cards_users ;;
   }
 
-  dimension: currently_stored_credit_cards {
-    type: number
+  measure: currently_stored_credit_cards {
+    type: sum
     sql: ${TABLE}.currently_stored_credit_cards ;;
   }
 
-  dimension: addresses_deleted_users {
-    type: number
+  measure: addresses_deleted_users {
+    type: sum
     sql: ${TABLE}.addresses_deleted_users ;;
   }
 
-  dimension: addresses_deleted {
-    type: number
+  measure: addresses_deleted {
+    type: sum
     sql: ${TABLE}.addresses_deleted ;;
   }
 
-  dimension: addresses_modified_users {
-    type: number
+  measure: addresses_modified_users {
+    type: sum
     sql: ${TABLE}.addresses_modified_users ;;
   }
 
-  dimension: addresses_modified {
-    type: number
+  measure: addresses_modified {
+    type: sum
     sql: ${TABLE}.addresses_modified ;;
   }
 
-  dimension: currently_stored_addresses_users {
-    type: number
+  measure: currently_stored_addresses_users {
+    type: sum
     sql: ${TABLE}.currently_stored_addresses_users ;;
   }
 
-  dimension: currently_stored_addresses {
-    type: number
+  measure: currently_stored_addresses {
+    type: sum
     sql: ${TABLE}.currently_stored_addresses ;;
   }
 
   set: detail {
     fields: [
-        submission_date,
-	dau,
-	logins_deleted_users,
-	logins_deleted,
-	logins_modified_users,
-	logins_modified,
-	currently_stored_logins_users,
-	currently_stored_logins,
-	credit_cards_deleted_users,
-	credit_cards_deleted,
-	currently_stored_credit_cards_users,
-	currently_stored_credit_cards,
-	addresses_deleted_users,
-	addresses_deleted,
-	addresses_modified_users,
-	addresses_modified,
-	currently_stored_addresses_users,
-	currently_stored_addresses
+      submission_date,
+      dau,
+      logins_deleted_users,
+      logins_deleted,
+      logins_modified_users,
+      logins_modified,
+      currently_stored_logins_users,
+      currently_stored_logins,
+      credit_cards_deleted_users,
+      credit_cards_deleted,
+      currently_stored_credit_cards_users,
+      currently_stored_credit_cards,
+      addresses_deleted_users,
+      addresses_deleted,
+      addresses_modified_users,
+      addresses_modified,
+      currently_stored_addresses_users,
+      currently_stored_addresses
     ]
   }
 }
