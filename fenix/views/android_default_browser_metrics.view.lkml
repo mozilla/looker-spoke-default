@@ -1,15 +1,15 @@
 
 view: android_default_browser_metrics {
   derived_table: {
-    sql: WITH dau_segments AS 
+    sql: WITH dau_segments AS
           (SELECT submission_date, SUM(DAU) as dau
-          FROM `moz-fx-data-shared-prod.telemetry.active_users_aggregates` 
+          FROM `moz-fx-data-shared-prod.telemetry.active_users_aggregates`
           WHERE app_name = 'Fenix'
           --AND channel = 'release'
           AND submission_date >= '2021-01-01'
           GROUP BY 1),
-          
-      
+
+
       product_features AS
       (SELECT
           client_info.client_id,
@@ -19,7 +19,7 @@ view: android_default_browser_metrics {
       where DATE(submission_timestamp) >= '2021-01-01'
       AND sample_id = 0
       group by 1,2),
-      
+
       product_features_agg AS
       (SELECT
           submission_date,
@@ -29,8 +29,8 @@ view: android_default_browser_metrics {
       FROM product_features
       where submission_date >= '2021-01-01'
       group by 1)
-          
-          
+
+
       select d.submission_date
       , dau
       , metrics_default_browser_users
@@ -40,10 +40,6 @@ view: android_default_browser_metrics {
       ON d.submission_date = p.submission_date ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [detail*]
-  }
 
   dimension: submission_date {
     type: date
@@ -51,27 +47,27 @@ view: android_default_browser_metrics {
     sql: ${TABLE}.submission_date ;;
   }
 
-  dimension: dau {
-    type: number
+  measure: dau {
+    type: sum
     sql: ${TABLE}.dau ;;
   }
 
-  dimension: metrics_default_browser_users {
-    type: number
+  measure: metrics_default_browser_users {
+    type: sum
     sql: ${TABLE}.metrics_default_browser_users ;;
   }
 
-  dimension: metrics_default_browser {
-    type: number
+  measure: metrics_default_browser {
+    type: sum
     sql: ${TABLE}.metrics_default_browser ;;
   }
 
   set: detail {
     fields: [
-        submission_date,
-	dau,
-	metrics_default_browser_users,
-	metrics_default_browser
+      submission_date,
+      dau,
+      metrics_default_browser_users,
+      metrics_default_browser
     ]
   }
 }

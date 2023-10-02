@@ -2,11 +2,11 @@
 view: android_tab_count_metrics {
   derived_table: {
     sql: WITH dau_segments AS
-          (SELECT submission_date, SUM(DAU) as dau
-          FROM `moz-fx-data-shared-prod.telemetry.active_users_aggregates`
-          WHERE app_name = 'Fenix'
+          (SELECT DATE(submission_timestamp) as submission_date, 100*count(distinct client_info.client_id) as dau
+          FROM `mozdata.fenix.metrics`
           --AND channel = 'release'
-          AND submission_date >= '2023-06-23'
+          WHERE DATE(submission_timestamp) >= '2023-06-23'
+          AND sample_id = 0
           GROUP BY 1),
 
 
@@ -46,10 +46,6 @@ view: android_tab_count_metrics {
       ON d.submission_date = p.submission_date ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [detail*]
-  }
 
   dimension: submission_date {
     type: date

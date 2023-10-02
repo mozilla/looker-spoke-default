@@ -2,14 +2,14 @@
 view: android_bookmark_events {
   derived_table: {
     sql: WITH
-          dau_segments AS 
+          dau_segments AS
           (SELECT submission_date, SUM(DAU) as dau
-          FROM `moz-fx-data-shared-prod.telemetry.active_users_aggregates` 
+          FROM `moz-fx-data-shared-prod.telemetry.active_users_aggregates`
           WHERE app_name = 'Fenix'
           --AND channel = 'release'
           AND submission_date >= '2019-06-04'
           GROUP BY 1),
-          
+
       product_features AS
       (SELECT
           client_info.client_id,
@@ -30,15 +30,15 @@ view: android_bookmark_events {
           CASE WHEN event_category = 'bookmarks_management' AND event_name = 'search_icon_tapped' THEN 1 ELSE 0 END as search_icon_tapped,
           CASE WHEN event_category = 'bookmarks_management' AND event_name = 'search_result_tapped' THEN 1 ELSE 0 END as search_result_tapped,
           CASE WHEN event_category = 'bookmarks_management' AND event_name = 'shared' THEN 1 ELSE 0 END as shared,
-          
+
           FROM `mozdata.fenix.events_unnested`
       where DATE(submission_timestamp) >= '2019-06-04'
       AND sample_id = 0),
-          
-          
+
+
       product_features_agg AS
       (SELECT submission_date
-      
+
       --copied
       , 100*SUM(copied) as copied
       , 100*COUNT(DISTINCT CASE WHEN copied > 0 THEN client_id END) AS copied_users
@@ -81,12 +81,12 @@ view: android_bookmark_events {
       --shared
       , 100*SUM(shared) as shared
       , 100*COUNT(DISTINCT CASE WHEN shared > 0 THEN client_id END) AS shared_users
-      
+
       FROM product_features
       where submission_date >= '2019-06-04'
       group by 1
       )
-      
+
       select d.submission_date
       , dau
       , copied
@@ -122,10 +122,6 @@ view: android_bookmark_events {
       ON d.submission_date = p.submission_date ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [detail*]
-  }
 
   dimension: submission_date {
     type: date
@@ -133,183 +129,183 @@ view: android_bookmark_events {
     sql: ${TABLE}.submission_date ;;
   }
 
-  dimension: dau {
-    type: number
+  measure: dau {
+    type: sum
     sql: ${TABLE}.dau ;;
   }
 
-  dimension: copied {
-    type: number
+  measure: copied {
+    type: sum
     sql: ${TABLE}.copied ;;
   }
 
-  dimension: copied_users {
-    type: number
+  measure: copied_users {
+    type: sum
     sql: ${TABLE}.copied_users ;;
   }
 
-  dimension: edited {
-    type: number
+  measure: edited {
+    type: sum
     sql: ${TABLE}.edited ;;
   }
 
-  dimension: edited_users {
-    type: number
+  measure: edited_users {
+    type: sum
     sql: ${TABLE}.edited_users ;;
   }
 
-  dimension: folder_add {
-    type: number
+  measure: folder_add {
+    type: sum
     sql: ${TABLE}.folder_add ;;
   }
 
-  dimension: folder_add_users {
-    type: number
+  measure: folder_add_users {
+    type: sum
     sql: ${TABLE}.folder_add_users ;;
   }
 
-  dimension: open {
-    type: number
+  measure: open {
+    type: sum
     sql: ${TABLE}.open ;;
   }
 
-  dimension: open_users {
-    type: number
+  measure: open_users {
+    type: sum
     sql: ${TABLE}.open_users ;;
   }
 
-  dimension: open_all_in_new_tabs {
-    type: number
+  measure: open_all_in_new_tabs {
+    type: sum
     sql: ${TABLE}.open_all_in_new_tabs ;;
   }
 
-  dimension: open_all_in_new_tabs_users {
-    type: number
+  measure: open_all_in_new_tabs_users {
+    type: sum
     sql: ${TABLE}.open_all_in_new_tabs_users ;;
   }
 
-  dimension: open_all_in_private_tabs {
-    type: number
+  measure: open_all_in_private_tabs {
+    type: sum
     sql: ${TABLE}.open_all_in_private_tabs ;;
   }
 
-  dimension: open_all_in_private_tabs_users {
-    type: number
+  measure: open_all_in_private_tabs_users {
+    type: sum
     sql: ${TABLE}.open_all_in_private_tabs_users ;;
   }
 
-  dimension: open_in_new_tab {
-    type: number
+  measure: open_in_new_tab {
+    type: sum
     sql: ${TABLE}.open_in_new_tab ;;
   }
 
-  dimension: open_in_new_tab_users {
-    type: number
+  measure: open_in_new_tab_users {
+    type: sum
     sql: ${TABLE}.open_in_new_tab_users ;;
   }
 
-  dimension: open_in_new_tabs {
-    type: number
+  measure: open_in_new_tabs {
+    type: sum
     sql: ${TABLE}.open_in_new_tabs ;;
   }
 
-  dimension: open_in_new_tabs_users {
-    type: number
+  measure: open_in_new_tabs_users {
+    type: sum
     sql: ${TABLE}.open_in_new_tabs_users ;;
   }
 
-  dimension: open_in_private_tab {
-    type: number
+  measure: open_in_private_tab {
+    type: sum
     sql: ${TABLE}.open_in_private_tab ;;
   }
 
-  dimension: open_in_private_tab_users {
-    type: number
+  measure: open_in_private_tab_users {
+    type: sum
     sql: ${TABLE}.open_in_private_tab_users ;;
   }
 
-  dimension: open_in_private_tabs {
-    type: number
+  measure: open_in_private_tabs {
+    type: sum
     sql: ${TABLE}.open_in_private_tabs ;;
   }
 
-  dimension: open_in_private_tabs_users {
-    type: number
+  measure: open_in_private_tabs_users {
+    type: sum
     sql: ${TABLE}.open_in_private_tabs_users ;;
   }
 
-  dimension: removed {
-    type: number
+  measure: removed {
+    type: sum
     sql: ${TABLE}.removed ;;
   }
 
-  dimension: removed_users {
-    type: number
+  measure: removed_users {
+    type: sum
     sql: ${TABLE}.removed_users ;;
   }
 
-  dimension: search_icon_tapped {
-    type: number
+  measure: search_icon_tapped {
+    type: sum
     sql: ${TABLE}.search_icon_tapped ;;
   }
 
-  dimension: search_icon_tapped_users {
-    type: number
+  measure: search_icon_tapped_users {
+    type: sum
     sql: ${TABLE}.search_icon_tapped_users ;;
   }
 
-  dimension: search_result_tapped {
-    type: number
+  measure: search_result_tapped {
+    type: sum
     sql: ${TABLE}.search_result_tapped ;;
   }
 
-  dimension: search_result_tapped_users {
-    type: number
+  measure: search_result_tapped_users {
+    type: sum
     sql: ${TABLE}.search_result_tapped_users ;;
   }
 
-  dimension: shared {
-    type: number
+  measure: shared {
+    type: sum
     sql: ${TABLE}.shared ;;
   }
 
-  dimension: shared_users {
-    type: number
+  measure: shared_users {
+    type: sum
     sql: ${TABLE}.shared_users ;;
   }
 
   set: detail {
     fields: [
-        submission_date,
-	dau,
-	copied,
-	copied_users,
-	edited,
-	edited_users,
-	folder_add,
-	folder_add_users,
-	open,
-	open_users,
-	open_all_in_new_tabs,
-	open_all_in_new_tabs_users,
-	open_all_in_private_tabs,
-	open_all_in_private_tabs_users,
-	open_in_new_tab,
-	open_in_new_tab_users,
-	open_in_new_tabs,
-	open_in_new_tabs_users,
-	open_in_private_tab,
-	open_in_private_tab_users,
-	open_in_private_tabs,
-	open_in_private_tabs_users,
-	removed,
-	removed_users,
-	search_icon_tapped,
-	search_icon_tapped_users,
-	search_result_tapped,
-	search_result_tapped_users,
-	shared,
-	shared_users
+      submission_date,
+      dau,
+      copied,
+      copied_users,
+      edited,
+      edited_users,
+      folder_add,
+      folder_add_users,
+      open,
+      open_users,
+      open_all_in_new_tabs,
+      open_all_in_new_tabs_users,
+      open_all_in_private_tabs,
+      open_all_in_private_tabs_users,
+      open_in_new_tab,
+      open_in_new_tab_users,
+      open_in_new_tabs,
+      open_in_new_tabs_users,
+      open_in_private_tab,
+      open_in_private_tab_users,
+      open_in_private_tabs,
+      open_in_private_tabs_users,
+      removed,
+      removed_users,
+      search_icon_tapped,
+      search_icon_tapped_users,
+      search_result_tapped,
+      search_result_tapped_users,
+      shared,
+      shared_users
     ]
   }
 }

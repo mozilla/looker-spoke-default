@@ -12,28 +12,28 @@ view: android_fxa_events {
 
       product_features AS
       (SELECT
-          client_info.client_id,
-          DATE(submission_timestamp) as submission_date,
+      client_info.client_id,
+      DATE(submission_timestamp) as submission_date,
 
-          CASE WHEN event_category = 'sync' AND event_name = 'failed' THEN 1 ELSE 0 END as failed,
-          CASE WHEN event_category = 'sync_account' AND event_name = 'opened' THEN 1 ELSE 0 END as sync_account_opened,
-          CASE WHEN event_category = 'sync_account' AND event_name = 'send_tab' THEN 1 ELSE 0 END as sync_account_send_tab,
-          CASE WHEN event_category = 'sync_account' AND event_name = 'sign_in_to_send_tab' THEN 1 ELSE 0 END as sync_account_sign_in_to_send_tab,
-          CASE WHEN event_category = 'sync_account' AND event_name = 'sync_now' THEN 1 ELSE 0 END as sync_account_sync_now,
-          CASE WHEN event_category = 'sync_auth' AND event_name = 'closed' THEN 1 ELSE 0 END as sync_auth_closed,
-          CASE WHEN event_category = 'sync_auth' AND event_name = 'opened' THEN 1 ELSE 0 END as sync_auth_opened,
-          CASE WHEN event_category = 'sync_auth' AND event_name = 'other_external' THEN 1 ELSE 0 END as sync_auth_other_external,
-          CASE WHEN event_category = 'sync_auth' AND event_name = 'paired' THEN 1 ELSE 0 END as sync_auth_paired,
-          CASE WHEN event_category = 'sync_auth' AND event_name = 'recovered' THEN 1 ELSE 0 END as sync_auth_recovered,
-          CASE WHEN event_category = 'sync_auth' AND event_name = 'scan_pairing' THEN 1 ELSE 0 END as sync_auth_scan_pairing,
-          CASE WHEN event_category = 'sync_auth' AND event_name = 'sign_in' THEN 1 ELSE 0 END as sync_auth_sign_in,
-          CASE WHEN event_category = 'sync_auth' AND event_name = 'sign_out' THEN 1 ELSE 0 END as sync_auth_sign_out,
-          CASE WHEN event_category = 'sync_auth' AND event_name = 'sign_up' THEN 1 ELSE 0 END as sync_auth_sign_up,
-          CASE WHEN event_category = 'sync_auth' AND event_name = 'use_email' THEN 1 ELSE 0 END as sync_auth_use_email,
-          CASE WHEN event_category = 'sync_auth' AND event_name = 'use_email_problem' THEN 1 ELSE 0 END as sync_auth_use_email_problem
+      CASE WHEN event_category = 'sync' AND event_name = 'failed' THEN 1 ELSE 0 END as failed,
+      CASE WHEN event_category = 'sync_account' AND event_name = 'opened' THEN 1 ELSE 0 END as sync_account_opened,
+      CASE WHEN event_category = 'sync_account' AND event_name = 'send_tab' THEN 1 ELSE 0 END as sync_account_send_tab,
+      CASE WHEN event_category = 'sync_account' AND event_name = 'sign_in_to_send_tab' THEN 1 ELSE 0 END as sync_account_sign_in_to_send_tab,
+      CASE WHEN event_category = 'sync_account' AND event_name = 'sync_now' THEN 1 ELSE 0 END as sync_account_sync_now,
+      CASE WHEN event_category = 'sync_auth' AND event_name = 'closed' THEN 1 ELSE 0 END as sync_auth_closed,
+      CASE WHEN event_category = 'sync_auth' AND event_name = 'opened' THEN 1 ELSE 0 END as sync_auth_opened,
+      CASE WHEN event_category = 'sync_auth' AND event_name = 'other_external' THEN 1 ELSE 0 END as sync_auth_other_external,
+      CASE WHEN event_category = 'sync_auth' AND event_name = 'paired' THEN 1 ELSE 0 END as sync_auth_paired,
+      CASE WHEN event_category = 'sync_auth' AND event_name = 'recovered' THEN 1 ELSE 0 END as sync_auth_recovered,
+      CASE WHEN event_category = 'sync_auth' AND event_name = 'scan_pairing' THEN 1 ELSE 0 END as sync_auth_scan_pairing,
+      CASE WHEN event_category = 'sync_auth' AND event_name = 'sign_in' THEN 1 ELSE 0 END as sync_auth_sign_in,
+      CASE WHEN event_category = 'sync_auth' AND event_name = 'sign_out' THEN 1 ELSE 0 END as sync_auth_sign_out,
+      CASE WHEN event_category = 'sync_auth' AND event_name = 'sign_up' THEN 1 ELSE 0 END as sync_auth_sign_up,
+      CASE WHEN event_category = 'sync_auth' AND event_name = 'use_email' THEN 1 ELSE 0 END as sync_auth_use_email,
+      CASE WHEN event_category = 'sync_auth' AND event_name = 'use_email_problem' THEN 1 ELSE 0 END as sync_auth_use_email_problem
 
 
-          FROM `mozdata.fenix.events_unnested`
+      FROM `mozdata.fenix.events_unnested`
       where DATE(submission_timestamp) >= '2021-01-01'
       AND sample_id = 0),
 
@@ -135,10 +135,6 @@ view: android_fxa_events {
       ON d.submission_date = p.submission_date ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [detail*]
-  }
 
   dimension: submission_date {
     type: date
@@ -147,167 +143,167 @@ view: android_fxa_events {
   }
 
   measure: dau {
-    type: number
+    type: sum
     sql: ${TABLE}.dau ;;
   }
 
   measure: failed {
-    type: number
+    type: sum
     sql: ${TABLE}.failed ;;
   }
 
   measure: failed_users {
-    type: number
+    type: sum
     sql: ${TABLE}.failed_users ;;
   }
 
   measure: sync_account_opened {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_account_opened ;;
   }
 
   measure: sync_account_opened_users {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_account_opened_users ;;
   }
 
   measure: sync_account_send_tab {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_account_send_tab ;;
   }
 
   measure: sync_account_send_tab_users {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_account_send_tab_users ;;
   }
 
   measure: sync_account_sign_in_to_send_tab {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_account_sign_in_to_send_tab ;;
   }
 
   measure: sync_account_sign_in_to_send_tab_users {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_account_sign_in_to_send_tab_users ;;
   }
 
   measure: sync_account_sync_now {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_account_sync_now ;;
   }
 
   measure: sync_account_sync_now_users {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_account_sync_now_users ;;
   }
 
   measure: sync_auth_closed {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_closed ;;
   }
 
   measure: sync_auth_closed_users {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_closed_users ;;
   }
 
   measure: sync_auth_opened {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_opened ;;
   }
 
   measure: sync_auth_opened_users {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_opened_users ;;
   }
 
   measure: sync_auth_other_external {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_other_external ;;
   }
 
   measure: sync_auth_other_external_users {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_other_external_users ;;
   }
 
   measure: sync_auth_paired {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_paired ;;
   }
 
   measure: sync_auth_paired_users {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_paired_users ;;
   }
 
   measure: sync_auth_recovered {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_recovered ;;
   }
 
   measure: sync_auth_recovered_users {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_recovered_users ;;
   }
 
   measure: sync_auth_scan_pairing {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_scan_pairing ;;
   }
 
   measure: sync_auth_scan_pairing_users {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_scan_pairing_users ;;
   }
 
   measure: sync_auth_sign_in {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_sign_in ;;
   }
 
   measure: sync_auth_sign_in_users {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_sign_in_users ;;
   }
 
   measure: sync_auth_sign_out {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_sign_out ;;
   }
 
   measure: sync_auth_sign_out_users {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_sign_out_users ;;
   }
 
   measure: sync_auth_sign_up {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_sign_up ;;
   }
 
   measure: sync_auth_sign_up_users {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_sign_up_users ;;
   }
 
   measure: sync_auth_use_email {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_use_email ;;
   }
 
   measure: sync_auth_use_email_users {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_use_email_users ;;
   }
 
   measure: sync_auth_use_email_problem {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_use_email_problem ;;
   }
 
   measure: sync_auth_use_email_problem_users {
-    type: number
+    type: sum
     sql: ${TABLE}.sync_auth_use_email_problem_users ;;
   }
 

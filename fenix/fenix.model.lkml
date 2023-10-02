@@ -22,6 +22,14 @@ include: "/fenix/views/android_fxa_events.view.lkml"
 include: "/fenix/views/android_privacy_metrics_num.view.lkml"
 include: "/fenix/views/android_privacy_metrics_cat.view.lkml"
 include: "/fenix/views/android_tab_count_metrics.view.lkml"
+include: "/fenix/views/android_default_browser_metrics.view.lkml"
+include: "/fenix/views/android_default_browser_events.view.lkml"
+include: "/fenix/views/android_privacy_events.view.lkml"
+include: "/fenix/views/android_awesomebar_location_metrics.view.lkml"
+include: "/fenix/views/android_notification_metrics.view.lkml"
+include: "/fenix/views/android_notification_events.view.lkml"
+include: "/fenix/views/android_customize_home_metrics.view.lkml"
+include: "/fenix/views/android_customize_home_events.view.lkml"
 
 
 view: +metrics {

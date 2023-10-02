@@ -102,10 +102,6 @@ view: android_credential_management_metrics {
       ON d.submission_date = p.submission_date ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [detail*]
-  }
 
   dimension: submission_date {
     type: date

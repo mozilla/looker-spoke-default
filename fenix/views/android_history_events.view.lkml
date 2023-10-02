@@ -12,29 +12,29 @@ view: android_history_events {
 
       product_features AS
       (SELECT
-          client_info.client_id,
-          DATE(submission_timestamp) as submission_date,
+      client_info.client_id,
+      DATE(submission_timestamp) as submission_date,
 
-          CASE WHEN event_category = 'history' AND event_name = 'opened' THEN 1 ELSE 0 END as opened,
-          CASE WHEN event_category = 'history' AND event_name = 'opened_item' THEN 1 ELSE 0 END as opened_item,
-          CASE WHEN event_category = 'history' AND event_name = 'opened_items_in_new_tabs' THEN 1 ELSE 0 END as opened_items_in_new_tabs,
-          CASE WHEN event_category = 'history' AND event_name = 'opened_items_in_private_tabs' THEN 1 ELSE 0 END as opened_items_in_private_tabs,
-          CASE WHEN event_category = 'history' AND event_name = 'recent_searches_tapped' THEN 1 ELSE 0 END as recent_searches_tapped,
-          CASE WHEN event_category = 'history' AND event_name = 'remove_prompt_cancelled' THEN 1 ELSE 0 END as remove_prompt_cancelled,
-          CASE WHEN event_category = 'history' AND event_name = 'remove_prompt_opened' THEN 1 ELSE 0 END as remove_prompt_opened,
-          CASE WHEN event_category = 'history' AND event_name = 'removed' THEN 1 ELSE 0 END as removed,
-          CASE WHEN event_category = 'history' AND event_name = 'removed_all' THEN 1 ELSE 0 END as removed_all,
-          CASE WHEN event_category = 'history' AND event_name = 'removed_last_hour' THEN 1 ELSE 0 END as removed_last_hour,
-          CASE WHEN event_category = 'history' AND event_name = 'removed_today_and_yesterday' THEN 1 ELSE 0 END as removed_today_and_yesterday,
-          CASE WHEN event_category = 'history' AND event_name = 'search_icon_tapped' THEN 1 ELSE 0 END as search_icon_tapped,
-          CASE WHEN event_category = 'history' AND event_name = 'search_result_tapped' THEN 1 ELSE 0 END as search_result_tapped,
-          CASE WHEN event_category = 'history' AND event_name = 'search_term_group_open_tab' THEN 1 ELSE 0 END as search_term_group_open_tab,
-          CASE WHEN event_category = 'history' AND event_name = 'search_term_group_remove_all' THEN 1 ELSE 0 END as search_term_group_remove_all,
-          CASE WHEN event_category = 'history' AND event_name = 'search_term_group_remove_tab' THEN 1 ELSE 0 END as search_term_group_remove_tab,
-          CASE WHEN event_category = 'history' AND event_name = 'search_term_group_tapped' THEN 1 ELSE 0 END as search_term_group_tapped,
-          CASE WHEN event_category = 'history' AND event_name = 'shared' THEN 1 ELSE 0 END as shared
+      CASE WHEN event_category = 'history' AND event_name = 'opened' THEN 1 ELSE 0 END as opened,
+      CASE WHEN event_category = 'history' AND event_name = 'opened_item' THEN 1 ELSE 0 END as opened_item,
+      CASE WHEN event_category = 'history' AND event_name = 'opened_items_in_new_tabs' THEN 1 ELSE 0 END as opened_items_in_new_tabs,
+      CASE WHEN event_category = 'history' AND event_name = 'opened_items_in_private_tabs' THEN 1 ELSE 0 END as opened_items_in_private_tabs,
+      CASE WHEN event_category = 'history' AND event_name = 'recent_searches_tapped' THEN 1 ELSE 0 END as recent_searches_tapped,
+      CASE WHEN event_category = 'history' AND event_name = 'remove_prompt_cancelled' THEN 1 ELSE 0 END as remove_prompt_cancelled,
+      CASE WHEN event_category = 'history' AND event_name = 'remove_prompt_opened' THEN 1 ELSE 0 END as remove_prompt_opened,
+      CASE WHEN event_category = 'history' AND event_name = 'removed' THEN 1 ELSE 0 END as removed,
+      CASE WHEN event_category = 'history' AND event_name = 'removed_all' THEN 1 ELSE 0 END as removed_all,
+      CASE WHEN event_category = 'history' AND event_name = 'removed_last_hour' THEN 1 ELSE 0 END as removed_last_hour,
+      CASE WHEN event_category = 'history' AND event_name = 'removed_today_and_yesterday' THEN 1 ELSE 0 END as removed_today_and_yesterday,
+      CASE WHEN event_category = 'history' AND event_name = 'search_icon_tapped' THEN 1 ELSE 0 END as search_icon_tapped,
+      CASE WHEN event_category = 'history' AND event_name = 'search_result_tapped' THEN 1 ELSE 0 END as search_result_tapped,
+      CASE WHEN event_category = 'history' AND event_name = 'search_term_group_open_tab' THEN 1 ELSE 0 END as search_term_group_open_tab,
+      CASE WHEN event_category = 'history' AND event_name = 'search_term_group_remove_all' THEN 1 ELSE 0 END as search_term_group_remove_all,
+      CASE WHEN event_category = 'history' AND event_name = 'search_term_group_remove_tab' THEN 1 ELSE 0 END as search_term_group_remove_tab,
+      CASE WHEN event_category = 'history' AND event_name = 'search_term_group_tapped' THEN 1 ELSE 0 END as search_term_group_tapped,
+      CASE WHEN event_category = 'history' AND event_name = 'shared' THEN 1 ELSE 0 END as shared
 
-          FROM `mozdata.fenix.events_unnested`
+      FROM `mozdata.fenix.events_unnested`
       where DATE(submission_timestamp) >= '2021-01-01'
       AND sample_id = 0),
 
@@ -78,6 +78,9 @@ view: android_history_events {
       --search_icon_tapped
       , 100*SUM(search_icon_tapped) as search_icon_tapped
       , 100*COUNT(DISTINCT CASE WHEN search_icon_tapped > 0 THEN client_id END) AS search_icon_tapped_users
+      --search_result_tapped
+      , 100*SUM(search_result_tapped) as search_result_tapped
+      , 100*COUNT(DISTINCT CASE WHEN search_result_tapped > 0 THEN client_id END) AS search_result_tapped_users
       --search_term_group_open_tab
       , 100*SUM(search_term_group_open_tab) as search_term_group_open_tab
       , 100*COUNT(DISTINCT CASE WHEN search_term_group_open_tab > 0 THEN client_id END) AS search_term_group_open_tab_users
@@ -125,6 +128,8 @@ view: android_history_events {
       , removed_today_and_yesterday_users
       , search_icon_tapped
       , search_icon_tapped_users
+      , search_result_tapped
+      , search_result_tapped_users
       , search_term_group_open_tab
       , search_term_group_open_tab_users
       , search_term_group_remove_all
@@ -140,10 +145,6 @@ view: android_history_events {
       ON d.submission_date = p.submission_date ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [detail*]
-  }
 
   dimension: submission_date {
     type: date
@@ -152,177 +153,187 @@ view: android_history_events {
   }
 
   measure: dau {
-    type: number
+    type: sum
     sql: ${TABLE}.dau ;;
   }
 
   measure: opened {
-    type: number
+    type: sum
     sql: ${TABLE}.opened ;;
   }
 
   measure: opened_users {
-    type: number
+    type: sum
     sql: ${TABLE}.opened_users ;;
   }
 
   measure: opened_item {
-    type: number
+    type: sum
     sql: ${TABLE}.opened_item ;;
   }
 
   measure: opened_item_users {
-    type: number
+    type: sum
     sql: ${TABLE}.opened_item_users ;;
   }
 
   measure: opened_items_in_new_tabs {
-    type: number
+    type: sum
     sql: ${TABLE}.opened_items_in_new_tabs ;;
   }
 
   measure: opened_items_in_new_tabs_users {
-    type: number
+    type: sum
     sql: ${TABLE}.opened_items_in_new_tabs_users ;;
   }
 
   measure: opened_items_in_private_tabs {
-    type: number
+    type: sum
     sql: ${TABLE}.opened_items_in_private_tabs ;;
   }
 
   measure: opened_items_in_private_tabs_users {
-    type: number
+    type: sum
     sql: ${TABLE}.opened_items_in_private_tabs_users ;;
   }
 
   measure: recent_searches_tapped {
-    type: number
+    type: sum
     sql: ${TABLE}.recent_searches_tapped ;;
   }
 
   measure: recent_searches_tapped_users {
-    type: number
+    type: sum
     sql: ${TABLE}.recent_searches_tapped_users ;;
   }
 
   measure: remove_prompt_cancelled {
-    type: number
+    type: sum
     sql: ${TABLE}.remove_prompt_cancelled ;;
   }
 
   measure: remove_prompt_cancelled_users {
-    type: number
+    type: sum
     sql: ${TABLE}.remove_prompt_cancelled_users ;;
   }
 
   measure: remove_prompt_opened {
-    type: number
+    type: sum
     sql: ${TABLE}.remove_prompt_opened ;;
   }
 
   measure: remove_prompt_opened_users {
-    type: number
+    type: sum
     sql: ${TABLE}.remove_prompt_opened_users ;;
   }
 
   measure: removed {
-    type: number
+    type: sum
     sql: ${TABLE}.removed ;;
   }
 
   measure: removed_users {
-    type: number
+    type: sum
     sql: ${TABLE}.removed_users ;;
   }
 
   measure: removed_all {
-    type: number
+    type: sum
     sql: ${TABLE}.removed_all ;;
   }
 
   measure: removed_all_users {
-    type: number
+    type: sum
     sql: ${TABLE}.removed_all_users ;;
   }
 
   measure: removed_last_hour {
-    type: number
+    type: sum
     sql: ${TABLE}.removed_last_hour ;;
   }
 
   measure: removed_last_hour_users {
-    type: number
+    type: sum
     sql: ${TABLE}.removed_last_hour_users ;;
   }
 
   measure: removed_today_and_yesterday {
-    type: number
+    type: sum
     sql: ${TABLE}.removed_today_and_yesterday ;;
   }
 
   measure: removed_today_and_yesterday_users {
-    type: number
+    type: sum
     sql: ${TABLE}.removed_today_and_yesterday_users ;;
   }
 
   measure: search_icon_tapped {
-    type: number
+    type: sum
     sql: ${TABLE}.search_icon_tapped ;;
   }
 
   measure: search_icon_tapped_users {
-    type: number
+    type: sum
     sql: ${TABLE}.search_icon_tapped_users ;;
   }
 
+  measure: search_result_tapped {
+    type: sum
+    sql: ${TABLE}.search_result_tapped ;;
+  }
+
+  measure: search_result_tapped_users {
+    type: sum
+    sql: ${TABLE}.search_result_tapped_users ;;
+  }
+
   measure: search_term_group_open_tab {
-    type: number
+    type: sum
     sql: ${TABLE}.search_term_group_open_tab ;;
   }
 
   measure: search_term_group_open_tab_users {
-    type: number
+    type: sum
     sql: ${TABLE}.search_term_group_open_tab_users ;;
   }
 
   measure: search_term_group_remove_all {
-    type: number
+    type: sum
     sql: ${TABLE}.search_term_group_remove_all ;;
   }
 
   measure: search_term_group_remove_all_users {
-    type: number
+    type: sum
     sql: ${TABLE}.search_term_group_remove_all_users ;;
   }
 
   measure: search_term_group_remove_tab {
-    type: number
+    type: sum
     sql: ${TABLE}.search_term_group_remove_tab ;;
   }
 
   measure: search_term_group_remove_tab_users {
-    type: number
+    type: sum
     sql: ${TABLE}.search_term_group_remove_tab_users ;;
   }
 
   measure: search_term_group_tapped {
-    type: number
+    type: sum
     sql: ${TABLE}.search_term_group_tapped ;;
   }
 
   measure: search_term_group_tapped_users {
-    type: number
+    type: sum
     sql: ${TABLE}.search_term_group_tapped_users ;;
   }
 
   measure: shared {
-    type: number
+    type: sum
     sql: ${TABLE}.shared ;;
   }
 
   measure: shared_users {
-    type: number
+    type: sum
     sql: ${TABLE}.shared_users ;;
   }
 
@@ -354,6 +365,8 @@ view: android_history_events {
       removed_today_and_yesterday_users,
       search_icon_tapped,
       search_icon_tapped_users,
+      search_result_tapped,
+      search_result_tapped_users,
       search_term_group_open_tab,
       search_term_group_open_tab_users,
       search_term_group_remove_all,
