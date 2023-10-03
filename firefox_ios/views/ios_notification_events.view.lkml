@@ -1,12 +1,12 @@
 
 view: ios_notification_events {
   derived_table: {
-    sql: WITH
-                dau_segments AS
-                (SELECT submission_date, SUM(DAU) as dau
-                FROM `moz-fx-data-shared-prod.telemetry.active_users_aggregates`
-                WHERE app_name = 'Firefox iOS'
-                AND submission_date >= '2023-01-26'
+    sql: WITH dau_segments AS
+                (SELECT DATE(submission_timestamp) as submission_date, 100*count(distinct client_info.client_id) as dau
+                FROM `mozdata.firefox_ios.events_unnested`
+                --AND channel = 'release'
+                WHERE DATE(submission_timestamp) >= '2023-01-26'
+                AND sample_id = 0
                 GROUP BY 1),
 
             product_features AS

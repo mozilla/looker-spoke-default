@@ -2,12 +2,12 @@
 view: ios_tab_count_metrics {
   derived_table: {
     sql: WITH dau_segments AS
-          (SELECT submission_date, SUM(DAU) as dau
-          FROM `moz-fx-data-shared-prod.telemetry.active_users_aggregates`
-          WHERE app_name = 'Firefox iOS'
-          --AND channel = 'release'
-          AND submission_date >= '2022-03-22'
-          GROUP BY 1),
+                (SELECT DATE(submission_timestamp) as submission_date, 100*count(distinct client_info.client_id) as dau
+                FROM `mozdata.firefox_ios.metrics`
+                --AND channel = 'release'
+                WHERE DATE(submission_timestamp) >= '2022-03-22'
+                AND sample_id = 0
+                GROUP BY 1),
 
       product_features AS
       (SELECT

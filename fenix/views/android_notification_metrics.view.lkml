@@ -5,7 +5,7 @@ view: android_notification_metrics {
           (SELECT DATE(submission_timestamp) as submission_date, 100*count(distinct client_info.client_id) as dau
           FROM `mozdata.fenix.metrics`
           --AND channel = 'release'
-          WHERE DATE(submission_timestamp) >= '2021-01-01'
+          WHERE DATE(submission_timestamp) >= '2022-11-15'
           AND sample_id = 0
           GROUP BY 1),
 
