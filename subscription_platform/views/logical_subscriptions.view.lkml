@@ -34,44 +34,6 @@ view: +logical_subscriptions {
     sql: ARRAY_LENGTH(${TABLE}.services) ;;
   }
 
-  dimension: service_1__id {
-    type: string
-    sql: ${TABLE}.services[SAFE_ORDINAL(1)].id ;;
-    group_label: "Service 1"
-    group_item_label: "ID"
-  }
-  dimension: service_1__name {
-    type: string
-    sql: ${TABLE}.services[SAFE_ORDINAL(1)].name ;;
-    group_label: "Service 1"
-    group_item_label: "Name"
-  }
-  dimension: service_1__tier {
-    type: string
-    sql: ${TABLE}.services[SAFE_ORDINAL(1)].tier ;;
-    group_label: "Service 1"
-    group_item_label: "Tier"
-  }
-
-  dimension: service_2__id {
-    type: string
-    sql: ${TABLE}.services[SAFE_ORDINAL(2)].id ;;
-    group_label: "Service 2"
-    group_item_label: "ID"
-  }
-  dimension: service_2__name {
-    type: string
-    sql: ${TABLE}.services[SAFE_ORDINAL(2)].name ;;
-    group_label: "Service 2"
-    group_item_label: "Name"
-  }
-  dimension: service_2__tier {
-    type: string
-    sql: ${TABLE}.services[SAFE_ORDINAL(2)].tier ;;
-    group_label: "Service 2"
-    group_item_label: "Tier"
-  }
-
   dimension: provider_product_id {
     group_label: "Provider IDs"
     group_item_label: "Product ID"
