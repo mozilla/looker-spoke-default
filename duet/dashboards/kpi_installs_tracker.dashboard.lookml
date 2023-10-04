@@ -43,7 +43,7 @@
     filters:
       kpi_installs.compare_to: Year
       kpi_installs.network: ''
-    sorts: [kpi_installs.day_month]
+    sorts: [kpi_installs.day_month desc]
     limit: 500
     column_limit: 50
     dynamic_fields:
@@ -65,7 +65,7 @@
     show_x_axis_label: true
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
-    x_axis_reversed: false
+    x_axis_reversed: true
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
@@ -79,6 +79,9 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
+    y_axes: []
+    x_axis_zoom: true
+    y_axis_zoom: true
     show_row_numbers: true
     truncate_column_names: false
     hide_totals: false
@@ -89,7 +92,6 @@
     conditional_formatting_include_nulls: false
     defaults_version: 1
     hidden_fields: [kpi_installs.installs_goal]
-    y_axes: []
     listen:
       Adgroup: kpi_installs.adgroup
       Campaign: kpi_installs.campaign
@@ -111,7 +113,7 @@
     filters:
       kpi_installs.compare_to: Year
       kpi_installs.network: ''
-    sorts: [kpi_installs.month]
+    sorts: [kpi_installs.month desc]
     limit: 500
     column_limit: 50
     dynamic_fields:
@@ -133,7 +135,7 @@
     show_x_axis_label: true
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
-    x_axis_reversed: false
+    x_axis_reversed: true
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
@@ -147,6 +149,9 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
+    y_axes: []
+    x_axis_zoom: true
+    y_axis_zoom: true
     ordering: none
     show_null_labels: false
     show_totals_labels: false
@@ -154,7 +159,6 @@
     totals_color: "#808080"
     defaults_version: 1
     hidden_fields: [kpi_installs.installs_goal]
-    y_axes: []
     listen:
       Adgroup: kpi_installs.adgroup
       Campaign: kpi_installs.campaign
@@ -198,7 +202,7 @@
     show_x_axis_label: true
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
-    x_axis_reversed: false
+    x_axis_reversed: true
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
@@ -212,6 +216,9 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
+    y_axes: []
+    x_axis_zoom: true
+    y_axis_zoom: true
     ordering: none
     show_null_labels: false
     show_totals_labels: false
@@ -219,7 +226,6 @@
     totals_color: "#808080"
     defaults_version: 1
     hidden_fields: [kpi_installs.installs_goal]
-    y_axes: []
     listen:
       Adgroup: kpi_installs.adgroup
       Campaign: kpi_installs.campaign
