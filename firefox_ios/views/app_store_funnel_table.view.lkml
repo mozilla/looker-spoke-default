@@ -2,41 +2,86 @@ include: "//looker-hub/firefox_ios/views/app_store_funnel_table.view.lkml"
 
 view: +app_store_funnel_table {
 
-  measure: views_sum {
-    description: "Unique daily impressions, counted when a customer views the app on the Today, Games, Apps, or Search tabs on the App Store, or on the product page"
-    type: sum
-    sql: ${TABLE}.views ;;
+  dimension: first_time_downloads {
+    hidden: yes
+    sql: ${TABLE}.first_time_downloads ;;
+    type: number
+    description: "Number of first time downloads of the Firefox iOS app from the Apple Store.
+    "
   }
 
-  measure: redownloads_sum {
+  dimension: impressions {
+    hidden: yes
+    sql: ${TABLE}.impressions ;;
+    type: number
+    description: "Number of Firefox iOS app unique impressions in the Apple Store.
+    "
+  }
+
+  dimension: new_profiles {
+    hidden: yes
+    sql: ${TABLE}.new_profiles ;;
+    type: number
+    description: "Number of new profiles on the date.
+    "
+  }
+
+  dimension: redownloads {
+    hidden: yes
+    sql: ${TABLE}.redownloads ;;
+    type: number
+    description: "Number of redownloads of the Firefox iOS app from the Apple Store.
+    "
+  }
+
+  dimension: total_downloads {
+    hidden: yes
+    sql: ${TABLE}.total_downloads ;;
+    type: number
+    description: "Total number of downloads of the Firefox iOS app from the Apple Store.
+    "
+  }
+
+  measure: impressions_total{
+    label: "Impressions"
+    description: "Unique daily impressions, counted when a customer views the app on the Today, Games, Apps, or Search tabs on the App Store, or on the product page"
+    type: sum
+    sql: ${TABLE}.impressions ;;
+  }
+
+  measure: redownloads_total {
+    label: "Redownloads"
     description: "Redownloads"
     type: sum
     sql: ${TABLE}.redownloads ;;
   }
-  measure: first_time_downloads_sum {
+  measure: first_time_downloads_total {
+    label: "First time downloads"
     description: "first-time downloads"
     type: sum
     sql: ${TABLE}.first_time_downloads ;;
   }
 
-  measure: downloads_sum {
+  measure: downloads_total {
+    label: "Downloads"
     description: "Total downloads, including first-time downloads and redownloads"
     type: sum
     sql: ${TABLE}.total_downloads ;;
   }
 
   measure: new_profiles_sum {
+    label: "New profiles"
     description: "Unique Client IDs, usually generated when the app is opened for the first time"
     type: sum
     sql: ${TABLE}.new_profiles ;;
   }
 
 
-  measure: view_ctr {
-    label: "View Click Through Rate"
+  measure: impressions_ctr {
+    label: "Impressions_ctr Click Through Rate"
     type: number
     value_format_name: percent_2
-    sql: ${total_downloads}/ NULLIF(${views},0) ;;
+    sql: ${total_downloads}/ NULLIF(${impressions},0) ;;
   }
 
   measure: download_2_new_profiles {
@@ -169,17 +214,17 @@ view: +app_store_funnel_table {
         {% else %} NULL {% endif %} ;;
   }
 
-  measure: current_period_views {
+  measure: current_period_impressions {
     view_label: "filtered metrics"
     type: sum
-    sql: ${TABLE}.views ;;
+    sql: ${TABLE}.impressions ;;
     filters: [period_filtered_measures: "this"]
   }
 
-  measure: previous_period_views {
+  measure: previous_period_impressions {
     view_label: "filtered metrics"
     type: sum
-    sql: ${TABLE}.views ;;
+    sql: ${TABLE}.impressions ;;
     filters: [period_filtered_measures: "last"]
   }
 
