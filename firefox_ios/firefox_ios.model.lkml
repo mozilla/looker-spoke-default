@@ -95,6 +95,6 @@ explore: app_store_funnel_table {
   sql_always_where: ${period_filtered_measures} in ("this", "last");;
 }
 
-explore: ios_funnel_retention {
+explore: funnel_retention_week_4 {
   sql_always_where: ${period_filtered_measures} in ("this", "last");;
 }

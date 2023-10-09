@@ -47,3 +47,5 @@ explore: funnel_android_new {
 explore: funnel_ios_new {
   sql_always_where: ${period_filtered_measures} in ("this", "last");;
 }
+
+explore: ctd_uac {}

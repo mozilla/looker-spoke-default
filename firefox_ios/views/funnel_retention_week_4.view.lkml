@@ -1,75 +1,48 @@
-view: ios_funnel_retention {
+include: "//looker-hub/firefox_ios/views/funnel_retention_week_4.view.lkml"
 
-  derived_table: {
-    sql:
-      SELECT first_seen_date,
-             first_reported_country,
-             adjust_ad_group,
-            adjust_campaign,
-            adjust_creative,
-            adjust_network,
-            adjust_network,
-            first_reported_isp,
-            COUNT(1) as new_profiles,
-            COUNTIF(repeat_first_month_user) as repeat_user,
-            COUNTIF(retained_week_4) retained_week_4
-      FROM
-        `moz-fx-data-shared-prod.firefox_ios.funnel_retention`
-        group by 1, 2, 3, 4, 5, 6, 7, 8
-      ;;
+view: +funnel_retention_week_4 {
+
+
+  dimension: new_profiles {
+    hidden: yes
+    sql: ${TABLE}.new_profiles ;;
+    type: number
+    description: "Count of new_profiles for the given grouping.
+    "
   }
 
-  dimension: country {
-    type: string
-    sql: ${TABLE}.first_reported_country ;;
+  dimension: repeat_user {
+    hidden: yes
+    sql: ${TABLE}.repeat_user ;;
+    type: number
+    description: "Count of clients categorised as \"repeat_first_month_user\" for the grouping.
+    "
   }
 
-  dimension_group: date {
-    type: time
-    datatype: date
-    timeframes: [date, week, month, year]
-    sql: ${TABLE}.first_seen_date ;;
-    convert_tz: no
+  dimension: retained_week_4 {
+    hidden: yes
+    sql: ${TABLE}.retained_week_4 ;;
+    type: number
+    description: "Count of clients categorised as \"retained_week_4\" for the grouping.
+    "
   }
 
-  dimension: adjust_ad_group {
-    type: string
-    sql: ${TABLE}.adjust_ad_group ;;
-  }
-
-  dimension: adjust_campaign {
-    type: string
-    sql: ${TABLE}.adjust_campaign ;;
-  }
-
-  dimension: adjust_creative {
-    type: string
-    sql: ${TABLE}.adjust_creative ;;
-  }
-
-  dimension: adjust_network {
-    type: string
-    sql: ${TABLE}.adjust_network ;;
-  }
-
-  dimension: first_reported_isp {
-    type: string
-    sql: ${TABLE}.first_reported_isp ;;
-  }
-
-  measure: new_profiles {
+  measure: new_profiles_total {
+    label: "New profiles"
     description: "New Profile counts on a given first seen date"
     type: sum
     sql: ${TABLE}.new_profiles ;;
   }
 
-  measure: repeat_user {
+  measure: repeat_user_total {
+    label: "Repeat user"
     description: "Number of new profiles that visted more than once in their first 28-day window"
     type: sum
     sql: ${TABLE}.repeat_user ;;
   }
 
-  measure: retained_week_4 {
+  measure: retained_week_4_total {
+    label: "Retained week 4"
     description: "Number of new profiles that were retained in week 4 after their first seen date"
     type: sum
     sql: ${TABLE}.retained_week_4 ;;
