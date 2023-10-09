@@ -119,7 +119,7 @@ view: +app_store_funnel_table {
     type:  string
     hidden: no
     view_label: "Funnel date axis"
-    sql: FORMAT_DATE("%m-%d", ${TABLE}.date);;
+    sql: FORMAT_DATE("%m-%d", ${first_seen_date});;
   }
 
   dimension: month {
@@ -127,7 +127,7 @@ view: +app_store_funnel_table {
     type:  string
     hidden: no
     view_label: "Funnel date axis"
-    sql: FORMAT_DATE("%m-%B", ${TABLE}.date);;
+    sql: FORMAT_DATE("%m-%B", ${first_seen_date});;
   }
 
   dimension: quarter_abr {
@@ -135,9 +135,9 @@ view: +app_store_funnel_table {
     type:  string
     hidden: no
     view_label: "Funnel date axis"
-    sql: CASE WHEN FORMAT_DATE("%m",  DATE_TRUNC(${TABLE}.date, QUARTER)) = "01" then "Q1"
-              WHEN FORMAT_DATE("%m",  DATE_TRUNC(${TABLE}.date, QUARTER)) = "04" then "Q2"
-              WHEN FORMAT_DATE("%m",  DATE_TRUNC(${TABLE}.date, QUARTER)) = "07" then "Q3"
+    sql: CASE WHEN FORMAT_DATE("%m",  DATE_TRUNC(${first_seen_date}, QUARTER)) = "01" then "Q1"
+              WHEN FORMAT_DATE("%m",  DATE_TRUNC(${first_seen_date}, QUARTER)) = "04" then "Q2"
+              WHEN FORMAT_DATE("%m",  DATE_TRUNC(${first_seen_date}, QUARTER)) = "07" then "Q3"
               ELSE "Q4" end;;
   }
 
@@ -209,8 +209,8 @@ view: +app_store_funnel_table {
     sql:
         {% if current_date._is_filtered %}
             CASE
-            WHEN DATE(${TABLE}.date) BETWEEN DATE(${first_date_in_period}) AND DATE(${filter_end_date}) THEN 'this'
-            WHEN DATE(${TABLE}.date) between ${period_2_start} and ${period_2_end} THEN 'last' END
+            WHEN DATE(${TABLE}.first_seen_date) BETWEEN DATE(${first_date_in_period}) AND DATE(${filter_end_date}) THEN 'this'
+            WHEN DATE(${TABLE}.first_seen_date) between ${period_2_start} and ${period_2_end} THEN 'last' END
         {% else %} NULL {% endif %} ;;
   }
 
@@ -256,7 +256,7 @@ view: +app_store_funnel_table {
     filters: [period_filtered_measures: "last"]
   }
 
-  measure: current_period_rfirst_time_downloads {
+  measure: current_period_first_time_downloads {
     view_label: "filtered metrics"
     type: sum
     sql: ${TABLE}.first_time_downloads ;;
@@ -343,19 +343,19 @@ view: +app_store_funnel_table {
   #   filters: [period_filtered_measures: "last"]
   # }
 
-  measure: current_period_view_ctr {
-    view_label: "filtered metrics"
-    type: sum
-    sql: ${TABLE}.view_ctr ;;
-    filters: [period_filtered_measures: "this"]
-  }
+  # measure: current_period_view_ctr {
+  #   view_label: "filtered metrics"
+  #   type: sum
+  #   sql: ${TABLE}.view_ctr ;;
+  #   filters: [period_filtered_measures: "this"]
+  # }
 
-  measure: previous_period_view_ctr {
-    view_label: "filtered metrics"
-    type: sum
-    sql: ${TABLE}.view_ctr ;;
-    filters: [period_filtered_measures: "last"]
-  }
+  # measure: previous_period_view_ctr {
+  #   view_label: "filtered metrics"
+  #   type: sum
+  #   sql: ${TABLE}.view_ctr ;;
+  #   filters: [period_filtered_measures: "last"]
+  # }
 
 
   measure: current_period_download_2_new_profiles {
