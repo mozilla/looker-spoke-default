@@ -2,8 +2,8 @@ view: ctd_uac {
 
   derived_table: {
     sql: WITH
-    onplatform as (
-  SELECT  date, ad_group_name, ad_group_id, format_date('%b', date) as month,
+    on_platform as (
+  SELECT  date, ad_group_name, ad_group_id, format_date('%m-%b', date) as month,
     sum(spend) as cost,
     sum(clicks) as clicks,
     sum(impressions) as impressions,
@@ -35,7 +35,7 @@ USING(date, ad_group_id)
 ;;
 }
 
-  dimension: ad_group_namet {
+  dimension: ad_group_name {
     type: string
     sql: ${TABLE}.ad_group_name ;;
   }
@@ -49,7 +49,7 @@ USING(date, ad_group_id)
     label: "Month"
     description: "Normalized months to roll over June months into July"
     type: string
-    sql:CASE WHEN DATE(${TABLE}.date) <= "2023-07-01" THEN 'Jul' ELSE ${TABLE}.month END
+    sql:CASE WHEN DATE(${TABLE}.date) <= "2023-07-01" THEN '07-Jul' ELSE ${TABLE}.month END
        ;;
   }
 
@@ -59,6 +59,14 @@ USING(date, ad_group_id)
     timeframes: [date, week, month, year]
     sql: ${TABLE}.date ;;
     convert_tz: no
+  }
+
+ #150957842358
+  dimension: creative_type {
+    description: "Creative type - whether benchmark or ctd creative"
+    type: string
+    sql:CASE WHEN ${TABLE}.ad_group_id = "150957842358" THEN 'Benchmark' ELSE "CTD" END
+      ;;
   }
 
   measure: cost {
