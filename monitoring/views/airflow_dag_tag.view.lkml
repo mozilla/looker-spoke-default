@@ -21,8 +21,8 @@ view: +airflow_dag_tag {
     type: string
     sql:
       case
-        when exists(select tag from unnest(tags) as tag where tag like "impact/%")
-        then (select split(tag, "/")[safe_offset(1)] from unnest(tags) as tag where tag like "impact/%" limit 1)
+        when exists(select tag from unnest(${tags}) as tag where tag like "impact/%")
+        then (select split(tag, "/")[safe_offset(1)] from unnest(${tags}) as tag where tag like "impact/%" limit 1)
         else "not specified"
       end
     ;;
@@ -32,8 +32,8 @@ view: +airflow_dag_tag {
     type: string
     sql:
       case
-        when exists(select tag from unnest(tags) as tag where tag like "repo/%")
-        then (select split(tag, "/")[safe_offset(1)] from unnest(tags) as tag where tag like "repo/%" limit 1)
+        when exists(select tag from unnest(${tags}) as tag where tag like "repo/%")
+        then (select split(tag, "/")[safe_offset(1)] from unnest(${tags}) as tag where tag like "repo/%" limit 1)
         else "not specified"
       end
     ;;
@@ -43,8 +43,8 @@ view: +airflow_dag_tag {
     type: string
     sql:
       case
-        when exists(select tag from unnest(tags) as tag where tag like "triage/%")
-        then (select split(tag, "/")[safe_offset(1)] from unnest(tags) as tag where tag like "triage/%" limit 1)
+        when exists(select tag from unnest(${tags}) as tag where tag like "triage/%")
+        then (select split(tag, "/")[safe_offset(1)] from unnest(${tags}) as tag where tag like "triage/%" limit 1)
         else "not specified"
       end
     ;;
