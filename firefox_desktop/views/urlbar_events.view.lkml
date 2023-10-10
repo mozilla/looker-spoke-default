@@ -2,7 +2,8 @@ include: "//looker-hub/firefox_desktop/views/*"
 
 view: +urlbar_events {
 dimension: annoyance_signal_type {
-  hidden: yes
+  group_label: "Urlbar-specific filters"
+  description: "The type of annoyance: help, inaccurate_location, not_interested, not_relevant, show_less_frequently"
 }
 
 dimension: engaged_result_type {
@@ -125,11 +126,13 @@ dimension: product_first_result_type {
 }
 
 dimension: sample_id {
-  hidden:  yes
+  group_label: "Filters to speed up Looker"
+  description: "Filter on this Dimension to speed up Looker while prototyping a dashboard. For example, filtering `sample_id < 10` will select a random 10% sample of the data, instead of all the data. DO NOT use this filter in a production dashboard for metrics with rare events (e.g., when click counts on a result type are low)."
 }
 
 dimension: session_action_type {
-  hidden:  yes
+  group_label: "Urlbar-specific filters"
+  description: "The type of urlbar event: engagement, abandonment or annoyance."
 }
 
 dimension_group: submission {
@@ -436,6 +439,32 @@ measure: urlbar_annoyances {
   measure: search_engine_annoyances {
     group_label: "Search Engine"
     sql: COUNTIF(product_engaged_result_type = "search_engine" and ${session_action_type} = "annoyance");;
+    type: number
+  }
+
+  measure: trending_clicks {
+    group_label: "Trending Suggestion"
+    sql: COUNTIF(product_engaged_result_type = "trending_suggestion" and ${is_terminal} and ${session_action_type} = "engaged");;
+    type: number
+  }
+
+  measure: trending_impressions {
+    group_label: "Trending Suggestion"
+    description: "The number of times a user exits the urlbar dropdown menu while a trending suggestion result was visible"
+    sql: COUNTIF(${num_trending_suggestion_impressions} > 0 and ${is_terminal});;
+    type: number
+  }
+
+  measure: trending_CTR {
+    group_label: "Trending Suggestion"
+    description: "Clicks / Impressions"
+    sql: safe_divide(${trending_clicks}, ${trending_impressions});;
+    type: number
+  }
+
+  measure: trending_annoyances {
+    group_label: "Trending Suggestion"
+    sql: COUNTIF(product_engaged_result_type = "trending_suggestion" and ${session_action_type} = "annoyance");;
     type: number
   }
 

@@ -90,3 +90,11 @@ explore: +client_counts {
     ]
   }
 }
+
+explore: app_store_funnel_table {
+  sql_always_where: ${period_filtered_measures} in ("this", "last");;
+}
+
+explore: funnel_retention_week_4 {
+  sql_always_where: ${period_filtered_measures} in ("this", "last");;
+}

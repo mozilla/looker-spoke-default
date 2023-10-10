@@ -193,26 +193,6 @@ view: +active_users_aggregates {
     sql: ${TABLE}.new_profiles ;;
   }
 
-  dimension: ad_clicks {
-    hidden: yes
-    sql: ${TABLE}.ad_clicks ;;
-  }
-
-  dimension: organic_search_count {
-    hidden: yes
-    sql: ${TABLE}.organic_search_count ;;
-  }
-
-  dimension: search_count {
-    hidden: yes
-    sql: ${TABLE}.search_count ;;
-  }
-
-  dimension: search_with_ads {
-    hidden: yes
-    sql: ${TABLE}.search_with_ads ;;
-  }
-
   dimension: uri_count {
     hidden: yes
     sql: ${TABLE}.uri_count ;;
@@ -246,30 +226,6 @@ view: +active_users_aggregates {
     label: "New Profiles"
     type: sum
     sql:  ${TABLE}.new_profiles ;;
-  }
-
-  measure: ad_click {
-    label: "Ad Clicks"
-    type: sum
-    sql:  ${TABLE}.ad_clicks ;;
-  }
-
-  measure: organic_search_counts {
-    label: "Organic Search Counts"
-    type: sum
-    sql:  ${TABLE}.organic_search_count ;;
-  }
-
-  measure: search_counts {
-    label: "Search Counts"
-    type: sum
-    sql:  ${TABLE}.search_count ;;
-  }
-
-  measure: search_with_ad {
-    label: "Search With Ads"
-    type: sum
-    sql:  ${TABLE}.search_with_ads ;;
   }
 
   measure: uri_counts {
