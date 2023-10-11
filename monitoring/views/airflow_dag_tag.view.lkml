@@ -21,9 +21,9 @@ view: +airflow_dag_tag {
     type: string
     sql:
       case
-        when "impact/tier_1" in unnest(${tags}) then "Tier 1"
-        when "impact/tier_2" in unnest(${tags}) then "Tier 2"
-        when "impact/tier_3" in unnest(${tags}) then "Tier 3"
+        when exists(select tag from unnest(${tags}) as tag where tag like "impact/%")
+        then (select split(tag, "/")[safe_offset(1)] from unnest(${tags}) as tag where tag like "impact/%" limit 1)
+        else "not specified"
       end
     ;;
   }
@@ -32,9 +32,9 @@ view: +airflow_dag_tag {
     type: string
     sql:
       case
-        when "repo/bigquery-etl" in unnest(tags) then "bigquery-etl"
-        when "repo/telemetry-airflow" in unnest(tags) then "telemetry-airflow"
-        when "repo/private-bigquery-etl" in unnest(tags) then "private-bigquery-etl"
+        when exists(select tag from unnest(${tags}) as tag where tag like "repo/%")
+        then (select split(tag, "/")[safe_offset(1)] from unnest(${tags}) as tag where tag like "repo/%" limit 1)
+        else "not specified"
       end
     ;;
   }
@@ -43,8 +43,9 @@ view: +airflow_dag_tag {
     type: string
     sql:
       case
-        when "triage/no_triage" in unnest(tags) then "no triage"
-        when "triage/record_only" in unnest(tags) then "record only"
+        when exists(select tag from unnest(${tags}) as tag where tag like "triage/%")
+        then (select split(tag, "/")[safe_offset(1)] from unnest(${tags}) as tag where tag like "triage/%" limit 1)
+        else "not specified"
       end
     ;;
   }
