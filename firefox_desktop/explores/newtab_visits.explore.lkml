@@ -25,4 +25,26 @@ explore: newtab_visits {
     view_label: "Topsite Interactions"
     sql: LEFT JOIN UNNEST(${newtab_visits.topsite_tile_interactions}) AS newtab_visits_table__topsite_tile_interactions ;;
   }
+
+  aggregate_table: rollup__newtab_visits_sponsored_tiles_per_day {
+    query: {
+      dimensions: [
+        newtab_visits.submission_date,
+        newtab_visits.country_code,
+        newtab_visits_table__topsite_tile_interactions.topsite_tile_position,
+        newtab_visits_table__topsite_tile_interactions.topsite_tile_assigned_sov_branch,
+        newtab_visits_table__topsite_tile_interactions.topsite_tile_displayed_sov_branch,
+      ]
+      measures: [
+        newtab_visits_table__topsite_tile_interactions.sum_sponsored_topsite_tile_impressions,
+        newtab_visits_table__topsite_tile_interactions.sum_sponsored_topsite_tile_clicks,
+      ]
+      filters: [newtab_visits.submission_date: "after 2023-01-01"]
+    }
+
+    materialization: {
+      sql_trigger_value: SELECT CURRENT_DATE();;
+    }
+  }
+
 }
