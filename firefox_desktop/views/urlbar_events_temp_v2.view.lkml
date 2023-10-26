@@ -1,6 +1,6 @@
 include: "//looker-hub/firefox_desktop/views/*"
 
-view: +urlbar_events_table_temp_v2 {
+view: +urlbar_events_temp_v2 {
   dimension: annoyance_signal_type {
     group_label: "Urlbar-specific filters"
     description: "The type of annoyance: help, inaccurate_location, not_interested, not_relevant, show_less_frequently"
@@ -61,6 +61,11 @@ view: +urlbar_events_table_temp_v2 {
     type: string
   }
 
+  dimension: normalized_engine {
+    sql: ${TABLE}.normalized_engine ;;
+    type: string
+  }
+
   dimension: num_chars_typed {
     hidden:  yes
   }
@@ -75,18 +80,36 @@ view: +urlbar_events_table_temp_v2 {
   }
 
   dimension: pref_data_collection {
+    hidden: yes
+  }
+
+  dimension: data_collection_enabled {
     sql: ${TABLE}.pref_data_collection ;;
     type: yesno
+    group_label: "User Preferences"
+    description: "Whether or not the checkbox for sharing search terms data is checked in about:preferences"
   }
 
   dimension: pref_fx_suggestions {
+    hidden: yes
+  }
+
+  dimension: firefox_suggest_enabled {
     sql: ${TABLE}.pref_fx_suggestions ;;
     type: yesno
+    group_label: "User Preferences"
+    description: "Whether or not the checkbox for showing Firefox Suggestions is checked in about:preferences"
   }
 
   dimension: pref_sponsored_suggestions {
+    hidden: yes
+  }
+
+  dimension: sponsored_suggestions_enabled {
     sql: ${TABLE}.pref_sponsored_suggestions ;;
     type: yesno
+    group_label: "User Preferences"
+    description: "Whether or not the checkbox for showing sponsored suggestions is checked in about:preferences"
   }
 
   dimension: product_engaged_result_type {
@@ -136,14 +159,14 @@ view: +urlbar_events_table_temp_v2 {
   measure: urlbar_clicks {
     group_label: "Urlbar Metrics"
     description: "Count of clicks on any result shown in the urlbar dropdown menu"
-    sql: COUNTIF(${is_terminal} and ${event_action} = "engaged");;
+    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${event_action} = "engaged" THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
   measure: urlbar_impressions {
     group_label: "Urlbar Metrics"
     description: "The number of times a user exits the urlbar dropdown menu, either by abandoning the urlbar, engaging with a urlbar result, or selecting an annoyance signal that closes the urlbar dropdown menu"
-    sql: COUNTIF(${is_terminal});;
+    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
@@ -157,33 +180,33 @@ view: +urlbar_events_table_temp_v2 {
   measure: urlbar_annoyances {
     group_label: "Urlbar Metrics"
     description: "Count of clicks on annoyance signals across all results shown in the urlbar dropdown menu"
-    sql: COUNTIF(${event_action} = "annoyance");;
+    sql: COUNT(DISTINCT(CASE WHEN ${event_action} = "annoyance" THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
-  measure: addon_clicks {
-    group_label: "Addon"
-    sql: COUNTIF(${product_selected_result} = "add_on" and ${is_terminal} and ${event_action} = "engaged");;
+  measure: DPSS_clicks {
+    group_label: "Default Partner Search Suggestion"
+    sql: COUNT(DISTINCT(CASE WHEN ${product_selected_result} = "default_partner_search_suggestion" and ${is_terminal} and ${event_action} = "engaged" THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
-  measure: addon_impressions {
-    group_label: "Addon"
+  measure: DPSS_impressions {
+    group_label: "Default Partner Search Suggestion"
     description: "The number of times a user exits the urlbar dropdown menu while an addon result was visible"
-    sql: COUNTIF(${is_terminal} and ARRAY_LENGTH(ARRAY( SELECT 1 FROM UNNEST(${results}) AS e WHERE e.product_result_type = "add_on")));;
+    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ARRAY_LENGTH(ARRAY( SELECT 1 FROM UNNEST(${results}) AS e WHERE e.product_result_type = "default_partner_search_suggestion")) > 0 THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
-  measure: addon_CTR {
-    group_label: "Addon"
+  measure: DPSS_CTR {
+    group_label: "Default Partner Search Suggestion"
     description: "Clicks / Impressions"
-    sql: safe_divide(${addon_clicks}, ${addon_impressions});;
+    sql: safe_divide(${DPSS_clicks}, ${DPSS_impressions});;
     type: number
   }
 
-  measure: addon_annoyances {
-    group_label: "Addon"
-    sql: COUNTIF(${product_engaged_result_type} = "add_on" and ${event_action} = "annoyance");;
+  measure: DPSS_annoyances {
+    group_label: "Default Partner Search Suggestion"
+    sql: COUNT(DISTINCT(CASE WHEN ${product_engaged_result_type} = "default_partner_search_suggestion" and ${event_action} = "annoyance" THEN ${event_id} ELSE NULL END));;
     type: number
   }
 }
