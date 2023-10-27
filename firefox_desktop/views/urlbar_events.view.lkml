@@ -92,7 +92,7 @@ view: +urlbar_events {
     sql: ${TABLE}.pref_data_collection ;;
     type: yesno
     group_label: "User Preferences"
-    description: "Whether or not the checkbox for sharing search terms data is checked in about:preferences"
+    description: "Whether or not the checkbox for sharing search terms data is checked in about:preferences. If yes, then this event came from Suggest Online."
   }
 
   dimension: pref_fx_suggestions {
