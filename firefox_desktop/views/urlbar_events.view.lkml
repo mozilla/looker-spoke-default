@@ -20,6 +20,7 @@ view: +urlbar_events {
   }
 
   dimension: session_action_type {
+    sql: ${TABLE}.event_action ;;
     group_label: "Urlbar-specific filters"
     description: "Don't use this field. It's the same as `Event Action`. It is included only for backwards compatibility on some older dashboards."
   }
@@ -37,6 +38,11 @@ view: +urlbar_events {
   }
 
   dimension: experiments {
+    hidden:  yes
+  }
+
+  dimension: first_result_type {
+    # looker-hub erroneously generates this Dimension that should not exist.
     hidden:  yes
   }
 
@@ -122,7 +128,7 @@ view: +urlbar_events {
   }
 
   dimension: product_first_result_type {
-    sql: ARRAY(SELECT r.product_result_type FROM UNNEST(${results}) AS r WHERE r.position = 1)[SAFE_OFFSET(0)] ;;
+    sql: ARRAY(SELECT r.product_result_type FROM UNNEST(results) AS r WHERE r.position = 1)[SAFE_OFFSET(0)] ;;
     type: string
   }
 
@@ -160,6 +166,11 @@ view: +urlbar_events {
     ]
     convert_tz: no
     datatype: date
+  }
+
+  dimension: num_add_on_impressions {
+    # looker-hub erroneously generates this Dimension that should not exist.
+    hidden:  yes
   }
 
   dimension: num_autofill_impressions {
