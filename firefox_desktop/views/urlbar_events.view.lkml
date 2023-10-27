@@ -164,97 +164,97 @@ view: +urlbar_events {
 
   dimension: num_autofill_impressions {
     hidden:  yes
-    sql:  ARRAY_LENGTH(ARRAY(SELECT 1 FROM UNNEST(results) AS r WHERE r.product_result_type = "autofill"));;
+    sql:  (select countif(r.product_result_type = "autofill") from unnest(results) as r);;
     type: number
   }
 
   dimension: num_admarketplace_sponsored_impressions {
     hidden:  yes
-    sql:  ARRAY_LENGTH(ARRAY(SELECT 1 FROM UNNEST(results) AS r WHERE r.product_result_type = "admarketplace_sponsored"));;
+    sql:  (select countif(r.product_result_type = "admarketplace_sponsored") from unnest(results) as r);;
     type: number
   }
 
   dimension: num_bookmark_impressions {
     hidden:  yes
-    sql:  ARRAY_LENGTH(ARRAY(SELECT 1 FROM UNNEST(results) AS r WHERE r.product_result_type = "bookmark"));;
+    sql:  (select countif(r.product_result_type = "bookmark") from unnest(results) as r);;
     type: number
   }
 
   dimension: num_default_partner_search_suggestion_impressions {
     hidden:  yes
-    sql:  ARRAY_LENGTH(ARRAY(SELECT 1 FROM UNNEST(results) AS r WHERE r.product_result_type = "default_partner_search_suggestion"));;
+    sql:  (select countif(r.product_result_type = "default_partner_search_suggestion") from unnest(results) as r);;
     type: number
   }
 
   dimension: num_history_impressions {
     hidden:  yes
-    sql:  ARRAY_LENGTH(ARRAY(SELECT 1 FROM UNNEST(results) AS r WHERE r.product_result_type = "history"));;
+    sql:  (select countif(r.product_result_type = "history") from unnest(results) as r);;
     type: number
   }
 
   dimension: num_navigational_impressions {
     hidden:  yes
-    sql:  ARRAY_LENGTH(ARRAY(SELECT 1 FROM UNNEST(results) AS r WHERE r.product_result_type = "navigational"));;
+    sql:  (select countif(r.product_result_type = "navigational") from unnest(results) as r);;
     type: number
   }
 
   dimension: num_open_tab_impressions {
     hidden:  yes
-    sql:  ARRAY_LENGTH(ARRAY(SELECT 1 FROM UNNEST(results) AS r WHERE r.product_result_type = "open_tab"));;
+    sql:  (select countif(r.product_result_type = "open_tab") from unnest(results) as r);;
     type: number
   }
 
   dimension: num_pocket_collection_impressions {
     hidden:  yes
-    sql:  ARRAY_LENGTH(ARRAY(SELECT 1 FROM UNNEST(results) AS r WHERE r.product_result_type = "pocket_collection"));;
+    sql:  (select countif(r.product_result_type = "pocket_collection") from unnest(results) as r);;
     type: number
   }
 
   dimension: num_quick_action_impressions {
     hidden:  yes
-    sql:  ARRAY_LENGTH(ARRAY(SELECT 1 FROM UNNEST(results) AS r WHERE r.product_result_type = "quick_action"));;
+    sql:  (select countif(r.product_result_type = "quick_action") from unnest(results) as r);;
     type: number
   }
 
   dimension: num_search_engine_impressions {
     hidden:  yes
-    sql:  ARRAY_LENGTH(ARRAY(SELECT 1 FROM UNNEST(results) AS r WHERE r.product_result_type = "search_engine"));;
+    sql:  (select countif(r.product_result_type = "search_engine") from unnest(results) as r);;
     type: number
   }
 
   dimension: num_suggest_addon_impressions {
     hidden:  yes
-    sql:  ARRAY_LENGTH(ARRAY(SELECT 1 FROM UNNEST(results) AS r WHERE r.product_result_type = "suggest_add_on"));;
+    sql:  (select countif(r.product_result_type = "suggest_add_on") from unnest(results) as r);;
     type: number
   }
 
   dimension: num_trending_suggestion_impressions {
     hidden:  yes
-    sql:  ARRAY_LENGTH(ARRAY(SELECT 1 FROM UNNEST(results) AS r WHERE r.product_result_type = "trending_suggestion"));;
+    sql:  (select countif(r.product_result_type = "trending_suggestion") from unnest(results) as r);;
     type: number
   }
 
   dimension: num_weather_impressions {
     hidden:  yes
-    sql:  ARRAY_LENGTH(ARRAY(SELECT 1 FROM UNNEST(results) AS r WHERE r.product_result_type = "weather"));;
+    sql:  (select countif(r.product_result_type = "weather") from unnest(results) as r);;
     type: number
   }
 
   dimension: num_wikipedia_dynamic_impressions {
     hidden:  yes
-    sql:  ARRAY_LENGTH(ARRAY(SELECT 1 FROM UNNEST(results) AS r WHERE r.product_result_type = "wikipedia_dynamic"));;
+    sql:  (select countif(r.product_result_type = "wikipedia_dynamic") from unnest(results) as r);;
     type: number
   }
 
   dimension: num_wikipedia_enhanced_impressions {
     hidden:  yes
-    sql:  ARRAY_LENGTH(ARRAY(SELECT 1 FROM UNNEST(results) AS r WHERE r.product_result_type = "wikipedia_enhanced"));;
+    sql:  (select countif(r.product_result_type = "wikipedia_enhanced") from unnest(results) as r);;
     type: number
   }
 
   dimension: num_xchannels_addon_impressions {
     hidden:  yes
-    sql:  ARRAY_LENGTH(ARRAY(SELECT 1 FROM UNNEST(results) AS r WHERE r.product_result_type = "xchannels_add_on"));;
+    sql:  (select countif(r.product_result_type = "xchannels_add_on") from unnest(results) as r);;
     type: number
   }
 
