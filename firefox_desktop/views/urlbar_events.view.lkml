@@ -299,7 +299,7 @@ view: +urlbar_events {
   measure: autofill_impressions {
     group_label: "Autofill"
     description: "The number of times a user exits the urlbar dropdown menu while an Autofill result was visible"
-    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ARRAY_LENGTH(ARRAY( SELECT 1 FROM UNNEST(${results}) AS e WHERE e.product_result_type = "autofill")) > 0 THEN ${event_id} ELSE NULL END));;
+    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_autofill_impressions} > 0 THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
@@ -325,7 +325,7 @@ view: +urlbar_events {
   measure: amp_spons_impressions {
     group_label: "AdMarketplace Sponsored"
     description: "The number of times a user exits the urlbar dropdown menu while an AdMarketplace Sponsored result was visible"
-    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ARRAY_LENGTH(ARRAY( SELECT 1 FROM UNNEST(${results}) AS e WHERE e.product_result_type = "admarketplace_sponsored")) > 0 THEN ${event_id} ELSE NULL END));;
+    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_admarketplace_sponsored_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
@@ -351,7 +351,7 @@ view: +urlbar_events {
   measure: bookmark_impressions {
     group_label: "Bookmark"
     description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
-    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ARRAY_LENGTH(ARRAY( SELECT 1 FROM UNNEST(${results}) AS e WHERE e.product_result_type = "bookmark")) > 0 THEN ${event_id} ELSE NULL END));;
+    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_bookmark_impressions} > 0 THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
@@ -377,7 +377,7 @@ view: +urlbar_events {
   measure: DPSS_impressions {
     group_label: "Default Partner Search Suggestion"
     description: "The number of times a user exits the urlbar dropdown menu while an addon result was visible"
-    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ARRAY_LENGTH(ARRAY( SELECT 1 FROM UNNEST(${results}) AS e WHERE e.product_result_type = "default_partner_search_suggestion")) > 0 THEN ${event_id} ELSE NULL END));;
+    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_default_partner_search_suggestion_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
@@ -403,7 +403,7 @@ view: +urlbar_events {
   measure: history_impressions {
     group_label: "History"
     description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
-    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ARRAY_LENGTH(ARRAY( SELECT 1 FROM UNNEST(${results}) AS e WHERE e.product_result_type = "history")) > 0 THEN ${event_id} ELSE NULL END));;
+    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_history_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
@@ -429,7 +429,7 @@ view: +urlbar_events {
   measure: navigational_impressions {
     group_label: "Navigational"
     description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
-    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ARRAY_LENGTH(ARRAY( SELECT 1 FROM UNNEST(${results}) AS e WHERE e.product_result_type = "navigational")) > 0 THEN ${event_id} ELSE NULL END));;
+    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_navigational_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
@@ -455,7 +455,7 @@ view: +urlbar_events {
   measure: open_tab_impressions {
     group_label: "Open Tab"
     description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
-    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ARRAY_LENGTH(ARRAY( SELECT 1 FROM UNNEST(${results}) AS e WHERE e.product_result_type = "open_tab")) > 0 THEN ${event_id} ELSE NULL END));;
+    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_open_tab_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
@@ -481,7 +481,7 @@ view: +urlbar_events {
   measure: pocket_collection_impressions {
     group_label: "Pocket Collection"
     description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
-    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ARRAY_LENGTH(ARRAY( SELECT 1 FROM UNNEST(${results}) AS e WHERE e.product_result_type = "pocket_collection")) > 0 THEN ${event_id} ELSE NULL END));;
+    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_pocket_collection_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
@@ -507,7 +507,7 @@ view: +urlbar_events {
   measure: quick_action_impressions {
     group_label: "Quick Action"
     description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
-    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ARRAY_LENGTH(ARRAY( SELECT 1 FROM UNNEST(${results}) AS e WHERE e.product_result_type = "quick_action")) > 0 THEN ${event_id} ELSE NULL END));;
+    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_quick_action_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
@@ -533,7 +533,7 @@ view: +urlbar_events {
   measure: search_engine_impressions {
     group_label: "Search Engine"
     description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
-    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ARRAY_LENGTH(ARRAY( SELECT 1 FROM UNNEST(${results}) AS e WHERE e.product_result_type = "search_engine")) > 0 THEN ${event_id} ELSE NULL END));;
+    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_search_engine_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
@@ -559,7 +559,7 @@ view: +urlbar_events {
   measure: suggest_addon_impressions {
     group_label: "Suggest  Addon"
     description: "The number of times a user exits the urlbar dropdown menu while an Suggest  Addon result was visible"
-    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ARRAY_LENGTH(ARRAY( SELECT 1 FROM UNNEST(${results}) AS e WHERE e.product_result_type = "suggest_add_on")) > 0 THEN ${event_id} ELSE NULL END));;
+    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_suggest_addon_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
@@ -585,7 +585,7 @@ view: +urlbar_events {
   measure: trending_impressions {
     group_label: "Trending"
     description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
-    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ARRAY_LENGTH(ARRAY( SELECT 1 FROM UNNEST(${results}) AS e WHERE e.product_result_type = "trending_suggestion")) > 0 THEN ${event_id} ELSE NULL END));;
+    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_trending_suggestion_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
@@ -611,7 +611,7 @@ view: +urlbar_events {
   measure: weather_impressions {
     group_label: "Weather"
     description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
-    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ARRAY_LENGTH(ARRAY( SELECT 1 FROM UNNEST(${results}) AS e WHERE e.product_result_type = "weather")) > 0 THEN ${event_id} ELSE NULL END));;
+    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_weather_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
@@ -637,7 +637,7 @@ view: +urlbar_events {
   measure: wikipedia_dynamic_impressions {
     group_label: "Wikipedia Dynamic"
     description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
-    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ARRAY_LENGTH(ARRAY( SELECT 1 FROM UNNEST(${results}) AS e WHERE e.product_result_type = "wikipedia_dynamic")) > 0 THEN ${event_id} ELSE NULL END));;
+    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_wikipedia_dynamic_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
@@ -663,7 +663,7 @@ view: +urlbar_events {
   measure: wikipedia_enhanced_impressions {
     group_label: "Wikipedia Enhanced"
     description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
-    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ARRAY_LENGTH(ARRAY( SELECT 1 FROM UNNEST(${results}) AS e WHERE e.product_result_type = "wikipedia_enhanced")) > 0 THEN ${event_id} ELSE NULL END));;
+    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_wikipedia_enhanced_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
@@ -689,7 +689,7 @@ view: +urlbar_events {
   measure: xchannels_addon_impressions {
     group_label: "Xchannels Addon"
     description: "The number of times a user exits the urlbar dropdown menu while an Xchannels Addon result was visible"
-    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ARRAY_LENGTH(ARRAY( SELECT 1 FROM UNNEST(${results}) AS e WHERE e.product_result_type = "xchannels_add_on")) > 0 THEN ${event_id} ELSE NULL END));;
+    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_xchannels_addon_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
