@@ -133,3 +133,7 @@ explore: missing_document_namespaces_notes {
   hidden: yes
   sql_always_where: ${bug} IS NOT NULL OR ${notes} IS NOT NULL ;;
 }
+
+explore: event_monitoring_live {
+  hidden: yes
+}
