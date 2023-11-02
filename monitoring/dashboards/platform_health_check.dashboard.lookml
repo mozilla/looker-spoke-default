@@ -1405,55 +1405,6 @@
     col: 0
     width: 24
     height: 6
-  - title: Distinct docid (decoded, stable, live) - telemetry + structured
-    name: Distinct docid (decoded, stable, live) - telemetry + structured
-    model: monitoring
-    explore: distinct_docids
-    type: looker_grid
-    fields: [distinct_docids.submission_date, distinct_docids.namespace, distinct_docids.doc_type,
-      distinct_docids.decoded, distinct_docids.live, distinct_docids.stable, distinct_docids.non_matching_count,
-      distinct_docids_notes.notes]
-    filters:
-      distinct_docids.non_matching_count: ">0"
-    sorts: [distinct_docids.submission_date desc]
-    limit: 500
-    dynamic_fields: [{category: table_calculation, expression: "${distinct_docids.decoded}\
-          \ - ${distinct_docids.live}", label: Diff Live to Decoded, value_format: !!null '',
-        value_format_name: !!null '', _kind_hint: dimension, table_calculation: diff_live_to_decoded,
-        _type_hint: number}, {category: table_calculation, expression: "${distinct_docids.decoded}\
-          \ - ${distinct_docids.stable}", label: Diff Stable to Decoded, value_format: !!null '',
-        value_format_name: !!null '', _kind_hint: dimension, table_calculation: diff_stable_to_decoded,
-        _type_hint: number}, {category: table_calculation, expression: "${distinct_docids.live}\
-          \ - ${distinct_docids.stable}", label: Diff Stable to Live, value_format: !!null '',
-        value_format_name: !!null '', _kind_hint: dimension, table_calculation: diff_stable_to_live,
-        _type_hint: number}]
-    show_view_names: false
-    show_row_numbers: true
-    transpose: false
-    truncate_text: true
-    hide_totals: false
-    hide_row_totals: false
-    size_to_fit: true
-    table_theme: white
-    limit_displayed_rows: false
-    enable_conditional_formatting: false
-    header_text_alignment: left
-    header_font_size: 12
-    rows_font_size: 12
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    defaults_version: 1
-    column_order: ["$$$_row_numbers_$$$", distinct_docids.submission_date, distinct_docids.namespace,
-      distinct_docids.doc_type, distinct_docids.decoded, distinct_docids.live, distinct_docids.stable,
-      diff_live_to_decoded, diff_stable_to_decoded, diff_stable_to_live, distinct_docids.non_matching_count,
-      distinct_docids_notes.notes]
-    hidden_fields: [distinct_docids.non_matching_count]
-    listen:
-      Submission Date: distinct_docids.submission_date
-    row: 84
-    col: 0
-    width: 24
-    height: 4
   - name: Pipeline latency sum
     type: text
     title_text: Pipeline latency sum
@@ -2031,20 +1982,6 @@
     col: 0
     width: 24
     height: 2
-  - name: Distinct docids (decoded, stable, live)
-    type: text
-    title_text: Distinct docids (decoded, stable, live)
-    subtitle_text: The table lists all doctypes where the number of distinct doc ids
-      doesn't match between decoded, live, and stable.
-    body_text: As of 2021-05-02, we filter out all pings containing "automation" in
-      the X-Source-Tags header, so these counts may appear lower in some cases compared
-      to a direct `COUNT(DISTINCT document_id)` on the relevant table partition. Prior
-      to adding this filtering, document types under `org_mozilla_fenix` would consistently
-      show mismatches due to test pings present in the decoded and live tables.
-    row: 80
-    col: 0
-    width: 24
-    height: 4
   - name: Schema Errors
     type: text
     title_text: Schema Errors
@@ -2567,25 +2504,13 @@
       sorts: [schema_error_counts.document_type]
       limit: 5000
       join_fields: []
-    - model: monitoring
-      explore: distinct_docids
-      type: table
-      fields: [distinct_docids.namespace, distinct_docids.doc_type, distinct_docids.n_documents]
-      sorts: [distinct_docids.doc_type]
-      limit: 5000
-      join_fields:
-      - field_name: distinct_docids.namespace
-        source_field_name: schema_error_counts.document_namespace
-      - field_name: distinct_docids.doc_type
-        source_field_name: schema_error_counts.document_type
     type: table
     sorts: [percent_of_error desc]
-    dynamic_fields: [{category: table_calculation, expression: "(${schema_error_counts.error_counts_sum}/(${schema_error_counts.error_counts_sum}+${distinct_docids.n_documents}))\
+    dynamic_fields: [{category: table_calculation, expression: "(${schema_error_counts.error_counts_sum}/(${schema_error_counts.error_counts_sum}))\
           \ * 100", label: percent_of_error, value_format: !!null '', value_format_name: !!null '',
         _kind_hint: measure, table_calculation: percent_of_error, _type_hint: number}]
     listen:
     - Submission Date: schema_error_counts.submission_date
-    - Submission Date: distinct_docids.submission_date
     row: 71
     col: 0
     width: 24
