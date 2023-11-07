@@ -214,7 +214,7 @@ view: serp_impression {
     group_label: "Ad Impression Metrics"
     description: "The number of distinct impressions for shopping page with visible ads"
     type: number
-    sql: COUNT(DISTINCT IF(${is_shopping_page} and ${num_ads_visible_reported} > 0, ${impression_id}, NULL));;
+    sql: COUNT(DISTINCT IF(${is_shopping_page} and ${num_ads_showing} > 0, ${impression_id}, NULL));;
 
   }
 
