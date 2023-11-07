@@ -155,7 +155,7 @@ view: serp_impression {
     group_label: "Ad Impression Metrics"
     description: "Total number of ads visible"
     type: sum
-    sql: ${TABLE}.num_ads_visible_reported;;
+    sql: ${TABLE}.num_ads_showing;;
 
   }
 
