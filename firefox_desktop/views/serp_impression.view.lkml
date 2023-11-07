@@ -253,7 +253,7 @@ view: serp_impression {
   measure: Ads_CTR{
     group_label: "Engagement Metrics"
     description: "number of impressions with at least 1 ad clicks / number of impressions with visible ads"
-    sql: safe_divide(COUNT(DISTINCT IF (${num_clicks} > 0 and ${num_ads_visible_reported} > 0 , ${impression_id}, NULL)), COUNT(DISTINCT IF (${num_ads_visible_reported} > 0 , ${impression_id}, NULL)));;
+    sql: safe_divide(COUNT(DISTINCT IF (${num_clicks} > 0 and ${num_ads_showing} > 0 , ${impression_id}, NULL)), COUNT(DISTINCT IF (${num_ads_showing} > 0 , ${impression_id}, NULL)));;
 
 
   }
