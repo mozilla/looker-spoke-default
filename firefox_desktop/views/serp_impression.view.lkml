@@ -137,7 +137,7 @@ view: serp_impression {
 
   measure: ad_impressions_count {
     group_label: "Ad Impression Metrics"
-    description: "The number of distinct ad impressions if ads were visible"
+    description: "The number of distinct SERP impressions with visible ads"
     type: number
     sql: COUNT(DISTINCT IF(${num_ads_visible_reported} > 0, ${impression_id}, NULL));;
 
