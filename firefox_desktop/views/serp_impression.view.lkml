@@ -261,7 +261,7 @@ view: serp_impression {
   measure: ad_clicks_per_impression_id {
     group_label: "Engagement Metrics"
     description: "Total number of ads clicked / number of impressions with visible ads"
-    sql: safe_divide(${ad_clicks},COUNT(DISTINCT IF (${num_ads_visible_reported} > 0 , ${impression_id}, NULL)) );;
+    sql: safe_divide(${ad_clicks},COUNT(DISTINCT IF (${num_ads_showing} > 0 , ${impression_id}, NULL)) );;
 
   }
 
