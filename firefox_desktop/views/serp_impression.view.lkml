@@ -54,7 +54,7 @@ view: serp_impression {
   }
   dimension: is_ad_component {
     type: yesno
-    description: "If SERP Impression is an ad component (Yes/No)"
+    description: "If component is an ad component (Yes/No)"
     sql: ${TABLE}.is_ad_component ;;
   }
   dimension: is_engaged {
