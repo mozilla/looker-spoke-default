@@ -81,16 +81,6 @@ explore: +telemetry_missing_columns {
   }
 }
 
-explore: +distinct_docids {
-  join: distinct_docids_notes {
-    relationship: many_to_one
-    sql_on: (${distinct_docids_notes.document_namespace} IS NULL OR ${distinct_docids.namespace} LIKE ${distinct_docids_notes.document_namespace})
-      AND (${distinct_docids_notes.document_type} IS NULL OR ${distinct_docids.doc_type} LIKE ${distinct_docids_notes.document_type})
-      AND (${distinct_docids_notes.notes} IS NOT NULL OR ${distinct_docids_notes.bug} IS NOT NULL)
-      AND (${distinct_docids.submission_date} BETWEEN ${distinct_docids_notes.start_date} AND ${distinct_docids_notes.end_date});;
-  }
-}
-
 explore: +missing_namespaces_and_document_types {
   hidden: yes
   join: missing_document_namespaces_notes {
@@ -100,10 +90,6 @@ explore: +missing_namespaces_and_document_types {
       AND (${missing_document_namespaces_notes.document_version} IS NULL OR ${missing_namespaces_and_document_types.document_version} LIKE ${missing_document_namespaces_notes.document_version})
       AND (${missing_document_namespaces_notes.notes} IS NOT NULL OR ${missing_document_namespaces_notes.bug} IS NOT NULL);;
   }
-}
-
-explore: +telemetry_distinct_docids {
-  hidden: yes
 }
 
 explore: +stable_table_column_counts {
@@ -119,11 +105,6 @@ explore: missing_columns_notes {
   sql_always_where: ${bug} IS NOT NULL OR ${notes} IS NOT NULL ;;
 }
 
-explore: distinct_docids_notes {
-  hidden: yes
-  sql_always_where: ${bug} IS NOT NULL OR ${notes} IS NOT NULL ;;
-}
-
 explore: schema_errors_notes {
   hidden: yes
   sql_always_where: ${bug} IS NOT NULL OR ${notes} IS NOT NULL ;;
@@ -132,4 +113,8 @@ explore: schema_errors_notes {
 explore: missing_document_namespaces_notes {
   hidden: yes
   sql_always_where: ${bug} IS NOT NULL OR ${notes} IS NOT NULL ;;
+}
+
+explore: event_monitoring_live {
+  hidden: yes
 }

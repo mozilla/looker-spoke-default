@@ -4,6 +4,9 @@ include: "views/*"
 include: "explores/*"
 include: "dashboards/*"
 
+# looker-hub explores included here
+include: "//looker-hub/duet/explores/*"
+
 ##########################################################################################
 # below are views saved into the mr1DEVELOPMENT directory specifically for the MR1 dashboard
 # do not use those views for other projects, as they are specific to the MR1 dashboard and
@@ -28,7 +31,9 @@ explore: kpi_downloads {
 }
 
 explore: kpi_installs{
-  sql_always_where: ${period_filtered_measures} in ("this", "last");;
+  sql_always_where: ${period_filtered_measures} in ("this", "last") AND
+                    ${app} = "Firefox Android and iOS" AND ${os} in ( "ios", "android")
+                    AND ${network} <> "Untrusted Devices";;
 }
 
 explore: app_store_territory_source_type_report {
@@ -38,3 +43,9 @@ explore: app_store_territory_source_type_report {
 explore: funnel_android_new {
   sql_always_where: ${period_filtered_measures} in ("this", "last");;
 }
+
+explore: funnel_ios_new {
+  sql_always_where: ${period_filtered_measures} in ("this", "last");;
+}
+
+explore: ctd_uac {}
