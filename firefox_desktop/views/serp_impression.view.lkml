@@ -49,6 +49,12 @@ view: serp_impression {
     description: "If ads were loaded (Yes/No)"
     sql: ${TABLE}.has_ads_loaded ;;
   }
+
+  dimension: has_ads_visible {
+    type: yesno
+    description: "If ads were visible (Yes/No)"
+    sql: ${TABLE}.num_ads_showing > 0;;
+  }
   dimension: impression_id {
     hidden: yes
   }
@@ -175,6 +181,8 @@ view: serp_impression {
 
   }
 
+
+
   measure: ads_not_showing{
     group_label: "Ad Impression Metrics"
     description: "Total number of ads loaded and not showing on SERP"
@@ -199,11 +207,11 @@ view: serp_impression {
 
   }
 
-  measure: ads_hidden_per_impression_id {
+  measure: ads_not_showing_per_impression_id {
     group_label: "Ad Impression Metrics"
     description: "number of ads hidden / serp_impressions_count"
     type: number
-    sql: safe_divide(${ads_hidden},${serp_impressions_count});;
+    sql: safe_divide(${ads_not_showing},${serp_impressions_count});;
 
   }
 
@@ -219,8 +227,7 @@ view: serp_impression {
     group_label: "Ad Impression Metrics"
     description: "shopping page ratio (yes/no) for impressions with visible ads"
     type: number
-    sql: safe_divide(COUNT(DISTINCT IF (${is_shopping_page} = TRUE and ${num_ads_visible_reported} > 0, ${impression_id}, NULL)), COUNT(DISTINCT IF (${is_shopping_page} = FALSE and ${num_ads_visible_reported} > 0 , ${impression_id}, NULL)));;
-
+    sql: safe_divide(COUNT(DISTINCT IF (${is_shopping_page} = TRUE and ${num_ads_showing} > 0, ${impression_id}, NULL)), COUNT(DISTINCT IF (${num_ads_showing} > 0 , ${impression_id}, NULL)));;
   }
 
   measure: is_shopping_page_ad_impression_count {
@@ -283,7 +290,7 @@ view: serp_impression {
 
  measure: abandonment_impressions_count {
   group_label: "Abandonment Metrics"
-  description: "The number of distinct ad impressions if ads were loaded "
+  description: "The number of abandoned impressions  "
   type: number
   sql: COUNT(DISTINCT IF (${is_engaged} = FALSE, ${impression_id}, NULL));;
 
