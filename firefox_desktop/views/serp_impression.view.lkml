@@ -249,6 +249,7 @@ view: serp_impression {
   measure: ad_clicks{
     group_label: "Engagement Metrics"
     description: "Total number of ads clicks for impressions with visible ads"
+    type: number
     sql: SUM( IF( ${num_ads_showing} > 0 , ${TABLE}.num_clicks, 0));;
 
   }
