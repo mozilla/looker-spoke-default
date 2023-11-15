@@ -118,3 +118,7 @@ explore: missing_document_namespaces_notes {
 explore: event_monitoring_live {
   hidden: yes
 }
+
+explore: event_error_monitoring_aggregates {
+  hidden: yes
+}
