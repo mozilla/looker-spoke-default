@@ -22,7 +22,7 @@ view: +android_store_performance {
 
   measure: impressions_total{
     label: "Impressions"
-    description: "Unique daily impressions, counted when a customer views the app on the Today, Games, Apps, or Search tabs on the App Store, or on the product page"
+    description: "The number of users who visited your store listing who didn’t already have your app installed on any of their devices."
     type: sum
     sql: ${Store_listing_visitors} ;;
   }
@@ -31,7 +31,7 @@ view: +android_store_performance {
 
   measure: downloads_total {
     label: "Downloads"
-    description: "Total downloads, including first-time downloads and redownloads"
+    description: "The number of users who visited your store listing and installed your app, who didn’t have it installed on any other devices at the time."
     type: sum
     sql: ${Store_listing_acquisitions} ;;
   }
