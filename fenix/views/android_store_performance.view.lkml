@@ -2,6 +2,24 @@ include: "//looker-hub/fenix/views/android_store_performance.view.lkml"
 
 view: +android_store_performance {
 
+  dimension: Store_listing_acquisitions {
+    hidden: yes
+    sql: ${TABLE}.Store_listing_acquisitions ;;
+    type: number
+  }
+
+  dimension: Store_listing_conversion_rate {
+    hidden: yes
+    sql: ${TABLE}.Store_listing_conversion_rate ;;
+    type: number
+  }
+
+  dimension: Store_listing_visitors {
+    hidden: yes
+    sql: ${TABLE}.Store_listing_visitors ;;
+    type: number
+  }
+
   measure: impressions_total{
     label: "Impressions"
     description: "Unique daily impressions, counted when a customer views the app on the Today, Games, Apps, or Search tabs on the App Store, or on the product page"
