@@ -16,6 +16,18 @@ view: +airflow_dag_run {
     }
   }
 
+  dimension_group: run_time {
+    type: duration
+    sql_start:  ${start_raw} ;;
+    sql_end: ${end_raw} ;;
+    intervals: [
+      second,
+      minute,
+      hour,
+      day
+    ]
+  }
+
   measure: last_runs {
     type: string
     sql: array_agg(struct(${state}, ${execution_time} as execution_time, ${start_time} as start_time, ${end_time} as end_time) order by execution_date desc limit 3) ;;
@@ -84,13 +96,13 @@ view: +airflow_dag_run {
 
   measure: avg_execution_time_sec {
     type: average
-    sql: datetime_diff(${end_raw}, ${start_raw}, second) ;;
+    sql: ${seconds_run_time};;
     value_format: "0"
   }
 
   measure: avg_execution_time_last_7_days_sec {
     type: average
-    sql: datetime_diff(${end_raw}, ${start_raw}, second) ;;
+    sql: ${seconds_run_time} ;;
     value_format: "0"
     filters: [execution_date: "7 days ago for 7 days"]
   }

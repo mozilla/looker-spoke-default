@@ -29,6 +29,8 @@ include: "/fenix/views/android_notification_metrics.view.lkml"
 include: "/fenix/views/android_notification_events.view.lkml"
 include: "/fenix/views/android_customize_home_metrics.view.lkml"
 include: "/fenix/views/android_customize_home_events.view.lkml"
+include: "/fenix/views/android_store_performance.view.lkml"
+
 
 
 view: +metrics {
@@ -64,4 +66,8 @@ view: +metrics {
     sql:  SAFE.PARSE_TIMESTAMP('%FT%H:%M:%S%Ez', ${TABLE}.client_info.build_date) ;;
     type: date_time
   }
+}
+
+explore: android_store_performance {
+  sql_always_where: ${period_filtered_measures} in ("this", "last");;
 }
