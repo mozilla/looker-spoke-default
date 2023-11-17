@@ -5,10 +5,12 @@ view: serp_impression {
 
   dimension: abandon_reason {
     type: string
+    description: "Reason for abandonment (Null if is_engaged = Yes)"
     sql: ${TABLE}.abandon_reason ;;
   }
   dimension: ad_blocker_inferred {
     type: yesno
+    description: "If ad blocker was being used (Yes/No)"
     sql: ${TABLE}.ad_blocker_inferred ;;
   }
   dimension: browser_version_info__is_major_release {
@@ -28,6 +30,7 @@ view: serp_impression {
   }
   dimension: component {
     type: string
+    description: "SERP display component"
     sql: ${TABLE}.component ;;
   }
   dimension: event_timestamp {
@@ -43,25 +46,36 @@ view: serp_impression {
   }
   dimension: has_ads_loaded {
     type: yesno
+    description: "If ads were loaded (Yes/No)"
     sql: ${TABLE}.has_ads_loaded ;;
+  }
+
+  dimension: has_ads_visible {
+    type: yesno
+    description: "If ads were visible (Yes/No)"
+    sql: ${TABLE}.num_ads_showing > 0;;
   }
   dimension: impression_id {
     hidden: yes
   }
   dimension: is_ad_component {
     type: yesno
+    description: "If component is an ad component (Yes/No)"
     sql: ${TABLE}.is_ad_component ;;
   }
   dimension: is_engaged {
     type: yesno
+    description: "At least 1 engagement event present for the impression ID (Yes/No)"
     sql: ${TABLE}.is_engaged ;;
   }
   dimension: is_shopping_page {
     type: yesno
+    description: "If SERP Impression is known to be a shopping page (Yes/No)"
     sql: ${TABLE}.is_shopping_page ;;
   }
   dimension: is_tagged {
     type: yesno
+    description: "If SERP Impression is tagged (Yes/No)"
     sql: ${TABLE}.is_tagged ;;
   }
   dimension: legacy_telemetry_client_id {
@@ -106,14 +120,18 @@ view: serp_impression {
     hidden: yes
   }
   dimension: sample_id {
+    group_label: "Filters to speed up Looker"
+    description: "Filter on this Dimension to speed up Looker while prototyping a dashboard. For example, filtering `sample_id < 10` will select a random 10% sample of the data, instead of all the data. DO NOT use this filter in a production dashboard for metrics with rare events (e.g., when click counts on a result type are low)."
     type: number
     sql: ${TABLE}.sample_id ;;
   }
   dimension: sap_source {
+    description: "How the user arrived at the SERP"
     type: string
     sql: ${TABLE}.sap_source ;;
   }
   dimension: search_engine {
+    description: "Search engine"
     type: string
     sql: ${TABLE}.search_engine ;;
   }
@@ -126,7 +144,7 @@ view: serp_impression {
   }
   measure: serp_impressions_count {
     group_label: "SERP Impression Metrics"
-    description: "The number of distinct SERP Impressions "
+    description: "The number of distinct SERP Impressions"
     type: count_distinct
     sql: ${impression_id};;
   }
@@ -139,7 +157,7 @@ view: serp_impression {
     group_label: "Ad Impression Metrics"
     description: "The number of distinct SERP impressions with visible ads"
     type: number
-    sql: COUNT(DISTINCT IF(${num_ads_showing} > 0, ${impression_id}, NULL));;
+    sql: COUNT(DISTINCT IF(${has_ads_visible}, ${impression_id}, NULL));;
 
   }
 
@@ -159,14 +177,6 @@ view: serp_impression {
 
   }
 
-  measure: ads_hidden{
-    group_label: "Ad Impression Metrics"
-    description: "Total number of ads hidden"
-    type: sum
-    sql: ${TABLE}.num_ads_hidden_reported ;;
-
-  }
-
   measure: ads_not_showing{
     group_label: "Ad Impression Metrics"
     description: "Total number of ads loaded and not showing on SERP"
@@ -178,6 +188,7 @@ view: serp_impression {
   measure: ads_loaded_per_impression_id {
     group_label: "Ad Impression Metrics"
     description: "number of ads loaded / serp_impressions_count"
+    type: number
     sql: safe_divide(${ads_loaded},${serp_impressions_count} );;
 
   }
@@ -185,36 +196,39 @@ view: serp_impression {
   measure: ads_visible_per_impression_id {
     group_label: "Ad Impression Metrics"
     description: "number of ads visible / serp_impressions_count"
+    type: number
     sql: safe_divide(${ads_visible},${serp_impressions_count} );;
 
   }
 
-  measure: ads_hidden_per_impression_id {
+  measure: ads_not_showing_per_impression_id {
     group_label: "Ad Impression Metrics"
-    description: "number of ads hidden / serp_impressions_count"
-    sql: safe_divide(${ads_hidden},${serp_impressions_count});;
+    description: "number of ads not showing / serp_impressions_count"
+    type: number
+    sql: safe_divide(${ads_not_showing},${serp_impressions_count});;
 
   }
 
-  measure: visible_hidden_proportion{
+  measure: visible_proportion{
     group_label: "Ad Impression Metrics"
-    description: "number of ads visible / number of ads hidden"
-    sql: safe_divide(${ads_visible},${ads_hidden} );;
+    description: "number of ads visible / number of ads loaded"
+    type: number
+    sql: safe_divide(${ads_visible},${ads_loaded});;
 
   }
 
   measure: is_shopping_page_proportion{
     group_label: "Ad Impression Metrics"
     description: "shopping page ratio (yes/no) for impressions with visible ads"
-    sql: safe_divide(COUNT(DISTINCT IF (${is_shopping_page} = TRUE and ${num_ads_visible_reported} > 0, ${impression_id}, NULL)), COUNT(DISTINCT IF (${is_shopping_page} = FALSE and ${num_ads_visible_reported} > 0 , ${impression_id}, NULL)));;
-
+    type: number
+    sql: safe_divide(${is_shopping_page_ad_impression_count}, ${ad_impressions_count});;
   }
 
   measure: is_shopping_page_ad_impression_count {
     group_label: "Ad Impression Metrics"
     description: "The number of distinct impressions for shopping page with visible ads"
     type: number
-    sql: COUNT(DISTINCT IF(${is_shopping_page} and ${num_ads_showing} > 0, ${impression_id}, NULL));;
+    sql: COUNT(DISTINCT IF(${is_shopping_page} and ${has_ads_visible}, ${impression_id}, NULL));;
 
   }
 
@@ -229,7 +243,8 @@ view: serp_impression {
   measure: ad_clicks{
     group_label: "Engagement Metrics"
     description: "Total number of ads clicks for impressions with visible ads"
-    sql: SUM( IF( ${num_ads_showing} > 0 , ${TABLE}.num_clicks, 0));;
+    type: number
+    sql: SUM( IF( ${has_ads_visible} , ${TABLE}.num_clicks, 0));;
 
   }
 
@@ -253,7 +268,8 @@ view: serp_impression {
   measure: Ads_CTR{
     group_label: "Engagement Metrics"
     description: "number of impressions with at least 1 ad clicks / number of impressions with visible ads"
-    sql: safe_divide(COUNT(DISTINCT IF (${num_clicks} > 0 and ${num_ads_showing} > 0 , ${impression_id}, NULL)), COUNT(DISTINCT IF (${num_ads_showing} > 0 , ${impression_id}, NULL)));;
+    type: number
+    sql: safe_divide(COUNT(DISTINCT IF (${num_clicks} > 0 and ${num_ads_showing} > 0 , ${impression_id}, NULL)), ${ad_impressions_count});;
 
 
   }
@@ -261,14 +277,15 @@ view: serp_impression {
   measure: ad_clicks_per_impression_id {
     group_label: "Engagement Metrics"
     description: "Total number of ads clicked / number of impressions with visible ads"
-    sql: safe_divide(${ad_clicks},COUNT(DISTINCT IF (${num_ads_showing} > 0 , ${impression_id}, NULL)) );;
+    type: number
+    sql: safe_divide(${ad_clicks},${ad_impressions_count});;
 
   }
 
 
  measure: abandonment_impressions_count {
   group_label: "Abandonment Metrics"
-  description: "The number of distinct ad impressions if ads were loaded "
+  description: "The number of abandoned impressions"
   type: number
   sql: COUNT(DISTINCT IF (${is_engaged} = FALSE, ${impression_id}, NULL));;
 
