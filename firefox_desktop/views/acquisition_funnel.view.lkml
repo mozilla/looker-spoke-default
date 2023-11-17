@@ -3,72 +3,72 @@ include: "//looker-hub/firefox_desktop/views/*"
 view: +desktop_acquisition_funnel_table {
 
   # Hide metric columns showing as dimensions
-  dimension: cohort_dimension {
+  dimension: cohort {
     hidden: yes
     sql: ${TABLE}.cohort ;;
   }
 
-  dimension: activated_dimension {
+  dimension: activated {
     hidden: yes
     sql: ${TABLE}.activated ;;
   }
 
-  dimension: returned_second_day_dimension {
+  dimension: returned_second_day {
     hidden: yes
     sql: ${TABLE}.returned_second_day ;;
   }
 
-  dimension: qualified_second_day_dimension {
+  dimension: qualified_second_day {
     hidden: yes
     sql: ${TABLE}.qualified_second_day ;;
   }
 
 
-  dimension: retained_week4_dimension {
+  dimension: retained_week4 {
     hidden: yes
     sql: ${TABLE}.retained_week4 ;;
   }
 
-  dimension: qualified_week_4_dimension {
+  dimension: qualified_week_4 {
     hidden: yes
     sql: ${TABLE}.qualified_week4 ;;
   }
 
   # Define measures
   measure: cohort_measure {
-    label: "cohort"
+    label: "New Profiles (cohort)"
     type:  sum
     sql: (${TABLE}.cohort) ;;
   }
 
   measure: activated_measure {
-    label: "clients activated"
+    label: "clients - activated"
     type: sum
     sql:  ${TABLE}.activated ;;
   }
 
   measure: returned_second_day_measure {
-    label: "clients repeat first month"
+    label: "clients - repeat first month"
     type: sum
     sql:  ${TABLE}.returned_second_day ;;
   }
 
   measure: qualified_second_day_measure {
-    label: "clients repeat first month (DAU qualified)"
+    label: "clients - repeat first month (DAU qualified)"
     type: sum
     sql:  ${TABLE}.qualified_second_day ;;
   }
 
   measure: retained_week_4_measure {
-    label: "clients retained in week 4"
+    label: "clients - retained in week 4"
     type: sum
     sql:  ${TABLE}.retained_week4 ;;
   }
 
   measure: qualified_week_4_measure {
-    label: "clients retained in week 4 (DAU qualified)"
+    label: "clients - retained in week 4 (DAU qualified)"
     type: sum
-    sql:  ${TABLE}.retained_week4 ;;
+    sql:  ${TABLE}.qualified_week4 ;;
   }
 
   measure: activation_rate_measure{
@@ -106,7 +106,58 @@ view: +desktop_acquisition_funnel_table {
     value_format: "0.00%"
   }
 
-# Dates
+# Group Dimensions
+  dimension: attribution_campaign {
+    label: "Campaign"
+    type:  string
+    group_label: "Attribution"
+    sql: ${TABLE}.attribution_campaign ;;
+  }
+
+  dimension: attribution_content {
+    label: "Content"
+    type:  string
+    group_label: "Attribution"
+    sql: ${TABLE}.attribution_content ;;
+  }
+
+  dimension: attribution_dlsource {
+    label: "Download Source"
+    type:  string
+    group_label: "Attribution"
+    sql: ${TABLE}.attribution_dlsource ;;
+  }
+
+  dimension: attribution_experiment {
+    label: "Experiment"
+    type:  string
+    group_label: "Attribution"
+    sql: ${TABLE}.attribution_experiment ;;
+  }
+
+  dimension: attribution_medium {
+    label: "Medium"
+    type:  string
+    group_label: "Attribution"
+    sql: ${TABLE}.attribution_medium ;;
+  }
+
+  dimension: attribution_source {
+    label: "Source"
+    type:  string
+    group_label: "Attribution"
+    sql: ${TABLE}.attribution_source ;;
+  }
+
+  dimension: attribution_ua {
+    label: "User Agent"
+    type:  string
+    group_label: "Attribution"
+    sql: ${TABLE}.attribution_ua ;;
+  }
+
+
+# Dates Setup
 
   parameter: choose_breakdown {
     label: "Choose Grouping (Rows)"
