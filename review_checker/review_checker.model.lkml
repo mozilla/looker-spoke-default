@@ -8,11 +8,22 @@ label: "Review Checker"
  #include: "explores/*"
 # include: "dashboards/*"
 
+explore: +android_clients {
+
+  join: android_events {
+    sql_on: ${android_clients.client_id} = ${android_events.client_id} AND ${android_clients.submission_date} = ${android_events.submission_date} ;;
+    relationship: one_to_one
+    type: left_outer
+  }
+
+
+}
+
 explore: +android_events {
 
   join: android_clients {
     sql_on: ${android_events.client_id} = ${android_clients.client_id} AND ${android_events.submission_date} = ${android_clients.submission_date} ;;
-    relationship: one_to_many
+    relationship: one_to_one
     type: left_outer
   }
 

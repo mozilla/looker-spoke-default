@@ -4,9 +4,15 @@ include: "//looker-hub/review_checker/views/android_events.view.lkml"
 view: +android_events {
 
   dimension: client_id {
-    primary_key: yes
+    #primary_key: yes
     sql: ${TABLE}.client_id ;;
     hidden: yes
+  }
+
+  dimension: client_id_date {
+    primary_key: yes
+    sql: CONCAT(${TABLE}.client_id, ${TABLE}.submission_date) ;;
+    type: string
   }
 
   dimension: is_opt_in {
