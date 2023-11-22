@@ -12,6 +12,26 @@ explore: +topsites_impression {
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1764332
 
 include: "//looker-hub/fenix/views/metrics.view.lkml"
+include: "/fenix/views/test_mobile_feature.view.lkml"
+include: "/fenix/views/android_credential_management_metrics.view.lkml"
+include: "/fenix/views/android_credential_management_events.view.lkml"
+include: "/fenix/views/android_bookmark_events.view.lkml"
+include: "/fenix/views/android_bookmark_metrics.view.lkml"
+include: "/fenix/views/android_history_events.view.lkml"
+include: "/fenix/views/android_fxa_events.view.lkml"
+include: "/fenix/views/android_privacy_metrics_cat.view.lkml"
+include: "/fenix/views/android_tab_count_metrics.view.lkml"
+include: "/fenix/views/android_default_browser_metrics.view.lkml"
+include: "/fenix/views/android_default_browser_events.view.lkml"
+include: "/fenix/views/android_privacy_events.view.lkml"
+include: "/fenix/views/android_awesomebar_location_metrics.view.lkml"
+include: "/fenix/views/android_notification_metrics.view.lkml"
+include: "/fenix/views/android_notification_events.view.lkml"
+include: "/fenix/views/android_customize_home_metrics.view.lkml"
+include: "/fenix/views/android_customize_home_events.view.lkml"
+include: "/fenix/views/android_store_performance.view.lkml"
+
+
 
 view: +metrics {
   dimension: metrics__labeled_counter__recent_synced_tabs_recent_synced_tab_opened {
@@ -46,4 +66,8 @@ view: +metrics {
     sql:  SAFE.PARSE_TIMESTAMP('%FT%H:%M:%S%Ez', ${TABLE}.client_info.build_date) ;;
     type: date_time
   }
+}
+
+explore: android_store_performance {
+  sql_always_where: ${period_filtered_measures} in ("this", "last");;
 }

@@ -24,7 +24,7 @@ def setup_sdk(client_id, client_secret, instance) -> methods.Looker31SDK:
     os.environ["LOOKERSDK_CLIENT_ID"] = client_id
     os.environ["LOOKERSDK_CLIENT_SECRET"] = client_secret
 
-    return looker_sdk.init31()
+    return looker_sdk.init40()
 
 
 def lookml_uud_mapping(config: dict) -> dict:

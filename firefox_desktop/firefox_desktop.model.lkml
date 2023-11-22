@@ -91,6 +91,20 @@ explore: +metrics {
   }
 }
 
+explore: acquisition_funnel {
+  view_name:  desktop_acquisition_funnel_table
+  label: " Desktop Acquisition Funnel"
+  description: "Desktop Acquisition Funnel Metrics"
+
+  join: countries {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${desktop_acquisition_funnel_table.country_code} = ${countries.code} ;;
+  }
+}
+
+
+
 view: +metrics {
   dimension: client_info__build_date_datetime {
     label: "Build Date (Datetime)"
