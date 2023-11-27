@@ -19,6 +19,37 @@ view: +android_events {
     type: number
     sql: ${android_clients.is_opt_in} ;;
   }
+
+  dimension: is_surface_expand_settings {
+    sql: ${TABLE}.is_surface_expand_settings ;;
+    type: number
+    hidden: yes
+  }
+
+  dimension: is_surface_learn_more_clicked {
+    sql: ${TABLE}.is_surface_learn_more_clicked ;;
+    type: number
+    hidden: yes
+  }
+
+  dimension: is_surface_show_privacy_policy_clicked {
+    sql: ${TABLE}.is_surface_show_privacy_policy_clicked ;;
+    type: number
+    hidden: yes
+  }
+
+  dimension: is_surface_show_quality_explainer_url_clicked {
+    sql: ${TABLE}.is_surface_show_quality_explainer_url_clicked ;;
+    type: number
+    hidden: yes
+  }
+
+  dimension: is_surface_show_terms_clicked {
+    sql: ${TABLE}.is_surface_show_terms_clicked ;;
+    type: number
+    hidden: yes
+  }
+
   #measures
 
   measure: client_count {
@@ -117,8 +148,9 @@ view: +android_events {
   }
 
   measure: opt_in_button_click_rate {
-    sql: SAFE_DIVIDE(${surface_opt_in_accepted_sum}, ${surface_onboarding_displayed_sum}) * 100 ;;
+    sql: SAFE_DIVIDE(${surface_opt_in_accepted_sum}, ${surface_onboarding_displayed_sum}) ;;
     type: number
+    value_format_name: percent_2
 
   }
 

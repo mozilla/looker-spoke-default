@@ -12,6 +12,31 @@ view: +android_clients {
     primary_key: yes
     sql: CONCAT(${TABLE}.client_id, ${TABLE}.submission_date) ;;
     type: string
+    hidden: yes
+  }
+
+  dimension: active_hours_sum {
+    sql: ${TABLE}.active_hours_sum ;;
+    type: number
+    hidden: yes
+  }
+
+  dimension: ad_click {
+    sql: ${TABLE}.ad_click ;;
+    type: number
+    hidden: yes
+  }
+
+  dimension: is_fx_dau {
+    sql: ${TABLE}.is_fx_dau ;;
+    type: number
+    hidden: yes
+  }
+
+  dimension: sap {
+    sql: ${TABLE}.sap ;;
+    type: number
+    hidden: yes
   }
 
   #measures
@@ -45,8 +70,8 @@ view: +android_clients {
 
   measure: fx_dau_percentage {
     type: number
-    sql: 100 * ${fx_dau}/${client_count} ;;
-    value_format: "0\%"
+    sql: ${fx_dau}/${client_count} ;;
+    value_format_name: percent_2
     description: "percentage of RC clients who meet defintion of fx daily active users"
   }
 
@@ -99,8 +124,8 @@ view: +android_clients {
 
   measure: opt_out_rate {
     type: number
-    sql:  100 * SAFE_DIVIDE(${is_opt_out_count}, ${is_opt_in_count}) ;;
-    value_format: "0\%"
+    sql:  SAFE_DIVIDE(${is_opt_out_count}, ${is_opt_in_count}) ;;
+    value_format_name: percent_2
   }
 
 
