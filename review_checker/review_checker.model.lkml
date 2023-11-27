@@ -6,7 +6,6 @@ label: "Review Checker"
   include: "//looker-hub/review_checker/views/*"
  include: "views/*"
 # include: "explores/*"
-
 # include: "dashboards/*"
 
 explore: +android_clients {
