@@ -1,6 +1,7 @@
 connection: "telemetry"
 label: "Firefox Accounts"
 include: "//looker-hub/firefox_accounts/views/fxa_first_seen_table.view.lkml"
+include: "//looker-hub/firefox_accounts/views/login_funnels.view.lkml"
 include: "//looker-hub/firefox_accounts/explores/*"
 include: "views/*.view.lkml"
 include: "explores/*.explore.lkml"
@@ -23,3 +24,5 @@ explore: +event_counts {
   }
   sql_always_where: timestamp > "2010-01-01" ;;
 }
+
+explore: login_funnels {}
