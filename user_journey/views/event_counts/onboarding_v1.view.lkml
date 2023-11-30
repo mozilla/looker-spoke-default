@@ -1,5 +1,5 @@
 view: onboarding_v1 {
-  sql_table_name: `moz-fx-data-shared-prod.messaging_system_stable.onboarding_v1`
+  sql_table_name: `moz-fx-data-shared-prod.firefox_desktop.onboarding`
     ;;
 
   dimension: additional_properties {
