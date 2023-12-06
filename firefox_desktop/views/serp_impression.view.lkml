@@ -122,7 +122,8 @@ view: serp_impression {
     type: string
     sql: ${TABLE}.normalized_country_code ;;
   }
-  filter: sample_id {
+  dimension: sample_id {
+    group_label: "Filters to speed up Looker"
     description: "Filter on sample ID to speed up Looker while prototyping a dashboard. For example, filtering `sample_id < 10` will select a random 10% sample of the data, instead of all the data. DO NOT use this filter in a production dashboard for metrics with rare events (e.g., when click counts on a result type are low)."
     type: number
     sql: ${TABLE}.sample_id ;;
