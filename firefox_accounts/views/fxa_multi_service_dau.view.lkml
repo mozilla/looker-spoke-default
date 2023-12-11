@@ -7,7 +7,7 @@ view: fxa_multi_service_dau {
       DATE(timestamp) as submission_date,
       user_id,
       ARRAY_AGG(DISTINCT service IGNORE NULLS ORDER BY service) as services,
-      MAX_BY(country_code, submission_timestamp) as country_code
+      MAX_BY(country_code, timestamp) as country_code
     FROM
       `mozdata.firefox_accounts.fxa_all_events`
     WHERE service IN ('sync', 'mdn-plus', 'guardian-vpn', 'fx-monitor', 'fx-private-relay', 'pocket-web', 'amo-web', 'thunderbird-addons', 'mozilla-iam', 'moz-social', 'mozilla-support', 'pontoon', 'mozilla-hubs-dev')
