@@ -994,7 +994,7 @@
     filters:
       active_subscriptions.is_max_active_date: 'Yes'
     sorts: [active_subscriptions.count_sum desc]
-    limit: 1000
+    limit: 50
     column_limit: 50
     value_labels: labels
     label_type: labPer
