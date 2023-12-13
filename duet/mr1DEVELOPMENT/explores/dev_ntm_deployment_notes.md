@@ -16,3 +16,5 @@ Change the look and explore filenames to remove dev
 Change the looks referenced in all the explores to remove dev
 
 Change the explores referenced in the dashboard file to remove dev
+
+Update the references to the dev_*.explores in duet.model

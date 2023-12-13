@@ -4,8 +4,8 @@ view: dev_desktop_session {
             date,
             standardized_country_name,
             browser,
-            os
-            sum(non_fx_sessions) as total_non_fx_sessions,
+            operating_system,
+            sum(non_fx_sessions) as non_fx_sessions,
             sum(non_fx_downloads) as non_fx_downloads
          FROM `moz-fx-data-marketing-prod.ga_derived.www_site_metrics_summary_v1`
          WHERE date >= '2020-01-01'
@@ -33,15 +33,16 @@ view: dev_desktop_session {
   dimension: normalized_country_code_subset {
     hidden: yes
     type: string
-    sql: CASE WHEN ${TABLE}.standardized_country_name == 'USA' THEN 'US'
-              WHEN ${TABLE}.standardized_country_name == 'United Kingdom' THEN 'GB'
-              WHEN ${TABLE}.standardized_country_name == 'Germany' THEN 'DE'
-              WHEN ${TABLE}.standardized_country_name == 'France' THEN 'FR'
-              WHEN ${TABLE}.standardized_country_name == 'Canada' THEN 'CA'
-              WHEN ${TABLE}.standardized_country_name == 'Brazil' THEN 'BR'
-              WHEN ${TABLE}.standardized_country_name == 'Mexico' THEN 'MX'
-              WHEN ${TABLE}.standardized_country_name == 'China' THEN 'CN'
+    sql: CASE WHEN ${TABLE}.standardized_country_name = 'USA' THEN 'US'
+              WHEN ${TABLE}.standardized_country_name = 'United Kingdom' THEN 'GB'
+              WHEN ${TABLE}.standardized_country_name = 'Germany' THEN 'DE'
+              WHEN ${TABLE}.standardized_country_name = 'France' THEN 'FR'
+              WHEN ${TABLE}.standardized_country_name = 'Canada' THEN 'CA'
+              WHEN ${TABLE}.standardized_country_name = 'Brazil' THEN 'BR'
+              WHEN ${TABLE}.standardized_country_name = 'Mexico' THEN 'MX'
+              WHEN ${TABLE}.standardized_country_name = 'China' THEN 'CN'
               ELSE 'ROW'
+              END
     ;;
     description: "A subset standardized_country_names formated in ISO 3166-1 alpha-2 country code. Other then those 8 countries, rest are defined as Rest of World"
   }
