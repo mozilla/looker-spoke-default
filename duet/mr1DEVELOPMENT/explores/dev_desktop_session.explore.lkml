@@ -21,7 +21,7 @@ explore: dev_desktop_session {
     ]
   }
 
-  query: total_downloads {
+  query: total_downloads_last_28 {
     dimensions: [dev_desktop_session.normalized_country_code_subset]
     measures: [dev_desktop_session.non_fx_downloads]
     filters: [
@@ -32,7 +32,7 @@ explore: dev_desktop_session {
     label: "Total downloads from non-Firefox browsers in the past 28 days"
   }
 
-  query: total_visits {
+  query: total_visits_last_28 {
     dimensions: [dev_desktop_session.normalized_country_code_subset]
     measures: [dev_desktop_session.non_fx_sessions]
     filters: [

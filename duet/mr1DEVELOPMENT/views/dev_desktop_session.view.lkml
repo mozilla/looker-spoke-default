@@ -8,7 +8,7 @@ view: dev_desktop_session {
             sum(non_fx_sessions) as non_fx_sessions,
             sum(non_fx_downloads) as non_fx_downloads
          FROM `moz-fx-data-marketing-prod.ga_derived.www_site_metrics_summary_v1`
-         WHERE date >= '2020-01-01'
+         WHERE date >= '2021-01-01'
          AND device_category = 'desktop'
          GROUP BY 1, 2, 3, 4
     ;;
@@ -41,10 +41,15 @@ view: dev_desktop_session {
               WHEN ${TABLE}.standardized_country_name = 'Brazil' THEN 'BR'
               WHEN ${TABLE}.standardized_country_name = 'Mexico' THEN 'MX'
               WHEN ${TABLE}.standardized_country_name = 'China' THEN 'CN'
+              WHEN ${TABLE}.standardized_country_name = 'India' THEN 'IN'
+              WHEN ${TABLE}.standardized_country_name = 'Australia' THEN 'AU'
+              WHEN ${TABLE}.standardized_country_name = 'Netherlands' THEN 'NL'
+              WHEN ${TABLE}.standardized_country_name = 'Spain' THEN 'ES'
+              WHEN ${TABLE}.standardized_country_name = 'Russia' THEN 'RU'
               ELSE 'ROW'
               END
     ;;
-    description: "A subset standardized_country_names formated in ISO 3166-1 alpha-2 country code. Other then those 8 countries, rest are defined as Rest of World"
+    description: "A subset standardized_country_names formated in ISO 3166-1 alpha-2 country code. Other then those countries, rest are defined as Rest of World"
   }
 
   dimension: funnel_derived {
