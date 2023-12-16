@@ -59,6 +59,12 @@ view: dev_desktop_install {
     description: "defining membership in the different firefox acquisition funnels"
   }
 
+  dimension: week4_reported_date{
+    sql:  COALESCE(DATE_DIFF(current_date(), date(${TABLE}.submission_timestamp), DAY) > 28, FALSE) ;;
+    type: yesno
+    description: "check if date has week 4 metrics reported"
+  }
+
   dimension_group: submission {
     sql: ${TABLE}.submission_timestamp ;;
     type: time

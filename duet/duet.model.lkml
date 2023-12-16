@@ -13,6 +13,7 @@ include: "//looker-hub/duet/explores/*"
 # haven't been developed for general consumption
 include: "mr1DEVELOPMENT/explores.explore.lkml"
 include: "mr1DEVELOPMENT/explores/*explore.lkml"
+include: "mr1DEVELOPMENT/dashboards/*"
 
 explore: releases {
   hidden: yes

@@ -14,24 +14,7 @@ view: dev_desktop_session {
     ;;
   }
 
-  dimension_group: submission {
-    sql: ${TABLE}.date ;;
-    type: time
-    timeframes: [
-      raw,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    convert_tz: no
-    datatype: date
-    description: "derived from GA timestamp of the raw data, this is a date in the underlying table"
-  }
-
   dimension: normalized_country_code_subset {
-    hidden: yes
     type: string
     sql: CASE WHEN ${TABLE}.standardized_country_name = 'USA' THEN 'US'
               WHEN ${TABLE}.standardized_country_name = 'United Kingdom' THEN 'GB'
@@ -66,6 +49,28 @@ view: dev_desktop_session {
           ;;
     type: string
     description: "defining membership in the different firefox acquisition funnels"
+  }
+
+  dimension: week4_reported_date{
+    sql:  COALESCE(DATE_DIFF(current_date(), ${TABLE}.date, DAY) > 28, FALSE) ;;
+    type: yesno
+    description: "check if date has week 4 metrics reported"
+  }
+
+  dimension_group: submission {
+    sql: ${TABLE}.date ;;
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    description: "derived from GA timestamp of the raw data, this is a date in the underlying table"
   }
 
   measure: non_fx_sessions {

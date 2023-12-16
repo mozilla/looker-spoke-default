@@ -18,6 +18,12 @@ view: dev_desktop_usage {
     ;;
   }
 
+  dimension: week4_reported_date{
+    sql:  COALESCE(DATE_DIFF(current_date(), ${TABLE}.first_seen_date, DAY) > 28, FALSE) ;;
+    type: yesno
+    description: "check if date has week 4 metrics reported"
+  }
+
   dimension_group: submission {
     sql: ${TABLE}.first_seen_date ;;
     type: time

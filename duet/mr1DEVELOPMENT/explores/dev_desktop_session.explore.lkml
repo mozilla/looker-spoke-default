@@ -15,31 +15,34 @@ explore: dev_desktop_session {
 
   always_filter: {
     filters: [
-      dev_desktop_session.analysis_period: "28 day",
+      dev_desktop_session.analysis_period: "last 90 days",
       dev_desktop_session.join_field: "yes",
-      dev_desktop_session.funnel_derived: "mozorg windows funnel"
+      dev_desktop_session.funnel_derived: "mozorg windows funnel",
+      dev_desktop_session.week4_reported_date: "yes"
     ]
   }
 
-  query: total_downloads_last_28 {
+  query: total_downloads_90days {
     dimensions: [dev_desktop_session.normalized_country_code_subset]
     measures: [dev_desktop_session.non_fx_downloads]
     filters: [
-      dev_desktop_session.analysis_period: "28 days",
+      dev_desktop_session.analysis_period: "last 90 days",
       dev_desktop_session.year_over_year: "No",
-      dev_desktop_session.join_field: "yes"
+      dev_desktop_session.join_field: "yes",
+      dev_desktop_session.week4_reported_date: "yes"
     ]
-    label: "Total downloads from non-Firefox browsers in the past 28 days"
+    label: "Total downloads from non-Firefox browsers in the last 90 days"
   }
 
-  query: total_visits_last_28 {
+  query: total_visits_90days {
     dimensions: [dev_desktop_session.normalized_country_code_subset]
     measures: [dev_desktop_session.non_fx_sessions]
     filters: [
-      dev_desktop_session.analysis_period: "28 days",
+      dev_desktop_session.analysis_period: "last 90 days",
       dev_desktop_session.year_over_year: "No",
-      dev_desktop_session.join_field: "yes"
+      dev_desktop_session.join_field: "yes",
+      dev_desktop_session.week4_reported_date: "yes"
     ]
-    label: "Total visits from non-Firefox browsers in the past 28 days"
+    label: "Total visits from non-Firefox browsers in the last 90 days"
   }
 }
