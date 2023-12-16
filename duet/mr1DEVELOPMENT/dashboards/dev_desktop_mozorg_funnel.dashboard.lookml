@@ -13,10 +13,10 @@
     body_text: '[{"type":"paragraph","children":[{"text":"description of moz.org funnel"}],"id":1702647937689},{"type":"paragraph","id":1702648804647,"children":[{"text":""}]},{"type":"paragraph","id":1702648805649,"children":[{"text":"metric
       explanations"}]}]'
     rich_content_json: '{"format":"slate"}'
-    row: 6
+    row: 13
     col: 0
-    width: 16
-    height: 3
+    width: 15
+    height: 5
   - name: Funnel Overview
     title: Funnel Overview
     merged_queries:
@@ -150,22 +150,22 @@
     type: looker_column
     hidden_fields: [dev_desktop_session.join_field]
     listen:
-    - Countries: dev_desktop_session.normalized_country_code_subset
-      Analysis Period: dev_desktop_session.analysis_period
+    - Analysis Period: dev_desktop_session.analysis_period
+      Countries: dev_desktop_session.normalized_country_code_subset
       Exclude Days Awaiting Wk4 Results: dev_desktop_session.week4_reported_date
-    - Countries: dev_desktop_install.normalized_country_code_subset
-      Analysis Period: dev_desktop_install.analysis_period
+    - Analysis Period: dev_desktop_install.analysis_period
+      Countries: dev_desktop_install.normalized_country_code_subset
       Exclude Days Awaiting Wk4 Results: dev_desktop_install.week4_reported_date
-    - Countries: dev_desktop_new_profiles.normalized_country_code_subset
-      Analysis Period: dev_desktop_new_profiles.analysis_period
+    - Analysis Period: dev_desktop_new_profiles.analysis_period
+      Countries: dev_desktop_new_profiles.normalized_country_code_subset
       Exclude Days Awaiting Wk4 Results: dev_desktop_new_profiles.week4_reported_date
-    - Countries: dev_desktop_usage.normalized_country_code_subset
-      Analysis Period: dev_desktop_usage.analysis_period
+    - Analysis Period: dev_desktop_usage.analysis_period
+      Countries: dev_desktop_usage.normalized_country_code_subset
       Exclude Days Awaiting Wk4 Results: dev_desktop_usage.week4_reported_date
-    row: 9
+    row: 4
     col: 0
-    width: 16
-    height: 8
+    width: 24
+    height: 9
   - name: " (2)"
     type: text
     title_text: ''
@@ -184,9 +184,9 @@
       Unknown Funnel[COMING]</a>
       </nav>
       </div>
-    row: 4
+    row: 0
     col: 0
-    width: 16
+    width: 24
     height: 2
   - title: Report Period
     name: Report Period
@@ -223,23 +223,23 @@
     listen:
       Analysis Period: dev_desktop_dates.analysis_period
       Exclude Days Awaiting Wk4 Results: dev_desktop_dates.week4_reported_date
-    row: 0
+    row: 2
     col: 0
-    width: 12
-    height: 4
+    width: 14
+    height: 2
   - title: Days Reporting
     name: Days Reporting
     model: duet
     explore: dev_desktop_dates
     type: single_value
-    fields: [dev_desktop_dates.days, dev_desktop_dates.days_waiting_results]
+    fields: [dev_desktop_dates.days]
     filters:
       dev_desktop_dates.join_field: 'yes'
     limit: 500
     column_limit: 50
     custom_color_enabled: true
     show_single_value_title: true
-    show_comparison: true
+    show_comparison: false
     comparison_type: value
     comparison_reverse_colors: false
     show_comparison_label: true
@@ -278,10 +278,473 @@
     listen:
       Analysis Period: dev_desktop_dates.analysis_period
       Exclude Days Awaiting Wk4 Results: dev_desktop_dates.week4_reported_date
-    row: 0
-    col: 12
-    width: 4
+    row: 2
+    col: 14
+    width: 5
+    height: 2
+  - name: Non Fx Sessions
+    title: Non Fx Sessions
+    merged_queries:
+    - model: duet
+      explore: dev_desktop_session
+      type: table
+      fields: [dev_desktop_session.join_field, dev_desktop_session.non_fx_sessions]
+      filters:
+        dev_desktop_session.join_field: 'yes'
+        dev_desktop_session.funnel_derived: mozorg windows funnel
+        dev_desktop_session.week4_reported_date: ''
+      sorts: [dev_desktop_session.non_fx_sessions desc]
+      limit: 500
+      column_limit: 50
+    - model: duet
+      explore: dev_desktop_session
+      type: table
+      fields: [dev_desktop_session.join_field, dev_desktop_session.non_fx_sessions]
+      filters:
+        dev_desktop_session.join_field: 'yes'
+        dev_desktop_session.funnel_derived: mozorg windows funnel
+        dev_desktop_session.week4_reported_date: ''
+        dev_desktop_session.year_over_year: 'Yes'
+      sorts: [dev_desktop_session.non_fx_sessions desc]
+      limit: 500
+      column_limit: 50
+      join_fields:
+      - field_name: dev_desktop_session.join_field
+        source_field_name: dev_desktop_session.join_field
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: change
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    comparison_label: YOY
+    enable_conditional_formatting: true
+    conditional_formatting: [{type: equal to, value: !!null '', background_color: "#3FE1B0",
+        font_color: !!null '', color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
+        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    type: single_value
+    series_types: {}
+    hidden_fields: [q1_dev_desktop_session.non_fx_sessions]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "(${dev_desktop_session.non_fx_sessions} - ${q1_dev_desktop_session.non_fx_sessions})\
+        \ / \n    ${q1_dev_desktop_session.non_fx_sessions}"
+      label: change
+      value_format:
+      value_format_name: percent_1
+      _kind_hint: measure
+      table_calculation: change
+      _type_hint: number
+    listen:
+    - Analysis Period: dev_desktop_session.analysis_period
+      Countries: dev_desktop_session.normalized_country_code_subset
+      Exclude Days Awaiting Wk4 Results: dev_desktop_session.week4_reported_date
+    - Analysis Period: dev_desktop_session.analysis_period
+      Countries: dev_desktop_session.normalized_country_code_subset
+      Exclude Days Awaiting Wk4 Results: dev_desktop_session.week4_reported_date
+    row: 19
+    col: 0
+    width: 5
     height: 4
+  - name: " (3)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: |-
+      <div style="background-color: #8BC34A; height: 20px; width: 700px; display: flex; align-items: center; padding-left: 200px;">
+        <span style="color: black;">moz.org : GA</span>
+      </div>
+    row: 18
+    col: 0
+    width: 10
+    height: 1
+  - name: Non Fx Downloads
+    title: Non Fx Downloads
+    merged_queries:
+    - model: duet
+      explore: dev_desktop_session
+      type: table
+      fields: [dev_desktop_session.join_field, dev_desktop_session.non_fx_downloads]
+      filters:
+        dev_desktop_session.join_field: 'yes'
+        dev_desktop_session.funnel_derived: mozorg windows funnel
+        dev_desktop_session.week4_reported_date: ''
+      limit: 500
+      column_limit: 50
+      hidden_pivots: {}
+    - model: duet
+      explore: dev_desktop_session
+      type: table
+      fields: [dev_desktop_session.join_field, dev_desktop_session.non_fx_downloads]
+      filters:
+        dev_desktop_session.join_field: 'yes'
+        dev_desktop_session.funnel_derived: mozorg windows funnel
+        dev_desktop_session.week4_reported_date: ''
+        dev_desktop_session.year_over_year: 'Yes'
+      limit: 500
+      column_limit: 50
+      hidden_pivots: {}
+      join_fields:
+      - field_name: dev_desktop_session.join_field
+        source_field_name: dev_desktop_session.join_field
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: change
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    comparison_label: YOY
+    enable_conditional_formatting: true
+    conditional_formatting: [{type: equal to, value: !!null '', background_color: "#3FE1B0",
+        font_color: !!null '', color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
+        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    type: single_value
+    series_types: {}
+    hidden_fields: [q1_dev_desktop_session.non_fx_sessions, q1_dev_desktop_session.non_fx_downloads]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "(${dev_desktop_session.non_fx_downloads} - ${q1_dev_desktop_session.non_fx_downloads})\
+        \ / \n    ${q1_dev_desktop_session.non_fx_downloads}"
+      label: change
+      value_format:
+      value_format_name: percent_1
+      _kind_hint: measure
+      table_calculation: change
+      _type_hint: number
+    listen:
+    - Analysis Period: dev_desktop_session.analysis_period
+      Countries: dev_desktop_session.normalized_country_code_subset
+      Exclude Days Awaiting Wk4 Results: dev_desktop_session.week4_reported_date
+    - Analysis Period: dev_desktop_session.analysis_period
+      Countries: dev_desktop_session.normalized_country_code_subset
+      Exclude Days Awaiting Wk4 Results: dev_desktop_session.week4_reported_date
+    row: 19
+    col: 5
+    width: 5
+    height: 4
+  - name: New Installs
+    title: New Installs
+    merged_queries:
+    - model: duet
+      explore: dev_desktop_install
+      type: table
+      fields: [dev_desktop_install.join_field, dev_desktop_install.new_installs]
+      filters:
+        dev_desktop_install.join_field: 'yes'
+        dev_desktop_install.funnel_derived: mozorg windows funnel
+      sorts: [dev_desktop_install.new_installs desc]
+      limit: 500
+      column_limit: 50
+    - model: duet
+      explore: dev_desktop_install
+      type: table
+      fields: [dev_desktop_install.join_field, dev_desktop_install.new_installs]
+      filters:
+        dev_desktop_install.join_field: 'yes'
+        dev_desktop_install.funnel_derived: mozorg windows funnel
+        dev_desktop_install.year_over_year: 'Yes'
+      sorts: [dev_desktop_install.new_installs desc]
+      limit: 500
+      column_limit: 50
+      join_fields:
+      - field_name: dev_desktop_install.join_field
+        source_field_name: dev_desktop_install.join_field
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: change
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    comparison_label: YOY
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    series_types: {}
+    type: single_value
+    hidden_fields: [q1_dev_desktop_install.new_installs]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "(${dev_desktop_install.new_installs} - ${q1_dev_desktop_install.new_installs})\
+        \ / \n    ${q1_dev_desktop_install.new_installs}"
+      label: Change
+      value_format:
+      value_format_name: percent_1
+      _kind_hint: measure
+      table_calculation: change
+      _type_hint: number
+    listen:
+    - Analysis Period: dev_desktop_install.analysis_period
+      Countries: dev_desktop_install.normalized_country_code_subset
+      Exclude Days Awaiting Wk4 Results: dev_desktop_install.week4_reported_date
+    - Analysis Period: dev_desktop_install.analysis_period
+      Countries: dev_desktop_install.normalized_country_code_subset
+      Exclude Days Awaiting Wk4 Results: dev_desktop_install.week4_reported_date
+    row: 19
+    col: 10
+    width: 5
+    height: 4
+  - name: " (4)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: asdfadsf
+    row: 18
+    col: 10
+    width: 5
+    height: 1
+  - name: New Profiles
+    title: New Profiles
+    merged_queries:
+    - model: duet
+      explore: dev_desktop_new_profiles
+      type: table
+      fields: [dev_desktop_new_profiles.join_field, dev_desktop_new_profiles.new_profiles]
+      filters:
+        dev_desktop_new_profiles.join_field: 'yes'
+        dev_desktop_new_profiles.funnel_derived: mozorg windows funnel
+      sorts: [dev_desktop_new_profiles.new_profiles desc]
+      limit: 500
+      column_limit: 50
+    - model: duet
+      explore: dev_desktop_new_profiles
+      type: table
+      fields: [dev_desktop_new_profiles.join_field, dev_desktop_new_profiles.new_profiles]
+      filters:
+        dev_desktop_new_profiles.join_field: 'yes'
+        dev_desktop_new_profiles.funnel_derived: mozorg windows funnel
+        dev_desktop_new_profiles.year_over_year: 'Yes'
+      limit: 500
+      join_fields:
+      - field_name: dev_desktop_new_profiles.join_field
+        source_field_name: dev_desktop_new_profiles.join_field
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: change
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    series_types: {}
+    type: single_value
+    hidden_fields: [q1_dev_desktop_new_profiles.new_profiles]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "(${dev_desktop_new_profiles.new_profiles} - ${q1_dev_desktop_new_profiles.new_profiles})\
+        \ / \n    ${q1_dev_desktop_new_profiles.new_profiles}"
+      label: YOY
+      value_format:
+      value_format_name: percent_1
+      _kind_hint: measure
+      table_calculation: yoy
+      _type_hint: number
+    listen:
+    - Analysis Period: dev_desktop_new_profiles.analysis_period
+      Countries: dev_desktop_new_profiles.normalized_country_code_subset
+      Exclude Days Awaiting Wk4 Results: dev_desktop_new_profiles.week4_reported_date
+    - Analysis Period: dev_desktop_new_profiles.analysis_period
+      Countries: dev_desktop_new_profiles.normalized_country_code_subset
+      Exclude Days Awaiting Wk4 Results: dev_desktop_new_profiles.week4_reported_date
+    row: 24
+    col: 0
+    width: 5
+    height: 4
+  - name: " (5)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: asdfasd
+    row: 23
+    col: 0
+    width: 15
+    height: 1
+  - name: Returned Second Day
+    title: Returned Second Day
+    merged_queries:
+    - model: duet
+      explore: dev_desktop_usage
+      type: table
+      fields: [dev_desktop_usage.join_field, dev_desktop_usage.returned_second_day]
+      filters:
+        dev_desktop_usage.join_field: 'yes'
+        dev_desktop_usage.funnel_derived: mozorg windows funnel
+      sorts: [dev_desktop_usage.returned_second_day desc]
+      limit: 500
+      column_limit: 50
+    - model: duet
+      explore: dev_desktop_usage
+      type: table
+      fields: [dev_desktop_usage.join_field, dev_desktop_usage.returned_second_day]
+      filters:
+        dev_desktop_usage.join_field: 'yes'
+        dev_desktop_usage.funnel_derived: mozorg windows funnel
+        dev_desktop_usage.year_over_year: 'Yes'
+      limit: 500
+      join_fields:
+      - field_name: dev_desktop_usage.join_field
+        source_field_name: dev_desktop_usage.join_field
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: change
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    type: single_value
+    series_types: {}
+    hidden_fields: [q1_dev_desktop_usage.returned_second_day]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "(${dev_desktop_usage.returned_second_day} - ${q1_dev_desktop_usage.returned_second_day})\
+        \ / \n    ${q1_dev_desktop_usage.returned_second_day}"
+      label: YOY
+      value_format:
+      value_format_name: percent_1
+      _kind_hint: measure
+      table_calculation: yoy
+      _type_hint: number
+    listen:
+    - Analysis Period: dev_desktop_usage.analysis_period
+      Countries: dev_desktop_usage.normalized_country_code_subset
+      Exclude Days Awaiting Wk4 Results: dev_desktop_usage.week4_reported_date
+    - Analysis Period: dev_desktop_usage.analysis_period
+      Countries: dev_desktop_usage.normalized_country_code_subset
+      Exclude Days Awaiting Wk4 Results: dev_desktop_usage.week4_reported_date
+    row: 24
+    col: 5
+    width: 5
+    height: 4
+  - name: Week 4 Retained
+    title: Week 4 Retained
+    merged_queries:
+    - model: duet
+      explore: dev_desktop_usage
+      type: table
+      fields: [dev_desktop_usage.join_field, dev_desktop_usage.retained_week4]
+      filters:
+        dev_desktop_usage.join_field: 'yes'
+        dev_desktop_usage.funnel_derived: mozorg windows funnel
+      limit: 500
+      column_limit: 50
+      hidden_pivots: {}
+    - model: duet
+      explore: dev_desktop_usage
+      type: table
+      fields: [dev_desktop_usage.join_field, dev_desktop_usage.retained_week4]
+      filters:
+        dev_desktop_usage.join_field: 'yes'
+        dev_desktop_usage.funnel_derived: mozorg windows funnel
+      limit: 500
+      column_limit: 50
+      hidden_pivots: {}
+      join_fields:
+      - field_name: dev_desktop_usage.join_field
+        source_field_name: dev_desktop_usage.join_field
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: change
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    type: single_value
+    series_types: {}
+    hidden_fields: [q1_dev_desktop_usage.returned_second_day, q1_dev_desktop_usage.retained_week4]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "(${dev_desktop_usage.retained_week4} - ${q1_dev_desktop_usage.retained_week4})\
+        \ / \n    ${q1_dev_desktop_usage.retained_week4}"
+      label: YOY
+      value_format:
+      value_format_name: percent_1
+      _kind_hint: measure
+      table_calculation: yoy
+      _type_hint: number
+    listen:
+    - Analysis Period: dev_desktop_usage.analysis_period
+      Countries: dev_desktop_usage.normalized_country_code_subset
+      Exclude Days Awaiting Wk4 Results: dev_desktop_usage.week4_reported_date
+    - Analysis Period: dev_desktop_usage.analysis_period
+      Countries: dev_desktop_usage.normalized_country_code_subset
+      Exclude Days Awaiting Wk4 Results: dev_desktop_usage.week4_reported_date
+    row: 24
+    col: 10
+    width: 5
+    height: 4
+  - name: " (6)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: '[{"type":"h1","children":[{"text":"Metric Definitions"}],"align":"center"}]'
+    rich_content_json: '{"format":"slate"}'
+    row: 13
+    col: 15
+    width: 9
+    height: 15
+  - title: Days Waiting Wk4 Results
+    name: Days Waiting Wk4 Results
+    model: duet
+    explore: dev_desktop_dates
+    type: single_value
+    fields: [dev_desktop_dates.days_waiting_results]
+    filters:
+      dev_desktop_dates.join_field: 'yes'
+    limit: 500
+    column_limit: 50
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    comparison_label: Waiting Wk4 Results
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    listen:
+      Analysis Period: dev_desktop_dates.analysis_period
+      Exclude Days Awaiting Wk4 Results: dev_desktop_dates.week4_reported_date
+    row: 2
+    col: 19
+    width: 5
+    height: 2
   filters:
   - name: Analysis Period
     title: Analysis Period

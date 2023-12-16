@@ -60,7 +60,14 @@ view: dev_desktop_install {
   }
 
   dimension: week4_reported_date{
-    sql:  COALESCE(DATE_DIFF(current_date(), date(${TABLE}.submission_timestamp), DAY) > 28, FALSE) ;;
+    sql:  CASE
+    WHEN (DATE_DIFF(current_date(), DATE(${TABLE}.submission_timestamp), DAY) BETWEEN 0 and 28
+    OR
+    DATE_DIFF(current_date(), DATE(${TABLE}.submission_timestamp), DAY) BETWEEN 0+365 and 28+365
+    )
+    THEN FALSE
+    ELSE TRUE
+    END;;
     type: yesno
     description: "check if date has week 4 metrics reported"
   }
