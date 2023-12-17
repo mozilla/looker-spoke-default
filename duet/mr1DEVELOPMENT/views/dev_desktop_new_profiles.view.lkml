@@ -1,36 +1,68 @@
 view: dev_desktop_new_profiles {
   derived_table: {
     sql:
+    WITH tbl AS (
         SELECT
-          first_seen_date,
-          country AS country_code,
-          normalized_channel AS channel,
-          app_build_id AS build_id,
-          normalized_os AS os,
-          distribution_id,
-          attribution_source,
-          attribution_ua,
-          startup_profile_selection_reason
+          first_seen_date AS submission_date,
+          CASE WHEN (
+            DATE_DIFF(current_date(),
+                      first_seen_date,
+                      DAY) BETWEEN 0 and 28
+            OR
+            DATE_DIFF(current_date(),
+                      first_seen_date,
+                      DAY) BETWEEN 0+365 and 28+365
+                    )
+          THEN FALSE
+          ELSE TRUE
+          END
+            AS week4_reported_date,
+          CASE WHEN country IN ('US', 'GB', 'DE', 'FR','CA', 'BR','MX',
+                                              'CN', 'IN', 'AU', 'NL', 'ES', 'RU')
+              THEN country
+              ELSE 'ROW'
+              END
+                AS normalized_country_code_subset,
+          CASE
+            WHEN normalized_channel = 'release'
+            AND LOWER(normalized_os) like '%windows%'
+            AND DATE_DIFF(  -- Only use builds from the last month
+                  DATE(first_seen_date),
+                  SAFE.PARSE_DATE('%Y%m%d', SUBSTR(app_build_id, 0, 8)),
+                  WEEK
+                  ) <= 6
+            AND attribution_source IS NOT NULL
+            AND attribution_ua != 'firefox'
+            AND attribution_ua IS NOT NULL
+            AND startup_profile_selection_reason IN ('firstrun-created-default')
+            THEN 'mozorg windows funnel'
+            ELSE 'other'
+            END
+              AS funnel_derived,
+          count(*) AS new_profiles
         FROM `moz-fx-data-shared-prod.telemetry_derived.clients_first_seen_v2`
         WHERE first_seen_date >= '2021-01-01'
+              AND DATE_DIFF(current_date(), first_seen_date, DAY) > 1
+        GROUP BY 1, 2, 3, 4
+        )
+    SELECT
+      *,
+      AVG(new_profiles) OVER
+        (PARTITION BY funnel_derived, normalized_country_code_subset
+         ORDER BY submission_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)
+          AS new_profiles_smoothed
+    FROM tbl
     ;;
   }
 
   dimension: week4_reported_date{
-    sql:  CASE
-    WHEN (DATE_DIFF(current_date(), ${TABLE}.first_seen_date, DAY) BETWEEN 0 and 28
-    OR
-    DATE_DIFF(current_date(), ${TABLE}.first_seen_date, DAY) BETWEEN 0+365 and 28+365
-    )
-    THEN FALSE
-    ELSE TRUE
-    END;;
+    sql: ${TABLE}.week4_reported_date;;
     type: yesno
     description: "check if date has week 4 metrics reported"
   }
 
   dimension_group: submission {
-    sql: ${TABLE}.first_seen_date ;;
+    sql: ${TABLE}.submission_date ;;
     type: time
     timeframes: [
       raw,
@@ -46,39 +78,27 @@ view: dev_desktop_new_profiles {
   }
 
   dimension: normalized_country_code_subset {
-    sql: CASE WHEN ${TABLE}.country_code IN ('US', 'GB', 'DE', 'FR','CA', 'BR','MX', 'CN', 'IN', 'AU', 'NL', 'ES')
-              THEN ${TABLE}.country_code
-              ELSE 'ROW'
-              END
-              ;;
+    sql: ${TABLE}.normalized_country_code_subset ;;
     type: string
     description: "A subset standardized_country_names formated in ISO 3166-1 alpha-2 country code. Other then those 8 countries, rest are defined as Rest of World"
   }
 
   dimension: funnel_derived {
-    sql: CASE
-          WHEN ${TABLE}.channel = 'release'
-          AND LOWER(${TABLE}.os) like '%windows%'
-          AND DATE_DIFF(  -- Only use builds from the last month
-                DATE(${TABLE}.first_seen_date),
-                SAFE.PARSE_DATE('%Y%m%d', SUBSTR(${TABLE}.build_id, 0, 8)),
-                WEEK
-                ) <= 6
-          AND ${TABLE}.attribution_source IS NOT NULL
-          AND ${TABLE}.attribution_ua != 'firefox'
-          AND ${TABLE}.attribution_ua IS NOT NULL
-          AND ${TABLE}.startup_profile_selection_reason IN ('firstrun-created-default')
-          THEN 'mozorg windows funnel'
-          ELSE 'other'
-          END
-          ;;
+    sql: ${TABLE}.funnel_derived;;
     type: string
     description: "defining membership in the different firefox acquisition funnels"
   }
 
   measure: new_profiles {
-    type: count
+    type: sum
+    sql:  ${TABLE}.new_profiles ;;
     description: "Total number of new profiles"
+  }
+
+  measure: new_profiles_smoothed {
+    type: sum
+    sql:  ${TABLE}.new_profiles_smoothed ;;
+    description: "metric 7 days smoothed"
   }
 
   # parameters below

@@ -11,12 +11,19 @@ view: dev_desktop_dates {
           (SELECT
             DISTINCT first_seen_date AS submission_date
           FROM `moz-fx-data-shared-prod.telemetry_derived.clients_first_seen_v2`
-          WHERE first_seen_date >= '2021-01-01'),
+          WHERE first_seen_date >= '2021-01-01'
+          AND DATE_DIFF(current_date(), first_seen_date, DAY) > 1
+          ),
         lagged_dates AS
           (SELECT
             DISTINCT first_seen_date AS submission_date
           FROM `mozdata.telemetry.clients_first_seen_28_days_later`
-          WHERE first_seen_date >= '2021-01-01')
+          WHERE first_seen_date >= '2021-01-01'
+          AND DATE_DIFF(current_date(), first_seen_date, DAY) > 1
+          AND DATE_DIFF(current_date(),
+                        DATE(first_seen_date),
+                        DAY) NOT BETWEEN 0 and 28
+          )
         SELECT
           a.submission_date,
           CASE WHEN b.submission_date IS NULL THEN 1 ELSE 0 END AS waiting_results
