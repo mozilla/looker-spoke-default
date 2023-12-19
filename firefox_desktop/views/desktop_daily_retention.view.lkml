@@ -133,7 +133,7 @@ view: +desktop_cohort_daily_retention {
 # Retention Dimensions
 
   parameter: retention_period_picker {
-    description: "Which Retention Period to Look Over"
+    description: "The length of the retention period."
     type: unquoted
     allowed_value: {
       label: "Daily"
