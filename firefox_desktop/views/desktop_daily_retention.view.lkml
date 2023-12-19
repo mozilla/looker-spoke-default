@@ -100,31 +100,35 @@ view: +desktop_cohort_daily_retention {
     hidden: yes
   }
 
-  measure: num_clients_active_in_period {
+  measure: num_clients_active_in_period_pings {
     label: "clients - sent a ping during the retention period "
     type: sum
     sql:  CASE WHEN {% parameter retention_period_picker %} = 1 THEN ${TABLE}.num_clients_active_on_day WHEN {% parameter retention_period_picker %} = 7 THEN ${TABLE}.num_clients_active_atleastonce_in_last_7_days WHEN {% parameter retention_period_picker %} = 28 THEN ${TABLE}.num_clients_active_atleastonce_in_last_28_days ELSE 0 END;;
+    hidden: yes
   }
 
   measure: num_clients_dau_in_period {
     label: "clients - qualified as DAU during the retention period "
     type: sum
     sql:  CASE WHEN {% parameter retention_period_picker %} = 1 THEN ${TABLE}.num_clients_dau_on_day WHEN {% parameter retention_period_picker %} = 7 THEN ${TABLE}.num_clients_dau_active_atleastonce_in_last_7_days WHEN {% parameter retention_period_picker %} = 28 THEN ${TABLE}.num_clients_dau_active_atleastonce_in_last_28_days ELSE 0 END;;
+    description: "A client qualifies as DAU if they browse at least 1 URL and have greater than 0 active hours."
+  }
+
+  measure: retention_ping_rate {
+    label: "Retention Rate"
+    type: number
+    sql: SAFE_DIVIDE(${num_clients_active_in_period_pings}, ${cohort_measure}) ;;
+    value_format: "0.00%"
+    description: "The percentage of clients in the cohort who sent a ping during the selected period."
+    hidden: yes
   }
 
   measure: retention_rate {
     label: "Retention Rate"
     type: number
-    sql: SAFE_DIVIDE(${num_clients_active_in_period}, ${cohort_measure}) ;;
-    value_format: "0.00%"
-    description: "The percentage of clients in the cohort who had activity during the selected period."
-  }
-
-  measure: retention_rate_dau_measure{
-    label: "retained as dau rate"
-    type: number
     sql: SAFE_DIVIDE(${num_clients_dau_in_period}, ${cohort_measure}) ;;
     value_format: "0.00%"
+    description: "A client is retained if they qualify as DAU during the retention period. A client qualifies as DAU if they browse at least 1 URL and have greater than 0 active hours."
   }
 
 # Retention Dimensions
@@ -196,6 +200,7 @@ view: +desktop_cohort_daily_retention {
     type:  string
     group_label: "Attribution"
     sql: ${TABLE}.attribution_source ;;
+    description: "Attribution Source of the Firefox Download. Will be non-null for all attributed clients."
   }
 
   dimension: attribution_ua {
@@ -203,6 +208,7 @@ view: +desktop_cohort_daily_retention {
     type:  string
     group_label: "Attribution"
     sql: ${TABLE}.attribution_ua ;;
+    description: "User Agent of Client that Downloaded Firefox"
   }
 
 
