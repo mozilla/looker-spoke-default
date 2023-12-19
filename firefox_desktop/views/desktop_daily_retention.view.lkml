@@ -134,7 +134,7 @@ view: +desktop_cohort_daily_retention {
 # Retention Dimensions
 
   parameter: retention_period_picker {
-    description: "The length of the retention period."
+    description: "The length of the retention period. If daily is selected, the second period for a cohort that was new on Jan 1st will be Jan 2nd. If weekly is selected, the first period will cover Jan 2-7, and the second period Jan 8-14. Monthly is 28 day periods. In all cases, we ignore a cohort's first day."
     type: unquoted
     allowed_value: {
       label: "Daily"
