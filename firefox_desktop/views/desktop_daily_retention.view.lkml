@@ -5,53 +5,48 @@ view: +desktop_cohort_daily_retention {
   # Hide metric columns showing as dimensions
   dimension: cohort {
     hidden: yes
-    sql: ${TABLE}.cohort ;;
   }
 
   dimension: num_clients_active_atleastonce_in_last_28_days {
     hidden: yes
-    sql: ${TABLE}.num_clients_active_atleastonce_in_last_28_days ;;
   }
 
   dimension: num_clients_active_atleastonce_in_last_7_days {
     hidden: yes
-    sql: ${TABLE}.num_clients_active_atleastonce_in_last_7_days ;;
   }
 
   dimension: num_clients_active_on_day {
     hidden: yes
-    sql: ${TABLE}.num_clients_active_on_day ;;
   }
 
   dimension: num_clients_dau_active_atleastonce_in_last_28_days {
     hidden: yes
-    sql: ${TABLE}.num_clients_dau_active_atleastonce_in_last_28_days ;;
   }
 
   dimension: num_clients_dau_active_atleastonce_in_last_7_days {
     hidden: yes
-    sql: ${TABLE}.num_clients_dau_active_atleastonce_in_last_7_days ;;
   }
 
   dimension: num_clients_dau_on_day {
     hidden: yes
-    sql: ${TABLE}.num_clients_dau_on_day ;;
   }
 
-  dimension: num_clients_dau_repeat_first_month_users {
+  dimension: country {
     hidden: yes
-    sql: ${TABLE}.num_clients_dau_repeat_first_month_users ;;
   }
 
   dimension: num_clients_in_cohort {
     hidden: yes
-    sql: ${TABLE}.num_clients_in_cohort ;;
   }
 
   dimension: num_clients_repeat_first_month_users {
     hidden: yes
-    sql: ${TABLE}.num_clients_repeat_first_month_users ;;
   }
+
+  dimension: num_clients_repeat_first_month_users {
+    hidden: yes
+  }
+
 
   # Custom
 

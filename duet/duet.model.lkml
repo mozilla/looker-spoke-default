@@ -12,6 +12,8 @@ include: "//looker-hub/duet/explores/*"
 # do not use those views for other projects, as they are specific to the MR1 dashboard and
 # haven't been developed for general consumption
 include: "mr1DEVELOPMENT/explores.explore.lkml"
+include: "mr1DEVELOPMENT/explores/*explore.lkml"
+include: "mr1DEVELOPMENT/dashboards/*"
 
 explore: releases {
   hidden: yes
