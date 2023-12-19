@@ -60,6 +60,7 @@ view: +desktop_cohort_daily_retention {
     label: "New Profiles (cohort)"
     type:  sum
     sql: (${TABLE}.num_clients_in_cohort) ;;
+    description: "Total number of clients present in this cohort. Will always be greater than or equal to 'Num Clients Active In Period'."
   }
 
   measure: num_clients_active_on_day_measure {
