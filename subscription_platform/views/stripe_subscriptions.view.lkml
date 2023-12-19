@@ -9,3 +9,13 @@ view: +stripe_subscriptions {
     type: count
   }
 }
+
+view: +stripe_subscriptions__items {
+  dimension: id {
+    primary_key: yes
+  }
+
+  measure: count {
+    type: count
+  }
+}
