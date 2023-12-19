@@ -5,7 +5,7 @@
   crossfilter_enabled: true
   description: ''
   refresh: 2147484 seconds
-  preferred_slug: UODkAFmiugD1QWPubfsPSP
+  preferred_slug: Xy9m1LuSVOyM1ql8YcKOGA
   elements:
   - name: ''
     type: text
@@ -38,7 +38,6 @@
   - name: " (3)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |2-
 
 
@@ -65,12 +64,23 @@
       original_subscriptions__retention.is_cohort_complete: 'Yes'
     sorts: [subscriptions.original_subscription_start_month]
     total: true
-    dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
-        label: Retention Rate, value_format_name: percent_2, _kind_hint: measure,
-        table_calculation: retention_rate, _type_hint: number, is_disabled: true},
-      {category: table_calculation, expression: "${original_subscriptions__retention.retained}/${original_subscriptions__retention.subscription_count}",
-        label: Total Retention Rate, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: total_retention_rate, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${subscriptions__retention.retained}/${subscriptions.count}"
+      label: Retention Rate
+      value_format_name: percent_2
+      _kind_hint: measure
+      table_calculation: retention_rate
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: "${original_subscriptions__retention.retained}/${original_subscriptions__retention.subscription_count}"
+      label: Total Retention Rate
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: total_retention_rate
+      _type_hint: number
     show_view_names: false
     show_row_numbers: false
     transpose: false
@@ -94,19 +104,9 @@
       subscriptions.subscription_start_month: Cohort
       subscriptions__retention.months_since_subscription_start: Months Since Subscription
         Start
-    series_column_widths:
-      subscriptions.subscription_start_month: 243
-      retention_rate: 115
     series_cell_visualizations:
       subscriptions__retention.age_in_months:
         is_active: false
-    series_text_format:
-      subscriptions__retention.age_in_months: {}
-      retention_rate:
-        align: center
-      subscriptions.subscription_start_month:
-        bold: true
-        align: center
     header_background_color: "#D8D8D8"
     conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#3FE1B0",
         font_color: !!null '', color_application: {collection_id: mozilla, custom: {
@@ -116,13 +116,6 @@
               min: {type: minimum}, mid: {type: number, value: 0}, max: {type: maximum}},
             mirror: false, reverse: false, stepped: true}}, bold: false, italic: false,
         strikethrough: false, fields: !!null ''}]
-    series_value_format:
-      retention_rate:
-        name: percent_1
-        decimals: '1'
-        format_string: "#,##0.0%"
-        label: Percent (1)
-        label_prefix: Percent
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_y_axis_labels: true
@@ -175,7 +168,6 @@
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     defaults_version: 1
     hidden_fields: [original_subscriptions__retention.retained, original_subscriptions__retention.subscription_count]
-    series_types: {}
     hidden_pivots: {}
     listen:
       Country: subscriptions.country_name
@@ -184,7 +176,143 @@
       Plan Interval Type: subscriptions.plan_interval_type
       Product Name: subscriptions.product_name
       Original Subscription Start Date: subscriptions.original_subscription_start_date
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Plan ID: subscriptions.plan_id
     row: 51
+    col: 0
+    width: 24
+    height: 7
+  - title: Retention Counts Table (by Cohort)
+    name: Retention Counts Table (by Cohort)
+    model: mozilla_vpn
+    explore: subscriptions
+    type: looker_grid
+    fields: [original_subscriptions__retention.months_since_original_subscription_start,
+      original_subscriptions__retention.retained, original_subscriptions__retention.subscription_count,
+      subscriptions.original_subscription_start_month]
+    pivots: [original_subscriptions__retention.months_since_original_subscription_start]
+    fill_fields: [subscriptions.original_subscription_start_month]
+    filters:
+      original_subscriptions__retention.is_cohort_complete: 'Yes'
+    sorts: [subscriptions.original_subscription_start_month]
+    total: true
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${subscriptions__retention.retained}/${subscriptions.count}"
+      label: Retention Rate
+      value_format_name: percent_2
+      _kind_hint: measure
+      table_calculation: retention_rate
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: "${original_subscriptions__retention.retained}/${original_subscriptions__retention.subscription_count}"
+      label: Total Retention Rate
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: total_retention_rate
+      _type_hint: number
+    show_view_names: false
+    show_row_numbers: false
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    limit_displayed_rows: false
+    enable_conditional_formatting: true
+    header_text_alignment: center
+    header_font_size: '12'
+    rows_font_size: '12'
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    show_sql_query_menu_options: false
+    show_totals: true
+    show_row_totals: true
+    series_labels:
+      subscriptions__retention.age_in_months: Months Since Subcription Started
+      subscriptions.subscription_start_month: Cohort
+      subscriptions__retention.months_since_subscription_start: Months Since Subscription
+        Start
+    series_cell_visualizations:
+      subscriptions__retention.age_in_months:
+        is_active: false
+    header_background_color: "#D8D8D8"
+    conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#3FE1B0",
+        font_color: !!null '', color_application: {collection_id: mozilla, custom: {
+            id: 0a238a55-cee3-6513-fab8-e325a1654f8e, label: Custom, type: continuous,
+            stops: [{color: "#fff", offset: 0}, {color: "#a5e6ff", offset: 50}, {
+                color: "#0060E0", offset: 100}]}, options: {steps: 100, constraints: {
+              min: {type: minimum}, mid: {type: number, value: 0}, max: {type: maximum}},
+            mirror: false, reverse: false, stepped: true}}, bold: false, italic: false,
+        strikethrough: false, fields: !!null ''}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: pivot
+    stacking: ''
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    y_axes: [{label: '', orientation: left, series: [{axisId: retention_rate, id: 2019-10
+              - retention_rate, name: 2019-10}, {axisId: retention_rate, id: 2019-11
+              - retention_rate, name: 2019-11}, {axisId: retention_rate, id: 2019-12
+              - retention_rate, name: 2019-12}, {axisId: retention_rate, id: 2020-01
+              - retention_rate, name: 2020-01}, {axisId: retention_rate, id: 2020-02
+              - retention_rate, name: 2020-02}, {axisId: retention_rate, id: 2020-03
+              - retention_rate, name: 2020-03}, {axisId: retention_rate, id: 2020-04
+              - retention_rate, name: 2020-04}, {axisId: retention_rate, id: 2020-05
+              - retention_rate, name: 2020-05}, {axisId: retention_rate, id: 2020-06
+              - retention_rate, name: 2020-06}, {axisId: retention_rate, id: 2020-07
+              - retention_rate, name: 2020-07}, {axisId: retention_rate, id: 2020-08
+              - retention_rate, name: 2020-08}, {axisId: retention_rate, id: 2020-09
+              - retention_rate, name: 2020-09}, {axisId: retention_rate, id: 2020-10
+              - retention_rate, name: 2020-10}, {axisId: retention_rate, id: 2020-11
+              - retention_rate, name: 2020-11}, {axisId: retention_rate, id: 2020-12
+              - retention_rate, name: 2020-12}, {axisId: retention_rate, id: 2021-01
+              - retention_rate, name: 2021-01}, {axisId: retention_rate, id: 2021-02
+              - retention_rate, name: 2021-02}, {axisId: retention_rate, id: 2021-03
+              - retention_rate, name: 2021-03}, {axisId: retention_rate, id: 2021-04
+              - retention_rate, name: 2021-04}, {axisId: retention_rate, id: 2021-05
+              - retention_rate, name: 2021-05}, {axisId: retention_rate, id: 2021-06
+              - retention_rate, name: 2021-06}, {axisId: retention_rate, id: 2021-07
+              - retention_rate, name: 2021-07}, {axisId: retention_rate, id: 2021-08
+              - retention_rate, name: 2021-08}], showLabels: true, showValues: true,
+        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
+    defaults_version: 1
+    hidden_fields: [original_subscriptions__retention.subscription_count, total_retention_rate]
+    hidden_pivots: {}
+    listen:
+      Country: subscriptions.country_name
+      Pricing Plan: subscriptions.pricing_plan
+      Provider: subscriptions.provider
+      Plan Interval Type: subscriptions.plan_interval_type
+      Product Name: subscriptions.product_name
+      Original Subscription Start Date: subscriptions.original_subscription_start_date
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Plan ID: subscriptions.plan_id
+    row: 58
     col: 0
     width: 24
     height: 7
@@ -199,27 +327,66 @@
     filters:
       original_subscriptions__retention.is_cohort_complete: 'Yes'
     sorts: [subscriptions.original_subscription_start_month desc]
-    dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
-        label: Retention Rate, value_format: !!null '', value_format_name: percent_1,
-        _kind_hint: measure, table_calculation: retention_rate, _type_hint: number,
-        is_disabled: true}, {category: table_calculation, expression: "${subscriptions.count}-${subscriptions__retention.retained}",
-        label: Not Retained, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: measure, table_calculation: not_retained, _type_hint: number,
-        is_disabled: true}, {category: measure, expression: !!null '', label: Filtered
-          Retention - Retained - Updated, value_format: !!null '', value_format_name: !!null '',
-        based_on: subscriptions__retention.retained, _kind_hint: measure, measure: filtered_retention_retained_updated,
-        type: count_distinct, _type_hint: number, filters: {subscriptions.is_ended: 'No'}},
-      {category: table_calculation, expression: "${filtered_retention_retained_updated}/${subscriptions.count}",
-        label: Retention Rate - Updated, value_format: !!null '', value_format_name: percent_1,
-        _kind_hint: measure, table_calculation: retention_rate_updated, _type_hint: number,
-        is_disabled: true}, {category: measure, expression: !!null '', label: Filtered
-          Original Subscription Retention - Retained - Updated, value_format: !!null '',
-        value_format_name: !!null '', based_on: original_subscriptions__retention.retained,
-        _kind_hint: measure, measure: filtered_original_subscription_retention_retained_updated,
-        type: count_distinct, _type_hint: number, filters: {subscriptions.is_ended: 'No'}},
-      {category: table_calculation, expression: "${filtered_original_subscription_retention_retained_updated}/${original_subscriptions__retention.subscription_count}",
-        label: Total Rentention Rate - Updated, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: total_rentention_rate_updated, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${subscriptions__retention.retained}/${subscriptions.count}"
+      label: Retention Rate
+      value_format:
+      value_format_name: percent_1
+      _kind_hint: measure
+      table_calculation: retention_rate
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: "${subscriptions.count}-${subscriptions__retention.retained}"
+      label: Not Retained
+      value_format:
+      value_format_name:
+      _kind_hint: measure
+      table_calculation: not_retained
+      _type_hint: number
+      is_disabled: true
+    - category: measure
+      expression:
+      label: Filtered Retention - Retained - Updated
+      value_format:
+      value_format_name:
+      based_on: subscriptions__retention.retained
+      _kind_hint: measure
+      measure: filtered_retention_retained_updated
+      type: count_distinct
+      _type_hint: number
+      filters:
+        subscriptions.is_ended: 'No'
+    - category: table_calculation
+      expression: "${filtered_retention_retained_updated}/${subscriptions.count}"
+      label: Retention Rate - Updated
+      value_format:
+      value_format_name: percent_1
+      _kind_hint: measure
+      table_calculation: retention_rate_updated
+      _type_hint: number
+      is_disabled: true
+    - category: measure
+      expression:
+      label: Filtered Original Subscription Retention - Retained - Updated
+      value_format:
+      value_format_name:
+      based_on: original_subscriptions__retention.retained
+      _kind_hint: measure
+      measure: filtered_original_subscription_retention_retained_updated
+      type: count_distinct
+      _type_hint: number
+      filters:
+        subscriptions.is_ended: 'No'
+    - category: table_calculation
+      expression: "${filtered_original_subscription_retention_retained_updated}/${original_subscriptions__retention.subscription_count}"
+      label: Total Rentention Rate - Updated
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: total_rentention_rate_updated
+      _type_hint: number
     x_axis_gridlines: true
     y_axis_gridlines: true
     show_view_names: false
@@ -264,8 +431,6 @@
     y_axis_zoom: true
     hidden_series: [subscriptions.count]
     series_types:
-      retention_rate: line
-      retention_rate_updated: line
       total_rentention_rate_updated: line
     series_colors:
       retained: "#0060E0"
@@ -297,6 +462,9 @@
       Plan Interval Type: subscriptions.plan_interval_type
       Product Name: subscriptions.product_name
       Original Subscription Start Date: subscriptions.original_subscription_start_date
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Plan ID: subscriptions.plan_id
     row: 10
     col: 12
     width: 12
@@ -311,15 +479,33 @@
     filters:
       original_subscriptions__retention.is_cohort_complete: 'Yes'
     sorts: [original_subscriptions__retention.retained desc]
-    dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
-        label: Retention Rate, value_format: !!null '', value_format_name: percent_1,
-        _kind_hint: measure, table_calculation: retention_rate, _type_hint: number,
-        is_disabled: true}, {category: table_calculation, expression: "${subscriptions.count}-${subscriptions__retention.retained}",
-        label: Not Retained, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: measure, table_calculation: not_retained, _type_hint: number,
-        is_disabled: true}, {category: table_calculation, expression: "${original_subscriptions__retention.retained}/${original_subscriptions__retention.subscription_count}",
-        label: Total Retention Rate, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: total_retention_rate, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${subscriptions__retention.retained}/${subscriptions.count}"
+      label: Retention Rate
+      value_format:
+      value_format_name: percent_1
+      _kind_hint: measure
+      table_calculation: retention_rate
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: "${subscriptions.count}-${subscriptions__retention.retained}"
+      label: Not Retained
+      value_format:
+      value_format_name:
+      _kind_hint: measure
+      table_calculation: not_retained
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: "${original_subscriptions__retention.retained}/${original_subscriptions__retention.subscription_count}"
+      label: Total Retention Rate
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: total_retention_rate
+      _type_hint: number
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -365,7 +551,6 @@
     x_axis_zoom: true
     y_axis_zoom: true
     series_types:
-      retention_rate: line
       total_retention_rate: line
     series_colors:
       retention_rate: "#000000"
@@ -398,6 +583,9 @@
       Plan Interval Type: subscriptions.plan_interval_type
       Product Name: subscriptions.product_name
       Original Subscription Start Date: subscriptions.original_subscription_start_date
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Plan ID: subscriptions.plan_id
     row: 10
     col: 0
     width: 12
@@ -411,9 +599,15 @@
     fill_fields: [metadata.last_modified_date]
     sorts: [metadata.last_modified_date desc]
     limit: 1
-    dynamic_fields: [{category: table_calculation, expression: 'add_days(-1, ${metadata.last_modified_date})',
-        label: New Calculation, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: dimension, table_calculation: new_calculation, _type_hint: date}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: add_days(-1, ${metadata.last_modified_date})
+      label: New Calculation
+      value_format:
+      value_format_name:
+      _kind_hint: dimension
+      table_calculation: new_calculation
+      _type_hint: date
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -424,7 +618,6 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     single_value_title: Data Last Updated
-    series_types: {}
     defaults_version: 1
     hidden_fields: [metadata.last_modified_date]
     listen:
@@ -435,6 +628,9 @@
       Product Name: subscriptions.product_name
       Original Subscription Start Date: subscriptions.original_subscription_start_date
       Subscription Start Date: subscriptions.subscription_start_month
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Plan ID: subscriptions.plan_id
     row: 2
     col: 19
     width: 5
@@ -442,7 +638,6 @@
   - name: " (4)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |2-
 
 
@@ -458,7 +653,6 @@
   - name: " (5)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |2-
 
 
@@ -474,7 +668,6 @@
   - name: " (6)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |2-
 
 
@@ -533,12 +726,24 @@
     filters:
       original_subscriptions__retention.is_cohort_complete: 'Yes'
     sorts: [subscriptions.original_subscription_start_month, original_subscriptions__retention.months_since_original_subscription_start]
-    dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
-        label: Retention Rate, value_format: !!null '', value_format_name: percent_1,
-        _kind_hint: measure, table_calculation: retention_rate, _type_hint: number,
-        is_disabled: true}, {category: table_calculation, expression: "${original_subscriptions__retention.retained}/${original_subscriptions__retention.subscription_count}",
-        label: Total Retention Rate, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: total_retention_rate, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${subscriptions__retention.retained}/${subscriptions.count}"
+      label: Retention Rate
+      value_format:
+      value_format_name: percent_1
+      _kind_hint: measure
+      table_calculation: retention_rate
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: "${original_subscriptions__retention.retained}/${original_subscriptions__retention.subscription_count}"
+      label: Total Retention Rate
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: total_retention_rate
+      _type_hint: number
     x_axis_gridlines: true
     y_axis_gridlines: true
     show_view_names: false
@@ -592,7 +797,6 @@
     x_axis_zoom: true
     y_axis_zoom: true
     hidden_series: []
-    series_types: {}
     series_labels:
       0 - retention_rate: Month 0
       1 - retention_rate: Month 1
@@ -660,6 +864,9 @@
       Plan Interval Type: subscriptions.plan_interval_type
       Product Name: subscriptions.product_name
       Original Subscription Start Date: subscriptions.original_subscription_start_date
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Plan ID: subscriptions.plan_id
     row: 42
     col: 0
     width: 12
@@ -677,15 +884,32 @@
     sorts: [subscriptions__retention.months_since_subscription_start]
     column_limit: 50
     total: true
-    dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
-        label: Retention Rate, value_format: !!null '', value_format_name: percent_1,
-        _kind_hint: measure, table_calculation: retention_rate, _type_hint: number},
-      {category: table_calculation, expression: 'max(pivot_row(if(is_null(${subscriptions.count}),null,${subscriptions__retention.months_since_subscription_start})))',
-        label: Months Since Plan Start, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: supermeasure, table_calculation: months_since_plan_start, _type_hint: number},
-      {category: table_calculation, description: for sorting plans by volume, expression: 'pivot_offset(${subscriptions.count},
-          0)', label: Total Subscribers, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: measure, table_calculation: total_subscribers, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${subscriptions__retention.retained}/${subscriptions.count}"
+      label: Retention Rate
+      value_format:
+      value_format_name: percent_1
+      _kind_hint: measure
+      table_calculation: retention_rate
+      _type_hint: number
+    - category: table_calculation
+      expression: max(pivot_row(if(is_null(${subscriptions.count}),null,${subscriptions__retention.months_since_subscription_start})))
+      label: Months Since Plan Start
+      value_format:
+      value_format_name:
+      _kind_hint: supermeasure
+      table_calculation: months_since_plan_start
+      _type_hint: number
+    - category: table_calculation
+      description: for sorting plans by volume
+      expression: pivot_offset(${subscriptions.count}, 0)
+      label: Total Subscribers
+      value_format:
+      value_format_name:
+      _kind_hint: measure
+      table_calculation: total_subscribers
+      _type_hint: number
     show_view_names: false
     show_row_numbers: false
     transpose: false
@@ -718,8 +942,6 @@
     series_text_format:
       retention_rate:
         align: center
-      subscriptions.pricing_plan:
-        bold: true
       subscriptions__retention.months_since_subscription_start:
         align: center
     header_background_color: "#D8D8D8"
@@ -760,7 +982,6 @@
     hidden_fields: [subscriptions.count, new_calculation, months_since_plan_start,
       pricing_plan_for_sorting, total_subscriptions, total_subscriptions_for_sorting,
       total_subscribers, subscriptions__retention.retained]
-    series_types: {}
     listen:
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
@@ -768,6 +989,9 @@
       Plan Interval Type: subscriptions.plan_interval_type
       Product Name: subscriptions.product_name
       Subscription Start Date: subscriptions.subscription_start_month
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Plan ID: subscriptions.plan_id
     row: 29
     col: 0
     width: 24
@@ -785,15 +1009,31 @@
     sorts: [subscriptions__retention.months_since_subscription_start]
     column_limit: 50
     total: true
-    dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
-        label: Retention Rate, value_format_name: percent_2, _kind_hint: measure,
-        table_calculation: retention_rate, _type_hint: number}, {category: table_calculation,
-        expression: 'max(pivot_row(if(is_null(${subscriptions.count}),null,${subscriptions__retention.months_since_subscription_start})))',
-        label: Months Since Plan Start, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: supermeasure, table_calculation: months_since_plan_start, _type_hint: number},
-      {category: table_calculation, description: for sorting plans by volume, expression: 'pivot_offset(${subscriptions.count},
-          0)', label: Total Subscribers, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: measure, table_calculation: total_subscribers, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${subscriptions__retention.retained}/${subscriptions.count}"
+      label: Retention Rate
+      value_format_name: percent_2
+      _kind_hint: measure
+      table_calculation: retention_rate
+      _type_hint: number
+    - category: table_calculation
+      expression: max(pivot_row(if(is_null(${subscriptions.count}),null,${subscriptions__retention.months_since_subscription_start})))
+      label: Months Since Plan Start
+      value_format:
+      value_format_name:
+      _kind_hint: supermeasure
+      table_calculation: months_since_plan_start
+      _type_hint: number
+    - category: table_calculation
+      description: for sorting plans by volume
+      expression: pivot_offset(${subscriptions.count}, 0)
+      label: Total Subscribers
+      value_format:
+      value_format_name:
+      _kind_hint: measure
+      table_calculation: total_subscribers
+      _type_hint: number
     show_view_names: false
     show_row_numbers: false
     transpose: false
@@ -826,8 +1066,6 @@
         is_active: false
     series_text_format:
       retention_rate: {}
-      subscriptions.pricing_plan:
-        bold: true
     header_background_color: "#D8D8D8"
     conditional_formatting: [{type: along a scale..., value: !!null '', background_color: !!null '',
         font_color: !!null '', color_application: {collection_id: 5f313589-67ce-44ba-b084-ec5107a7bb7e,
@@ -866,7 +1104,6 @@
     hidden_fields: [subscriptions.count, new_calculation, months_since_plan_start,
       pricing_plan_for_sorting, total_subscriptions, total_subscriptions_for_sorting,
       total_subscribers, retention_rate]
-    series_types: {}
     listen:
       Country: subscriptions.country_name
       Pricing Plan: subscriptions.pricing_plan
@@ -874,6 +1111,9 @@
       Plan Interval Type: subscriptions.plan_interval_type
       Product Name: subscriptions.product_name
       Subscription Start Date: subscriptions.subscription_start_month
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Plan ID: subscriptions.plan_id
     row: 34
     col: 0
     width: 24
@@ -892,15 +1132,32 @@
       months_since_plan_start desc 0, total_subscribers desc 0]
     limit: 1000
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
-        label: Retention Rate, value_format: !!null '', value_format_name: percent_1,
-        _kind_hint: measure, table_calculation: retention_rate, _type_hint: number},
-      {category: table_calculation, expression: 'max(pivot_row(if(is_null(${subscriptions.count}),null,${subscriptions__retention.months_since_subscription_start})))',
-        label: Months Since Plan Start, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: supermeasure, table_calculation: months_since_plan_start, _type_hint: number},
-      {category: table_calculation, description: for sorting plans by volume, expression: 'pivot_offset(${subscriptions.count},
-          0)', label: Total Subscribers, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: measure, table_calculation: total_subscribers, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${subscriptions__retention.retained}/${subscriptions.count}"
+      label: Retention Rate
+      value_format:
+      value_format_name: percent_1
+      _kind_hint: measure
+      table_calculation: retention_rate
+      _type_hint: number
+    - category: table_calculation
+      expression: max(pivot_row(if(is_null(${subscriptions.count}),null,${subscriptions__retention.months_since_subscription_start})))
+      label: Months Since Plan Start
+      value_format:
+      value_format_name:
+      _kind_hint: supermeasure
+      table_calculation: months_since_plan_start
+      _type_hint: number
+    - category: table_calculation
+      description: for sorting plans by volume
+      expression: pivot_offset(${subscriptions.count}, 0)
+      label: Total Subscribers
+      value_format:
+      value_format_name:
+      _kind_hint: measure
+      table_calculation: total_subscribers
+      _type_hint: number
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -931,7 +1188,6 @@
       options:
         steps: 5
     x_axis_label: Months Since Subscription Start
-    series_types: {}
     series_colors:
       1-month-usd-4.99 - retention_rate: "#7363A9"
       6-month-chf-47.94 - retention_rate: "#82a6a8"
@@ -960,8 +1216,6 @@
         is_active: false
     series_text_format:
       retention_rate: {}
-      subscriptions.pricing_plan:
-        bold: true
     header_background_color: "#D8D8D8"
     conditional_formatting: [{type: along a scale..., value: !!null '', background_color: !!null '',
         font_color: !!null '', color_application: {collection_id: 5f313589-67ce-44ba-b084-ec5107a7bb7e,
@@ -985,6 +1239,9 @@
       Plan Interval Type: subscriptions.plan_interval_type
       Product Name: subscriptions.product_name
       Subscription Start Date: subscriptions.subscription_start_month
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Plan ID: subscriptions.plan_id
     row: 23
     col: 0
     width: 24
@@ -1002,12 +1259,24 @@
     filters:
       original_subscriptions__retention.is_cohort_complete: 'Yes'
     sorts: [original_subscriptions__retention.retained desc 0, subscriptions.original_subscription_start_month]
-    dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
-        label: Retention Rate, value_format: !!null '', value_format_name: percent_1,
-        _kind_hint: measure, table_calculation: retention_rate, _type_hint: number,
-        is_disabled: true}, {category: table_calculation, expression: "${original_subscriptions__retention.retained}/${original_subscriptions__retention.subscription_count}",
-        label: Total Retention Rate, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: total_retention_rate, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${subscriptions__retention.retained}/${subscriptions.count}"
+      label: Retention Rate
+      value_format:
+      value_format_name: percent_1
+      _kind_hint: measure
+      table_calculation: retention_rate
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: "${original_subscriptions__retention.retained}/${original_subscriptions__retention.subscription_count}"
+      label: Total Retention Rate
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: total_retention_rate
+      _type_hint: number
     x_axis_gridlines: true
     y_axis_gridlines: true
     show_view_names: false
@@ -1059,7 +1328,6 @@
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: ''
     hidden_series: []
-    series_types: {}
     series_labels:
       0 - retention_rate: Month 0
       1 - retention_rate: Month 1
@@ -1121,6 +1389,9 @@
       Plan Interval Type: subscriptions.plan_interval_type
       Product Name: subscriptions.product_name
       Original Subscription Start Date: subscriptions.original_subscription_start_date
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Plan ID: subscriptions.plan_id
     row: 42
     col: 12
     width: 12
@@ -1139,9 +1410,15 @@
     sorts: [original_subscriptions__retention.months_since_original_subscription_start,
       subscriptions.forecast_region]
     total: true
-    dynamic_fields: [{category: table_calculation, expression: "${original_subscriptions__retention.retained}/${original_subscriptions__retention.subscription_count}",
-        label: Total Retention Rate, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: total_retention_rate, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${original_subscriptions__retention.retained}/${original_subscriptions__retention.subscription_count}"
+      label: Total Retention Rate
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: total_retention_rate
+      _type_hint: number
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -1194,7 +1471,6 @@
     x_axis_zoom: true
     y_axis_zoom: true
     trellis_rows: 1
-    series_types: {}
     series_labels:
       subscriptions__retention.age_in_months: Months Since Subcription Started
       subscriptions.subscription_start_month: Cohort
@@ -1216,19 +1492,9 @@
     show_sql_query_menu_options: false
     show_totals: true
     show_row_totals: true
-    series_column_widths:
-      subscriptions.subscription_start_month: 243
-      retention_rate: 115
     series_cell_visualizations:
       subscriptions__retention.age_in_months:
         is_active: false
-    series_text_format:
-      subscriptions__retention.age_in_months: {}
-      retention_rate:
-        align: center
-      subscriptions.subscription_start_month:
-        bold: true
-        align: center
     header_background_color: "#D8D8D8"
     conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#3FE1B0",
         font_color: !!null '', color_application: {collection_id: mozilla, custom: {
@@ -1238,13 +1504,6 @@
               min: {type: minimum}, mid: {type: number, value: 0}, max: {type: maximum}},
             mirror: false, reverse: false, stepped: true}}, bold: false, italic: false,
         strikethrough: false, fields: !!null ''}]
-    series_value_format:
-      retention_rate:
-        name: percent_1
-        decimals: '1'
-        format_string: "#,##0.0%"
-        label: Percent (1)
-        label_prefix: Percent
     ordering: none
     show_null_labels: false
     show_totals_labels: false
@@ -1260,144 +1519,10 @@
       Plan Interval Type: subscriptions.plan_interval_type
       Product Name: subscriptions.product_name
       Original Subscription Start Date: subscriptions.original_subscription_start_date
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Plan ID: subscriptions.plan_id
     row: 68
-    col: 0
-    width: 24
-    height: 7
-  - title: Retention Counts Table (by Cohort)
-    name: Retention Counts Table (by Cohort)
-    model: mozilla_vpn
-    explore: subscriptions
-    type: looker_grid
-    fields: [original_subscriptions__retention.months_since_original_subscription_start,
-      original_subscriptions__retention.retained, original_subscriptions__retention.subscription_count,
-      subscriptions.original_subscription_start_month]
-    pivots: [original_subscriptions__retention.months_since_original_subscription_start]
-    fill_fields: [subscriptions.original_subscription_start_month]
-    filters:
-      original_subscriptions__retention.is_cohort_complete: 'Yes'
-    sorts: [subscriptions.original_subscription_start_month]
-    total: true
-    dynamic_fields: [{category: table_calculation, expression: "${subscriptions__retention.retained}/${subscriptions.count}",
-        label: Retention Rate, value_format_name: percent_2, _kind_hint: measure,
-        table_calculation: retention_rate, _type_hint: number, is_disabled: true},
-      {category: table_calculation, expression: "${original_subscriptions__retention.retained}/${original_subscriptions__retention.subscription_count}",
-        label: Total Retention Rate, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: total_retention_rate, _type_hint: number}]
-    show_view_names: false
-    show_row_numbers: false
-    transpose: false
-    truncate_text: true
-    hide_totals: false
-    hide_row_totals: false
-    size_to_fit: true
-    table_theme: white
-    limit_displayed_rows: false
-    enable_conditional_formatting: true
-    header_text_alignment: center
-    header_font_size: '12'
-    rows_font_size: '12'
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    show_sql_query_menu_options: false
-    show_totals: true
-    show_row_totals: true
-    series_labels:
-      subscriptions__retention.age_in_months: Months Since Subcription Started
-      subscriptions.subscription_start_month: Cohort
-      subscriptions__retention.months_since_subscription_start: Months Since Subscription
-        Start
-    series_column_widths:
-      subscriptions.subscription_start_month: 243
-      retention_rate: 115
-    series_cell_visualizations:
-      subscriptions__retention.age_in_months:
-        is_active: false
-    series_text_format:
-      subscriptions__retention.age_in_months: {}
-      retention_rate:
-        align: center
-      subscriptions.subscription_start_month:
-        bold: true
-        align: center
-    header_background_color: "#D8D8D8"
-    conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#3FE1B0",
-        font_color: !!null '', color_application: {collection_id: mozilla, custom: {
-            id: 0a238a55-cee3-6513-fab8-e325a1654f8e, label: Custom, type: continuous,
-            stops: [{color: "#fff", offset: 0}, {color: "#a5e6ff", offset: 50}, {
-                color: "#0060E0", offset: 100}]}, options: {steps: 100, constraints: {
-              min: {type: minimum}, mid: {type: number, value: 0}, max: {type: maximum}},
-            mirror: false, reverse: false, stepped: true}}, bold: false, italic: false,
-        strikethrough: false, fields: !!null ''}]
-    series_value_format:
-      retention_rate:
-        name: percent_1
-        decimals: '1'
-        format_string: "#,##0.0%"
-        label: Percent (1)
-        label_prefix: Percent
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: pivot
-    stacking: ''
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    y_axes: [{label: '', orientation: left, series: [{axisId: retention_rate, id: 2019-10
-              - retention_rate, name: 2019-10}, {axisId: retention_rate, id: 2019-11
-              - retention_rate, name: 2019-11}, {axisId: retention_rate, id: 2019-12
-              - retention_rate, name: 2019-12}, {axisId: retention_rate, id: 2020-01
-              - retention_rate, name: 2020-01}, {axisId: retention_rate, id: 2020-02
-              - retention_rate, name: 2020-02}, {axisId: retention_rate, id: 2020-03
-              - retention_rate, name: 2020-03}, {axisId: retention_rate, id: 2020-04
-              - retention_rate, name: 2020-04}, {axisId: retention_rate, id: 2020-05
-              - retention_rate, name: 2020-05}, {axisId: retention_rate, id: 2020-06
-              - retention_rate, name: 2020-06}, {axisId: retention_rate, id: 2020-07
-              - retention_rate, name: 2020-07}, {axisId: retention_rate, id: 2020-08
-              - retention_rate, name: 2020-08}, {axisId: retention_rate, id: 2020-09
-              - retention_rate, name: 2020-09}, {axisId: retention_rate, id: 2020-10
-              - retention_rate, name: 2020-10}, {axisId: retention_rate, id: 2020-11
-              - retention_rate, name: 2020-11}, {axisId: retention_rate, id: 2020-12
-              - retention_rate, name: 2020-12}, {axisId: retention_rate, id: 2021-01
-              - retention_rate, name: 2021-01}, {axisId: retention_rate, id: 2021-02
-              - retention_rate, name: 2021-02}, {axisId: retention_rate, id: 2021-03
-              - retention_rate, name: 2021-03}, {axisId: retention_rate, id: 2021-04
-              - retention_rate, name: 2021-04}, {axisId: retention_rate, id: 2021-05
-              - retention_rate, name: 2021-05}, {axisId: retention_rate, id: 2021-06
-              - retention_rate, name: 2021-06}, {axisId: retention_rate, id: 2021-07
-              - retention_rate, name: 2021-07}, {axisId: retention_rate, id: 2021-08
-              - retention_rate, name: 2021-08}], showLabels: true, showValues: true,
-        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
-    defaults_version: 1
-    hidden_fields: [original_subscriptions__retention.subscription_count, total_retention_rate]
-    series_types: {}
-    hidden_pivots: {}
-    listen:
-      Country: subscriptions.country_name
-      Pricing Plan: subscriptions.pricing_plan
-      Provider: subscriptions.provider
-      Plan Interval Type: subscriptions.plan_interval_type
-      Product Name: subscriptions.product_name
-      Original Subscription Start Date: subscriptions.original_subscription_start_date
-    row: 58
     col: 0
     width: 24
     height: 7
@@ -1405,11 +1530,11 @@
   - name: Provider
     title: Provider
     type: field_filter
-    default_value: ''
+    default_value: "-NULL"
     allow_multiple_values: true
     required: false
     ui_config:
-      type: checkboxes
+      type: advanced
       display: popover
     model: mozilla_vpn
     explore: subscriptions
@@ -1499,3 +1624,42 @@
     explore: subscriptions
     listens_to_filters: []
     field: subscriptions.original_subscription_start_date
+  - name: Has Fraudulent Charge Refunds (Yes / No)
+    title: Has Fraudulent Charge Refunds (Yes / No)
+    type: field_filter
+    default_value: 'No'
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: dropdown_menu
+      display: overflow
+    model: mozilla_vpn
+    explore: subscriptions
+    listens_to_filters: []
+    field: subscriptions.has_fraudulent_charge_refunds
+  - name: Has Fraudulent Charges (Yes / No)
+    title: Has Fraudulent Charges (Yes / No)
+    type: field_filter
+    default_value: 'No'
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: dropdown_menu
+      display: overflow
+    model: mozilla_vpn
+    explore: subscriptions
+    listens_to_filters: []
+    field: subscriptions.has_fraudulent_charges
+  - name: Plan ID
+    title: Plan ID
+    type: field_filter
+    default_value: -"price_1MzNRCJNcmPzuWtRMCwUWADu"
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: advanced
+      display: overflow
+    model: mozilla_vpn
+    explore: subscriptions
+    listens_to_filters: []
+    field: subscriptions.plan_id
