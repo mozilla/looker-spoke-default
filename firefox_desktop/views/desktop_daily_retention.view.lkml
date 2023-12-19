@@ -162,6 +162,7 @@ view: +desktop_cohort_daily_retention {
 # Group Dimensions
   dimension: attribution_campaign {
     label: "Campaign"
+    description: "The campaign the user was acquired from. This is pulled using last non-direct click attribution from Google Analytics, and is only available for Windows. For details, see https://support.google.com/analytics/answer/1662518"
     type:  string
     group_label: "Attribution"
     sql: ${TABLE}.attribution_campaign ;;
