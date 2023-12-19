@@ -117,11 +117,12 @@ view: +desktop_cohort_daily_retention {
     sql:  CASE WHEN {% parameter retention_period_picker %} = 1 THEN ${TABLE}.num_clients_dau_on_day WHEN {% parameter retention_period_picker %} = 7 THEN ${TABLE}.num_clients_dau_active_atleastonce_in_last_7_days WHEN {% parameter retention_period_picker %} = 28 THEN ${TABLE}.num_clients_dau_active_atleastonce_in_last_28_days ELSE 0 END;;
   }
 
-  measure: retention_rate_measure{
-    label: "retention rate"
+  measure: retention_rate {
+    label: "Retention Rate"
     type: number
     sql: SAFE_DIVIDE(${num_clients_active_in_period}, ${cohort_measure}) ;;
     value_format: "0.00%"
+    description: "The percentage of clients in the cohort who had activity during the selected period."
   }
 
   measure: retention_rate_dau_measure{
