@@ -1,8 +1,8 @@
 include: "//looker-hub/combined_browser_metrics/views/fenix_and_firefox_use_counters.view.lkml"
 
-view: +fenix_and_firefox_use_counters {
+view: ff_use_counters {
 
-  dimension: sub_date {
+  dimension: submission_date {
     description: "The date when the ingestion edge server accepted this message"
     label: "Submission Date"
     type: date
@@ -11,19 +11,19 @@ view: +fenix_and_firefox_use_counters {
 
   dimension: major_version {
     description: "The user visible main portion of version string (e.g., 1, 2, etc)."
-    label: "Version (Major)"
+    label: "Major Version"
     type: string
     sql: version_major ;;
   }
 
-  dimension: geo_country {
+  dimension: country {
     description: "Result of a geographic lookup based on the client's IP address; An ISO 3166-1 alpha-2 country code"
     label: "Country"
     type: string
     sql: country ;;
   }
 
-  dimension: pltfrm {
+  dimension: platform {
     description: "Indicates if the data is from Firefox Desktop or Mobile (Fenix) "
     label: "Platform"
     type: string
