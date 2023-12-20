@@ -1,5 +1,5 @@
-include "../views/fenix_and_firefox_desktop_use_counters.view.lkml"
+include: "../views/fenix_and_firefox_desktop_use_counters.view.lkml"
 
-explore:  fenix_and_firefox_desktop_use_counters { 
+explore: use_counters_fenix_and_firefox_desktop {
   view_name: fenix_and_firefox_desktop_use_counters
 }
