@@ -1,6 +1,6 @@
 include: "//looker-hub/combined_browser_metrics/views/fenix_and_firefox_use_counters.view.lkml"
 
-view: fenix_and_firefox_use_counters {
+view: fenix_and_firefox_desktop_use_counters {
 
   dimension: submission_date {
     description: "The date when the ingestion edge server accepted this message"
