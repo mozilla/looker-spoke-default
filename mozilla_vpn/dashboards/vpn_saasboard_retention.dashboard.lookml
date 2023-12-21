@@ -4,7 +4,7 @@
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
   description: ''
-  refresh: 24 days 20 hrs 31 mins 23 secs
+  refresh: 2147484 seconds
   preferred_slug: Xy9m1LuSVOyM1ql8YcKOGA
   elements:
   - name: ''
@@ -176,6 +176,9 @@
       Plan Interval Type: subscriptions.plan_interval_type
       Product Name: subscriptions.product_name
       Original Subscription Start Date: subscriptions.original_subscription_start_date
+      Plan ID: subscriptions.plan_id
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
     row: 51
     col: 0
     width: 24
@@ -306,6 +309,9 @@
       Plan Interval Type: subscriptions.plan_interval_type
       Product Name: subscriptions.product_name
       Original Subscription Start Date: subscriptions.original_subscription_start_date
+      Plan ID: subscriptions.plan_id
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
     row: 58
     col: 0
     width: 24
@@ -456,6 +462,9 @@
       Plan Interval Type: subscriptions.plan_interval_type
       Product Name: subscriptions.product_name
       Original Subscription Start Date: subscriptions.original_subscription_start_date
+      Plan ID: subscriptions.plan_id
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
     row: 10
     col: 12
     width: 12
@@ -574,6 +583,9 @@
       Plan Interval Type: subscriptions.plan_interval_type
       Product Name: subscriptions.product_name
       Original Subscription Start Date: subscriptions.original_subscription_start_date
+      Plan ID: subscriptions.plan_id
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
     row: 10
     col: 0
     width: 12
@@ -616,6 +628,9 @@
       Product Name: subscriptions.product_name
       Original Subscription Start Date: subscriptions.original_subscription_start_date
       Subscription Start Date: subscriptions.subscription_start_month
+      Plan ID: subscriptions.plan_id
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
     row: 2
     col: 19
     width: 5
@@ -849,6 +864,9 @@
       Plan Interval Type: subscriptions.plan_interval_type
       Product Name: subscriptions.product_name
       Original Subscription Start Date: subscriptions.original_subscription_start_date
+      Plan ID: subscriptions.plan_id
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
     row: 42
     col: 0
     width: 12
@@ -971,6 +989,9 @@
       Plan Interval Type: subscriptions.plan_interval_type
       Product Name: subscriptions.product_name
       Subscription Start Date: subscriptions.subscription_start_month
+      Plan ID: subscriptions.plan_id
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
     row: 29
     col: 0
     width: 24
@@ -1090,6 +1111,9 @@
       Plan Interval Type: subscriptions.plan_interval_type
       Product Name: subscriptions.product_name
       Subscription Start Date: subscriptions.subscription_start_month
+      Plan ID: subscriptions.plan_id
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
     row: 34
     col: 0
     width: 24
@@ -1215,6 +1239,9 @@
       Plan Interval Type: subscriptions.plan_interval_type
       Product Name: subscriptions.product_name
       Subscription Start Date: subscriptions.subscription_start_month
+      Plan ID: subscriptions.plan_id
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
     row: 23
     col: 0
     width: 24
@@ -1362,6 +1389,9 @@
       Plan Interval Type: subscriptions.plan_interval_type
       Product Name: subscriptions.product_name
       Original Subscription Start Date: subscriptions.original_subscription_start_date
+      Plan ID: subscriptions.plan_id
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
     row: 42
     col: 12
     width: 12
@@ -1489,6 +1519,9 @@
       Plan Interval Type: subscriptions.plan_interval_type
       Product Name: subscriptions.product_name
       Original Subscription Start Date: subscriptions.original_subscription_start_date
+      Plan ID: subscriptions.plan_id
+      Has Fraudulent Charge Refunds (Yes / No): subscriptions.has_fraudulent_charge_refunds
+      Has Fraudulent Charges (Yes / No): subscriptions.has_fraudulent_charges
     row: 68
     col: 0
     width: 24
@@ -1497,11 +1530,11 @@
   - name: Provider
     title: Provider
     type: field_filter
-    default_value: ''
+    default_value: "-NULL"
     allow_multiple_values: true
     required: false
     ui_config:
-      type: checkboxes
+      type: advanced
       display: popover
     model: mozilla_vpn
     explore: subscriptions
@@ -1591,3 +1624,42 @@
     explore: subscriptions
     listens_to_filters: []
     field: subscriptions.original_subscription_start_date
+  - name: Has Fraudulent Charge Refunds (Yes / No)
+    title: Has Fraudulent Charge Refunds (Yes / No)
+    type: field_filter
+    default_value: 'No'
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: dropdown_menu
+      display: overflow
+    model: mozilla_vpn
+    explore: subscriptions
+    listens_to_filters: []
+    field: subscriptions.has_fraudulent_charge_refunds
+  - name: Has Fraudulent Charges (Yes / No)
+    title: Has Fraudulent Charges (Yes / No)
+    type: field_filter
+    default_value: 'No'
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: dropdown_menu
+      display: overflow
+    model: mozilla_vpn
+    explore: subscriptions
+    listens_to_filters: []
+    field: subscriptions.has_fraudulent_charges
+  - name: Plan ID
+    title: Plan ID
+    type: field_filter
+    default_value: -"price_1MzNRCJNcmPzuWtRMCwUWADu"
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: advanced
+      display: overflow
+    model: mozilla_vpn
+    explore: subscriptions
+    listens_to_filters: []
+    field: subscriptions.plan_id
