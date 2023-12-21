@@ -5,8 +5,7 @@ view: ff_use_counters {
   dimension: submission_date {
     description: "The date when the ingestion edge server accepted this message"
     label: "Submission Date"
-    type: date
-    sql: submission_date ;;
+    sql: CAST(submission_date as timestamp);;
   }
 
   dimension: major_version {
