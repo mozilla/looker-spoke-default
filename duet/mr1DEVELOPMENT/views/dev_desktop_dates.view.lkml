@@ -26,15 +26,26 @@ view: dev_desktop_dates {
           )
         SELECT
           a.submission_date,
-          CASE WHEN b.submission_date IS NULL THEN 1 ELSE 0 END AS waiting_results
+          CASE WHEN b.submission_date IS NULL THEN 1 ELSE 0 END AS waiting_results,
+          COALESCE(DATE_DIFF(current_date(), a.submission_date, DAY) > 28, FALSE) AS week4_reported_date
         FROM full_dates a
         LEFT JOIN lagged_dates b
         ON (a.submission_date = b.submission_date)
     ;;
   }
 
+  dimension: week4_reported_date_described {
+    type: string
+    sql: CASE WHEN ${TABLE}.week4_reported_date = TRUE THEN 'data complete'
+         WHEN ${TABLE}.week4_reported_date = FALSE THEN 'awaiting wk4 results'
+         ELSE 'data complete'
+        END
+      ;;
+    description: "field as string"
+  }
+
   dimension: week4_reported_date{
-    sql:  COALESCE(DATE_DIFF(current_date(), ${TABLE}.submission_date, DAY) > 28, FALSE) ;;
+    sql:  ${TABLE}.week4_reported_date;;
     type: yesno
     description: "check if date has week 4 metrics reported"
   }
