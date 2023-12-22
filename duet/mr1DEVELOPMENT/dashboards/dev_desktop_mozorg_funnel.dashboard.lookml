@@ -153,13 +153,13 @@
     listen:
     - Analysis Period: dev_desktop_session.analysis_period
       Countries: dev_desktop_session.normalized_country_code_subset
-      Exclude Days Awaiting Wk4 Results: dev_desktop_session.week4_reported_date
+      Include Dates Where: dev_desktop_session.week4_reported_date_described
     - Analysis Period: dev_desktop_install.analysis_period
       Countries: dev_desktop_install.normalized_country_code_subset
-      Exclude Days Awaiting Wk4 Results: dev_desktop_install.week4_reported_date
+      Include Dates Where: dev_desktop_install.week4_reported_date_described
     - Analysis Period: dev_desktop_new_profiles.analysis_period
       Countries: dev_desktop_new_profiles.normalized_country_code_subset
-      Exclude Days Awaiting Wk4 Results: dev_desktop_new_profiles.week4_reported_date
+      Include Dates Where: dev_desktop_new_profiles.week4_reported_date_described
     - Analysis Period: dev_desktop_usage.analysis_period
       Countries: dev_desktop_usage.normalized_country_code_subset
     row: 4
@@ -221,7 +221,7 @@
     hidden_fields: [dev_desktop_dates.max_date, dev_desktop_dates.min_date]
     listen:
       Analysis Period: dev_desktop_dates.analysis_period
-      Exclude Days Awaiting Wk4 Results: dev_desktop_dates.week4_reported_date
+      Include Dates Where: dev_desktop_dates.week4_reported_date_described
     row: 2
     col: 0
     width: 14
@@ -281,7 +281,7 @@
       most recent dates, we may be waiting for data to arrive/process. '
     listen:
       Analysis Period: dev_desktop_dates.analysis_period
-      Exclude Days Awaiting Wk4 Results: dev_desktop_dates.week4_reported_date
+      Include Dates Where: dev_desktop_dates.week4_reported_date_described
     row: 2
     col: 14
     width: 5
@@ -349,10 +349,10 @@
     listen:
     - Analysis Period: dev_desktop_session.analysis_period
       Countries: dev_desktop_session.normalized_country_code_subset
-      Exclude Days Awaiting Wk4 Results: dev_desktop_session.week4_reported_date
+      Include Dates Where: dev_desktop_session.week4_reported_date_described
     - Analysis Period: dev_desktop_session.analysis_period
       Countries: dev_desktop_session.normalized_country_code_subset
-      Exclude Days Awaiting Wk4 Results: dev_desktop_session.week4_reported_date
+      Include Dates Where: dev_desktop_session.week4_reported_date_described
     row: 20
     col: 0
     width: 5
@@ -429,10 +429,10 @@
     listen:
     - Analysis Period: dev_desktop_session.analysis_period
       Countries: dev_desktop_session.normalized_country_code_subset
-      Exclude Days Awaiting Wk4 Results: dev_desktop_session.week4_reported_date
+      Include Dates Where: dev_desktop_session.week4_reported_date_described
     - Analysis Period: dev_desktop_session.analysis_period
       Countries: dev_desktop_session.normalized_country_code_subset
-      Exclude Days Awaiting Wk4 Results: dev_desktop_session.week4_reported_date
+      Include Dates Where: dev_desktop_session.week4_reported_date_described
     row: 20
     col: 5
     width: 5
@@ -495,10 +495,10 @@
     listen:
     - Analysis Period: dev_desktop_install.analysis_period
       Countries: dev_desktop_install.normalized_country_code_subset
-      Exclude Days Awaiting Wk4 Results: dev_desktop_install.week4_reported_date
+      Include Dates Where: dev_desktop_install.week4_reported_date_described
     - Analysis Period: dev_desktop_install.analysis_period
       Countries: dev_desktop_install.normalized_country_code_subset
-      Exclude Days Awaiting Wk4 Results: dev_desktop_install.week4_reported_date
+      Include Dates Where: dev_desktop_install.week4_reported_date_described
     row: 20
     col: 10
     width: 5
@@ -569,10 +569,10 @@
     listen:
     - Analysis Period: dev_desktop_new_profiles.analysis_period
       Countries: dev_desktop_new_profiles.normalized_country_code_subset
-      Exclude Days Awaiting Wk4 Results: dev_desktop_new_profiles.week4_reported_date
+      Include Dates Where: dev_desktop_new_profiles.week4_reported_date_described
     - Analysis Period: dev_desktop_new_profiles.analysis_period
       Countries: dev_desktop_new_profiles.normalized_country_code_subset
-      Exclude Days Awaiting Wk4 Results: dev_desktop_new_profiles.week4_reported_date
+      Include Dates Where: dev_desktop_new_profiles.week4_reported_date_described
     row: 25
     col: 0
     width: 5
@@ -774,7 +774,7 @@
       "Exclude Days Awaiting Wk4 Results"
     listen:
       Analysis Period: dev_desktop_dates.analysis_period
-      Exclude Days Awaiting Wk4 Results: dev_desktop_dates.week4_reported_date
+      Include Dates Where: dev_desktop_dates.week4_reported_date_described
     row: 2
     col: 19
     width: 5
@@ -916,13 +916,13 @@
     listen:
     - Analysis Period: dev_desktop_session.analysis_period
       Countries: dev_desktop_session.normalized_country_code_subset
-      Exclude Days Awaiting Wk4 Results: dev_desktop_session.week4_reported_date
+      Include Dates Where: dev_desktop_session.week4_reported_date_described
     - Analysis Period: dev_desktop_install.analysis_period
       Countries: dev_desktop_install.normalized_country_code_subset
-      Exclude Days Awaiting Wk4 Results: dev_desktop_install.week4_reported_date
+      Include Dates Where: dev_desktop_install.week4_reported_date_described
     - Analysis Period: dev_desktop_new_profiles.analysis_period
       Countries: dev_desktop_new_profiles.normalized_country_code_subset
-      Exclude Days Awaiting Wk4 Results: dev_desktop_new_profiles.week4_reported_date
+      Include Dates Where: dev_desktop_new_profiles.week4_reported_date_described
     - Analysis Period: dev_desktop_usage.analysis_period
       Countries: dev_desktop_usage.normalized_country_code_subset
     row: 13
@@ -1251,22 +1251,22 @@
     listen:
     - Analysis Period: dev_desktop_session.analysis_period
       Countries: dev_desktop_session.normalized_country_code_subset
-      Exclude Days Awaiting Wk4 Results: dev_desktop_session.week4_reported_date
+      Include Dates Where: dev_desktop_session.week4_reported_date_described
     - Analysis Period: dev_desktop_session.analysis_period
       Countries: dev_desktop_session.normalized_country_code_subset
-      Exclude Days Awaiting Wk4 Results: dev_desktop_session.week4_reported_date
+      Include Dates Where: dev_desktop_session.week4_reported_date_described
     - Analysis Period: dev_desktop_install.analysis_period
       Countries: dev_desktop_install.normalized_country_code_subset
-      Exclude Days Awaiting Wk4 Results: dev_desktop_install.week4_reported_date
+      Include Dates Where: dev_desktop_install.week4_reported_date_described
     - Analysis Period: dev_desktop_install.analysis_period
       Countries: dev_desktop_install.normalized_country_code_subset
-      Exclude Days Awaiting Wk4 Results: dev_desktop_install.week4_reported_date
+      Include Dates Where: dev_desktop_install.week4_reported_date_described
     - Analysis Period: dev_desktop_new_profiles.analysis_period
       Countries: dev_desktop_new_profiles.normalized_country_code_subset
-      Exclude Days Awaiting Wk4 Results: dev_desktop_new_profiles.week4_reported_date
+      Include Dates Where: dev_desktop_new_profiles.week4_reported_date_described
     - Analysis Period: dev_desktop_new_profiles.analysis_period
       Countries: dev_desktop_new_profiles.normalized_country_code_subset
-      Exclude Days Awaiting Wk4 Results: dev_desktop_new_profiles.week4_reported_date
+      Include Dates Where: dev_desktop_new_profiles.week4_reported_date_described
     - Analysis Period: dev_desktop_usage.analysis_period
       Countries: dev_desktop_usage.normalized_country_code_subset
     - Analysis Period: dev_desktop_usage.analysis_period
@@ -1318,18 +1318,19 @@
     explore: dev_desktop_install
     listens_to_filters: []
     field: dev_desktop_install.normalized_country_code_subset
-  - name: Exclude Days Awaiting Wk4 Results
-    title: Exclude Days Awaiting Wk4 Results
+  - name: Include Dates Where
+    title: Include Dates Where
     type: field_filter
-    default_value: ''
+    default_value: data complete
     allow_multiple_values: true
     required: false
     ui_config:
-      type: radio_buttons
+      type: checkboxes
       display: inline
       options:
-      - 'Yes'
+      - data complete
+      - awaiting wk4 results
     model: duet
     explore: dev_desktop_session
     listens_to_filters: []
-    field: dev_desktop_session.week4_reported_date
+    field: dev_desktop_session.week4_reported_date_described
