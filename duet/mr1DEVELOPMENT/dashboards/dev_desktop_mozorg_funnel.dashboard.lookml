@@ -4,15 +4,13 @@
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
-  preferred_slug: mRRE70n4cTC7DcGi9zK1cv
+  preferred_slug: u0Rs8lm4XO8FbR5N3pgvnd
   elements:
   - name: ''
     type: text
     title_text: ''
-    subtitle_text: ''
-    body_text: '[{"type":"h3","id":1702648805649,"children":[{"text":"Moz.org Funnel
-      (Windows)"}]},{"type":"p","children":[{"text":""}],"id":1702805886591},{"type":"p","id":1702805888235,"children":[{"text":"The
-      Moz.org funnel consists of users who acquired via our website ("},{"type":"a","url":"https://www.mozilla.org/","children":[{"text":"https://www.mozilla.org/"}],"id":1702805910613},{"text":").
+    body_text: '[{"type":"p","id":1702805888235,"children":[{"text":"The Moz.org funnel
+      consists of users who acquired via our website ("},{"type":"a","url":"https://www.mozilla.org/","children":[{"text":"https://www.mozilla.org/"}],"id":1702805910613},{"text":").
       This dashboard only considers Windows users. Mac and Linux users will be reported
       in a different dashboard. The steps in the funnel are defined below: "}]},{"type":"p","id":1702806543547,"children":[{"text":""}]},{"type":"p","id":1702806075533,"children":[{"text":"Non
       Fx Sessions:","bold":true},{"text":" Number of visits to our website (counted
@@ -20,11 +18,14 @@
       of those visits that resulted in a download (counted via GA)"}]},{"type":"p","id":1702806207741,"children":[{"text":"New
       Installs:","bold":true},{"text":" Number of successful, new (no older Firefox
       install found) installs        "},{"text":" New Profiles: ","bold":true},{"text":"Number
-      of new profiles created as a result of a Firefox firstrun"}]},{"type":"p","id":1702806318450,"children":[{"text":"Returned
-      Second Day:","bold":true},{"text":" Number of new profiles that returned for
-      a second session within their first 28 days"}]},{"type":"p","id":1702806435330,"children":[{"text":"Week
-      4 Retained: ","bold":true},{"text":"Number of new profiles that were active
-      between their first 21 and 28 days. "}]}]'
+      of new profiles created as a result of a Firefox firstrun"}]},{"type":"p","id":1703202480033,"children":[{"text":"NOTE:","bold":true},{"text":"
+      Installs and Profiles have a 1 : many relationship, meaning a one install can
+      produce multiple new profiles. Therefore, the conversion rate from Install →
+      Profile can be greater then 100%. "}],"indent":1},{"type":"p","id":1702806318450,"children":[{"text":"Repeat
+      Users:","bold":true},{"text":" Number of new profiles that returned for a second
+      session within their first 28 days"}]},{"type":"p","id":1702806435330,"children":[{"text":"Week
+      4 Retained: ","bold":true},{"text":"Number of new profiles that were still active
+      21 to 28 days after they first appeared. "}]}]'
     rich_content_json: '{"format":"slate"}'
     row: 13
     col: 0
@@ -39,7 +40,7 @@
     merged_queries:
     - model: duet
       explore: dev_desktop_session
-      type: looker_column
+      type: table
       fields: [dev_desktop_session.join_field, dev_desktop_session.non_fx_sessions,
         dev_desktop_session.non_fx_downloads]
       filters:
@@ -49,35 +50,7 @@
       sorts: [dev_desktop_session.non_fx_sessions desc]
       limit: 5000
       column_limit: 50
-      x_axis_gridlines: false
-      y_axis_gridlines: true
-      show_view_names: false
-      show_y_axis_labels: true
-      show_y_axis_ticks: true
-      y_axis_tick_density: default
-      y_axis_tick_density_custom: 5
-      show_x_axis_label: true
-      show_x_axis_ticks: true
-      y_axis_scale_mode: linear
-      x_axis_reversed: false
-      y_axis_reversed: false
-      plot_size_by_field: false
-      trellis: ''
-      stacking: ''
-      limit_displayed_rows: false
-      legend_position: center
-      point_style: none
-      show_value_labels: false
-      label_density: 25
-      x_axis_scale: auto
-      y_axis_combined: true
-      ordering: none
-      show_null_labels: false
-      show_totals_labels: false
-      show_silhouette: false
-      totals_color: "#808080"
-      defaults_version: 1
-      hidden_pivots: {}
+      join_fields: []
     - model: duet
       explore: dev_desktop_install
       type: table
@@ -88,7 +61,6 @@
       sorts: [dev_desktop_install.new_installs desc]
       limit: 500
       column_limit: 50
-      hidden_pivots: {}
       join_fields:
       - field_name: dev_desktop_install.join_field
         source_field_name: dev_desktop_session.join_field
@@ -160,6 +132,9 @@
       dev_desktop_new_profiles.new_profiles: "#FF2A8A"
       dev_desktop_usage.returned_second_day: "#FFA537"
       dev_desktop_usage.retained_week4: "#A7341F"
+    series_labels:
+      dev_desktop_usage.returned_second_day: Repeat Users
+      dev_desktop_usage.retained_week4: Week 4 Retained
     show_value_labels: false
     label_density: 25
     x_axis_scale: auto
@@ -174,6 +149,7 @@
     totals_color: "#808080"
     type: looker_column
     hidden_fields: [dev_desktop_session.join_field]
+    column_limit: 50
     listen:
     - Analysis Period: dev_desktop_session.analysis_period
       Countries: dev_desktop_session.normalized_country_code_subset
@@ -193,7 +169,6 @@
   - name: " (2)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |
       <div style="border-radius: 5px; padding: 5px 10px; background: #090808; height: 55px; color: red;">
       <nav style="font-size: 15px;">
@@ -299,6 +274,11 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: 'Total number of reported days in the reporting period. Note, this
+      may not match with the range in the "Analysis Period" filter, because for the
+      most recent dates, we may be waiting for data to arrive/process. '
     listen:
       Analysis Period: dev_desktop_dates.analysis_period
       Exclude Days Awaiting Wk4 Results: dev_desktop_dates.week4_reported_date
@@ -308,6 +288,9 @@
     height: 2
   - name: Non Fx Sessions
     title: Non Fx Sessions
+    note_state: collapsed
+    note_display: hover
+    note_text: 'Number of visits to our website (counted via GA Sessions)    '
     merged_queries:
     - model: duet
       explore: dev_desktop_session
@@ -320,6 +303,7 @@
       sorts: [dev_desktop_session.non_fx_sessions desc]
       limit: 500
       column_limit: 50
+      join_fields: []
     - model: duet
       explore: dev_desktop_session
       type: table
@@ -351,6 +335,7 @@
     type: single_value
     series_types: {}
     hidden_fields: [q1_dev_desktop_session.non_fx_sessions]
+    column_limit: 50
     dynamic_fields:
     - category: table_calculation
       expression: "(${dev_desktop_session.non_fx_sessions} - ${q1_dev_desktop_session.non_fx_sessions})\
@@ -375,7 +360,6 @@
   - name: " (3)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="background-color: #3FE1B0; height: 20px; width: 600px; display: flex; align-items: center; padding-left: 200px;">
         <span style="color: white;">mozilla.org / Google Analytics</span>
@@ -386,6 +370,9 @@
     height: 1
   - name: Non Fx Downloads
     title: Non Fx Downloads
+    note_state: collapsed
+    note_display: hover
+    note_text: Number of those visits that resulted in a download (counted via GA)
     merged_queries:
     - model: duet
       explore: dev_desktop_session
@@ -397,7 +384,7 @@
         dev_desktop_session.week4_reported_date: ''
       limit: 500
       column_limit: 50
-      hidden_pivots: {}
+      join_fields: []
     - model: duet
       explore: dev_desktop_session
       type: table
@@ -409,7 +396,6 @@
         dev_desktop_session.year_over_year: 'Yes'
       limit: 500
       column_limit: 50
-      hidden_pivots: {}
       join_fields:
       - field_name: dev_desktop_session.join_field
         source_field_name: dev_desktop_session.join_field
@@ -429,6 +415,7 @@
     type: single_value
     series_types: {}
     hidden_fields: [q1_dev_desktop_session.non_fx_sessions, q1_dev_desktop_session.non_fx_downloads]
+    column_limit: 50
     dynamic_fields:
     - category: table_calculation
       expression: "(${dev_desktop_session.non_fx_downloads} - ${q1_dev_desktop_session.non_fx_downloads})\
@@ -452,6 +439,9 @@
     height: 4
   - name: New Installs
     title: New Installs
+    note_state: collapsed
+    note_display: hover
+    note_text: 'Number of successful, new (no older Firefox install found) installs  '
     merged_queries:
     - model: duet
       explore: dev_desktop_install
@@ -463,6 +453,7 @@
       sorts: [dev_desktop_install.new_installs desc]
       limit: 500
       column_limit: 50
+      join_fields: []
     - model: duet
       explore: dev_desktop_install
       type: table
@@ -490,6 +481,7 @@
     series_types: {}
     type: single_value
     hidden_fields: [q1_dev_desktop_install.new_installs]
+    column_limit: 50
     dynamic_fields:
     - category: table_calculation
       expression: "(${dev_desktop_install.new_installs} - ${q1_dev_desktop_install.new_installs})\
@@ -514,7 +506,6 @@
   - name: " (4)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="background-color: #9059FF; height: 20px; width: 250px; display: flex; align-items: center; padding-left: 100px;">
         <span style="color: white;">Installer Ping</span>
@@ -525,6 +516,9 @@
     height: 1
   - name: New Profiles
     title: New Profiles
+    note_state: collapsed
+    note_display: hover
+    note_text: Number of new profiles created as a result of a Firefox firstrun
     merged_queries:
     - model: duet
       explore: dev_desktop_new_profiles
@@ -536,6 +530,7 @@
       sorts: [dev_desktop_new_profiles.new_profiles desc]
       limit: 500
       column_limit: 50
+      join_fields: []
     - model: duet
       explore: dev_desktop_new_profiles
       type: table
@@ -560,6 +555,7 @@
     series_types: {}
     type: single_value
     hidden_fields: [q1_dev_desktop_new_profiles.new_profiles]
+    column_limit: 50
     dynamic_fields:
     - category: table_calculation
       expression: "(${dev_desktop_new_profiles.new_profiles} - ${q1_dev_desktop_new_profiles.new_profiles})\
@@ -584,7 +580,6 @@
   - name: " (5)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="background-color: #FF2A8A; height: 20px; width: 800px; display: flex; align-items: center; padding-left: 400px;">
         <span style="color: white;">Telemetry</span>
@@ -595,6 +590,10 @@
     height: 1
   - name: Returned Second Day
     title: Returned Second Day
+    note_state: collapsed
+    note_display: hover
+    note_text: Number of new profiles that returned for a second session within their
+      first 28 days
     merged_queries:
     - model: duet
       explore: dev_desktop_usage
@@ -607,6 +606,7 @@
       sorts: [dev_desktop_usage.returned_second_day desc]
       limit: 500
       column_limit: 50
+      join_fields: []
     - model: duet
       explore: dev_desktop_usage
       type: table
@@ -622,6 +622,7 @@
         source_field_name: dev_desktop_usage.join_field
     custom_color_enabled: true
     show_single_value_title: true
+    single_value_title: Repeat Users
     show_comparison: true
     comparison_type: change
     comparison_reverse_colors: false
@@ -632,6 +633,7 @@
     type: single_value
     series_types: {}
     hidden_fields: [q1_dev_desktop_usage.returned_second_day]
+    column_limit: 50
     dynamic_fields:
     - category: table_calculation
       expression: "(${dev_desktop_usage.returned_second_day} - ${q1_dev_desktop_usage.returned_second_day})\
@@ -653,6 +655,10 @@
     height: 4
   - name: Week 4 Retained
     title: Week 4 Retained
+    note_state: collapsed
+    note_display: hover
+    note_text: "Number of new profiles that were still active 21 to 28 days after\
+      \ they first appeared. \n"
     merged_queries:
     - model: duet
       explore: dev_desktop_usage
@@ -664,7 +670,7 @@
         dev_desktop_usage.week4_reported_date: 'yes'
       limit: 500
       column_limit: 50
-      hidden_pivots: {}
+      join_fields: []
     - model: duet
       explore: dev_desktop_usage
       type: table
@@ -676,12 +682,12 @@
         dev_desktop_usage.year_over_year: 'Yes'
       limit: 500
       column_limit: 50
-      hidden_pivots: {}
       join_fields:
       - field_name: dev_desktop_usage.join_field
         source_field_name: dev_desktop_usage.join_field
     custom_color_enabled: true
     show_single_value_title: true
+    single_value_title: Week 4 Retained
     show_comparison: true
     comparison_type: change
     comparison_reverse_colors: false
@@ -692,6 +698,7 @@
     type: single_value
     series_types: {}
     hidden_fields: [q1_dev_desktop_usage.returned_second_day, q1_dev_desktop_usage.retained_week4]
+    column_limit: 50
     dynamic_fields:
     - category: table_calculation
       expression: "(${dev_desktop_usage.retained_week4} - ${q1_dev_desktop_usage.retained_week4})\
@@ -760,11 +767,11 @@
     totals_color: "#808080"
     defaults_version: 1
     note_state: collapsed
-    note_display: above
-    note_text: Returned Second Day and Retained Week 4 require 28 days of data from
-      an acquisition date in order to calculate. So for more recent data, we may be
-      missing data. To exclude dates where we're still waiting for data to arrive,
-      click "Yes" on "Exclude Days Awaiting Wk4 Results"
+    note_display: hover
+    note_text: Repeat Users and Week 4 Retained require 28 days of data from an acquisition
+      date in order to calculate. So for more recent data, we may be missing data.
+      To exclude dates where we're still waiting for data to arrive, click "Yes" on
+      "Exclude Days Awaiting Wk4 Results"
     listen:
       Analysis Period: dev_desktop_dates.analysis_period
       Exclude Days Awaiting Wk4 Results: dev_desktop_dates.week4_reported_date
@@ -774,58 +781,33 @@
     height: 2
   - name: Funnel Counts
     title: Funnel Counts
+    note_state: collapsed
+    note_display: hover
+    note_text: 'Counts per day. 7 days smoothing applied. '
     merged_queries:
     - model: duet
       explore: dev_desktop_session
-      type: looker_column
-      fields: [dev_desktop_session.non_fx_sessions, dev_desktop_session.non_fx_downloads,
-        dev_desktop_session.submission_date]
+      type: table
+      fields: [dev_desktop_session.submission_date, dev_desktop_session.non_fx_sessions_smoothed,
+        dev_desktop_session.non_fx_downloads_smoothed]
       fill_fields: [dev_desktop_session.submission_date]
       filters:
         dev_desktop_session.year_over_year: 'No'
         dev_desktop_session.join_field: 'yes'
         dev_desktop_session.funnel_derived: mozorg windows funnel
-      sorts: [dev_desktop_session.non_fx_sessions desc]
+      sorts: [dev_desktop_session.submission_date desc]
       limit: 5000
       column_limit: 50
-      x_axis_gridlines: false
-      y_axis_gridlines: true
-      show_view_names: false
-      show_y_axis_labels: true
-      show_y_axis_ticks: true
-      y_axis_tick_density: default
-      y_axis_tick_density_custom: 5
-      show_x_axis_label: true
-      show_x_axis_ticks: true
-      y_axis_scale_mode: linear
-      x_axis_reversed: false
-      y_axis_reversed: false
-      plot_size_by_field: false
-      trellis: ''
-      stacking: ''
-      limit_displayed_rows: false
-      legend_position: center
-      point_style: none
-      show_value_labels: false
-      label_density: 25
-      x_axis_scale: auto
-      y_axis_combined: true
-      ordering: none
-      show_null_labels: false
-      show_totals_labels: false
-      show_silhouette: false
-      totals_color: "#808080"
-      defaults_version: 1
       hidden_pivots: {}
+      join_fields: []
     - model: duet
       explore: dev_desktop_install
       type: table
-      fields: [dev_desktop_install.new_installs, dev_desktop_install.submission_date]
+      fields: [dev_desktop_install.submission_date, dev_desktop_install.new_installs_smoothed]
       fill_fields: [dev_desktop_install.submission_date]
       filters:
         dev_desktop_install.join_field: 'yes'
         dev_desktop_install.funnel_derived: mozorg windows funnel
-      sorts: [dev_desktop_install.new_installs desc]
       limit: 500
       column_limit: 50
       hidden_pivots: {}
@@ -835,29 +817,31 @@
     - model: duet
       explore: dev_desktop_new_profiles
       type: table
-      fields: [dev_desktop_new_profiles.new_profiles, dev_desktop_new_profiles.submission_date]
+      fields: [dev_desktop_new_profiles.submission_date, dev_desktop_new_profiles.new_profiles_smoothed]
       fill_fields: [dev_desktop_new_profiles.submission_date]
       filters:
         dev_desktop_new_profiles.join_field: 'yes'
         dev_desktop_new_profiles.funnel_derived: mozorg windows funnel
-      sorts: [dev_desktop_new_profiles.new_profiles desc]
       limit: 500
       column_limit: 50
+      hidden_pivots: {}
       join_fields:
       - field_name: dev_desktop_new_profiles.submission_date
         source_field_name: dev_desktop_session.submission_date
     - model: duet
       explore: dev_desktop_usage
       type: table
-      fields: [dev_desktop_usage.returned_second_day, dev_desktop_usage.retained_week4,
-        dev_desktop_usage.submission_date]
+      fields: [dev_desktop_usage.submission_date, dev_desktop_usage.returned_second_day_smoothed,
+        dev_desktop_usage.retained_week4_smoothed]
       fill_fields: [dev_desktop_usage.submission_date]
       filters:
         dev_desktop_usage.join_field: 'yes'
         dev_desktop_usage.funnel_derived: mozorg windows funnel
         dev_desktop_usage.week4_reported_date: 'yes'
+      sorts: [dev_desktop_usage.submission_date desc]
       limit: 500
       column_limit: 50
+      hidden_pivots: {}
       join_fields:
       - field_name: dev_desktop_usage.submission_date
         source_field_name: dev_desktop_session.submission_date
@@ -895,12 +879,23 @@
       num_rows: 0
     legend_position: center
     series_types: {}
-    point_style: circle
+    point_style: none
     series_colors:
       dev_desktop_session.non_fx_downloads: "#005E5D"
       dev_desktop_new_profiles.new_profiles: "#FF2A8A"
       dev_desktop_usage.returned_second_day: "#FFA537"
       dev_desktop_usage.retained_week4: "#A7341F"
+      dev_desktop_session.non_fx_downloads_smoothed: "#005E5D"
+      dev_desktop_new_profiles.new_profiles_smoothed: "#FF2A8A"
+      dev_desktop_usage.returned_second_day_smoothed: "#FFA537"
+      dev_desktop_usage.retained_week4_smoothed: "#A7341F"
+    series_labels:
+      dev_desktop_usage.returned_second_day_smoothed: Repeat Users
+      dev_desktop_usage.retained_week4_smoothed: Week 4 Retained
+      dev_desktop_session.non_fx_sessions_smoothed: Non Fx Sessions
+      dev_desktop_session.non_fx_downloads_smoothed: Non Fx Downloads
+      dev_desktop_install.new_installs_smoothed: New Installs
+      dev_desktop_new_profiles.new_profiles_smoothed: New Profiles
     show_value_labels: false
     label_density: 25
     x_axis_scale: auto
@@ -917,6 +912,7 @@
     totals_color: "#808080"
     type: looker_line
     hidden_fields: []
+    column_limit: 50
     listen:
     - Analysis Period: dev_desktop_session.analysis_period
       Countries: dev_desktop_session.normalized_country_code_subset
@@ -935,6 +931,9 @@
     height: 8
   - name: YOY Change
     title: YOY Change
+    note_state: collapsed
+    note_display: hover
+    note_text: 'Year of year comparison per day. 7 days smoothing applied. '
     merged_queries:
     - model: duet
       explore: dev_desktop_session
@@ -958,6 +957,7 @@
         _kind_hint: dimension
         table_calculation: dt
         _type_hint: string
+      join_fields: []
     - model: duet
       explore: dev_desktop_session
       type: table
@@ -1005,7 +1005,6 @@
         _kind_hint: dimension
         table_calculation: dt
         _type_hint: string
-      hidden_pivots: {}
       join_fields:
       - field_name: dt
         source_field_name: dt
@@ -1106,7 +1105,6 @@
         _kind_hint: dimension
         table_calculation: dt
         _type_hint: string
-      hidden_pivots: {}
       join_fields:
       - field_name: dt
         source_field_name: dt
@@ -1171,6 +1169,13 @@
       new_profiles: "#FF2A8A"
       returned_second_day: "#FFA537"
       retained_week4: "#A7341F"
+    series_labels:
+      non_fx_sessions: Non Fx Sessions
+      non_fx_downloads: Non Fx Downloads
+      new_installs: New Installs
+      new_profiles: New Profiles
+      returned_second_day: Repeat Users
+      retained_week4: Week 4 Retained
     show_value_labels: false
     label_density: 25
     x_axis_scale: auto
@@ -1193,6 +1198,7 @@
     hidden_pivots: {}
     type: looker_line
     sorts: [dev_desktop_session.submission_date]
+    column_limit: 50
     dynamic_fields:
     - category: table_calculation
       expression: "(${dev_desktop_session.non_fx_sessions_smoothed} - ${q1_dev_desktop_session.non_fx_sessions_smoothed})/${q1_dev_desktop_session.non_fx_sessions_smoothed}"
