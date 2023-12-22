@@ -9,8 +9,8 @@ explore: fenix_feature_usage_events {from: feature_usage_events
 
     always_filter: {
       filters: [
-        fenix_dau.submission_date: "28 days",
-        fenix_feature_usage_events.submission_date: "28 days",
+        fenix_dau.submission_date: "28 days ago for 27 days",
+        fenix_feature_usage_events.submission_date: "28 days ago for 27 days",
       ]
     }
 
