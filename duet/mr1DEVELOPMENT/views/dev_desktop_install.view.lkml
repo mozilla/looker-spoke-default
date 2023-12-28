@@ -96,6 +96,16 @@ view: dev_desktop_install {
     ;;
   }
 
+  dimension: week4_reported_date_described {
+    type: string
+    sql: CASE WHEN ${TABLE}.week4_reported_date = TRUE THEN 'data complete'
+         WHEN ${TABLE}.week4_reported_date = FALSE THEN 'awaiting wk4 results'
+         ELSE 'data complete'
+        END
+      ;;
+    description: "field as string"
+  }
+
   dimension_group: submission {
     sql: ${TABLE}.submission_date ;;
     type: time
