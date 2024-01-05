@@ -38,8 +38,9 @@ view: event_flow_monitoring_aggregates {
   }
 
   dimension: event_flow_matching_filter {
+    hidden: yes
     type: yesno
-    sql: ${flow} LIKE CONCAT("% ", {% parameter event_category %}, "#", {% parameter event_name%}, "%");;
+    sql: ${flow} LIKE CONCAT("%", {% parameter event_category %}, "#", {% parameter event_name%}, "%");;
   }
 }
 
