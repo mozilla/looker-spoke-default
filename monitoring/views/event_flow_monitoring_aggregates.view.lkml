@@ -40,7 +40,7 @@ view: event_flow_monitoring_aggregates {
   dimension: event_flow_matching_filter {
     hidden: yes
     type: yesno
-    sql: ${flow} LIKE CONCAT("%", {% parameter event_category %}, "#", {% parameter event_name%}, "%");;
+    sql: ${flow} LIKE CONCAT("%", {% parameter event_category %}, "%", {% parameter event_name%}, "%");;
   }
 }
 
@@ -64,7 +64,7 @@ view: event_flow_monitoring_aggregates__events {
   }
   dimension: source__full_name {
     type: string
-    sql: CONCAT(${TABLE}.source.category, "#", ${TABLE}.source.name) ;;
+    sql: CONCAT(IF(${TABLE}.source.category IS NOT NULL, CONCAT(${TABLE}.source.category, "."), ""), ${TABLE}.source.name) ;;
     group_label: "Source"
     group_item_label: "Full Name"
   }
@@ -87,7 +87,7 @@ view: event_flow_monitoring_aggregates__events {
   }
   dimension: target__full_name {
     type: string
-    sql: CONCAT(${TABLE}.target.category, "#", ${TABLE}.target.name) ;;
+    sql: CONCAT(IF(${TABLE}.target.category IS NOT NULL, CONCAT(${TABLE}.target.category, "."), ""), ${TABLE}.target.name) ;;
     group_label: "Target"
     group_item_label: "Full Name"
   }
