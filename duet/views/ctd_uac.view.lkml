@@ -24,7 +24,7 @@ view: ctd_uac {
         submission_date >= '2023-06-26'
      AND first_seen_date >= '2023-06-27' --and "2023-07-31"
      AND adjust_network = 'Google Ads ACI'
-     AND adjust_campaign like "%Mozilla_FF_UAC_EU_DE_DE_AllGroups_Event7%"
+     AND adjust_campaign like r"%Mozilla\_FF\_UAC\_EU\_DE\_DE\_AllGroups\_Event7%"
         --AND adjust_adgroup <> "DE Ad Group (150957842358)"
   GROUP BY 1, 2 order by 1
 )

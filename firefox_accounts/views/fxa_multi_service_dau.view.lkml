@@ -11,7 +11,7 @@ view: fxa_multi_service_dau {
     FROM
       `mozdata.firefox_accounts.fxa_all_events`
     WHERE service IN ('sync', 'mdn-plus', 'guardian-vpn', 'fx-monitor', 'fx-private-relay', 'pocket-web', 'amo-web', 'thunderbird-addons', 'mozilla-iam', 'moz-social', 'mozilla-support', 'pontoon', 'mozilla-hubs-dev')
-    AND event_type like 'fxa_activity%'
+    AND event_type like r'fxa\_activity%'
     GROUP BY
       1, 2
     HAVING ARRAY_LENGTH(services) > 1;;

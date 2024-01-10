@@ -27,7 +27,7 @@ view: google_uac_android_activation {
            submission_date >= '2022-12-01'
            AND first_seen_date >= '2022-12-01'
            AND adjust_network = 'Google Ads ACI'
-           AND adjust_campaign LIKE 'Mozilla_%'
+           AND adjust_campaign LIKE r'Mozilla\_%'
          GROUP BY
            date,
            campaign,
@@ -37,7 +37,7 @@ view: google_uac_android_activation {
           date,
           campaign,
           ad_group,
-          CASE WHEN campaign LIKE '%_US_%' OR campaign LIKE '%_CA_%' OR campaign LIKE '%NA%' THEN 'NA'
+          CASE WHEN campaign LIKE r'%\_US\_%' OR campaign LIKE r'%\_CA\_%' OR campaign LIKE '%NA%' THEN 'NA'
                WHEN campaign LIKE '%MGFQ3%' THEN 'Expansion'
                ELSE 'EU' END AS region,
           REGEXP_EXTRACT(campaign, '.*(Event\\d).*') as event,
