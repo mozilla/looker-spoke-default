@@ -12,7 +12,8 @@ view: google_uac_android_activation {
          FROM
            mozdata.google_ads.daily_ad_group_stats
          WHERE
-            campaign_name NOT LIKE '%iOS%'
+            account_name = "Mozilla Firefox UAC"
+            AND campaign_name NOT LIKE '%iOS%'
             AND date >= '2022-12-01'
         ), activation AS (
          SELECT

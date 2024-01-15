@@ -10,9 +10,11 @@ view: ctd_uac {
   FROM
     mozdata.google_ads.daily_ad_group_stats
   WHERE
-    campaign_name = "Mozilla_FF_UAC_EU_DE_DE_AllGroups_Event7"
-  AND date  >= '2023-06-01'
-    group by 1, 2, 3, 4 order by 1
+    account_name = "Mozilla Firefox UAC"
+    AND campaign_name = "Mozilla_FF_UAC_EU_DE_DE_AllGroups_Event7"
+    AND date  >= '2023-06-01'
+  GROUP BY 1, 2, 3, 4 
+  ORDER BY 1
 )
 , telemetry as (
   SELECT
@@ -26,11 +28,12 @@ view: ctd_uac {
      AND adjust_network = 'Google Ads ACI'
      AND adjust_campaign like r"%Mozilla\_FF\_UAC\_EU\_DE\_DE\_AllGroups\_Event7%"
         --AND adjust_adgroup <> "DE Ad Group (150957842358)"
-  GROUP BY 1, 2 order by 1
+  GROUP BY 1, 2 
+  ORDER BY 1
 )
-select uac.*, telemetry.activations, telemetry.clients
-from on_platform uac
-left JOIN telemetry
+SELECT uac.*, telemetry.activations, telemetry.clients
+FROM on_platform uac
+LEFT JOIN telemetry
 USING(date, ad_group_id)
 ;;
 }
