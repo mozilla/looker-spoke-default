@@ -39,8 +39,8 @@ view: dev_desktop_usage {
             ELSE 'other'
             END
               AS funnel_derived,
-          SUM(CASE WHEN returned_second_day = TRUE THEN 1 ELSE 0 END) AS returned_second_day,
-          SUM(CASE WHEN retained_week4 = TRUE THEN 1 ELSE 0 END) AS retained_week4
+          SUM(CASE WHEN qualified_second_day = TRUE THEN 1 ELSE 0 END) AS returned_second_day,
+          SUM(CASE WHEN qualified_week4 = TRUE THEN 1 ELSE 0 END) AS retained_week4
         FROM `mozdata.telemetry.clients_first_seen_28_days_later`
         WHERE first_seen_date >= '2021-01-01'
               AND DATE_DIFF(current_date(), first_seen_date, DAY) > 1

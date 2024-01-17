@@ -9,19 +9,19 @@
   - name: ''
     type: text
     title_text: ''
-    body_text: '[{"type":"p","id":1702805888235,"children":[{"text":"The Moz.org funnel
-      consists of users who acquired via our website ("},{"type":"a","url":"https://www.mozilla.org/","children":[{"text":"https://www.mozilla.org/"}],"id":1702805910613},{"text":").
-      This dashboard only considers Windows users. Mac and Linux users will be reported
-      in a different dashboard. The steps in the funnel are defined below: "}]},{"type":"p","id":1702806543547,"children":[{"text":""}]},{"type":"p","id":1702806075533,"children":[{"text":"Non
-      Fx Sessions:","bold":true},{"text":" Number of visits to our website (counted
-      via GA Sessions)              "},{"text":"Non Fx Downloads: ","bold":true},{"text":"Number
-      of those visits that resulted in a download (counted via GA)"}]},{"type":"p","id":1702806207741,"children":[{"text":"New
+    body_text: '[{"type":"p","id":1702805888235,"children":[{"text":"The Desktop Moz.org
+      Windows Funnel consists of Windows users who acquired Firefox via our website
+      ("},{"type":"a","url":"https://www.mozilla.org/","children":[{"text":"https://www.mozilla.org/"}],"id":1705472569796},{"text":").
+      Documentation is available in the "},{"type":"a","url":"https://docs.google.com/document/d/1W0FwfsaI8mO3ONuSKmoSqvwjEqiyEYTf2MIls-q9zJU/edit","children":[{"text":"Dashboard
+      Manual: Desktop Moz.org Funnel (Windows)"}],"id":1705472602325},{"text":". For
+      questions, contact @shong. "}]},{"type":"p","id":1705472953496,"children":[{"bold":true,"text":"Metrics"},{"text":"
+      listed blow: "}]},{"type":"p","id":1702806075533,"children":[{"text":"","bold":true}]},{"type":"p","id":1705472957185,"children":[{"bold":true,"text":"Non
+      Fx Sessions:"},{"text":" Number of visits to our website (counted via GA Sessions)              "},{"text":"Non
+      Fx Downloads: ","bold":true},{"text":"Number of those visits that resulted in
+      a download (counted via GA)"}]},{"type":"p","id":1702806207741,"children":[{"text":"New
       Installs:","bold":true},{"text":" Number of successful, new (no older Firefox
       install found) installs        "},{"text":" New Profiles: ","bold":true},{"text":"Number
-      of new profiles created as a result of a Firefox firstrun"}]},{"type":"p","id":1703202480033,"children":[{"text":"NOTE:","bold":true},{"text":"
-      Installs and Profiles have a 1 : many relationship, meaning a one install can
-      produce multiple new profiles. Therefore, the conversion rate from Install →
-      Profile can be greater then 100%. "}],"indent":1},{"type":"p","id":1702806318450,"children":[{"text":"Repeat
+      of new profiles created as a result of a Firefox firstrun"}]},{"type":"p","id":1702806318450,"children":[{"text":"Repeat
       Users:","bold":true},{"text":" Number of new profiles that returned for a second
       session within their first 28 days"}]},{"type":"p","id":1702806435330,"children":[{"text":"Week
       4 Retained: ","bold":true},{"text":"Number of new profiles that were still active
