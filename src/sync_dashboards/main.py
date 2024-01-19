@@ -16,9 +16,9 @@ logging.basicConfig(
 )
 
 
-def setup_sdk(client_id, client_secret, instance) -> methods.Looker31SDK:
+def setup_sdk(client_id, client_secret, instance) -> methods.Looker40SDK:
     os.environ["LOOKERSDK_BASE_URL"] = instance
-    os.environ["LOOKERSDK_API_VERSION"] = "3.1"
+    os.environ["LOOKERSDK_API_VERSION"] = "4.0"
     os.environ["LOOKERSDK_VERIFY_SSL"] = "true"
     os.environ["LOOKERSDK_TIMEOUT"] = "9000"
     os.environ["LOOKERSDK_CLIENT_ID"] = client_id
@@ -42,7 +42,7 @@ def lookml_uud_mapping(config: dict) -> dict:
     return mappings
 
 
-def get_all_linked_dashboards(sdk: methods.Looker31SDK) -> dict:
+def get_all_linked_dashboards(sdk: methods.Looker40SDK) -> dict:
     """
     Get all dashboards that contain a lookml_link_id.
     """
@@ -61,7 +61,7 @@ def get_all_linked_dashboards(sdk: methods.Looker31SDK) -> dict:
 
 
 def sync_dashboards(
-    sdk: methods.Looker31SDK, mappings: dict, remote_mappings: dict
+    sdk: methods.Looker40SDK, mappings: dict, remote_mappings: dict
 ) -> None:
     try:
         for lookml_dashboard_id, dashboard_ids in mappings.items():
