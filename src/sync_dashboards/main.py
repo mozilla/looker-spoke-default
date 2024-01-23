@@ -6,7 +6,7 @@ import yaml
 import click
 import looker_sdk
 
-from looker_sdk import methods, models
+from looker_sdk.sdk.api40 import methods, models
 
 
 logging.basicConfig(
