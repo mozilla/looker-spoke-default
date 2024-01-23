@@ -27,14 +27,6 @@ explore: +column_size {
   hidden: yes
 }
 
-explore: +payload_bytes_decoded_all {
-  hidden: yes
-}
-
-explore: +payload_bytes_error_all {
-  hidden: yes
-}
-
 explore: +payload_bytes_error_all {
   hidden: yes
 }
