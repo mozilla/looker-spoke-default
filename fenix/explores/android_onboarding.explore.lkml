@@ -1,4 +1,4 @@
-include: "//looker-hub/fenix/views/android_onboarding.view.lkml"
+include: "../views/android_onboarding.view.lkml"
 
 explore: android_onboarding {
   label: "Android Onboarding Funnel"
