@@ -43,6 +43,10 @@ view: +android_onboarding {
     hidden: yes
   }
 
+  dimension: onboarding_completed {
+    hidden: yes
+  }
+
   dimension: sync_sign_in {
     hidden: yes
   }
@@ -121,6 +125,13 @@ view: +android_onboarding {
     type: sum
     label: "Third Card Primary Click (Count of Users)"
     description: "Number of users with a click on the secondary button of the third card. (This is almost always the 'skip' button)"
+  }
+
+  measure: onboarding_completed_measure {
+    sql: ${TABLE}.onboarding_completed ;;
+    type: sum
+    label: "Clients Completing Onboarding"
+    description: "Total number of new profiles generating the onboarding completed event."
   }
 
   measure: sync_sign_in_measure {
