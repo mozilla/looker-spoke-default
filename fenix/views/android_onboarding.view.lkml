@@ -55,6 +55,10 @@ view: +android_onboarding {
     hidden: yes
   }
 
+  dimension: funnel {
+    hidden: yes
+  }
+
   # define measures
 
   measure: new_profile_measure {
@@ -81,7 +85,7 @@ view: +android_onboarding {
   measure: first_card_secondary_click_measure {
     sql: ${TABLE}.first_card_secondary_click ;;
     type: sum
-    label: "First Card Primary Click (Count of Users)"
+    label: "First Card Secondary Click (Count of Users)"
     description: "Number of users with a click on the secondary button of the first card. (This is almost always the 'skip' button)"
   }
 
@@ -102,7 +106,7 @@ view: +android_onboarding {
   measure: second_card_secondary_click_measure {
     sql: ${TABLE}.second_card_secondary_click ;;
     type: sum
-    label: "Second Card Primary Click (Count of Users)"
+    label: "Second Card Secondary Click (Count of Users)"
     description: "Number of users with a click on the secondary button of the second card. (This is almost always the 'skip' button)"
   }
 
@@ -123,7 +127,7 @@ view: +android_onboarding {
   measure: third_card_secondary_click_measure {
     sql: ${TABLE}.third_card_secondary_click ;;
     type: sum
-    label: "Third Card Primary Click (Count of Users)"
+    label: "Third Card Secondary Click (Count of Users)"
     description: "Number of users with a click on the secondary button of the third card. (This is almost always the 'skip' button)"
   }
 
