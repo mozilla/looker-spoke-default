@@ -22,8 +22,7 @@ explore: active_users_aggregates {
       filters: [
         active_users_aggregates.choose_breakdown: "Month^_Day",
         active_users_aggregates.choose_comparison: "Year",
-        active_users_aggregates.submission_date: "after 1 year ago",
-        active_users_aggregates.ytd_only: "Yes"
+        active_users_aggregates.submission_date: "after 1 year ago"
       ]
     }
 
