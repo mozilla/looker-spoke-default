@@ -505,6 +505,13 @@ GROUP BY 1,
     description: "metric 7 day smoothed"
   }
 
+  # placeholder to put empty slot into visualization until installs data drops
+  measure: tmp_installs_placeholder {
+    type: sum
+    sql: 0;;
+    description: "placeholder for installs"
+  }
+
   # parameters below
 
   dimension: join_field {
