@@ -386,7 +386,7 @@
     fill_fields: [logical_subscription_events.timestamp_month]
     filters:
       logical_subscription_events.type: Subscription Start
-    sorts: [countries.name, logical_subscription_events.timestamp_month desc]
+    sorts: [logical_subscription_events.timestamp_month desc, countries.name]
     limit: 5000
     column_limit: 100
     x_axis_gridlines: false
@@ -452,7 +452,7 @@
     fill_fields: [logical_subscription_events.timestamp_month]
     filters:
       logical_subscription_events.type: Subscription Start
-    sorts: [logical_subscription_events.subscription__plan_interval, logical_subscription_events.timestamp_month]
+    sorts: [logical_subscription_events.timestamp_month desc, logical_subscription_events.subscription__plan_interval]
     limit: 5000
     column_limit: 50
     x_axis_gridlines: false
@@ -517,8 +517,7 @@
     pivots: [logical_subscription_events.subscription__plan_interval]
     filters:
       logical_subscription_events.type: Subscription Start
-    sorts: [logical_subscription_events.subscription__plan_interval, logical_subscription_events.timestamp_month
-        desc]
+    sorts: [logical_subscription_events.timestamp_month desc, logical_subscription_events.subscription__plan_interval]
     limit: 5000
     column_limit: 50
     x_axis_gridlines: false
@@ -583,8 +582,7 @@
     pivots: [logical_subscription_events.subscription__payment_provider]
     filters:
       logical_subscription_events.type: Subscription Start
-    sorts: [logical_subscription_events.subscription__payment_provider, logical_subscription_events.timestamp_month
-        desc]
+    sorts: [logical_subscription_events.timestamp_month desc, logical_subscription_events.subscription__payment_provider]
     limit: 5000
     column_limit: 50
     x_axis_gridlines: false
@@ -650,8 +648,7 @@
     fill_fields: [logical_subscription_events.timestamp_month]
     filters:
       logical_subscription_events.type: Subscription Start
-    sorts: [logical_subscription_events.subscription__plan_summary, logical_subscription_events.timestamp_month
-        desc]
+    sorts: [logical_subscription_events.timestamp_month desc, logical_subscription_events.subscription__plan_summary]
     limit: 5000
     column_limit: 50
     x_axis_gridlines: false
@@ -716,8 +713,7 @@
     pivots: [logical_subscription_events.reason]
     filters:
       logical_subscription_events.type: Subscription Start
-    sorts: [logical_subscription_events.reason, logical_subscription_events.timestamp_month
-        desc]
+    sorts: [logical_subscription_events.timestamp_month desc, logical_subscription_events.reason]
     limit: 5000
     column_limit: 50
     x_axis_gridlines: false

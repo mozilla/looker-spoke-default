@@ -900,7 +900,7 @@
     pivots: [countries.name]
     fill_fields: [monthly_active_logical_subscriptions.month_month]
     filters: {}
-    sorts: [countries.name, monthly_active_logical_subscriptions.month_month desc]
+    sorts: [monthly_active_logical_subscriptions.month_month desc, countries.name]
     limit: 500
     column_limit: 100
     x_axis_gridlines: false

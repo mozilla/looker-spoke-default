@@ -399,7 +399,7 @@
     filters:
       monthly_active_logical_subscriptions.was_active_at_month_start: 'Yes'
       next_month_still_active_subscriptions.logical_subscription_count: ">0"
-    sorts: [churned_subscription_count desc]
+    sorts: [monthly_active_logical_subscriptions.month_month]
     limit: 500
     column_limit: 50
     dynamic_fields:
@@ -577,7 +577,7 @@
       retention_by_month.subscription_month_number, logical_subscriptions.plan_interval]
     pivots: [logical_subscriptions.plan_interval]
     filters: {}
-    sorts: [retention_by_month.churned_subscription_count desc 0, logical_subscriptions.plan_interval]
+    sorts: [retention_by_month.subscription_month_number, logical_subscriptions.plan_interval]
     limit: 500
     column_limit: 50
     dynamic_fields:
@@ -654,8 +654,7 @@
       logical_subscriptions.plan_interval_months]
     pivots: [retention_by_month.subscription_month_number]
     filters: {}
-    sorts: [retention_by_month.subscription_month_number, logical_subscriptions.plan_interval_months
-        desc]
+    sorts: [retention_by_month.subscription_month_number, logical_subscriptions.plan_interval_months]
     limit: 500
     column_limit: 50
     dynamic_fields:
@@ -758,8 +757,7 @@
       logical_subscriptions.plan_interval, logical_subscriptions.plan_interval_months]
     pivots: [retention_by_month.subscription_month_number]
     filters: {}
-    sorts: [retention_by_month.subscription_month_number, logical_subscriptions.plan_interval_months
-        desc]
+    sorts: [retention_by_month.subscription_month_number, logical_subscriptions.plan_interval_months]
     limit: 500
     column_limit: 50
     dynamic_fields:
@@ -866,7 +864,7 @@
     pivots: [retention_by_month.subscription_month_number]
     fill_fields: [logical_subscriptions.started_at_month]
     filters: {}
-    sorts: [logical_subscriptions.started_at_month desc, retention_by_month.subscription_month_number]
+    sorts: [retention_by_month.subscription_month_number, logical_subscriptions.started_at_month]
     limit: 500
     column_limit: 50
     dynamic_fields:
@@ -962,7 +960,7 @@
       retention_by_month.previously_retained_subscription_count, retention_by_month.subscription_month_number]
     pivots: [retention_by_month.subscription_month_number]
     filters: {}
-    sorts: [logical_subscriptions.started_at_month, retention_by_month.subscription_month_number]
+    sorts: [retention_by_month.subscription_month_number, logical_subscriptions.started_at_month]
     limit: 500
     column_limit: 50
     dynamic_fields:
@@ -1058,7 +1056,7 @@
       retention_by_month.subscription_month_number]
     pivots: [retention_by_month.subscription_month_number]
     filters: {}
-    sorts: [logical_subscriptions.started_at_month, retention_by_month.subscription_month_number]
+    sorts: [retention_by_month.subscription_month_number, logical_subscriptions.started_at_month]
     limit: 500
     column_limit: 50
     dynamic_fields:
