@@ -650,7 +650,7 @@
       logical_subscription_events.type: Subscription Start
     sorts: [logical_subscription_events.timestamp_month desc, logical_subscription_events.subscription__plan_summary]
     limit: 5000
-    column_limit: 50
+    column_limit: 100
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false

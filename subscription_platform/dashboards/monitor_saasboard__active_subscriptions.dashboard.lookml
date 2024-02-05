@@ -469,7 +469,7 @@
     fill_fields: [monthly_active_logical_subscriptions.month_month]
     filters: {}
     sorts: [monthly_active_logical_subscriptions.month_month desc, monthly_active_logical_subscriptions.subscription__plan_summary]
-    limit: 500
+    limit: 5000
     column_limit: 100
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -901,7 +901,7 @@
     fill_fields: [monthly_active_logical_subscriptions.month_month]
     filters: {}
     sorts: [monthly_active_logical_subscriptions.month_month desc, countries.name]
-    limit: 500
+    limit: 5000
     column_limit: 100
     x_axis_gridlines: false
     y_axis_gridlines: true
