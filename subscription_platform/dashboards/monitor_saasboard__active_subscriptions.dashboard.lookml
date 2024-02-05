@@ -85,19 +85,6 @@
     explore: daily_active_logical_subscriptions
     listens_to_filters: [Region, Service ID, Active Date]
     field: countries.name
-  - name: Has Refunds (Yes / No)
-    title: Has Refunds (Yes / No)
-    type: field_filter
-    default_value: 'No'
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: dropdown_menu
-      display: overflow
-    model: subscription_platform
-    explore: daily_active_logical_subscriptions
-    listens_to_filters: []
-    field: current_subscription_state.has_refunds
   - name: Has Fraudulent Charges (Yes / No)
     title: Has Fraudulent Charges (Yes / No)
     type: field_filter
@@ -111,6 +98,19 @@
     explore: daily_active_logical_subscriptions
     listens_to_filters: []
     field: current_subscription_state.has_fraudulent_charges
+  - name: Has Refunds (Yes / No)
+    title: Has Refunds (Yes / No)
+    type: field_filter
+    default_value: 'No'
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: dropdown_menu
+      display: overflow
+    model: subscription_platform
+    explore: daily_active_logical_subscriptions
+    listens_to_filters: []
+    field: current_subscription_state.has_refunds
   - name: Service ID
     title: Service ID
     type: field_filter
@@ -123,7 +123,7 @@
       options:
       - Monitor
     model: subscription_platform
-    explore: monthly_active_logical_subscriptions
+    explore: daily_active_logical_subscriptions
     listens_to_filters: []
     field: subscription_services.id
   elements:
@@ -193,6 +193,8 @@
     explore: daily_active_logical_subscriptions
     type: single_value
     fields: [daily_active_logical_subscriptions.date_date]
+    filters:
+      daily_active_logical_subscriptions.date_date: 1 month
     sorts: [daily_active_logical_subscriptions.date_date desc]
     limit: 1
     column_limit: 50
@@ -822,6 +824,8 @@
     explore: daily_active_logical_subscriptions
     type: looker_pie
     fields: [daily_active_logical_subscriptions.date_date, countries.name, daily_active_logical_subscriptions.logical_subscription_count]
+    filters:
+      daily_active_logical_subscriptions.was_active_at_day_end: 'Yes'
     sorts: [daily_active_logical_subscriptions.date_date desc, daily_active_logical_subscriptions.logical_subscription_count
         desc]
     limit: 50
@@ -895,8 +899,7 @@
       countries.name]
     pivots: [countries.name]
     fill_fields: [monthly_active_logical_subscriptions.month_month]
-    filters:
-      monthly_active_logical_subscriptions.month_end_date: 6 months
+    filters: {}
     sorts: [countries.name, monthly_active_logical_subscriptions.month_month desc]
     limit: 500
     column_limit: 100

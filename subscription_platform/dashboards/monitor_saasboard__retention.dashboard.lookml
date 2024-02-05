@@ -44,7 +44,7 @@
       display: popover
     model: subscription_platform
     explore: logical_subscriptions
-    listens_to_filters: [Service ID]
+    listens_to_filters: [Subscription Start Date, Service ID]
     field: logical_subscriptions.plan_interval
   - name: Plan
     title: Plan
@@ -57,7 +57,7 @@
       display: popover
     model: subscription_platform
     explore: logical_subscriptions
-    listens_to_filters: [Plan Interval, Service ID]
+    listens_to_filters: [Plan Interval, Subscription Start Date, Service ID]
     field: logical_subscriptions.plan_summary
   - name: Region
     title: Region
@@ -85,19 +85,6 @@
     explore: logical_subscriptions
     listens_to_filters: [Region, Subscription Start Date, Service ID]
     field: countries.name
-  - name: Has Refunds (Yes / No)
-    title: Has Refunds (Yes / No)
-    type: field_filter
-    default_value: 'No'
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: dropdown_menu
-      display: overflow
-    model: subscription_platform
-    explore: logical_subscriptions
-    listens_to_filters: []
-    field: logical_subscriptions.has_refunds
   - name: Has Fraudulent Charges (Yes / No)
     title: Has Fraudulent Charges (Yes / No)
     type: field_filter
@@ -111,6 +98,19 @@
     explore: logical_subscriptions
     listens_to_filters: []
     field: logical_subscriptions.has_fraudulent_charges
+  - name: Has Refunds (Yes / No)
+    title: Has Refunds (Yes / No)
+    type: field_filter
+    default_value: 'No'
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: dropdown_menu
+      display: overflow
+    model: subscription_platform
+    explore: logical_subscriptions
+    listens_to_filters: []
+    field: logical_subscriptions.has_refunds
   - name: Service ID
     title: Service ID
     type: field_filter
@@ -193,6 +193,8 @@
     explore: daily_active_logical_subscriptions
     type: single_value
     fields: [daily_active_logical_subscriptions.date_date]
+    filters:
+      daily_active_logical_subscriptions.date_date: 1 month
     sorts: [daily_active_logical_subscriptions.date_date desc]
     limit: 1
     column_limit: 50
