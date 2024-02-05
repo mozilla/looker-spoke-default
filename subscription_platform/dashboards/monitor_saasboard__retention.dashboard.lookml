@@ -307,6 +307,7 @@
         type: linear}]
     x_axis_zoom: true
     y_axis_zoom: true
+    hide_legend: true
     series_types:
       retention_rate: line
     series_colors:
@@ -384,8 +385,10 @@
           {axisId: retention_rate, id: retention_rate, name: Retention Rate}], showLabels: true,
         showValues: true, valueFormat: 0%, unpinAxis: false, tickDensity: default,
         type: linear}]
+    x_axis_label: Cohort
     x_axis_zoom: true
     y_axis_zoom: true
+    hide_legend: true
     series_types:
       retention_rate: line
     series_colors:
@@ -423,7 +426,7 @@
     col: 0
     width: 24
     height: 2
-  - title: Retention by Plan Interval
+  - title: Retention Rate by Plan Interval
     name: Retention by Plan Interval
     model: subscription_platform
     explore: logical_subscriptions
@@ -447,7 +450,7 @@
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    show_y_axis_labels: true
+    show_y_axis_labels: false
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
@@ -470,7 +473,7 @@
     interpolation: linear
     y_axes: [{label: '', orientation: left, series: [{axisId: retention_rate, id: 1
               month - retention_rate, name: 1 month}, {axisId: retention_rate, id: 1
-              year - retention_rate, name: 1 year}], showLabels: true, showValues: true,
+              year - retention_rate, name: 1 year}], showLabels: false, showValues: true,
         valueFormat: 0%, unpinAxis: false, tickDensity: default, type: linear}]
     x_axis_zoom: true
     y_axis_zoom: true
@@ -499,8 +502,8 @@
     col: 0
     width: 24
     height: 6
-  - title: Retention Rates by Plan Interval
-    name: Retention Rates by Plan Interval
+  - title: Retention Rate Table by Plan Interval
+    name: Retention Rate Table by Plan Interval
     model: subscription_platform
     explore: logical_subscriptions
     type: looker_grid
@@ -614,8 +617,8 @@
     col: 0
     width: 24
     height: 3
-  - title: Retention Counts by Plan Interval
-    name: Retention Counts by Plan Interval
+  - title: Retention Counts Table by Plan Interval
+    name: Retention Counts Table by Plan Interval
     model: subscription_platform
     explore: logical_subscriptions
     type: looker_grid
@@ -730,14 +733,14 @@
     col: 0
     width: 24
     height: 3
-  - name: Retention Rate by Cohort heading
+  - name: Retention by Cohort heading
     type: text
     title_text: ''
     subtitle_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
-      <h3><b>Retention Rate by Cohort</b></h3>
+      <h3><b>Retention by Cohort</b></h3>
 
       </div>
     row: 32
@@ -769,7 +772,7 @@
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    show_y_axis_labels: true
+    show_y_axis_labels: false
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
@@ -790,13 +793,7 @@
     y_axis_combined: true
     show_null_points: false
     interpolation: linear
-    y_axes: [{label: '', orientation: left, series: [{axisId: retention_rate, id: 1
-              - retention_rate, name: '1'}, {axisId: retention_rate, id: 2 - retention_rate,
-            name: '2'}, {axisId: retention_rate, id: 3 - retention_rate, name: '3'},
-          {axisId: retention_rate, id: 4 - retention_rate, name: '4'}, {axisId: retention_rate,
-            id: 5 - retention_rate, name: '5'}, {axisId: retention_rate, id: 6 - retention_rate,
-            name: '6'}], showLabels: true, showValues: true, valueFormat: 0%, unpinAxis: false,
-        tickDensity: default, type: linear}]
+    x_axis_label: Cohort
     x_axis_zoom: true
     y_axis_zoom: true
     series_colors:
@@ -850,7 +847,7 @@
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    show_y_axis_labels: true
+    show_y_axis_labels: false
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
@@ -871,14 +868,6 @@
     y_axis_combined: true
     show_null_points: false
     interpolation: linear
-    y_axes: [{label: '', orientation: left, series: [{axisId: retention_rate, id: 2023-08
-              - retention_rate, name: 2023-08}, {axisId: retention_rate, id: 2023-09
-              - retention_rate, name: 2023-09}, {axisId: retention_rate, id: 2023-10
-              - retention_rate, name: 2023-10}, {axisId: retention_rate, id: 2023-11
-              - retention_rate, name: 2023-11}, {axisId: retention_rate, id: 2023-12
-              - retention_rate, name: 2023-12}, {axisId: retention_rate, id: 2024-01
-              - retention_rate, name: 2024-01}], showLabels: true, showValues: true,
-        valueFormat: 0%, unpinAxis: false, tickDensity: default, type: linear}]
     x_axis_zoom: true
     y_axis_zoom: true
     series_colors:
@@ -928,7 +917,7 @@
       table_calculation: retention_rate
       _type_hint: number
     show_view_names: false
-    show_row_numbers: true
+    show_row_numbers: false
     transpose: false
     truncate_text: true
     hide_totals: false

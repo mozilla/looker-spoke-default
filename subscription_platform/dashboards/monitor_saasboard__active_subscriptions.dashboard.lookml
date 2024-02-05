@@ -330,11 +330,11 @@
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    show_y_axis_labels: true
+    show_y_axis_labels: false
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
-    show_x_axis_label: true
+    show_x_axis_label: false
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
     x_axis_reversed: false
@@ -353,7 +353,7 @@
     interpolation: linear
     y_axes: [{label: '', orientation: left, series: [{axisId: daily_active_logical_subscriptions.logical_subscription_count,
             id: daily_active_logical_subscriptions.logical_subscription_count, name: Logical
-              Subscription Count}], showLabels: true, showValues: true, unpinAxis: true,
+              Subscription Count}], showLabels: false, showValues: true, unpinAxis: true,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_zoom: true
     y_axis_zoom: true
@@ -474,11 +474,11 @@
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    show_y_axis_labels: true
+    show_y_axis_labels: false
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
-    show_x_axis_label: true
+    show_x_axis_label: false
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
     x_axis_reversed: false
@@ -618,11 +618,11 @@
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    show_y_axis_labels: true
+    show_y_axis_labels: false
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
-    show_x_axis_label: true
+    show_x_axis_label: false
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
     x_axis_reversed: false
@@ -762,11 +762,11 @@
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    show_y_axis_labels: true
+    show_y_axis_labels: false
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
-    show_x_axis_label: true
+    show_x_axis_label: false
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
     x_axis_reversed: false
@@ -845,11 +845,11 @@
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    show_y_axis_labels: true
+    show_y_axis_labels: false
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
-    show_x_axis_label: true
+    show_x_axis_label: false
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
     x_axis_reversed: false
@@ -906,11 +906,11 @@
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    show_y_axis_labels: true
+    show_y_axis_labels: false
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
-    show_x_axis_label: true
+    show_x_axis_label: false
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
     x_axis_reversed: false

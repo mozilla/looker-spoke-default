@@ -251,11 +251,11 @@
     dynamic_fields:
     - category: table_calculation
       expression: "${retention_by_month.churned_subscription_count} / ${retention_by_month.previously_retained_subscription_count}"
-      label: Churn Percentage
+      label: Churn Rate
       value_format:
       value_format_name: percent_0
       _kind_hint: measure
-      table_calculation: churn_percentage
+      table_calculation: churn_rate
       _type_hint: number
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -288,13 +288,14 @@
             id: retention_by_month.churned_subscription_count, name: Churned Subscription
               Count}], showLabels: true, showValues: true, unpinAxis: false, tickDensity: custom,
         tickDensityCustom: 70, type: linear}, {label: !!null '', orientation: right,
-        series: [{axisId: churn_percentage, id: churn_percentage, name: Churn Percentage}],
+        series: [{axisId: churn_rate, id: churn_rate, name: Churn Rate}],
         showLabels: true, showValues: true, valueFormat: 0%, unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
     x_axis_zoom: true
     y_axis_zoom: true
+    hide_legend: true
     series_types:
-      churn_percentage: line
+      churn_rate: line
     series_colors:
       retention_by_month.churned_subscription_count: "#FF7139"
     defaults_version: 1
@@ -313,8 +314,8 @@
     col: 0
     width: 12
     height: 8
-  - title: Total Churn by Cohort
-    name: Total Churn by Cohort
+  - title: Total Churn Rate by Cohort
+    name: Total Churn Rate by Cohort
     model: subscription_platform
     explore: logical_subscriptions
     type: looker_line
@@ -327,16 +328,16 @@
     dynamic_fields:
     - category: table_calculation
       expression: "${retention_by_month.churned_subscription_count} / ${retention_by_month.previously_retained_subscription_count}"
-      label: Churn Percentage
+      label: Churn Rate
       value_format:
       value_format_name: percent_0
       _kind_hint: measure
-      table_calculation: churn_percentage
+      table_calculation: churn_rate
       _type_hint: number
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    show_y_axis_labels: true
+    show_y_axis_labels: false
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
@@ -357,15 +358,16 @@
     y_axis_combined: true
     show_null_points: false
     interpolation: linear
-    y_axes: [{label: !!null '', orientation: left, series: [{axisId: churn_percentage,
-            id: churn_percentage, name: Churn Percentage}], showLabels: true, showValues: true,
+    y_axes: [{label: !!null '', orientation: left, series: [{axisId: churn_rate,
+            id: churn_rate, name: Churn Rate}], showLabels: false, showValues: true,
         valueFormat: 0%, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
         type: linear}]
+    x_axis_label: Cohort
     x_axis_zoom: true
     y_axis_zoom: true
     series_colors:
       retention_by_month.churned_subscription_count: "#FF7139"
-      churn_percentage: "#073072"
+      churn_rate: "#073072"
     x_axis_datetime_label: "%Y-%m"
     x_axis_label_rotation:
     ordering: none
@@ -416,11 +418,11 @@
       expression: "(${monthly_active_logical_subscriptions.logical_subscription_count}\
         \ - ${next_month_still_active_subscriptions.logical_subscription_count}) /\
         \ ${monthly_active_logical_subscriptions.logical_subscription_count}"
-      label: Pooled Churn
+      label: Pooled Churn Rate
       value_format:
       value_format_name: percent_0
       _kind_hint: measure
-      table_calculation: pooled_churn
+      table_calculation: pooled_churn_rate
       _type_hint: number
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -429,7 +431,7 @@
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
-    show_x_axis_label: true
+    show_x_axis_label: false
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
     x_axis_reversed: false
@@ -442,7 +444,7 @@
     point_style: circle_outline
     show_value_labels: true
     label_density: 25
-    x_axis_scale: auto
+    x_axis_scale: time
     y_axis_combined: true
     ordering: none
     show_null_labels: false
@@ -452,15 +454,16 @@
     y_axes: [{label: '', orientation: left, series: [{axisId: churned_subscription_count,
             id: churned_subscription_count, name: Churned Subscription Count}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: default, type: linear}, {
-        label: !!null '', orientation: right, series: [{axisId: pooled_churn, id: pooled_churn,
-            name: Pooled Churn}], showLabels: true, showValues: true, valueFormat: 0%,
+        label: !!null '', orientation: right, series: [{axisId: pooled_churn_rate, id: pooled_churn_rate,
+            name: Pooled Churn Rate}], showLabels: true, showValues: true, valueFormat: 0%,
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_zoom: true
     y_axis_zoom: true
+    hide_legend: true
     series_types:
-      pooled_churn: line
+      pooled_churn_rate: line
     series_colors:
-      pooled_churn: "#0060E0"
+      pooled_churn_rate: "#0060E0"
       churned: "#FF7139"
       churned_subscription_count: "#FF7139"
     series_labels:
@@ -510,11 +513,11 @@
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    show_y_axis_labels: true
+    show_y_axis_labels: false
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
-    show_x_axis_label: true
+    show_x_axis_label: false
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
     x_axis_reversed: false
@@ -583,16 +586,16 @@
     dynamic_fields:
     - category: table_calculation
       expression: "${retention_by_month.churned_subscription_count} / ${retention_by_month.previously_retained_subscription_count}"
-      label: Churn Percentage
+      label: Churn Rate
       value_format:
       value_format_name: percent_0
       _kind_hint: measure
-      table_calculation: churn_percentage
+      table_calculation: churn_rate
       _type_hint: number
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    show_y_axis_labels: true
+    show_y_axis_labels: false
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
@@ -613,15 +616,11 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
-    y_axes: [{label: '', orientation: left, series: [{axisId: churn_percentage, id: 1
-              month - churn_percentage, name: 1 month}, {axisId: churn_percentage,
-            id: 1 year - churn_percentage, name: 1 year}], showLabels: true, showValues: true,
-        valueFormat: 0%, unpinAxis: false, tickDensity: default, type: linear}]
     x_axis_zoom: true
     y_axis_zoom: true
     series_colors:
       retention_by_month.churned_subscription_count: "#FF7139"
-      churn_percentage: "#073072"
+      churn_rate: "#073072"
     ordering: none
     show_null_labels: false
     show_totals_labels: false
@@ -660,11 +659,11 @@
     dynamic_fields:
     - category: table_calculation
       expression: "${retention_by_month.churned_subscription_count} / ${retention_by_month.previously_retained_subscription_count}"
-      label: Churn Percentage
+      label: Churn Rate
       value_format:
       value_format_name: percent_1
       _kind_hint: measure
-      table_calculation: churn_percentage
+      table_calculation: churn_rate
       _type_hint: number
     show_view_names: false
     show_row_numbers: false
@@ -697,7 +696,7 @@
             id: retention_by_month.churned_subscription_count, name: Churned Subscription
               Count}], showLabels: true, showValues: true, unpinAxis: false, tickDensity: custom,
         tickDensityCustom: 70, type: linear}, {label: !!null '', orientation: left,
-        series: [{axisId: churn_percentage, id: churn_percentage, name: Churn Percentage}],
+        series: [{axisId: churn_rate, id: churn_rate, name: Churn Rate}],
         showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
     show_y_axis_labels: true
@@ -718,7 +717,7 @@
     point_style: circle_outline
     series_colors:
       retention_by_month.churned_subscription_count: "#FF7139"
-      churn_percentage: "#073072"
+      churn_rate: "#073072"
     show_value_labels: true
     label_density: 25
     x_axis_scale: auto
@@ -763,11 +762,11 @@
     dynamic_fields:
     - category: table_calculation
       expression: "${retention_by_month.churned_subscription_count} / ${retention_by_month.previously_retained_subscription_count}"
-      label: Churn Percentage
+      label: Churn Rate
       value_format:
       value_format_name: percent_2
       _kind_hint: measure
-      table_calculation: churn_percentage
+      table_calculation: churn_rate
       _type_hint: number
       is_disabled: true
     show_view_names: false
@@ -804,7 +803,7 @@
             id: retention_by_month.churned_subscription_count, name: Churned Subscription
               Count}], showLabels: true, showValues: true, unpinAxis: false, tickDensity: custom,
         tickDensityCustom: 70, type: linear}, {label: !!null '', orientation: left,
-        series: [{axisId: churn_percentage, id: churn_percentage, name: Churn Percentage}],
+        series: [{axisId: churn_rate, id: churn_rate, name: Churn Rate}],
         showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
     show_y_axis_labels: true
@@ -825,7 +824,7 @@
     point_style: circle_outline
     series_colors:
       retention_by_month.churned_subscription_count: "#FF7139"
-      churn_percentage: "#073072"
+      churn_rate: "#073072"
     show_value_labels: true
     label_density: 25
     x_axis_scale: auto
@@ -870,11 +869,11 @@
     dynamic_fields:
     - category: table_calculation
       expression: "${retention_by_month.churned_subscription_count} / ${retention_by_month.previously_retained_subscription_count}"
-      label: Churn Percentage
+      label: Churn Rate
       value_format:
-      value_format_name: percent_2
+      value_format_name: percent_0
       _kind_hint: measure
-      table_calculation: churn_percentage
+      table_calculation: churn_rate
       _type_hint: number
       is_disabled: false
     - category: table_calculation
@@ -889,7 +888,7 @@
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    show_y_axis_labels: true
+    show_y_axis_labels: false
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
@@ -910,14 +909,7 @@
     y_axis_combined: true
     show_null_points: false
     interpolation: linear
-    y_axes: [{label: '', orientation: left, series: [{axisId: churn_percentage, id: 1
-              - churn_percentage, name: '1'}, {axisId: churn_percentage, id: 2 - churn_percentage,
-            name: '2'}, {axisId: churn_percentage, id: 3 - churn_percentage, name: '3'},
-          {axisId: churn_percentage, id: 4 - churn_percentage, name: '4'}, {axisId: churn_percentage,
-            id: 5 - churn_percentage, name: '5'}, {axisId: churn_percentage, id: 6
-              - churn_percentage, name: '6'}], showLabels: true, showValues: true,
-        valueFormat: 0%, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
-        type: linear}]
+    x_axis_label: Cohort
     x_axis_zoom: true
     y_axis_zoom: true
     x_axis_datetime_label: "%Y-%m"
@@ -966,11 +958,11 @@
     dynamic_fields:
     - category: table_calculation
       expression: "${retention_by_month.churned_subscription_count} / ${retention_by_month.previously_retained_subscription_count}"
-      label: Churn Percentage
+      label: Churn Rate
       value_format:
       value_format_name: percent_1
       _kind_hint: measure
-      table_calculation: churn_percentage
+      table_calculation: churn_rate
       _type_hint: number
     - category: table_calculation
       expression: "${retention_by_month.churned_subscription_count}"
@@ -1062,11 +1054,11 @@
     dynamic_fields:
     - category: table_calculation
       expression: "${retention_by_month.churned_subscription_count} / ${retention_by_month.previously_retained_subscription_count}"
-      label: Churn Percentage
+      label: Churn Rate
       value_format:
       value_format_name: percent_2
       _kind_hint: measure
-      table_calculation: churn_percentage
+      table_calculation: churn_rate
       _type_hint: number
       is_disabled: true
     - category: table_calculation

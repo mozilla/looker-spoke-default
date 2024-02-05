@@ -332,11 +332,11 @@
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    show_y_axis_labels: true
+    show_y_axis_labels: false
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
-    show_x_axis_label: true
+    show_x_axis_label: false
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
     x_axis_reversed: false
@@ -355,7 +355,7 @@
     interpolation: linear
     y_axes: [{label: New Subscriptions, orientation: left, series: [{axisId: logical_subscription_events.logical_subscription_count,
             id: logical_subscription_events.logical_subscription_count, name: Logical
-              Subscription Count}], showLabels: true, showValues: true, unpinAxis: false,
+              Subscription Count}], showLabels: false, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Date
     x_axis_zoom: true
@@ -392,11 +392,11 @@
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    show_y_axis_labels: true
+    show_y_axis_labels: false
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
-    show_x_axis_label: true
+    show_x_axis_label: false
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
     x_axis_reversed: false
@@ -418,7 +418,7 @@
     totals_color: "#808080"
     y_axes: [{label: New Subscriptions, orientation: left, series: [{axisId: logical_subscription_events.logical_subscription_count,
             id: logical_subscription_events.logical_subscription_count, name: Logical
-              Subscription Count}], showLabels: true, showValues: true, unpinAxis: false,
+              Subscription Count}], showLabels: false, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Date
     x_axis_zoom: true
@@ -458,11 +458,11 @@
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    show_y_axis_labels: true
+    show_y_axis_labels: false
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
-    show_x_axis_label: true
+    show_x_axis_label: false
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
     x_axis_reversed: false
@@ -484,7 +484,7 @@
     totals_color: "#808080"
     y_axes: [{label: New Subscriptions, orientation: left, series: [{axisId: logical_subscription_events.logical_subscription_count,
             id: logical_subscription_events.logical_subscription_count, name: Logical
-              Subscription Count}], showLabels: true, showValues: true, unpinAxis: false,
+              Subscription Count}], showLabels: false, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Date
     x_axis_zoom: true
@@ -523,11 +523,11 @@
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    show_y_axis_labels: true
+    show_y_axis_labels: false
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
-    show_x_axis_label: true
+    show_x_axis_label: false
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
     x_axis_reversed: false
@@ -547,9 +547,9 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    y_axes: [{label: New Subscriptions, orientation: left, series: [{axisId: logical_subscription_events.logical_subscription_count,
+    y_axes: [{label: '', orientation: left, series: [{axisId: logical_subscription_events.logical_subscription_count,
             id: logical_subscription_events.logical_subscription_count, name: Logical
-              Subscription Count}], showLabels: true, showValues: true, unpinAxis: false,
+              Subscription Count}], showLabels: false, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Date
     x_axis_zoom: true
@@ -588,11 +588,11 @@
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    show_y_axis_labels: true
+    show_y_axis_labels: false
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
-    show_x_axis_label: true
+    show_x_axis_label: false
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
     x_axis_reversed: false
@@ -614,7 +614,7 @@
     totals_color: "#808080"
     y_axes: [{label: New Subscriptions, orientation: left, series: [{axisId: logical_subscription_events.logical_subscription_count,
             id: logical_subscription_events.logical_subscription_count, name: Logical
-              Subscription Count}], showLabels: true, showValues: true, unpinAxis: false,
+              Subscription Count}], showLabels: false, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Date
     x_axis_zoom: true
@@ -654,11 +654,11 @@
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    show_y_axis_labels: true
+    show_y_axis_labels: false
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
-    show_x_axis_label: true
+    show_x_axis_label: false
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
     x_axis_reversed: false
@@ -680,7 +680,7 @@
     totals_color: "#808080"
     y_axes: [{label: New Subscriptions, orientation: left, series: [{axisId: logical_subscription_events.logical_subscription_count,
             id: logical_subscription_events.logical_subscription_count, name: Logical
-              Subscription Count}], showLabels: true, showValues: true, unpinAxis: false,
+              Subscription Count}], showLabels: false, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Date
     x_axis_zoom: true
@@ -719,11 +719,11 @@
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    show_y_axis_labels: true
+    show_y_axis_labels: false
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
-    show_x_axis_label: true
+    show_x_axis_label: false
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
     x_axis_reversed: false
@@ -745,7 +745,7 @@
     totals_color: "#808080"
     y_axes: [{label: New Subscriptions, orientation: left, series: [{axisId: logical_subscription_events.logical_subscription_count,
             id: logical_subscription_events.logical_subscription_count, name: Logical
-              Subscription Count}], showLabels: true, showValues: true, unpinAxis: false,
+              Subscription Count}], showLabels: false, showValues: true, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Date
     x_axis_zoom: true
@@ -807,11 +807,11 @@
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    show_y_axis_labels: true
+    show_y_axis_labels: false
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
-    show_x_axis_label: true
+    show_x_axis_label: false
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
     x_axis_reversed: false
@@ -836,7 +836,7 @@
             id: Subscription End - logical_subscription_events.net_logical_subscription_count,
             name: Canceled}, {axisId: Subscription Start - logical_subscription_events.net_logical_subscription_count,
             id: Subscription Start - logical_subscription_events.net_logical_subscription_count,
-            name: New}], showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
+            name: New}], showLabels: false, showValues: true, unpinAxis: false, tickDensity: default,
         type: linear}]
     x_axis_label: Date
     x_axis_zoom: true
