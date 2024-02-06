@@ -148,7 +148,7 @@
           Retention
         </a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; border: 1px solid white; font-weight: bold;">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; border: 1px solid white; font-weight: bold; text-decoration: underline;">
           Churn
         </a>
 
@@ -166,7 +166,7 @@
     row: 0
     col: 0
     width: 24
-    height: 3
+    height: 2
   - name: Notes
     type: text
     title_text: ''
@@ -183,9 +183,9 @@
       <br>
 
       </div>
-    row: 3
+    row: 2
     col: 0
-    width: 15
+    width: 16
     height: 4
   - title: Most Recent Data
     name: Most Recent Data
@@ -233,8 +233,8 @@
     interpolation: linear
     defaults_version: 1
     listen: {}
-    row: 3
-    col: 15
+    row: 2
+    col: 16
     width: 8
     height: 4
   - title: Churn by Subscription Month Number
@@ -310,7 +310,7 @@
       Plan: logical_subscriptions.plan_summary
       Region: countries.region_name
       Country: countries.name
-    row: 7
+    row: 6
     col: 0
     width: 12
     height: 8
@@ -387,7 +387,7 @@
       Plan: logical_subscriptions.plan_summary
       Region: countries.region_name
       Country: countries.name
-    row: 7
+    row: 6
     col: 12
     width: 12
     height: 8
@@ -484,7 +484,7 @@
       Plan: monthly_active_logical_subscriptions.subscription__plan_summary
       Region: countries.region_name
       Country: countries.name
-    row: 15
+    row: 14
     col: 0
     width: 12
     height: 8
@@ -557,17 +557,21 @@
       Plan: logical_subscriptions.plan_summary
       Region: countries.region_name
       Country: countries.name
-    row: 15
+    row: 14
     col: 12
     width: 12
     height: 8
-  - name: Churn by Plan heading
+  - name: Churn by Plan Interval heading
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: '[{"type":"h2","children":[{"text":"Churn by Plan"}],"align":"center"}]'
-    rich_content_json: '{"format":"slate"}'
-    row: 23
+    body_text: |-
+      <div style="border-top: solid 2px #e0e0e0;">
+
+      <h3><b>Churn by Plan Interval</b></h3>
+
+      </div>
+    row: 22
     col: 0
     width: 24
     height: 2
@@ -639,7 +643,7 @@
       Plan: logical_subscriptions.plan_summary
       Region: countries.region_name
       Country: countries.name
-    row: 25
+    row: 24
     col: 0
     width: 24
     height: 6
@@ -743,7 +747,7 @@
       Plan: logical_subscriptions.plan_summary
       Region: countries.region_name
       Country: countries.name
-    row: 31
+    row: 30
     col: 0
     width: 24
     height: 4
@@ -849,10 +853,24 @@
       Plan: logical_subscriptions.plan_summary
       Region: countries.region_name
       Country: countries.name
-    row: 35
+    row: 34
     col: 0
     width: 24
     height: 4
+  - name: Churn by Cohort heading
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: |-
+      <div style="border-top: solid 2px #e0e0e0;">
+
+      <h3><b>Churn by Cohort</b></h3>
+
+      </div>
+    row: 38
+    col: 0
+    width: 24
+    height: 2
   - title: Cohort Churn Rate by Subscription Month Number
     name: Cohort Churn Rate by Subscription Month Number
     model: subscription_platform
@@ -939,7 +957,7 @@
       Plan: logical_subscriptions.plan_summary
       Region: countries.region_name
       Country: countries.name
-    row: 39
+    row: 40
     col: 0
     width: 24
     height: 7
@@ -1035,7 +1053,7 @@
       Plan: logical_subscriptions.plan_summary
       Region: countries.region_name
       Country: countries.name
-    row: 46
+    row: 47
     col: 0
     width: 24
     height: 5
@@ -1143,7 +1161,7 @@
       Plan: logical_subscriptions.plan_summary
       Region: countries.region_name
       Country: countries.name
-    row: 51
+    row: 52
     col: 0
     width: 24
     height: 5

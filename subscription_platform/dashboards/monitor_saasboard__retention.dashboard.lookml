@@ -144,7 +144,7 @@
           Subscriptions Growth
         </a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; border: 1px solid white; font-weight: bold;">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; border: 1px solid white; font-weight: bold; text-decoration: underline;">
           Retention
         </a>
 
@@ -166,7 +166,7 @@
     row: 0
     col: 0
     width: 24
-    height: 3
+    height: 2
   - name: Notes
     type: text
     title_text: ''
@@ -183,7 +183,7 @@
       <br>
 
       </div>
-    row: 3
+    row: 2
     col: 0
     width: 16
     height: 4
@@ -233,7 +233,7 @@
     interpolation: linear
     defaults_version: 1
     listen: {}
-    row: 3
+    row: 2
     col: 16
     width: 8
     height: 4
@@ -247,7 +247,7 @@
       <h3><b>Retention Rate</b></h3>
 
       </div>
-    row: 7
+    row: 6
     col: 0
     width: 24
     height: 2
@@ -327,7 +327,7 @@
       Service ID: subscription_services.id
       Plan Interval: logical_subscriptions.plan_interval
       Plan: logical_subscriptions.plan_summary
-    row: 9
+    row: 8
     col: 0
     width: 12
     height: 9
@@ -408,7 +408,7 @@
       Service ID: subscription_services.id
       Plan Interval: logical_subscriptions.plan_interval
       Plan: logical_subscriptions.plan_summary
-    row: 9
+    row: 8
     col: 12
     width: 12
     height: 9
@@ -422,7 +422,7 @@
       <h3><b>Retention by Plan Interval</b></h3>
 
       </div>
-    row: 18
+    row: 17
     col: 0
     width: 24
     height: 2
@@ -498,7 +498,7 @@
       Service ID: subscription_services.id
       Plan Interval: logical_subscriptions.plan_interval
       Plan: logical_subscriptions.plan_summary
-    row: 20
+    row: 19
     col: 0
     width: 24
     height: 6
@@ -613,10 +613,10 @@
       Service ID: subscription_services.id
       Plan Interval: logical_subscriptions.plan_interval
       Plan: logical_subscriptions.plan_summary
-    row: 26
+    row: 25
     col: 0
     width: 24
-    height: 3
+    height: 4
   - title: Retention Counts Table by Plan Interval
     name: Retention Counts Table by Plan Interval
     model: subscription_platform
@@ -732,7 +732,7 @@
     row: 29
     col: 0
     width: 24
-    height: 3
+    height: 4
   - name: Retention by Cohort heading
     type: text
     title_text: ''
@@ -743,7 +743,7 @@
       <h3><b>Retention by Cohort</b></h3>
 
       </div>
-    row: 32
+    row: 33
     col: 0
     width: 24
     height: 2
@@ -818,7 +818,7 @@
       Service ID: subscription_services.id
       Plan Interval: logical_subscriptions.plan_interval
       Plan: logical_subscriptions.plan_summary
-    row: 34
+    row: 35
     col: 0
     width: 12
     height: 8
@@ -891,7 +891,7 @@
       Service ID: subscription_services.id
       Plan Interval: logical_subscriptions.plan_interval
       Plan: logical_subscriptions.plan_summary
-    row: 34
+    row: 35
     col: 12
     width: 12
     height: 8
@@ -1004,7 +1004,7 @@
       Service ID: subscription_services.id
       Plan Interval: logical_subscriptions.plan_interval
       Plan: logical_subscriptions.plan_summary
-    row: 42
+    row: 43
     col: 0
     width: 24
     height: 5
@@ -1114,7 +1114,7 @@
       Service ID: subscription_services.id
       Plan Interval: logical_subscriptions.plan_interval
       Plan: logical_subscriptions.plan_summary
-    row: 47
+    row: 48
     col: 0
     width: 24
-    height: 6
+    height: 5

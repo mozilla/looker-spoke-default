@@ -140,7 +140,7 @@
           Active Subscriptions
         </a>
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; border: 1px solid white; font-weight: bold;">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; border: 1px solid white; font-weight: bold; text-decoration: underline;">
           Subscriptions Growth
         </a>
 

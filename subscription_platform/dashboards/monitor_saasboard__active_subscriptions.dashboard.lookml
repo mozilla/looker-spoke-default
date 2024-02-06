@@ -136,7 +136,7 @@
 
       <nav style="font-size: 20px;">
 
-        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; border: 1px solid white; font-weight: bold;">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; border: 1px solid white; font-weight: bold; text-decoration: underline;">
           Active Subscriptions
         </a>
 
@@ -817,7 +817,7 @@
     row: 46
     col: 0
     width: 24
-    height: 3
+    height: 2
   - title: Active Subscriptions by Country
     name: Active Subscriptions by Country
     model: subscription_platform
@@ -886,7 +886,7 @@
       Plan Interval: daily_active_logical_subscriptions.subscription__plan_interval
       Plan: daily_active_logical_subscriptions.subscription__plan_summary
       Active Date: daily_active_logical_subscriptions.date_date
-    row: 49
+    row: 48
     col: 0
     width: 12
     height: 7
@@ -944,7 +944,7 @@
       Plan Interval: monthly_active_logical_subscriptions.subscription__plan_interval
       Plan: monthly_active_logical_subscriptions.subscription__plan_summary
       Active Date: monthly_active_logical_subscriptions.month_month
-    row: 49
+    row: 48
     col: 12
     width: 12
     height: 7
