@@ -822,7 +822,7 @@
     defaults_version: 1
     hidden_pivots: {}
     note:
-      text: This chart only includes new subscriptions that were attributed to a campaign.
+      text: "This chart only includes new subscriptions that were attributed to a campaign."
       display: hover
     listen:
       Payment Provider: logical_subscription_events.subscription__payment_provider
