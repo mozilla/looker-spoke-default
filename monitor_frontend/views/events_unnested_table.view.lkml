@@ -58,7 +58,7 @@ view: +events_unnested_table {
   }
 
   dimension: event_extra__button_id {
-    description: ""
+    description: "The ID of the button that was clicked on, used as a way to identify where on the page the interaction is located"
     type: string
     sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'button_id') ;;
     group_label: "Event Extra"
@@ -82,7 +82,7 @@ view: +events_unnested_table {
   }
 
   dimension: event_extra__dashboard_tab {
-    description: "Either action-needed or `fixed`, depending on where in the dashboard the event is recorded."
+    description: "Either `action-needed` or `fixed`, depending on where in the dashboard the event is recorded."
     type: string
     sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'dashboard_tab') ;;
     group_label: "Event Extra"
