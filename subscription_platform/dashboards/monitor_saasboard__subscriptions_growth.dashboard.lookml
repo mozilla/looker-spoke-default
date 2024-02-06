@@ -769,6 +769,75 @@
     col: 0
     width: 12
     height: 10
+  - title: Monthly New Subscriptions by Campaign
+    name: Monthly New Subscriptions by Campaign
+    model: subscription_platform
+    explore: logical_subscription_events
+    type: looker_column
+    fields: [logical_subscription_events.logical_subscription_count, logical_subscription_events.timestamp_month,
+      logical_subscription_events.subscription__last_touch_attribution__utm_campaign]
+    pivots: [logical_subscription_events.subscription__last_touch_attribution__utm_campaign]
+    filters:
+      logical_subscription_events.type: Subscription Start
+      logical_subscription_events.subscription__last_touch_attribution__utm_campaign: "-EMPTY"
+    sorts: [logical_subscription_events.timestamp_month desc, logical_subscription_events.subscription__last_touch_attribution__utm_campaign]
+    limit: 5000
+    column_limit: 50
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: false
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: false
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: normal
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: desc
+    show_null_labels: false
+    show_totals_labels: true
+    show_silhouette: false
+    totals_color: "#808080"
+    y_axes: [{label: New Subscriptions, orientation: left, series: [{axisId: logical_subscription_events.logical_subscription_count,
+            id: logical_subscription_events.logical_subscription_count, name: Logical
+              Subscription Count}], showLabels: false, showValues: true, unpinAxis: false,
+        tickDensity: default, tickDensityCustom: 5, type: linear}]
+    x_axis_label: Date
+    x_axis_zoom: true
+    y_axis_zoom: true
+    show_null_points: false
+    interpolation: linear
+    defaults_version: 1
+    hidden_pivots: {}
+    note:
+      text: This chart only includes new subscriptions that were attributed to a campaign.
+      display: hover
+    listen:
+      Payment Provider: logical_subscription_events.subscription__payment_provider
+      Subscription Start Date: logical_subscription_events.timestamp_date
+      Plan Interval: logical_subscription_events.subscription__plan_interval
+      Plan: logical_subscription_events.subscription__plan_summary
+      Region: countries.region_name
+      Country: countries.name
+      Has Refunds (Yes / No): current_subscription_state.has_refunds
+      Has Fraudulent Charges (Yes / No): current_subscription_state.has_fraudulent_charges
+      Service ID: subscription_services.id
+    row: 37
+    col: 12
+    width: 12
+    height: 10
   - name: Net New Subscriptions heading
     type: text
     title_text: ''
