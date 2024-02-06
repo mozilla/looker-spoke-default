@@ -1,6 +1,6 @@
-include: "//looker-hub/monitor_frontend/views/events.view.lkml"
+include: "//looker-hub/monitor_frontend/views/events_unnested_table.view.lkml"
 
-view: +events {
+view: +events_unnested_table {
   # # You can specify the table name if it's different from the view name:
   # sql_table_name: my_schema_name.tester ;;
   #
