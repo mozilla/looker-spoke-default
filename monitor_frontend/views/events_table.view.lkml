@@ -1,111 +1,120 @@
 include: "//looker-hub/monitor_frontend/views/events_unnested_table.view.lkml"
 
 view: +events_unnested_table {
-  # # You can specify the table name if it's different from the view name:
-  # sql_table_name: my_schema_name.tester ;;
-  #
-  # # Define your dimensions and measures here, like this:
-  dimension: user_id {
-    description: "Unique ID for each user that has ordered"
+
+  dimension: event_extra__user_id {
+    description: "Unique user ID"
     hidden: yes
-    type: number
+    type: string
     sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'user_id') ;;
   }
 
-  dimension: path {
+  dimension: event_extra__path {
     description: "The URL or path of the page"
     type: string
     sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'path') ;;
-    label: "Page Path"
+    group_label: "Event Extra"
+    group_item_label: "Page Path"
   }
 
-  dimension: utm_campaign {
+  dimension: event_extra__utm_campaign {
     description: "Marketing and attribution UTM campaign"
     type: string
     sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'utm_campaign') ;;
     label: "UTM Campaign"
   }
 
-  dimension: utm_medium {
+  dimension: event_extra__utm_medium {
     description: "Marketing and attribution UTM medium"
     type: string
     sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'utm_medium') ;;
-    label: " UTM Medium"
+    group_label: "Event Extra"
+    group_item_label: "UTM Medium"
   }
 
-  dimension: utm_source {
+  dimension: event_extra__utm_source {
     description: "Marketing and attribution UTM source"
     type: string
     sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'utm_source') ;;
-    label: "UTM Source"
+    group_label: "Event Extra"
+    group_item_label: "UTM Source"
   }
 
-  dimension: utm_term {
+  dimension: event_extra__utm_term {
     description: "Marketing and attribution UTM term"
     type: string
     sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'utm_term') ;;
-    label: "UTM Term"
+    group_label: "Event Extra"
+    group_item_label: "UTM Term"
   }
 
-  dimension: field_id {
+  dimension: event_extra__field_id {
     description: "The location of an input field that determines where on the web page the interaction is occurring"
     type: string
     sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'field_id') ;;
-    label: "Field ID"
+    group_label: "Event Extra"
+    group_item_label: "Field ID"
   }
 
-  dimension: button_id {
+  dimension: event_extra__button_id {
     description: "The text of the button that was clicked on, used as a way to identify where on the page the interaction is located"
     type: string
     sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'button_id') ;;
-    label: "Button ID"
+    group_label: "Event Extra"
+    group_item_label: "Button ID"
   }
 
-  dimension: popup_id {
+  dimension: event_extra__popup_id {
     description: ""
     type: string
     sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'popup_id') ;;
-    label: "Popup ID"
+    group_label: "Event Extra"
+    group_item_label: "Popup ID"
   }
 
-  dimension: link_id {
+  dimension: event_extra__link_id {
     description: ""
     type: string
     sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'link_id') ;;
-    label: "Link ID"
+    group_label: "Event Extra"
+    group_item_label: "Link ID"
   }
 
-  dimension: dashboard_tab {
+  dimension: event_extra__dashboard_tab {
     description: "Either action_needed or fixed, depending on where in the dashboard the event is recorded."
     type: string
     sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'dashboard_tab') ;;
-    label: "Dashboard Tab"
+    group_label: "Event Extra"
+    group_item_label: "Dashboard Tab"
   }
 
-  dimension: legacy_user {
+  dimension: event_extra__legacy_user {
     description: "A flag indicating whether the user logged into their dashboard previous to the Monitor premium launch."
-    type: string
-    sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'legacy_user') ;;
-    label: "Legacy User"
+    type:  yesno
+    sql: SAFE_CAST(`mozfun.map.get_key`(${TABLE}.event_extra, 'legacy_user') AS BOOL) ;;
+    group_label: "Event Extra"
+    group_item_label: "Legacy User"
   }
 
-  dimension: breach_count {
+  dimension: event_extra__breach_count {
     description: "A count of breaches displayed on the user’s dashboard"
-    type: string
-    sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'breach_count') ;;
-    label: "Breach Count"
+    type: number
+    sql: SAFE_CAST(`mozfun.map.get_key`(${TABLE}.event_extra, 'breach_count') AS INTEGER) ;;
+    group_label: "Event Extra"
+    group_item_label: "Breach Count"
   }
 
-  dimension: broker_count {
+  dimension: event_extra__broker_count {
     description: "A count of data brokers displayed on the user's dashboard"
-    type: string
-    sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'broker_count') ;;
-    label: "Broker Count"
+    type: number
+    sql: SAFE_CAST(`mozfun.map.get_key`(${TABLE}.event_extra, 'broker_count') AS INTEGER) ;;
+    group_label: "Event Extra"
+    group_item_label: "Broker Count"
   }
 
-  measure: user_count {
+  measure: event_extra__user_count {
     description: "Use this for counting lifetime orders across many users"
     type: count_distinct
-    sql: ${user_id} ;;
+    sql: ${event_extra__user_id} ;;
   }
 }
