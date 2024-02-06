@@ -609,7 +609,7 @@
     y_axis_combined: true
     ordering: none
     show_null_labels: false
-    show_totals_labels: false
+    show_totals_labels: true
     show_silhouette: false
     totals_color: "#808080"
     y_axes: [{label: New Subscriptions, orientation: left, series: [{axisId: logical_subscription_events.logical_subscription_count,
@@ -821,16 +821,16 @@
     stacking: normal
     limit_displayed_rows: false
     legend_position: center
-    point_style: none
+    point_style: circle_outline
     show_value_labels: false
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
     ordering: none
     show_null_labels: false
-    show_totals_labels: false
+    show_totals_labels: true
     show_silhouette: false
-    totals_color: "#808080"
+    totals_color: "#0000FF"
     y_axes: [{label: '', orientation: left, series: [{axisId: net_subscriptions, id: net_subscriptions,
             name: Net subscriptions}, {axisId: Subscription End - logical_subscription_events.net_logical_subscription_count,
             id: Subscription End - logical_subscription_events.net_logical_subscription_count,

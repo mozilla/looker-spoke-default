@@ -633,7 +633,7 @@
     limit_displayed_rows: false
     legend_position: center
     point_style: none
-    show_value_labels: true
+    show_value_labels: false
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
@@ -777,7 +777,7 @@
     limit_displayed_rows: false
     legend_position: center
     point_style: none
-    show_value_labels: true
+    show_value_labels: false
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
