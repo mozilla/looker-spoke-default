@@ -466,7 +466,7 @@
     fields: [monthly_active_logical_subscriptions.month_month, monthly_active_logical_subscriptions.logical_subscription_count,
       monthly_active_logical_subscriptions.subscription__plan_summary]
     pivots: [monthly_active_logical_subscriptions.subscription__plan_summary]
-    fill_fields: [monthly_active_logical_subscriptions.month_month]
+    fill_fields: []
     filters: {}
     sorts: [monthly_active_logical_subscriptions.month_month desc, monthly_active_logical_subscriptions.subscription__plan_summary]
     limit: 5000
@@ -610,7 +610,7 @@
     fields: [monthly_active_logical_subscriptions.month_month, monthly_active_logical_subscriptions.logical_subscription_count,
       monthly_active_logical_subscriptions.subscription__plan_interval]
     pivots: [monthly_active_logical_subscriptions.subscription__plan_interval]
-    fill_fields: [monthly_active_logical_subscriptions.month_month]
+    fill_fields: []
     filters: {}
     sorts: [monthly_active_logical_subscriptions.month_month desc, monthly_active_logical_subscriptions.subscription__plan_interval]
     limit: 500
@@ -754,7 +754,7 @@
     fields: [monthly_active_logical_subscriptions.month_month, monthly_active_logical_subscriptions.logical_subscription_count,
       monthly_active_logical_subscriptions.subscription__payment_provider]
     pivots: [monthly_active_logical_subscriptions.subscription__payment_provider]
-    fill_fields: [monthly_active_logical_subscriptions.month_month]
+    fill_fields: []
     filters: {}
     sorts: [monthly_active_logical_subscriptions.month_month desc, monthly_active_logical_subscriptions.subscription__payment_provider]
     limit: 500
@@ -898,7 +898,7 @@
     fields: [monthly_active_logical_subscriptions.month_month, monthly_active_logical_subscriptions.logical_subscription_count,
       countries.name]
     pivots: [countries.name]
-    fill_fields: [monthly_active_logical_subscriptions.month_month]
+    fill_fields: []
     filters: {}
     sorts: [monthly_active_logical_subscriptions.month_month desc, countries.name]
     limit: 5000

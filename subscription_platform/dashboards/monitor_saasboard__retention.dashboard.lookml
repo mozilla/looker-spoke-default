@@ -755,7 +755,7 @@
     fields: [logical_subscriptions.started_at_month, retention_by_month.retained_subscription_count,
       logical_subscriptions.logical_subscription_count, retention_by_month.subscription_month_number]
     pivots: [retention_by_month.subscription_month_number]
-    fill_fields: [logical_subscriptions.started_at_month]
+    fill_fields: []
     filters: {}
     sorts: [logical_subscriptions.started_at_month, retention_by_month.subscription_month_number]
     limit: 500
@@ -830,7 +830,7 @@
     fields: [logical_subscriptions.started_at_month, retention_by_month.retained_subscription_count,
       logical_subscriptions.logical_subscription_count, retention_by_month.subscription_month_number]
     pivots: [logical_subscriptions.started_at_month]
-    fill_fields: [logical_subscriptions.started_at_month]
+    fill_fields: []
     filters: {}
     sorts: [logical_subscriptions.started_at_month, retention_by_month.subscription_month_number]
     limit: 500
@@ -1016,7 +1016,7 @@
     fields: [logical_subscriptions.started_at_month, retention_by_month.retained_subscription_count,
       logical_subscriptions.logical_subscription_count, retention_by_month.subscription_month_number]
     pivots: [retention_by_month.subscription_month_number]
-    fill_fields: [logical_subscriptions.started_at_month]
+    fill_fields: []
     filters: {}
     sorts: [logical_subscriptions.started_at_month, retention_by_month.subscription_month_number]
     limit: 500

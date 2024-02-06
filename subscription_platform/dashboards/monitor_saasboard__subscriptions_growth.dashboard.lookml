@@ -324,6 +324,7 @@
     explore: logical_subscription_events
     type: looker_line
     fields: [logical_subscription_events.logical_subscription_count, logical_subscription_events.timestamp_date]
+    fill_fields: [logical_subscription_events.timestamp_date]
     filters:
       logical_subscription_events.type: Subscription Start
     sorts: [logical_subscription_events.timestamp_date desc]
@@ -351,7 +352,7 @@
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
-    show_null_points: false
+    show_null_points: true
     interpolation: linear
     y_axes: [{label: New Subscriptions, orientation: left, series: [{axisId: logical_subscription_events.logical_subscription_count,
             id: logical_subscription_events.logical_subscription_count, name: Logical
@@ -383,7 +384,7 @@
     fields: [logical_subscription_events.logical_subscription_count, countries.name,
       logical_subscription_events.timestamp_month]
     pivots: [countries.name]
-    fill_fields: [logical_subscription_events.timestamp_month]
+    fill_fields: []
     filters:
       logical_subscription_events.type: Subscription Start
     sorts: [logical_subscription_events.timestamp_month desc, countries.name]
@@ -449,7 +450,7 @@
     fields: [logical_subscription_events.logical_subscription_count, logical_subscription_events.subscription__plan_interval,
       logical_subscription_events.timestamp_month]
     pivots: [logical_subscription_events.subscription__plan_interval]
-    fill_fields: [logical_subscription_events.timestamp_month]
+    fill_fields: []
     filters:
       logical_subscription_events.type: Subscription Start
     sorts: [logical_subscription_events.timestamp_month desc, logical_subscription_events.subscription__plan_interval]
@@ -542,7 +543,7 @@
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
-    show_null_points: false
+    show_null_points: true
     interpolation: linear
     show_totals_labels: false
     show_silhouette: false
@@ -645,7 +646,7 @@
     fields: [logical_subscription_events.logical_subscription_count, logical_subscription_events.subscription__plan_summary,
       logical_subscription_events.timestamp_month]
     pivots: [logical_subscription_events.subscription__plan_summary]
-    fill_fields: [logical_subscription_events.timestamp_month]
+    fill_fields: []
     filters:
       logical_subscription_events.type: Subscription Start
     sorts: [logical_subscription_events.timestamp_month desc, logical_subscription_events.subscription__plan_summary]
