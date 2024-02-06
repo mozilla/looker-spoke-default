@@ -21,7 +21,8 @@ view: +events_unnested_table {
     description: "Marketing and attribution UTM campaign"
     type: string
     sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'utm_campaign') ;;
-    label: "UTM Campaign"
+    group_label: "Event Extra"
+    group_item_label: "UTM Campaign"
   }
 
   dimension: event_extra__utm_medium {
@@ -57,7 +58,7 @@ view: +events_unnested_table {
   }
 
   dimension: event_extra__button_id {
-    description: "The text of the button that was clicked on, used as a way to identify where on the page the interaction is located"
+    description: ""
     type: string
     sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'button_id') ;;
     group_label: "Event Extra"
@@ -81,7 +82,7 @@ view: +events_unnested_table {
   }
 
   dimension: event_extra__dashboard_tab {
-    description: "Either action_needed or fixed, depending on where in the dashboard the event is recorded."
+    description: "Either action-needed or `fixed`, depending on where in the dashboard the event is recorded."
     type: string
     sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'dashboard_tab') ;;
     group_label: "Event Extra"
@@ -112,7 +113,7 @@ view: +events_unnested_table {
     group_item_label: "Broker Count"
   }
 
-  measure: event_extra__user_count {
+  measure: user_count {
     description: "Use this for counting lifetime orders across many users"
     type: count_distinct
     sql: ${event_extra__user_id} ;;
