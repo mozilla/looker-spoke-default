@@ -496,6 +496,7 @@
     fields: [logical_subscriptions.logical_subscription_count, logical_subscriptions.current_period_ends_at_month]
     fill_fields: [logical_subscriptions.current_period_ends_at_month]
     filters:
+      logical_subscriptions.auto_renew: 'No'
       logical_subscriptions.current_period_ends_at_date: after 0 days ago
     sorts: [logical_subscriptions.current_period_ends_at_month]
     limit: 500
