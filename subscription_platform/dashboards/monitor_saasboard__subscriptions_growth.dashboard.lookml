@@ -322,7 +322,7 @@
     name: Daily New Subscriptions
     model: subscription_platform
     explore: logical_subscription_events
-    type: looker_line
+    type: looker_column
     fields: [logical_subscription_events.logical_subscription_count, logical_subscription_events.timestamp_date]
     fill_fields: [logical_subscription_events.timestamp_date]
     filters:
