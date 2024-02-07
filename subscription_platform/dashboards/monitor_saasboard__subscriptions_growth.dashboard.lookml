@@ -608,7 +608,7 @@
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
-    ordering: none
+    ordering: desc
     show_null_labels: false
     show_totals_labels: true
     show_silhouette: false
