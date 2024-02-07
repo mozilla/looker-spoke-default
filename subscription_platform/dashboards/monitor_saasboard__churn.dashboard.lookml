@@ -545,9 +545,9 @@
     show_null_points: true
     interpolation: linear
     defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: 'Note: Subscription Start Date filter does not apply to this chart.'
+    note:
+      text: "The Subscription Start Date filter does not apply to this chart."
+      display: hover
     listen:
       Plan Interval: logical_subscriptions.plan_interval
       Has Refunds (Yes / No): logical_subscriptions.has_refunds
