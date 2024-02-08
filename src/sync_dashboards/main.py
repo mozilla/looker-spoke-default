@@ -6,7 +6,8 @@ import yaml
 import click
 import looker_sdk
 
-from looker_sdk import methods, models
+from looker_sdk import methods40 as methods
+from looker_sdk import models40 as models 
 
 
 logging.basicConfig(
@@ -16,11 +17,11 @@ logging.basicConfig(
 )
 
 
-def setup_sdk(client_id, client_secret, instance) -> methods.Looker31SDK:
+def setup_sdk(client_id, client_secret, instance) -> methods.Looker40SDK:
     os.environ["LOOKERSDK_BASE_URL"] = instance
-    os.environ["LOOKERSDK_API_VERSION"] = "3.1"
+    os.environ["LOOKERSDK_API_VERSION"] = "4.0"
     os.environ["LOOKERSDK_VERIFY_SSL"] = "true"
-    os.environ["LOOKERSDK_TIMEOUT"] = "6000"
+    os.environ["LOOKERSDK_TIMEOUT"] = "9000"
     os.environ["LOOKERSDK_CLIENT_ID"] = client_id
     os.environ["LOOKERSDK_CLIENT_SECRET"] = client_secret
 
@@ -42,13 +43,13 @@ def lookml_uud_mapping(config: dict) -> dict:
     return mappings
 
 
-def get_all_linked_dashboards(sdk: methods.Looker31SDK) -> dict:
+def get_all_linked_dashboards(sdk: methods.Looker40SDK) -> dict:
     """
     Get all dashboards that contain a lookml_link_id.
     """
     remote_config = {}
 
-    transport_options = looker_sdk.rtl.transport.TransportOptions({"timeout": 60 * 100})
+    transport_options = looker_sdk.rtl.transport.TransportOptions({"timeout": 60 * 150})
     dashboards = sdk.search_dashboards(deleted=False, transport_options=transport_options)
 
     for dashboard in dashboards:
@@ -61,7 +62,7 @@ def get_all_linked_dashboards(sdk: methods.Looker31SDK) -> dict:
 
 
 def sync_dashboards(
-    sdk: methods.Looker31SDK, mappings: dict, remote_mappings: dict
+    sdk: methods.Looker40SDK, mappings: dict, remote_mappings: dict
 ) -> None:
     try:
         for lookml_dashboard_id, dashboard_ids in mappings.items():

@@ -12,6 +12,8 @@ include: "//looker-hub/duet/explores/*"
 # do not use those views for other projects, as they are specific to the MR1 dashboard and
 # haven't been developed for general consumption
 include: "mr1DEVELOPMENT/explores.explore.lkml"
+include: "mr1DEVELOPMENT/explores/*explore.lkml"
+include: "mr1DEVELOPMENT/dashboards/*"
 
 explore: releases {
   hidden: yes
@@ -21,6 +23,10 @@ explore: releases {
     ]
   }
 }
+
+explore: ctd_cohort_analysis_mobile {}
+
+explore: ctd_cohort_analysis_desktop {}
 
 explore: kpi_dau {
   sql_always_where: ${submission_date} >= "2022-01-01" AND ${period_filtered_measures} in ("this", "last");;

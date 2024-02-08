@@ -27,14 +27,6 @@ explore: +column_size {
   hidden: yes
 }
 
-explore: +payload_bytes_decoded_all {
-  hidden: yes
-}
-
-explore: +payload_bytes_error_all {
-  hidden: yes
-}
-
 explore: +payload_bytes_error_all {
   hidden: yes
 }
@@ -116,5 +108,9 @@ explore: missing_document_namespaces_notes {
 }
 
 explore: event_monitoring_live {
+  hidden: yes
+}
+
+explore: event_error_monitoring_aggregates {
   hidden: yes
 }
