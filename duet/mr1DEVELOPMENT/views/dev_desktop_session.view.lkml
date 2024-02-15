@@ -40,7 +40,7 @@ WITH tbl AS (
          END AS funnel_derived,
          sum(non_fx_sessions) AS non_fx_sessions,
          sum(non_fx_downloads) AS non_fx_downloads
-  FROM `moz-fx-data-marketing-prod.ga_derived.www_site_metrics_summary_v1`
+  FROM `moz-fx-data-marketing-prod.ga_derived.www_site_metrics_summary_v2`
   WHERE date >= '2021-01-01'
     AND DATE_DIFF(current_date(), date, DAY) > 1
     AND device_category = 'desktop'
