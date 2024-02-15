@@ -33,6 +33,8 @@ view: +fenix_ltv {
   }
 
   measure: average_ltv {
+    type: number
+    value_format: "$0.000"
     label: "Average LTV"
     sql: SAFE_DIVIDE(${ltv},  ${total_users});;
     description: "The predicted LTV of a single user, in US dollars."
