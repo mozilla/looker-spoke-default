@@ -12,7 +12,7 @@ view: firefox_whats_new_page_summary {
               page_level_2 AS version,
               country,
               IF(hit_number = first_interaction AND bounces = 1, TRUE, FALSE) AS is_bounce
-         FROM `moz-fx-data-marketing-prod.ga_derived.www_site_hits_v2`
+         FROM `moz-fx-data-marketing-prod.ga_derived.www_site_hits_v1`
          WHERE page_name LIKE '/firefox/%/whatsnew%'
            AND hit_type = 'PAGE'
            AND page_level_1 = 'firefox'
