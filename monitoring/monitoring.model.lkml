@@ -4,7 +4,7 @@ include: "//looker-hub/monitoring/explores/*"
 include: "//looker-hub/monitoring/views/*"
 include: "views/*"
 include: "explores/*"
-include: "dashboards/*"
+# include: "dashboards/*"
 
 # todo: hide explores once dashboard has been implemented
 view: +payload_bytes_error_all {
