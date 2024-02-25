@@ -28,8 +28,7 @@ view: mozilla_accounts_multi_service_dau {
         'Mozilla Support',
         'Pontoon',
         'Mozilla Hubs')
-    AND date(e.submission_timestamp) > '2024-02-22'
-    AND e.metrics.string.event_name like r'access\_token%'
+    WHERE e.metrics.string.event_name like r'access\_token%'
     GROUP BY
       1, 2
     HAVING ARRAY_LENGTH(services) > 1;;
