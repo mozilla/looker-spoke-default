@@ -3,7 +3,7 @@ view: mozilla_accounts_multi_service_dau {
   derived_table: {
 
     sql:
-        SELECT
+    SELECT
       DATE(e.submission_timestamp) as submission_date,
       e.metrics.string.account_user_id_sha256 AS user_id,
       ARRAY_AGG(DISTINCT c.name IGNORE NULLS ORDER BY c.name) as services,
@@ -68,10 +68,6 @@ view: mozilla_accounts_multi_service_dau {
     sql:  ARRAY_TO_STRING(${TABLE}.services, ' + ') ;;
   }
 
-  dimension: country_code {
-    type:  string
-    sql:  ${TABLE}.country_code ;;
-  }
 }
 
 view:  mozilla_accounts_multi_service_dau__services{
