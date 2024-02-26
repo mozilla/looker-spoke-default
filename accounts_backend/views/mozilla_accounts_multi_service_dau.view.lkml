@@ -13,21 +13,23 @@ view: mozilla_accounts_multi_service_dau {
       `mozdata.accounts_db.fxa_oauth_clients` AS c
     ON e.metrics.string.relying_party_oauth_client_id = c.id
     WHERE c.name IN
-        ('Firefox',
+        (
+        'AMO Stage',
+        'Firefox',
         'Firefox iOS',
         'Firefox for Android',
+        'Firefox Relay',
         'MDN Plus',
         'Mozilla VPN',
         'Mozilla Monitor',
-        'Firefox Relay',
-        'Pocket',
-        'AMO Stage',
-        'Thunderbird Add-ons',
         'Mozilla IAM',
         'Mozilla Social',
         'Mozilla Support',
+        'Mozilla Hubs'
         'Pontoon',
-        'Mozilla Hubs')
+        'Pocket',
+        'Thunderbird Add-ons'
+        )
     AND e.metrics.string.event_name like r'access\_token%'
     GROUP BY
       1, 2
