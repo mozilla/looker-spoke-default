@@ -6,7 +6,7 @@ view: mozilla_accounts_multi_service_dau {
     SELECT
       DATE(e.submission_timestamp) as submission_date,
       e.metrics.string.account_user_id_sha256 AS user_id,
-      ARRAY_AGG(DISTINCT c.name IGNORE NULLS ORDER BY c.name) as services,
+      ARRAY_AGG(DISTINCT c.name IGNORE NULLS ORDER BY c.name) as service_names,
     FROM
       `mozdata.accounts_backend.accounts_events` AS e
     JOIN
@@ -28,10 +28,10 @@ view: mozilla_accounts_multi_service_dau {
         'Mozilla Support',
         'Pontoon',
         'Mozilla Hubs')
-    WHERE e.metrics.string.event_name like r'access\_token%'
+    AND e.metrics.string.event_name like r'access\_token%'
     GROUP BY
       1, 2
-    HAVING ARRAY_LENGTH(services) > 1;;
+    HAVING ARRAY_LENGTH(service_names) > 1;;
   }
 
   measure: user_count {
@@ -60,18 +60,18 @@ view: mozilla_accounts_multi_service_dau {
 
   dimension: services_quantity {
     type: number
-    sql:  ARRAY_LENGTH(${TABLE}.services) ;;
+    sql:  ARRAY_LENGTH(${TABLE}.service_names) ;;
   }
 
-  dimension: service_list {
+  dimension: service_names {
     type: string
-    sql:  ARRAY_TO_STRING(${TABLE}.services, ' + ') ;;
+    sql:  ARRAY_TO_STRING(${TABLE}.service_names, ' + ') ;;
   }
 
 }
 
-view:  mozilla_accounts_multi_service_dau__services{
-  dimension: service {
+view:  mozilla_accounts_multi_service_dau__service_names{
+  dimension: service_name {
     type: string
     sql: ${TABLE} ;;
   }
