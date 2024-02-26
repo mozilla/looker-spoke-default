@@ -25,7 +25,7 @@ view: mozilla_accounts_multi_service_dau {
         'Mozilla IAM',
         'Mozilla Social',
         'Mozilla Support',
-        'Mozilla Hubs'
+        'Mozilla Hubs',
         'Pontoon',
         'Pocket',
         'Thunderbird Add-ons'
