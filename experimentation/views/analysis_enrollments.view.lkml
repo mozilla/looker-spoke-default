@@ -1,10 +1,6 @@
 view: analysis_enrollments {
   parameter: slug {
     type: unquoted
-    suggest_explore: experimenter_experiments
-    suggest_dimension: slug
-    suggestable: yes
-    full_suggestions: yes
   }
 
   parameter: segment {
