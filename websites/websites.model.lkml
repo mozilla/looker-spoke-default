@@ -1,6 +1,7 @@
 connection: "telemetry"
 label: "Websites"
 
+include: "explores/*"
 include: "views/*"
 
 
