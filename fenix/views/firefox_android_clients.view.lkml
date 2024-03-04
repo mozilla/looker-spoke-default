@@ -9,7 +9,9 @@ view: +firefox_android_clients {
   }
 
   measure: client_count {
-    type: count
+    type: count_distinct
+    sql: ${TABLE}.client_id ;;
+    description: "Count of clients."
   }
 
   dimension: last_reported_adjust_ad_group {
