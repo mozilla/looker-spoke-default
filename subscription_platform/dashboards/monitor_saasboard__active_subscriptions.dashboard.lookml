@@ -9,7 +9,7 @@
   - name: Active Date
     title: Active Date
     type: field_filter
-    default_value: after 2024-02-06
+    default_value: after 2024-02-01
     allow_multiple_values: true
     required: false
     ui_config:
