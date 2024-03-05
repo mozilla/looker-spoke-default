@@ -6,10 +6,9 @@
   description: ''
   preferred_slug: LO0Ak9rf8cBqZdEeuvl7BN
   elements:
-  - name: Navbar
+  - name: ''
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |
       <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px;">
 
@@ -46,10 +45,9 @@
     col: 0
     width: 24
     height: 2
-  - name: Notes
+  - name: " (2)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style='background-color: #ffffdd; padding: 5px 10px; border: solid 3px #ededed; border-radius: 5px; height:160px'>
 
@@ -123,7 +121,6 @@
     type: looker_column
     fields: [retention_by_month.subscription_month_number, retention_by_month.churned_subscription_count,
       retention_by_month.previously_retained_subscription_count]
-    filters: {}
     sorts: [retention_by_month.subscription_month_number]
     limit: 500
     column_limit: 50
@@ -167,8 +164,8 @@
             id: retention_by_month.churned_subscription_count, name: Churned Subscription
               Count}], showLabels: true, showValues: true, unpinAxis: false, tickDensity: custom,
         tickDensityCustom: 70, type: linear}, {label: !!null '', orientation: right,
-        series: [{axisId: churn_rate, id: churn_rate, name: Churn Rate}],
-        showLabels: true, showValues: true, valueFormat: 0%, unpinAxis: false, tickDensity: default,
+        series: [{axisId: churn_rate, id: churn_rate, name: Churn Rate}], showLabels: true,
+        showValues: true, valueFormat: 0%, unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
     x_axis_zoom: true
     y_axis_zoom: true
@@ -200,7 +197,6 @@
     type: looker_line
     fields: [retention_by_month.churned_subscription_count, retention_by_month.previously_retained_subscription_count,
       logical_subscriptions.started_at_month]
-    filters: {}
     sorts: [logical_subscriptions.started_at_month]
     limit: 500
     column_limit: 50
@@ -237,10 +233,9 @@
     y_axis_combined: true
     show_null_points: false
     interpolation: linear
-    y_axes: [{label: !!null '', orientation: left, series: [{axisId: churn_rate,
-            id: churn_rate, name: Churn Rate}], showLabels: false, showValues: true,
-        valueFormat: 0%, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
-        type: linear}]
+    y_axes: [{label: !!null '', orientation: left, series: [{axisId: churn_rate, id: churn_rate,
+            name: Churn Rate}], showLabels: false, showValues: true, valueFormat: 0%,
+        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     x_axis_label: Cohort
     x_axis_zoom: true
     y_axis_zoom: true
@@ -333,9 +328,10 @@
     y_axes: [{label: '', orientation: left, series: [{axisId: churned_subscription_count,
             id: churned_subscription_count, name: Churned Subscription Count}], showLabels: true,
         showValues: true, unpinAxis: false, tickDensity: default, type: linear}, {
-        label: !!null '', orientation: right, series: [{axisId: pooled_churn_rate, id: pooled_churn_rate,
-            name: Pooled Churn Rate}], showLabels: true, showValues: true, valueFormat: 0%,
-        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
+        label: !!null '', orientation: right, series: [{axisId: pooled_churn_rate,
+            id: pooled_churn_rate, name: Pooled Churn Rate}], showLabels: true, showValues: true,
+        valueFormat: 0%, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
+        type: linear}]
     x_axis_zoom: true
     y_axis_zoom: true
     hide_legend: true
@@ -425,9 +421,9 @@
     show_null_points: true
     interpolation: linear
     defaults_version: 1
-    note:
-      text: "The Subscription Start Date filter does not apply to this chart."
-      display: hover
+    note_state: collapsed
+    note_display: hover
+    note_text: The Subscription Start Date filter does not apply to this chart.
     listen:
       Plan Interval: logical_subscriptions.plan_interval
       Has Refunds (Yes / No): logical_subscriptions.has_refunds
@@ -441,10 +437,9 @@
     col: 12
     width: 12
     height: 8
-  - name: Churn by Plan Interval heading
+  - name: " (3)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
@@ -463,7 +458,6 @@
     fields: [retention_by_month.churned_subscription_count, retention_by_month.previously_retained_subscription_count,
       retention_by_month.subscription_month_number, logical_subscriptions.plan_interval]
     pivots: [logical_subscriptions.plan_interval]
-    filters: {}
     sorts: [retention_by_month.subscription_month_number, logical_subscriptions.plan_interval]
     limit: 500
     column_limit: 50
@@ -536,7 +530,6 @@
       retention_by_month.subscription_month_number, logical_subscriptions.plan_interval,
       logical_subscriptions.plan_interval_months]
     pivots: [retention_by_month.subscription_month_number]
-    filters: {}
     sorts: [retention_by_month.subscription_month_number, logical_subscriptions.plan_interval_months]
     limit: 500
     column_limit: 50
@@ -580,9 +573,9 @@
             id: retention_by_month.churned_subscription_count, name: Churned Subscription
               Count}], showLabels: true, showValues: true, unpinAxis: false, tickDensity: custom,
         tickDensityCustom: 70, type: linear}, {label: !!null '', orientation: left,
-        series: [{axisId: churn_rate, id: churn_rate, name: Churn Rate}],
-        showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
-        tickDensityCustom: 5, type: linear}]
+        series: [{axisId: churn_rate, id: churn_rate, name: Churn Rate}], showLabels: true,
+        showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
+        type: linear}]
     show_y_axis_labels: true
     show_y_axis_ticks: true
     y_axis_tick_density: default
@@ -639,7 +632,6 @@
     fields: [retention_by_month.churned_subscription_count, retention_by_month.subscription_month_number,
       logical_subscriptions.plan_interval, logical_subscriptions.plan_interval_months]
     pivots: [retention_by_month.subscription_month_number]
-    filters: {}
     sorts: [retention_by_month.subscription_month_number, logical_subscriptions.plan_interval_months]
     limit: 500
     column_limit: 50
@@ -687,9 +679,9 @@
             id: retention_by_month.churned_subscription_count, name: Churned Subscription
               Count}], showLabels: true, showValues: true, unpinAxis: false, tickDensity: custom,
         tickDensityCustom: 70, type: linear}, {label: !!null '', orientation: left,
-        series: [{axisId: churn_rate, id: churn_rate, name: Churn Rate}],
-        showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
-        tickDensityCustom: 5, type: linear}]
+        series: [{axisId: churn_rate, id: churn_rate, name: Churn Rate}], showLabels: true,
+        showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
+        type: linear}]
     show_y_axis_labels: true
     show_y_axis_ticks: true
     y_axis_tick_density: default
@@ -737,10 +729,9 @@
     col: 0
     width: 24
     height: 4
-  - name: Churn by Cohort heading
+  - name: " (4)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
@@ -759,8 +750,6 @@
     fields: [logical_subscriptions.started_at_month, retention_by_month.churned_subscription_count,
       retention_by_month.previously_retained_subscription_count, retention_by_month.subscription_month_number]
     pivots: [retention_by_month.subscription_month_number]
-    fill_fields: []
-    filters: {}
     sorts: [retention_by_month.subscription_month_number, logical_subscriptions.started_at_month]
     limit: 500
     column_limit: 50
@@ -849,7 +838,6 @@
     fields: [logical_subscriptions.started_at_month, retention_by_month.churned_subscription_count,
       retention_by_month.previously_retained_subscription_count, retention_by_month.subscription_month_number]
     pivots: [retention_by_month.subscription_month_number]
-    filters: {}
     sorts: [retention_by_month.subscription_month_number, logical_subscriptions.started_at_month]
     limit: 500
     column_limit: 50
@@ -945,7 +933,6 @@
     fields: [logical_subscriptions.started_at_month, retention_by_month.churned_subscription_count,
       retention_by_month.subscription_month_number]
     pivots: [retention_by_month.subscription_month_number]
-    filters: {}
     sorts: [retention_by_month.subscription_month_number, logical_subscriptions.started_at_month]
     limit: 500
     column_limit: 50

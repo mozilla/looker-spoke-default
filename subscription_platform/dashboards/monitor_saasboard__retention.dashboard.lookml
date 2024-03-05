@@ -6,10 +6,9 @@
   description: ''
   preferred_slug: 4OLpCAQsglh1d434LNOjP5
   elements:
-  - name: Navbar
+  - name: ''
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |
       <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px;">
 
@@ -46,10 +45,9 @@
     col: 0
     width: 24
     height: 2
-  - name: Notes
+  - name: " (2)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style='background-color: #ffffdd; padding: 5px 10px; border: solid 3px #ededed; border-radius: 5px; height:160px'>
 
@@ -116,10 +114,9 @@
     col: 16
     width: 8
     height: 4
-  - name: Retention Rate heading
+  - name: " (3)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
@@ -137,7 +134,6 @@
     type: looker_column
     fields: [retention_by_month.subscription_month_number, retention_by_month.retained_subscription_count,
       logical_subscriptions.logical_subscription_count]
-    filters: {}
     sorts: [retention_by_month.subscription_month_number]
     limit: 500
     column_limit: 50
@@ -217,7 +213,6 @@
     type: looker_column
     fields: [retention_by_month.retained_subscription_count, logical_subscriptions.started_at_month,
       logical_subscriptions.logical_subscription_count]
-    filters: {}
     sorts: [logical_subscriptions.started_at_month]
     limit: 500
     column_limit: 50
@@ -291,10 +286,9 @@
     col: 12
     width: 12
     height: 9
-  - name: Retention by Plan Interval heading
+  - name: " (4)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
@@ -306,14 +300,13 @@
     width: 24
     height: 2
   - title: Retention Rate by Plan Interval
-    name: Retention by Plan Interval
+    name: Retention Rate by Plan Interval
     model: subscription_platform
     explore: logical_subscriptions
     type: looker_line
     fields: [retention_by_month.subscription_month_number, retention_by_month.retained_subscription_count,
       logical_subscriptions.logical_subscription_count, logical_subscriptions.plan_interval]
     pivots: [logical_subscriptions.plan_interval]
-    filters: {}
     sorts: [retention_by_month.subscription_month_number, logical_subscriptions.plan_interval]
     limit: 500
     column_limit: 50
@@ -390,7 +383,6 @@
       logical_subscriptions.logical_subscription_count, logical_subscriptions.plan_interval,
       logical_subscriptions.plan_interval_months]
     pivots: [retention_by_month.subscription_month_number]
-    filters: {}
     sorts: [retention_by_month.subscription_month_number, logical_subscriptions.plan_interval_months]
     limit: 500
     column_limit: 50
@@ -504,7 +496,6 @@
     fields: [retention_by_month.subscription_month_number, retention_by_month.retained_subscription_count,
       logical_subscriptions.plan_interval, logical_subscriptions.plan_interval_months]
     pivots: [retention_by_month.subscription_month_number]
-    filters: {}
     sorts: [retention_by_month.subscription_month_number, logical_subscriptions.plan_interval_months]
     limit: 500
     column_limit: 50
@@ -612,10 +603,9 @@
     col: 0
     width: 24
     height: 4
-  - name: Retention by Cohort heading
+  - name: " (5)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
@@ -634,8 +624,6 @@
     fields: [logical_subscriptions.started_at_month, retention_by_month.retained_subscription_count,
       logical_subscriptions.logical_subscription_count, retention_by_month.subscription_month_number]
     pivots: [retention_by_month.subscription_month_number]
-    fill_fields: []
-    filters: {}
     sorts: [logical_subscriptions.started_at_month, retention_by_month.subscription_month_number]
     limit: 500
     column_limit: 50
@@ -709,8 +697,6 @@
     fields: [logical_subscriptions.started_at_month, retention_by_month.retained_subscription_count,
       logical_subscriptions.logical_subscription_count, retention_by_month.subscription_month_number]
     pivots: [logical_subscriptions.started_at_month]
-    fill_fields: []
-    filters: {}
     sorts: [logical_subscriptions.started_at_month, retention_by_month.subscription_month_number]
     limit: 500
     column_limit: 50
@@ -782,7 +768,6 @@
     fields: [logical_subscriptions.started_at_month, retention_by_month.retained_subscription_count,
       logical_subscriptions.logical_subscription_count, retention_by_month.subscription_month_number]
     pivots: [retention_by_month.subscription_month_number]
-    filters: {}
     sorts: [logical_subscriptions.started_at_month, retention_by_month.subscription_month_number]
     limit: 500
     column_limit: 50
@@ -895,8 +880,6 @@
     fields: [logical_subscriptions.started_at_month, retention_by_month.retained_subscription_count,
       logical_subscriptions.logical_subscription_count, retention_by_month.subscription_month_number]
     pivots: [retention_by_month.subscription_month_number]
-    fill_fields: []
-    filters: {}
     sorts: [logical_subscriptions.started_at_month, retention_by_month.subscription_month_number]
     limit: 500
     column_limit: 50

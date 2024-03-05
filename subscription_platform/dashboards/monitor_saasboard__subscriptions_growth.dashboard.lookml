@@ -6,10 +6,9 @@
   description: ''
   preferred_slug: STOyQVJV1ejgsvmUcLxFFH
   elements:
-  - name: Navbar
+  - name: ''
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |
       <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px;">
 
@@ -46,10 +45,9 @@
     col: 0
     width: 24
     height: 2
-  - name: Notes
+  - name: " (2)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style='background-color: #ffffdd; padding: 5px 10px; border: solid 3px #ededed; border-radius: 5px; height:160px'>
 
@@ -116,10 +114,9 @@
     col: 16
     width: 8
     height: 4
-  - name: New Subscriptions heading
+  - name: " (3)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
@@ -231,6 +228,11 @@
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
     show_null_points: true
     interpolation: linear
     y_axes: [{label: New Subscriptions, orientation: left, series: [{axisId: logical_subscription_events.logical_subscription_count,
@@ -263,7 +265,6 @@
     fields: [logical_subscription_events.logical_subscription_count, countries.name,
       logical_subscription_events.timestamp_month]
     pivots: [countries.name]
-    fill_fields: []
     filters:
       logical_subscription_events.type: Subscription Start
     sorts: [logical_subscription_events.timestamp_month desc, countries.name]
@@ -329,7 +330,6 @@
     fields: [logical_subscription_events.logical_subscription_count, logical_subscription_events.subscription__plan_interval,
       logical_subscription_events.timestamp_month]
     pivots: [logical_subscription_events.subscription__plan_interval]
-    fill_fields: []
     filters:
       logical_subscription_events.type: Subscription Start
     sorts: [logical_subscription_events.timestamp_month desc, logical_subscription_events.subscription__plan_interval]
@@ -525,7 +525,6 @@
     fields: [logical_subscription_events.logical_subscription_count, logical_subscription_events.subscription__plan_summary,
       logical_subscription_events.timestamp_month]
     pivots: [logical_subscription_events.subscription__plan_summary]
-    fill_fields: []
     filters:
       logical_subscription_events.type: Subscription Start
     sorts: [logical_subscription_events.timestamp_month desc, logical_subscription_events.subscription__plan_summary]
@@ -700,9 +699,10 @@
     interpolation: linear
     defaults_version: 1
     hidden_pivots: {}
-    note:
-      text: "This chart only includes new subscriptions that were attributed to a campaign."
-      display: hover
+    note_state: collapsed
+    note_display: hover
+    note_text: This chart only includes new subscriptions that were attributed to
+      a campaign.
     listen:
       Payment Provider: logical_subscription_events.subscription__payment_provider
       Subscription Start Date: logical_subscription_events.timestamp_date
@@ -717,10 +717,9 @@
     col: 12
     width: 12
     height: 10
-  - name: Net New Subscriptions heading
+  - name: " (4)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 

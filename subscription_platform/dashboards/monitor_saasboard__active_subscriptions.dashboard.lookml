@@ -6,10 +6,9 @@
   description: ''
   preferred_slug: wNM1LnNxpIHORchipapYYV
   elements:
-  - name: Navbar
+  - name: ''
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |
       <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px;">
 
@@ -46,10 +45,9 @@
     col: 0
     width: 24
     height: 2
-  - name: Notes
+  - name: " (2)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style='background-color: #ffffdd; padding: 5px 10px; border: solid 3px #ededed; border-radius: 5px; height:160px'>
 
@@ -116,10 +114,9 @@
     col: 16
     width: 8
     height: 4
-  - name: Active Subscriptions heading
+  - name: " (3)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
@@ -251,10 +248,9 @@
     col: 8
     width: 16
     height: 8
-  - name: Active Subscriptions by Plan heading
+  - name: " (4)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
@@ -345,8 +341,6 @@
     fields: [monthly_active_logical_subscriptions.month_month, monthly_active_logical_subscriptions.logical_subscription_count,
       monthly_active_logical_subscriptions.subscription__plan_summary]
     pivots: [monthly_active_logical_subscriptions.subscription__plan_summary]
-    fill_fields: []
-    filters: {}
     sorts: [monthly_active_logical_subscriptions.month_month desc, monthly_active_logical_subscriptions.subscription__plan_summary]
     limit: 5000
     column_limit: 100
@@ -395,10 +389,9 @@
     col: 12
     width: 12
     height: 8
-  - name: Active Subscriptions by Plan Interval heading
+  - name: " (5)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
@@ -489,8 +482,6 @@
     fields: [monthly_active_logical_subscriptions.month_month, monthly_active_logical_subscriptions.logical_subscription_count,
       monthly_active_logical_subscriptions.subscription__plan_interval]
     pivots: [monthly_active_logical_subscriptions.subscription__plan_interval]
-    fill_fields: []
-    filters: {}
     sorts: [monthly_active_logical_subscriptions.month_month desc, monthly_active_logical_subscriptions.subscription__plan_interval]
     limit: 500
     column_limit: 50
@@ -539,10 +530,9 @@
     col: 12
     width: 12
     height: 8
-  - name: Active Subscriptions by Payment Provider heading
+  - name: " (6)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
@@ -633,8 +623,6 @@
     fields: [monthly_active_logical_subscriptions.month_month, monthly_active_logical_subscriptions.logical_subscription_count,
       monthly_active_logical_subscriptions.subscription__payment_provider]
     pivots: [monthly_active_logical_subscriptions.subscription__payment_provider]
-    fill_fields: []
-    filters: {}
     sorts: [monthly_active_logical_subscriptions.month_month desc, monthly_active_logical_subscriptions.subscription__payment_provider]
     limit: 500
     column_limit: 50
@@ -683,10 +671,9 @@
     col: 12
     width: 12
     height: 8
-  - name: Active Subscriptions by Country heading
+  - name: " (7)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
@@ -777,8 +764,6 @@
     fields: [monthly_active_logical_subscriptions.month_month, monthly_active_logical_subscriptions.logical_subscription_count,
       countries.name]
     pivots: [countries.name]
-    fill_fields: []
-    filters: {}
     sorts: [monthly_active_logical_subscriptions.month_month desc, countries.name]
     limit: 5000
     column_limit: 100
