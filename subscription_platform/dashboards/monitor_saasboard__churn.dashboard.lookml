@@ -5,127 +5,6 @@
   preferred_viewer: dashboards-next
   description: ''
   preferred_slug: LO0Ak9rf8cBqZdEeuvl7BN
-  filters:
-  - name: Subscription Start Date
-    title: Subscription Start Date
-    type: field_filter
-    default_value: after 2024-02-01
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: advanced
-      display: popover
-      options: []
-    model: subscription_platform
-    explore: logical_subscriptions
-    listens_to_filters: []
-    field: logical_subscriptions.started_at_date
-  - name: Payment Provider
-    title: Payment Provider
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: checkboxes
-      display: popover
-    model: subscription_platform
-    explore: logical_subscriptions
-    listens_to_filters: [Subscription Start Date, Service ID]
-    field: logical_subscriptions.payment_provider
-  - name: Plan Interval
-    title: Plan Interval
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: checkboxes
-      display: popover
-    model: subscription_platform
-    explore: logical_subscriptions
-    listens_to_filters: [Subscription Start Date, Service ID]
-    field: logical_subscriptions.plan_interval
-  - name: Plan
-    title: Plan
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: checkboxes
-      display: popover
-    model: subscription_platform
-    explore: logical_subscriptions
-    listens_to_filters: [Subscription Start Date, Plan Interval, Service ID]
-    field: logical_subscriptions.plan_summary
-  - name: Region
-    title: Region
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: checkboxes
-      display: popover
-    model: subscription_platform
-    explore: logical_subscriptions
-    listens_to_filters: [Subscription Start Date, Service ID]
-    field: countries.region_name
-  - name: Country
-    title: Country
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: checkboxes
-      display: popover
-    model: subscription_platform
-    explore: logical_subscriptions
-    listens_to_filters: [Region, Subscription Start Date, Service ID]
-    field: countries.name
-  - name: Has Fraudulent Charges (Yes / No)
-    title: Has Fraudulent Charges (Yes / No)
-    type: field_filter
-    default_value: 'No'
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: dropdown_menu
-      display: overflow
-    model: subscription_platform
-    explore: logical_subscriptions
-    listens_to_filters: []
-    field: logical_subscriptions.has_fraudulent_charges
-  - name: Has Refunds (Yes / No)
-    title: Has Refunds (Yes / No)
-    type: field_filter
-    default_value: 'No'
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: dropdown_menu
-      display: overflow
-    model: subscription_platform
-    explore: logical_subscriptions
-    listens_to_filters: []
-    field: logical_subscriptions.has_refunds
-  - name: Service ID
-    title: Service ID
-    type: field_filter
-    default_value: Monitor
-    allow_multiple_values: true
-    required: true
-    ui_config:
-      type: button_toggles
-      display: overflow
-      options:
-      - Monitor
-    model: subscription_platform
-    explore: logical_subscriptions
-    listens_to_filters: []
-    field: subscription_services.id
   elements:
   - name: Navbar
     type: text
@@ -1166,3 +1045,124 @@
     col: 0
     width: 24
     height: 5
+  filters:
+  - name: Subscription Start Date
+    title: Subscription Start Date
+    type: field_filter
+    default_value: after 2024-02-01
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: advanced
+      display: popover
+      options: []
+    model: subscription_platform
+    explore: logical_subscriptions
+    listens_to_filters: []
+    field: logical_subscriptions.started_at_date
+  - name: Payment Provider
+    title: Payment Provider
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: checkboxes
+      display: popover
+    model: subscription_platform
+    explore: logical_subscriptions
+    listens_to_filters: [Subscription Start Date, Service ID]
+    field: logical_subscriptions.payment_provider
+  - name: Plan Interval
+    title: Plan Interval
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: checkboxes
+      display: popover
+    model: subscription_platform
+    explore: logical_subscriptions
+    listens_to_filters: [Subscription Start Date, Service ID]
+    field: logical_subscriptions.plan_interval
+  - name: Plan
+    title: Plan
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: checkboxes
+      display: popover
+    model: subscription_platform
+    explore: logical_subscriptions
+    listens_to_filters: [Subscription Start Date, Plan Interval, Service ID]
+    field: logical_subscriptions.plan_summary
+  - name: Region
+    title: Region
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: checkboxes
+      display: popover
+    model: subscription_platform
+    explore: logical_subscriptions
+    listens_to_filters: [Subscription Start Date, Service ID]
+    field: countries.region_name
+  - name: Country
+    title: Country
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: checkboxes
+      display: popover
+    model: subscription_platform
+    explore: logical_subscriptions
+    listens_to_filters: [Region, Subscription Start Date, Service ID]
+    field: countries.name
+  - name: Has Fraudulent Charges (Yes / No)
+    title: Has Fraudulent Charges (Yes / No)
+    type: field_filter
+    default_value: 'No'
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: dropdown_menu
+      display: overflow
+    model: subscription_platform
+    explore: logical_subscriptions
+    listens_to_filters: []
+    field: logical_subscriptions.has_fraudulent_charges
+  - name: Has Refunds (Yes / No)
+    title: Has Refunds (Yes / No)
+    type: field_filter
+    default_value: 'No'
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: dropdown_menu
+      display: overflow
+    model: subscription_platform
+    explore: logical_subscriptions
+    listens_to_filters: []
+    field: logical_subscriptions.has_refunds
+  - name: Service ID
+    title: Service ID
+    type: field_filter
+    default_value: Monitor
+    allow_multiple_values: true
+    required: true
+    ui_config:
+      type: button_toggles
+      display: overflow
+      options:
+      - Monitor
+    model: subscription_platform
+    explore: logical_subscriptions
+    listens_to_filters: []
+    field: subscription_services.id
