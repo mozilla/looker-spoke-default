@@ -5,13 +5,13 @@ view: fx_view_customization {
         clients AS (
             SELECT
                 client_id,
-                MAX(CASE WHEN c.key LIKE 'firefox-view-button_remove%' THEN submission_timestamp END) AS latest_remove,
-                MAX(CASE WHEN c.key LIKE 'firefox-view-button_add%' THEN submission_timestamp END) AS latest_add,
+                MAX(CASE WHEN c.key LIKE r'firefox-view-button\_remove%' THEN submission_timestamp END) AS latest_remove,
+                MAX(CASE WHEN c.key LIKE r'firefox-view-button\_add%' THEN submission_timestamp END) AS latest_add,
             FROM telemetry.main_1pct
             CROSS JOIN UNNEST(payload.processes.parent.keyed_scalars.browser_ui_customized_widgets) c
             WHERE DATE(submission_timestamp) >= DATE(2022, 9, 20)
             AND ARRAY_LENGTH(payload.processes.parent.keyed_scalars.browser_ui_customized_widgets) != 0
-            AND (c.key LIKE 'firefox-view-button_remove%' OR c.key LIKE 'firefox-view-button_add%')
+            AND (c.key LIKE r'firefox-view-button\_remove%' OR c.key LIKE r'firefox-view-button\_add%')
             AND SAFE_CAST(SUBSTR(application.display_version, 1, 3) AS float64) >= 106
             GROUP BY 1
         )

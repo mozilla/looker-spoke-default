@@ -4,9 +4,10 @@ include: "/shared/views/countries.view.lkml"
 datagroup: clients_daily_joined_partitions {
   max_cache_age: "24 hours"
   sql_trigger:
-    SELECT MAX(last_modified_time)
-    FROM `moz-fx-data-shared-prod`.telemetry_derived.INFORMATION_SCHEMA.PARTITIONS
-    WHERE table_name = "clients_daily_joined_v1" ;;
+    SELECT MAX(storage_last_modified_time)
+    FROM `moz-fx-data-shared-prod`.`region_us`.INFORMATION_SCHEMA.TABLE_STORAGE
+    WHERE table_schema = "telemetry_derived"
+    AND table_name = "clients_daily_joined_v1" ;;
   label: "Clients Daily Joined Partitions"
   description: "Updates when new partitions are added to clients_daily_joined"
 }

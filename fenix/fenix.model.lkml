@@ -3,13 +3,9 @@ label: "Firefox for Android"
 include: "//looker-hub/fenix/explores/*"
 include: "explores/*.explore.lkml"
 
+include: "/fenix/explores/fenix_feature_usage_metrics.explore.lkml"
+include: "/fenix/explores/fenix_feature_usage_events.explore.lkml"
 
-explore: +topsites_impression {
-  hidden: yes
-}
-
-# temporary workaround until fields are accessible
-# https://bugzilla.mozilla.org/show_bug.cgi?id=1764332
 
 include: "//looker-hub/fenix/views/metrics.view.lkml"
 include: "/fenix/views/test_mobile_feature.view.lkml"
@@ -31,6 +27,18 @@ include: "/fenix/views/android_customize_home_metrics.view.lkml"
 include: "/fenix/views/android_customize_home_events.view.lkml"
 include: "/fenix/views/android_store_performance.view.lkml"
 include: "/fenix/views/funnel_retention_week_4.view.lkml"
+include: "/fenix/views/fenix_feature_usage_metrics.view.lkml"
+include: "/fenix/views/fenix_feature_usage_events.view.lkml"
+include: "/fenix/views/fenix_dau.view.lkml"
+
+
+
+explore: +topsites_impression {
+  hidden: yes
+}
+
+# temporary workaround until fields are accessible
+# https://bugzilla.mozilla.org/show_bug.cgi?id=1764332
 
 
 

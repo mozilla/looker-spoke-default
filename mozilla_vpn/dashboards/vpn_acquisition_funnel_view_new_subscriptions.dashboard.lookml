@@ -1,5 +1,5 @@
-- dashboard: vpn_acquisition_funnel_view__new_subscriptions
-  title: VPN Acquisition Funnel View - New Subscriptions
+- dashboard: vpn_acquisition_funnel_view__new_subscriptions_desktop_only
+  title: VPN Acquisition Funnel View - New Subscriptions (Desktop Only)
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
@@ -10,16 +10,32 @@
   - name: ''
     type: text
     title_text: ''
-    body_text: |2-
+    body_text: |
+      <div style="border-radius: 5px; padding: 5px 10px; background: #FFFFFF; height: 60px; color: red;">
 
-      <div style="border-top: solid 2px #e0e0e0;">
+      <nav style="font-size: 20px;">
 
-      <h3><b>Contact @yeonjoo for questions in #mozilla-vpn-data </b></h3>
-       <div style="border-bottom: solid 2px #e0e0e0;">
-    row: 2
+        <img style="color: #000000; padding: 5px 10px; float: left; height: 40px;" src="https://www.mozilla.org/media/img/logos/vpn/logo-with-wordmark.c1659f9e6dd6.svg"/>
+
+        <a style="color: #000000; border: 1px solid white; padding: 5px 80px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/501?Partition+Date=28+day&Country=&Channel+Group=&UTM+Medium=&UTM+Source=&UTM+Campaign=&UTM+Content=&UTM+Term=&Entrypoint+Experiment=&Entrypoint+Variation=&Pricing+Plan=&OS+Name=&OS+Version=">
+
+      User Journey</a>
+
+        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/499?Start%20Date=28%20day&Country=&Channel%20Group=&Provider=&Pricing%20Plan=&UTM%20Medium=&UTM%20Source=&UTM%20Campaign=&UTM%20Content=&Entrypoint%20Experiment=&Entrypoint%20Variation=">
+
+       New Subs</a>
+
+        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1_l-ZsbKsxRh7HGqtODz8w8eDBqkw2N9SIZxEE9qG-DQ/edit?usp=sharing">
+
+        Docs</a>
+
+      </nav>
+
+      </div>
+    row: 0
     col: 0
-    width: 24
-    height: 3
+    width: 22
+    height: 2
   - title: Last Updated Date
     name: Last Updated Date
     model: mozilla_vpn
@@ -43,7 +59,7 @@
     listen:
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Region Name: countries.region_name
-    row: 10
+    row: 4
     col: 0
     width: 7
     height: 4
@@ -110,9 +126,9 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 10
+    row: 4
     col: 7
-    width: 9
+    width: 8
     height: 4
   - title: New Subscriptions by Pricing Plan
     name: New Subscriptions by Pricing Plan
@@ -223,10 +239,10 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 14
-    col: 12
-    width: 12
-    height: 6
+    row: 8
+    col: 11
+    width: 11
+    height: 7
   - title: New Subscriptions by Country
     name: New Subscriptions by Country
     model: mozilla_vpn
@@ -255,10 +271,10 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 14
+    row: 8
     col: 0
-    width: 12
-    height: 6
+    width: 11
+    height: 7
   - name: Daily Subscriptions Proportion Rate of Each Channel Group
     type: text
     title_text: Daily Subscriptions Proportion Rate of Each Channel Group
@@ -270,34 +286,33 @@
       \ logging system missing a part or all of utm parameters consisting of attributions.\
       \ If the rates of those two groups increase, then it can be a sign of a problem\
       \ for the system passing the data. "
-    row: 48
+    row: 50
     col: 0
-    width: 24
-    height: 4
+    width: 22
+    height: 3
   - name: Subscriptions Categorized by Channel Group
     type: text
     title_text: Subscriptions Categorized by Channel Group
+    subtitle_text: ''
     body_text: "The channel groups are categorized using the UTM attributions ( medium,\
       \ source, campaign, content). The categorization rules were based on the Marketing\
       \ UTM Parameters - 2021 H2 spreadsheet.\n\n* Direct: traffic led to the VPN\
-      \ product page or the mobile app stores without a campaign attribution. In a\
-      \ web browser, when users visit through the link from their search results or\
-      \ by entering mozilla.org/vpn to the URL bar, they are attributed with (**medium**\
-      \ = `referral` , **source** = `www.mozilla.org-vpn-product-page` , **campaign**\
-      \ = `vpn-product-page`). In a mobile app store, the direct traffic is attributed\
-      \ with (**medium** = `organic`, **source** =`google-play`). \n\n* Marketing\
-      \ owned: traffic led by the marketing owned media campaigns (ex. Blog.mozilla.org,\
-      \ whatsnew)\n\n* Marketing paid: traffic led by the paid campaign(ex. SEM)\n\
-      \n* Product owned: traffic led by the product owned media campaigns (ex. Firefox\
-      \ browser)\n\n* Unattributed: traffic led with no attribution\n\n* Miscellaneous:\
-      \ traffic led with some attributions that could not be categorized. It could\
-      \ be that some of the attribution parameters got lost or attributions that were\
-      \ not well documented.  \n* For a more detailed explanation for the categorization\
-      \ of the channel groups, please refer to [this documentation](https://docs.google.com/document/d/1ojf1XHb3Iu5GNzMfozDcxWhEw6d9A4QuiaoAm-gDIrk/edit?usp=sharing). "
-    row: 32
+      \ product page without a campaign attribution. In a web browser, when users\
+      \ visit by entering mozilla.org/vpn to the URL bar or there is no campaign UTM\
+      \ parameter set passed, they are attributed with (**medium** = `referral` ,\
+      \ **source** = `www.mozilla.org-vpn-product-page` , **campaign** = `vpn-product-page`).\
+      \  \n* Marketing owned: traffic led by the marketing owned media campaigns (ex.\
+      \ Blog.mozilla.org, whatsnew)\n* Marketing paid: traffic led by the paid campaign\
+      \ (ex. SEM)\n* Product owned: traffic led by the product owned media campaigns\
+      \ (ex. Firefox browser)\n* Unattributed: traffic led with no attribution\n*\
+      \ Miscellaneous: traffic led with some attributions that could not be categorized.\
+      \ It could be that some of the attribution parameters got lost or attributions\
+      \ that were not well documented.  \n* For a more detailed explanation for the\
+      \ categorization of the channel groups, please refer to [this documentation](https://docs.google.com/document/d/1ojf1XHb3Iu5GNzMfozDcxWhEw6d9A4QuiaoAm-gDIrk/edit?usp=sharing). "
+    row: 29
     col: 0
-    width: 24
-    height: 9
+    width: 22
+    height: 5
   - title: Subscription Proportion Rate of Each Channel Group
     name: Subscription Proportion Rate of Each Channel Group
     model: mozilla_vpn
@@ -306,8 +321,10 @@
     fields: [channel_group_proportions_table.subscription_start_date, channel_group_proportions_table.total_channel_group_percent_for_date,
       channel_group_proportions_table.channel_group]
     pivots: [channel_group_proportions_table.channel_group]
+    filters: {}
     sorts: [channel_group_proportions_table.subscription_start_date, channel_group_proportions_table.channel_group]
     limit: 500
+    column_limit: 50
     dynamic_fields:
     - category: measure
       expression:
@@ -358,7 +375,7 @@
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
-    stacking: ''
+    stacking: percent
     limit_displayed_rows: false
     legend_position: center
     point_style: circle
@@ -366,8 +383,13 @@
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
-    show_null_points: false
-    interpolation: linear
+    show_null_points: true
+    interpolation: monotone
+    color_application:
+      collection_id: da8306b5-3b46-48aa-9ead-a3b32292f35c
+      palette_id: 75905e81-dadc-472c-b9a2-a201f788d55d
+      options:
+        steps: 5
     y_axes: [{label: proportion rate (%), orientation: left, series: [{axisId: channel_group_proportions_table.total_channel_group_percent_for_date,
             id: Marketing Owned Media Channels - channel_group_proportions_table.total_channel_group_percent_for_date,
             name: Marketing Owned Media Channels}, {axisId: channel_group_proportions_table.total_channel_group_percent_for_date,
@@ -378,6 +400,11 @@
             id: Unpaid Channels - channel_group_proportions_table.total_channel_group_percent_for_date,
             name: Unpaid Channels}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: custom, tickDensityCustom: 94, type: linear}]
+    x_axis_zoom: true
+    y_axis_zoom: true
+    series_types:
+      Direct - channel_group_proportions_table.total_channel_group_percent_for_date: area
+      Marketing Owned - channel_group_proportions_table.total_channel_group_percent_for_date: area
     defaults_version: 1
     listen:
       Start Date: channel_group_proportions_table.subscription_start_date
@@ -395,9 +422,9 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 52
-    col: 3
-    width: 19
+    row: 53
+    col: 0
+    width: 22
     height: 7
   - title: Top 10 Attributions with the Most Subscriptions
     name: Top 10 Attributions with the Most Subscriptions
@@ -485,10 +512,10 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 59
-    col: 3
-    width: 19
-    height: 8
+    row: 60
+    col: 0
+    width: 22
+    height: 6
   - title: Subscriptions by Channel Group
     name: Subscriptions by Channel Group
     model: mozilla_vpn
@@ -497,8 +524,11 @@
     fields: [channel_group_proportions_table.subscription_start_date, channel_group_proportions_table.new_subscription_count,
       channel_group_proportions_table.channel_group]
     pivots: [channel_group_proportions_table.channel_group]
-    sorts: [channel_group_proportions_table.subscription_start_date desc, channel_group_proportions_table.channel_group]
+    filters: {}
+    sorts: [channel_group_proportions_table.channel_group, channel_group_proportions_table.subscription_start_date
+        desc]
     limit: 500
+    column_limit: 50
     dynamic_fields:
     - category: measure
       expression:
@@ -557,8 +587,13 @@
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
-    show_null_points: false
-    interpolation: linear
+    show_null_points: true
+    interpolation: monotone
+    color_application:
+      collection_id: da8306b5-3b46-48aa-9ead-a3b32292f35c
+      palette_id: 75905e81-dadc-472c-b9a2-a201f788d55d
+      options:
+        steps: 5
     y_axes: [{label: '', orientation: left, series: [{axisId: channel_group_proportions_table.new_subscription_count,
             id: Marketing Owned Media Channels - channel_group_proportions_table.new_subscription_count,
             name: Marketing Owned Media Channels}, {axisId: channel_group_proportions_table.new_subscription_count,
@@ -569,6 +604,8 @@
             id: Unpaid Channels - channel_group_proportions_table.new_subscription_count,
             name: Unpaid Channels}], showLabels: true, showValues: true, unpinAxis: false,
         tickDensity: custom, tickDensityCustom: 97, type: linear}]
+    x_axis_zoom: true
+    y_axis_zoom: true
     ordering: none
     show_null_labels: false
     show_totals_labels: false
@@ -592,10 +629,10 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 41
-    col: 3
-    width: 19
-    height: 7
+    row: 34
+    col: 0
+    width: 11
+    height: 8
   - title: New Subscriptions during Filtered Days
     name: New Subscriptions during Filtered Days
     model: mozilla_vpn
@@ -629,9 +666,9 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 10
-    col: 16
-    width: 8
+    row: 4
+    col: 15
+    width: 7
     height: 4
   - title: Accumulative Subscriptions
     name: Accumulative Subscriptions
@@ -725,10 +762,10 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 20
-    col: 12
-    width: 12
-    height: 6
+    row: 15
+    col: 11
+    width: 11
+    height: 7
   - title: New Subscriptions
     name: New Subscriptions
     model: mozilla_vpn
@@ -821,39 +858,10 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 20
+    row: 15
     col: 0
-    width: 12
-    height: 6
-  - name: " (2)"
-    type: text
-    title_text: ''
-    body_text: |
-      <div style="border-radius: 5px; padding: 5px 10px; background: #FFFFFF; height: 60px; color: red;">
-
-      <nav style="font-size: 20px;">
-
-        <img style="color: #000000; padding: 5px 10px; float: left; height: 40px;" src="https://www.mozilla.org/media/img/logos/vpn/logo-with-wordmark.c1659f9e6dd6.svg"/>
-
-        <a style="color: #000000; border: 1px solid white; padding: 5px 80px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/501?Partition+Date=28+day&Country=&Channel+Group=&UTM+Medium=&UTM+Source=&UTM+Campaign=&UTM+Content=&UTM+Term=&Entrypoint+Experiment=&Entrypoint+Variation=&Pricing+Plan=&OS+Name=&OS+Version=">
-
-      User Journey</a>
-
-        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;font-weight: bold; text-decoration: underline" href="https://mozilla.cloud.looker.com/dashboards/499?Start%20Date=28%20day&Country=&Channel%20Group=&Provider=&Pricing%20Plan=&UTM%20Medium=&UTM%20Source=&UTM%20Campaign=&UTM%20Content=&Entrypoint%20Experiment=&Entrypoint%20Variation=">
-
-       New Subs</a>
-
-        <a style="color: #000000; padding: 5px 80px; float: left; line-height: 40px;" href="https://docs.google.com/document/d/1_l-ZsbKsxRh7HGqtODz8w8eDBqkw2N9SIZxEE9qG-DQ/edit?usp=sharing">
-
-        Docs</a>
-
-      </nav>
-
-      </div>
-    row: 0
-    col: 0
-    width: 24
-    height: 2
+    width: 11
+    height: 7
   - title: New Subscription by Provider
     name: New Subscription by Provider
     model: mozilla_vpn
@@ -863,8 +871,10 @@
       channel_group_proportions_table.subscription_start_date]
     pivots: [channel_group_proportions_table.provider]
     fill_fields: [channel_group_proportions_table.subscription_start_date]
+    filters: {}
     sorts: [channel_group_proportions_table.subscription_start_date desc, channel_group_proportions_table.provider]
     limit: 500
+    column_limit: 50
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -916,10 +926,10 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 26
+    row: 22
     col: 0
-    width: 12
-    height: 6
+    width: 11
+    height: 7
   - title: Daily Trend of Subscriptions Categorized by Coupons
     name: Daily Trend of Subscriptions Categorized by Coupons
     model: mozilla_vpn
@@ -978,9 +988,9 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 70
-    col: 3
-    width: 19
+    row: 69
+    col: 0
+    width: 22
     height: 7
   - name: Coupon Usage Monitoring
     type: text
@@ -989,9 +999,9 @@
       * User Tip: You may filter Coupon Code = \"is not null\" to only display the\
       \ subscriptions linked with a coupon\n* Leave a comment in [this ticket](https://mozilla-hub.atlassian.net/browse/DVPN-123)\
       \ for feedback and questions. "
-    row: 67
+    row: 66
     col: 0
-    width: 24
+    width: 22
     height: 3
   - title: 'Top 10 Total Subscriptions by Attributions and Coupon Codes '
     name: 'Top 10 Total Subscriptions by Attributions and Coupon Codes '
@@ -1060,29 +1070,144 @@
       Granular Event Type: channel_group_proportions_table.granular_event_type
       Subregion Name: countries.subregion_name
       Region Name: countries.region_name
-    row: 77
-    col: 3
-    width: 19
-    height: 7
-  - name: " (3)"
+    row: 76
+    col: 0
+    width: 22
+    height: 6
+  - name: " (2)"
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: "### Caveat: **the default setting** of this dashboard filters only\
-      \ show  first time subscribers (i.e. Granular event type = 'New') who purchased\
-      \ a subscription through the website. The recorded attributions in this dashboard\
-      \ are for the web subscription flow and only the attributions for the first\
-      \ time subscribers are correct. To monitor total subscription growth , please\
-      \ refer to [VPN SaaSboard - Subscriptions Growth](https://mozilla.cloud.looker.com/dashboards/416?Provider=&Pricing%20Plan=&Country=&Event%20Date=6%20month&Plan%20Interval%20Type=&Granular%20Event%20Type=-Plan%20Change)"
-    row: 5
+    body_text: |-
+      Contact @yeonjoo for questions in #pxi-data
+
+      Caveat: **the default setting** of this dashboard filters only show  first time subscribers (i.e. Granular event type = 'New') who purchased a subscription through the website. The recorded attributions in this dashboard are for the web subscription flow and only the attributions for the first time subscribers are correct. To monitor total subscription growth , please refer to [VPN SaaSboard - Subscriptions Growth](https://mozilla.cloud.looker.com/dashboards/416?Provider=&Pricing%20Plan=&Country=&Event%20Date=6%20month&Plan%20Interval%20Type=&Granular%20Event%20Type=-Plan%20Change)
+    row: 2
     col: 0
-    width: 24
-    height: 5
+    width: 22
+    height: 2
+  - title: Subscriptions by Channel Group
+    name: Subscriptions by Channel Group (2)
+    model: mozilla_vpn
+    explore: channel_group_proportions_table
+    type: looker_line
+    fields: [channel_group_proportions_table.subscription_start_date, channel_group_proportions_table.new_subscription_count,
+      channel_group_proportions_table.channel_group]
+    pivots: [channel_group_proportions_table.channel_group]
+    filters: {}
+    sorts: [channel_group_proportions_table.channel_group, channel_group_proportions_table.subscription_start_date
+        desc]
+    limit: 500
+    column_limit: 50
+    dynamic_fields:
+    - category: measure
+      expression:
+      label: New Subscriptions
+      value_format:
+      value_format_name:
+      based_on: channel_group_proportions_table.new_subscription_count
+      _kind_hint: measure
+      measure: channel_group_proportions_table
+      type: sum
+      _type_hint: number
+    - category: table_calculation
+      description: Cumulative sum of this row and all previous rows in the column
+      label: Running Total New Subs
+      value_format:
+      value_format_name: Default formatting
+      calculation_type: running_total
+      table_calculation: running_total_new_subs
+      args:
+      - channel_group_proportions_table
+      _kind_hint: dimension
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      description: Difference between the current row’s value and value of the row
+        below, divided by the value of the row below.
+      label: "% Change New Subs"
+      value_format:
+      value_format_name: percent_1
+      calculation_type: percent_difference_from_previous
+      table_calculation: change_new_subs
+      args:
+      - channel_group_proportions_table
+      _kind_hint: dimension
+      _type_hint: number
+      is_disabled: true
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: pivot
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: circle
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: monotone
+    color_application:
+      collection_id: da8306b5-3b46-48aa-9ead-a3b32292f35c
+      palette_id: 75905e81-dadc-472c-b9a2-a201f788d55d
+      options:
+        steps: 5
+    y_axes: [{label: '', orientation: left, series: [{axisId: channel_group_proportions_table.new_subscription_count,
+            id: Marketing Owned Media Channels - channel_group_proportions_table.new_subscription_count,
+            name: Marketing Owned Media Channels}, {axisId: channel_group_proportions_table.new_subscription_count,
+            id: Owned In-Product Channels - channel_group_proportions_table.new_subscription_count,
+            name: Owned In-Product Channels}, {axisId: channel_group_proportions_table.new_subscription_count,
+            id: Paid Channels - channel_group_proportions_table.new_subscription_count,
+            name: Paid Channels}, {axisId: channel_group_proportions_table.new_subscription_count,
+            id: Unpaid Channels - channel_group_proportions_table.new_subscription_count,
+            name: Unpaid Channels}], showLabels: true, showValues: true, unpinAxis: false,
+        tickDensity: custom, tickDensityCustom: 97, type: linear}]
+    x_axis_zoom: true
+    y_axis_zoom: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    hidden_fields: []
+    listen:
+      Start Date: channel_group_proportions_table.subscription_start_date
+      Country: channel_group_proportions_table.country_name
+      Provider: channel_group_proportions_table.provider
+      Pricing Plan: channel_group_proportions_table.pricing_plan
+      UTM Medium: channel_group_proportions_table.utm_medium
+      UTM Source: channel_group_proportions_table.utm_source
+      UTM Campaign: channel_group_proportions_table.utm_campaign
+      UTM Content: channel_group_proportions_table.utm_content
+      Entrypoint Experiment: channel_group_proportions_table.entrypoint_experiment
+      Entrypoint Variation: channel_group_proportions_table.entrypoint_variation
+      Coupon Code: channel_group_proportions_table.coupon_code
+      Channel Group: channel_group_proportions_table.channel_group
+      Granular Event Type: channel_group_proportions_table.granular_event_type
+      Subregion Name: countries.subregion_name
+      Region Name: countries.region_name
+    row: 42
+    col: 0
+    width: 11
+    height: 8
   filters:
   - name: Start Date
     title: Start Date
     type: field_filter
-    default_value: 28 day
+    default_value: 30 day
     allow_multiple_values: true
     required: false
     ui_config:

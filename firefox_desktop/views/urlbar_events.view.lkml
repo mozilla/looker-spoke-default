@@ -269,6 +269,12 @@ view: +urlbar_events {
     type: number
   }
 
+  dimension: num_mdn_impressions {
+    hidden:  yes
+    sql:  (select countif(r.result_type = "rs_mdn") from unnest(results) as r);;
+    type: number
+  }
+
   measure: event_count {
     hidden: yes
   }
@@ -716,4 +722,12 @@ view: +urlbar_events {
     sql: COUNT(DISTINCT(CASE WHEN ${product_engaged_result_type} = "xchannels_add_on" and ${event_action} = "annoyance" THEN ${event_id} ELSE NULL END));;
     type: number
   }
+
+  measure: mdn_suggest_impressions {
+    group_label: "MDN Suggests"
+    description: "The number of times a user exits the urlbar dropdown menu while a MDN result was visible"
+    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_mdn_impressions} > 0  THEN ${event_id} ELSE NULL END));;
+    type: number
+  }
+
 }

@@ -103,6 +103,25 @@ explore: acquisition_funnel {
   }
 }
 
+explore: desktop_daily_retention {
+  view_name:  desktop_cohort_daily_retention
+  label: "Desktop Cohort Daily Retention"
+  description: "Desktop Daily Retention Outcomes for New Profile Cohorts"
+  always_filter: {
+    filters: [
+      desktop_cohort_daily_retention.retention_period_picker: "7",
+      desktop_cohort_daily_retention.retention_period: "NOT NULL",
+      desktop_cohort_daily_retention.first_seen_date: "56 Days",
+      desktop_cohort_daily_retention.submission_date: "56 Days"]
+  }
+
+  join: countries {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${desktop_cohort_daily_retention.country} = ${countries.code} ;;
+  }
+}
+
 
 
 view: +metrics {

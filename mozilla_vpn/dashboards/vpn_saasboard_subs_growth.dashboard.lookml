@@ -4,7 +4,7 @@
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
   description: ''
-  preferred_slug: 3P9vNV1kIjXSFhlkcBPJ3j
+  preferred_slug: bVy0t6fx7wpUAM2STbCo5g
   elements:
   - name: ''
     type: text
@@ -41,9 +41,15 @@
     fill_fields: [metadata.last_modified_date]
     sorts: [metadata.last_modified_date desc]
     limit: 1
-    dynamic_fields: [{category: table_calculation, expression: 'add_days(-1, ${metadata.last_modified_date})',
-        label: New Calculation, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: dimension, table_calculation: new_calculation, _type_hint: date}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: add_days(-1, ${metadata.last_modified_date})
+      label: New Calculation
+      value_format:
+      value_format_name:
+      _kind_hint: dimension
+      table_calculation: new_calculation
+      _type_hint: date
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -57,7 +63,6 @@
     conditional_formatting: [{type: not equal to, value: 0, background_color: "#cdbfff",
         font_color: !!null '', color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
         bold: false, italic: false, strikethrough: false, fields: !!null ''}]
-    series_types: {}
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -92,6 +97,7 @@
       Country: subscription_events.country_name
       Event Date: subscription_events.event_date
       Plan Interval Type: subscription_events.plan_interval_type
+      Plan ID: subscription_events.plan_id
     row: 2
     col: 19
     width: 5
@@ -175,7 +181,6 @@
       first_last: first
       num_rows: 0
     font_size: ''
-    series_types: {}
     series_colors:
       USA - subscription_events.delta: "#347be3"
     x_axis_datetime_label: ''
@@ -212,6 +217,7 @@
       Event Date: subscription_events.event_date
       Plan Interval Type: subscription_events.plan_interval_type
       Granular Event Type: subscription_events.granular_event_type
+      Plan ID: subscription_events.plan_id
     row: 8
     col: 0
     width: 12
@@ -229,9 +235,15 @@
     sorts: [subscription_events.event_month desc, subscription_events.event_type]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: 'sum(pivot_row(${subscription_events.delta}))',
-        label: Net Subscriptions, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: supermeasure, table_calculation: net_subscriptions, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: sum(pivot_row(${subscription_events.delta}))
+      label: Net Subscriptions
+      value_format:
+      value_format_name:
+      _kind_hint: supermeasure
+      table_calculation: net_subscriptions
+      _type_hint: number
     x_axis_gridlines: true
     y_axis_gridlines: false
     show_view_names: false
@@ -299,6 +311,7 @@
       Event Date: subscription_events.event_date
       Plan Interval Type: subscription_events.plan_interval_type
       Granular Event Type: subscription_events.granular_event_type
+      Plan ID: subscription_events.plan_id
     row: 39
     col: 0
     width: 12
@@ -378,7 +391,6 @@
       first_last: first
       num_rows: 0
     font_size: ''
-    series_types: {}
     series_colors: {}
     x_axis_datetime_label: ''
     show_sql_query_menu_options: false
@@ -413,6 +425,7 @@
       Event Date: subscription_events.event_date
       Plan Interval Type: subscription_events.plan_interval_type
       Granular Event Type: subscription_events.granular_event_type
+      Plan ID: subscription_events.plan_id
     row: 18
     col: 0
     width: 12
@@ -549,6 +562,7 @@
       Event Date: subscription_events.event_date
       Plan Interval Type: subscription_events.plan_interval_type
       Granular Event Type: subscription_events.granular_event_type
+      Plan ID: subscription_events.plan_id
     row: 18
     col: 12
     width: 12
@@ -628,7 +642,6 @@
       first_last: first
       num_rows: 0
     font_size: ''
-    series_types: {}
     series_colors:
       1-month-usd-4.99 - subscription_events.delta: "#7363A9"
       6-month-chf-47.94 - subscription_events.delta: "#82a6a8"
@@ -665,6 +678,7 @@
       Event Date: subscription_events.event_date
       Plan Interval Type: subscription_events.plan_interval_type
       Granular Event Type: subscription_events.granular_event_type
+      Plan ID: subscription_events.plan_id
     row: 28
     col: 12
     width: 12
@@ -682,9 +696,15 @@
     sorts: [subscription_events.event_month desc, subscription_events.event_type]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: 'sum(pivot_row(${subscription_events.delta}))',
-        label: Net Subscriptions, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: supermeasure, table_calculation: net_subscriptions, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: sum(pivot_row(${subscription_events.delta}))
+      label: Net Subscriptions
+      value_format:
+      value_format_name:
+      _kind_hint: supermeasure
+      table_calculation: net_subscriptions
+      _type_hint: number
     x_axis_gridlines: true
     y_axis_gridlines: false
     show_view_names: false
@@ -762,6 +782,7 @@
       Event Date: subscription_events.event_date
       Plan Interval Type: subscription_events.plan_interval_type
       Granular Event Type: subscription_events.granular_event_type
+      Plan ID: subscription_events.plan_id
     row: 39
     col: 12
     width: 12
@@ -845,7 +866,6 @@
       first_last: first
       num_rows: 0
     font_size: ''
-    series_types: {}
     series_colors: {}
     x_axis_datetime_label: ''
     show_sql_query_menu_options: false
@@ -883,6 +903,7 @@
       Event Date: subscription_events.event_date
       Plan Interval Type: subscription_events.plan_interval_type
       Granular Event Type: subscription_events.granular_event_type
+      Plan ID: subscription_events.plan_id
     row: 28
     col: 0
     width: 12
@@ -944,7 +965,6 @@
       first_last: first
       num_rows: 0
     font_size: ''
-    series_types: {}
     series_colors:
       1-month-usd-4.99 - subscription_events.delta: "#7363A9"
       6-month-chf-47.94 - subscription_events.delta: "#82a6a8"
@@ -983,6 +1003,7 @@
       Event Date: subscription_events.event_date
       Plan Interval Type: subscription_events.plan_interval_type
       Granular Event Type: subscription_events.granular_event_type
+      Plan ID: subscription_events.plan_id
     row: 8
     col: 18
     width: 6
@@ -1044,7 +1065,6 @@
       first_last: first
       num_rows: 0
     font_size: ''
-    series_types: {}
     series_colors:
       1-month-usd-4.99 - subscription_events.delta: "#7363A9"
       6-month-chf-47.94 - subscription_events.delta: "#82a6a8"
@@ -1081,6 +1101,7 @@
       Event Date: subscription_events.event_date
       Plan Interval Type: subscription_events.plan_interval_type
       Granular Event Type: subscription_events.granular_event_type
+      Plan ID: subscription_events.plan_id
     row: 8
     col: 12
     width: 6
@@ -1098,13 +1119,12 @@
   - name: Provider
     title: Provider
     type: field_filter
-    default_value: ''
+    default_value: "-NULL"
     allow_multiple_values: true
     required: false
     ui_config:
-      type: checkboxes
+      type: advanced
       display: popover
-      options: []
     model: mozilla_vpn
     explore: subscription_events
     listens_to_filters: [Plan Interval Type, Pricing Plan, Country, Event Date]
@@ -1178,3 +1198,17 @@
     explore: subscription_events
     listens_to_filters: []
     field: subscription_events.granular_event_type
+  - name: Plan ID
+    title: Plan ID
+    type: field_filter
+    default_value: -"price_1MzNRCJNcmPzuWtRMCwUWADu"
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: advanced
+      display: overflow
+      options: []
+    model: mozilla_vpn
+    explore: subscription_events
+    listens_to_filters: []
+    field: subscription_events.plan_id
