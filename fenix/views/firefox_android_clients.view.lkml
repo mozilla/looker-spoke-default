@@ -58,6 +58,31 @@ view: +firefox_android_clients {
     group_item_label: "Play Store Term"
   }
 
+  dimension: device_manufacturer {
+    group_label: "Device Info"
+    group_item_label: "Device Manufacturer"
+  }
+
+  dimension: device_model {
+    group_label: "Device Info"
+    group_item_label: "Device Model"
+  }
+
+  dimension: os_version {
+    group_label: "Device Info"
+    group_item_label: "Device OS Version"
+  }
+
+  dimension: app_version {
+    group_label: "App Info"
+    group_item_label: "App Version"
+  }
+
+  dimension: channel {
+    group_label: "App Info"
+    group_item_label: "App Channel"
+  }
+
   dimension: last_reported_adjust_ad_group {
     hidden: yes
   }
