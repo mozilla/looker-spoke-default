@@ -5,132 +5,10 @@
   preferred_viewer: dashboards-next
   description: ''
   preferred_slug: wNM1LnNxpIHORchipapYYV
-  filters:
-  - name: Active Date
-    title: Active Date
-    type: field_filter
-    default_value: after 2024-02-01
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: advanced
-      display: popover
-      options: []
-    model: subscription_platform
-    explore: daily_active_logical_subscriptions
-    listens_to_filters: []
-    field: daily_active_logical_subscriptions.date_date
-  - name: Payment Provider
-    title: Payment Provider
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: checkboxes
-      display: popover
-    model: subscription_platform
-    explore: daily_active_logical_subscriptions
-    listens_to_filters: [Service ID, Active Date]
-    field: daily_active_logical_subscriptions.subscription__payment_provider
-  - name: Plan Interval
-    title: Plan Interval
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: checkboxes
-      display: popover
-    model: subscription_platform
-    explore: daily_active_logical_subscriptions
-    listens_to_filters: [Service ID, Active Date]
-    field: daily_active_logical_subscriptions.subscription__plan_interval
-  - name: Plan
-    title: Plan
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: checkboxes
-      display: popover
-    model: subscription_platform
-    explore: daily_active_logical_subscriptions
-    listens_to_filters: [Service ID, Active Date, Plan Interval]
-    field: daily_active_logical_subscriptions.subscription__plan_summary
-  - name: Region
-    title: Region
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: checkboxes
-      display: popover
-    model: subscription_platform
-    explore: daily_active_logical_subscriptions
-    listens_to_filters: [Service ID, Active Date]
-    field: countries.region_name
-  - name: Country
-    title: Country
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: checkboxes
-      display: popover
-    model: subscription_platform
-    explore: daily_active_logical_subscriptions
-    listens_to_filters: [Region, Service ID, Active Date]
-    field: countries.name
-  - name: Has Fraudulent Charges (Yes / No)
-    title: Has Fraudulent Charges (Yes / No)
-    type: field_filter
-    default_value: 'No'
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: dropdown_menu
-      display: overflow
-    model: subscription_platform
-    explore: daily_active_logical_subscriptions
-    listens_to_filters: []
-    field: current_subscription_state.has_fraudulent_charges
-  - name: Has Refunds (Yes / No)
-    title: Has Refunds (Yes / No)
-    type: field_filter
-    default_value: 'No'
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: dropdown_menu
-      display: overflow
-    model: subscription_platform
-    explore: daily_active_logical_subscriptions
-    listens_to_filters: []
-    field: current_subscription_state.has_refunds
-  - name: Service ID
-    title: Service ID
-    type: field_filter
-    default_value: Monitor
-    allow_multiple_values: true
-    required: true
-    ui_config:
-      type: button_toggles
-      display: overflow
-      options:
-      - Monitor
-    model: subscription_platform
-    explore: daily_active_logical_subscriptions
-    listens_to_filters: []
-    field: subscription_services.id
   elements:
-  - name: Navbar
+  - name: ''
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |
       <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px;">
 
@@ -167,10 +45,9 @@
     col: 0
     width: 24
     height: 2
-  - name: Notes
+  - name: " (2)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style='background-color: #ffffdd; padding: 5px 10px; border: solid 3px #ededed; border-radius: 5px; height:160px'>
 
@@ -237,10 +114,9 @@
     col: 16
     width: 8
     height: 4
-  - name: Active Subscriptions heading
+  - name: " (3)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
@@ -372,10 +248,9 @@
     col: 8
     width: 16
     height: 8
-  - name: Active Subscriptions by Plan heading
+  - name: " (4)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
@@ -466,8 +341,6 @@
     fields: [monthly_active_logical_subscriptions.month_month, monthly_active_logical_subscriptions.logical_subscription_count,
       monthly_active_logical_subscriptions.subscription__plan_summary]
     pivots: [monthly_active_logical_subscriptions.subscription__plan_summary]
-    fill_fields: []
-    filters: {}
     sorts: [monthly_active_logical_subscriptions.month_month desc, monthly_active_logical_subscriptions.subscription__plan_summary]
     limit: 5000
     column_limit: 100
@@ -516,10 +389,9 @@
     col: 12
     width: 12
     height: 8
-  - name: Active Subscriptions by Plan Interval heading
+  - name: " (5)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
@@ -610,8 +482,6 @@
     fields: [monthly_active_logical_subscriptions.month_month, monthly_active_logical_subscriptions.logical_subscription_count,
       monthly_active_logical_subscriptions.subscription__plan_interval]
     pivots: [monthly_active_logical_subscriptions.subscription__plan_interval]
-    fill_fields: []
-    filters: {}
     sorts: [monthly_active_logical_subscriptions.month_month desc, monthly_active_logical_subscriptions.subscription__plan_interval]
     limit: 500
     column_limit: 50
@@ -660,10 +530,9 @@
     col: 12
     width: 12
     height: 8
-  - name: Active Subscriptions by Payment Provider heading
+  - name: " (6)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
@@ -754,8 +623,6 @@
     fields: [monthly_active_logical_subscriptions.month_month, monthly_active_logical_subscriptions.logical_subscription_count,
       monthly_active_logical_subscriptions.subscription__payment_provider]
     pivots: [monthly_active_logical_subscriptions.subscription__payment_provider]
-    fill_fields: []
-    filters: {}
     sorts: [monthly_active_logical_subscriptions.month_month desc, monthly_active_logical_subscriptions.subscription__payment_provider]
     limit: 500
     column_limit: 50
@@ -804,10 +671,9 @@
     col: 12
     width: 12
     height: 8
-  - name: Active Subscriptions by Country heading
+  - name: " (7)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
@@ -898,8 +764,6 @@
     fields: [monthly_active_logical_subscriptions.month_month, monthly_active_logical_subscriptions.logical_subscription_count,
       countries.name]
     pivots: [countries.name]
-    fill_fields: []
-    filters: {}
     sorts: [monthly_active_logical_subscriptions.month_month desc, countries.name]
     limit: 5000
     column_limit: 100
@@ -948,3 +812,124 @@
     col: 12
     width: 12
     height: 7
+  filters:
+  - name: Active Date
+    title: Active Date
+    type: field_filter
+    default_value: after 2024-02-01
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: advanced
+      display: popover
+      options: []
+    model: subscription_platform
+    explore: daily_active_logical_subscriptions
+    listens_to_filters: []
+    field: daily_active_logical_subscriptions.date_date
+  - name: Payment Provider
+    title: Payment Provider
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: checkboxes
+      display: popover
+    model: subscription_platform
+    explore: daily_active_logical_subscriptions
+    listens_to_filters: [Service ID, Active Date]
+    field: daily_active_logical_subscriptions.subscription__payment_provider
+  - name: Plan Interval
+    title: Plan Interval
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: checkboxes
+      display: popover
+    model: subscription_platform
+    explore: daily_active_logical_subscriptions
+    listens_to_filters: [Service ID, Active Date]
+    field: daily_active_logical_subscriptions.subscription__plan_interval
+  - name: Plan
+    title: Plan
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: checkboxes
+      display: popover
+    model: subscription_platform
+    explore: daily_active_logical_subscriptions
+    listens_to_filters: [Service ID, Active Date, Plan Interval]
+    field: daily_active_logical_subscriptions.subscription__plan_summary
+  - name: Region
+    title: Region
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: checkboxes
+      display: popover
+    model: subscription_platform
+    explore: daily_active_logical_subscriptions
+    listens_to_filters: [Service ID, Active Date]
+    field: countries.region_name
+  - name: Country
+    title: Country
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: checkboxes
+      display: popover
+    model: subscription_platform
+    explore: daily_active_logical_subscriptions
+    listens_to_filters: [Region, Service ID, Active Date]
+    field: countries.name
+  - name: Has Fraudulent Charges (Yes / No)
+    title: Has Fraudulent Charges (Yes / No)
+    type: field_filter
+    default_value: 'No'
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: dropdown_menu
+      display: overflow
+    model: subscription_platform
+    explore: daily_active_logical_subscriptions
+    listens_to_filters: []
+    field: current_subscription_state.has_fraudulent_charges
+  - name: Has Refunds (Yes / No)
+    title: Has Refunds (Yes / No)
+    type: field_filter
+    default_value: 'No'
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: dropdown_menu
+      display: overflow
+    model: subscription_platform
+    explore: daily_active_logical_subscriptions
+    listens_to_filters: []
+    field: current_subscription_state.has_refunds
+  - name: Service ID
+    title: Service ID
+    type: field_filter
+    default_value: Monitor
+    allow_multiple_values: true
+    required: true
+    ui_config:
+      type: button_toggles
+      display: overflow
+      options:
+      - Monitor
+    model: subscription_platform
+    explore: daily_active_logical_subscriptions
+    listens_to_filters: []
+    field: subscription_services.id
