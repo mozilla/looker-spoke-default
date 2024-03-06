@@ -17,6 +17,14 @@ view: +events_unnested_table {
     group_item_label: "Page Path"
   }
 
+  dimension: event_extra__referrer {
+    description: "The referring URL of the current page"
+    type: string
+    sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'referrer') ;;
+    group_label: "Event Extra"
+    group_item_label: "Referrer"
+  }
+
   dimension: event_extra__utm_campaign {
     description: "Marketing and attribution UTM campaign"
     type: string
@@ -47,6 +55,14 @@ view: +events_unnested_table {
     sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'utm_term') ;;
     group_label: "Event Extra"
     group_item_label: "UTM Term"
+  }
+
+  dimension: event_extra__utm_content {
+    description: "Marketing and attribution UTM content"
+    type: string
+    sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'utm_content') ;;
+    group_label: "Event Extra"
+    group_item_label: "UTM Content"
   }
 
   dimension: event_extra__field_id {
