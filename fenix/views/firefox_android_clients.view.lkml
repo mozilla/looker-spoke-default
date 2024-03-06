@@ -8,10 +8,54 @@ view: +firefox_android_clients {
     primary_key: yes
   }
 
-  measure: client_count {
-    type: count_distinct
-    sql: ${TABLE}.client_id ;;
-    description: "Count of clients."
+  dimension: adjust_ad_group {
+    group_label: "Adjust Attribution"
+    group_item_label: "Adjust Adgroup"
+  }
+
+  dimension: adjust_campaign {
+    group_label: "Adjust Attribution"
+    group_item_label: "Adjust Campaign"
+  }
+
+  dimension: adjust_creative {
+    group_label: "Adjust Attribution"
+    group_item_label: "Adjust Creative"
+  }
+
+  dimension: adjust_network {
+    group_label: "Adjust Attribution"
+    group_item_label: "Adjust Network"
+  }
+
+  dimension: play_store_attribution_campaign {
+    group_label: "Play Store Attribution"
+    group_item_label: "Play Store Campaign"
+  }
+
+  dimension: play_store_attribution_content {
+    group_label: "Play Store Attribution"
+    group_item_label: "Play Store Content"
+  }
+
+  dimension: play_store_attribution_install_referrer_response {
+    group_label: "Play Store Attribution"
+    group_item_label: "Play Store Install Referrer"
+  }
+
+  dimension: play_store_attribution_medium {
+    group_label: "Play Store Attribution"
+    group_item_label: "Play Store Medium"
+  }
+
+  dimension: play_store_attribution_source {
+    group_label: "Play Store Attribution"
+    group_item_label: "Play Store Source"
+  }
+
+  dimension: play_store_attribution_term {
+    group_label: "Play Store Attribution"
+    group_item_label: "Play Store Term"
   }
 
   dimension: last_reported_adjust_ad_group {
@@ -120,5 +164,11 @@ view: +firefox_android_clients {
 
   dimension_group: metadata__play_store_attribution_term__ping_datetime {
     hidden: yes
+  }
+
+  measure: client_count {
+    type: count_distinct
+    sql: ${TABLE}.client_id ;;
+    description: "Count of clients."
   }
 }
