@@ -12,26 +12,8 @@ view: mozilla_accounts_multi_service_dau {
     JOIN
       `mozdata.accounts_db.fxa_oauth_clients` AS c
     ON e.metrics.string.relying_party_oauth_client_id = c.id
-    WHERE c.name IN
-        (
-        'Add-ons',
-        'Firefox',
-        'Firefox iOS',
-        'Firefox for Android',
-        'Firefox Relay',
-        'MDN Plus',
-        'MDN Plus App',
-        'Mozilla VPN',
-        'Mozilla Monitor',
-        'Mozilla IAM',
-        'Mozilla Social',
-        'Mozilla Support',
-        'Mozilla Hubs',
-        'Pontoon',
-        'Pocket',
-        'Thunderbird Add-ons'
-        )
-    AND e.metrics.string.event_name like r'access\_token%'
+    WHERE (e.metrics.string.event_name IN ('reg_complete', 'login_complete')
+     OR e.metrics.string.event_name like r'access\_token%')
     GROUP BY
       1, 2
     HAVING ARRAY_LENGTH(service_names) > 1;;
