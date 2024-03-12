@@ -14,12 +14,13 @@ view: mozilla_accounts_multi_service_dau {
     ON e.metrics.string.relying_party_oauth_client_id = c.id
     WHERE c.name IN
         (
-        'AMO Stage',
+        'Add-ons',
         'Firefox',
         'Firefox iOS',
         'Firefox for Android',
         'Firefox Relay',
         'MDN Plus',
+        'MDN Plus App',
         'Mozilla VPN',
         'Mozilla Monitor',
         'Mozilla IAM',
