@@ -1,4 +1,5 @@
 include: "../views/*"
+include: "../../fenix/views/firefox_android_clients.view"
 
 explore: fenix_ltv {
   label: "Fenix Lifetime Value (LTV)"
