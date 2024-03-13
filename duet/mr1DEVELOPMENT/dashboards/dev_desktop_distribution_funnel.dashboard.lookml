@@ -16,9 +16,9 @@
           <img style="color: #efefef; padding: 5px 25px; float: left; height: 40px;" src="https://www.mozilla.org/media/protocol/img/logos/mozilla/logo-word-hor.e20791bb4dd4.svg"/>
           <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/duet::desktop_moz_org_funnel_windows">
             Moz.org (Windows)</a>
-          <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/duet::desktop_moz_org_funnel_windows?Analysis+Period=90+day&Countries=US%2CGB%2CDE%2CFR%2CCA%2CBR%2CMX%2CCN%2CIN%2CAU%2CNL%2CES%2CRU%2CROW&Include+Dates+Where=data+complete">
+          <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="...tobelinkedlater">
             Moz.org (Mac)[COMING]</a>
-          <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px;" href="...tobelinkedlater">
+          <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/duet::desktop_distribution_builds_funnel">
             Distribution Builds</a>
           <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/1593">
             Unknown Funnel[COMING]</a>
