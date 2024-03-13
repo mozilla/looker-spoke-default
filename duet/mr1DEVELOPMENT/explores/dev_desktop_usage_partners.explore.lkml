@@ -28,7 +28,6 @@ explore: dev_desktop_usage_partners  {
       dev_desktop_usage_partners.normalized_country_code_subset,
       dev_desktop_usage_partners.os_group,
       dev_desktop_usage_partners.partner_org,
-      dev_desktop_usage_partners.partnership_status,
       dev_desktop_usage_partners.distribution_model
       ]
     measures: [
