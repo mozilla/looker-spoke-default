@@ -1,6 +1,6 @@
-include: "//looker-hub/firefox_desktop/views/*"
+include: "//looker-hub/firefox_desktop/views/urlbar_events_daily_table.view.lkml"
 
-view: +urlbar_events_daily {
+view: +urlbar_events_daily_table {
 
 dimension: product_result_type {
     sql: ${TABLE}.product_result_type ;;
@@ -63,7 +63,7 @@ dimension: product_result_type {
   measure: urlbar_CTR {
     group_label: "Urlbar Metrics"
     description: "Clicks / Impressions"
-    sql: safe_divide(${urlbar_clicks}, ${urlbar_impressions});;
+    sql: safe_divide(${TABLE}.urlbar_clicks, ${TABLE}.urlbar_impressions);;
     type: number
   }
 
