@@ -15,7 +15,7 @@ view: clients_daily {
       ,is_regular_user_v3 as is_regular_user
       ,normalized_channel
       from telemetry.clients_last_seen c
-      where submission_date >= date_Add(current_date(), interval -2 year)
+      where submission_date >= date_add(date_trunc(current_date, year), interval -2 year)
       and sample_id <= 4
       and days_since_seen = 0 ;;
   }

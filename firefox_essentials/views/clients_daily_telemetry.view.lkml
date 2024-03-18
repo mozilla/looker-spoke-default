@@ -16,7 +16,7 @@ view: clients_daily_telemetry {
       ,coalesce(SUM(payload.processes.content.scalars.power_total_cpu_time_ms) / 1000.00,0) AS power_total_cpu_time_sec
       from telemetry.main m1
       where sample_id <= 4
-      and date(submission_timestamp) >= date_Add(current_date(), interval -2 year)
+      and date(submission_timestamp) >= date_add(date_trunc(current_date, year), interval -2 year)
       and normalized_channel = 'release'
       group by 1,2;;
   }

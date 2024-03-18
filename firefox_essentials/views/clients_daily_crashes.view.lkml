@@ -19,7 +19,7 @@ view: clients_daily_crashes {
           +ifnull(cd.utility_crash_count,0)
           +ifnull(cd.vr_crash_count,0)) as total_crashes
       from telemetry.crashes_daily cd
-      where cd.submission_date >= date_Add(current_date(), interval -2 year)
+      where cd.submission_date >= date_add(date_trunc(current_date, year), interval -2 year)
       and cd.sample_id <= 4
       group by 1,2;;
   }
