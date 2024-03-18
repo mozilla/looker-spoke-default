@@ -14,12 +14,11 @@ view: clients_daily_telemetry {
       ,coalesce(SUM(SAFE_CAST(JSON_EXTRACT_SCALAR(payload.processes.content.histograms.video_clearkey_play_time_ms, "$.sum") AS int64)) / 1000.00,0) AS video_clearkey_playtime_sec
       /* Power Usage */
       ,coalesce(SUM(payload.processes.content.scalars.power_total_cpu_time_ms) / 1000.00,0) AS power_total_cpu_time_sec
-      from telemetry.main_1pct m1
-      where sample_id = 0
+      from telemetry.main m1
+      where sample_id <= 4
       and date(submission_timestamp) >= date_Add(current_date(), interval -2 year)
       and normalized_channel = 'release'
-      group by 1,2
-      limit 100 ;;
+      group by 1,2;;
   }
 
   measure: count {
@@ -81,15 +80,15 @@ view: clients_daily_telemetry {
   set: detail {
     fields: [
         submission_date,
-	client_id,
-	subsession_length_sec,
-	engagement_time_sec,
-	video_playtime_sec,
-	video_hdr_playtime_sec,
-	video_widevine_playtime_sec,
-	video_encrypted_playtime_sec,
-	video_clearkey_playtime_sec,
-	power_total_cpu_time_sec
+  client_id,
+  subsession_length_sec,
+  engagement_time_sec,
+  video_playtime_sec,
+  video_hdr_playtime_sec,
+  video_widevine_playtime_sec,
+  video_encrypted_playtime_sec,
+  video_clearkey_playtime_sec,
+  power_total_cpu_time_sec
     ]
   }
 }

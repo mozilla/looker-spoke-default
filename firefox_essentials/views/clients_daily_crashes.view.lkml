@@ -1,7 +1,7 @@
 
 view: clients_daily_crashes {
   derived_table: {
-    sql: select 
+    sql: select
       cd.client_id
       ,cd.submission_date
       ,sum(cd.content_crash_count) as content_crash_count
@@ -20,9 +20,8 @@ view: clients_daily_crashes {
           +ifnull(cd.vr_crash_count,0)) as total_crashes
       from telemetry.crashes_daily cd
       where cd.submission_date >= date_Add(current_date(), interval -2 year)
-      and cd.sample_id <= 2 
-      group by 1,2
-      limit 100 ;;
+      and cd.sample_id <= 4
+      group by 1,2;;
   }
 
   measure: count {
@@ -84,15 +83,15 @@ view: clients_daily_crashes {
   set: detail {
     fields: [
         client_id,
-	submission_date,
-	content_crash_count,
-	gpu_crash_count,
-	main_crash_count,
-	rdd_crash_count,
-	socket_crash_count,
-	utility_crash_count,
-	vr_crash_count,
-	total_crashes
+  submission_date,
+  content_crash_count,
+  gpu_crash_count,
+  main_crash_count,
+  rdd_crash_count,
+  socket_crash_count,
+  utility_crash_count,
+  vr_crash_count,
+  total_crashes
     ]
   }
 }

@@ -1,24 +1,23 @@
 
 view: clients_daily {
   derived_table: {
-    sql: select 
+    sql: select
       client_id
       ,submission_date
       ,first_seen_date
       ,days_since_first_seen
       ,BIT_COUNT(days_seen_bits) as dou
       ,country
-      ,case when lower(os) like '%windows%' then 'Windows' 
-              when lower(os) like '%linux%' then 'Linux' 
-              when lower(os) like '%darwin%' then 'Mac' 
+      ,case when lower(os) like '%windows%' then 'Windows'
+              when lower(os) like '%linux%' then 'Linux'
+              when lower(os) like '%darwin%' then 'Mac'
               else 'Other' end as normalized_os
       ,is_regular_user_v3 as is_regular_user
       ,normalized_channel
       from telemetry.clients_last_seen c
       where submission_date >= date_Add(current_date(), interval -2 year)
-      and sample_id = 0
-      and days_since_seen = 0
-      limit 100 ;;
+      and sample_id <= 4
+      and days_since_seen = 0 ;;
   }
 
   measure: count {
@@ -76,14 +75,14 @@ view: clients_daily {
   set: detail {
     fields: [
         client_id,
-	submission_date,
-	first_seen_date,
-	days_since_first_seen,
-	dou,
-	country,
-	normalized_os,
-	is_regular_user,
-	normalized_channel
+  submission_date,
+  first_seen_date,
+  days_since_first_seen,
+  dou,
+  country,
+  normalized_os,
+  is_regular_user,
+  normalized_channel
     ]
   }
 }
