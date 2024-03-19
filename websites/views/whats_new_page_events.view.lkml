@@ -8,7 +8,7 @@ view: whats_new_page_events {
              event_label,
              sum(total_events) as total_events,
             sum(unique_events) as unique_events
-     FROM `moz-fx-data-marketing-prod.ga_derived.www_site_events_metrics_v2`
+     FROM `moz-fx-data-marketing-prod.ga_derived.www_site_events_metrics`
      WHERE page_level_1 = 'firefox'
     AND REGEXP_CONTAINS(page_level_2, r'^\d{1,3}(\.\d{1,3}){1,3}((a|b(eta)?)\d*)?(pre\d*)?(esr)?$')
     AND page_level_3 = 'whatsnew'
