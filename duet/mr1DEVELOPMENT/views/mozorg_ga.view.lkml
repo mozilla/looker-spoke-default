@@ -76,7 +76,7 @@ view: mozorg_ga {
                       sum(non_fx_sessions) AS non_fx_sessions,
                       sum(downloads) AS downloads,
                       sum(non_fx_downloads) AS non_fx_downloads
-         FROM `moz-fx-data-marketing-prod.ga_derived.www_site_landing_page_metrics`
+         FROM `moz-fx-data-marketing-prod.ga.www_site_landing_page_metrics`
          WHERE date >= '2020-04-18'
          GROUP BY 1,
                   2,

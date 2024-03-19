@@ -198,7 +198,7 @@ view: forecast_dls {
 
     (SELECT date as submission_date,
              sum(non_fx_downloads) AS non_fx_downloads
-FROM `moz-fx-data-marketing-prod.ga_derived.www_site_landing_page_metrics`
+FROM `moz-fx-data-marketing-prod.ga.www_site_landing_page_metrics`
 WHERE device_category = 'desktop'
   AND date >= '2021-05-18'
 GROUP BY 1) a
