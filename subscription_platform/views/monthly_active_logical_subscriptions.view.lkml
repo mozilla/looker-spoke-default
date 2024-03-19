@@ -137,4 +137,29 @@ view: +monthly_active_logical_subscriptions {
       ) ;;
   }
 
+  measure: total_annual_recurring_revenue_usd {
+    label: "Total Annual Recurring Revenue (USD)"
+    type: sum_distinct
+    sql_distinct_key: ${subscription__id} ;;
+    sql:
+      CASE
+        WHEN ${subscription__is_active}
+          AND ${subscription__auto_renew}
+          AND ${subscription__plan_currency} = 'USD'
+          THEN
+            CASE ${subscription__plan_interval_type}
+              WHEN 'year'
+                THEN ${subscription__plan_amount} / ${subscription__plan_interval_count}
+              WHEN 'month'
+                THEN ${subscription__plan_amount} / ${subscription__plan_interval_count} * 12
+              WHEN 'week'
+                THEN ${subscription__plan_amount} / ${subscription__plan_interval_count} * 52
+              WHEN 'day'
+                THEN ${subscription__plan_amount} / ${subscription__plan_interval_count} * 365
+            END
+        ELSE NULL
+      END ;;
+    value_format_name: usd
+  }
+
 }
