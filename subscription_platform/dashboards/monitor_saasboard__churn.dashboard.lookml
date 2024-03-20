@@ -683,8 +683,8 @@
       Has Fraudulent Charges (Yes / No): daily_active_logical_subscriptions.subscription__has_fraudulent_charges
       Has Refunds (Yes / No): daily_active_logical_subscriptions.subscription__has_refunds
       Service ID: subscription_services.id
-    row: 24
-    col: 0
+    row: 32
+    col: 12
     width: 12
     height: 8
   - name: " (3)"
