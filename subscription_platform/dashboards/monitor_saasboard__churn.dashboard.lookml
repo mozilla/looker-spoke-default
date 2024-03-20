@@ -1278,10 +1278,10 @@
       Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
       Has Refunds (Yes / No): logical_subscriptions.has_refunds
       Service ID: subscription_services.id
-    row: 32
-    col: 12
-    width: 12
-    height: 8
+    row: 70
+    col: 0
+    width: 24
+    height: 5
   filters:
   - name: Subscription Start Date
     title: Subscription Start Date
