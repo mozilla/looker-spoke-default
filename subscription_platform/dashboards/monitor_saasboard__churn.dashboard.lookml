@@ -449,10 +449,10 @@
       Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
       Has Refunds (Yes / No): logical_subscriptions.has_refunds
       Service ID: subscription_services.id
-    row: 70
+    row: 24
     col: 0
-    width: 24
-    height: 5
+    width: 12
+    height: 8
   - title: Auto-Renew Disabled Occurrences
     name: Auto-Renew Disabled Occurrences
     model: subscription_platform
