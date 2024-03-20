@@ -135,6 +135,31 @@ view: +logical_subscriptions {
         ${TABLE}.provider_subscription_id
       ) ;;
   }
+
+  measure: total_annual_recurring_revenue_usd {
+    label: "Total Annual Recurring Revenue (USD)"
+    type: sum_distinct
+    sql_distinct_key: ${id} ;;
+    sql:
+      CASE
+        WHEN ${is_active}
+          AND ${auto_renew}
+          AND ${plan_currency} = 'USD'
+          THEN
+            CASE ${plan_interval_type}
+              WHEN 'year'
+                THEN ${plan_amount} / ${plan_interval_count}
+              WHEN 'month'
+                THEN ${plan_amount} / ${plan_interval_count} * 12
+              WHEN 'week'
+                THEN ${plan_amount} / ${plan_interval_count} * 52
+              WHEN 'day'
+                THEN ${plan_amount} / ${plan_interval_count} * 365
+            END
+        ELSE NULL
+      END ;;
+    value_format_name: usd
+  }
 }
 
 view: logical_subscriptions__retention_by_month {
