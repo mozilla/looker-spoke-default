@@ -121,13 +121,28 @@ view: +active_users_aggregates {
     sql: ${TABLE}.attribution_source ;;
   }
 
+  dimension: is_leap_year {
+    type: yesno
+    sql:  MOD(EXTRACT(YEAR FROM ${TABLE}.submission_date), 4) = 0
+          AND MOD(EXTRACT(YEAR FROM ${TABLE}.submission_date), 100) != 0;;
+    hidden: yes
+  }
+
+  dimension: day_of_year_w_leap_day {
+    type: number
+    sql:
+      EXTRACT(DAYOFYEAR FROM ${TABLE}.submission_date) +
+      IF(${is_leap_year} AND EXTRACT(DAYOFYEAR FROM ${TABLE}.submission_date) >= 60, -1, 0)
+      ;;
+  }
+
 # These dimensions are just to make sure the dimensions sort correctly
   dimension: sort_by1 {
     hidden: yes
     type: number
     sql:
           {% if choose_breakdown._parameter_value == 'Month' %} ${submission_month_num}
-          {% elsif choose_breakdown._parameter_value == 'Month_Day' %} ${submission_day_of_year}
+          {% elsif choose_breakdown._parameter_value == 'Month_Day' %} ${day_of_year_w_leap_day}
           {% elsif choose_breakdown._parameter_value == 'WOY' %} ${submission_week_of_year}
           {% elsif choose_breakdown._parameter_value == 'DOY' %} ${submission_day_of_year}
           {% elsif choose_breakdown._parameter_value == 'DOM' %} ${submission_day_of_month}
@@ -142,7 +157,7 @@ view: +active_users_aggregates {
           {% if choose_comparison._parameter_value == 'Year' %} ${submission_year}
           {% elsif choose_comparison._parameter_value == 'Month' %} ${submission_month_num}
           {% elsif choose_breakdown._parameter_value == 'WOY' %} ${submission_week_of_year}
-          {% elsif choose_breakdown._parameter_value == 'Month_Day' %} ${submission_day_of_year}
+          {% elsif choose_breakdown._parameter_value == 'Month_Day' %} ${day_of_year_w_leap_day}
           {% elsif choose_comparison._parameter_value == 'Week' %} ${submission_week}
           {% else %}NULL{% endif %} ;;
 
