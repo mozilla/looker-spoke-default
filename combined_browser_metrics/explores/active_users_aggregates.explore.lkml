@@ -15,6 +15,8 @@ explore: active_users_aggregates {
     sql_on: ${active_users_aggregates.country} = ${countries.code} ;;
   }
 
+  sql_always_where: NOT (${active_users_aggregates.is_leap_year} AND EXTRACT(DAYOFYEAR FROM ${submission_date}) = 60) ;;
+
   aggregate_table: rollup__period_over_period {
     query: {
       dimensions: [period_over_period_pivot, period_over_period_row, active_users_aggregates.app_name, active_users_aggregates.submission_date, active_users_aggregates.ytd_only]
