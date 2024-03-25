@@ -83,6 +83,10 @@ view: +firefox_android_clients {
     group_item_label: "App Channel"
   }
 
+  dimension_group: submission {
+    hidden: yes
+  }
+
   dimension: last_reported_adjust_ad_group {
     hidden: yes
   }
