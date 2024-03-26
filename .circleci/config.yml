@@ -36,7 +36,7 @@ jobs:
       - checkout
       - run:
           name: Install spectacles
-          command: pip install spectacles==2.4.7
+          command: pip install spectacles==2.3.18
       - run:
           no_output_timeout: 20m
           command: |
