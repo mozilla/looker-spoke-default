@@ -53,6 +53,10 @@ view: +firefox_ios_clients {
     group_item_label: "App Channel"
   }
 
+  dimension_group: submission {
+    hidden: yes
+  }
+
   dimension: is_suspicious_device_client {
     hidden: yes
   }
