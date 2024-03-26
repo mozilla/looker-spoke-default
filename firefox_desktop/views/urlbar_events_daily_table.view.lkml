@@ -58,31 +58,35 @@ view: +urlbar_events_daily_table {
     hidden: yes
   }
 
-  measure: n_impressions {
+  dimension: urlbar_sessions {
+    hidden: yes
+  }
+
+  measure: total_urlbar_impressions {
     group_label: "Urlbar Metrics"
     description: "The number of times a user exits the urlbar dropdown menu, either by abandoning the urlbar, engaging with a urlbar result, or selecting an annoyance signal that closes the urlbar dropdown menu"
-    sql: ${TABLE}.urlbar_impressions ;;
+    sql: SUM(${TABLE}.urlbar_impressions) ;;
     type: number
   }
 
-  measure: n_annoyances {
+  measure: total_urlbar_sessions {
+    group_label: "Urlbar Metrics"
+    description: "The number of times a user initiates an interaction with the urlbar"
+    sql: SUM(${TABLE}.urlbar_sessions) ;;
+    type: number
+  }
+
+  measure: total_urlbar_annoyances {
     group_label: "Urlbar Metrics"
     description: "Count of clicks on annoyance signals across all results shown in the urlbar dropdown menu"
-    sql: ${TABLE}.urlbar_annoyances ;;
+    sql: SUM(${TABLE}.urlbar_annoyances) ;;
     type: number
   }
 
-  measure: n_clicks {
+  measure: total_urlbar_clicks {
     group_label: "Urlbar Metrics"
     description: "Count of clicks on any result shown in the urlbar dropdown menu"
-    sql: ${TABLE}.urlbar_clicks ;;
-    type: number
-  }
-
-  measure: CTR {
-    group_label: "Urlbar Metrics"
-    description: "Clicks / Impressions"
-    sql: safe_divide(${TABLE}.n_clicks, ${TABLE}.n_impressions);;
+    sql: SUM(${TABLE}.urlbar_clicks) ;;
     type: number
   }
 
