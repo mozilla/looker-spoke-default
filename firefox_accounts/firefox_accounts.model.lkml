@@ -11,7 +11,7 @@ explore: +growth_accounting {
   join: fxa_first_seen_table {
     fields: []
     relationship: many_to_one
-    sql_on: ${growth_accounting.user_id} = ${fxa_first_seen_table.user_id} ;;
+    sql_on: ${growth_accounting.user_id_sha256} = ${fxa_first_seen_table.user_id} ;;
   }
   always_filter: {
     filters: [growth_accounting.submission_date: "14 days"]
