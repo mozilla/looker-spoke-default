@@ -81,6 +81,12 @@ view: +urlbar_events {
     hidden:  yes
   }
 
+  dimension: num_characters_typed {
+    sql: ${TABLE}.num_chars_typed ;;
+    type: number
+    description: "Number of characters entered in the urlbar at the end of the session"
+  }
+
   measure: average_characters_typed {
     type: number
     sql: AVG(${TABLE}.num_chars_typed) ;;
