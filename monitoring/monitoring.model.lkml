@@ -4,7 +4,7 @@ include: "//looker-hub/monitoring/explores/*"
 include: "//looker-hub/monitoring/views/*"
 include: "views/*"
 include: "explores/*"
-include: "dashboards/*"
+# include: "dashboards/*"
 
 # todo: hide explores once dashboard has been implemented
 view: +payload_bytes_error_all {
@@ -19,9 +19,6 @@ view: +payload_bytes_error_all {
 }
 
 # hiding explores to declutter available explores suggestions
-explore: +average_ping_sizes {
-  hidden: yes
-}
 
 explore: +column_size {
   hidden: yes
@@ -85,10 +82,6 @@ explore: +missing_namespaces_and_document_types {
 }
 
 explore: +stable_table_column_counts {
-  hidden: yes
-}
-
-explore: +stable_table_sizes {
   hidden: yes
 }
 

@@ -50,8 +50,65 @@ SELECT first_seen_date AS submission_date,
                 AND attribution_ua != 'firefox'
                 AND attribution_ua IS NOT NULL
                 AND startup_profile_selection_reason IN ('firstrun-created-default')
-                AND distribution_id IS NULL THEN 'mozorg windows funnel'
-           WHEN distribution_id IS NOT NULL THEN 'partner'
+                AND (distribution_id IS NULL OR (distribution_id IN ('mozilla-win-eol-esr115',
+                                        'mozilla-mac-eol-esr1',
+                                        'mozilla-mac-eol-esr115') -- exclude ESR migrations
+                OR
+                distribution_id IN ('mozilla101','mozilla102','mozilla139','mozilla138',
+                                          'mozilla86','mozilla116','mozilla63','mozilla88',
+                                          'mozilla118','mozilla134','mozilla105','mozilla94',
+                                          'mozilla117','mozilla14','mozilla93','mozilla15',
+                                          'mozilla114','mozilla104','mozilla103','mozilla111',
+                                          'mozilla81','mozilla50','mozilla76','mozilla113','mozilla90',
+                                          'mozilla80','mozilla87','mozilla97','mozilla100','mozilla77',
+                                          'mozilla75','mozilla78','mozilla110','mozilla52','mozilla79',
+                                          'mozilla106','mozilla85','mozilla53','mozilla115','mozilla112',
+                                          'mozilla98','mozilla99','mozilla28','mozilla12','mozilla84',
+                                          'mozilla11','mozilla26','mozilla68','mozilla83','mozilla91',
+                                          'mozilla94-default','mozilla121','mozilla41','mozilla92',
+                                          'mozilla82','mozilla96','mozilla132','mozilla67','mozilla61',
+                                          'mozilla13','mozilla51','mozilla19','mozilla66','mozilla131',
+                                          'mozilla89','mozilla104-utility-existing','mozilla35',
+                                          'mozilla130','mozilla32','mozilla120','mozilla34','mozilla38',
+                                          'mozilla119','mozilla36','mozilla43','mozilla21','mozilla45',
+                                          'mozilla95','mozilla-cliqz-001','mozilla60','mozilla122',
+                                          'mozilla25','mozilla135','mozilla102-no-thanks','mozilla22',
+                                          'mozilla-cliqz-008','mozilla86-utility-existing',
+                                          'mozilla-cliqz-005','mozilla18','mozilla40',
+                                          'mozilla-cliqz-006') -- exclude known funnelcakes
+                                        )
+                                      )
+                THEN 'mozorg windows funnel'
+           WHEN distribution_id IS NOT NULL
+                AND
+                (distribution_id NOT IN ('mozilla-win-eol-esr115',
+                                        'mozilla-mac-eol-esr1',
+                                        'mozilla-mac-eol-esr115') -- exclude ESR migrations
+                AND
+                distribution_id NOT IN ('mozilla101','mozilla102','mozilla139','mozilla138',
+                                          'mozilla86','mozilla116','mozilla63','mozilla88',
+                                          'mozilla118','mozilla134','mozilla105','mozilla94',
+                                          'mozilla117','mozilla14','mozilla93','mozilla15',
+                                          'mozilla114','mozilla104','mozilla103','mozilla111',
+                                          'mozilla81','mozilla50','mozilla76','mozilla113','mozilla90',
+                                          'mozilla80','mozilla87','mozilla97','mozilla100','mozilla77',
+                                          'mozilla75','mozilla78','mozilla110','mozilla52','mozilla79',
+                                          'mozilla106','mozilla85','mozilla53','mozilla115','mozilla112',
+                                          'mozilla98','mozilla99','mozilla28','mozilla12','mozilla84',
+                                          'mozilla11','mozilla26','mozilla68','mozilla83','mozilla91',
+                                          'mozilla94-default','mozilla121','mozilla41','mozilla92',
+                                          'mozilla82','mozilla96','mozilla132','mozilla67','mozilla61',
+                                          'mozilla13','mozilla51','mozilla19','mozilla66','mozilla131',
+                                          'mozilla89','mozilla104-utility-existing','mozilla35',
+                                          'mozilla130','mozilla32','mozilla120','mozilla34','mozilla38',
+                                          'mozilla119','mozilla36','mozilla43','mozilla21','mozilla45',
+                                          'mozilla95','mozilla-cliqz-001','mozilla60','mozilla122',
+                                          'mozilla25','mozilla135','mozilla102-no-thanks','mozilla22',
+                                          'mozilla-cliqz-008','mozilla86-utility-existing',
+                                          'mozilla-cliqz-005','mozilla18','mozilla40',
+                                          'mozilla-cliqz-006') -- exclude known funnelcakes
+                                        )
+                THEN 'partner'
            ELSE 'other'
        END AS funnel_derived,
        CASE
@@ -146,122 +203,31 @@ SELECT first_seen_date AS submission_date,
                                     'mozilla-mac-eol-esr115') THEN 'Mozilla - ESR migration'
            WHEN distribution_id IN ('mozilla-EMEfree',
                                     'EMEfree') THEN 'Mozilla - EME free'
-           WHEN distribution_id IN ('mozilla139',
-                                    'mozilla101',
-                                    'mozilla138',
-                                    'mozilla102',
-                                    'mozilla86',
-                                    'mozilla63',
-                                    'mozilla116',
-                                    'mozilla14',
-                                    'mozilla134') THEN 'Mozilla - Funnelcakes'
+           WHEN distribution_id IN ('mozilla101','mozilla102','mozilla139','mozilla138',
+                                          'mozilla86','mozilla116','mozilla63','mozilla88',
+                                          'mozilla118','mozilla134','mozilla105','mozilla94',
+                                          'mozilla117','mozilla14','mozilla93','mozilla15',
+                                          'mozilla114','mozilla104','mozilla103','mozilla111',
+                                          'mozilla81','mozilla50','mozilla76','mozilla113','mozilla90',
+                                          'mozilla80','mozilla87','mozilla97','mozilla100','mozilla77',
+                                          'mozilla75','mozilla78','mozilla110','mozilla52','mozilla79',
+                                          'mozilla106','mozilla85','mozilla53','mozilla115','mozilla112',
+                                          'mozilla98','mozilla99','mozilla28','mozilla12','mozilla84',
+                                          'mozilla11','mozilla26','mozilla68','mozilla83','mozilla91',
+                                          'mozilla94-default','mozilla121','mozilla41','mozilla92',
+                                          'mozilla82','mozilla96','mozilla132','mozilla67','mozilla61',
+                                          'mozilla13','mozilla51','mozilla19','mozilla66','mozilla131',
+                                          'mozilla89','mozilla104-utility-existing','mozilla35',
+                                          'mozilla130','mozilla32','mozilla120','mozilla34','mozilla38',
+                                          'mozilla119','mozilla36','mozilla43','mozilla21','mozilla45',
+                                          'mozilla95','mozilla-cliqz-001','mozilla60','mozilla122',
+                                          'mozilla25','mozilla135','mozilla102-no-thanks','mozilla22',
+                                          'mozilla-cliqz-008','mozilla86-utility-existing',
+                                          'mozilla-cliqz-005','mozilla18','mozilla40',
+                                          'mozilla-cliqz-006') THEN 'Mozilla - Funnelcakes'
            WHEN distribution_id IS NULL THEN 'non-distribution'
-           ELSE 'other'
+           ELSE 'Uncategorized'
        END AS partner_org,
-       CASE
-           WHEN distribution_id IN ('1und1',
-                                    'gmx',
-                                    'gmxcouk',
-                                    'gmxes',
-                                    'gmxfr',
-                                    'mail.com',
-                                    'webde') THEN 'current partner'
-           WHEN distribution_id IN ('yandex-drp',
-                                    'yandex-portals',
-                                    'yandex-ru',
-                                    'yandex-ru-mz',
-                                    'yandex-tr',
-                                    'yandex-ua',
-                                    'yandex',
-                                    'yandex-uk',
-                                    'yandex-tr-tamindir',
-                                    'mailru-001',
-                                    'orku-001') THEN 'inactive partner'
-           WHEN distribution_id IN ('seznam') THEN 'inactive partner'
-           WHEN distribution_id IN ('softonic-004',
-                                    'softonic-003',
-                                    'softonic-002',
-                                    'softonic-005',
-                                    'softonic-009',
-                                    'softonic-006',
-                                    'softonic-008') THEN 'inactive partner'
-           WHEN distribution_id IN ('yahoo',
-                                    'yahoode',
-                                    'yahoofr',
-                                    'yahootw',
-                                    'yahoohk',
-                                    'yahoogb',
-                                    'yahooca',
-                                    'yahooid') THEN 'inactive partner'
-           WHEN distribution_id IN ('aol',
-                                    'aoluk',
-                                    'aolde') THEN 'inactive partner'
-           WHEN distribution_id IN ('mozilla-chipde-001') THEN 'no'
-           WHEN distribution_id IN ('canonical',
-                                    'canonical-001',
-                                    'canonical-002') THEN 'current partner'
-           WHEN distribution_id IN ('mint-001',
-                                    'mint') THEN 'current partner'
-           WHEN distribution_id IN ('fedora',
-                                    'redhat',
-                                    'archlinux',
-                                    'altlinux',
-                                    'alpinelinux',
-                                    'almalinux',
-                                    'artixlinux',
-                                    'MX-Linux',
-                                    'rocky-linux',
-                                    'gentoo',
-                                    'openSUSE',
-                                    'suse') THEN 'no'
-           WHEN distribution_id IN ('mozilla-deb',
-                                    'Debian',
-                                    'debian') THEN 'platform'
-           WHEN distribution_id IN ('mozilla-flatpak') THEN 'platform'
-           WHEN distribution_id IN ('mozilla-MSIX') THEN 'platform'
-           WHEN distribution_id IN ('euballot') THEN 'platform'
-           WHEN distribution_id IN ('toshiba-001') THEN 'inactive partner'
-           WHEN distribution_id IN ('acer',
-                                    'acer-001',
-                                    'acer-002',
-                                    'acer-g-003',
-                                    'acer-003',
-                                    'acer-004') THEN 'inactive partner'
-           WHEN distribution_id IN ('wildtangent-001') THEN 'current partner'
-           WHEN distribution_id IN ('sweetlabs-b-oem2',
-                                    'sweetlabs-oem2',
-                                    'sweetlabs-b-r-oem2',
-                                    'sweetlabs-b-oem1',
-                                    'sweetlabs-b-oem3',
-                                    'sweetlabs-b-r-oem1',
-                                    'sweetlabs-oem1') THEN 'current partner'
-           WHEN distribution_id IN ('playanext-wt-001',
-                                    'playanext-wt-us-001') THEN 'no'
-           WHEN distribution_id IN ('isltd-g-001',
-                                    'isltd-g-aura-001',
-                                    'isltd-y-aura-001',
-                                    'isltd-y-001',
-                                    'isltd-001',
-                                    'isltd-002',
-                                    'isltd-003') THEN 'inactive partner'
-           WHEN distribution_id IN ('MozillaOnline') THEN 'internal'
-           WHEN distribution_id IN ('mozilla-win-eol-esr115',
-                                    'mozilla-mac-eol-esr1',
-                                    'mozilla-mac-eol-esr115') THEN 'internal'
-           WHEN distribution_id IN ('mozilla-EMEfree',
-                                    'EMEfree') THEN 'internal'
-           WHEN distribution_id IN ('mozilla139',
-                                    'mozilla101',
-                                    'mozilla138',
-                                    'mozilla102',
-                                    'mozilla86',
-                                    'mozilla63',
-                                    'mozilla116',
-                                    'mozilla14',
-                                    'mozilla134') THEN 'internal'
-           WHEN distribution_id IS NULL THEN 'non-distribution'
-           ELSE 'other'
-       END AS partnership_status,
        CASE
            WHEN distribution_id IN ('1und1',
                                     'gmx',
@@ -351,21 +317,35 @@ SELECT first_seen_date AS submission_date,
            WHEN distribution_id IN ('MozillaOnline') THEN 'partner website'
            WHEN distribution_id IN ('mozilla-win-eol-esr115',
                                     'mozilla-mac-eol-esr1',
-                                    'mozilla-mac-eol-esr115') THEN 'NA'
+                                    'mozilla-mac-eol-esr115') THEN 'mozilla internal accounting'
            WHEN distribution_id IN ('mozilla-EMEfree',
-                                    'EMEfree') THEN 'NA'
-           WHEN distribution_id IN ('mozilla139',
-                                    'mozilla101',
-                                    'mozilla138',
-                                    'mozilla102',
-                                    'mozilla86',
-                                    'mozilla63',
-                                    'mozilla116',
-                                    'mozilla14',
-                                    'mozilla134') THEN 'NA'
+                                    'EMEfree') THEN 'Mozilla - EME free'
+           WHEN distribution_id IN ('mozilla101','mozilla102','mozilla139','mozilla138',
+                                          'mozilla86','mozilla116','mozilla63','mozilla88',
+                                          'mozilla118','mozilla134','mozilla105','mozilla94',
+                                          'mozilla117','mozilla14','mozilla93','mozilla15',
+                                          'mozilla114','mozilla104','mozilla103','mozilla111',
+                                          'mozilla81','mozilla50','mozilla76','mozilla113','mozilla90',
+                                          'mozilla80','mozilla87','mozilla97','mozilla100','mozilla77',
+                                          'mozilla75','mozilla78','mozilla110','mozilla52','mozilla79',
+                                          'mozilla106','mozilla85','mozilla53','mozilla115','mozilla112',
+                                          'mozilla98','mozilla99','mozilla28','mozilla12','mozilla84',
+                                          'mozilla11','mozilla26','mozilla68','mozilla83','mozilla91',
+                                          'mozilla94-default','mozilla121','mozilla41','mozilla92',
+                                          'mozilla82','mozilla96','mozilla132','mozilla67','mozilla61',
+                                          'mozilla13','mozilla51','mozilla19','mozilla66','mozilla131',
+                                          'mozilla89','mozilla104-utility-existing','mozilla35',
+                                          'mozilla130','mozilla32','mozilla120','mozilla34','mozilla38',
+                                          'mozilla119','mozilla36','mozilla43','mozilla21','mozilla45',
+                                          'mozilla95','mozilla-cliqz-001','mozilla60','mozilla122',
+                                          'mozilla25','mozilla135','mozilla102-no-thanks','mozilla22',
+                                          'mozilla-cliqz-008','mozilla86-utility-existing',
+                                          'mozilla-cliqz-005','mozilla18','mozilla40',
+                                          'mozilla-cliqz-006') THEN 'mozilla internal accounting'
            WHEN distribution_id IS NULL THEN 'non-distribution'
-           ELSE 'other'
+           ELSE 'Uncategorized'
        END AS distribution_model,
+       distribution_id,
        count(*) AS new_profiles,
        SUM(CASE
                WHEN qualified_second_day = TRUE THEN 1
@@ -383,26 +363,25 @@ GROUP BY 1,
          3,
          4,
          5,
-         6,
-         7
+         6, 7
         )
     SELECT
       *,
 
       AVG(new_profiles) OVER
       (PARTITION BY funnel_derived, normalized_country_code_subset,
-      os_group, partner_org, partnership_status, distribution_model
+      os_group, partner_org, distribution_model, distribution_id
       ORDER BY submission_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)
       AS new_profiles_smoothed,
 
       AVG(returned_second_day) OVER
       (PARTITION BY funnel_derived, normalized_country_code_subset,
-      os_group, partner_org, partnership_status, distribution_model
+      os_group, partner_org, distribution_model, distribution_id
       ORDER BY submission_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)
       AS returned_second_day_smoothed,
       AVG(retained_week4) OVER
       (PARTITION BY funnel_derived, normalized_country_code_subset,
-      os_group, partner_org, partnership_status, distribution_model
+      os_group, partner_org, distribution_model, distribution_id
       ORDER BY submission_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)
       AS retained_week4_smoothed
       FROM tbl
@@ -455,18 +434,26 @@ GROUP BY 1,
     description: "which partner org acquisition is from - only valid for funnel_derived = partner, otherwise will be non-distribution"
   }
 
-  dimension: partnership_status {
-    sql: ${TABLE}.partnership_status
-      ;;
-    type: string
-    description: "if partnership is active - only valid for funnel_derived = partner, otherwise will be non-distribution"
-  }
-
   dimension: distribution_model {
     sql: ${TABLE}.distribution_model
       ;;
     type: string
     description: "how partner distributes FF - only valid for funnel_derived = partner, otherwise will be non-distribution"
+  }
+
+  dimension: distribution_id {
+    sql: ${TABLE}.distribution_id
+      ;;
+    type: string
+    description: "raw distribution id"
+  }
+
+  dimension: tmp_piechart_breakdown {
+    sql: CASE WHEN ${TABLE}.partner_org IN ('Mozilla - China', 'Microsoft (store)')
+         THEN ${TABLE}.partner_org ELSE ${TABLE}.distribution_model END
+      ;;
+    type: string
+    description: "temp breakdown for a pie chart mixing partner org and distribution model"
   }
 
   measure: new_profiles {
