@@ -30,23 +30,48 @@ jobs:
           command: |
             python ./src/sync_dashboards/main.py sync --config lookml_dashboards.yaml
           no_output_timeout: 15m
+  validate-lookml:
+    executor: python/default
+    steps:
+      - checkout
+      - run:
+          name: Install spectacles
+          command: pip install spectacles==2.3.18
+      - run:
+          no_output_timeout: 20m
+          command: |
+            spectacles lookml \
+              --base-url ${LOOKER_INSTANCE_URI} \
+              --client-id ${LOOKER_API_CLIENT_ID} \
+              --client-secret ${LOOKER_API_CLIENT_SECRET} \
+              --project spoke-default \
+              --remote-reset \
+              --branch << pipeline.git.branch >>
 workflows:
   version: 2
   build:
     jobs:
+      - validate-lookml:
+          context: data-eng-looker
       - deploy-prod:
+          requires:
+            - validate-lookml
           filters:
             branches:
               only: main
             tags:
               only: /.*/
       - deploy-stage:
+          requires:
+            - validate-lookml
           filters:
             branches:
               only: main-stage
             tags:
               only: /.*/
       - deploy-dev:
+          requires:
+            - validate-lookml
           filters:
             branches:
               only: main-nonprod
