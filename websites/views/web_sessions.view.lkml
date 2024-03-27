@@ -46,6 +46,10 @@ view: web_sessions {
       label: "Glean Dictionary"
       value: "glean_dictionary"
     }
+    allowed_value: {
+      label: "Mozilla.org"
+      value: "bedrock"
+    }
   }
 
   dimension_group: submission {
