@@ -1,2 +1,0 @@
-connection: "telemetry"
-label: "Treeherder"
