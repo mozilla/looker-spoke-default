@@ -311,7 +311,7 @@
     type: looker_bar
     fields: [web_sessions.session_count, web_sessions.client_count, web_sessions.page_title]
     sorts: [web_sessions.session_count desc]
-    limit: 500
+    limit: 15
     column_limit: 50
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -804,7 +804,7 @@
     type: looker_bar
     fields: [web_sessions.session_count, web_sessions.client_count, web_sessions.exit_title]
     sorts: [web_sessions.session_count desc]
-    limit: 500
+    limit: 15
     column_limit: 50
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -872,7 +872,7 @@
     type: looker_bar
     fields: [web_sessions.session_count, web_sessions.client_count, web_sessions.landing_title]
     sorts: [web_sessions.session_count desc]
-    limit: 500
+    limit: 15
     column_limit: 50
     x_axis_gridlines: false
     y_axis_gridlines: true
