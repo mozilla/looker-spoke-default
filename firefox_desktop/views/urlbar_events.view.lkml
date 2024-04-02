@@ -81,6 +81,12 @@ view: +urlbar_events {
     hidden:  yes
   }
 
+  dimension: num_characters_typed {
+    sql: ${TABLE}.num_chars_typed ;;
+    type: number
+    description: "Number of characters entered in the urlbar at the end of the session"
+  }
+
   measure: average_characters_typed {
     type: number
     sql: AVG(${TABLE}.num_chars_typed) ;;
@@ -203,6 +209,12 @@ view: +urlbar_events {
     type: number
   }
 
+  dimension: num_mdn_impressions {
+    hidden:  yes
+    sql:  (select countif(r.product_result_type = "mdn") from unnest(results) as r);;
+    type: number
+  }
+
   dimension: num_navigational_impressions {
     hidden:  yes
     sql:  (select countif(r.product_result_type = "navigational") from unnest(results) as r);;
@@ -266,12 +278,6 @@ view: +urlbar_events {
   dimension: num_xchannels_addon_impressions {
     hidden:  yes
     sql:  (select countif(r.product_result_type = "xchannels_add_on") from unnest(results) as r);;
-    type: number
-  }
-
-  dimension: num_mdn_impressions {
-    hidden:  yes
-    sql:  (select countif(r.result_type = "rs_mdn") from unnest(results) as r);;
     type: number
   }
 
@@ -367,7 +373,7 @@ view: +urlbar_events {
 
   measure: bookmark_impressions {
     group_label: "Bookmark"
-    description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
+    description: "The number of times a user exits the urlbar dropdown menu while a Bookmark result was visible"
     sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_bookmark_impressions} > 0 THEN ${event_id} ELSE NULL END));;
     type: number
   }
@@ -393,7 +399,7 @@ view: +urlbar_events {
 
   measure: DPSS_impressions {
     group_label: "Default Partner Search Suggestion"
-    description: "The number of times a user exits the urlbar dropdown menu while an addon result was visible"
+    description: "The number of times a user exits the urlbar dropdown menu while a Partner Search Suggestion result was visible"
     sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_default_partner_search_suggestion_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
@@ -419,7 +425,7 @@ view: +urlbar_events {
 
   measure: history_impressions {
     group_label: "History"
-    description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
+    description: "The number of times a user exits the urlbar dropdown menu while a History result was visible"
     sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_history_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
@@ -437,6 +443,32 @@ view: +urlbar_events {
     type: number
   }
 
+  measure: mdn_clicks {
+    group_label: "MDN"
+    sql: COUNT(DISTINCT(CASE WHEN ${product_selected_result} = "mdn" and ${is_terminal} and ${event_action} = "engaged" THEN ${event_id} ELSE NULL END));;
+    type: number
+  }
+
+  measure: mdn_impressions {
+    group_label: "MDN"
+    description: "The number of times a user exits the urlbar dropdown menu while a MDN result was visible"
+    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_mdn_impressions} > 0  THEN ${event_id} ELSE NULL END));;
+    type: number
+  }
+
+  measure: mdn_CTR {
+    group_label: "MDN"
+    description: "Clicks / Impressions"
+    sql: safe_divide(${mdn_clicks}, ${mdn_impressions});;
+    type: number
+  }
+
+  measure: mdn_annoyances {
+    group_label: "MDN"
+    sql: COUNT(DISTINCT(CASE WHEN ${product_engaged_result_type} = "mdn" and ${event_action} = "annoyance" THEN ${event_id} ELSE NULL END));;
+    type: number
+  }
+
   measure: navigational_clicks {
     group_label: "Navigational"
     sql: COUNT(DISTINCT(CASE WHEN ${product_selected_result} = "navigational" and ${is_terminal} and ${event_action} = "engaged" THEN ${event_id} ELSE NULL END));;
@@ -445,7 +477,7 @@ view: +urlbar_events {
 
   measure: navigational_impressions {
     group_label: "Navigational"
-    description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
+    description: "The number of times a user exits the urlbar dropdown menu while a Navigational result was visible"
     sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_navigational_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
@@ -471,7 +503,7 @@ view: +urlbar_events {
 
   measure: open_tab_impressions {
     group_label: "Open Tab"
-    description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
+    description: "The number of times a user exits the urlbar dropdown menu while an Open Tab result was visible"
     sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_open_tab_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
@@ -497,7 +529,7 @@ view: +urlbar_events {
 
   measure: pocket_collection_impressions {
     group_label: "Pocket Collection"
-    description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
+    description: "The number of times a user exits the urlbar dropdown menu while a Pocket result was visible"
     sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_pocket_collection_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
@@ -523,7 +555,7 @@ view: +urlbar_events {
 
   measure: quick_action_impressions {
     group_label: "Quick Action"
-    description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
+    description: "The number of times a user exits the urlbar dropdown menu while a Quick Action result was visible"
     sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_quick_action_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
@@ -549,7 +581,7 @@ view: +urlbar_events {
 
   measure: search_engine_impressions {
     group_label: "Search Engine"
-    description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
+    description: "The number of times a user exits the urlbar dropdown menu while a Search Engine result was visible"
     sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_search_engine_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
@@ -568,27 +600,27 @@ view: +urlbar_events {
   }
 
   measure: suggest_addon_clicks {
-    group_label: "Suggest  Addon"
+    group_label: "Suggest Addon"
     sql: COUNT(DISTINCT(CASE WHEN ${product_selected_result} = "suggest_add_on" and ${is_terminal} and ${event_action} = "engaged" THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
   measure: suggest_addon_impressions {
-    group_label: "Suggest  Addon"
-    description: "The number of times a user exits the urlbar dropdown menu while an Suggest  Addon result was visible"
+    group_label: "Suggest Addon"
+    description: "The number of times a user exits the urlbar dropdown menu while a Suggest Addon result was visible"
     sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_suggest_addon_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
 
   measure: suggest_addon_CTR {
-    group_label: "Suggest  Addon"
+    group_label: "Suggest Addon"
     description: "Clicks / Impressions"
     sql: safe_divide(${suggest_addon_clicks}, ${suggest_addon_impressions});;
     type: number
   }
 
   measure: suggest_addon_annoyances {
-    group_label: "Suggest  Addon"
+    group_label: "Suggest Addon"
     sql: COUNT(DISTINCT(CASE WHEN ${product_engaged_result_type} = "suggest_add_on" and ${event_action} = "annoyance" THEN ${event_id} ELSE NULL END));;
     type: number
   }
@@ -601,7 +633,7 @@ view: +urlbar_events {
 
   measure: trending_impressions {
     group_label: "Trending"
-    description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
+    description: "The number of times a user exits the urlbar dropdown menu while a Trending result was visible"
     sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_trending_suggestion_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
@@ -627,7 +659,7 @@ view: +urlbar_events {
 
   measure: weather_impressions {
     group_label: "Weather"
-    description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
+    description: "The number of times a user exits the urlbar dropdown menu while a Weather result was visible"
     sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_weather_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
@@ -653,7 +685,7 @@ view: +urlbar_events {
 
   measure: wikipedia_dynamic_impressions {
     group_label: "Wikipedia Dynamic"
-    description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
+    description: "The number of times a user exits the urlbar dropdown menu while a Dynamic Wikipedia result was visible"
     sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_wikipedia_dynamic_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
@@ -679,7 +711,7 @@ view: +urlbar_events {
 
   measure: wikipedia_enhanced_impressions {
     group_label: "Wikipedia Enhanced"
-    description: "The number of times a user exits the urlbar dropdown menu while an Bookmark result was visible"
+    description: "The number of times a user exits the urlbar dropdown menu while a Enhanced Wikipedia result was visible"
     sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_wikipedia_enhanced_impressions} > 0  THEN ${event_id} ELSE NULL END));;
     type: number
   }
@@ -722,12 +754,4 @@ view: +urlbar_events {
     sql: COUNT(DISTINCT(CASE WHEN ${product_engaged_result_type} = "xchannels_add_on" and ${event_action} = "annoyance" THEN ${event_id} ELSE NULL END));;
     type: number
   }
-
-  measure: mdn_suggest_impressions {
-    group_label: "MDN Suggests"
-    description: "The number of times a user exits the urlbar dropdown menu while a MDN result was visible"
-    sql: COUNT(DISTINCT(CASE WHEN ${is_terminal} and ${num_mdn_impressions} > 0  THEN ${event_id} ELSE NULL END));;
-    type: number
-  }
-
 }
