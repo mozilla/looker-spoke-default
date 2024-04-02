@@ -66,7 +66,7 @@ view: mozblogs_ga {
                      WHEN device_category IN ('mobile', 'tablet') THEN sessions
                      ELSE 0
                  END) AS mobile_sessions
-FROM `moz-fx-data-marketing-prod.ga_derived.blogs_landing_page_summary_v1`
+FROM `moz-fx-data-marketing-prod.ga.blogs_landing_page_summary`
 WHERE date >= '2021-05-18'
 GROUP BY 1,
          2,
