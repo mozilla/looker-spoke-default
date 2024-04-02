@@ -1378,7 +1378,7 @@
   - name: Has Refunds (Yes / No)
     title: Has Refunds (Yes / No)
     type: field_filter
-    default_value: ''
+    default_value: 'No'
     allow_multiple_values: true
     required: false
     ui_config:
