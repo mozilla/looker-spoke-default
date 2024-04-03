@@ -1,5 +1,0 @@
-connection: "telemetry"
-label: "MR 2022"
-include: "views/*"
-include: "explores/*"
-include: "/shared/views/*"
