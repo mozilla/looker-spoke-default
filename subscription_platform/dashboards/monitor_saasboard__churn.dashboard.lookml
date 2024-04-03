@@ -453,68 +453,6 @@
     col: 0
     width: 12
     height: 8
-  - title: Auto-Renew Disabled Occurrences
-    name: Auto-Renew Disabled Occurrences
-    model: subscription_platform
-    explore: logical_subscription_events
-    type: looker_column
-    fields: [logical_subscription_events.timestamp_date, logical_subscription_events.subscription__plan_interval,
-      logical_subscription_events.logical_subscription_count]
-    pivots: [logical_subscription_events.subscription__plan_interval]
-    fill_fields: [logical_subscription_events.timestamp_date]
-    filters:
-      logical_subscription_events.reason: Auto-Renew Disabled
-      logical_subscription_events.type: Auto-Renew Change
-    sorts: [logical_subscription_events.timestamp_date desc, logical_subscription_events.subscription__plan_interval]
-    limit: 500
-    column_limit: 50
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: normal
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    x_axis_zoom: true
-    y_axis_zoom: true
-    hidden_pivots: {}
-    show_null_points: true
-    interpolation: linear
-    defaults_version: 1
-    listen:
-      Subscription Start Date: logical_subscription_events.timestamp_date
-      Payment Provider: logical_subscription_events.subscription__payment_provider
-      Plan Interval: logical_subscription_events.subscription__plan_interval
-      Plan: logical_subscription_events.subscription__plan_summary
-      Region: countries.region_name
-      Country: countries.name
-      Has Fraudulent Charges (Yes / No): logical_subscription_events.subscription__has_fraudulent_charges
-      Has Refunds (Yes / No): logical_subscription_events.subscription__has_refunds
-      Service ID: subscription_services.id
-    row: 32
-    col: 0
-    width: 12
-    height: 8
   - title: Days to Disable Auto-Renew by Plan Interval
     name: Days to Disable Auto-Renew by Plan Interval
     model: subscription_platform
@@ -609,6 +547,68 @@
       Service ID: subscription_services.id
     row: 24
     col: 12
+    width: 12
+    height: 8
+  - title: Auto-Renew Disabled Occurrences
+    name: Auto-Renew Disabled Occurrences
+    model: subscription_platform
+    explore: logical_subscription_events
+    type: looker_column
+    fields: [logical_subscription_events.timestamp_date, logical_subscription_events.subscription__plan_interval,
+      logical_subscription_events.logical_subscription_count]
+    pivots: [logical_subscription_events.subscription__plan_interval]
+    fill_fields: [logical_subscription_events.timestamp_date]
+    filters:
+      logical_subscription_events.reason: Auto-Renew Disabled
+      logical_subscription_events.type: Auto-Renew Change
+    sorts: [logical_subscription_events.timestamp_date desc, logical_subscription_events.subscription__plan_interval]
+    limit: 500
+    column_limit: 50
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: normal
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    x_axis_zoom: true
+    y_axis_zoom: true
+    hidden_pivots: {}
+    show_null_points: true
+    interpolation: linear
+    defaults_version: 1
+    listen:
+      Subscription Start Date: logical_subscription_events.timestamp_date
+      Payment Provider: logical_subscription_events.subscription__payment_provider
+      Plan Interval: logical_subscription_events.subscription__plan_interval
+      Plan: logical_subscription_events.subscription__plan_summary
+      Region: countries.region_name
+      Country: countries.name
+      Has Fraudulent Charges (Yes / No): logical_subscription_events.subscription__has_fraudulent_charges
+      Has Refunds (Yes / No): logical_subscription_events.subscription__has_refunds
+      Service ID: subscription_services.id
+    row: 32
+    col: 0
     width: 12
     height: 8
   - title: Percent of Active Subscriptions with Auto-Renew Disabled
