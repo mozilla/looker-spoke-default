@@ -5,7 +5,7 @@ datagroup: clients_daily_joined_partitions {
   max_cache_age: "24 hours"
   sql_trigger:
     SELECT MAX(storage_last_modified_time)
-    FROM `moz-fx-data-shared-prod`.`region_us`.INFORMATION_SCHEMA.TABLE_STORAGE
+    FROM `moz-fx-data-shared-prod`.`region-US`.INFORMATION_SCHEMA.TABLE_STORAGE
     WHERE table_schema = "telemetry_derived"
     AND table_name = "clients_daily_joined_v1" ;;
   label: "Clients Daily Joined Partitions"
