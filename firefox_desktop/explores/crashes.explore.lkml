@@ -1,21 +1,11 @@
 include: "../views/crash_usage.view.lkml"
 include: "/shared/views/countries.view.lkml"
-
-datagroup: clients_daily_joined_partitions {
-  max_cache_age: "24 hours"
-  sql_trigger:
-    SELECT MAX(storage_last_modified_time)
-    FROM `moz-fx-data-shared-prod`.`region-US`.INFORMATION_SCHEMA.TABLE_STORAGE
-    WHERE table_schema = "telemetry_derived"
-    AND table_name = "clients_daily_joined_v1" ;;
-  label: "Clients Daily Joined Partitions"
-  description: "Updates when new partitions are added to clients_daily_joined"
-}
+include: "//looker-hub/firefox_desktop/datagroups/clients_daily_joined_v1_last_updated.datagroup.lkml"
 
 explore: crash_usage {
   label: "Crashes Daily"
   description: "Crash counts for Desktop Firefox, derived from the crash ping."
-  persist_with: clients_daily_joined_partitions
+  persist_with: clients_daily_joined_v1_last_updated
 
   join: buildhub {
     sql_on: ${crash_usage.version} = ${buildhub.version} AND ${crash_usage.channel} = ${buildhub.channel} ;;
