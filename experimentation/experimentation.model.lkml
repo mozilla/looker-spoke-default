@@ -339,15 +339,7 @@ explore: unenrollment_reasons {
     hidden: yes
   }
 
-  explore: task_profiling_logs {
-    hidden: yes
-  }
-
   explore: experimenter_experiments {}
-
-  explore: mr_2022_weekly_statistics_desktop_existing_users {}
-
-  explore: mr_2022_weekly_statistic_desktop_new_users {}
 
   explore: +preview {
     join: experimenter_experiments {
