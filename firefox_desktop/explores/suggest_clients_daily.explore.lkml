@@ -1,5 +1,4 @@
-include: "//looker-hub/firefox_desktop/views/*"
-include: "/firefox_desktop/views/*"
+include: "/firefox_desktop/views/suggest_clients_daily.view.lkml"
 
 explore: suggest_clients_daily {
   view_name: suggest_clients_daily

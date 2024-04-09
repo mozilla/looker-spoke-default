@@ -1,5 +1,5 @@
 include: "../views/channel_group_proportions_table.view"
-include: "/shared/views/*"
+include: "/shared/views/countries.view.lkml"
 explore: channel_group_proportions_table {
 
   join: countries {

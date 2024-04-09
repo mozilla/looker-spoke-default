@@ -1,5 +1,5 @@
 include: "../views/fenix_marketing_attributable_metrics.view.lkml"
-include: "/shared/views/*"
+include: "/shared/views/countries.view.lkml"
 
 explore: fenix_marketing_metrics {
   label: "Marketing Metrics for Android"

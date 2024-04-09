@@ -1,4 +1,4 @@
-include: "../views/*"
+include: "../views/kpi_installs.view.lkml"
 
 explore: adjust_installs_no_date_filter {
   label: "Adjust intalls"

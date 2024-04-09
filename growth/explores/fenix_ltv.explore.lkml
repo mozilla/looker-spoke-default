@@ -1,4 +1,4 @@
-include: "../views/*"
+include: "../views/fenix_ltv.view.lkml"
 include: "../../fenix/views/firefox_android_clients.view"
 
 explore: fenix_ltv {

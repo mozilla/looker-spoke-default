@@ -1,5 +1,4 @@
-include: "//looker-hub/firefox_desktop/views/*"
-include: "/firefox_desktop/views/*"
+include: "/firefox_desktop/views/urlbar_events.view.lkml"
 
 explore: urlbar_events {
   view_name: urlbar_events
