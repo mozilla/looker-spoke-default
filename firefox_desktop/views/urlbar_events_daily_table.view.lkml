@@ -69,13 +69,6 @@ view: +urlbar_events_daily_table {
     type: number
   }
 
-  measure: total_urlbar_sessions {
-    group_label: "Urlbar Metrics"
-    description: "The number of times a user initiates an interaction with the urlbar"
-    sql: SUM(${TABLE}.urlbar_sessions) ;;
-    type: number
-  }
-
   measure: total_urlbar_annoyances {
     group_label: "Urlbar Metrics"
     description: "Count of clicks on annoyance signals across all results shown in the urlbar dropdown menu"
