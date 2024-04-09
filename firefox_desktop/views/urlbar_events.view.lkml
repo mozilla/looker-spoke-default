@@ -1,4 +1,4 @@
-include: "//looker-hub/firefox_desktop/views/*"
+include: "//looker-hub/firefox_desktop/views/urlbar_events.view.lkml"
 
 view: +urlbar_events {
   dimension: annoyance_signal_type {

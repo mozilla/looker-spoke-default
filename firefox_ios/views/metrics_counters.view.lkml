@@ -1,4 +1,4 @@
-include: "//looker-hub/firefox_ios/views/*"
+include: "//looker-hub/firefox_ios/views/column_field_paths.view.lkml"
 
 view: metrics_counters {
   derived_table: {

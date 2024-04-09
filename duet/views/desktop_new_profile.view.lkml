@@ -1,4 +1,4 @@
-include: "//looker-hub/duet/views/*.view.lkml"
+include: "//looker-hub/duet/views/new_profile.view.lkml"
 
 view: desktop_new_profile {
   extends: [new_profile]
