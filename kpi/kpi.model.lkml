@@ -4,7 +4,7 @@ include: "//looker-hub/kpi/explores/*"
 include: "//looker-hub/kpi/views/*"
 include: "./dashboards/*.dashboard"
 include: "./views/*.view.lkml"                # include all views in the views/ folder in this project
-include: "/shared/views/*"
+include: "/shared/views/countries.view.lkml"
 include: "explores/*"
 
 explore: firefox_desktop_usage_2021 {

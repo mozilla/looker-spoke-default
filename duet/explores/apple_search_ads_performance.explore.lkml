@@ -1,5 +1,4 @@
 include: "../views/ad_activation_performance_table.view.lkml"
-include: "/shared/views/*"
 
 explore: apple_search_ads_performance {
   label: "Apple Search Ads (ASA) performance"

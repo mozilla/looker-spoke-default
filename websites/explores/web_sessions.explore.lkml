@@ -1,5 +1,5 @@
 include: "../views/web_sessions.view.lkml"
-include: "/shared/views/*"
+include: "/shared/views/countries.view.lkml"
 
 explore: web_sessions {
   view_name: web_sessions

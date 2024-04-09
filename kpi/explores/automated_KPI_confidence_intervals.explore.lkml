@@ -1,5 +1,4 @@
-include: "//looker-hub/kpi/views/*"
-include: "/kpi/views/*"
+include: "//looker-hub/kpi/views/automated_kpi_confidence_intervals.view.lkml"
 
 explore: automated_KPI_confidence_intervals {
   label: "Automated KPI Confidence Intervals: Aggregated Data"

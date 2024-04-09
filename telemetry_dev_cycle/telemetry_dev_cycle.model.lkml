@@ -1,5 +1,4 @@
 connection: "telemetry"
 label: "Telemetry Dev Cycle"
-include: "//looker-hub/telemetry_dev_cycle/views/*"
 include: "views/*"
 include: "explores/*"
