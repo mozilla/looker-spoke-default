@@ -1,8 +1,151 @@
 include: "//looker-hub/fenix/views/feature_usage_metrics.view.lkml"
 
-view: +feature_usage_metrics {
+view: fenix_feature_usage_metrics {
+  derived_table: {
+    sql:
+      SELECT
+        submission_date,
+        ping_date,
+        SUM(logins_deleted_users) AS logins_deleted_users,
+        SUM(logins_deleted) AS logins_deleted,
+        --logins modified
+        SUM(logins_modified_users) AS logins_modified_users,
+        SUM(logins_modified) AS logins_modified,
+        --logins currently stored
+        SUM(currently_stored_logins_users) AS currently_stored_logins_users,
+        SUM(currently_stored_logins) AS currently_stored_logins,
+        /*Credit Card*/
+        --credit card deleted
+        SUM(credit_cards_deleted_users) AS credit_cards_deleted_users,
+        SUM(credit_cards_deleted) AS credit_cards_deleted,
+        --credit card currently stored
+        SUM(currently_stored_credit_cards_users) AS currently_stored_credit_cards_users,
+        SUM(currently_stored_credit_cards) AS currently_stored_credit_cards,
+        /*Address*/
+        --address deleted
+        SUM(addresses_deleted_users) AS addresses_deleted_users,
+        SUM(addresses_deleted) AS addresses_deleted,
+        --address modified
+        SUM(addresses_modified_users) AS addresses_modified_users,
+        SUM(addresses_modified) AS addresses_modified,
+        -- addresses currently stored
+        SUM(currently_stored_addresses_users) AS currently_stored_addresses_users,
+        SUM(currently_stored_addresses) AS currently_stored_addresses,
+        /*Bookmark*/
+        --bookmarks_add
+        SUM(bookmarks_add_users) AS bookmarks_add_users,
+        SUM(bookmarks_add) AS bookmarks_add,
+        --bookmarks_delete
+        SUM(bookmarks_delete_users) AS bookmarks_delete_users,
+        SUM(bookmarks_delete) AS bookmarks_delete,
+        --bookmarks_edit
+        SUM(bookmarks_edit_users) AS bookmarks_edit_users,
+        SUM(bookmarks_edit) AS bookmarks_edit,
+        --bookmarks_open
+        SUM(bookmarks_open_users) AS bookmarks_open_users,
+        SUM(bookmarks_open) AS bookmarks_open,
+        --metrics_desktop_bookmarks_count
+        SUM(metrics_desktop_bookmarks_count_users) AS metrics_desktop_bookmarks_count_users,
+        SUM(metrics_desktop_bookmarks_count) AS metrics_desktop_bookmarks_count,
+        --metrics_mobile_bookmarks_count
+        SUM(metrics_mobile_bookmarks_count_users) AS metrics_mobile_bookmarks_count_users,
+        SUM(metrics_mobile_bookmarks_count) AS metrics_mobile_bookmarks_count,
+        --metrics_has_desktop_bookmarks
+        SUM(metrics_has_desktop_bookmarks_users) AS metrics_has_desktop_bookmarks_users,
+        SUM(metrics_has_desktop_bookmarks) AS metrics_has_desktop_bookmarks,
+        --metrics_has_mobile_bookmarks
+        SUM(metrics_has_mobile_bookmarks_users) AS metrics_has_mobile_bookmarks_users,
+        SUM(metrics_has_mobile_bookmarks) AS metrics_has_mobile_bookmarks,
+        /*Privacy*/
+        --etp_standard
+        SUM(etp_standard_users) AS etp_standard_users,
+        SUM(etp_standard) AS etp_standard,
+        --etp_strict
+        SUM(etp_strict_users) AS etp_strict_users,
+        SUM(etp_strict) AS etp_strict,
+        --etp_custom
+        SUM(etp_custom_users) AS etp_custom_users,
+        SUM(etp_custom) AS etp_custom,
+        --etp_disabled
+        SUM(etp_disabled_users) AS etp_disabled_users,
+        SUM(etp_disabled) AS etp_disabled,
+        /*Tab Count*/
+        --metrics_private_tabs_open_count
+        SUM(metrics_private_tabs_open_count_users) AS metrics_private_tabs_open_count_users,
+        SUM(metrics_private_tabs_open_count) AS metrics_private_tabs_open_count,
+        --metrics_tabs_open_count
+        SUM(metrics_tabs_open_count_users) AS metrics_tabs_open_count_users,
+        SUM(metrics_tabs_open_count) AS metrics_tabs_open_count,
+        /*Default Browser*/
+        --metrics_default_browser
+        SUM(metrics_default_browser_users) AS metrics_default_browser_users,
+        SUM(metrics_default_browser) AS metrics_default_browser,
+        /*Awesomebar Location*/
+        --awesomebar_top
+        SUM(awesomebar_top_users) AS awesomebar_top_users,
+        --awesomebar_bottom
+        SUM(awesomebar_bottom_users) AS awesomebar_bottom_users,
+        --awesomebar_null
+        SUM(awesomebar_null_users) AS awesomebar_null_users,
+        /*Notification*/
+        --metrics_notifications_allowed
+        SUM(metrics_notifications_allowed_users) AS metrics_notifications_allowed_users,
+        SUM(metrics_notifications_allowed) AS metrics_notifications_allowed,
+        --events_marketing_notification_allowed
+        SUM(events_marketing_notification_allowed_users) AS events_marketing_notification_allowed_users,
+        SUM(events_marketing_notification_allowed) AS events_marketing_notification_allowed,
+        /*Customize Homepage*/
+        --customize_home_contile
+        SUM(customize_home_contile_users) AS customize_home_contile_users,
+        SUM(customize_home_contile) AS customize_home_contile,
+        --customize_home_jump_back_in
+        SUM(customize_home_jump_back_in_users) AS customize_home_jump_back_in_users,
+        SUM(customize_home_jump_back_in) AS customize_home_jump_back_in,
+        --customize_home_most_visited_sites
+        SUM(customize_home_most_visited_sites_users) AS customize_home_most_visited_sites_users,
+        SUM(customize_home_most_visited_sites) AS customize_home_most_visited_sites,
+        --customize_home_pocket
+        SUM(customize_home_pocket_users) AS customize_home_pocket_users,
+        SUM(customize_home_pocket) AS customize_home_pocket,
+        --customize_home_recently_saved
+        SUM(customize_home_recently_saved_users) AS customize_home_recently_saved_users,
+        SUM(customize_home_recently_saved) AS customize_home_recently_saved,
+        --customize_home_recently_visited
+        SUM(customize_home_recently_visited_users) AS customize_home_recently_visited_users,
+        SUM(customize_home_recently_visited) AS customize_home_recently_visited
+      FROM `moz-fx-data-shared-prod.fenix.feature_usage_metrics`
+      WHERE submission_date >= '2021-01-01'
+      GROUP BY 1,2 ;;}
 
-  extends: [feature_usage_metrics]
+  dimension_group: ping {
+    sql: ${TABLE}.ping_date ;;
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year,
+    ]
+    convert_tz: no
+    datatype: date
+  }
+
+  dimension_group: submission {
+    sql: ${TABLE}.submission_date ;;
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year,
+    ]
+    convert_tz: no
+    datatype: date
+  }
 
   measure: sum_addresses_deleted {
     sql: ${TABLE}.addresses_deleted ;;
@@ -294,11 +437,6 @@ view: +feature_usage_metrics {
     type: sum
   }
 
-  measure: sum_metrics_ping_distinct_client_count {
-    sql: ${TABLE}.metrics_ping_distinct_client_count ;;
-    type: sum
-  }
-
   measure: sum_metrics_private_tabs_open_count {
     sql: ${TABLE}.metrics_private_tabs_open_count ;;
     type: sum
@@ -319,19 +457,18 @@ view: +feature_usage_metrics {
     type: sum
   }
 
-  dimension_group: submission {
-    sql: ${TABLE}.submission_date ;;
-    type: time
-    timeframes: [
-      raw,
-      date,
-      week,
-      month,
-      quarter,
-      year,
-    ]
-    convert_tz: no
-    datatype: date
+  measure: sum_awesomebar_top_users {
+    sql: ${TABLE}.awesomebar_top_users ;;
+    type: sum
   }
 
+  measure: sum_awesomebar_bottom_users {
+    sql: ${TABLE}.awesomebar_bottom_users ;;
+    type: sum
+  }
+
+  measure: sum_awesomebar_null_users {
+    sql: ${TABLE}.awesomebar_null_users ;;
+    type: sum
+  }
 }

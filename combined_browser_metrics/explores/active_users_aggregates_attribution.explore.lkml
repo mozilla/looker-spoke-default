@@ -1,5 +1,5 @@
 include: "../views//active_users_aggregates_attribution.view.lkml"
-include: "/shared/views/*"
+include: "/shared/views/countries.view.lkml"
 
 explore: active_users_aggregates_attribution {
   always_filter: {

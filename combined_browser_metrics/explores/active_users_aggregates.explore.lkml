@@ -1,5 +1,5 @@
 include: "../views//active_users_aggregates.view.lkml"
-include: "/shared/views/*"
+include: "/shared/views/countries.view.lkml"
 
 explore: active_users_aggregates {
   # persist_with: active_users_aggregates_v1_last_updated

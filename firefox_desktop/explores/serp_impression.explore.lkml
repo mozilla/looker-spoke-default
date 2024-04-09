@@ -1,5 +1,4 @@
-include: "//looker-hub/firefox_desktop/views/*"
-include: "/firefox_desktop/views/*"
+include: "/firefox_desktop/views/serp_impression.view.lkml"
 
 explore: serp_impression {
   view_name: serp_impression

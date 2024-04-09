@@ -4,7 +4,7 @@ include: "//looker-hub/search/explores/*"
 include: "//looker-hub/search/views/desktop_search_alert_latest_daily.view.lkml"
 include: "views/*"
 include: "explores/*"
-include: "/shared/views/*"
+include: "/shared/views/countries.view.lkml"
 include: "//looker-hub/search/datagroups/search_clients_daily_v8_last_updated.datagroup.lkml"
 
 explore: search_aggregates {

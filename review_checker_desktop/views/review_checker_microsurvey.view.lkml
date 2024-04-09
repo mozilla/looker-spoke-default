@@ -1,4 +1,4 @@
-include: "//looker-hub/review_checker_desktop/views/microsurvey*"
+include: "//looker-hub/review_checker_desktop/views/microsurvey.view.lkml"
 
 view: +microsurvey {
 

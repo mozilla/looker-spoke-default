@@ -1,5 +1,4 @@
 include: "../views/google_uac_android_activation.view.lkml"
-include: "/shared/views/*"
 
 explore: google_uac_android_activation {
   label: "Google UAC Android campaign activation"
