@@ -1,6 +1,4 @@
 connection: "telemetry"
 label: "Combined Browser Metrics"
-include: "//looker-hub/combined_browser_metrics/views/*"
 include: "views/*"
 include: "explores/*"
-include: "/shared/views/*"
