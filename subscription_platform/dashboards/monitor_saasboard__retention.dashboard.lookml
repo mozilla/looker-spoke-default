@@ -30,9 +30,9 @@
           Churn
         </a>
 
-        <!--<a href="" style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;">
+        <a href="" style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;">
           Revenue
-        </a>-->
+        </a>
 
         <!--<a href="" style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;">
           Docs
