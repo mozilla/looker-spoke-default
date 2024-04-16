@@ -198,22 +198,16 @@
     col: 0
     width: 12
     height: 8
-  - title: Average Revenue Per Unit (ARR/Active Subscriptions)
-    name: Average Revenue Per Unit (ARR/Active Subscriptions)
+  - title: Average Revenue Per Unit
+    name: Average Revenue Per Unit
     model: subscription_platform
     explore: monthly_active_logical_subscriptions
     type: looker_column
     fields: [monthly_active_logical_subscriptions.month_month, monthly_active_logical_subscriptions.total_annual_recurring_revenue_usd,
       monthly_active_logical_subscriptions.logical_subscription_count]
-    fill_fields: [monthly_active_logical_subscriptions.month_month]
     filters:
-      subscription_services.id: Monitor
-      countries.region_name: ''
-      countries.name: ''
-      current_subscription_state.has_fraudulent_charges: 'No'
-      current_subscription_state.has_refunds: ''
       monthly_active_logical_subscriptions.was_active_at_month_end: 'Yes'
-    sorts: [monthly_active_logical_subscriptions.logical_subscription_count]
+    sorts: [monthly_active_logical_subscriptions.month_month desc]
     limit: 500
     column_limit: 50
     dynamic_fields:
@@ -270,11 +264,19 @@
     defaults_version: 1
     hidden_fields: [monthly_active_logical_subscriptions.logical_subscription_count,
       monthly_active_logical_subscriptions.total_annual_recurring_revenue_usd]
+    note_state: collapsed
+    note_display: hover
+    note_text: ARPU = ARR / Active Subscriptions
     listen:
-      Payment Provider: monthly_active_logical_subscriptions.subscription__payment_provider
       Active Date: monthly_active_logical_subscriptions.month_month
+      Payment Provider: monthly_active_logical_subscriptions.subscription__payment_provider
       Plan Interval: monthly_active_logical_subscriptions.subscription__plan_interval
       Plan: monthly_active_logical_subscriptions.subscription__plan_summary
+      Region: countries.region_name
+      Country: countries.name
+      Has Fraudulent Charges (Yes / No): current_subscription_state.has_fraudulent_charges
+      Has Refunds (Yes / No): current_subscription_state.has_refunds
+      Service ID: subscription_services.id
     row: 6
     col: 12
     width: 12
