@@ -651,11 +651,12 @@
     type: field_filter
     default_value: Monitor
     allow_multiple_values: true
-    required: false
+    required: true
     ui_config:
       type: advanced
       display: overflow
-      options: []
+      options:
+      - Monitor
     model: subscription_platform
     explore: monthly_active_logical_subscriptions
     listens_to_filters: []
