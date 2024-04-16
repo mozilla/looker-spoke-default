@@ -51,7 +51,7 @@
     subtitle_text: ''
     body_text: "<div style='background-color: #ffffdd; padding: 5px 10px; border:\
       \ solid 3px #ededed; border-radius: 5px; height:160px'>\n\nThis dashboard captures\
-      \ <strong>revenue</strong> for each active subscription.\n\n<ul>\n<li>\nRevenue\
+      \ <strong>projected revenue</strong> for each active subscription.\n\n<ul>\n<li>\nRevenue\
       \ is not counted for subscriptions that have auto-renew turned off. \n</li>\n\
       <li>\nDiscounts and coupons are also currently not considered.\n</li>\n</ul>\n\
       <br>\n\n</div>"
