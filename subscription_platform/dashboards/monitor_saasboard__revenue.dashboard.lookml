@@ -566,7 +566,7 @@
       display: popover
     model: subscription_platform
     explore: monthly_active_logical_subscriptions
-    listens_to_filters: [Service ID]
+    listens_to_filters: [Active Date, Service ID]
     field: monthly_active_logical_subscriptions.subscription__payment_provider
   - name: Plan Interval
     title: Plan Interval
@@ -579,7 +579,7 @@
       display: popover
     model: subscription_platform
     explore: monthly_active_logical_subscriptions
-    listens_to_filters: [Service ID]
+    listens_to_filters: [Active Date, Service ID]
     field: monthly_active_logical_subscriptions.subscription__plan_interval
   - name: Plan
     title: Plan
@@ -592,7 +592,7 @@
       display: popover
     model: subscription_platform
     explore: monthly_active_logical_subscriptions
-    listens_to_filters: [Service ID]
+    listens_to_filters: [Active Date, Service ID, Plan Interval]
     field: monthly_active_logical_subscriptions.subscription__plan_summary
   - name: Region
     title: Region
@@ -605,7 +605,7 @@
       display: popover
     model: subscription_platform
     explore: monthly_active_logical_subscriptions
-    listens_to_filters: [Country, Service ID]
+    listens_to_filters: [Active Date, Service ID]
     field: countries.region_name
   - name: Country
     title: Country
@@ -618,7 +618,7 @@
       display: popover
     model: subscription_platform
     explore: monthly_active_logical_subscriptions
-    listens_to_filters: [Service ID, Region]
+    listens_to_filters: [Active Date, Service ID, Region]
     field: countries.name
   - name: Has Refunds (Yes / No)
     title: Has Refunds (Yes / No)
