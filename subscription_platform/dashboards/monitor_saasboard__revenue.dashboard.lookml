@@ -116,7 +116,6 @@
     type: looker_column
     fields: [monthly_active_logical_subscriptions.month_month, monthly_active_logical_subscriptions.total_annual_recurring_revenue_usd,
       monthly_active_logical_subscriptions.logical_subscription_count]
-    fill_fields: [monthly_active_logical_subscriptions.month_month]
     filters:
       monthly_active_logical_subscriptions.was_active_at_month_end: 'Yes'
     sorts: [monthly_active_logical_subscriptions.month_month desc]
