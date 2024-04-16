@@ -287,7 +287,6 @@
     type: looker_column
     fields: [monthly_active_logical_subscriptions.month_month, countries.name, monthly_active_logical_subscriptions.total_annual_recurring_revenue_usd]
     pivots: [countries.name]
-    fill_fields: [monthly_active_logical_subscriptions.month_month]
     filters:
       monthly_active_logical_subscriptions.was_active_at_month_end: 'Yes'
     sorts: [monthly_active_logical_subscriptions.month_month desc, countries.name]
@@ -374,7 +373,6 @@
     fields: [monthly_active_logical_subscriptions.month_month, monthly_active_logical_subscriptions.total_annual_recurring_revenue_usd,
       monthly_active_logical_subscriptions.subscription__plan_summary]
     pivots: [monthly_active_logical_subscriptions.subscription__plan_summary]
-    fill_fields: [monthly_active_logical_subscriptions.month_month]
     filters:
       monthly_active_logical_subscriptions.was_active_at_month_end: 'Yes'
     sorts: [monthly_active_logical_subscriptions.month_month desc, monthly_active_logical_subscriptions.subscription__plan_summary]
@@ -450,7 +448,6 @@
     type: looker_line
     fields: [monthly_active_logical_subscriptions.month_month, monthly_active_logical_subscriptions.total_annual_recurring_revenue_usd,
       monthly_active_logical_subscriptions.logical_subscription_count]
-    fill_fields: [monthly_active_logical_subscriptions.month_month]
     filters:
       monthly_active_logical_subscriptions.was_active_at_month_end: 'Yes'
     sorts: [monthly_active_logical_subscriptions.month_month]
