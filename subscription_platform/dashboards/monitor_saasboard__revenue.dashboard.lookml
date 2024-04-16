@@ -119,7 +119,7 @@
     fill_fields: [monthly_active_logical_subscriptions.month_month]
     filters:
       monthly_active_logical_subscriptions.was_active_at_month_end: 'Yes'
-    sorts: [monthly_active_logical_subscriptions.logical_subscription_count]
+    sorts: [monthly_active_logical_subscriptions.month_month desc]
     limit: 500
     column_limit: 50
     dynamic_fields:
