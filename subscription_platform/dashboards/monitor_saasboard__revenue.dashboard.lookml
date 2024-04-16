@@ -366,8 +366,8 @@
     col: 0
     width: 12
     height: 8
-  - title: Annual Recurring Revenue by Plan Summary
-    name: Annual Recurring Revenue by Plan Summary
+  - title: Annual Recurring Revenue by Plan
+    name: Annual Recurring Revenue by Plan
     model: subscription_platform
     explore: monthly_active_logical_subscriptions
     type: looker_column
