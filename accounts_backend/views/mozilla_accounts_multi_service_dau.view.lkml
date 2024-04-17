@@ -14,6 +14,7 @@ view: mozilla_accounts_multi_service_dau {
     ON e.metrics.string.relying_party_oauth_client_id = c.id
     WHERE (e.metrics.string.event_name IN ('reg_complete', 'login_complete')
      OR e.metrics.string.event_name like r'access\_token%')
+    AND c.id NOT IN ('c87d36d7fd9a1bcf', '00efbcb5b2dbfa0e', '6cd7216e25bc0fc0', 'b8a3bdc3790a61f6', '2a54021236022573', '1e5a77cf09e5b4b5', '7377719276ad44ee', '2963d96620413b9f', 'c40f32fd2938f0b6', 'b966b5f51190da9e', '3c32bf6654542211', '6c6c2958595c38de', '7f368c6886429f19', 'a3dbd8c5a6fd93e2', '85da77264642d6a1', '7ad9917f6c55fb77', '0d1a8469632d0f61', '565585c1745a144d', '798de7affc08df8b', 'ea3ca969f8c6bb0d', 'e7ce535d93522896', '98adfa37698f255b', '3c49430b43dfba77', '59cceb6f8c32317c')
     GROUP BY
       1, 2
     HAVING ARRAY_LENGTH(service_names) > 1;;
