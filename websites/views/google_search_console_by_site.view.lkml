@@ -1,6 +1,6 @@
-include: "//looker-hub/websites/views/google_search_impressions_by_site.view.lkml"
+include: "//looker-hub/websites/views/google_search_console_by_site.view.lkml"
 
-view: +google_search_impressions_by_site {
+view: +google_search_console_by_site {
   dimension: impressions {
     hidden: yes
   }
