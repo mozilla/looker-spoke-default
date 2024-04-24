@@ -6,8 +6,9 @@ explore: google_search_console_by_site {
     filters: [google_search_console_by_site.date_date: "30 days"]
   }
 
-  join: countries {
-    sql_on: ${google_search_console_by_site.country_code} = ${countries.code_3} ;;
+  join: user_countries {
+    from: countries
+    sql_on: ${google_search_console_by_site.user_country_code} = ${user_countries.code_3} ;;
     type: left_outer
     relationship: many_to_one
   }
