@@ -1,90 +1,99 @@
 view: android_app_campaign_stats {
   sql_table_name: `moz-fx-data-shared-prod.google_ads_derived.android_app_campaign_stats_v1` ;;
 
-    #### copied from looker-hub, but I had to rename some of the dimensions b/c they conflict
-    #### with some of the backwards compatibile names below (can't name a measure the same as a
-    #### dimension, and we need a dimension called e.g. clicks)
+  #### The below is copied directly from looker-hub. Why?
+  #### We needed to keep this new explore backwards-compatible with an old explore.
+  #### That old explore had measure names that were the _same_ as some of the dimensions
+  #### in the generated LookML. Because we can't remove dimensions from LookML with refinements,
+  #### (only hide them), and measures cannot share names with dimensions, I couldn't include
+  #### those backwards-compatible measures in a refined view from the generated LookML.
+  #### Instead, I append "_dim" to their names, see e.g. new_profiles_dim
 
-    dimension: ad_group {
-      sql: ${TABLE}.ad_group ;;
-      type: string
-      description: "The name of the ad group"
-    }
+  dimension: ad_group {
+    sql: ${TABLE}.ad_group ;;
+    type: string
+    description: "The name of the ad group"
+  }
 
-    dimension: campaign {
-      sql: ${TABLE}.campaign ;;
-      type: string
-      description: "The name of the campaign"
-    }
+  dimension: campaign {
+    sql: ${TABLE}.campaign ;;
+    type: string
+    description: "The name of the campaign"
+  }
 
-    dimension: campaign_country_code {
-      sql: ${TABLE}.campaign_country_code ;;
-      type: string
-      description: "The country code, pulled from the campaign name (where possible)"
-    }
+  dimension: campaign_country_code {
+    sql: ${TABLE}.campaign_country_code ;;
+    type: string
+    description: "The country code, pulled from the campaign name (where possible)"
+  }
 
-    dimension: campaign_language {
-      sql: ${TABLE}.campaign_language ;;
-      type: string
-      description: "The campaign language, pulled from the campaign name (where possible)"
-    }
+  dimension: campaign_language {
+    sql: ${TABLE}.campaign_language ;;
+    type: string
+    description: "The campaign language, pulled from the campaign name (where possible)"
+  }
 
-    dimension: campaign_region {
-      sql: ${TABLE}.campaign_region ;;
-      type: string
-      description: "The campaign region, pulled from the campaign name"
-    }
+  dimension: campaign_region {
+    sql: ${TABLE}.campaign_region ;;
+    type: string
+    description: "The campaign region, pulled from the campaign name"
+  }
 
-    dimension: activated_profiles_dim {
-      sql: ${TABLE}.activated_profiles ;;
-      type: number
-      hidden: yes
-    }
+  dimension: activated_profiles_dim {
+    sql: ${TABLE}.activated_profiles ;;
+    type: number
+    hidden: yes
+  }
 
-    dimension: clicks_dim {
-      sql: ${TABLE}.clicks ;;
-      type: number
-      hidden: yes
-    }
+  dimension: clicks_dim {
+    sql: ${TABLE}.clicks ;;
+    type: number
+    hidden: yes
+  }
 
-    dimension: impressions_dim {
-      sql: ${TABLE}.impressions ;;
-      type: number
-      hidden: yes
-    }
+  dimension: impressions_dim {
+    sql: ${TABLE}.impressions ;;
+    type: number
+    hidden: yes
+  }
 
-    dimension: lifetime_value_dim {
-      sql: ${TABLE}.lifetime_value ;;
-      type: number
-      hidden: yes
-    }
+  dimension: lifetime_value_dim {
+    sql: ${TABLE}.lifetime_value ;;
+    type: number
+    hidden: yes
+  }
 
-    dimension: new_profiles_dim {
-      sql: ${TABLE}.new_profiles ;;
-      type: number
-      hidden: yes
-    }
+  dimension: new_profiles_dim {
+    sql: ${TABLE}.new_profiles ;;
+    type: number
+    hidden: yes
+  }
 
-    dimension: spend_dim {
-      sql: ${TABLE}.spend ;;
-      type: number
-      hidden: yes
-    }
+  dimension: spend_dim {
+    sql: ${TABLE}.spend ;;
+    type: number
+    hidden: yes
+  }
 
-    dimension_group: date {
-      sql: ${TABLE}.date ;;
-      type: time
-      timeframes: [
-        raw,
-        date,
-        week,
-        month,
-        quarter,
-        year,
-      ]
-      convert_tz: no
-      datatype: date
-    }
+  dimension_group: date {
+    description: "Date of campaign spend. Activation is determined a week later."
+    type: time
+    datatype: date
+    timeframes: [date, week, month, year]
+    sql: ${TABLE}.date ;;
+    convert_tz: no
+    hidden: yes
+  }
+
+  dimension_group: campaign_date {
+    description: "Date of campaign spend"
+    type: time
+    datatype: date
+    timeframes: [date, week, month, year]
+    sql: ${TABLE}.date ;;
+    convert_tz: no
+    hidden: yes
+  }
 
   ### Below is the actual interesting bits of new LookML ####
 
@@ -200,43 +209,38 @@ view: android_app_campaign_stats {
     hidden: yes
   }
 
-  dimension_group: campaign_date {
-    description: "Date of campaign spend"
-    type: time
-    datatype: date
-    timeframes: [date, week, month, year]
-    sql: ${TABLE}.date ;;
-    convert_tz: no
-    hidden: yes
-  }
-
   measure: ad_impressions {
     description: "Ad Impressions - The number of impressions of ads, reported by Google Ads"
     sql: ${total_impressions} ;;
+    type: number
     hidden: yes
   }
 
   measure: clicks {
     description: "Clicks - The number of clicks on our ads, reported by Google Ads"
     sql: ${total_clicks} ;;
+    type: number
     hidden: yes
   }
 
   measure: new_profiles {
     description: "First run profiles"
     sql: ${total_new_profiles} ;;
+    type: number
     hidden: yes
   }
 
   measure: activated {
     description: "First run activations"
     sql: ${total_activated_profiles} ;;
+    type: number
     hidden: yes
   }
 
   measure: cost {
     description: "Campaign cost"
     sql: ${spend_dim} ;;
+    type: number
     hidden: yes
   }
 
@@ -244,7 +248,7 @@ view: android_app_campaign_stats {
     label: "Activation Rate"
     type: number
     value_format_name: percent_2
-    sql: SAFE_DIVIDE(${filtered_activated}, (${filtered_new_profiles}) ;;
+    sql: SAFE_DIVIDE(${filtered_activated}, ${filtered_new_profiles}) ;;
     hidden: yes
   }
 
