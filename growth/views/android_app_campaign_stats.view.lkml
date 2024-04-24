@@ -83,7 +83,6 @@ view: android_app_campaign_stats {
     timeframes: [date, week, month, year]
     sql: ${TABLE}.date ;;
     convert_tz: no
-    hidden: yes
   }
 
   dimension_group: campaign_date {
