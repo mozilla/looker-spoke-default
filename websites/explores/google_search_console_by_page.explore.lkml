@@ -8,8 +8,14 @@ explore: google_search_console_by_page {
 
   join: user_countries {
     from: countries
+    view_label: "User Regions"
     sql_on: ${google_search_console_by_page.user_country_code} = ${user_countries.code_3} ;;
     type: left_outer
     relationship: many_to_one
+    fields: [
+      region_name,
+      subregion_name,
+      intermediate_region_name
+    ]
   }
 }
