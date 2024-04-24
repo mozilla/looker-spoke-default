@@ -184,6 +184,7 @@ view: android_app_campaign_stats {
     sql: SAFE_DIVIDE(${total_lifetime_value}, ${total_spend}) ;;
     description: "Return on Ad Spend, defined as LTV / Ad Spend. Value >1 means we expect to make money from this ad spend."
     value_format_name: percent_1
+    type: number
   }
 
   ##### Hidden dims/measures to migrate old dashboards #####
