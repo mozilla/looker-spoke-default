@@ -1,4 +1,5 @@
 view: android_app_campaign_stats {
+
   sql_table_name: `moz-fx-data-shared-prod.google_ads_derived.android_app_campaign_stats_v1` ;;
 
   #### The below is copied directly from looker-hub. Why?
