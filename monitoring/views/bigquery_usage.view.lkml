@@ -3,7 +3,6 @@ include: "//looker-hub/monitoring/views/bigquery_usage.view.lkml"
 view: +bigquery_usage {
 
   dimension: job_id {
-    primary_key: yes
     sql: job_id ;;
     type: string
   }
