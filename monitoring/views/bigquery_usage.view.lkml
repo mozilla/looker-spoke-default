@@ -47,4 +47,11 @@ view: +bigquery_usage {
     type: count_distinct
     sql: ${job_id};;
   }
+
+  measure: sum_total_cost_usd{
+    type: sum_distinct
+    sql_distinct_key: ${job_id} ;;
+    sql: ${cost} ;;
+    value_format: "$#.00;($#.00)"
+  }
 }
