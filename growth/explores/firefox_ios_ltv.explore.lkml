@@ -1,9 +1,8 @@
 include: "../views/firefox_ios_ltv.view.lkml"
-include: "../../firefox_ios/views/firefox_ios_clients.view"
+include: "../../firefox_ios/views/firefox_ios_clients.view.lkml"
 
 explore: firefox_ios_ltv {
     label: "Firefox iOS Lifetime Value (LTV)"
-    from: +firefox_ios_ltv
 
     join: firefox_ios_clients {
     type: inner
