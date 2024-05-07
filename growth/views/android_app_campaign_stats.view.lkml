@@ -41,37 +41,37 @@ view: android_app_campaign_stats {
   }
 
   dimension: activated_profiles_dim {
-    sql: ${TABLE}.activated_profiles ;;
+    sql: COALESCE(${TABLE}.activated_profiles, 0) ;;
     type: number
     hidden: yes
   }
 
   dimension: clicks_dim {
-    sql: ${TABLE}.clicks ;;
+    sql: COALESCE(${TABLE}.clicks, 0) ;;
     type: number
     hidden: yes
   }
 
   dimension: impressions_dim {
-    sql: ${TABLE}.impressions ;;
+    sql: COALESCE(${TABLE}.impressions, 0) ;;
     type: number
     hidden: yes
   }
 
   dimension: lifetime_value_dim {
-    sql: ${TABLE}.lifetime_value ;;
+    sql: COALESCE(${TABLE}.lifetime_value, 0) ;;
     type: number
     hidden: yes
   }
 
   dimension: new_profiles_dim {
-    sql: ${TABLE}.new_profiles ;;
+    sql: COALESCE(${TABLE}.new_profiles, 0) ;;
     type: number
     hidden: yes
   }
 
   dimension: spend_dim {
-    sql: ${TABLE}.spend ;;
+    sql: COALESCE(${TABLE}.spend, 0) ;;
     type: number
     hidden: yes
   }
