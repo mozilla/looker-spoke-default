@@ -61,9 +61,10 @@ WITH tbl_agg AS
                           distribution_id
              ORDER BY submission_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
                 ) AS installs_smoothed
-   FROM tbl_agg)
+   FROM tbl_agg),
 
-SELECT a.*,
+tbl_YOY AS
+(SELECT a.*,
        b.new_installs_smoothed AS new_installs_smoothed_prev_year,
        b.paveover_installs_smoothed AS paveover_installs_smoothed_prev_year,
        b.installs_smoothed AS installs_smoothed_prev_year
@@ -76,6 +77,19 @@ LEFT JOIN tbl_smoothed b ON (
     AND COALESCE(a.normalized_country_code_subset, 'tmp_NA') = COALESCE(b.normalized_country_code_subset, 'tmp_NA')
    AND COALESCE(a.distribution_id, 'tmp_NA') = COALESCE(b.distribution_id, 'tmp_NA')
                     )
+  )
+-- next part is complete hack to make this data source date availability
+-- match with the 28 days later table
+    SELECT
+    a.*
+    FROM
+      tbl_YOY a
+    LEFT JOIN
+      (SELECT distinct first_seen_date as submission_date
+      FROM `mozdata.telemetry.clients_first_seen_28_days_later`
+      WHERE sample_id = 1 AND first_seen_date >= '2021-01-01') b
+    ON (a.submission_date = b.submission_date)
+    WHERE b.submission_date is not null
       ;;
 
   }

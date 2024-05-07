@@ -51,9 +51,10 @@ view: desktop_funnels_web {
           distribution_id
       ORDER BY submission_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)
       AS non_fx_downloads_smoothed
-      FROM tbl_agg)
+      FROM tbl_agg),
 
-      SELECT
+    tbl_YOY AS
+      (SELECT
         a.*,
         b.non_fx_sessions_smoothed AS non_fx_sessions_smoothed_prev_year,
         b.non_fx_downloads_smoothed AS non_fx_downloads_smoothed_prev_year
@@ -71,6 +72,19 @@ view: desktop_funnels_web {
                        'tmp_NA') = COALESCE(b.distribution_id, 'tmp_NA')
           -- none of these 4 fields should yield nulls, but adding safety net
           )
+        )
+-- next part is complete hack to make this data source date availability
+-- match with the 28 days later table
+    SELECT
+    a.*
+    FROM
+      tbl_YOY a
+    LEFT JOIN
+      (SELECT distinct first_seen_date as submission_date
+      FROM `mozdata.telemetry.clients_first_seen_28_days_later`
+      WHERE sample_id = 1 AND first_seen_date >= '2021-01-01') b
+    ON (a.submission_date = b.submission_date)
+    WHERE b.submission_date is not null
       ;;
   }
 
