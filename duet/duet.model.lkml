@@ -97,3 +97,14 @@ explore: desktop_funnels_telemetry {
       ${submission_date} <= DATE({% date_end desktop_funnels_telemetry.analysis_period %})
                                 ;;
 }
+
+
+explore: desktop_funnels_dates {
+  view_name:  desktop_funnels_dates
+  description: "dates of clients_first_seen_28_days_later availability"
+  sql_always_where:
+      ${submission_date} > DATE({% date_start desktop_funnels_dates.analysis_period %})
+      AND
+      ${submission_date} <= DATE({% date_end desktop_funnels_dates.analysis_period %})
+                                ;;
+}
