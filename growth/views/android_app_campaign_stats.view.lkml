@@ -41,37 +41,49 @@ view: android_app_campaign_stats {
   }
 
   dimension: activated_profiles_dim {
-    sql: ${TABLE}.activated_profiles ;;
+    sql: COALESCE(${TABLE}.activated_profiles, 0) ;;
     type: number
     hidden: yes
   }
 
   dimension: clicks_dim {
-    sql: ${TABLE}.clicks ;;
+    sql: COALESCE(${TABLE}.clicks, 0) ;;
     type: number
     hidden: yes
   }
 
   dimension: impressions_dim {
-    sql: ${TABLE}.impressions ;;
+    sql: COALESCE(${TABLE}.impressions, 0) ;;
     type: number
     hidden: yes
   }
 
   dimension: lifetime_value_dim {
-    sql: ${TABLE}.lifetime_value ;;
+    sql: COALESCE(${TABLE}.lifetime_value, 0) ;;
     type: number
     hidden: yes
   }
 
   dimension: new_profiles_dim {
-    sql: ${TABLE}.new_profiles ;;
+    sql: COALESCE(${TABLE}.new_profiles, 0) ;;
+    type: number
+    hidden: yes
+  }
+
+  dimension: repeat_users_dim {
+    sql: COALESCE(${TABLE}.repeat_users, 0) ;;
+    type: number
+    hidden: yes
+  }
+
+  dimension: week_4_retained_users_dim {
+    sql: COALESCE(${TABLE}.week_4_retained_users, 0) ;;
     type: number
     hidden: yes
   }
 
   dimension: spend_dim {
-    sql: ${TABLE}.spend ;;
+    sql: COALESCE(${TABLE}.spend, 0) ;;
     type: number
     hidden: yes
   }
@@ -134,6 +146,18 @@ view: android_app_campaign_stats {
     description: "Estimated value, in US dollars, of the clients attributed to this campaign/ad group."
   }
 
+  measure: total_repeat_users {
+    type: sum
+    sql: ${repeat_users_dim} ;;
+    description: "Total number of attributed repeat new profiles for this campaign/ad group, as reported by Firefox Telemetry"
+  }
+
+  measure: total_week_4_retained_users {
+    type: sum
+    sql: ${week_4_retained_users_dim} ;;
+    description: "Total number of attributed week 4 retained new profiles for this campaign/ad group, as reported by Firefox Telemetry"
+  }
+
   measure: cost_per_impression {
     description: "Cost per ad impression"
     type: number
@@ -167,10 +191,35 @@ view: android_app_campaign_stats {
     sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -7 DAY), ${activated_profiles_dim}, 0)) ;;
   }
 
+  measure: filtered_retention_spend {
+    description: "Spend, but not including the last 28 days"
+    hidden: yes
+    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${spend_dim}, 0)) ;;
+  }
+
+  measure: filtered_repeat_users {
+    description: "Filter repeat users using the same where clause as filtered_retention_spend"
+    hidden: yes
+    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${repeat_users_dim}, 0)) ;;
+  }
+
+  measure: filtered_week_4_retained_users {
+    description: "Filter week 4 retained users using the same where clause as filtered_retention_spend"
+    hidden: yes
+    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${week_4_retained_users_dim}, 0)) ;;
+  }
+
+
   measure: filtered_new_profiles {
     description: "Filter new profiles using the same where clause as filtered_activated_spend"
     hidden: yes
     sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -7 DAY), ${new_profiles_dim}, 0)) ;;
+  }
+
+  measure: filtered_ret_new_profiles {
+    description: "Filter new profiles using the same where clause as filtered_activated_spend"
+    hidden: yes
+    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${new_profiles_dim}, 0)) ;;
   }
 
   measure: cost_per_activation {
@@ -179,6 +228,21 @@ view: android_app_campaign_stats {
     value_format_name: usd
     sql: SAFE_DIVIDE(${filtered_activated_spend}, ${filtered_activated}) ;;
   }
+
+  measure: cost_per_repeat_user {
+    description: "Cost per repeat user. Takes 28 days for this value to appear."
+    type: number
+    value_format_name: usd
+    sql: SAFE_DIVIDE(${filtered_retention_spend}, ${filtered_repeat_users}) ;;
+  }
+
+  measure: cost_per_week_4_retained_users {
+    description: "Cost per week 4 retained user. Takes 28 days for this value to appear."
+    type: number
+    value_format_name: usd
+    sql: SAFE_DIVIDE(${filtered_retention_spend}, ${filtered_week_4_retained_users}) ;;
+  }
+
 
   measure: ROAS {
     sql: SAFE_DIVIDE(${total_lifetime_value}, ${total_spend}) ;;
@@ -250,6 +314,22 @@ view: android_app_campaign_stats {
     type: number
     value_format_name: percent_2
     sql: SAFE_DIVIDE(${filtered_activated}, ${filtered_new_profiles}) ;;
+    hidden: yes
+  }
+
+  measure: repeat_user_rate {
+    label: "Repeat User Rate"
+    type: number
+    value_format_name: percent_2
+    sql: SAFE_DIVIDE(${filtered_repeat_users}, ${filtered_ret_new_profiles}) ;;
+    hidden: yes
+  }
+
+  measure: week_4_retention_rate {
+    label: "Week 4 Retention Rate"
+    type: number
+    value_format_name: percent_2
+    sql: SAFE_DIVIDE(${filtered_week_4_retained_users}, ${filtered_ret_new_profiles}) ;;
     hidden: yes
   }
 
