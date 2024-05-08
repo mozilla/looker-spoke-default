@@ -193,19 +193,19 @@ view: android_app_campaign_stats {
 
   measure: filtered_retention_spend {
     description: "Spend, but not including the last 28 days"
-    hidden: yes
+    view_label: "Filtered Retention measure"
     sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${spend_dim}, 0)) ;;
   }
 
   measure: filtered_repeat_users {
     description: "Filter repeat users using the same where clause as filtered_retention_spend"
-    hidden: yes
+    view_label: "Filtered Retention measure"
     sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${repeat_users_dim}, 0)) ;;
   }
 
   measure: filtered_week_4_retained_users {
     description: "Filter week 4 retained users using the same where clause as filtered_retention_spend"
-    hidden: yes
+    view_label: "Filtered Retention measure"
     sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${week_4_retained_users_dim}, 0)) ;;
   }
 
@@ -218,7 +218,7 @@ view: android_app_campaign_stats {
 
   measure: filtered_ret_new_profiles {
     description: "Filter new profiles using the same where clause as filtered_activated_spend"
-    hidden: yes
+    view_label: "Filtered Retention measure"
     sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${new_profiles_dim}, 0)) ;;
   }
 
