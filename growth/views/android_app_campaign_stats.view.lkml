@@ -197,6 +197,18 @@ view: android_app_campaign_stats {
     sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${spend_dim}, 0)) ;;
   }
 
+  measure: filtered_retention_impressions {
+    description: "Spend, but not including the last 28 days"
+    view_label: "Filtered Retention measure"
+    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${impressions_dim}, 0)) ;;
+  }
+
+  measure: filtered_retention_clicks {
+    description: "Spend, but not including the last 28 days"
+    view_label: "Filtered Retention measure"
+    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${clicks_dim}, 0)) ;;
+  }
+
   measure: filtered_repeat_users {
     description: "Filter repeat users using the same where clause as filtered_retention_spend"
     view_label: "Filtered Retention measure"
