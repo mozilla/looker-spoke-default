@@ -24,8 +24,7 @@ view: dev_desktop_new_profiles {
               END
                 AS normalized_country_code_subset,
           CASE
-            WHEN normalized_channel = 'release'
-            AND LOWER(normalized_os) like '%windows%'
+            LOWER(normalized_os) like '%windows%'
             AND DATE_DIFF(  -- Only use builds from the last month
                   DATE(first_seen_date),
                   SAFE.PARSE_DATE('%Y%m%d', SUBSTR(app_build_id, 0, 8)),
