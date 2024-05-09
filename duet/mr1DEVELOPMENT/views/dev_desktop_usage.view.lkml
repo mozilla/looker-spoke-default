@@ -24,8 +24,7 @@ view: dev_desktop_usage {
               END
                 AS normalized_country_code_subset,
           CASE
-            WHEN channel = 'release'
-            AND LOWER(os) like '%windows%'
+            WHEN LOWER(os) like '%windows%'
             AND DATE_DIFF(  -- Only use builds from the last month
                   DATE(first_seen_date),
                   SAFE.PARSE_DATE('%Y%m%d', SUBSTR(build_id, 0, 8)),

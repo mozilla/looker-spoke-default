@@ -42,8 +42,7 @@ SELECT first_seen_date AS submission_date,
            ELSE 'Other'
        END AS os_group,
        CASE
-           WHEN channel = 'release'
-                AND LOWER(os) LIKE '%windows%'
+           WHEN LOWER(os) LIKE '%windows%'
                 AND DATE_DIFF(-- Only use builds from the last month
  DATE(first_seen_date), SAFE.PARSE_DATE('%Y%m%d', SUBSTR(build_id, 0, 8)), WEEK) <= 6
                 AND attribution_source IS NOT NULL

@@ -18,7 +18,6 @@ view: dev_desktop_install_partners {
               CASE
                   WHEN (silent = FALSE
                         OR silent IS NULL)
-                       AND update_channel = 'release'
                        AND DATE_DIFF(-- Only use builds from the last month
      DATE(submission_timestamp), SAFE.PARSE_DATE('%Y%m%d', SUBSTR(build_id, 0, 8)), WEEK) <= 6
                        AND IF((attribution IS NULL
