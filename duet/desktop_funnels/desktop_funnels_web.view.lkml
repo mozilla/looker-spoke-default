@@ -20,9 +20,6 @@ view: desktop_funnels_web {
                  ELSE 'ROW'
              END AS normalized_country_code_subset,
             funnel_derived,
-            distribution_model,
-            partner_org,
-            NULL as distribution_id,
       sum(non_fx_sessions) AS non_fx_sessions,
       sum(non_fx_downloads) AS non_fx_downloads
       FROM `moz-fx-data-marketing-prod.ga.www_site_metrics_summary`
@@ -36,19 +33,13 @@ view: desktop_funnels_web {
       AVG(non_fx_sessions) OVER
       (PARTITION BY
           funnel_derived,
-          distribution_model,
-          partner_org,
-          normalized_country_code_subset,
-          distribution_id
+          normalized_country_code_subset
       ORDER BY submission_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)
       AS non_fx_sessions_smoothed,
       AVG(non_fx_downloads) OVER
       (PARTITION BY
           funnel_derived,
-          distribution_model,
-          partner_org,
-          normalized_country_code_subset,
-          distribution_id
+          normalized_country_code_subset
       ORDER BY submission_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)
       AS non_fx_downloads_smoothed
       FROM tbl_agg),
@@ -56,6 +47,8 @@ view: desktop_funnels_web {
     tbl_YOY AS
       (SELECT
         a.*,
+        b.non_fx_sessions AS non_fx_sessions_prev_year,
+        b.non_fx_downloads AS non_fx_downloads_prev_year,
         b.non_fx_sessions_smoothed AS non_fx_sessions_smoothed_prev_year,
         b.non_fx_downloads_smoothed AS non_fx_downloads_smoothed_prev_year
       FROM
@@ -64,13 +57,8 @@ view: desktop_funnels_web {
         tbl_smoothed b
       ON (DATE_ADD(b.submission_date, INTERVAL 1 YEAR) = a.submission_date
           AND COALESCE(a.funnel_derived, 'tmp_NA') = COALESCE(b.funnel_derived, 'tmp_NA')
-          AND COALESCE(a.distribution_model, 'tmp_NA') = COALESCE(b.distribution_model, 'tmp_NA')
-          AND COALESCE(a.partner_org, 'tmp_NA') = COALESCE(b.partner_org, 'tmp_NA')
           AND COALESCE(a.normalized_country_code_subset,
                        'tmp_NA') = COALESCE(b.normalized_country_code_subset, 'tmp_NA')
-          AND COALESCE(a.distribution_id,
-                       'tmp_NA') = COALESCE(b.distribution_id, 'tmp_NA')
-          -- none of these 4 fields should yield nulls, but adding safety net
           )
         )
 -- next part is complete hack to make this data source date availability
@@ -101,27 +89,6 @@ view: desktop_funnels_web {
       ;;
     type: string
     description: "meta identifer: defining membership in the different firefox acquisition funnels"
-  }
-
-  dimension: distribution_model {
-    sql: ${TABLE}.distribution_model
-      ;;
-    type: string
-    description: "only relevent for Distribution Builds funnel, describes how build is distributed"
-  }
-
-  dimension: partner_org {
-    sql: ${TABLE}.partner_org
-      ;;
-    type: string
-    description: "only relevent for Distribution Builds funnel, partnership org associated with build"
-  }
-
-  dimension: distribution_id {
-    sql: ${TABLE}.distribution_id
-      ;;
-    type: string
-    description: "only relevent for Distribution Builds funnel, partnership org associated with build"
   }
 
   dimension_group: submission {
@@ -162,6 +129,18 @@ view: desktop_funnels_web {
     description: "downloads from non-Firefox browsers."
     type: sum
     sql: ${TABLE}.non_fx_downloads_smoothed ;;
+  }
+
+  measure: non_fx_sessions_prev_year {
+    description: "visits from non-Firefox browsers from previous year"
+    type: sum
+    sql: ${TABLE}.non_fx_sessions_prev_year ;;
+  }
+
+  measure: non_fx_downloads_prev_year {
+    description: "downloads from non-Firefox browsers from previous year"
+    type: sum
+    sql: ${TABLE}.non_fx_downloads_prev_year ;;
   }
 
   measure: non_fx_sessions_smoothed_prev_year {

@@ -11,8 +11,6 @@ WITH tbl_agg AS
               ELSE 'ROW'
           END AS normalized_country_code_subset,
           funnel_derived,
-          distribution_model,
-          partner_org,
           CASE
               WHEN distribution_id = '0' THEN NULL
               ELSE distribution_id
@@ -39,32 +37,26 @@ WITH tbl_agg AS
   (SELECT *,
           AVG(new_installs) OVER
             (PARTITION BY funnel_derived,
-                          normalized_country_code_subset,
-                          partner_org,
-                          distribution_model,
-                          distribution_id
+                          normalized_country_code_subset
              ORDER BY submission_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
                 ) AS new_installs_smoothed,
           AVG(paveover_installs) OVER
             (PARTITION BY funnel_derived,
-                          normalized_country_code_subset,
-                          partner_org,
-                          distribution_model,
-                          distribution_id
+                          normalized_country_code_subset
              ORDER BY submission_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
                 ) AS paveover_installs_smoothed,
           AVG(installs) OVER
             (PARTITION BY funnel_derived,
-                          normalized_country_code_subset,
-                          partner_org,
-                          distribution_model,
-                          distribution_id
+                          normalized_country_code_subset
              ORDER BY submission_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
                 ) AS installs_smoothed
    FROM tbl_agg),
 
 tbl_YOY AS
 (SELECT a.*,
+       b.new_installs AS new_installs_prev_year,
+       b.paveover_installs AS paveover_installs_prev_year,
+       b.installs AS installs_prev_year,
        b.new_installs_smoothed AS new_installs_smoothed_prev_year,
        b.paveover_installs_smoothed AS paveover_installs_smoothed_prev_year,
        b.installs_smoothed AS installs_smoothed_prev_year
@@ -72,10 +64,7 @@ FROM tbl_smoothed a
 LEFT JOIN tbl_smoothed b ON (
     DATE_ADD(b.submission_date, INTERVAL 1 YEAR) = a.submission_date
     AND COALESCE(a.funnel_derived, 'tmp_NA') = COALESCE(b.funnel_derived, 'tmp_NA')
-    AND COALESCE(a.distribution_model, 'tmp_NA') = COALESCE(b.distribution_model, 'tmp_NA')
-    AND COALESCE(a.partner_org, 'tmp_NA') = COALESCE(b.partner_org, 'tmp_NA')
     AND COALESCE(a.normalized_country_code_subset, 'tmp_NA') = COALESCE(b.normalized_country_code_subset, 'tmp_NA')
-   AND COALESCE(a.distribution_id, 'tmp_NA') = COALESCE(b.distribution_id, 'tmp_NA')
                     )
   )
 -- next part is complete hack to make this data source date availability
@@ -107,27 +96,6 @@ LEFT JOIN tbl_smoothed b ON (
       ;;
     type: string
     description: "meta identifer: defining membership in the different firefox acquisition funnels"
-  }
-
-  dimension: distribution_model {
-    sql: ${TABLE}.distribution_model
-      ;;
-    type: string
-    description: "only relevent for Distribution Builds funnel, describes how build is distributed"
-  }
-
-  dimension: partner_org {
-    sql: ${TABLE}.partner_org
-      ;;
-    type: string
-    description: "only relevent for Distribution Builds funnel, partnership org associated with build"
-  }
-
-  dimension: distribution_id {
-    sql: ${TABLE}.distribution_id
-      ;;
-    type: string
-    description: "only relevent for Distribution Builds funnel, partnership org associated with build"
   }
 
   dimension_group: submission {
@@ -180,6 +148,24 @@ LEFT JOIN tbl_smoothed b ON (
     description: "total installs."
     type: sum
     sql: ${TABLE}.installs_smoothed ;;
+  }
+
+  measure: new_installs_prev_year {
+    description: "installs where no existing installation existed."
+    type: sum
+    sql: ${TABLE}.new_installs_prev_year ;;
+  }
+
+  measure: paveover_installs_prev_year {
+    description: "installs where existing installation existed."
+    type: sum
+    sql: ${TABLE}.paveover_installs_prev_year ;;
+  }
+
+  measure: installs_prev_year {
+    description: "total installs."
+    type: sum
+    sql: ${TABLE}.installs_prev_year ;;
   }
 
   measure: new_installs_smoothed_prev_year {

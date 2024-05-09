@@ -10,9 +10,6 @@ WITH tbl_agg AS
               ELSE 'ROW'
           END AS normalized_country_code_subset,
           funnel_derived,
-          distribution_model,
-          partner_org,
-          distribution_id,
           count(*) AS new_profiles,
           SUM(CASE
                   WHEN qualified_second_day = TRUE THEN 1
@@ -28,31 +25,25 @@ WITH tbl_agg AS
      tbl_smoothed AS
   (SELECT *,
           AVG(new_profiles) OVER (PARTITION BY funnel_derived,
-                                               distribution_model,
-                                               partner_org,
-                                               normalized_country_code_subset,
-                                               distribution_id
+                                               normalized_country_code_subset
             ORDER BY submission_date
                      ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)
                                             AS new_profiles_smoothed,
           AVG(returned_second_day) OVER (PARTITION BY funnel_derived,
-                                                      distribution_model,
-                                                      partner_org,
-                                                      normalized_country_code_subset,
-                                                      distribution_id
+                                                      normalized_country_code_subset
             ORDER BY submission_date
                      ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)
                                             AS returned_second_day_smoothed,
           AVG(retained_week4) OVER (PARTITION BY funnel_derived,
-                                                 distribution_model,
-                                                 partner_org,
-                                                 normalized_country_code_subset,
-                                                 distribution_id
+                                                 normalized_country_code_subset
              ORDER BY submission_date
                      ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)
                                             AS retained_week4_smoothed
    FROM tbl_agg)
 SELECT a.*,
+       b.new_profiles AS new_profiles_prev_year,
+       b.returned_second_day AS returned_second_day_prev_year,
+       b.retained_week4 AS retained_week4_prev_year,
        b.new_profiles_smoothed AS new_profiles_smoothed_prev_year,
        b.returned_second_day_smoothed AS returned_second_day_smoothed_prev_year,
        b.retained_week4_smoothed AS retained_week4_smoothed_prev_year
@@ -60,13 +51,8 @@ FROM tbl_smoothed a
 LEFT JOIN tbl_smoothed b
     ON (DATE_ADD(b.submission_date, INTERVAL 1 YEAR) = a.submission_date
         AND COALESCE(a.funnel_derived, 'tmp_NA') = COALESCE(b.funnel_derived, 'tmp_NA')
-        AND COALESCE(a.distribution_model, 'tmp_NA') = COALESCE(b.distribution_model, 'tmp_NA')
-        AND COALESCE(a.partner_org, 'tmp_NA') = COALESCE(b.partner_org, 'tmp_NA')
         AND COALESCE(a.normalized_country_code_subset,
                      'tmp_NA') = COALESCE(b.normalized_country_code_subset, 'tmp_NA')
-        AND COALESCE(a.distribution_id,
-                     'tmp_NA') = COALESCE(b.distribution_id, 'tmp_NA')
-                     -- none of these 4 fields should yield nulls, but adding safety net
  ) ;;
   }
 
@@ -86,27 +72,6 @@ LEFT JOIN tbl_smoothed b
     description: "meta identifer: defining membership in the different firefox acquisition funnels"
   }
 
-  dimension: distribution_model {
-    sql: ${TABLE}.distribution_model
-      ;;
-    type: string
-    description: "only relevent for Distribution Builds funnel, describes how build is distributed"
-  }
-
-  dimension: partner_org {
-    sql: ${TABLE}.partner_org
-      ;;
-    type: string
-    description: "only relevent for Distribution Builds funnel, partnership org associated with build"
-  }
-
-  dimension: distribution_id {
-    sql: ${TABLE}.distribution_id
-      ;;
-    type: string
-    description: "only relevent for Distribution Builds funnel, partnership org associated with build"
-  }
-
   dimension_group: submission {
     sql: ${TABLE}.submission_date ;;
     type: time
@@ -122,7 +87,6 @@ LEFT JOIN tbl_smoothed b
     datatype: date
     description: "derived from GA timestamp of the raw data, this is a date in the underlying table"
   }
-
 
   measure: new_profiles {
     description: "new profiles"
@@ -158,6 +122,24 @@ LEFT JOIN tbl_smoothed b
     description: "used browser again days 21-28 (7 day smoothed)"
     type: sum
     sql: ${TABLE}.retained_week4_smoothed ;;
+  }
+
+  measure: new_profiles_prev_year {
+    description: "prev. year's new profiles (7 day smoothed)"
+    type: sum
+    sql: ${TABLE}.new_profiles_prev_year ;;
+  }
+
+  measure: returned_second_day_prev_year {
+    description: "prev. year's used browser again at least once next 28 days (7 day smoothed)"
+    type: sum
+    sql: ${TABLE}.returned_second_day_prev_year ;;
+  }
+
+  measure: retained_week4_prev_year {
+    description: "prev. year's used browser again days 21-28 (7 day smoothed)"
+    type: sum
+    sql: ${TABLE}.retained_week4_prev_year ;;
   }
 
   measure: new_profiles_smoothed_prev_year {
