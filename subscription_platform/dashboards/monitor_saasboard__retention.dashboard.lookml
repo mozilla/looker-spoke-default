@@ -4,7 +4,7 @@
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
-  preferred_slug: 4OLpCAQsglh1d434LNOjP5
+  preferred_slug: twy49L634gzYTaHbf0rQtX
   elements:
   - name: ''
     type: text
@@ -211,14 +211,14 @@
     model: subscription_platform
     explore: logical_subscriptions
     type: looker_column
-    fields: [retention_by_month.retained_subscription_count, logical_subscriptions.started_at_month,
+    fields: [logical_subscriptions.started_at_month, logical_subscriptions.active_logical_subscription_count,
       logical_subscriptions.logical_subscription_count]
     sorts: [logical_subscriptions.started_at_month]
     limit: 500
     column_limit: 50
     dynamic_fields:
     - category: table_calculation
-      expression: "${retention_by_month.retained_subscription_count} / ${logical_subscriptions.logical_subscription_count}"
+      expression: "${logical_subscriptions.active_logical_subscription_count} / ${logical_subscriptions.logical_subscription_count}"
       label: Retention Rate
       value_format:
       value_format_name: percent_0
@@ -269,6 +269,7 @@
       retention_by_month.churned_subscription_count: "#FF7139"
       retention_by_month.retained_subscription_count: "#0060E0"
       retention_rate: "#000000"
+      logical_subscriptions.active_logical_subscription_count: "#0060E0"
     defaults_version: 1
     hidden_fields: [logical_subscriptions.logical_subscription_count]
     hidden_pivots: {}
