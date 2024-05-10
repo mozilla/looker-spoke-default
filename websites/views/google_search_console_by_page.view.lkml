@@ -48,6 +48,11 @@ view: +google_search_console_by_page {
     description: "The average position of the page in the search results, where `1` is the topmost position. This will be null for Discover and Google News search impressions."
   }
 
+  measure: distinct_page_url_count {
+    type: count_distinct
+    sql: ${page_url} ;;
+  }
+
   measure: distinct_query_count {
     type: count_distinct
     sql: ${query} ;;
