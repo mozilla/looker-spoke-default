@@ -4,6 +4,10 @@ explore: serp_impression {
   view_name: serp_impression
   label: "SERP Impressions"
 
+  # join: serp_events_table__non_ad_engagements {
+  #   sql:  CROSS JOIN UNNEST(${serp_impression.non_ad_engagements}) as serp_impression__non_ad_engagements ;;
+  #   relationship: one_to_many
+  # }
   # # Main join key is impression ID.
   # # Also join on submission_date/normalized_channel/sample_id to propagate partitioning/clustering
   # join: serp_components {

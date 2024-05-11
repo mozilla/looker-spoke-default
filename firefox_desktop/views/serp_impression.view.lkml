@@ -122,6 +122,15 @@ view: serp_impression {
     hidden: yes
   }
 
+  dimension: num_ad_expands {
+    hidden: yes
+    sql: (
+      SELECT
+        SUM(a.num_other_engagements)
+      FROM UNNEST(${ad_components}) AS a
+    ) ;;
+  }
+
   dimension: num_ads_blocked {
     hidden: yes
   }
@@ -138,8 +147,39 @@ view: serp_impression {
     hidden: yes
   }
 
+
+  dimension: num_non_ad_clicks {
+    hidden: yes
+    sql: (
+      SELECT
+        SUM(e.num_engagements)
+      FROM UNNEST(${non_ad_engagements}) AS e
+      WHERE e.action = 'clicked'
+    ) ;;
+  }
+
+  dimension: num_non_ad_expands {
+    hidden: yes
+    sql: (
+      SELECT
+        SUM(e.num_engagements)
+      FROM UNNEST(${non_ad_engagements}) AS e
+      WHERE e.action = 'expanded'
+    ) ;;
+  }
+
   dimension: num_non_ad_link_clicks {
     hidden: yes
+  }
+
+  dimension: num_non_ad_submits {
+    hidden: yes
+    sql: (
+      SELECT
+        SUM(e.num_engagements)
+      FROM UNNEST(${non_ad_engagements}) AS e
+      WHERE e.action = 'submitted'
+    ) ;;
   }
 
   dimension: num_other_engagements {
@@ -288,13 +328,14 @@ view: serp_impression {
     filters: [is_shopping_page: "yes", has_ad_click: "yes"]
   }
 
-  # measure: non_ad_link_clicks{
-  #   group_label: "Engagement Metrics"
-  #   label: "Num Clicks"
-  #   description: "Total number of ad links/non-ad links/UI features clicked"
-  #   type: sum
-  #   sql: ${TABLE}.num_clicks;;
-  # }
+  measure: clicks{
+    group_label: "Engagement Metrics"
+    label: "Num Overall Clicks"
+    description: "Total number of ad links/non-ad links/UI features clicked"
+    type: sum
+    sql: ${num_ad_clicks} + ${num_non_ad_clicks};;
+  }
+
   measure: ad_clicks{
     group_label: "Engagement Metrics"
     label: "Num Ad Clicks"
@@ -302,20 +343,30 @@ view: serp_impression {
     type: sum
     sql: ${num_ad_clicks};;
   }
-  # measure: expansion_TODO{
-  #   group_label: "Engagement Metrics"
-  #   label: "Num Expands"
-  #   description: "Total number of clicks on the expansion button (applies to ad_carousel, ad_sidebar, refined_search_buttons)"
-  #   type: sum
-  #   sql: ${TABLE}.num_expands;;
-  # }
-  # measure: submits_TODO{
-  #   group_label: "Engagement Metrics"
-  #   label: "Num Submits"
-  #   description: "Total number of in-content search box submits"
-  #   type: sum
-  #   sql: ${TABLE}.num_submits;;
-  # }
+
+  measure: non_ad_link_clicks{
+    group_label: "Engagement Metrics"
+    label: "Num Non-Ad Link Clicks"
+    description: "Total number of clicks on organic result links"
+    type: sum
+    sql: ${num_non_ad_link_clicks};;
+  }
+
+  measure: expansion{
+    group_label: "Engagement Metrics"
+    label: "Num Expands"
+    description: "Total number of clicks on the expansion button (applies to ad_carousel, ad_sidebar, refined_search_buttons)"
+    type: sum
+    sql: ${num_ad_expands} + ${num_non_ad_expands};;
+  }
+
+  measure: submits_TODO{
+    group_label: "Engagement Metrics"
+    label: "Num Submits"
+    description: "Total number of in-content search box submits"
+    type: sum
+    sql: ${num_non_ad_submits};;
+  }
 
   measure: Ads_CTR{
     group_label: "Engagement Metrics"
