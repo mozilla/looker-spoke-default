@@ -6,7 +6,7 @@ explore: google_search_console_by_site {
     filters: [google_search_console_by_site.date_date: "30 days"]
   }
 
-  query: recent_popular_queries {
+  query: recent_popular_web_search_queries {
     dimensions: [query, site_domain_name]
     measures: [average_top_result_position, total_impressions, total_clicks, click_through_rate]
     filters: [
