@@ -75,6 +75,7 @@ view: serp_impression {
 
   dimension: impression_id {
     hidden: yes
+    primary_key: yes
   }
 
   dimension: is_engaged {
@@ -393,70 +394,162 @@ view: serp_impression {
   }
 }
 
+view: serp_impression__ad_components {
+  extends: [serp_events_table__ad_components]
 
-# view: serp_impression_old {
-#   label: "SERP Impressions"
-#   derived_table: {
-#     # Aggregate at the impression ID level to get per-impression dimensions
-#     sql:
-#       SELECT
-#         impression_id,
-#         submission_date,
-#         normalized_channel,
-#         normalized_country_code,
-#         sample_id,
-#         is_shopping_page,
-#         search_engine,
-#         sap_source,
-#         is_tagged,
-#         is_engaged,
-#         abandon_reason,
-#         LOGICAL_OR(is_core_ad_component
-#           AND num_ads_loaded_reported > 0) AS has_ads_loaded,
-#         LOGICAL_OR(is_core_ad_component
-#           AND num_ads_showing > 0) AS has_ads_visible,
-#         LOGICAL_OR(is_core_ad_component AND num_ads_showing > 0
-#           AND num_clicks > 0) AS has_ad_click,
-#         LOGICAL_OR(num_clicks > 0) AS has_any_click,
-#         LOGICAL_OR(is_core_ad_component
-#           AND ad_blocker_inferred) AS ad_blocker_inferred,
-#         SUM(num_clicks) AS num_clicks,
-#         SUM(num_expands) AS num_expands,
-#         SUM(num_submits) AS num_submits,
-#         SUM(IF(is_core_ad_component, num_ads_loaded_reported, 0)) AS num_ads_loaded,
-#         SUM(IF(is_core_ad_component, num_ads_showing, 0)) AS num_ads_showing,
-#         SUM(IF(is_core_ad_component, num_ads_notshowing, 0)) AS num_ads_notshowing,
-#         SUM(IF(is_core_ad_component and num_ads_showing > 0, num_clicks, 0)) AS num_ad_clicks,
-#       FROM (
-#         SELECT
-#           *,
-#           COALESCE(
-#             component IN (
-#               'ad_carousel',
-#               'ad_image_row',
-#               'ad_link',
-#               'ad_sidebar',
-#               'ad_sitelink'
-#             ),
-#             FALSE
-#           ) AS is_core_ad_component
-#         FROM
-#           ${serp_events_table.SQL_TABLE_NAME} AS serp_events_table
-#       )
-#       GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
-#       ;;
+  dimension: id {
+    hidden:  yes
+    primary_key: yes
+    sql: CONCAT(${serp_impression.impression_id}, ${TABLE}.component);;
+  }
+
+  dimension: blocker_inferred {
+    hidden: yes
+  }
+
+  dimension: component {
+    label: "Display Component"
+    description: "SERP display component"
+  }
+
+  dimension: has_ads_visible {
+    type: yesno
+    description: "If component had ads visible (always False for non-ad components)"
+    sql: ${num_visible} > 0 ;;
+  }
+  dimension: has_ad_clicked {
+    type: yesno
+    description: "If component had at least 1 visible ad clicked"
+    sql: ${num_visible} > 0 and ${num_clicks} > 0 ;;
+  }
+  dimension: is_engaged {
+    type: yesno
+    description: "If at least 1 engagement (click/expand/submit) was recorded for the component"
+    sql: ${num_clicks} > 0 or ${num_other_engagements} > 0 ;;
+  }
+
+  dimension: num_blocked {
+    hidden: yes
+  }
+
+  dimension: num_clicks {
+    hidden: yes
+  }
+
+  dimension: num_loaded {
+    hidden: yes
+  }
+
+  dimension: num_notshowing {
+    hidden: yes
+  }
+
+  dimension: num_other_engagements {
+    hidden: yes
+  }
+
+  dimension: num_visible {
+    hidden: yes
+  }
+
+  measure: ad_impressions_count {
+    group_label: "Ad Impression Metrics"
+    label: "Num SERP with Ad Impressions"
+    description: "Number of SERP impressions with visible ads in component"
+    type: count_distinct
+    sql: ${serp_impression.impression_id} ;;
+    filters: [has_ads_visible: "yes"]
+  }
+  measure: clicked_ad_impressions_count {
+    group_label: "Engagement Metrics"
+    label: "Num SERP with Ad Click"
+    description: "Number of SERP impressions with at least 1 ad click in component"
+    type: count_distinct
+    sql: ${serp_impression.impression_id} ;;
+    filters: [has_ad_clicked: "yes"]
+  }
+#   measure: ad_impression_rate {
+#     group_label: "Ad Impression Metrics"
+#     label: "SERP Ad Impression Rate"
+#     description: "Proportion of SERP impressions with visible ads in component"
+#     type: number
+#     sql: safe_divide(${ad_impressions_count}, ${serp_impressions_count}) ;;
+#   }
+#   measure: ad_ctr{
+#     group_label: "Engagement Metrics"
+#     label: "SERP Ad CTR"
+#     description: "Number of SERP impressions with at least 1 ad click / number of SERP impressions with visible ads"
+#     type: number
+#     sql: safe_divide(${clicked_ad_impressions_count}, ${ad_impressions_count}) ;;
+#   }
+  measure: ads_loaded{
+    group_label: "Ad Impression Metrics"
+    label: "Num Ads Loaded"
+    description: "Total number of ads loaded in component"
+    type: sum
+    sql: ${num_loaded} ;;
+  }
+  measure: ads_visible{
+    group_label: "Ad Impression Metrics"
+    label: "Num Ads Visible"
+    description: "Total number of ads visible in component"
+    type: sum
+    sql: ${num_visible} ;;
+  }
+  measure: ads_not_showing{
+    group_label: "Ad Impression Metrics"
+    label: "Num Ads Not Showing"
+    description: "Total number of ads loaded and not showing in component"
+    type: sum
+    sql: ${num_notshowing} ;;
+  }
+  measure: visible_proportion{
+    group_label: "Ad Impression Metrics"
+    label: "Proportion Loaded Ads Visible"
+    description: "Number of ads visible / number of ads loaded in component"
+    type: number
+    sql: safe_divide(${ads_visible},${ads_loaded});;
+  }
+  # measure: clicks{
+  #   group_label: "Engagement Metrics"
+  #   label: "Num Clicks"
+  #   description: "Total number of ad links/non-ad links/UI features clicked in component"
+  #   type: sum
+  #   sql: ${num_clicks};;
+  # }
+  measure: ad_clicks{
+    group_label: "Engagement Metrics"
+    label: "Num Ad Clicks"
+    description: "Total number of clicks on visible ads in component"
+    type: sum
+    sql: ${num_clicks} ;;
+    # filters: [has_ads_visible: "yes"]
+  }
+
+  measure: other_engagements{
+    group_label: "Engagement Metrics"
+    label: "Num Other Engagements"
+    description: "Total number of other engagements in component"
+    type: sum
+    sql: ${num_other_engagements} ;;
+    # filters: [has_ads_visible: "yes"]
+  }
+#   measure: expands{
+#     group_label: "Engagement Metrics"
+#     label: "Num Expands"
+#     description: "Total number of clicks on the expansion button (applies to ad_carousel, ad_sidebar, refined_search_buttons)"
+#     type: sum
+#     sql: ${TABLE}.num_expands;;
+#   }
+#   measure: submits{
+#     group_label: "Engagement Metrics"
+#     label: "Num Submits"
+#     description: "Total number of in-content search box submits"
+#     type: sum
+#     sql: ${TABLE}.num_submits;;
 #   }
 
-
-#   dimension: impression_id {
-#     type:  string
-#     primary_key: yes
-#     hidden: yes
-#     sql: ${TABLE}.impression_id ;;
-#   }
-
-
-# }
+}
 
 # view: serp_components {
 #   sql_table_name: `mozdata.firefox_desktop.serp_events` ;;
