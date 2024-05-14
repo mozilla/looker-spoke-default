@@ -1,5 +1,5 @@
 include: "../views/desktop_engagement.view.lkml"
-include: "/shared/views/*"
+include: "/shared/views/countries.view.lkml"
 
 explore: desktop_engagement {
   label: "Engagement for Firefox Desktop"

@@ -1,5 +1,5 @@
 include: "../views/mobile_retention.view.lkml"
-include: "/shared/views/*"
+include: "/shared/views/countries.view.lkml"
 
 explore: mobile_retention {
   label: "Retention for Firefox Mobile"
