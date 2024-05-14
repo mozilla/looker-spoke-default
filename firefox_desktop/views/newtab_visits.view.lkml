@@ -104,6 +104,15 @@ view: +newtab_visits_table__topsite_tile_interactions {
     type: sum
   }
 
+  dimension: organic_topsite_tile_dismissals {
+    hidden: yes
+  }
+
+  measure: sum_organic_topsite_tile_dismissals {
+    sql: ${TABLE}.organic_topsite_tile_dismissals ;;
+    type: sum
+  }
+
   dimension: sponsored_topsite_tile_clicks {
     hidden: yes
   }
@@ -122,6 +131,15 @@ view: +newtab_visits_table__topsite_tile_interactions {
     type: sum
   }
 
+  dimension: sponsored_topsite_tile_dismissals {
+    hidden: yes
+  }
+
+  measure: sum_sponsored_topsite_tile_dismissals {
+    sql: ${TABLE}.sponsored_topsite_tile_dismissals ;;
+    type: sum
+  }
+
   dimension: topsite_tile_clicks {
     hidden: yes
   }
@@ -137,6 +155,15 @@ view: +newtab_visits_table__topsite_tile_interactions {
 
   measure: sum_topsite_tile_impressions {
     sql: ${TABLE}.topsite_tile_impressions ;;
+    type: sum
+  }
+
+  dimension: topsite_tile_dismissals {
+    hidden: yes
+  }
+
+  measure: sum_topsite_tile_dismissals {
+    sql: ${TABLE}.topsite_tile_dismissals ;;
     type: sum
   }
 }
