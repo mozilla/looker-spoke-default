@@ -3,15 +3,26 @@ include: "//looker-hub/firefox_okrs/views/desktop_engagement.view.lkml"
 view: +desktop_engagement {
 
   parameter: average_window {
+    label: "Moving average"
     type: string
     allowed_value: {
+      label: "Single Day"
+      value: "1"
+    }
+    allowed_value: {
       label: "7-day"
-      value: "6"
+      value: "7"
     }
     allowed_value: {
       label: "28-day"
-      value: "27"
+      value: "28"
     }
+  }
+  dimension: days_avg {
+    label: "# of Days average"
+    description: "Value selected on Moving average filter"
+    type: number
+    sql: {% parameter average_window %} ;;
   }
 
   dimension: dau {

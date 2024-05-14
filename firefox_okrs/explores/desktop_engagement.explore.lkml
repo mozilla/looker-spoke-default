@@ -2,7 +2,7 @@ include: "../views/desktop_engagement.view.lkml"
 include: "/shared/views/*"
 
 explore: desktop_engagement {
-  label: "Firefox Desktop Engagement metrics"
+  label: "Engagement for Firefox Desktop"
   view_name: desktop_engagement
 
   always_filter: {
