@@ -190,12 +190,12 @@ view: +mobile_retention {
     type: string
     sql: ${TABLE}.install_source ;;
   }
-  dimension: is_suspicious_device_profile {
+  dimension: is_suspicious_device_client {
     group_label: "Funnel filters"
     label: "Suspicious Device (iOS)"
     description: "For funnel, we remove certain old version clients we deem to be suspicious"
     type: string
-    sql: ${TABLE}.is_suspicious_device_profile ;;
+    sql: ${TABLE}.is_suspicious_device_client ;;
   }
 
 }
