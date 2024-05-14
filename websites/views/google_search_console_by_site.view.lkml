@@ -41,4 +41,9 @@ view: +google_search_console_by_site {
     value_format_name: decimal_2
     description: "The average top position of the site in the search results, where `1` is the topmost position."
   }
+
+  measure: distinct_query_count {
+    type: count_distinct
+    sql: ${query} ;;
+  }
 }

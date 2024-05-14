@@ -6,29 +6,27 @@ explore: google_search_console_by_page {
     filters: [google_search_console_by_page.date_date: "30 days"]
   }
 
-  join: localized_site_countries {
-    from: countries
-    view_label: "Localized Site Regions"
-    sql_on: ${google_search_console_by_page.localized_site_country_code} = ${localized_site_countries.code} ;;
-    type: left_outer
-    relationship: many_to_one
-    fields: [
-      region_name,
-      subregion_name,
-      intermediate_region_name
+  query: recent_popular_web_search_queries {
+    dimensions: [query, site_domain_name]
+    measures: [distinct_page_url_count, average_result_position, total_impressions, total_clicks, click_through_rate]
+    filters: [
+      google_search_console_by_page.date_date: "30 days",
+      google_search_console_by_page.is_anonymized: "No",
+      google_search_console_by_page.search_type: "Web"
     ]
+    sorts: [total_impressions: desc]
+    limit: 100
   }
 
-  join: user_countries {
-    from: countries
-    view_label: "User Regions"
-    sql_on: ${google_search_console_by_page.user_country_code} = ${user_countries.code_3} ;;
-    type: left_outer
-    relationship: many_to_one
-    fields: [
-      region_name,
-      subregion_name,
-      intermediate_region_name
+  query: recent_popular_web_search_pages {
+    dimensions: [page_url, site_domain_name]
+    measures: [distinct_query_count, average_result_position, total_impressions, total_clicks, click_through_rate]
+    filters: [
+      google_search_console_by_page.date_date: "30 days",
+      google_search_console_by_page.is_anonymized: "No",
+      google_search_console_by_page.search_type: "Web"
     ]
+    sorts: [total_clicks: desc]
+    limit: 100
   }
 }
