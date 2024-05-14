@@ -6,16 +6,15 @@ explore: google_search_console_by_site {
     filters: [google_search_console_by_site.date_date: "30 days"]
   }
 
-  join: user_countries {
-    from: countries
-    view_label: "User Regions"
-    sql_on: ${google_search_console_by_site.user_country_code} = ${user_countries.code_3} ;;
-    type: left_outer
-    relationship: many_to_one
-    fields: [
-      region_name,
-      subregion_name,
-      intermediate_region_name
+  query: recent_popular_web_search_queries {
+    dimensions: [query, site_domain_name]
+    measures: [average_top_result_position, total_impressions, total_clicks, click_through_rate]
+    filters: [
+      google_search_console_by_site.date_date: "30 days",
+      google_search_console_by_site.is_anonymized: "No",
+      google_search_console_by_site.search_type: "Web"
     ]
+    sorts: [total_impressions: desc]
+    limit: 100
   }
 }
