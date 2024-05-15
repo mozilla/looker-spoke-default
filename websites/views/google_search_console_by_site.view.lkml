@@ -1,6 +1,6 @@
-include: "//looker-hub/websites/views/google_search_impressions_by_site.view.lkml"
+include: "//looker-hub/websites/views/google_search_console_by_site.view.lkml"
 
-view: +google_search_impressions_by_site {
+view: +google_search_console_by_site {
   dimension: impressions {
     hidden: yes
   }
@@ -40,5 +40,10 @@ view: +google_search_impressions_by_site {
     sql: SAFE_DIVIDE(${total_average_top_position_times_impressions}, ${total_impressions}) ;;
     value_format_name: decimal_2
     description: "The average top position of the site in the search results, where `1` is the topmost position."
+  }
+
+  measure: distinct_query_count {
+    type: count_distinct
+    sql: ${query} ;;
   }
 }

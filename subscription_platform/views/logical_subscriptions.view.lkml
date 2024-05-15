@@ -121,6 +121,11 @@ view: +logical_subscriptions {
     type: count
   }
 
+  measure: active_logical_subscription_count {
+    type: count
+    filters: [is_active: "yes"]
+  }
+
   measure: provider_subscription_count {
     type: count_distinct
     sql: ${TABLE}.provider_subscription_id ;;

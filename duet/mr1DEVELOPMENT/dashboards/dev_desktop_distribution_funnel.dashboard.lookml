@@ -10,19 +10,19 @@
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: |-
+    body_text: |
       <div style="border-radius: 5px; padding: 5px 10px; background: #090808; height: 55px; color: red;">
-        <nav style="font-size: 15px;">
-          <img style="color: #efefef; padding: 5px 25px; float: left; height: 40px;" src="https://www.mozilla.org/media/protocol/img/logos/mozilla/logo-word-hor.e20791bb4dd4.svg"/>
-          <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/duet::desktop_moz_org_funnel_windows">
-            Moz.org (Windows)</a>
-          <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="...tobelinkedlater">
-            Moz.org (Mac)[COMING]</a>
-          <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/duet::desktop_distribution_builds_funnel">
-            Distribution Builds</a>
-          <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/1593">
-            Unknown Funnel[COMING]</a>
-        </nav>
+      <nav style="font-size: 15px;">
+        <img style="color: #efefef; padding: 5px 25px; float: left; height: 40px;" src="https://www.mozilla.org/media/protocol/img/logos/mozilla/logo-word-hor.e20791bb4dd4.svg"/>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/duet::desktop_moz_org_funnel_windows">
+      Moz.org Funnel (Windows)</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/duet::desktop_moz_org_funnel_mac">
+      Moz.org Funnel (Mac)</a>
+        <a style="color: #efefef; border: 1px solid white; padding: 5px 25px; float: left; line-height: 40px;" href="https://mozilla.cloud.looker.com/dashboards/duet::desktop_distribution_builds_funnel">
+      Distribution Builds</a>
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;" href="...tobelinkedlater">
+      Unknown Funnel[COMING]</a>
+      </nav>
       </div>
     row: 0
     col: 0

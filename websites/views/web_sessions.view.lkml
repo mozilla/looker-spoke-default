@@ -116,6 +116,10 @@ view: web_sessions {
       label: "Mozilla.org"
       value: "bedrock"
     }
+    allowed_value: {
+      label: "MDN"
+      value: "mdn_yari"
+    }
   }
 
   dimension_group: submission {

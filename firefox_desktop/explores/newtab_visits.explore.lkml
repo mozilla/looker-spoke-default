@@ -37,6 +37,7 @@ explore: newtab_visits {
       ]
       measures: [
         newtab_visits_table__topsite_tile_interactions.sum_sponsored_topsite_tile_impressions,
+        newtab_visits_table__topsite_tile_interactions.sum_sponsored_topsite_tile_dismissals,
         newtab_visits_table__topsite_tile_interactions.sum_sponsored_topsite_tile_clicks,
         newtab_visits.clients
       ]
