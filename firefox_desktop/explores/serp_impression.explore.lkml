@@ -5,28 +5,10 @@ explore: serp_impression {
   label: "SERP Impressions"
 
   join: serp_impression__ad_components {
+    view_label: "Ad Components"
     sql: CROSS JOIN UNNEST(${serp_impression.ad_components}) AS serp_impression__ad_components ;;
     relationship: one_to_many
   }
-
-  # join: serp_impression__non_ad_impressions {
-  #   sql: CROSS JOIN UNNEST(${serp_impression.non_ad_impressions}) AS serp_impression__non_ad_impressions ;;
-  #   relationship: one_to_many
-  # }
-
-  # join: serp_impression__non_ad_engagements {
-  #   sql: CROSS JOIN UNNEST(${serp_impression.non_ad_impressions}) AS serp_impression__non_ad_impressions ;;
-  #   relationship: many_to_many
-  # }
-  # # Main join key is impression ID.
-  # # Also join on submission_date/normalized_channel/sample_id to propagate partitioning/clustering
-  # join: serp_components {
-  #   sql_on: ${serp_impression.impression_id} = ${serp_components.impression_id}
-  #     and ${serp_impression.submission_date} = ${serp_components.submission_date}
-  #     and ${serp_impression.normalized_channel} = ${serp_components.normalized_channel}
-  #     and ${serp_impression.sample_id} = ${serp_components.sample_id} ;;
-  #   relationship: one_to_many
-  # }
 
   always_filter: {
     filters: [serp_impression.submission_date:"28 days"
