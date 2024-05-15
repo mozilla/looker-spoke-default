@@ -2,63 +2,63 @@ include: "//looker-hub/growth/views/ios_app_campaign_stats.view.lkml"
 
 view: +ios_app_campaign_stats {
 
-  dimension: activated_profiles_dim {
+  dimension: activated_profiles {
     sql: ${TABLE}.activated_profiles ;;
     type: number
     hidden: yes
     description: "Number of Activated Profiles"
   }
 
-  dimension: clicks_dim {
+  dimension: clicks {
     sql: ${TABLE}.clicks ;;
     type: number
     hidden:  yes
     description: "Number of Clicks"
   }
 
-  dimension: downloads_dim {
+  dimension: downloads {
     sql: ${TABLE}.downloads ;;
     type: number
     hidden:  yes
     description: "Number of Downloads"
   }
 
-  dimension: impressions_dim {
+  dimension: impressions {
     sql: ${TABLE}.impressions ;;
     type: number
     hidden:  yes
     description: "Number of Impressions"
   }
 
-  dimension: lifetime_value_dim {
+  dimension: lifetime_value {
     sql: ${TABLE}.lifetime_value ;;
     type: number
     hidden:  yes
     description: "Lifetime Value"
   }
 
-  dimension: new_profiles_dim {
+  dimension: new_profiles{
     sql: ${TABLE}.new_profiles ;;
     type: number
     hidden:  yes
     description: "Number of New Profiles"
   }
 
-  dimension: repeat_users_dim {
+  dimension: repeat_users {
     sql: ${TABLE}.repeat_users ;;
     type: number
     hidden:  yes
     description: "Number of Repeat Users"
   }
 
-  dimension: spend_dim {
+  dimension: spend {
     sql: ${TABLE}.spend ;;
     type: string
     hidden:  yes
     description: "Marketing Spend"
   }
 
-  dimension: week_4_retained_users_dim {
+  dimension: week_4_retained_users {
     sql: ${TABLE}.week_4_retained_users ;;
     type: number
     hidden:  yes
@@ -67,50 +67,50 @@ view: +ios_app_campaign_stats {
 
   measure: total_spend {
     type: sum
-    sql: ${spend_dim} ;;
+    sql: ${spend} ;;
     description: "Total ad spend"
   }
 
   measure: total_impressions {
     type: sum
-    sql: ${impressions_dim} ;;
+    sql: ${impressions} ;;
     description: "Ad Impressions - The number of impressions of ads, reported by Google Ads"
   }
 
   measure: total_clicks {
     type: sum
-    sql: ${clicks_dim} ;;
+    sql: ${clicks} ;;
     description: "Clicks - The number of clicks on our ads, reported by Google Ads"
   }
 
   measure: total_new_profiles {
     type: sum
-    sql: ${new_profiles_dim} ;;
+    sql: ${new_profiles} ;;
     description: "Total number of attributed new profiles for this campaign/ad group, as reported by Firefox Telemetry"
   }
 
   measure: total_activated_profiles {
     type: sum
-    sql: ${activated_profiles_dim} ;;
+    sql: ${activated_profiles} ;;
     description: "Total number of activated profiles for this campaign/ad group, as reported by telemetry."
   }
 
   measure: total_lifetime_value {
     type: sum
-    sql: ${lifetime_value_dim} ;;
+    sql: ${lifetime_value} ;;
     value_format_name: usd
     description: "Estimated value, in US dollars, of the clients attributed to this campaign/ad group."
   }
 
   measure: total_repeat_users {
     type: sum
-    sql: ${repeat_users_dim} ;;
+    sql: ${repeat_users} ;;
     description: "Total number of attributed repeat new profiles for this campaign/ad group, as reported by Firefox Telemetry"
   }
 
   measure: total_week_4_retained_users {
     type: sum
-    sql: ${week_4_retained_users_dim} ;;
+    sql: ${week_4_retained_users} ;;
     description: "Total number of attributed week 4 retained new profiles for this campaign/ad group, as reported by Firefox Telemetry"
   }
 
@@ -138,62 +138,62 @@ view: +ios_app_campaign_stats {
   measure: filtered_activated_spend {
     description: "Spend, but not including the last 7 days"
     hidden: yes
-    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -7 DAY), ${spend_dim}, 0)) ;;
+    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -7 DAY), ${spend}, 0)) ;;
   }
 
   measure: filtered_activated {
     description: "Filter activations using the same where clause as filtered_activated_spend"
     hidden: yes
-    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -7 DAY), ${activated_profiles_dim}, 0)) ;;
+    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -7 DAY), ${activated_profiles}, 0)) ;;
   }
 
   measure: filtered_retention_spend {
     description: "Spend, but not including the last 28 days"
     type: number
     view_label: "Filtered Retention measure"
-    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${spend_dim}, 0)) ;;
+    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${spend}, 0)) ;;
   }
 
   measure: filtered_retention_impressions {
     description: "Spend, but not including the last 28 days"
     type: number
     view_label: "Filtered Retention measure"
-    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${impressions_dim}, 0)) ;;
+    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${impressions}, 0)) ;;
   }
 
   measure: filtered_retention_clicks {
     description: "Spend, but not including the last 28 days"
     type: number
     view_label: "Filtered Retention measure"
-    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${clicks_dim}, 0)) ;;
+    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${clicks}, 0)) ;;
   }
 
   measure: filtered_repeat_users {
     description: "Filter repeat users using the same where clause as filtered_retention_spend"
     type: number
     view_label: "Filtered Retention measure"
-    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${repeat_users_dim}, 0)) ;;
+    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${repeat_users}, 0)) ;;
   }
 
   measure: filtered_week_4_retained_users {
     description: "Filter week 4 retained users using the same where clause as filtered_retention_spend"
     type: number
     view_label: "Filtered Retention measure"
-    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${week_4_retained_users_dim}, 0)) ;;
+    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${week_4_retained_users}, 0)) ;;
   }
 
 
   measure: filtered_new_profiles {
     description: "Filter new profiles using the same where clause as filtered_activated_spend"
     hidden: yes
-    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -7 DAY), ${new_profiles_dim}, 0)) ;;
+    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -7 DAY), ${new_profiles}, 0)) ;;
   }
 
   measure: filtered_ret_new_profiles {
     description: "Filter new profiles using the same where clause as filtered_activated_spend"
     type: number
     view_label: "Filtered Retention measure"
-    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${new_profiles_dim}, 0)) ;;
+    sql: SUM(IF(${TABLE}.date < DATE_ADD(CURRENT_DATE(), INTERVAL -28 DAY), ${new_profiles}, 0)) ;;
   }
 
   measure: cost_per_activation {
