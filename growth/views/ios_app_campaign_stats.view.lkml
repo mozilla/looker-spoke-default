@@ -2,6 +2,22 @@ include: "//looker-hub/growth/views/ios_app_campaign_stats.view.lkml"
 
 view: +ios_app_campaign_stats {
 
+# These dimensions will need to change ones we standardize the campaign namesand write appropriate UDF to parse the campaign names
+  dimension: campaign_country_code {
+    sql: CASE WHEN ${TABLE}.campaign_country_code LIKE "CA%" THEN "CA" ELSE  ${TABLE}.campaign_country_code END;;
+    type: string
+    description: "Campaign Country Code"
+  }
+
+#This dimension needs to be done with a UDF for sure
+  dimension: campaign_region {
+    sql: CASE WHEN ${TABLE}.campaign_country_code IN ("CA","CAN", "US") THEN "NA"  ELSE "EU" END;;
+    type: string
+    description: "Campaign Country Region"
+  }
+
+
+
   dimension: activated_profiles {
     sql: ${TABLE}.activated_profiles ;;
     type: number
