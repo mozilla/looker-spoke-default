@@ -47,30 +47,53 @@ view: serp_impression {
     hidden: yes
   }
 
-  dimension: has_ads_loaded {
+  dimension: has_ad_click {
     group_label: "Ad Features"
+    label: "Has Ad Clicks"
     type: yesno
-    description: "If SERP had ads loaded (may or may not be visible)"
-    sql: ${num_ads_loaded} > 0 ;;
+    description: "If SERP had at least 1 ad click"
+    sql: ${num_ad_clicks} > 0 ;;
   }
 
   dimension: has_ads_visible {
     group_label: "Ad Features"
+    label: "Has Visible Ads"
     type: yesno
     description: "If SERP had visible ads"
     sql: ${num_ads_visible} > 0 ;;
   }
-  dimension: has_ad_click {
-    group_label: "Ad Features"
+
+  dimension: has_cookie_banner_visible {
+    group_label: "Component Features"
+    label: "Has Visible Cookie Banner"
     type: yesno
-    description: "If SERP had at least 1 click on a visible ad"
-    sql: ${num_ads_visible} > 0 and ${num_ad_clicks} > 0 ;;
+    description: "If SERP had cookie banner visible"
+    sql: EXISTS(
+      SELECT * FROM UNNEST(${non_ad_impressions}) AS e
+      WHERE e.component = 'cookie_banner' AND e.num_elements_visible > 0
+    ) ;;
   }
-  dimension: has_any_click {
-    group_label: "SERP Features"
+
+  dimension: has_refined_search_visible {
+    group_label: "Component Features"
+    label: "Has Visible Refined Search Buttons"
+    description: "If SERP had refined search buttons visible"
     type: yesno
-    description: "If SERP had at least 1 click on any component (ad/non-ad)"
-    sql: ${has_ad_click} or ${num_non_ad_link_clicks} > 0 ;;
+    sql: EXISTS(
+      SELECT * FROM UNNEST(${non_ad_impressions}) AS e
+      WHERE e.component = 'refined_search_buttons' AND e.num_elements_visible > 0
+    ) ;;
+  }
+
+  dimension: has_shopping_tab_visible {
+    group_label: "Component Features"
+    label: "Has Visible Shopping Tab"
+    type: yesno
+    description: "If SERP had shopping tab visible"
+    sql: EXISTS(
+      SELECT * FROM UNNEST(${non_ad_impressions}) AS e
+      WHERE e.component = 'shopping_tab' AND e.num_elements_visible > 0
+    ) ;;
   }
 
   dimension: impression_id {
@@ -82,7 +105,7 @@ view: serp_impression {
     group_label: "SERP Features"
     type: yesno
     description: "At least 1 engagement (any type) on SERP (including ads/non-ads)"
-    sql: ${has_any_click} or ${num_other_engagements} > 0;;
+    sql: ${abandon_reason} IS NULL ;;
   }
 
   dimension: is_private {
@@ -109,27 +132,8 @@ view: serp_impression {
     hidden: yes
   }
 
-  dimension: normalized_channel {
-    sql: ${TABLE}.normalized_channel ;;
-    type: string
-  }
-
-  dimension: normalized_country_code {
-    sql: ${TABLE}.normalized_country_code ;;
-    type: string
-  }
-
   dimension: num_ad_clicks {
     hidden: yes
-  }
-
-  dimension: num_ad_expands {
-    hidden: yes
-    sql: (
-      SELECT
-        SUM(a.num_other_engagements)
-      FROM UNNEST(${ad_components}) AS a
-    ) ;;
   }
 
   dimension: num_ads_blocked {
@@ -148,24 +152,42 @@ view: serp_impression {
     hidden: yes
   }
 
-
-  dimension: num_non_ad_clicks {
+  dimension: num_cookie_banner_accepts {
     hidden: yes
     sql: (
       SELECT
         SUM(e.num_engagements)
       FROM UNNEST(${non_ad_engagements}) AS e
-      WHERE e.action = 'clicked'
+      WHERE e.component = 'cookie_banner' AND e.action = 'clicked_accept'
     ) ;;
   }
 
-  dimension: num_non_ad_expands {
+  dimension: num_cookie_banner_rejects {
     hidden: yes
     sql: (
       SELECT
         SUM(e.num_engagements)
       FROM UNNEST(${non_ad_engagements}) AS e
-      WHERE e.action = 'expanded'
+      WHERE e.component = 'cookie_banner' AND e.action = 'clicked_reject'
+    ) ;;
+  }
+
+  dimension: num_cookie_banner_more_options {
+    hidden: yes
+    sql: (
+      SELECT
+        SUM(e.num_engagements)
+      FROM UNNEST(${non_ad_engagements}) AS e
+      WHERE e.component = 'cookie_banner' AND e.action = 'clicked_more_options'
+    ) ;;
+  }
+
+  dimension: num_non_ad_engagements {
+    hidden: yes
+    sql: (
+      SELECT
+        SUM(e.num_engagements)
+      FROM UNNEST(${non_ad_engagements}) AS e
     ) ;;
   }
 
@@ -173,18 +195,48 @@ view: serp_impression {
     hidden: yes
   }
 
-  dimension: num_non_ad_submits {
+  dimension: num_other_engagements {
+    hidden: yes
+  }
+
+  dimension: num_refined_search_clicks {
     hidden: yes
     sql: (
       SELECT
         SUM(e.num_engagements)
       FROM UNNEST(${non_ad_engagements}) AS e
-      WHERE e.action = 'submitted'
+      WHERE e.component = 'refined_search_buttons' AND e.action = 'clicked'
     ) ;;
   }
 
-  dimension: num_other_engagements {
+  dimension: num_refined_search_expands {
     hidden: yes
+    sql: (
+      SELECT
+        SUM(e.num_engagements)
+      FROM UNNEST(${non_ad_engagements}) AS e
+      WHERE e.component = 'refined_search_buttons' AND e.action = 'expanded'
+    ) ;;
+  }
+
+  dimension: num_searchbox_submits {
+    hidden: yes
+    sql: (
+      SELECT
+        SUM(e.num_engagements)
+      FROM UNNEST(${non_ad_engagements}) AS e
+      WHERE e.component = 'incontent_searchbox' AND e.action = 'submitted'
+    ) ;;
+  }
+
+  dimension: num_shopping_tab_clicks {
+    hidden: yes
+    sql: (
+      SELECT
+        SUM(e.num_engagements)
+      FROM UNNEST(${non_ad_engagements}) AS e
+      WHERE e.component = 'shopping_tab' AND e.action = 'clicked'
+    ) ;;
   }
 
   dimension: os {
@@ -210,187 +262,291 @@ view: serp_impression {
     description: "Search engine"
   }
 
+#--------------------------------------------------------------------
+
+# SERP impression metrics
+
   measure: serp_impressions_count {
-    group_label: "SERP Impression Metrics"
-    label: "Num SERP Impressions"
-    description: "Number of SERP impressions"
+    group_label: "SERP Metrics"
+    label: "SERP Impressions"
+    description: "Total number of SERP impressions"
     type: count
   }
 
+  measure: abandonment_impressions_count {
+    group_label: "SERP Metrics"
+    label: "Abandoned SERP Impressions"
+    description: "Number of abandoned SERP impressions"
+    type: count
+    filters: [is_engaged: "no"]
+  }
+
+  measure: engaged_impressions_count {
+    group_label: "SERP Metrics"
+    label: "Engaged SERP impressions"
+    description: "Number of engaged SERP impressions"
+    type: count
+    filters: [is_engaged: "yes"]
+  }
+
   measure: ad_impressions_count {
-    group_label: "Ad Impression Metrics"
-    label: "Num SERP with Ad Impressions"
+    group_label: "SERP Metrics"
+    label: "SERPs with Ads"
     description: "Number of SERP impressions with visible ads"
     type: count
     filters: [has_ads_visible: "yes"]
   }
 
-  measure: ad_impression_rate {
-    group_label: "Ad Impression Metrics"
-    label: "SERP Ad Impression Rate"
-    description: "Proportion of SERP impressions with visible ads"
-    type: number
-    sql: safe_divide(${ad_impressions_count}, ${serp_impressions_count}) ;;
-  }
-
   measure: clicked_ad_impressions_count {
-    group_label: "Engagement Metrics"
-    label: "Num SERP with Ad Click"
+    group_label: "SERP Metrics"
+    label: "SERPs with Ad Clicks"
     description: "Number of SERP impressions with at least 1 ad click"
     type: count
     filters: [has_ad_click: "yes"]
   }
 
-  measure: ads_loaded{
-    group_label: "Ad Impression Metrics"
+#--------------------
+
+# Ad metrics
+
+  measure: ads_loaded {
+    group_label: "Ad Metrics"
     label: "Num Ads Loaded"
-    description: "Total number of ads loaded"
+    description: "Number of ads loaded (may or may not be visible)"
     type: sum
-    sql: ${num_ads_loaded};;
+    sql: ${num_ads_loaded} ;;
   }
 
-  measure: ads_visible{
-    group_label: "Ad Impression Metrics"
+  measure: ads_visible {
+    group_label: "Ad Metrics"
     label: "Num Ads Visible"
-    description: "Total number of ads visible"
+    description: "Number of ads visible"
     type: sum
-    sql: ${num_ads_visible};;
+    sql: ${num_ads_visible} ;;
   }
 
-  measure: ads_not_showing{
-    group_label: "Ad Impression Metrics"
+  measure: ads_not_showing {
+    group_label: "Ad Metrics"
     label: "Num Ads Not Showing"
-    description: "Total number of ads loaded and not showing"
+    description: "Number of ads loaded and not showing"
     type: sum
-    sql: ${num_ads_notshowing};;
+    sql: ${num_ads_notshowing} ;;
   }
 
-  measure: ads_loaded_per_impression_id {
-    group_label: "Ad Impression Metrics"
-    label: "Ads Loaded Per SERP"
-    description: "Number of ads loaded / number of SERP impressions"
-    type: number
-    sql: safe_divide(${ads_loaded},${serp_impressions_count});;
+  measure: ads_blocked {
+    group_label: "Ad Metrics"
+    label: "Num Ads Blocked"
+    description: "Number of ads blocked by an ad blocker"
+    type: sum
+    sql: ${num_ads_blocked} ;;
   }
 
-  measure: ads_visible_per_impression_id {
-    group_label: "Ad Impression Metrics"
-    label: "Ads Visible Per SERP"
-    description: "Number of ads visible / number of SERP impressions"
-    type: number
-    sql: safe_divide(${ads_visible},${serp_impressions_count});;
+  measure: ad_clicks {
+    group_label: "Ad Metrics"
+    label: "Ad Clicks"
+    description: "Total number of ad clicks"
+    type: sum
+    sql: ${num_ad_clicks} ;;
   }
 
-  measure: ads_not_showing_per_impression_id {
-    group_label: "Ad Impression Metrics"
-    label: "Ads Not Showing Per SERP"
-    description: "Number of ads not showing / number of SERP impressions"
-    type: number
-    sql: safe_divide(${ads_not_showing},${serp_impressions_count});;
-  }
+#--------------------
 
-  measure: visible_proportion{
-    group_label: "Ad Impression Metrics"
-    label: "Proportion Loaded Ads Visible"
-    description: "Number of ads visible / number of ads loaded"
-    type: number
-    sql: safe_divide(${ads_visible},${ads_loaded});;
-  }
+# Shopping page metrics
 
   measure: shopping_page_impressions_count {
-    group_label: "Shopping page Metrics"
-    label: "Num Shopping Page Impressions"
+    group_label: "Shopping Page Metrics"
+    label: "Shopping Page Impressions"
     description: "Number of shopping page impressions"
     type: count
     filters: [is_shopping_page: "yes"]
   }
 
-  measure: is_shopping_page_proportion{
-    group_label: "Shopping page Metrics"
-    label: "Proportion Shopping Page Impressions"
-    description: "Shopping page ratio (yes/no) for impressions with visible ads"
-    type: number
-    sql: safe_divide(${is_shopping_page_ad_impression_count}, ${ad_impressions_count});;
-  }
-
   measure: is_shopping_page_ad_impression_count {
-    group_label: "Shopping page Metrics"
-    label: "Num Shopping Page with Ad Impressions"
+    group_label: "Shopping Page Metrics"
+    label: "Shopping Pages with Ads"
     description: "Number of shopping page impressions with visible ads"
     type: count
     filters: [is_shopping_page: "yes", has_ads_visible: "yes"]
   }
 
   measure: shopping_page_with_ad_click_count {
-    group_label: "Shopping page Metrics"
-    label: "Num Shopping Page with Ad Click"
+    group_label: "Shopping Page Metrics"
+    label: "Shopping Pages with Ad Clicks"
     description: "Number of shopping page impressions with at least 1 ad click"
     type: count
     filters: [is_shopping_page: "yes", has_ad_click: "yes"]
   }
 
-  measure: clicks{
-    group_label: "Engagement Metrics"
-    label: "Num Overall Clicks"
-    description: "Total number of ad links/non-ad links/UI features clicked"
-    type: sum
-    sql: ${num_ad_clicks} + ${num_non_ad_clicks};;
-  }
+#--------------------
 
-  measure: ad_clicks{
-    group_label: "Engagement Metrics"
-    label: "Num Ad Clicks"
-    description: "Total number of clicks on visible ads"
-    type: sum
-    sql: ${num_ad_clicks};;
-  }
+# Rate metrics
 
-  measure: non_ad_link_clicks{
-    group_label: "Engagement Metrics"
-    label: "Num Non-Ad Link Clicks"
-    description: "Total number of clicks on organic result links"
-    type: sum
-    sql: ${num_non_ad_link_clicks};;
-  }
-
-  measure: expansion{
-    group_label: "Engagement Metrics"
-    label: "Num Expands"
-    description: "Total number of clicks on the expansion button (applies to ad_carousel, ad_sidebar, refined_search_buttons)"
-    type: sum
-    sql: ${num_ad_expands} + ${num_non_ad_expands};;
-  }
-
-  measure: submits_TODO{
-    group_label: "Engagement Metrics"
-    label: "Num Submits"
-    description: "Total number of in-content search box submits"
-    type: sum
-    sql: ${num_non_ad_submits};;
-  }
-
-  measure: Ads_CTR{
-    group_label: "Engagement Metrics"
-    label: "SERP Ad CTR"
-    description: "Number of SERP impressions with at least 1 ad click / number of SERP impressions with visible ads"
+  measure: ads_loaded_per_impression_id {
+    group_label: "Rate Metrics"
+    label: "Ads Loaded Per SERP"
+    description: "Number of ads loaded / number of SERP impressions"
     type: number
-    sql: safe_divide(${clicked_ad_impressions_count}, ${ad_impressions_count}) ;;
+    sql: SAFE_DIVIDE(${ads_loaded}, ${serp_impressions_count}) ;;
+  }
+
+  measure: ads_visible_per_impression_id {
+    group_label: "Rate Metrics"
+    label: "Ads Visible Per SERP"
+    description: "Number of ads visible / number of SERP impressions"
+    type: number
+    sql: SAFE_DIVIDE(${ads_visible}, ${serp_impressions_count}) ;;
+  }
+
+  measure: ads_not_showing_per_impression_id {
+    group_label: "Rate Metrics"
+    label: "Ads Not Showing Per SERP"
+    description: "Number of ads not showing / number of SERP impressions"
+    type: number
+    sql: SAFE_DIVIDE(${ads_not_showing}, ${serp_impressions_count}) ;;
+  }
+
+  measure: ad_impression_rate {
+    group_label: "Rate Metrics"
+    label: "SERP Ad Impression Rate"
+    description: "Proportion of SERP impressions that have visible ads"
+    type: number
+    sql: SAFE_DIVIDE(${ad_impressions_count}, ${serp_impressions_count}) ;;
+  }
+
+  measure: visible_proportion {
+    group_label: "Rate Metrics"
+    label: "Proportion Loaded Ads Visible"
+    description: "Number of ads visible / number of ads loaded"
+    type: number
+    sql: SAFE_DIVIDE(${ads_visible}, ${ads_loaded}) ;;
+  }
+
+  measure: is_shopping_page_proportion {
+    group_label: "Rate Metrics"
+    label: "Proportion SERP with Ads as Shopping Pages"
+    description: "Proportion of SERP impressions with ads that are shopping pages"
+    type: number
+    sql: SAFE_DIVIDE(${is_shopping_page_ad_impression_count}, ${ad_impressions_count}) ;;
   }
 
   measure: ad_clicks_per_impression_id {
-    group_label: "Engagement Metrics"
-    label: "Ads Clicked Per SERP"
-    description: "Total number of ads clicked / number of impressions with visible ads"
+    group_label: "Rate Metrics"
+    label: "SERP Ad Click Rate"
+    description: "Total number of ads clicked / number of SERP impressions with visible ads"
     type: number
-    sql: safe_divide(${ad_clicks},${ad_impressions_count});;
+    sql: SAFE_DIVIDE(${ad_clicks}, ${ad_impressions_count}) ;;
   }
 
-  measure: abandonment_impressions_count {
-    group_label: "Abandonment Metrics"
-    label: "Num Abandoned SERP"
-    description: "Number of abandoned SERP impressions"
+  measure: Ads_CTR {
+    group_label: "Rate Metrics"
+    label: "SERP Ad CTR"
+    description: "Proportion of SERP impressions with visible ads that had an ad click"
+    type: number
+    sql: SAFE_DIVIDE(${clicked_ad_impressions_count}, ${ad_impressions_count}) ;;
+  }
+
+#--------------------
+
+# Engagement metrics
+
+  measure: non_ad_link_clicks {
+    group_label: "Engagement Metrics"
+    label: "Organic Link Clicks"
+    description: "Total number of clicks on organic result links"
+    type: sum
+    sql: ${num_non_ad_link_clicks} ;;
+  }
+
+  measure: submits {
+    group_label: "Engagement Metrics"
+    label: "Search Box Submits"
+    description: "Total number of in-content search box submits"
+    type: sum
+    sql: ${num_searchbox_submits} ;;
+  }
+
+  measure: non_ad_overall_engagements {
+    group_label: "Engagement Metrics"
+    label: "Non-Ad Engagements"
+    description: "Total number of engagements with all non-ad UI features"
+    type: sum
+    sql: ${num_non_ad_engagements} ;;
+  }
+
+#--------------------
+
+# Non-ad component metrics
+
+  measure: refined_search_visible {
+    group_label: "Component Metrics"
+    label: "SERPs with Refined Search Buttons"
+    description: "Number of SERP impressions with refined search buttons visible"
     type: count
-    filters: [abandon_reason: "-NULL"]
+    filters: [has_refined_search_visible: "yes"]
+  }
+
+  measure: refined_search_clicks {
+    group_label: "Component Metrics"
+    label: "Refined Search Buttons Clicks"
+    description: "Number of clicks on refined search buttons"
+    type: sum
+    sql: ${num_refined_search_clicks} ;;
+  }
+
+  measure: refined_search_expands {
+    group_label: "Component Metrics"
+    label: "Refined Search Buttons Expands"
+    description: "Number of expansions of refined search buttons"
+    type: sum
+    sql: ${num_refined_search_expands} ;;
+  }
+
+  measure: shopping_tab_visible {
+    group_label: "Component Metrics"
+    label: "SERPs with Shopping Tab"
+    description: "Number of SERP impressions with shopping tab visible"
+    type: count
+    filters: [has_shopping_tab_visible: "yes"]
+  }
+
+  measure: shopping_tab_clicks {
+    group_label: "Component Metrics"
+    label: "Shopping Tab Clicks"
+    description: "Number of clicks on shopping tab"
+    type: sum
+    sql: ${num_shopping_tab_clicks} ;;
+  }
+
+  measure: cookie_banner_visible {
+    group_label: "Component Metrics"
+    label: "SERPs with Cookie Banner"
+    description: "Number of SERP impressions with cookie banner visible"
+    type: count
+    filters: [has_cookie_banner_visible: "yes"]
+  }
+
+  measure: cookie_banner_clicks_accept {
+    group_label: "Component Metrics"
+    label: "Cookie Banner Accepts"
+    description: "Number of clicks on cookie banner to accept cookies"
+    type: sum
+    sql: ${num_cookie_banner_accepts} ;;
+  }
+
+  measure: cookie_banner_clicks_reject {
+    group_label: "Component Metrics"
+    label: "Cookie Banner Rejects"
+    description: "Number of clicks on cookie banner to reject cookies"
+    type: sum
+    sql: ${num_cookie_banner_rejects} ;;
+  }
+
+  measure: cookie_banner_clicks_more_options {
+    group_label: "Component Metrics"
+    label: "Cookie Banner More Options"
+    description: "Number of clicks on cookie banner to see more options"
+    type: sum
+    sql: ${num_cookie_banner_more_options} ;;
   }
 }
 
@@ -400,7 +556,7 @@ view: serp_impression__ad_components {
   dimension: id {
     hidden:  yes
     primary_key: yes
-    sql: CONCAT(${serp_impression.impression_id}, ${TABLE}.component);;
+    sql: CONCAT(${serp_impression.impression_id}, ${TABLE}.component) ;;
   }
 
   dimension: blocker_inferred {
