@@ -1,6 +1,6 @@
-include: "//looker-hub/firefox_okrs/views/desktop_engagement.view.lkml"
+include: "//looker-hub/firefox_okrs/views/mobile_engagement.view.lkml"
 
-view: +desktop_engagement {
+view: +mobile_engagement {
 
   parameter: average_window {
     label: "Moving average"
@@ -67,46 +67,73 @@ view: +desktop_engagement {
     sql: ${dau_sum}/ NULLIF(${mau_sum},0) ;;
   }
 
-  dimension: attribution_campaign {
+  dimension: adjust_campaign {
     group_label: "Attribution"
-    label: "Campaign"
+    label: "Adjust Campaign"
     type: string
-    sql: ${TABLE}.attribution_campaign ;;
+    sql: ${TABLE}.adjust_campaign ;;
   }
-  dimension: attribution_medium {
+  dimension: adjust_network {
     group_label: "Attribution"
-    label: "Medium"
+    label: "Adjust Netowrk"
     type: string
-    sql: ${TABLE}.attribution_medium ;;
+    sql: ${TABLE}.adjust_network ;;
   }
-  dimension: attribution_content {
+  dimension: adjust_ad_group {
     group_label: "Attribution"
-    label: "Content"
+    label: "Adjust Ad Group"
     type: string
-    sql: ${TABLE}.attribution_content ;;
+    sql: ${TABLE}.adjust_ad_group ;;
   }
-  dimension: attribution_dlsource {
+  dimension: adjust_creative {
     group_label: "Attribution"
-    label: "Download Source"
+    label: "Adjust Creative"
     type: string
-    sql: ${TABLE}.attribution_dlsource ;;
+    sql: ${TABLE}.adjust_creative ;;
   }
-  dimension: attribution_ua {
+
+  dimension: play_store_attribution_campaign {
     group_label: "Attribution"
-    label: "User Agent"
+    label: "GooglePlay Campaign"
+    description: "Android only"
     type: string
-    sql: ${TABLE}.attribution_ua ;;
+    sql: ${TABLE}.play_store_attribution_campaign ;;
   }
-  dimension: attribution_experiment {
+  dimension: play_store_attribution_medium {
     group_label: "Attribution"
-    label: "Experimen ID"
+    label: "GooglePlay Medium"
+    description: "Android only"
     type: string
-    sql: ${TABLE}.attribution_experiment ;;
+    sql: ${TABLE}.play_store_attribution_medium ;;
   }
-  dimension: attribution_variation {
+  dimension: play_store_attribution_source {
     group_label: "Attribution"
-    label: "Experiment Variation ID"
+    label: "GooglePlay Source"
+    description: "Android only"
     type: string
-    sql: ${TABLE}.attribution_variation ;;
+    sql: ${TABLE}.play_store_attribution_source ;;
   }
+  dimension: meta_attribution_app {
+    group_label: "Attribution"
+    label: "Meta App ID"
+    description: "Android only"
+    type: string
+    sql: ${TABLE}.meta_attribution_app ;;
+  }
+
+  dimension: install_source {
+    group_label: "Funnel filters"
+    label: "Install Source (Android)"
+    description: "For funnel, we only use Google Play"
+    type: string
+    sql: ${TABLE}.install_source ;;
+  }
+  dimension: is_suspicious_device_client {
+    group_label: "Funnel filters"
+    label: "Suspicious Device (iOS)"
+    description: "For funnel, we remove certain old version clients we deem to be suspicious"
+    type: string
+    sql: ${TABLE}.is_suspicious_device_client ;;
+  }
+
 }
