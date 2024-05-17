@@ -572,12 +572,12 @@ view: serp_impression__ad_components {
   }
 
   dimension: component {
-    label: "Ad Component  (see description)"
+    label: "Ad Component  (see Info)"
     description: "
       SERP ad component.
       Groups or filters by individual ad components.
       This field must be used when measures in this view are selected.
-      When this field is in use, SERP Impression measures will only count SERPs with ads loaded in the component.
+      When this field is in use, do not use measures under 'SERP Impressions'.
     "
   }
 
@@ -670,6 +670,13 @@ view: serp_impression__ad_components {
   }
 
 #--------------------
+
+  measure: serp_impressions_count {
+    group_label: "SERP Metrics by Component"
+    label: "SERP Impressions"
+    description: "Number of SERP impressions wth loaded ads in component"
+    type: count
+  }
 
   measure: ad_impressions_count {
     group_label: "SERP Metrics by Component"
