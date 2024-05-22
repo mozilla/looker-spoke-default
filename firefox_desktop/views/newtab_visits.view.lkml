@@ -33,6 +33,10 @@ view: newtab_visits {
     hidden: yes
   }
 
+  dimension: topsites_sponsored_enabled {
+    hidden: yes
+  }
+
   dimension: pocket_story_position {
     sql: ${TABLE}.pocket_story_position ;;
     type: number
