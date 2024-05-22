@@ -42,7 +42,7 @@ view: newtab_visits {
   }
 
   dimension: sponsored_topsites_enabled {
-    sql: ${TABLE}.sponsored_enabled ;;
+    sql: ${TABLE}.topsites_sponsored_enabled ;;
     type: yesno
   }
 
