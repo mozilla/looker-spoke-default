@@ -161,3 +161,19 @@ view: +clients_daily_table__contextual_services_quicksuggest_impression_sum {
     type: number
   }
 }
+
+# todo: fix in generation
+view: +metric_definitions_clients_first_seen_v2 {
+  dimension: first_seen_date {
+    sql: ${TABLE}.first_seen_date ;;
+    type: date
+  }
+}
+
+# todo: fix in generation
+view: +metric_definitions_clients_first_seen_28_days_later {
+  dimension: first_seen_date {
+    sql: ${TABLE}.first_seen_date ;;
+    type: date
+  }
+}
