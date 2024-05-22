@@ -3,6 +3,23 @@ include: "//looker-hub/firefox_desktop/views/newtab_visits_table.view.lkml"
 view: newtab_visits {
   extends: [newtab_visits_table]
 
+  dimension_group: submission {
+    sql: ${TABLE}.submission_date ;;
+    type: time
+    timeframes: [
+      raw,
+      date,
+      day_of_week,
+      week,
+      month,
+      month_name,
+      quarter,
+      year,
+    ]
+    convert_tz: no
+    datatype: date
+  }
+
   dimension: newtab_visit_id {
     hidden: yes
     primary_key: yes

@@ -8,8 +8,10 @@ view: newtab_clients_daily {
     timeframes: [
       raw,
       date,
+      day_of_week,
       week,
       month,
+      month_name,
       quarter,
       year,
     ]
