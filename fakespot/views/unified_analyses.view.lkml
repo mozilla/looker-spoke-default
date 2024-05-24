@@ -5,30 +5,35 @@ view: unified_analyses {
         "amazon" as source,
         product_id,
         * except (id, exchange_review_words_detected, product_id),
+        RANK() OVER (partition by product_id ORDER BY updated_at),
       FROM `mozdata.fakespot.amazon_analyses`
       UNION ALL
       SELECT
         "bestbuy" as source,
         bestbuy_product_id as product_id,
         * except (id, bestbuy_product_id),
+        RANK() OVER (partition by bestbuy_product_id ORDER BY updated_at),
       FROM `mozdata.fakespot.bestbuy_analyses`
       UNION ALL
       SELECT
         "walmart" as source,
         walmart_product_id as product_id,
         * except (id, walmart_product_id),
+        RANK() OVER (partition by walmart_product_id ORDER BY updated_at),
       FROM `mozdata.fakespot.walmart_analyses`
       UNION ALL
       SELECT
         "home_depot" as source,
         home_depot_product_id as product_id,
         * except (id, home_depot_product_id),
+        RANK() OVER (partition by home_depot_product_id ORDER BY updated_at),
       FROM `mozdata.fakespot.home_depot_analyses`
       UNION ALL
       SELECT
         "flipkart" as source,
         flipkart_product_id as product_id,
         * except (id, flipkart_product_id),
+        RANK() OVER (partition by flipkart_product_id ORDER BY updated_at),
       FROM `mozdata.fakespot.flipkart_analyses`
        ;;
   }
@@ -73,13 +78,13 @@ view: unified_analyses {
   dimension: created_at {
     description: "Analysis Created Time"
     type: date_time
-    sql: ${TABLE}.created_at ;;
+    sql: TIMESTAMP(${TABLE}.created_at) ;;
   }
 
   dimension: updated_at {
     description: "Analysis Updated Time"
     type: date_time
-    sql: ${TABLE}.updated_at ;;
+    sql: TIMESTAMP(${TABLE}.updated_at) ;;
   }
 
   dimension: status {
@@ -134,7 +139,7 @@ view: unified_analyses {
 
   dimension: analysis_rank {
     type:  number
-    sql: RANK() OVER (partition by ${source}, ${product_id} ORDER BY ${updated_at}) ;;
+    sql: ${TABLE}.analysis_rank ;;
   }
 
   measure: product_count {
