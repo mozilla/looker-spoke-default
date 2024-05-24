@@ -5,35 +5,35 @@ view: unified_analyses {
         "amazon" as source,
         product_id,
         * except (id, exchange_review_words_detected, product_id),
-        RANK() OVER (partition by product_id ORDER BY updated_at),
+        RANK() OVER (partition by product_id ORDER BY updated_at) as analysis_rank,
       FROM `mozdata.fakespot.amazon_analyses`
       UNION ALL
       SELECT
         "bestbuy" as source,
         bestbuy_product_id as product_id,
         * except (id, bestbuy_product_id),
-        RANK() OVER (partition by bestbuy_product_id ORDER BY updated_at),
+        RANK() OVER (partition by bestbuy_product_id ORDER BY updated_at) as analysis_rank,
       FROM `mozdata.fakespot.bestbuy_analyses`
       UNION ALL
       SELECT
         "walmart" as source,
         walmart_product_id as product_id,
         * except (id, walmart_product_id),
-        RANK() OVER (partition by walmart_product_id ORDER BY updated_at),
+        RANK() OVER (partition by walmart_product_id ORDER BY updated_at) as analysis_rank,
       FROM `mozdata.fakespot.walmart_analyses`
       UNION ALL
       SELECT
         "home_depot" as source,
         home_depot_product_id as product_id,
         * except (id, home_depot_product_id),
-        RANK() OVER (partition by home_depot_product_id ORDER BY updated_at),
+        RANK() OVER (partition by home_depot_product_id ORDER BY updated_at) as analysis_rank,
       FROM `mozdata.fakespot.home_depot_analyses`
       UNION ALL
       SELECT
         "flipkart" as source,
         flipkart_product_id as product_id,
         * except (id, flipkart_product_id),
-        RANK() OVER (partition by flipkart_product_id ORDER BY updated_at),
+        RANK() OVER (partition by flipkart_product_id ORDER BY updated_at) as analysis_rank,
       FROM `mozdata.fakespot.flipkart_analyses`
        ;;
   }
