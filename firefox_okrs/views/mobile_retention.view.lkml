@@ -25,6 +25,12 @@ view: +mobile_retention {
     sql: {% parameter average_window %} ;;
   }
 
+  dimension: is_mobile {
+    label: "Included in KPI"
+    description: "Filter that define if record is included in the DAU KPI"
+    sql: ${TABLE}.is_mobile ;;
+  }
+
   dimension: ping_sent_metric_date {
     hidden: yes
     sql: ${TABLE}.ping_sent_metric_date ;;

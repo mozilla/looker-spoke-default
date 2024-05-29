@@ -6,7 +6,10 @@ explore: desktop_retention {
   view_name: desktop_retention
 
   always_filter: {
-    filters: [desktop_retention.metric_date: "56 days",]
+    filters: [
+      desktop_retention.metric_date: "56 days",
+      desktop_retention.is_desktop: "Yes"
+    ]
   }
 
   join: countries {

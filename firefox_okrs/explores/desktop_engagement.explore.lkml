@@ -6,7 +6,10 @@ explore: desktop_engagement {
   view_name: desktop_engagement
 
   always_filter: {
-    filters: [desktop_engagement.submission_date: "28 days",]
+    filters: [
+      desktop_engagement.submission_date: "28 days",
+      desktop_engagement.is_desktop: "Yes"
+    ]
   }
 
   join: countries {

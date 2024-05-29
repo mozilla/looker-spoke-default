@@ -6,7 +6,10 @@ explore: mobile_engagement {
   view_name: mobile_engagement
 
   always_filter: {
-    filters: [mobile_engagement.submission_date: "28 days",]
+    filters: [
+      mobile_engagement.submission_date: "28 days",
+      mobile_engagement.is_mobile: "Yes"
+    ]
   }
 
   join: countries {
