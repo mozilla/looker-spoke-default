@@ -25,6 +25,12 @@ view: +desktop_engagement {
     sql: {% parameter average_window %} ;;
   }
 
+  dimension: is_desktop {
+    label: "Included in KPI"
+    description: "Filter that define if record is included in the DAU KPI"
+    sql: ${TABLE}.is_desktop ;;
+  }
+
   dimension: dau {
     hidden: yes
     sql: ${TABLE}.dau ;;

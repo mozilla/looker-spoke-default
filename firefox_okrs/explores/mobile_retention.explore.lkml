@@ -7,7 +7,9 @@ explore: mobile_retention {
 
   always_filter: {
     filters: [
-      mobile_retention.metric_date: "56 days",]
+      mobile_retention.metric_date: "56 days",
+      mobile_retention.is_mobile: "Yes"
+    ]
   }
 
   join: countries {
