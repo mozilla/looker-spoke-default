@@ -120,6 +120,10 @@ view: web_sessions {
       label: "MDN"
       value: "mdn_yari"
     }
+    allowed_value: {
+      label: "Monitor"
+      value: "monitor.frontend"
+    }
   }
 
   dimension_group: submission {
