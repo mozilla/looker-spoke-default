@@ -122,7 +122,7 @@ view: web_sessions {
     }
     allowed_value: {
       label: "Monitor"
-      value: "monitor.frontend"
+      value: "monitor_frontend"
     }
   }
 
