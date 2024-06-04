@@ -31,6 +31,21 @@ view: +desktop_retention {
     sql: ${TABLE}.is_desktop ;;
   }
 
+  dimension: date_yoy {
+    label: "Date (YoY)"
+    view_label: "Year over Year"
+    description: "Date offset to current year for YoY charts"
+    type: date
+    sql: DATE_ADD(${TABLE}.submission_date, INTERVAL DATE_DIFF(CURRENT_DATE(), ${TABLE}.submission_date, YEAR) YEAR) ;;
+  }
+  dimension: ytd_filter {
+    label: "YTD Filter"
+    view_label: "Year over Year"
+    description: "Only include dates up until yesterday"
+    type: yesno
+    sql: ${date_yoy} < CURRENT_DATE() ;;
+  }
+
   dimension: ping_sent_metric_date {
     hidden: yes
     sql: ${TABLE}.ping_sent_metric_date ;;
