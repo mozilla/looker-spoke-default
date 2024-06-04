@@ -1,6 +1,6 @@
-include: "//looker-hub/firefox_okrs/views/mobile_retention.view.lkml"
+include: "//looker-hub/firefox_okrs/views/desktop_retention.view.lkml"
 
-view: +mobile_retention {
+view: +desktop_retention {
 
   parameter: average_window {
     label: "Moving average"
@@ -25,10 +25,25 @@ view: +mobile_retention {
     sql: {% parameter average_window %} ;;
   }
 
-  dimension: is_mobile {
+  dimension: is_desktop {
     label: "Included in KPI"
     description: "Filter that define if record is included in the DAU KPI"
-    sql: ${TABLE}.is_mobile ;;
+    sql: ${TABLE}.is_desktop ;;
+  }
+
+  dimension: date_yoy {
+    label: "Date (YoY)"
+    view_label: "Year over Year"
+    description: "Date offset to current year for YoY charts"
+    type: date
+    sql: DATE_ADD(${TABLE}.metric_date, INTERVAL DATE_DIFF(CURRENT_DATE(), ${TABLE}.metric_date, YEAR) YEAR) ;;
+  }
+  dimension: ytd_filter {
+    label: "YTD Filter"
+    view_label: "Year over Year"
+    description: "Only include dates up until yesterday"
+    type: yesno
+    sql: ${date_yoy} < CURRENT_DATE() ;;
   }
 
   dimension: ping_sent_metric_date {
@@ -135,73 +150,46 @@ view: +mobile_retention {
     sql: ${repeat_profiles_sum}/ NULLIF(${new_profiles_metric_date_sum},0) ;;
   }
 
-  dimension: adjust_campaign {
+  dimension: attribution_campaign {
     group_label: "Attribution"
-    label: "Adjust Campaign"
+    label: "Campaign"
     type: string
-    sql: ${TABLE}.adjust_campaign ;;
+    sql: ${TABLE}.attribution_campaign ;;
   }
-  dimension: adjust_network {
+  dimension: attribution_medium {
     group_label: "Attribution"
-    label: "Adjust Netowrk"
+    label: "Medium"
     type: string
-    sql: ${TABLE}.adjust_network ;;
+    sql: ${TABLE}.attribution_medium ;;
   }
-  dimension: adjust_ad_group {
+  dimension: attribution_content {
     group_label: "Attribution"
-    label: "Adjust Ad Group"
+    label: "Content"
     type: string
-    sql: ${TABLE}.adjust_ad_group ;;
+    sql: ${TABLE}.attribution_content ;;
   }
-  dimension: adjust_creative {
+  dimension: attribution_dlsource {
     group_label: "Attribution"
-    label: "Adjust Creative"
+    label: "Download Source"
     type: string
-    sql: ${TABLE}.adjust_creative ;;
+    sql: ${TABLE}.attribution_dlsource ;;
   }
-
-  dimension: play_store_attribution_campaign {
+  dimension: attribution_ua {
     group_label: "Attribution"
-    label: "GooglePlay Campaign"
-    description: "Android only"
+    label: "User Agent"
     type: string
-    sql: ${TABLE}.play_store_attribution_campaign ;;
+    sql: ${TABLE}.attribution_ua ;;
   }
-  dimension: play_store_attribution_medium {
+  dimension: attribution_experiment {
     group_label: "Attribution"
-    label: "GooglePlay Medium"
-    description: "Android only"
+    label: "Experimen ID"
     type: string
-    sql: ${TABLE}.play_store_attribution_medium ;;
+    sql: ${TABLE}.attribution_experiment ;;
   }
-  dimension: play_store_attribution_source {
+  dimension: attribution_variation {
     group_label: "Attribution"
-    label: "GooglePlay Source"
-    description: "Android only"
+    label: "Experiment Variation ID"
     type: string
-    sql: ${TABLE}.play_store_attribution_source ;;
+    sql: ${TABLE}.attribution_variation ;;
   }
-  dimension: meta_attribution_app {
-    group_label: "Attribution"
-    label: "Meta App ID"
-    description: "Android only"
-    type: string
-    sql: ${TABLE}.meta_attribution_app ;;
-  }
-
-  dimension: install_source {
-    group_label: "Funnel filters"
-    label: "Install Source (Android)"
-    description: "For funnel, we only use Google Play"
-    type: string
-    sql: ${TABLE}.install_source ;;
-  }
-  dimension: is_suspicious_device_client {
-    group_label: "Funnel filters"
-    label: "Suspicious Device (iOS)"
-    description: "For funnel, we remove certain old version clients we deem to be suspicious"
-    type: string
-    sql: ${TABLE}.is_suspicious_device_client ;;
-  }
-
 }
