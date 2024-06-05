@@ -158,7 +158,7 @@ view: +mobile_retention {
   }
   dimension: adjust_network {
     group_label: "Attribution"
-    label: "Adjust Netowrk"
+    label: "Adjust Network"
     type: string
     sql: ${TABLE}.adjust_network ;;
   }
