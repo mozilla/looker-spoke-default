@@ -43,7 +43,7 @@ view: +mobile_retention {
     view_label: "Year over Year"
     description: "Only include dates up until yesterday"
     type: yesno
-    sql: ${date_yoy} < CURRENT_DATE() ;;
+    sql: ${date_yoy} <= DATE_SUB(CURRENT_DATE(), INTERVAL 28 DAY) ;;
   }
 
   dimension: ping_sent_metric_date {
