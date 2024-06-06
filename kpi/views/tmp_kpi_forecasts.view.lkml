@@ -8,6 +8,7 @@ view: tmp_kpi_forecasts {
                metric_hub_slug,
                MAX(forecast_predicted_at) AS forecast_predicted_at
           FROM `moz-fx-data-shared-prod.telemetry_derived.kpi_forecasts_v0`
+         WHERE DATE(forecast_predicted_at) <= "2024-06-06" -- freeze forecast reporting while we update active_users_aggregates: https://mozilla-hub.atlassian.net/jira/software/c/projects/DO/boards/1902?selectedIssue=DENG-2989
          GROUP BY aggregation_period, metric_alias, metric_hub_app_name, metric_hub_slug
       )
       
