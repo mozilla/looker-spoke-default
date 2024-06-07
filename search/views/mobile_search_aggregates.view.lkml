@@ -98,6 +98,11 @@ view: mobile_search_aggregates {
     sql: ${TABLE}.search_with_ads ;;
   }
 
+  dimension: search_with_ads_organic {
+    type: number
+    sql: ${TABLE}.search_with_ads_organic ;;
+  }
+
   dimension: source {
     type: string
     sql: ${TABLE}.source ;;

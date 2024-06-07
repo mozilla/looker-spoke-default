@@ -242,6 +242,13 @@ view: +mobile_search_clients_engines_sources_daily {
     description: "Total searches with ads. Does not include organic searches."
   }
 
+  measure: total_organic_searches_with_ads {
+    label: "Organic Searches With Ads"
+    type: sum
+    sql: ${search_with_ads_organic} ;;
+    description: "Total organic searches with ads."
+  }
+
   measure: total_ad_clicks {
     label: "Ad Clicks"
     type: sum
@@ -279,6 +286,10 @@ view: +mobile_search_clients_engines_sources_daily {
   }
 
   dimension: search_with_ads {
+    hidden: yes
+  }
+
+  dimension: search_with_ads_organic {
     hidden: yes
   }
 
