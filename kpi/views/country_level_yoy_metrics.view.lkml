@@ -21,12 +21,12 @@ WITH raw AS (
       active_users_aggregates.country = countries.code
     WHERE
       ( active_users_aggregates.submission_date BETWEEN
-          DATE_SUB({% condition user_input_date %} DATE(app_name) {% endcondition %}, INTERVAL 27 DAY) AND
-          DATE_SUB({% condition user_input_date %} DATE(app_name) {% endcondition %}, INTERVAL 0 DAY)
+          DATE_SUB({% user_input_date %}, INTERVAL 27 DAY) AND
+          DATE_SUB({% user_input_date %}, INTERVAL 0 DAY)
           OR
         active_users_aggregates.submission_date BETWEEN
-          DATE_SUB({% condition user_input_date %} DATE(app_name) {% endcondition %}, INTERVAL 27+365 DAY) AND
-          DATE_SUB({% condition user_input_date %} DATE(app_name) {% endcondition %}, INTERVAL 365 DAY)
+          DATE_SUB({% user_input_date %}, INTERVAL 27+365 DAY) AND
+          DATE_SUB({% user_input_date %}, INTERVAL 365 DAY)
       )
     GROUP BY
       ALL ),
