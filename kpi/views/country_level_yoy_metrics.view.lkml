@@ -1,4 +1,4 @@
-view: tmp_kpi_forecasts {
+view: country_level_yoy_metrics {
   derived_table: {
     sql:
 WITH
