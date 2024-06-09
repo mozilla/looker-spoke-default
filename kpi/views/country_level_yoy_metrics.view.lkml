@@ -1,88 +1,92 @@
 view: country_level_yoy_metrics {
   derived_table: {
     sql:
-WITH
-        raw AS (
-        SELECT
-          EXTRACT(YEAR
-          FROM
-            active_users_aggregates.submission_date) AS submission_year,
-          active_users_aggregates.submission_date AS submission_date,
-          IF(countries.region_name LIKE "%America%", "Americas", countries.region_name) AS region_name,
-          countries.name AS country_name,
-          active_users_aggregates.app_name AS app_name,
-          SUM(COALESCE(active_users_aggregates.dau, 0)) AS dau,
-          SUM(COALESCE(active_users_aggregates.wau, 0)) AS wau,
-          SUM(COALESCE(active_users_aggregates.mau, 0)) AS mau,
-        FROM
-          `moz-fx-data-shared-prod.telemetry.active_users_aggregates` AS active_users_aggregates
-        LEFT JOIN
-          `mozdata.static.country_codes_v1` AS countries
-        ON
-          active_users_aggregates.country = countries.code
-        WHERE
-          ( active_users_aggregates.submission_date BETWEEN
-              DATE_SUB({% condition user_selected_date %} user_selected_date {% endcondition %}, INTERVAL 27 DAY) AND
-              DATE_SUB({% condition user_selected_date %} user_selected_date {% endcondition %}, INTERVAL 0 DAY)
-              OR
-            active_users_aggregates.submission_date BETWEEN
-              DATE_SUB({% condition user_selected_date %} user_selected_date {% endcondition %}, INTERVAL 27+365 DAY) AND
-              DATE_SUB({% condition user_selected_date %} user_selected_date {% endcondition %}, INTERVAL 365 DAY)
-          )
-        GROUP BY
-          ALL ),
-        aggregated AS (
-        SELECT
-          submission_year,
-          submission_date,
-          region_name,
-          country_name,
-          app_name,
-        IF
-          (dau = 0, 1, dau) AS dau,
-        IF
-          (wau = 0, 1, wau) AS wau,
-        IF
-          (mau = 0, 1, mau) AS mau,
-          AVG(SUM(
-            IF
-              (dau = 0, 1, dau))) OVER (PARTITION BY submission_year, region_name, country_name, app_name) AS dau_28ma,
-          MAX(submission_date) OVER (PARTITION BY submission_year, region_name, country_name, app_name) AS max_date,
-        FROM
-          raw
-        GROUP BY
-          ALL ),
-        calculated AS (
-        SELECT
-          submission_date,
-          region_name,
-          country_name,
-          app_name,
-          dau,
-          dau - LAG(dau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS dau_diff,
-          (dau / LAG(dau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC)) -1 AS dau_pct_diff,
-          wau,
-          wau - LAG(wau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS wau_diff,
-          (wau / LAG(wau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC)) -1 AS wau_pct_diff,
-          mau,
-          mau - LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS mau_diff,
-          (mau / LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC)) -1 AS mau_pct_diff,
-          dau_28ma,
-          dau_28ma - LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS dau_28ma_diff,
-          (dau_28ma / LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC)) -1 AS dau_28ma_pct_diff,
-        FROM
-          aggregated
-        WHERE
-          submission_date = max_date )
-      SELECT
-        *
+WITH date_filter AS (
+  SELECT DISTINCT(COALESCE(submission_date, "3000-01-01")) AS target_date
+    FROM `moz-fx-data-shared-prod.telemetry.active_users_aggregates`
+   WHERE {% condition user_selected_date %} TIMESTAMP(submission_date) {% endcondition %}
+   LIMIT 1
+)
+       
+  raw AS (
+    SELECT
+      EXTRACT(YEAR
       FROM
-        calculated
-      WHERE
-        submission_date = {% condition user_selected_date %} user_selected_date {% endcondition %}
-      ORDER BY
-      dau_28ma DESC
-      ;;
+        active_users_aggregates.submission_date) AS submission_year,
+      active_users_aggregates.submission_date AS submission_date,
+      IF(countries.region_name LIKE "%America%", "Americas", countries.region_name) AS region_name,
+      countries.name AS country_name,
+      active_users_aggregates.app_name AS app_name,
+      SUM(COALESCE(active_users_aggregates.dau, 0)) AS dau,
+      SUM(COALESCE(active_users_aggregates.wau, 0)) AS wau,
+      SUM(COALESCE(active_users_aggregates.mau, 0)) AS mau,
+    FROM
+      `moz-fx-data-shared-prod.telemetry.active_users_aggregates` AS active_users_aggregates
+    LEFT JOIN
+      `mozdata.static.country_codes_v1` AS countries
+    ON
+      active_users_aggregates.country = countries.code
+    CROSS JOIN date_filter
+    WHERE
+      ( active_users_aggregates.submission_date BETWEEN
+          DATE_SUB(date_filter.target_date, INTERVAL 27 DAY) AND
+          DATE_SUB(date_filter.target_date, INTERVAL 0 DAY)
+          OR
+        active_users_aggregates.submission_date BETWEEN
+          DATE_SUB(date_filter.target_date, INTERVAL 27+365 DAY) AND
+          DATE_SUB(date_filter.target_date, INTERVAL 365 DAY)
+      )
+    GROUP BY
+      ALL ),
+  aggregated AS (
+    SELECT
+      submission_year,
+      submission_date,
+      region_name,
+      country_name,
+      app_name,
+    IF
+      (dau = 0, 1, dau) AS dau,
+    IF
+      (wau = 0, 1, wau) AS wau,
+    IF
+      (mau = 0, 1, mau) AS mau,
+      AVG(SUM(
+        IF
+          (dau = 0, 1, dau))) OVER (PARTITION BY submission_year, region_name, country_name, app_name) AS dau_28ma,
+      MAX(submission_date) OVER (PARTITION BY submission_year, region_name, country_name, app_name) AS max_date,
+    FROM
+      raw
+    GROUP BY
+      ALL ),
+  calculated AS (
+    SELECT
+      submission_date,
+      region_name,
+      country_name,
+      app_name,
+      dau,
+      dau - LAG(dau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS dau_diff,
+      (dau / LAG(dau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC)) -1 AS dau_pct_diff,
+      wau,
+      wau - LAG(wau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS wau_diff,
+      (wau / LAG(wau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC)) -1 AS wau_pct_diff,
+      mau,
+      mau - LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS mau_diff,
+      (mau / LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC)) -1 AS mau_pct_diff,
+      dau_28ma,
+      dau_28ma - LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS dau_28ma_diff,
+      (dau_28ma / LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC)) -1 AS dau_28ma_pct_diff,
+    FROM
+      aggregated
+    WHERE
+      submission_date = max_date
+  )
+  SELECT
+    *
+  FROM
+    calculated
+  ;;
   }
 
   filter: user_selected_date {
