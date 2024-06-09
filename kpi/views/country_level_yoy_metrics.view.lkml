@@ -22,12 +22,12 @@ WITH
           active_users_aggregates.country = countries.code
         WHERE
           ( active_users_aggregates.submission_date BETWEEN
-              DATE_SUB({% condition submission_date %} active_users_aggregates.submission_date {% endcondition %}, INTERVAL 27 DAY) AND
-              DATE_SUB({% condition submission_date %} active_users_aggregates.submission_date {% endcondition %}, INTERVAL 0 DAY)
+              DATE_SUB({% condition user_selected_date %} submission_date {% endcondition %}, INTERVAL 27 DAY) AND
+              DATE_SUB({% condition user_selected_date %} submission_date {% endcondition %}, INTERVAL 0 DAY)
               OR
             active_users_aggregates.submission_date BETWEEN
-              DATE_SUB({% condition submission_date %} active_users_aggregates.submission_date {% endcondition %}, INTERVAL 27+365 DAY) AND
-              DATE_SUB({% condition submission_date %} active_users_aggregates.submission_date {% endcondition %}, INTERVAL 365 DAY)
+              DATE_SUB({% condition user_selected_date %} submission_date {% endcondition %}, INTERVAL 27+365 DAY) AND
+              DATE_SUB({% condition user_selected_date %} submission_date {% endcondition %}, INTERVAL 365 DAY)
           )
         GROUP BY
           ALL ),
@@ -79,19 +79,19 @@ WITH
       FROM
         calculated
       WHERE
-        submission_date = {% condition submission_date %} active_users_aggregates.submission_date {% endcondition %}
+        submission_date = {% condition user_selected_date %} submission_date {% endcondition %}
       ORDER BY
       dau_28ma DESC
       ;;
   }
 
-  dimension_group: submission_date {
-    type: time
-    datatype: date
-    timeframes: [date]
-    convert_tz: no
-    label: "Submission"
-    description: "The date we received pings from clients."
+  filter: user_selected_date {
+    type: date
+    label: "Date for YoY Comparison"
+  }
+
+  dimension: submission_date {
+    type: date
     sql: ${TABLE}.submission_date ;;
   }
 
