@@ -92,7 +92,7 @@ WITH
 
   dimension: submission_date {
     type: date
-    sql: ${TABLE}.submission_date ;;
+    sql: DATE(${TABLE}.submission_date) ;;
   }
 
   dimension: region_name {
