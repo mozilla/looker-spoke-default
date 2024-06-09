@@ -22,12 +22,12 @@ WITH
           active_users_aggregates.country = countries.code
         WHERE
           ( active_users_aggregates.submission_date BETWEEN
-              DATE_SUB(DATE({% condition user_selected_date %} TIMESTAMP(submission_date) {% endcondition %}), INTERVAL 27 DAY) AND
-              DATE_SUB(DATE({% condition user_selected_date %} TIMESTAMP(submission_date) {% endcondition %}), INTERVAL 0 DAY)
+              DATE_SUB({% condition user_selected_date %} user_selected_date {% endcondition %}, INTERVAL 27 DAY) AND
+              DATE_SUB({% condition user_selected_date %} user_selected_date {% endcondition %}, INTERVAL 0 DAY)
               OR
             active_users_aggregates.submission_date BETWEEN
-              DATE_SUB(DATE({% condition user_selected_date %} TIMESAMP(submission_date) {% endcondition %}), INTERVAL 27+365 DAY) AND
-              DATE_SUB(DATE({% condition user_selected_date %} TIMESAMP(submission_date) {% endcondition %}), INTERVAL 365 DAY)
+              DATE_SUB({% condition user_selected_date %} user_selected_date {% endcondition %}, INTERVAL 27+365 DAY) AND
+              DATE_SUB({% condition user_selected_date %} user_selected_date {% endcondition %}, INTERVAL 365 DAY)
           )
         GROUP BY
           ALL ),
@@ -79,7 +79,7 @@ WITH
       FROM
         calculated
       WHERE
-        submission_date = DATE({% condition user_selected_date %} TIMESTAMP(submission_date) {% endcondition %})
+        submission_date = {% condition user_selected_date %} user_selected_date {% endcondition %}
       ORDER BY
       dau_28ma DESC
       ;;
