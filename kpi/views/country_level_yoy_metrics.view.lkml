@@ -1,13 +1,7 @@
 view: country_level_yoy_metrics {
   derived_table: {
     sql:
-WITH date_filter AS (
-  SELECT DISTINCT(COALESCE(submission_date, "3000-01-01")) AS target_date
-    FROM `moz-fx-data-shared-prod.telemetry.active_users_aggregates`
-   WHERE {% condition user_selected_date %} TIMESTAMP(submission_date) {% endcondition %}
-   LIMIT 1
-  ),     
-  raw AS (
+WITH raw AS (
     SELECT
       EXTRACT(YEAR
       FROM
@@ -28,12 +22,12 @@ WITH date_filter AS (
     CROSS JOIN date_filter
     WHERE
       ( active_users_aggregates.submission_date BETWEEN
-          DATE_SUB(date_filter.target_date, INTERVAL 27 DAY) AND
-          DATE_SUB(date_filter.target_date, INTERVAL 0 DAY)
+          DATE_SUB({% condition user_input_date %} DATE(app_name) {% endcondition %}, INTERVAL 27 DAY) AND
+          DATE_SUB({% condition user_input_date %} DATE(app_name) {% endcondition %}, INTERVAL 0 DAY)
           OR
         active_users_aggregates.submission_date BETWEEN
-          DATE_SUB(date_filter.target_date, INTERVAL 27+365 DAY) AND
-          DATE_SUB(date_filter.target_date, INTERVAL 365 DAY)
+          DATE_SUB({% condition user_input_date %} DATE(app_name) {% endcondition %}, INTERVAL 27+365 DAY) AND
+          DATE_SUB({% condition user_input_date %} DATE(app_name) {% endcondition %}, INTERVAL 365 DAY)
       )
     GROUP BY
       ALL ),
@@ -88,9 +82,9 @@ WITH date_filter AS (
   ;;
   }
 
-  filter: user_selected_date {
-    type: date
-    label: "Date for YoY Comparison"
+  filter: user_input_date {
+    type: string
+    label: "Date for YoY Comparison (YYYY-MM-DD)"
   }
 
   dimension: submission_date {
