@@ -120,86 +120,92 @@ WITH date_filter AS (
   }
 
   measure: dau {
-    type: number
+    type: average
     label: "DAU"
     description: "Number of Daily Active Users on the submission date."
     sql: ${TABLE}.dau ;;
   }
 
   measure: wau {
-    type: number
+    type: average
     label: "WAU"
     description: "Number of Distinct Active Users in the 7-day period ending on the submission date."
     sql: ${TABLE}.wau ;;
   }
 
   measure: mau {
-    type: number
+    type: average
     label: "MAU"
     description: "Number of Distinct Active Users in the 28-day period ending on the submission date."
     sql: ${TABLE}.mau ;;
   }
 
   measure: dau_28ma {
-    type: number
+    type: average
     label: "DAU 28-Day Moving Average"
     description: "Average number of Daily Active Users in the 28-day period ending on the submission date."
     sql: ${TABLE}.dau_28ma ;;
   }
 
   measure: dau_yoy_diff {
-    type: number
+    type: average
     label: "DAU YoY Difference"
     description: "Diffence between DAU on the submission date and DAU 365 days prior."
     sql: ${TABLE}.dau_diff ;;
   }
 
   measure: wau_yoy_diff {
-    type: number
+    type: average
     label: "WAU YoY Difference"
     description: "Diffence between WAU on the submission date and DAU 365 days prior."
-    sql: ${TABLE}.wau_diff ;;
+    sql: ${TABLE}.wau_diff 
+    forma
+    ;;
   }
 
   measure: mau_yoy_diff {
-    type: number
+    type: average
     label: "MAU YoY Difference"
     description: "Diffence between MAU on the submission date and DAU 365 days prior."
     sql: ${TABLE}.mau_diff ;;
   }
 
   measure: dau_28ma_yoy_diff {
-    type: number
+    type: average
     label: "DAU 28-Day Moving Average YoY Difference"
     description: "Diffence between DAU-28MA on the submission date and DAU-28MA 365 days prior."
     sql: ${TABLE}.dau_28ma_diff ;;
   }
 
   measure: dau_yoy_pct_diff {
-    type: number
+    type: average
     label: "DAU YoY Percent Difference"
     description: "Percent diffence between DAU on the submission date and DAU 365 days prior."
+    value_format_name: percent_2
     sql: ${TABLE}.dau_pct_diff ;;
   }
 
   measure: wau_yoy_pct_diff {
-    type: number
+    type: average
     label: "WAU YoY Percent Difference"
     description: "Percent diffence between WAU on the submission date and DAU 365 days prior."
+    value_format_name: percent_2
     sql: ${TABLE}.wau_pct_diff ;;
   }
 
   measure: mau_yoy_pct_diff {
-    type: number
+    type: average
     label: "MAU YoY Percent Difference"
     description: "Percent diffence between MAU on the submission date and DAU 365 days prior."
+    value_format_name: percent_2
     sql: ${TABLE}.mau_pct_diff ;;
   }
 
   measure: dau_28ma_yoy_pct_diff {
-    type: number
+    type: average
     label: "DAU 28-Day Moving Average YoY Percent Difference"
     description: "Percent diffence between DAU-28MA on the submission date and DAU-28MA 365 days prior."
+    value_format_name: percent_2
     sql: ${TABLE}.dau_28ma_pct_diff ;;
   }
 }
