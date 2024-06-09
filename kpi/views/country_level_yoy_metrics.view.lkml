@@ -19,7 +19,6 @@ WITH raw AS (
       `mozdata.static.country_codes_v1` AS countries
     ON
       active_users_aggregates.country = countries.code
-    CROSS JOIN date_filter
     WHERE
       ( active_users_aggregates.submission_date BETWEEN
           DATE_SUB({% condition user_input_date %} DATE(app_name) {% endcondition %}, INTERVAL 27 DAY) AND
