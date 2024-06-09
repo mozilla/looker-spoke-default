@@ -6,8 +6,7 @@ WITH date_filter AS (
     FROM `moz-fx-data-shared-prod.telemetry.active_users_aggregates`
    WHERE {% condition user_selected_date %} TIMESTAMP(submission_date) {% endcondition %}
    LIMIT 1
-)
-       
+  ),     
   raw AS (
     SELECT
       EXTRACT(YEAR
