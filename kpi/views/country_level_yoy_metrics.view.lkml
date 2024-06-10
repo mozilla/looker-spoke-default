@@ -28,7 +28,13 @@ view: country_level_yoy_metrics {
       LAG(value) OVER (PARTITION BY country, app_name, metric ORDER BY submission_date ASC) as previous_value
       FROM metrics
     )
-    SELECT *
+    SELECT
+      submission_date,
+      country,
+      app_name,
+      CASE WHEN metric IN ('dau', 'wau', 'mau') THEN UPPER(metric) ELSE 'DAU 28-day Moving Average' END as metric,
+      value,
+      previous_value
     FROM yoy
     WHERE previous_value IS NOT NULL;;
   }
@@ -77,5 +83,13 @@ view: country_level_yoy_metrics {
     description: "The metric's value 365 days ago."
     value_format_name: decimal_0
     sql: ${TABLE}.previous_value ;;
+  }
+
+  measure: yoy_difference {
+    type: sum
+    label: "YoY Difference"
+    description: "The difference between the metric's value 365 days ago and its value on the target date."
+    value_format_name: decimal_0
+    sql:${TABLE}.value - ${TABLE}.previous_value;;
   }
 }
