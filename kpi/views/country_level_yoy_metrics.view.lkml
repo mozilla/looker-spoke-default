@@ -1,89 +1,261 @@
 view: country_level_yoy_metrics {
   derived_table: {
     sql:
-WITH raw AS (
-    SELECT
-      EXTRACT(YEAR
-      FROM
-        active_users_aggregates.submission_date) AS submission_year,
-      active_users_aggregates.submission_date AS submission_date,
-      IF(countries.region_name LIKE "%America%", "Americas", countries.region_name) AS region_name,
-      countries.name AS country_name,
-      active_users_aggregates.app_name AS app_name,
-      SUM(COALESCE(active_users_aggregates.dau, 0)) AS dau,
-      SUM(COALESCE(active_users_aggregates.wau, 0)) AS wau,
-      SUM(COALESCE(active_users_aggregates.mau, 0)) AS mau,
-    FROM
-      `moz-fx-data-shared-prod.telemetry.active_users_aggregates` AS active_users_aggregates
-    LEFT JOIN
-      `mozdata.static.country_codes_v1` AS countries
-    ON
-      active_users_aggregates.country = countries.code
-    WHERE
-      ( active_users_aggregates.submission_date BETWEEN
-          DATE_SUB({% user_input_date %}, INTERVAL 27 DAY) AND
-          DATE_SUB({% user_input_date %}, INTERVAL 0 DAY)
-          OR
-        active_users_aggregates.submission_date BETWEEN
-          DATE_SUB({% user_input_date %}, INTERVAL 27+365 DAY) AND
-          DATE_SUB({% user_input_date %}, INTERVAL 365 DAY)
-      )
-    GROUP BY
-      ALL ),
-  aggregated AS (
-    SELECT
-      submission_year,
-      submission_date,
-      region_name,
-      country_name,
-      app_name,
-    IF
-      (dau = 0, 1, dau) AS dau,
-    IF
-      (wau = 0, 1, wau) AS wau,
-    IF
-      (mau = 0, 1, mau) AS mau,
-      AVG(SUM(
+    WITH raw AS (
+        SELECT
+          EXTRACT(YEAR
+          FROM
+            active_users_aggregates.submission_date) AS submission_year,
+          active_users_aggregates.submission_date AS submission_date,
+          IF(countries.region_name LIKE "%America%", "Americas", countries.region_name) AS region_name,
+          countries.name AS country_name,
+          active_users_aggregates.app_name AS app_name,
+          SUM(COALESCE(active_users_aggregates.dau, 0)) AS dau,
+          SUM(COALESCE(active_users_aggregates.wau, 0)) AS wau,
+          SUM(COALESCE(active_users_aggregates.mau, 0)) AS mau,
+        FROM
+          `moz-fx-data-shared-prod.telemetry.active_users_aggregates` AS active_users_aggregates
+        LEFT JOIN
+          `mozdata.static.country_codes_v1` AS countries
+        ON
+          active_users_aggregates.country = countries.code
+        WHERE
+          ( active_users_aggregates.submission_date BETWEEN
+              DATE_SUB(DATE({% date_start user_input_date %}), INTERVAL 27 DAY) AND
+              DATE_SUB(DATE({% date_start user_input_date %}), INTERVAL 0 DAY)
+              OR
+            active_users_aggregates.submission_date BETWEEN
+              DATE_SUB(DATE({% date_start user_input_date %}), INTERVAL 27+365 DAY) AND
+              DATE_SUB(DATE({% date_start user_input_date %}), INTERVAL 365 DAY)
+          )
+        GROUP BY
+          ALL ),
+      aggregated AS (
+        SELECT
+          submission_year,
+          submission_date,
+          region_name,
+          country_name,
+          app_name,
         IF
-          (dau = 0, 1, dau))) OVER (PARTITION BY submission_year, region_name, country_name, app_name) AS dau_28ma,
-      MAX(submission_date) OVER (PARTITION BY submission_year, region_name, country_name, app_name) AS max_date,
-    FROM
-      raw
-    GROUP BY
-      ALL ),
-  calculated AS (
-    SELECT
-      submission_date,
-      region_name,
-      country_name,
-      app_name,
-      dau,
-      dau - LAG(dau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS dau_diff,
-      (dau / LAG(dau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC)) -1 AS dau_pct_diff,
-      wau,
-      wau - LAG(wau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS wau_diff,
-      (wau / LAG(wau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC)) -1 AS wau_pct_diff,
-      mau,
-      mau - LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS mau_diff,
-      (mau / LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC)) -1 AS mau_pct_diff,
-      dau_28ma,
-      dau_28ma - LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS dau_28ma_diff,
-      (dau_28ma / LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC)) -1 AS dau_28ma_pct_diff,
-    FROM
-      aggregated
-    WHERE
-      submission_date = max_date
-  )
-  SELECT
-    *
-  FROM
-    calculated
-  ;;
+          (dau = 0, 1, dau) AS dau,
+        IF
+          (wau = 0, 1, wau) AS wau,
+        IF
+          (mau = 0, 1, mau) AS mau,
+          AVG(SUM(
+            IF
+              (dau = 0, 1, dau))) OVER (PARTITION BY submission_year, region_name, country_name, app_name) AS dau_28ma,
+          MAX(submission_date) OVER (PARTITION BY submission_year, region_name, country_name, app_name) AS max_date,
+        FROM
+          raw
+        GROUP BY
+          ALL ),
+      calculated AS (
+        SELECT
+          submission_date,
+          region_name,
+          country_name,
+          app_name,
+          "DAU" AS metric,
+          dau AS value,
+          LAG(dau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+          dau - LAG(dau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+        FROM
+          aggregated
+        WHERE
+          submission_date = max_date
+
+        UNION ALL
+
+        SELECT
+          submission_date,
+          region_name,
+          country_name,
+          app_name,
+          "WAU" AS metric,
+          wau AS value,
+          LAG(wau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+          wau - LAG(wau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+        FROM
+          aggregated
+        WHERE
+          submission_date = max_date
+
+        UNION ALL
+
+        SELECT
+          submission_date,
+          region_name,
+          country_name,
+          app_name,
+          "MAU" AS metric,
+          mau AS value,
+          LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+          mau - LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+        FROM
+          aggregated
+        WHERE
+          submission_date = max_date
+
+        UNION ALL
+
+        SELECT
+          submission_date,
+          region_name,
+          country_name,
+          app_name,
+          "DAU 28-Day Moving Average" AS metric,
+          dau_28ma AS value,
+          LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+          dau_28ma - LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+        FROM
+          aggregated
+        WHERE
+          submission_date = max_date
+
+        UNION ALL
+
+        SELECT
+          submission_date,
+          region_name,
+          "Regional Total" AS country_name,
+          app_name,
+          "DAU" AS metric,
+          dau AS value,
+          LAG(dau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+          dau - LAG(dau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+        FROM
+          aggregated
+        WHERE
+          submission_date = max_date
+
+        UNION ALL
+
+        SELECT
+          submission_date,
+          region_name,
+          "Regional Total" AS country_name,
+          app_name,
+          "WAU" AS metric,
+          wau AS value,
+          LAG(wau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+          wau - LAG(wau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+        FROM
+          aggregated
+        WHERE
+          submission_date = max_date
+
+        UNION ALL
+
+        SELECT
+          submission_date,
+          region_name,
+          "Regional Total" AS country_name,
+          app_name,
+          "MAU" AS metric,
+          mau AS value,
+          LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+          mau - LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+        FROM
+          aggregated
+        WHERE
+          submission_date = max_date
+
+        UNION ALL
+
+        SELECT
+          submission_date,
+          region_name,
+          "Regional Total" AS country_name,
+          app_name,
+          "DAU 28-Day Moving Average" AS metric,
+          dau_28ma AS value,
+          LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+          dau_28ma - LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+        FROM
+          aggregated
+        WHERE
+          submission_date = max_date
+
+        UNION ALL
+
+        SELECT
+          submission_date,
+          "Worldwide" AS region_name,
+          "Total" AS country_name,
+          app_name,
+          "DAU" AS metric,
+          dau AS value,
+          LAG(dau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+          dau - LAG(dau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+        FROM
+          aggregated
+        WHERE
+          submission_date = max_date
+
+        UNION ALL
+
+        SELECT
+          submission_date,
+          "Worldwide" AS region_name,
+          "Total" AS country_name,
+          app_name,
+          "WAU" AS metric,
+          wau AS value,
+          LAG(wau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+          wau - LAG(wau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+        FROM
+          aggregated
+        WHERE
+          submission_date = max_date
+
+        UNION ALL
+
+        SELECT
+          submission_date,
+          "Worldwide" AS region_name,
+          "Total" AS country_name,
+          app_name,
+          "MAU" AS metric,
+          mau AS value,
+          LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+          mau - LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+        FROM
+          aggregated
+        WHERE
+          submission_date = max_date
+
+        UNION ALL
+
+        SELECT
+          submission_date,
+          "Worldwide" AS region_name,
+          "Total" AS country_name,
+          app_name,
+          "DAU 28-Day Moving Average" AS metric,
+          dau_28ma AS value,
+          LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+          dau_28ma - LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+        FROM
+          aggregated
+        WHERE
+          submission_date = max_date
+      )
+      SELECT
+        *
+      FROM
+        calculated
+      WHERE
+        submission_date = DATE({% date_start user_input_date %})
+
+
+      ;;
   }
 
   filter: user_input_date {
-    type: string
-    label: "Date for YoY Comparison (YYYY-MM-DD)"
+    type: date
+    label: "Target Date for YoY Comparison"
   }
 
   dimension: submission_date {
@@ -95,6 +267,7 @@ WITH raw AS (
     type: string
     label: "Region"
     description: "Region name. These are based on the UN Statistics Division standard country or area codes for statistical use (M49)."
+    drill_fields: [country_name]
     sql: ${TABLE}.region_name ;;
   }
 
@@ -108,97 +281,38 @@ WITH raw AS (
   dimension: app_name {
     type: string
     label: "Browser Name"
-    description: "The browser app's name"
+    description: "The browser app name."
     sql: ${TABLE}.app_name ;;
   }
 
-  measure: dau {
-    type: average
-    label: "DAU"
-    description: "Number of Daily Active Users on the submission date."
-    sql: ${TABLE}.dau ;;
+  dimension: metric {
+    type: string
+    label: "Metric Name"
+    description: "The metric of interest."
+    sql: ${TABLE}.metric ;;
   }
 
-  measure: wau {
-    type: average
-    label: "WAU"
-    description: "Number of Distinct Active Users in the 7-day period ending on the submission date."
-    sql: ${TABLE}.wau ;;
+  measure: value {
+    type: sum
+    label: "Target Date's Value"
+    description: "The metric's value."
+    value_format_name: decimal_0
+    sql: ${TABLE}.value ;;
   }
 
-  measure: mau {
-    type: average
-    label: "MAU"
-    description: "Number of Distinct Active Users in the 28-day period ending on the submission date."
-    sql: ${TABLE}.mau ;;
+  measure: previous_value {
+    type: sum
+    label: "Prior Year's Value"
+    description: "The metric's value 365 days ago."
+    value_format_name: decimal_0
+    sql: ${TABLE}.prev_value ;;
   }
 
-  measure: dau_28ma {
-    type: average
-    label: "DAU 28-Day Moving Average"
-    description: "Average number of Daily Active Users in the 28-day period ending on the submission date."
-    sql: ${TABLE}.dau_28ma ;;
-  }
-
-  measure: dau_yoy_diff {
-    type: average
-    label: "DAU YoY Difference"
-    description: "Diffence between DAU on the submission date and DAU 365 days prior."
-    sql: ${TABLE}.dau_diff ;;
-  }
-
-  measure: wau_yoy_diff {
-    type: average
-    label: "WAU YoY Difference"
-    description: "Diffence between WAU on the submission date and DAU 365 days prior."
-    sql: ${TABLE}.wau_diff 
-    forma
-    ;;
-  }
-
-  measure: mau_yoy_diff {
-    type: average
-    label: "MAU YoY Difference"
-    description: "Diffence between MAU on the submission date and DAU 365 days prior."
-    sql: ${TABLE}.mau_diff ;;
-  }
-
-  measure: dau_28ma_yoy_diff {
-    type: average
-    label: "DAU 28-Day Moving Average YoY Difference"
-    description: "Diffence between DAU-28MA on the submission date and DAU-28MA 365 days prior."
-    sql: ${TABLE}.dau_28ma_diff ;;
-  }
-
-  measure: dau_yoy_pct_diff {
-    type: average
-    label: "DAU YoY Percent Difference"
-    description: "Percent diffence between DAU on the submission date and DAU 365 days prior."
-    value_format_name: percent_2
-    sql: ${TABLE}.dau_pct_diff ;;
-  }
-
-  measure: wau_yoy_pct_diff {
-    type: average
-    label: "WAU YoY Percent Difference"
-    description: "Percent diffence between WAU on the submission date and DAU 365 days prior."
-    value_format_name: percent_2
-    sql: ${TABLE}.wau_pct_diff ;;
-  }
-
-  measure: mau_yoy_pct_diff {
-    type: average
-    label: "MAU YoY Percent Difference"
-    description: "Percent diffence between MAU on the submission date and DAU 365 days prior."
-    value_format_name: percent_2
-    sql: ${TABLE}.mau_pct_diff ;;
-  }
-
-  measure: dau_28ma_yoy_pct_diff {
-    type: average
-    label: "DAU 28-Day Moving Average YoY Percent Difference"
-    description: "Percent diffence between DAU-28MA on the submission date and DAU-28MA 365 days prior."
-    value_format_name: percent_2
-    sql: ${TABLE}.dau_28ma_pct_diff ;;
+  measure: yoy_diff {
+    type: sum
+    label: "YoY Difference"
+    description: "Diffence between the metric submission date and the metric 365 days prior."
+    value_format_name: decimal_0
+    sql: ${TABLE}.diff ;;
   }
 }
