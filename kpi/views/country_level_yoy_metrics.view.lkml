@@ -52,6 +52,7 @@ view: country_level_yoy_metrics {
         GROUP BY
           ALL ),
       calculated AS (
+        -- country-level aggregations
         SELECT
           submission_date,
           region_name,
@@ -82,172 +83,174 @@ view: country_level_yoy_metrics {
         WHERE
           submission_date = max_date
 
-        UNION ALL
+      UNION ALL
 
-        SELECT
-          submission_date,
-          region_name,
-          country_name,
-          app_name,
-          "MAU" AS metric,
-          mau AS value,
-          LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
-          mau - LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
-        FROM
-          aggregated
-        WHERE
-          submission_date = max_date
+      SELECT
+      submission_date,
+      region_name,
+      country_name,
+      app_name,
+      "MAU" AS metric,
+      mau AS value,
+      LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+      mau - LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+      FROM
+      aggregated
+      WHERE
+      submission_date = max_date
 
-        UNION ALL
+      UNION ALL
 
-        SELECT
-          submission_date,
-          region_name,
-          country_name,
-          app_name,
-          "DAU 28-Day Moving Average" AS metric,
-          dau_28ma AS value,
-          LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
-          dau_28ma - LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
-        FROM
-          aggregated
-        WHERE
-          submission_date = max_date
+      SELECT
+      submission_date,
+      region_name,
+      country_name,
+      app_name,
+      "DAU 28-Day Moving Average" AS metric,
+      dau_28ma AS value,
+      LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+      dau_28ma - LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+      FROM
+      aggregated
+      WHERE
+      submission_date = max_date
 
-        UNION ALL
+      UNION ALL
 
-        SELECT
-          submission_date,
-          region_name,
-          "Regional Total" AS country_name,
-          app_name,
-          "DAU" AS metric,
-          dau AS value,
-          LAG(dau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
-          dau - LAG(dau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
-        FROM
-          aggregated
-        WHERE
-          submission_date = max_date
+      -- region-level aggregations
+      SELECT
+      submission_date,
+      region_name,
+      "Regional Total" AS country_name,
+      app_name,
+      "DAU" AS metric,
+      dau AS value,
+      LAG(dau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+      dau - LAG(dau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+      FROM
+      aggregated
+      WHERE
+      submission_date = max_date
 
-        UNION ALL
+      UNION ALL
 
-        SELECT
-          submission_date,
-          region_name,
-          "Regional Total" AS country_name,
-          app_name,
-          "WAU" AS metric,
-          wau AS value,
-          LAG(wau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
-          wau - LAG(wau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
-        FROM
-          aggregated
-        WHERE
-          submission_date = max_date
+      SELECT
+      submission_date,
+      region_name,
+      "Regional Total" AS country_name,
+      app_name,
+      "WAU" AS metric,
+      wau AS value,
+      LAG(wau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+      wau - LAG(wau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+      FROM
+      aggregated
+      WHERE
+      submission_date = max_date
 
-        UNION ALL
+      UNION ALL
 
-        SELECT
-          submission_date,
-          region_name,
-          "Regional Total" AS country_name,
-          app_name,
-          "MAU" AS metric,
-          mau AS value,
-          LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
-          mau - LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
-        FROM
-          aggregated
-        WHERE
-          submission_date = max_date
+      SELECT
+      submission_date,
+      region_name,
+      "Regional Total" AS country_name,
+      app_name,
+      "MAU" AS metric,
+      mau AS value,
+      LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+      mau - LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+      FROM
+      aggregated
+      WHERE
+      submission_date = max_date
 
-        UNION ALL
+      UNION ALL
 
-        SELECT
-          submission_date,
-          region_name,
-          "Regional Total" AS country_name,
-          app_name,
-          "DAU 28-Day Moving Average" AS metric,
-          dau_28ma AS value,
-          LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
-          dau_28ma - LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
-        FROM
-          aggregated
-        WHERE
-          submission_date = max_date
+      SELECT
+      submission_date,
+      region_name,
+      "Regional Total" AS country_name,
+      app_name,
+      "DAU 28-Day Moving Average" AS metric,
+      dau_28ma AS value,
+      LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+      dau_28ma - LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+      FROM
+      aggregated
+      WHERE
+      submission_date = max_date
 
-        UNION ALL
+      UNION ALL
 
-        SELECT
-          submission_date,
-          "Worldwide" AS region_name,
-          "Total" AS country_name,
-          app_name,
-          "DAU" AS metric,
-          dau AS value,
-          LAG(dau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
-          dau - LAG(dau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
-        FROM
-          aggregated
-        WHERE
-          submission_date = max_date
+      -- worldwide aggregations
+      SELECT
+      submission_date,
+      "Worldwide" AS region_name,
+      "Total" AS country_name,
+      app_name,
+      "DAU" AS metric,
+      dau AS value,
+      LAG(dau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+      dau - LAG(dau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+      FROM
+      aggregated
+      WHERE
+      submission_date = max_date
 
-        UNION ALL
+      UNION ALL
 
-        SELECT
-          submission_date,
-          "Worldwide" AS region_name,
-          "Total" AS country_name,
-          app_name,
-          "WAU" AS metric,
-          wau AS value,
-          LAG(wau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
-          wau - LAG(wau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
-        FROM
-          aggregated
-        WHERE
-          submission_date = max_date
+      SELECT
+      submission_date,
+      "Worldwide" AS region_name,
+      "Total" AS country_name,
+      app_name,
+      "WAU" AS metric,
+      wau AS value,
+      LAG(wau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+      wau - LAG(wau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+      FROM
+      aggregated
+      WHERE
+      submission_date = max_date
 
-        UNION ALL
+      UNION ALL
 
-        SELECT
-          submission_date,
-          "Worldwide" AS region_name,
-          "Total" AS country_name,
-          app_name,
-          "MAU" AS metric,
-          mau AS value,
-          LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
-          mau - LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
-        FROM
-          aggregated
-        WHERE
-          submission_date = max_date
+      SELECT
+      submission_date,
+      "Worldwide" AS region_name,
+      "Total" AS country_name,
+      app_name,
+      "MAU" AS metric,
+      mau AS value,
+      LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+      mau - LAG(mau, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+      FROM
+      aggregated
+      WHERE
+      submission_date = max_date
 
-        UNION ALL
+      UNION ALL
 
-        SELECT
-          submission_date,
-          "Worldwide" AS region_name,
-          "Total" AS country_name,
-          app_name,
-          "DAU 28-Day Moving Average" AS metric,
-          dau_28ma AS value,
-          LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
-          dau_28ma - LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
-        FROM
-          aggregated
-        WHERE
-          submission_date = max_date
+      SELECT
+      submission_date,
+      "Worldwide" AS region_name,
+      "Total" AS country_name,
+      app_name,
+      "DAU 28-Day Moving Average" AS metric,
+      dau_28ma AS value,
+      LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS prev_value,
+      dau_28ma - LAG(dau_28ma, 1) OVER (PARTITION BY region_name, country_name, app_name ORDER BY submission_date ASC) AS diff,
+      FROM
+      aggregated
+      WHERE
+      submission_date = max_date
       )
       SELECT
-        *
+      *
       FROM
-        calculated
+      calculated
       WHERE
-        submission_date = DATE({% date_start user_input_date %})
+      submission_date = DATE({% date_start user_input_date %})
 
 
       ;;
