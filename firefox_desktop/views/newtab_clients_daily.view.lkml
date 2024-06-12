@@ -48,7 +48,7 @@ view: newtab_clients_daily {
   }
 
   dimension: sponsored_topsites_enabled {
-    sql: ${TABLE}.sponsored_enabled ;;
+    sql: ${TABLE}.topsites_sponsored_enabled ;;
     type: yesno
   }
 
