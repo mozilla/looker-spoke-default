@@ -218,5 +218,10 @@ view: +mobile_retention {
     type: string
     sql: ${TABLE}.is_suspicious_device_client ;;
   }
-
+  dimension: lifecycle_stage {
+    label: "Lifecycle Stage"
+    description: "Based on time elapsed between first seen date and metric date. new_profile for 0 days, repeat_user for 1 to 27 days, and existing_user for 28 days or more"
+    type: string
+    sql: ${TABLE}.lifecycle_stage ;;
+  }
 }

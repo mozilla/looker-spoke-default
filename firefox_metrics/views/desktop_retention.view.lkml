@@ -182,7 +182,7 @@ view: +desktop_retention {
   }
   dimension: attribution_experiment {
     group_label: "Attribution"
-    label: "Experimen ID"
+    label: "Experiment ID"
     type: string
     sql: ${TABLE}.attribution_experiment ;;
   }
@@ -191,5 +191,11 @@ view: +desktop_retention {
     label: "Experiment Variation ID"
     type: string
     sql: ${TABLE}.attribution_variation ;;
+  }
+  dimension: lifecycle_stage {
+    label: "Lifecycle Stage"
+    description: "Based on time elapsed between first seen date and metric date. new_profile for 0 days, repeat_user for 1 to 27 days, and existing_user for 28 days or more"
+    type: string
+    sql: ${TABLE}.lifecycle_stage ;;
   }
 }
