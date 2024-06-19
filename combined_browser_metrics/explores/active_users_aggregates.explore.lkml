@@ -4,7 +4,7 @@ include: "/shared/views/countries.view.lkml"
 explore: active_users_aggregates {
   # persist_with: active_users_aggregates_v1_last_updated
   always_filter: {
-    filters: [active_users_aggregates.app_name: "Firefox Desktop,Firefox Desktop BrowserStack, Fenix, Fenix BrowserStack, Firefox iOS, Firefox iOS BrowserStack,
+    filters: [active_users_aggregates.app_name: "Firefox Desktop, Firefox Desktop BrowserStack, Fenix, Fenix BrowserStack, Firefox iOS, Firefox iOS BrowserStack,
       Focus Android,  Focus iOS, Focus iOS BrowserStack",
       active_users_aggregates.submission_date: "after 4 weeks ago"]
   }
