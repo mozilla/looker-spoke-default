@@ -4,7 +4,7 @@
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
-  preferred_slug: wNM1LnNxpIHORchipapYYV
+  preferred_slug: kbZLX0RzUz7eacP24o7ZIo
   elements:
   - name: ''
     type: text
@@ -341,6 +341,8 @@
     fields: [monthly_active_logical_subscriptions.month_month, monthly_active_logical_subscriptions.logical_subscription_count,
       monthly_active_logical_subscriptions.subscription__plan_summary]
     pivots: [monthly_active_logical_subscriptions.subscription__plan_summary]
+    filters:
+      monthly_active_logical_subscriptions.was_active_at_month_end: 'Yes'
     sorts: [monthly_active_logical_subscriptions.month_month desc, monthly_active_logical_subscriptions.subscription__plan_summary]
     limit: 5000
     column_limit: 100
@@ -482,6 +484,8 @@
     fields: [monthly_active_logical_subscriptions.month_month, monthly_active_logical_subscriptions.logical_subscription_count,
       monthly_active_logical_subscriptions.subscription__plan_interval]
     pivots: [monthly_active_logical_subscriptions.subscription__plan_interval]
+    filters:
+      monthly_active_logical_subscriptions.was_active_at_month_end: 'Yes'
     sorts: [monthly_active_logical_subscriptions.month_month desc, monthly_active_logical_subscriptions.subscription__plan_interval]
     limit: 500
     column_limit: 50
@@ -623,6 +627,8 @@
     fields: [monthly_active_logical_subscriptions.month_month, monthly_active_logical_subscriptions.logical_subscription_count,
       monthly_active_logical_subscriptions.subscription__payment_provider]
     pivots: [monthly_active_logical_subscriptions.subscription__payment_provider]
+    filters:
+      monthly_active_logical_subscriptions.was_active_at_month_end: 'Yes'
     sorts: [monthly_active_logical_subscriptions.month_month desc, monthly_active_logical_subscriptions.subscription__payment_provider]
     limit: 500
     column_limit: 50
@@ -764,6 +770,8 @@
     fields: [monthly_active_logical_subscriptions.month_month, monthly_active_logical_subscriptions.logical_subscription_count,
       countries.name]
     pivots: [countries.name]
+    filters:
+      monthly_active_logical_subscriptions.was_active_at_month_end: 'Yes'
     sorts: [monthly_active_logical_subscriptions.month_month desc, countries.name]
     limit: 5000
     column_limit: 100
