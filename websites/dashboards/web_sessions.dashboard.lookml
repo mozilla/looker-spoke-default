@@ -13,7 +13,7 @@
     type: looker_grid
     fields: [web_sessions.page_path, web_sessions.session_count, web_sessions.client_count]
     sorts: [web_sessions.session_count desc]
-    limit: 500
+    limit: 50
     column_limit: 50
     show_view_names: false
     show_row_numbers: true
@@ -240,7 +240,7 @@
     fields: [web_sessions.session_count, web_sessions.client_count, web_sessions.external_referrer]
     sorts: [web_sessions.session_count desc]
     filters:
-      web_sessions.external_referrer: -EMPTY
+      web_sessions.external_referrer: "-EMPTY"
     limit: 50
     column_limit: 50
     x_axis_gridlines: false
@@ -296,7 +296,6 @@
     defaults_version: 1
     listen:
       Country Name: countries.name
-      External Referrer: web_sessions.external_referrer
       App Channel: web_sessions.app_channel
       UA - Browser: web_sessions.metadata__user_agent__browser
       Submission Date: web_sessions.submission_date_filter
