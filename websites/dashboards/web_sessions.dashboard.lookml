@@ -239,7 +239,9 @@
     type: looker_bar
     fields: [web_sessions.session_count, web_sessions.client_count, web_sessions.external_referrer]
     sorts: [web_sessions.session_count desc]
-    limit: 500
+    filters:
+      web_sessions.external_referrer: -EMPTY
+    limit: 50
     column_limit: 50
     x_axis_gridlines: false
     y_axis_gridlines: true
