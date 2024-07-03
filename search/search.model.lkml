@@ -69,7 +69,7 @@ explore: business_development_core_search_users_monthly {
       filters: [
         bizdev_search_core_users.country: "US",
         bizdev_search_core_users.normalized_engine: "Google",
-        bizdev_search_core_users.submission_month: "1 months ago for 1 months"
+        bizdev_search_core_users.submission_month: "3 months"
       ]
     }
 
@@ -85,7 +85,7 @@ explore: business_development_core_search_users_monthly {
       filters: [
         bizdev_search_core_users.country: "US",
         bizdev_search_core_users.normalized_engine: "Google",
-        bizdev_search_core_users.submission_month: "1 months ago for 1 months"
+        bizdev_search_core_users.submission_month: "3 months"
       ]
     }
 
