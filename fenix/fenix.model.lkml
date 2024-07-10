@@ -5,6 +5,7 @@ include: "explores/*.explore.lkml"
 
 include: "/fenix/explores/fenix_feature_usage_metrics.explore.lkml"
 include: "/fenix/explores/fenix_feature_usage_events.explore.lkml"
+include: "/fenix/explores/funnel_retention_week_4.explore.lkml"
 
 
 include: "//looker-hub/fenix/views/metrics.view.lkml"
@@ -26,7 +27,7 @@ include: "/fenix/views/android_notification_events.view.lkml"
 include: "/fenix/views/android_customize_home_metrics.view.lkml"
 include: "/fenix/views/android_customize_home_events.view.lkml"
 include: "/fenix/views/android_store_performance.view.lkml"
-include: "/fenix/views/funnel_retention_week_4.view.lkml"
+# include: "/fenix/views/funnel_retention_week_4.view.lkml"
 include: "/fenix/views/fenix_feature_usage_metrics.view.lkml"
 include: "/fenix/views/fenix_feature_usage_events.view.lkml"
 include: "/fenix/views/fenix_dau.view.lkml"
@@ -79,9 +80,4 @@ view: +metrics {
 
 explore: android_store_performance {
   sql_always_where: ${period_filtered_measures} in ("this", "last");;
-}
-
-explore: funnel_retention_week_4 {
-  sql_always_where: ${period_filtered_measures} in ("this", "last")
-                    AND ${install_source} = "com.android.vending";;
 }
