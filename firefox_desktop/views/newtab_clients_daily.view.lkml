@@ -23,7 +23,7 @@ view: newtab_clients_daily {
     hidden: yes
   }
 
-  dimension: legacy_telemetry_id {
+  dimension: legacy_telemetry_client_id {
     hidden: yes
   }
 
@@ -50,6 +50,11 @@ view: newtab_clients_daily {
   dimension: sponsored_topsites_enabled {
     sql: ${TABLE}.topsites_sponsored_enabled ;;
     type: yesno
+  }
+
+  dimension: weather_widget_enabled {
+    sql:  ${TABLE}.newtab_weather_widget_enabled ;;
+    type:  yesno
   }
 
   dimension: newtab_homepage_category {
@@ -299,6 +304,72 @@ view: newtab_clients_daily {
     sql: ${TABLE}.organic_pocket_saves ;;
     type: sum
     group_label: "Pocket Interactions"
+  }
+
+  measure: wallpaper_clicks {
+    sql: ${TABLE}.wallpaper_clicks ;;
+    type: sum
+    group_label: "Wallpaper Interactions"
+  }
+
+  measure: wallpaper_clicks_had_previous_wallpaper {
+    sql: ${TABLE}.wallpaper_clicks_had_previous_wallpaper ;;
+    type: sum
+    group_label: "Wallpaper Interactions"
+  }
+
+  measure: wallpaper_clicks_first_selected_wallpaper {
+    sql: ${TABLE}.wallpaper_clicks_first_selected_wallpaper ;;
+    type: sum
+    group_label: "Wallpaper Interactions"
+  }
+
+  measure: wallpaper_category_clicks {
+    sql: ${TABLE}.wallpaper_category_clicks ;;
+    type: sum
+    group_label: "Wallpaper Interactions"
+  }
+
+  measure: wallpaper_highlight_dismissals {
+    sql: ${TABLE}.wallpaper_highlight_dismissals ;;
+    type: sum
+    group_label: "Wallpaper Interactions"
+  }
+
+  measure: wallpaper_highlight_cta_clicks {
+    sql: ${TABLE}.wallpaper_highlight_cta_clicks ;;
+    type: sum
+    group_label: "Wallpaper Interactions"
+  }
+
+  measure: weather_widget_impressions {
+    sql: ${TABLE}.weather_widget_impressions ;;
+    type: sum
+    group_label: "Weather Interactions"
+  }
+
+  measure: weather_widget_clicks {
+    sql: ${TABLE}.weather_widget_clicks ;;
+    type: sum
+    group_label: "Weather Interactions"
+  }
+
+  measure: weather_widget_load_errors {
+    sql: ${TABLE}.weather_widget_load_errors ;;
+    type: sum
+    group_label: "Weather Interactions"
+  }
+
+  measure: weather_widget_change_display_to_detailed {
+    sql: ${TABLE}.weather_widget_change_display_to_detailed ;;
+    type: sum
+    group_label: "Weather Interactions"
+  }
+
+  measure: weather_widget_change_display_to_simple {
+    sql: ${TABLE}.weather_widget_change_display_to_simple ;;
+    type: sum
+    group_label: "Weather Interactions"
   }
 
 }
