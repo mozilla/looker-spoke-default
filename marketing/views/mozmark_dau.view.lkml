@@ -6,7 +6,8 @@ view: mozmark_dau {
           countries.region_name  AS countries_region_name,
           country,
           case when app_name='Firefox Desktop' then 'Desktop'
- else 'Mobile'
+               when app_name in ('Fenix', 'Firefox iOS', 'Focus Android', 'Focus iOS')
+               THEN 'Mobile' else "Other"
           end as Platform,
           sum(dau) as dau,
           sum(case when adjust_network in ('Google Ads ACI', 'Apple Search Ads')
