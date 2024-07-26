@@ -372,4 +372,10 @@ view: newtab_clients_daily {
     group_label: "Weather Interactions"
   }
 
+  measure: weather_widget_location_selected {
+    sql: ${TABLE}.weather_widget_location_selected ;;
+    type: sum
+    group_label: "Weather Interactions"
+  }
+
 }
