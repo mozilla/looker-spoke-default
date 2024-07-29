@@ -3,14 +3,17 @@ include: "/firefox_desktop/views/serp_impression.view.lkml"
 explore: serp_impression {
   view_name: serp_impression
   label: "SERP Impressions"
+  view_label: "SERP Impressions"
+  description: "
+    SERP page features, SERP ad impressions and engagements, other SERP components.
+    For metrics at the level of SERP page loads, use the 'SERP Impression' fields only.
+    For impression and engagement metrics by ad component, use the 'Ad Components' fields
+    along with the Ad Component dimension.
+  "
 
-  # Main join key is impression ID.
-  # Also join on submission_date/normalized_channel/sample_id to propagate partitioning/clustering
-  join: serp_components {
-    sql_on: ${serp_impression.impression_id} = ${serp_components.impression_id}
-      and ${serp_impression.submission_date} = ${serp_components.submission_date}
-      and ${serp_impression.normalized_channel} = ${serp_components.normalized_channel}
-      and ${serp_impression.sample_id} = ${serp_components.sample_id} ;;
+  join: serp_impression__ad_components {
+    view_label: "Ad Components"
+    sql: CROSS JOIN UNNEST(${serp_impression.ad_components}) AS serp_impression__ad_components ;;
     relationship: one_to_many
   }
 

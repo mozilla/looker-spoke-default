@@ -167,7 +167,29 @@ view: firefox_ios_feature_usage_events {
         SUM(notification_alert_setting_disabled) AS notification_alert_setting_disabled,
         --notification_alert_setting_enabled
         SUM(notification_alert_setting_enabled_users) AS notification_alert_setting_enabled_users,
-        SUM(notification_alert_setting_enabled) AS notification_alert_setting_enabled
+        SUM(notification_alert_setting_enabled) AS notification_alert_setting_enabled,
+        /*address*/
+        --address_autofill_prompt_dismissed
+        SUM(address_autofill_prompt_dismissed_users) AS address_autofill_prompt_dismissed_users,
+        SUM(address_autofill_prompt_dismissed) AS address_autofill_prompt_dismissed,
+        --address_autofill_prompt_expanded
+        SUM(address_autofill_prompt_expanded_users) AS address_autofill_prompt_expanded_users,
+        SUM(address_autofill_prompt_expanded) AS address_autofill_prompt_expanded,
+        --address_autofill_prompt_shown
+        SUM(address_autofill_prompt_shown_users) AS address_autofill_prompt_shown_users,
+        SUM(address_autofill_prompt_shown) AS address_autofill_prompt_shown,
+        --address_autofilled
+        SUM(address_autofilled_users) AS address_autofilled_users,
+        SUM(address_autofilled) AS address_autofilled,
+        --address_form_detected
+        SUM(address_form_detected_users) AS address_form_detected_users,
+        SUM(address_form_detected) AS address_form_detected,
+        --address_modified
+        SUM(address_modified_users) AS address_modified_users,
+        SUM(address_modified) AS address_modified,
+        --address_settings_autofill
+        SUM(address_settings_autofill_users) AS address_settings_autofill_users,
+        SUM(address_settings_autofill) AS address_settings_autofill
       FROM `moz-fx-data-shared-prod.firefox_ios.feature_usage_events`
       WHERE submission_date >= '2018-01-01'
       GROUP BY 1,2 ;;}
@@ -692,6 +714,64 @@ view: firefox_ios_feature_usage_events {
     sql: ${TABLE}.tabs_tray_new_private_tab_tapped_users ;;
     type: sum
   }
+
+  measure: sum_address_autofill_prompt_dismissed {
+    sql: ${TABLE}.address_autofill_prompt_dismissed ;;
+    type: sum
+    }
+
+  measure: sum_address_autofill_prompt_dismissed_users {
+    sql: ${TABLE}.address_autofill_prompt_dismissed_users ;;
+    type: sum
+    }
+  measure: sum_address_autofill_prompt_expanded {
+    sql: ${TABLE}.address_autofill_prompt_expanded ;;
+    type: sum
+    }
+  measure: sum_address_autofill_prompt_expanded_users {
+    sql: ${TABLE}.address_autofill_prompt_expanded_users ;;
+    type: sum
+    }
+  measure: sum_address_autofill_prompt_shown {
+    sql: ${TABLE}.address_autofill_prompt_shown ;;
+    type: sum
+    }
+  measure: sum_address_autofill_prompt_shown_users {
+    sql: ${TABLE}.address_autofill_prompt_shown_users ;;
+    type: sum
+    }
+  measure: sum_address_autofilled {
+    sql: ${TABLE}.address_autofilled ;;
+    type: sum
+    }
+  measure: sum_address_autofilled_users {
+    sql: ${TABLE}.address_autofilled_users ;;
+    type: sum
+    }
+  measure: sum_address_form_detected {
+    sql: ${TABLE}.address_form_detected ;;
+    type: sum
+    }
+  measure: sum_address_form_detected_users {
+    sql: ${TABLE}.address_form_detected_users ;;
+    type: sum
+    }
+  measure: sum_address_modified {
+    sql: ${TABLE}.address_modified ;;
+    type: sum
+    }
+  measure: sum_address_modified_users {
+    sql: ${TABLE}.address_modified_users ;;
+    type: sum
+    }
+  measure: sum_address_settings_autofill {
+    sql: ${TABLE}.address_settings_autofill ;;
+    type: sum
+    }
+  measure: sum_address_settings_autofill_users {
+    sql: ${TABLE}.address_settings_autofill_users ;;
+    type: sum
+    }
 
   dimension_group: ping {
     sql: ${TABLE}.ping_date ;;

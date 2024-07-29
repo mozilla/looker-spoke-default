@@ -203,20 +203,6 @@ view: +active_users_aggregates {
     sql: ${TABLE}.wau ;;
   }
 
-  dimension: new_profiles {
-    hidden: yes
-    sql: ${TABLE}.new_profiles ;;
-  }
-
-  dimension: uri_count {
-    hidden: yes
-    sql: ${TABLE}.uri_count ;;
-  }
-
-  dimension: active_hours {
-    hidden: yes
-    sql: ${TABLE}.active_hours ;;
-  }
 
   # Define measures
   measure: daily_active_users {
@@ -235,24 +221,6 @@ view: +active_users_aggregates {
     label: "MAU"
     type: sum
     sql:  ${TABLE}.mau ;;
-  }
-
-  measure: new_profile {
-    label: "New Profiles"
-    type: sum
-    sql:  ${TABLE}.new_profiles ;;
-  }
-
-  measure: uri_counts {
-    label: "URI Counts"
-    type: sum
-    sql:  ${TABLE}.uri_count ;;
-  }
-
-  measure: active_hour {
-    label: "Active Hours"
-    type: sum
-    sql:  ${TABLE}.active_hours ;;
   }
 
   dimension: is_default_browser {

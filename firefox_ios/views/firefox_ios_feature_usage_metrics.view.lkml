@@ -120,7 +120,11 @@ view: firefox_ios_feature_usage_metrics {
         SUM(app_menu_customize_homepage) AS app_menu_customize_homepage,
         -- Firefox Home Page Customize Homepage Button
         SUM(firefox_home_page_customize_homepage_button_users) AS firefox_home_page_customize_homepage_button_users,
-        SUM(firefox_home_page_customize_homepage_button) AS firefox_home_page_customize_homepage_button
+        SUM(firefox_home_page_customize_homepage_button) AS firefox_home_page_customize_homepage_button,
+        /*Address*/
+         --addresses_saved_all_users
+        SUM(addresses_saved_all_users) AS addresses_saved_all_users,
+        SUM(addresses_saved_all) AS addresses_saved_all
 
       FROM `moz-fx-data-shared-prod.firefox_ios.feature_usage_metrics`
       WHERE submission_date >= '2018-01-01'
@@ -479,5 +483,14 @@ view: firefox_ios_feature_usage_metrics {
     type: sum
     sql: ${TABLE}.firefox_home_page_customize_homepage_button ;;
   }
+
+  measure: sum_addresses_saved_all_users {
+    type: sum
+    sql: ${TABLE}.addresses_saved_all_users ;;
+    }
+  measure: sum_addresses_saved_all {
+    type: sum
+    sql: ${TABLE}.addresses_saved_all ;;
+    }
 
 }
