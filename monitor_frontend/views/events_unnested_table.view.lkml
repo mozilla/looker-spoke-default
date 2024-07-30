@@ -130,19 +130,19 @@ view: +events_unnested_table {
   }
 
   dimension: event_extra__response_id {
-    description: "Rating given by user for csat survey"
+    description: "Rating given by user for CSAT survey"
     type: string
-    sql: SAFE_CAST(`mozfun.map.get_key`(${TABLE}.event_extra, 'response_id') AS STRING) ;;
+    sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'response_id') ;;
     group_label: "Event Extra"
-    group_item_label: "Response Id"
+    group_item_label: "Response ID"
   }
 
   dimension: event_extra__survey_id {
-    description: "Csat survey id"
+    description: "CSAT survey ID"
     type: string
     sql: SAFE_CAST(`mozfun.map.get_key`(${TABLE}.event_extra, 'survey_id') AS STRING) ;;
     group_label: "Event Extra"
-    group_item_label: "Survey Id"
+    group_item_label: "Survey ID"
   }
 
   dimension: event_extra__plan_tier {
@@ -164,7 +164,7 @@ view: +events_unnested_table {
   dimension: event_extra__last_scan_date {
     description: "Last scan date"
     type: string
-    sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'last_scan_date');;
+    sql:  SAFE.PARSE_DATE('%Y%m%d', `mozfun.map.get_key`(${TABLE}.event_extra, 'last_scan_date')) ;;
     group_label: "Event Extra"
     group_item_label: "Last Scan Date"
   }
