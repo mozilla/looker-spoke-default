@@ -18,7 +18,7 @@ view: mlops_flow_cost {
     sql: ${TABLE}.num_runs ;;
   }
 
-  measure: total_cost_usd {
+  dimension: total_cost_usd {
     description: "How much this flow has cost in USD over its runs"
     type: number
     sql: ${TABLE}.total_cost_usd ;;
