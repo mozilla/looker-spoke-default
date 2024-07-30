@@ -10,7 +10,7 @@ view: mlops_flow_run_cost {
   dimension: run_id {
     description: "The ID for the run"
     type: string
-    sql: ${TABLE}.lifetime_orders ;;
+    sql: ${TABLE}.run_id ;;
   }
 
   dimension: flow_name {
@@ -25,7 +25,7 @@ view: mlops_flow_run_cost {
     sql: ${TABLE}.invoice_day ;;
   }
 
-  measure: cost_usd {
+  dimension: cost_usd {
     description: "How much the job cost in USD"
     type: number
     sql: ${TABLE}.cost_usd ;;
