@@ -163,7 +163,8 @@ view: +events_unnested_table {
 
   dimension: event_extra__last_scan_date {
     description: "Last scan date"
-    type: string
+    type: date
+    convert_tz: no
     sql:  SAFE.PARSE_DATE('%Y%m%d', `mozfun.map.get_key`(${TABLE}.event_extra, 'last_scan_date')) ;;
     group_label: "Event Extra"
     group_item_label: "Last Scan Date"
