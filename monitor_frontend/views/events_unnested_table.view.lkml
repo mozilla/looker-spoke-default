@@ -140,7 +140,7 @@ view: +events_unnested_table {
   dimension: event_extra__survey_id {
     description: "CSAT survey ID"
     type: string
-    sql: SAFE_CAST(`mozfun.map.get_key`(${TABLE}.event_extra, 'survey_id') AS STRING) ;;
+    sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'survey_id') ;;
     group_label: "Event Extra"
     group_item_label: "Survey ID"
   }
@@ -148,7 +148,7 @@ view: +events_unnested_table {
   dimension: event_extra__plan_tier {
     description: "Plan tier of user"
     type: string
-    sql: SAFE_CAST(`mozfun.map.get_key`(${TABLE}.event_extra, 'plan_tier') AS STRING) ;;
+    sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'plan_tier') ;;
     group_label: "Event Extra"
     group_item_label: "Plan Tier"
   }
@@ -156,7 +156,7 @@ view: +events_unnested_table {
   dimension: event_extra__experiment_branch {
     description: "Experiment branch"
     type: string
-    sql: SAFE_CAST(`mozfun.map.get_key`(${TABLE}.event_extra, 'experiment_branch') AS STRING) ;;
+    sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'experiment_branch') ;;
     group_label: "Event Extra"
     group_item_label: "Experiment Branch"
   }
