@@ -124,6 +124,10 @@ view: web_sessions {
       label: "Monitor"
       value: "monitor_frontend"
     }
+    allowed_value: {
+      label: "Mozilla Accounts"
+      value: "accounts_frontend"
+    }
   }
 
   dimension_group: submission {
