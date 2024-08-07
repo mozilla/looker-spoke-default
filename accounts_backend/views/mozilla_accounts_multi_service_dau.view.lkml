@@ -4,16 +4,14 @@ view: mozilla_accounts_multi_service_dau {
 
     sql:
     SELECT
-      DATE(e.submission_timestamp) as submission_date,
-      e.metrics.string.account_user_id_sha256 AS user_id,
+      submission_date,
+      user_id_sha256 AS user_id,
       ARRAY_AGG(DISTINCT c.name IGNORE NULLS ORDER BY c.name) as service_names,
     FROM
-      `mozdata.accounts_backend.accounts_events` AS e
+      `mozdata.accounts_backend.users_services_daily` AS e
     JOIN
       `mozdata.accounts_db.fxa_oauth_clients` AS c
-    ON e.metrics.string.relying_party_oauth_client_id = c.id
-    WHERE (e.metrics.string.event_name IN ('reg_complete', 'login_complete')
-     OR e.metrics.string.event_name like r'access\_token%')
+    ON service = c.id
     AND c.id NOT IN (
       '00efbcb5b2dbfa0e',  -- Mozilla.social invitation flow
       '0d1a8469632d0f61',  -- Hubs Reticulum
