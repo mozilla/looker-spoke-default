@@ -1,5 +1,6 @@
 connection: "telemetry"
 label: "Firefox Relay"
-include: "views/*"
-include: "explores/*"
+include: "explores/active_subscriptions.explore.lkml"
+include: "explores/subscription_events.explore.lkml"
+include: "explores/subscriptions.explore.lkml"
 include: "dashboards/*"

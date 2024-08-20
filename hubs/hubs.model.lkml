@@ -1,4 +1,5 @@
 connection: "telemetry"
 label: "Hubs"
-include: "views/*"
-include: "explores/*"
+include: "explores/active_subscriptions.explore.lkml"
+include: "explores/subscription_events.explore.lkml"
+include: "explores/subscriptions.explore.lkml"

@@ -4,7 +4,7 @@ label: "Review Checker"
  include: "//looker-hub/review_checker/explores/*"
 # include: "//looker-hub/review_checker/dashboards/*"
   include: "//looker-hub/review_checker/views/*"
- include: "views/*"
+# include: "views/*"
 # include: "explores/*"
 # include: "dashboards/*"
 
