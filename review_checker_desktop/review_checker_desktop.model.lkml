@@ -4,7 +4,7 @@ label: "Review Checker Desktop"
 # include: "//looker-hub/review_checker_desktop/explores/*"
 # include: "//looker-hub/review_checker_desktop/dashboards/*"
 include: "//looker-hub/review_checker_desktop/views/*"
-include: "views/*"
+# include: "views/*"
 # include: "explores/*"
 # include: "dashboards/*"
 

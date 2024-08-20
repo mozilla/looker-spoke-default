@@ -2,9 +2,9 @@ connection: "telemetry"
 
 include: "//looker-hub/firefox_desktop/views/*.view.lkml"
 include: "//looker-hub/firefox_desktop/explores/*.explore.lkml"
-include: "explores/*.explore.lkml"
-include: "views/*.view.lkml"
-# include: "dashboards/*.dashboard"
+include: "explores/*"
+include: "views/desktop_daily_retention.view.lkml"
+
 
 explore: firefox_desktop_last_seen {
   label: "Firefox Dekstop Clients Last Seen"

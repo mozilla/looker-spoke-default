@@ -1,8 +1,31 @@
 connection: "telemetry"
 label: "DUET"
-include: "views/*"
+include: "views/ad_activation_performance_table.view.lkml"
+include: "views/ad_cost_breakdowns.view.lkml"
+include: "views/app_store_territory_source_type_report.view.lkml"
+include: "views/country_buckets.view.lkml"
+include: "views/ctd_cohort_analysis_desktop.view.lkml"
+include: "views/ctd_cohort_analysis_mobile.view.lkml"
+include: "views/ctd_uac.view.lkml"
+include: "views/desktop_activation.view.lkml"
+include: "views/desktop_activation_aggregates.view.lkml"
+include: "views/desktop_install.view.lkml"
+include: "views/desktop_new_profile.view.lkml"
+include: "views/desktop_session.view.lkml"
+include: "views/fenix_marketing_attributable_metrics.view.lkml"
+include: "views/funnel_android.view.lkml"
+include: "views/funnel_android_new.view.lkml"
+include: "views/funnel_ios_new.view.lkml"
+include: "views/kpi_dau.view.lkml"
+include: "views/kpi_downloads.view.lkml"
+include: "views/kpi_installs.view.lkml"
+include: "views/mobile_android_country.view.lkml"
+include: "views/mobile_ios_country.view.lkml"
+include: "views/releases.view.lkml"
 include: "explores/*"
 include: "dashboards/*"
+
+
 
 # looker-hub explores included here
 include: "//looker-hub/duet/explores/*"
@@ -61,7 +84,10 @@ explore: ctd_uac {}
 # below is explores specifically for desktop funnel dashboards
 ##############################################################
 
-include: "/duet/desktop_funnels/*.view.lkml"
+include: "/duet/desktop_funnels/desktop_funnels_web.view.lkml"
+include: "/duet/desktop_funnels/desktop_funnels_installs.view.lkml"
+include: "/duet/desktop_funnels/desktop_funnels_telemetry.view.lkml"
+include: "/duet/desktop_funnels/desktop_funnels_dates.view.lkml"
 
 explore: desktop_funnels_web {
   view_name:  desktop_funnels_web

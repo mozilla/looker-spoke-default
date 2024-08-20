@@ -3,8 +3,10 @@ label: "Firefox Accounts"
 include: "//looker-hub/firefox_accounts/views/fxa_first_seen_table.view.lkml"
 include: "//looker-hub/firefox_accounts/views/login_funnels.view.lkml"
 include: "//looker-hub/firefox_accounts/explores/*"
-include: "views/*.view.lkml"
-include: "explores/*.explore.lkml"
+include: "views/events.view.lkml"
+include: "views/growth_accounting.view.lkml"
+include: "explores/*"
+
 
 explore: +growth_accounting {
   description: "Weekly growth numbers for Firefox Accounts."
