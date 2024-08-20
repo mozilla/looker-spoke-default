@@ -1,5 +1,4 @@
 connection: "telemetry"
 label: "Firefox Accounts Backend"
 include: "//looker-hub/accounts_backend/explores/*"
-include: "explores/mozilla_accounts_multi_service_dau.explore"
-include: "explores/mozilla_accounts_users_services_daily.explore"
+include: "explores/*"

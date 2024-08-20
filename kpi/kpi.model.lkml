@@ -28,11 +28,7 @@ include: "views/tmp_kpi_forecasts.view.lkml"
 include: "views/unified_metrics.view.lkml"
 
 include: "/shared/views/countries.view.lkml"
-include: "explores/automated_KPI_confidence_intervals.explore.lkml"
-include: "explores/automated_KPI_forecasts.explore.lkml"
-include: "explores/country_level_yoy_metrics.explore.lkml"
-include: "explores/tmp_browsers_kpi_2023.explore.lkml"
-include: "explores/tmp_kpi_forecasts.explore.lkml"
+include: "explores/*"
 
 explore: firefox_desktop_usage_2021 {
   label: "Firefox Desktop Usage"

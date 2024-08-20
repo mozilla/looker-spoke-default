@@ -3,12 +3,7 @@ connection: "bigquery-oauth"
 label: "Growth"
 include: "views/android_app_campaign_stats.view.lkml"
 include: "views/ios_app_campaign_stats.view.lkml"
-include: "explores/browser_usage.explore.lkml"
-include: "explores/device_usage.explore.lkml"
-include: "explores/fenix_ltv.explore.lkml"
-include: "explores/firefox_desktop_ltv.explore.lkml"
-include: "explores/firefox_ios_ltv.explore.lkml"
-include: "explores/operating_system_usage.explore.lkml"
+include: "explores/*"
 
 
 explore: android_app_campaign_stats {

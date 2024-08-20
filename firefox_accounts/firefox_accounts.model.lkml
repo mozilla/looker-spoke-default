@@ -5,10 +5,7 @@ include: "//looker-hub/firefox_accounts/views/login_funnels.view.lkml"
 include: "//looker-hub/firefox_accounts/explores/*"
 include: "views/events.view.lkml"
 include: "views/growth_accounting.view.lkml"
-include: "explores/all_event_counts.explore.lkml"
-include: "explores/daily_service_users.explore.lkml"
-include: "explores/fxa_flow_aggregatges.explore.lkml"
-include: "explores/fxa_multi_service_dau.explore.lkml"
+include: "explores/*"
 
 
 explore: +growth_accounting {
