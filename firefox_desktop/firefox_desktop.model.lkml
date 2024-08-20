@@ -3,7 +3,10 @@ connection: "telemetry"
 include: "//looker-hub/firefox_desktop/views/*.view.lkml"
 include: "//looker-hub/firefox_desktop/explores/*.explore.lkml"
 include: "explores/*"
+include: "views/acquisition_funnel.view.lkml"
+include: "views/client_counts.view.lkml"
 include: "views/desktop_daily_retention.view.lkml"
+include: "views/urlbar_events_daily_table.view.lkml"
 
 
 explore: firefox_desktop_last_seen {
