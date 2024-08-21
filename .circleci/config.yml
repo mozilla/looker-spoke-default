@@ -2,6 +2,7 @@
 version: 2.1
 orbs:
   python: circleci/python@1.4.0
+  docker: circleci/docker@2.2
 
 jobs:
   deploy-prod:
@@ -31,7 +32,7 @@ jobs:
             python ./src/sync_dashboards/main.py sync --config lookml_dashboards.yaml
           no_output_timeout: 15m
   push-lookml-for-validation:
-    executor: python/default
+    executor: docker/machine
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -42,6 +43,8 @@ jobs:
             ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
             git config --global user.name "CircleCI main-validation job"
             git config --global user.email "dataops+main-validation@mozilla.com"
+            git clone git@github.com:mozilla/looker-spoke-default /tmp/looker-spoke-default
+            cd /tmp/looker-spoke-default
             git push origin main:main-validation
 workflows:
   version: 2
@@ -74,8 +77,8 @@ workflows:
               only: main
             tags:
               only: /.*/
-      - push-lookml-for-validation:
-          filters:
-            branches:
-              only:
-                - main
+      - push-lookml-for-validation
+          # filters:
+          #   branches:
+          #     only:
+          #       - main
