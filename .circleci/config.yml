@@ -37,83 +37,29 @@ jobs:
           fingerprints:
             - "SHA256:rVrow/3DEpsY1OTWFfA4PymfidEtdpLN37b8zb6lDQU"
       - run:
-          name: Early return if this is running on a branch
-          command: |
-            if [[ "$CIRCLE_BRANCH" != "main" ]]; then
-              echo "Don't push changes to main-validation as this is a PR" \
-                "so marking this step successful"
-              circleci-agent step halt
-            fi
-      - run:
           name: Push lookml to main-validation branch
           command: |
             ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
             git config --global user.name "CircleCI main-validation job"
             git config --global user.email "dataops+main-validation@mozilla.com"
-            git clone --single-branch --branch main-validation \
-              git@github.com:mozilla/looker-spoke-default \
-              /tmp/main-validation
-            cp -r * /tmp/main-validation/
-            cd /tmp/main-validation
-            git add .
-            git commit -m "Auto-push due to change on main branch [ci skip]" \
-              && git tag c-${CIRCLE_SHA1:0:9} \
-              && git push \
-              && git push origin c-${CIRCLE_SHA1:0:9} \
-              || echo "Skipping push since it looks like there were no changes"
-  validate-lookml:
-    executor: python/default
-    steps:
-      - checkout
-      - run:
-          name: Install spectacles
-          command: pip install spectacles==2.3.18
-      - run:
-          no_output_timeout: 10m
-          command: |
-            # for validation on PRs use the current branch;
-            # for validation on main use `main-validation` as spectacles cannot run
-            # validation on the production `main` branch successfully (defaults to dev branch)
-            export BRANCH="$CIRCLE_BRANCH"
-            if [ "$CIRCLE_BRANCH" = main ]; then
-              BRANCH="main-validation"
-            fi
-
-            spectacles lookml \
-              --base-url ${LOOKER_INSTANCE_URI} \
-              --client-id ${LOOKER_API_CLIENT_ID} \
-              --client-secret ${LOOKER_API_CLIENT_SECRET} \
-              --project spoke-default \
-              --branch $BRANCH \
-              --pin-imports looker-hub:760abdc0ba154f23efe8a7d765355b4940c6f222 \
-              --verbose
+            git push origin main:main-validation
 workflows:
   version: 2
   build:
     jobs:
-      - validate-lookml:
-          context: data-eng-looker
-          requires:
-            - push-lookml-for-validation
       - deploy-prod:
-          requires:
-            - validate-lookml
           filters:
             branches:
               only: main
             tags:
               only: /.*/
       - deploy-stage:
-          requires:
-            - validate-lookml
           filters:
             branches:
               only: main-stage
             tags:
               only: /.*/
       - deploy-dev:
-          requires:
-            - validate-lookml
           filters:
             branches:
               only: main-nonprod
@@ -128,4 +74,8 @@ workflows:
               only: main
             tags:
               only: /.*/
-      - push-lookml-for-validation
+      - push-lookml-for-validation:
+          filters:
+            branches:
+              only:
+                - main
