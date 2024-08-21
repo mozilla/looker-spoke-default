@@ -77,8 +77,8 @@ workflows:
               only: main
             tags:
               only: /.*/
-      - push-lookml-for-validation
-          # filters:
-          #   branches:
-          #     only:
-          #       - main
+      - push-lookml-for-validation:
+          filters:
+            branches:
+              only:
+                - main
