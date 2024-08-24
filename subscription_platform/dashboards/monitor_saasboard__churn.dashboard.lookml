@@ -4,7 +4,7 @@
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
-  preferred_slug: WKM0tuLEE3rfN0rnepQA8u
+  preferred_slug: Zzhzz7eA9gBjXRmRWSnHQ0
   elements:
   - name: ''
     type: text
@@ -363,10 +363,73 @@
     col: 0
     width: 12
     height: 8
-  - name: " (5)"
+  - title: Daily Churn
+    name: Daily Churn
+    model: subscription_platform
+    explore: logical_subscriptions
+    type: looker_column
+    fields: [logical_subscriptions.ended_at_date, logical_subscriptions.logical_subscription_count]
+    filters: {}
+    sorts: [logical_subscriptions.ended_at_date desc]
+    limit: 5000
+    column_limit: 50
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: false
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    y_axes: [{label: '', orientation: left, series: [{axisId: logical_subscriptions.logical_subscription_count,
+            id: logical_subscriptions.logical_subscription_count, name: Logical Subscription
+              Count}], showLabels: false, showValues: true, unpinAxis: false, tickDensity: default,
+        tickDensityCustom: 5, type: linear}]
+    x_axis_zoom: true
+    y_axis_zoom: true
+    series_colors:
+      logical_subscriptions.logical_subscription_count: "#FF7139"
+    series_labels:
+      logical_subscriptions.logical_subscription_count: Churned Subscription Count
+    show_null_points: true
+    interpolation: linear
+    defaults_version: 1
+    listen:
+      Subscription Start Date: logical_subscriptions.started_at_date
+      Payment Provider: logical_subscriptions.payment_provider
+      Plan Interval: logical_subscriptions.plan_interval
+      Plan: logical_subscriptions.plan_summary
+      Region: countries.region_name
+      Country: countries.name
+      Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
+      Has Refunds (Yes / No): logical_subscriptions.has_refunds
+      Service ID: subscription_services.id
+    row: 14
+    col: 12
+    width: 12
+    height: 8
+  - name: " (3)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
@@ -687,7 +750,7 @@
     col: 12
     width: 12
     height: 8
-  - name: " (3)"
+  - name: " (4)"
     type: text
     title_text: ''
     body_text: |-
@@ -979,7 +1042,7 @@
     col: 0
     width: 24
     height: 4
-  - name: " (4)"
+  - name: " (5)"
     type: text
     title_text: ''
     body_text: |-
