@@ -31,9 +31,27 @@ jobs:
           command: |
             python ./src/sync_dashboards/main.py sync --config lookml_dashboards.yaml
           no_output_timeout: 15m
+  validate-lookml:
+    docker:
+      - image: circleci/node
+    steps:
+      - checkout
+      - run:
+          name: Execute linting
+          command: |
+            npm set prefix ~/.npm
+            PATH="$HOME/.npm/bin:$PATH"
+            PATH="./node_modules/.bin:$PATH"
+            source ~/.bashrc
+            npm install -g @looker/look-at-me-sideways;
+            if lams --reporting=no;
+              then echo "No linting errors found.";
+              else echo "Linting errors found."; exit 1;
+            fi;
   push-lookml-for-validation:
     executor: docker/machine
     steps:
+      - checkout
       - add_ssh_keys:
           fingerprints:
             - "SHA256:rVrow/3DEpsY1OTWFfA4PymfidEtdpLN37b8zb6lDQU"
@@ -50,6 +68,7 @@ workflows:
   version: 2
   build:
     jobs:
+      - validate-lookml
       - deploy-prod:
           filters:
             branches:
