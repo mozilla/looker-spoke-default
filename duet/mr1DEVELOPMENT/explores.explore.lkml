@@ -1,3 +1,4 @@
+# TODO: remove unnecessary view imports
 include: "views/dau_newprofile.view.lkml"
 include: "views/dev_desktop_dates.view.lkml"
 include: "views/dev_desktop_dates_partners.view.lkml"
