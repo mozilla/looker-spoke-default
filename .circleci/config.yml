@@ -33,7 +33,7 @@ jobs:
           no_output_timeout: 15m
   validate-lookml:
     docker:
-      - image: cimg/node@22.7
+      - image: cimg/node:22.7.0
     steps:
       - checkout
       - run:
