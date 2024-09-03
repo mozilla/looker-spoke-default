@@ -35,7 +35,6 @@ jobs:
     docker:
       - image: cimg/node:22.7.0
     steps:
-      - checkout
       - run:
           name: Execute linting
           command: |

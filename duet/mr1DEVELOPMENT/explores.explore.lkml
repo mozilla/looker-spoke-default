@@ -1,4 +1,20 @@
-include: "views/*.view.lkml"
+include: "views/dau_newprofile.view.lkml"
+include: "views/dev_desktop_dates.view.lkml"
+include: "views/dev_desktop_dates_partners.view.lkml"
+include: "views/dev_desktop_install.view.lkml"
+include: "views/dev_desktop_install_partners.view.lkml"
+include: "views/dev_desktop_new_profiles.view.lkml"
+include: "views/dev_desktop_session.view.lkml"
+include: "views/dev_desktop_usage.view.lkml"
+include: "views/dev_desktop_usage_partners.view.lkml"
+include: "views/feature_usage.view.lkml"
+include: "views/feature_usage_mobile.view.lkml"
+include: "views/forecasts_various.view.lkml"
+include: "views/gplay_downloads.view.lkml"
+include: "views/mozblogs_ga.view.lkml"
+include: "views/mozorg_ga.view.lkml"
+include: "views/surveys.view.lkml"
+include: "views/version_uplift.view.lkml"
 
 explore: version_uplift {
   hidden: yes
