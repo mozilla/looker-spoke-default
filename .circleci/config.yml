@@ -35,6 +35,7 @@ jobs:
     docker:
       - image: cimg/node:22.7.0
     steps:
+      - checkout
       - run:
           name: Execute linting
           command: |
@@ -46,7 +47,6 @@ jobs:
   push-lookml-for-validation:
     executor: docker/machine
     steps:
-      - checkout
       - add_ssh_keys:
           fingerprints:
             - "SHA256:rVrow/3DEpsY1OTWFfA4PymfidEtdpLN37b8zb6lDQU"
