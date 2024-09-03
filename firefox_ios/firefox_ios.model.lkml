@@ -1,6 +1,7 @@
 connection: "telemetry"
 label: "Firefox for iOS"
 
+# TODO: remove unnecessary view imports
 include: "//looker-hub/firefox_ios/views/active_users_aggregates_table.view.lkml"
 include: "//looker-hub/firefox_ios/views/active_users_table.view.lkml"
 include: "//looker-hub/firefox_ios/views/ad_activation_performance_table.view.lkml"

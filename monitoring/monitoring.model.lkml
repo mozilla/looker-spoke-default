@@ -1,6 +1,9 @@
 connection: "telemetry"
 label: "Monitoring (Data Pipeline)"
+
 include: "//looker-hub/monitoring/explores/*"
+
+# TODO: remove unnecessary view imports
 include: "//looker-hub/monitoring/views/airflow_dag.view.lkml"
 include: "//looker-hub/monitoring/views/airflow_dag_note.view.lkml"
 include: "//looker-hub/monitoring/views/airflow_dag_owner_attributes.view.lkml"

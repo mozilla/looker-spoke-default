@@ -1,5 +1,6 @@
 connection: "telemetry"
 
+# TODO: remove unnecessary view imports
 include: "//looker-hub/firefox_desktop/views/active_users_aggregates_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/adclick_history_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/baseline.view.lkml"
