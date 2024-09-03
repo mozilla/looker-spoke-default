@@ -39,11 +39,7 @@ jobs:
       - run:
           name: Execute linting
           command: |
-            npm set prefix ~/.npm
-            PATH="$HOME/.npm/bin:$PATH"
-            PATH="./node_modules/.bin:$PATH"
-            source ~/.bashrc
-            npm install -g @looker/look-at-me-sideways;
+            npm install -g @looker/look-at-me-sideways@3
             if lams --reporting=no;
               then echo "No linting errors found.";
               else echo "Linting errors found."; exit 1;
