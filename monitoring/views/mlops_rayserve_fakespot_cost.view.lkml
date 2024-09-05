@@ -2,7 +2,7 @@ view: mlops_rayserve_fakespot_cost {
   derived_table: {
     sql: SELECT
         *
-      FROM `moz-fx-data-shared-prod.monitoring_derived.rayserve_cost_fakespot_tenant_v1
+      FROM `moz-fx-data-shared-prod.monitoring_derived.rayserve_cost_fakespot_tenant_v1`
       ;;
   }
 
