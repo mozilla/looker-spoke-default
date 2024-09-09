@@ -7,13 +7,13 @@ view: mlops_rayserve_fakespot_cost {
   }
 
   dimension: invoice_day {
-    description: "The day when this workload ran"
+    description: "The invoice day"
     type: date_time
     sql: ${TABLE}.invoice_day ;;
   }
 
-  dimension: daily_cost_per_kuberay_workload {
-    description: "How much this kuberay workload cost in USD"
+  dimension: total_compute_cost_per_day {
+    description: "Aggregated compute cost (in USD) of all Ray Serve workloads on a day"
     type: number
     sql: ${TABLE}.daily_cost_per_kuberay_workload ;;
   }
