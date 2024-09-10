@@ -1,6 +1,41 @@
-include: "//looker-hub/kpi/views/automated_kpi_confidence_intervals.view.lkml"
+view: automated_kpi_forecasts_confidence_intervals {
 
-view: +automated_kpi_confidence_intervals {
+  derived_table: {
+    sql: WITH renamed_indices AS (
+  SELECT forecast_end_date as asofdate,
+    submission_date,
+    metric_alias as target,
+    aggregation_period as unit,
+    DATE(forecast_predicted_at) as forecast_date,
+    forecast_parameters, measure, value
+  FROM `moz-fx-data-shared-prod.telemetry_derived.kpi_forecasts_v0`),
+pivoted_table AS (
+  SELECT * FROM renamed_indices
+    PIVOT (SUM(value) FOR measure IN ('observed', 'p05', 'p10',
+                  'p20', 'p30', 'p40', 'p50', 'p60',
+                  'p70', 'p80', 'p90', 'p95', 'mean'))
+),
+output_table AS (
+SELECT CAST(asofdate AS STRING) asofdate,
+    CAST(submission_date AS STRING) date,
+    REPLACE(CAST(target AS STRING), "_dau", "") target,
+    CAST(unit AS STRING) unit,
+    CAST(forecast_date AS STRING) forecast_date,
+    CAST(forecast_parameters AS STRING) forecast_parameters,
+    (SELECT MAX(a) FROM UNNEST([mean, observed]) a WHERE a is not NULL) as value,
+    p05 as yhat_p5,
+    p10 as yhat_p10,
+    p20 as yhat_p20,
+    p30 as yhat_p30,
+    p40 as yhat_p40,
+    p50 as yhat_p50,
+    p60 as yhat_p60,
+    p70 as yhat_p70,
+    p80 as yhat_p80,
+    p90 as yhat_p90,
+    p95 as yhat_p95,
+FROM pivoted_table ;;
+  }
 
   dimension: asofdate {
     label: "Last Forecasted Date"
@@ -16,6 +51,18 @@ view: +automated_kpi_confidence_intervals {
     type: time
     convert_tz: no
     sql: CAST(${TABLE}.date AS DATE) ;;
+  }
+
+  dimension: target {
+    type: string
+    label: "Forecast Target"
+    sql: ${TABLE}.target ;;
+  }
+
+  dimension: unit {
+    type: string
+    label: "Forecasting Unit"
+    sql: ${TABLE}.unit ;;
   }
 
   dimension: forecast_date {

@@ -1,11 +1,10 @@
 connection: "telemetry"
 
 include: "//looker-hub/kpi/explores/*"
-include: "//looker-hub/kpi/views/automated_kpi_confidence_intervals.view.lkml"
 include: "//looker-hub/kpi/views/automated_kpi_forecasts.view.lkml"
 include: "//looker-hub/kpi/views/unified_metrics.view.lkml"
 include: "./dashboards/*.dashboard"
-include: "views/Automated_KPI_Forecast_Confidence_Intervals.view.lkml"
+include: "views/automated_kpi_forecasts_confidence_intervals.view.lkml"
 include: "views/Automated_KPI_Forecasts.view.lkml"
 include: "views/browser_dau.view.lkml"
 include: "views/browser_kpis.view.lkml"
