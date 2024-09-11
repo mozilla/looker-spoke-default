@@ -14,8 +14,7 @@ pivoted_table AS (
     PIVOT (SUM(value) FOR measure IN ('observed', 'p05', 'p10',
                   'p20', 'p30', 'p40', 'p50', 'p60',
                   'p70', 'p80', 'p90', 'p95', 'mean'))
-),
-output_table AS (
+)
 SELECT CAST(asofdate AS STRING) asofdate,
     CAST(submission_date AS STRING) date,
     REPLACE(CAST(target AS STRING), "_dau", "") target,
