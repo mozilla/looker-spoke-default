@@ -66,6 +66,14 @@ view: +logical_subscriptions {
     intervals: [day, week, month, quarter, year]
   }
 
+  dimension_group: until_current_period_ends {
+    type: duration
+    sql_start: LEAST(TIMESTAMP(CURRENT_DATE()), ${TABLE}.current_period_ends_at) ;;
+    sql_end: ${TABLE}.current_period_ends_at ;;
+    intervals: [day, week, month]
+    hidden: yes
+  }
+
   dimension: month_numbers {
     sql: GENERATE_ARRAY(1, ${months_since_subscription_started} + 1) ;;
     hidden: yes
@@ -148,18 +156,33 @@ view: +logical_subscriptions {
     sql:
       CASE
         WHEN ${is_active}
-          AND ${auto_renew}
           AND ${plan_currency} = 'USD'
           THEN
             CASE ${plan_interval_type}
               WHEN 'year'
-                THEN ${plan_amount} / ${plan_interval_count}
+                THEN (
+                    ${plan_amount}
+                    / ${plan_interval_count}
+                    * IF(${auto_renew}, 1, (LEAST((${months_until_current_period_ends} + 1), 12) / 12))
+                  )
               WHEN 'month'
-                THEN ${plan_amount} / ${plan_interval_count} * 12
+                THEN (
+                    ${plan_amount}
+                    / ${plan_interval_count}
+                    * IF(${auto_renew}, 12, LEAST((${months_until_current_period_ends} + 1), 12))
+                  )
               WHEN 'week'
-                THEN ${plan_amount} / ${plan_interval_count} * 52
+                THEN (
+                    ${plan_amount}
+                    / ${plan_interval_count}
+                    * IF(${auto_renew}, 52, LEAST((${weeks_until_current_period_ends} + 1), 52))
+                  )
               WHEN 'day'
-                THEN ${plan_amount} / ${plan_interval_count} * 365
+                THEN (
+                    ${plan_amount}
+                    / ${plan_interval_count}
+                    * IF(${auto_renew}, 365, LEAST((${days_until_current_period_ends} + 1), 365))
+                  )
             END
         ELSE NULL
       END ;;
