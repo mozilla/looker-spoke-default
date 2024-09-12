@@ -130,6 +130,46 @@ view: +monthly_active_logical_subscriptions {
     group_item_label: "UTM Term"
   }
 
+  dimension: annual_recurring_revenue_usd {
+    label: "Annual Recurring Revenue (USD)"
+    type: number
+    sql:
+      CASE
+        WHEN ${subscription__plan_currency} IS DISTINCT FROM 'USD'
+          THEN NULL
+        WHEN ${subscription__is_active} IS NOT TRUE
+          THEN 0
+        ELSE
+          CASE ${subscription__plan_interval_type}
+            WHEN 'year'
+              THEN (
+                  ${subscription__plan_amount}
+                  / ${subscription__plan_interval_count}
+                  * IF(${subscription__auto_renew}, 1, (LEAST((${months_until_current_period_ends} + 1), 12) / 12))
+                )
+            WHEN 'month'
+              THEN (
+                  ${subscription__plan_amount}
+                  / ${subscription__plan_interval_count}
+                  * IF(${subscription__auto_renew}, 12, LEAST((${months_until_current_period_ends} + 1), 12))
+                )
+            WHEN 'week'
+              THEN (
+                  ${subscription__plan_amount}
+                  / ${subscription__plan_interval_count}
+                  * IF(${subscription__auto_renew}, 52, LEAST((${weeks_until_current_period_ends} + 1), 52))
+                )
+            WHEN 'day'
+              THEN (
+                  ${subscription__plan_amount}
+                  / ${subscription__plan_interval_count}
+                  * IF(${subscription__auto_renew}, 365, LEAST((${days_until_current_period_ends} + 1), 365))
+                )
+          END
+      END ;;
+    value_format_name: usd
+  }
+
   measure: logical_subscription_count {
     type: count_distinct
     sql: ${TABLE}.subscription.id ;;
@@ -154,39 +194,7 @@ view: +monthly_active_logical_subscriptions {
     label: "Total Annual Recurring Revenue (USD)"
     type: sum_distinct
     sql_distinct_key: ${subscription__id} ;;
-    sql:
-      CASE
-        WHEN ${subscription__is_active}
-          AND ${subscription__plan_currency} = 'USD'
-          THEN
-            CASE ${subscription__plan_interval_type}
-              WHEN 'year'
-                THEN (
-                    ${subscription__plan_amount}
-                    / ${subscription__plan_interval_count}
-                    * IF(${subscription__auto_renew}, 1, (LEAST((${months_until_current_period_ends} + 1), 12) / 12))
-                  )
-              WHEN 'month'
-                THEN (
-                    ${subscription__plan_amount}
-                    / ${subscription__plan_interval_count}
-                    * IF(${subscription__auto_renew}, 12, LEAST((${months_until_current_period_ends} + 1), 12))
-                  )
-              WHEN 'week'
-                THEN (
-                    ${subscription__plan_amount}
-                    / ${subscription__plan_interval_count}
-                    * IF(${subscription__auto_renew}, 52, LEAST((${weeks_until_current_period_ends} + 1), 52))
-                  )
-              WHEN 'day'
-                THEN (
-                    ${subscription__plan_amount}
-                    / ${subscription__plan_interval_count}
-                    * IF(${subscription__auto_renew}, 365, LEAST((${days_until_current_period_ends} + 1), 365))
-                  )
-            END
-        ELSE NULL
-      END ;;
+    sql: ${annual_recurring_revenue_usd} ;;
     value_format_name: usd
   }
 
