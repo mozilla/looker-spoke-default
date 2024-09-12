@@ -38,7 +38,7 @@ view: +desktop_new_profiles_aggregates {
     view_label: "Year over Year"
     description: "Only include dates up until yesterday"
     type: yesno
-    sql: ${date_yoy} <= CURRENT_DATE();;
+    sql: ${date_yoy} <= CURRENT_DATE() - 1;;
   }
 
   dimension: new_profiles {
