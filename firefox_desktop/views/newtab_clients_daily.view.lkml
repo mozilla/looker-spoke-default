@@ -27,7 +27,7 @@ view: newtab_clients_daily {
     hidden: yes
   }
 
-  dimension: pocket_enabled {
+  dimension: content_recommendations_enabled {
     sql: ${TABLE}.pocket_enabled ;;
     type: yesno
   }
@@ -37,7 +37,7 @@ view: newtab_clients_daily {
     type: yesno
   }
 
-  dimension: pocket_sponsored_stories_enabled {
+  dimension: content_recommendations_sponsored_stories_enabled {
     sql: ${TABLE}.pocket_sponsored_stories_enabled ;;
     type: yesno
   }
@@ -55,6 +55,16 @@ view: newtab_clients_daily {
   dimension: weather_widget_enabled {
     sql:  ${TABLE}.newtab_weather_widget_enabled ;;
     type:  yesno
+  }
+
+  dimension: topic_preferences_set {
+    sql:  ${TABLE}.newtab_weather_widget_enabled ;;
+    type:  yesno
+  }
+
+  dimension: topic_preferences_set_first_time {
+    sql: ${TABLE}.topic_selection_selected_topics_first_time ;;
+    type: yesno
   }
 
   dimension: newtab_homepage_category {
@@ -131,6 +141,11 @@ view: newtab_clients_daily {
     group_label: "Browser Version"
   }
 
+  dimension: had_default_ui_visit {
+    type: yesno
+    sql: IF(${TABLE}.visits_with_default_ui > 0, TRUE, FALSE) ;;
+  }
+
   measure: client_count {
     type: count_distinct
     sql: ${client_id} ;;
@@ -142,18 +157,44 @@ view: newtab_clients_daily {
     type: sum
   }
 
+  measure: visits_with_default_ui {
+    sql: ${TABLE}.visits_with_default_ui ;;
+    type: sum
+    group_label: "KPI Metrics"
+  }
+
+  measure: non_search_engagement {
+    sql: ${TABLE}.topsite_tile_clicks
+      + ${TABLE}.pocket_clicks
+      + ${TABLE}.pocket_saves
+      + ${TABLE}.pocket_thumb_voting_events
+      + ${TABLE}.topic_selection_opened
+      + ${TABLE}.topic_selection_updates
+      + ${TABLE}.weather_widget_clicks
+      + ${TABLE}.weather_widget_change_display_to_detailed
+      + ${TABLE}.weather_widget_change_display_to_simple
+      + ${TABLE}.wallpaper_clicks
+      + cast(${TABLE}.topic_selection_selected_topics_first_time AS INT);;
+    type: sum
+    group_label: "KPI Metrics"
+  }
+
   measure: visits_with_non_impression_engagement {
     sql: ${TABLE}.visits_with_non_impression_engagement ;;
     type: sum
+    group_label: "KPI Metrics"
   }
 
   measure: visits_with_non_search_engagement {
     sql: ${TABLE}.visits_with_non_search_engagement ;;
     type: sum
+    group_label: "KPI Metrics"
   }
 
-  measure: non_search_engagement {
-    sql: ${TABLE}.topsite_tile_clicks + ${TABLE}.pocket_clicks + ${TABLE}.pocket_saves;;
+  measure: visits_with_non_default_ui {
+    sql: ${TABLE}.visits_with_non_default_ui ;;
+    type: sum
+    group_label: "KPI Metrics"
   }
 
   measure: searches {
@@ -252,58 +293,82 @@ view: newtab_clients_daily {
     group_label: "Tiles Interactions"
   }
 
-  measure: pocket_impressions {
+  measure: content_recommendations_impressions {
     sql: ${TABLE}.pocket_impressions ;;
     type: sum
-    group_label: "Pocket Interactions"
+    group_label: "Content Recommendations Interactions"
   }
 
-  measure: sponsored_pocket_impressions {
+  measure: sponsored_content_recommendations_impressions {
     sql: ${TABLE}.sponsored_pocket_impressions ;;
     type: sum
-    group_label: "Pocket Interactions"
+    group_label: "Content Recommendations Interactions"
   }
 
-  measure: organic_pocket_impressions {
+  measure: organic_content_recommendations_impressions {
     sql: ${TABLE}.organic_pocket_impressions ;;
     type: sum
-    group_label: "Pocket Interactions"
+    group_label: "Content Recommendations Interactions"
   }
 
-  measure: pocket_clicks {
+  measure: content_recommendations_clicks {
     sql: ${TABLE}.pocket_clicks ;;
     type: sum
-    group_label: "Pocket Interactions"
+    group_label: "Content Recommendations Interactions"
   }
 
-  measure: sponsored_pocket_clicks {
+  measure: sponsored_content_recommendations_clicks {
     sql: ${TABLE}.sponsored_pocket_clicks ;;
     type: sum
-    group_label: "Pocket Interactions"
+    group_label: "Content Recommendations Interactions"
   }
 
-  measure: organic_pocket_clicks {
+  measure: organic_content_recommendations_clicks {
     sql: ${TABLE}.organic_pocket_clicks ;;
     type: sum
-    group_label: "Pocket Interactions"
+    group_label: "Content Recommendations Interactions"
   }
 
-  measure: pocket_saves {
+  measure: organic_content_recommendations_dismissals {
+    sql: ${TABLE}.organic_pocket_dismissals ;;
+    type: sum
+    group_label: "Content Recommendations Interactions"
+  }
+
+  measure: sponsored_content_recommendations_dismissals {
+    sql: ${TABLE}.sponsored_pocket_dismissals ;;
+    type: sum
+    group_label: "Content Recommendations Interactions"
+  }
+
+  measure: content_recommendations_saves {
     sql: ${TABLE}.pocket_saves ;;
     type: sum
-    group_label: "Pocket Interactions"
+    group_label: "Content Recommendations Interactions"
   }
 
-  measure: sponsored_pocket_saves {
+  measure: sponsored_content_recommendations_saves {
     sql: ${TABLE}.sponsored_pocket_saves ;;
     type: sum
-    group_label: "Pocket Interactions"
+    group_label: "Content Recommendations Interactions"
   }
 
-  measure: organic_pocket_saves {
+  measure: organic_content_recommendations_saves {
     sql: ${TABLE}.organic_pocket_saves ;;
     type: sum
-    group_label: "Pocket Interactions"
+    group_label: "Content Recommendations Interactions"
+  }
+
+  measure: content_recommendations_thumbs_up {
+    sql: ${TABLE}.pocket_thumbs_up ;;
+    type: sum
+    group_label: "Content Recommendations Interactions"
+  }
+
+  measure: content_recommendations_thumbs_down {
+    sql: ${TABLE}.pocket_thumbs_down ;;
+    type: sum
+    group_label: "Content Recommendations Interactions"
   }
 
   measure: wallpaper_clicks {
@@ -376,6 +441,30 @@ view: newtab_clients_daily {
     sql: ${TABLE}.weather_widget_location_selected ;;
     type: sum
     group_label: "Weather Interactions"
+  }
+
+  measure: topic_selection_selected_topics_first_time {
+    sql: CASE(${TABLE}.topic_selection_selected_topics_first_time AS INT) ;;
+    type: sum
+    group_label: "Topic Selection Interactions"
+  }
+
+  measure: topic_selection_updates {
+    sql: ${TABLE}.topic_selection_updates ;;
+    type: sum
+    group_label: "Topic Selection Interactions"
+  }
+
+  measure: topic_selection_opened {
+    sql: ${TABLE}.topic_selection_opened ;;
+    type: sum
+    group_label: "Topic Selection Interactions"
+  }
+
+  measure: topic_selection_dismissals {
+    sql: ${TABLE}.topic_selection_dismissals ;;
+    type: sum
+    group_label: "Topic Selection Interactions"
   }
 
 }
