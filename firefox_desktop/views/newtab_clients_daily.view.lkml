@@ -444,7 +444,7 @@ view: newtab_clients_daily {
   }
 
   measure: topic_selection_selected_topics_first_time {
-    sql: CASE(${TABLE}.topic_selection_selected_topics_first_time AS INT) ;;
+    sql: CASE WHEN ${TABLE}.topic_selection_selected_topics_first_time THEN 1 ELSE 0 END ;;
     type: sum
     group_label: "Topic Selection Interactions"
   }
