@@ -42,12 +42,12 @@ view: mozilla_accounts_users_services_daily {
   }
 
   dimension: country {
-    type: number
+    type: string
     sql:  ${TABLE}.country ;;
   }
 
   dimension: service {
-    type: number
+    type: string
     sql:  ${TABLE}.service ;;
   }
 
