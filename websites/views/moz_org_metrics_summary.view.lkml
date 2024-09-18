@@ -5,7 +5,7 @@ view: +moz_org_metrics_summary {
   derived_table: {
     sql:
       SELECT *
-      FROM `moz-fx-data-marketing-prod.ga.www_site_metrics_summary`
+      FROM `moz-fx-data-shared-prod.mozilla_org.www_site_metrics_summary`
       ;;
   }
 
