@@ -22,7 +22,7 @@ view: desktop_funnels_web {
             funnel_derived,
       sum(non_fx_sessions) AS non_fx_sessions,
       sum(non_fx_downloads) AS non_fx_downloads
-      FROM `moz-fx-data-marketing-prod.ga.www_site_metrics_summary`
+      FROM `moz-fx-data-shared-prod.mozilla_org.www_site_metrics_summary`
       WHERE date >= '2021-01-01'
       AND device_category = 'desktop'
       GROUP BY ALL
