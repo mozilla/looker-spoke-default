@@ -48,8 +48,6 @@ include: "//looker-hub/firefox_ios/views/firefox_ios_clients_table.view.lkml"
 include: "//looker-hub/firefox_ios/views/first_session.view.lkml"
 include: "//looker-hub/firefox_ios/views/first_session_table.view.lkml"
 include: "//looker-hub/firefox_ios/views/funnel_retention_clients_table.view.lkml"
-include: "//looker-hub/firefox_ios/views/funnel_retention_week_4.view.lkml"
-include: "//looker-hub/firefox_ios/views/funnel_retention_week_4_table.view.lkml"
 include: "//looker-hub/firefox_ios/views/fx_suggest.view.lkml"
 include: "//looker-hub/firefox_ios/views/fx_suggest_table.view.lkml"
 include: "//looker-hub/firefox_ios/views/growth_accounting.view.lkml"
@@ -200,7 +198,3 @@ explore: +client_counts {
 explore: app_store_funnel_table {
   sql_always_where: ${period_filtered_measures} in ("this", "last");;
 }
-
-# explore: funnel_retention_week_4 {
-#   sql_always_where: ${period_filtered_measures} in ("this", "last");;
-# }
