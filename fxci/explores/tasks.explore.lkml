@@ -25,7 +25,6 @@ explore:  tasks {
     filters: [
       task_runs.submission_date: "28 days",
       task_run_costs.submission_date: "28 days",
-      tasks.submission_date: "28 days"
-    ]
+      tasks.submission_date: "28 days"    ]
   }
 }
