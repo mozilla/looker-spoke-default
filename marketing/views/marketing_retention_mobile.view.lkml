@@ -270,6 +270,35 @@ view: marketing_retention_mobile {
     type: string
   }
 
+  dimension: ping_sent_metric_date {
+    hidden: yes
+    sql: ${TABLE}.ping_sent_metric_date ;;
+  }
+  dimension: ping_sent_week_4 {
+    hidden: yes
+    sql: ${TABLE}.ping_sent_week_4 ;;
+  }
+  dimension: active_metric_date {
+    hidden: yes
+    sql: ${TABLE}.active_metric_date ;;
+  }
+  dimension: retained_week_4 {
+    hidden: yes
+    sql: ${TABLE}.retained_week_4 ;;
+  }
+  dimension: new_profiles_metric_date {
+    hidden: yes
+    sql: ${TABLE}.new_profiles_metric_date ;;
+  }
+  dimension: retained_week_4_new_profiles {
+    hidden: yes
+    sql: ${TABLE}.retained_week_4_new_profiles ;;
+  }
+  dimension: repeat_profiles {
+    hidden: yes
+    sql: ${TABLE}.repeat_profiles ;;
+  }
+
   measure: active_metric_date_sum {
     group_label: "Client Counts"
     label: "Active: Clients"
