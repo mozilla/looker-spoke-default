@@ -1,7 +1,0 @@
-connection: "telemetry"
-label: "Firefox Desktop background tasks"
-include: "//looker-hub/firefox_desktop_background_tasks/explores/*"
-include: "//looker-hub/firefox_desktop_background_tasks/dashboards/*"
-include: "views/*"
-include: "explores/*"
-include: "dashboards/*"
