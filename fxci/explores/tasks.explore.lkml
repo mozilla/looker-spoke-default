@@ -1,7 +1,6 @@
 include: "//looker-hub/fxci/views/tasks.view.lkml"
 include: "//looker-hub/fxci/views/task_runs.view.lkml"
 include: "../views/task_run_costs.view.lkml"
-include: "../views/task_tags.view.lkml"
 
 explore:  tasks {
   label: "Firefox-CI Tasks"
@@ -12,9 +11,9 @@ explore:  tasks {
     relationship: many_to_one
     sql_on: ${task_runs.task_id} = ${tasks.task_id};;
   }
-  join: task_tags {
+  join: tasks__tags {
     relationship: many_to_many
-    sql_on: ${task_runs.task_id} = ${task_tags.task_id} ;;
+    sql: LEFT JOIN UNNEST(${tasks.tags}) AS tasks__tags ;;
   }
   join: task_run_costs {
     type: inner
