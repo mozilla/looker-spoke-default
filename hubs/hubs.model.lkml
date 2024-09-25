@@ -1,7 +1,0 @@
-connection: "telemetry"
-label: "Hubs"
-include: "//looker-hub/hubs/explores/*"
-include: "//looker-hub/hubs/dashboards/*"
-include: "views/*"
-include: "explores/*"
-include: "dashboards/*"
