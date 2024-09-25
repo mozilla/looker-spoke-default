@@ -2,17 +2,10 @@ include: "../views/marketing_attributable_dau.view.lkml"
 include: "/shared/views/countries.view.lkml"
 
 explore: marketing_attributable_dau {
-  label: "MozMark DAU"
+  label: "MozMark  Attributable DAU"
   view_name: marketing_attributable_dau
 
-  always_filter: {
-    filters: [
-      marketing_attributable_dau.app_name: "Firefox Desktop, Firefox Desktop BrowserStack, Fenix, Fenix BrowserStack, Firefox iOS, Firefox iOS BrowserStack,
-    Focus Android,  Focus iOS, Focus iOS BrowserStack"]
-  }
 
-  sql_always_where:
-  AND ${paid_vs_organic} = "Paid";;
 
   join: countries {
     type: left_outer
