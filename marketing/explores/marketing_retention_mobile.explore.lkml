@@ -7,6 +7,7 @@ explore: marketing_retention_mobile {
 
   sql_always_where: ${period_filtered_measures} in ("this", "last")
                 AND ${is_mobile}
+                AND ${paid_vs_organic} = "Paid"
                 AND ${metric_date} = ${first_seen_date}
                 AND ${filter_end_date} >= "2023-01-01";;
 
