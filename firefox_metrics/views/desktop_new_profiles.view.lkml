@@ -1,6 +1,6 @@
-include: "//looker-hub/firefox_desktop/views/desktop_new_profiles_aggregates.view.lkml"
+include: "//looker-hub/firefox_desktop/views/desktop_new_profiles.view.lkml"
 
-view: +desktop_new_profiles_aggregates {
+view: +desktop_new_profiles {
 
   parameter: average_window {
     label: "Moving average"
