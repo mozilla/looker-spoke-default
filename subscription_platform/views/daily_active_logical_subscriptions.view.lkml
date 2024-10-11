@@ -119,15 +119,14 @@ view: +daily_active_logical_subscriptions {
   }
 
   dimension: annual_recurring_revenue_usd {
+    group_label: "Subscription"
     label: "Annual Recurring Revenue (USD)"
     type: number
     sql:
-      CASE
-        WHEN ${subscription__plan_currency} IS DISTINCT FROM 'USD'
-          THEN NULL
-        WHEN ${subscription__is_active} IS NOT TRUE
-          THEN 0
-        ELSE
+      IF(
+        ${subscription__is_active} IS NOT TRUE,
+        0,
+        (
           CASE ${subscription__plan_interval_type}
             WHEN 'year'
               THEN (
@@ -154,20 +153,22 @@ view: +daily_active_logical_subscriptions {
                   * IF(${subscription__auto_renew}, 365, LEAST((${days_until_current_period_ends} + 1), 365))
                 )
           END
-      END ;;
+          / (1 + COALESCE(${vat_rates.vat}, 0))
+          * IF(${subscription__plan_currency} = 'USD', 1, COALESCE(${exchange_rates_table.price}, 0))
+        )
+      ) ;;
     value_format_name: usd
   }
 
   dimension: monthly_recurring_revenue_usd {
+    group_label: "Subscription"
     label: "Monthly Recurring Revenue (USD)"
     type: number
     sql:
-      CASE
-        WHEN ${subscription__plan_currency} IS DISTINCT FROM 'USD'
-          THEN NULL
-        WHEN ${subscription__is_active} IS NOT TRUE
-          THEN 0
-        ELSE
+      IF(
+        ${subscription__is_active} IS NOT TRUE,
+        0,
+        (
           CASE ${subscription__plan_interval_type}
             WHEN 'year'
               THEN ${subscription__plan_amount} / ${subscription__plan_interval_count} / 12
@@ -186,7 +187,10 @@ view: +daily_active_logical_subscriptions {
                   * IF(${subscription__auto_renew}, (365 / 12), LEAST((${days_until_current_period_ends} + 1), (365 / 12)))
                 )
           END
-      END ;;
+          / (1 + COALESCE(${vat_rates.vat}, 0))
+          * IF(${subscription__plan_currency} = 'USD', 1, COALESCE(${exchange_rates_table.price}, 0))
+        )
+      ) ;;
     value_format_name: usd
   }
 

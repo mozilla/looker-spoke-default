@@ -52,6 +52,12 @@ view: +logical_subscriptions {
     value_format_name: decimal_2
   }
 
+  dimension: effective_date {
+    type: date_raw
+    sql: COALESCE(DATE(${TABLE}.ended_at), ${table_metadata.last_modified_date} - 1) ;;
+    hidden: yes
+  }
+
   dimension_group: active {
     type: duration
     sql_start: ${TABLE}.started_at ;;
@@ -129,12 +135,10 @@ view: +logical_subscriptions {
     label: "Annual Recurring Revenue (USD)"
     type: number
     sql:
-      CASE
-        WHEN ${plan_currency} IS DISTINCT FROM 'USD'
-          THEN NULL
-        WHEN ${is_active} IS NOT TRUE
-          THEN 0
-        ELSE
+      IF(
+        ${is_active} IS NOT TRUE,
+        0,
+        (
           CASE ${plan_interval_type}
             WHEN 'year'
               THEN (
@@ -161,7 +165,10 @@ view: +logical_subscriptions {
                   * IF(${auto_renew}, 365, LEAST((${days_until_current_period_ends} + 1), 365))
                 )
           END
-      END ;;
+          / (1 + COALESCE(${vat_rates.vat}, 0))
+          * IF(${plan_currency} = 'USD', 1, COALESCE(${exchange_rates_table.price}, 0))
+        )
+      ) ;;
     value_format_name: usd
   }
 
@@ -169,12 +176,10 @@ view: +logical_subscriptions {
     label: "Monthly Recurring Revenue (USD)"
     type: number
     sql:
-      CASE
-        WHEN ${plan_currency} IS DISTINCT FROM 'USD'
-          THEN NULL
-        WHEN ${is_active} IS NOT TRUE
-          THEN 0
-        ELSE
+      IF(
+        ${is_active} IS NOT TRUE,
+        0,
+        (
           CASE ${plan_interval_type}
             WHEN 'year'
               THEN ${plan_amount} / ${plan_interval_count} / 12
@@ -193,7 +198,10 @@ view: +logical_subscriptions {
                   * IF(${auto_renew}, (365 / 12), LEAST((${days_until_current_period_ends} + 1), (365 / 12)))
                 )
           END
-      END ;;
+          / (1 + COALESCE(${vat_rates.vat}, 0))
+          * IF(${plan_currency} = 'USD', 1, COALESCE(${exchange_rates_table.price}, 0))
+        )
+      ) ;;
     value_format_name: usd
   }
 
