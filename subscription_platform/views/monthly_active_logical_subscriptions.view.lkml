@@ -74,6 +74,16 @@ view: +monthly_active_logical_subscriptions {
     value_format_name: decimal_2
   }
 
+  dimension: effective_date {
+    type: date_raw
+    sql:
+      COALESCE(
+        DATE(${TABLE}.subscription.ended_at),
+        LEAST(${TABLE}.month_end_date, ${table_metadata.last_modified_date} - 1)
+      ) ;;
+    hidden: yes
+  }
+
   dimension_group: subscription_active {
     type: duration
     sql_start: ${TABLE}.subscription.started_at ;;
@@ -131,15 +141,14 @@ view: +monthly_active_logical_subscriptions {
   }
 
   dimension: annual_recurring_revenue_usd {
+    group_label: "Subscription"
     label: "Annual Recurring Revenue (USD)"
     type: number
     sql:
-      CASE
-        WHEN ${subscription__plan_currency} IS DISTINCT FROM 'USD'
-          THEN NULL
-        WHEN ${subscription__is_active} IS NOT TRUE
-          THEN 0
-        ELSE
+      IF(
+        ${subscription__is_active} IS NOT TRUE,
+        0,
+        (
           CASE ${subscription__plan_interval_type}
             WHEN 'year'
               THEN (
@@ -166,20 +175,22 @@ view: +monthly_active_logical_subscriptions {
                   * IF(${subscription__auto_renew}, 365, LEAST((${days_until_current_period_ends} + 1), 365))
                 )
           END
-      END ;;
+          / (1 + COALESCE(${vat_rates.vat}, 0))
+          * IF(${subscription__plan_currency} = 'USD', 1, COALESCE(${exchange_rates_table.price}, 0))
+        )
+      ) ;;
     value_format_name: usd
   }
 
   dimension: monthly_recurring_revenue_usd {
+    group_label: "Subscription"
     label: "Monthly Recurring Revenue (USD)"
     type: number
     sql:
-      CASE
-        WHEN ${subscription__plan_currency} IS DISTINCT FROM 'USD'
-          THEN NULL
-        WHEN ${subscription__is_active} IS NOT TRUE
-          THEN 0
-        ELSE
+      IF(
+        ${subscription__is_active} IS NOT TRUE,
+        0,
+        (
           CASE ${subscription__plan_interval_type}
             WHEN 'year'
               THEN ${subscription__plan_amount} / ${subscription__plan_interval_count} / 12
@@ -198,7 +209,10 @@ view: +monthly_active_logical_subscriptions {
                   * IF(${subscription__auto_renew}, (365 / 12), LEAST((${days_until_current_period_ends} + 1), (365 / 12)))
                 )
           END
-      END ;;
+          / (1 + COALESCE(${vat_rates.vat}, 0))
+          * IF(${subscription__plan_currency} = 'USD', 1, COALESCE(${exchange_rates_table.price}, 0))
+        )
+      ) ;;
     value_format_name: usd
   }
 
