@@ -12,6 +12,7 @@ include: "views/funnel_analysis/event_types.view.lkml"
 include: "views/funnel_analysis/funnel_analysis.view.lkml"
 include: "views/event_type.view.lkml"
 include: "views/raw_event_types.view.lkml"
+include: "//looker-hub/firefox_desktop/datagroups/onboarding_v2_last_updated.datagroup.lkml"
 
 explore: funnel_analysis {
   view_label: " User-Day Funnels"
@@ -189,6 +190,7 @@ explore: cohort_analysis {
 
 explore: event_counts {
   from: onboarding_v1
+  persist_with: onboarding_v2_last_updated
 
   join: onboarding_v1__experiments {
     type: cross

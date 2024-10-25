@@ -2,6 +2,7 @@ connection: "telemetry"
 label: "Firefox for Android"
 include: "//looker-hub/fenix/explores/*"
 include: "explores/*"
+include: "datagroups/*"
 
 include: "//looker-hub/fenix/views/metrics.view.lkml"
 include: "/fenix/views/android_store_performance.view.lkml"
@@ -53,4 +54,9 @@ view: +metrics {
 
 explore: android_store_performance {
   sql_always_where: ${period_filtered_measures} in ("this", "last");;
+}
+
+# temporary datagroup until this gets generated
+explore: +events_unnested {
+  persist_with: events_unnested_v1_last_updated
 }

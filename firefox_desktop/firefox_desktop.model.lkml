@@ -238,8 +238,6 @@ explore: desktop_daily_retention {
   }
 }
 
-
-
 view: +metrics {
   dimension: client_info__build_date_datetime {
     label: "Build Date (Datetime)"
