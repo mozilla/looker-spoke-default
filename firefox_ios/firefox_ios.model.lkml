@@ -110,6 +110,7 @@ include: "views/metrics_counters.view.lkml"
 include: "views/usage.view.lkml"
 include: "dashboards/*.dashboard"
 include: "explores/*"
+include: "datagroups/*"
 
 explore: usage {
   always_filter: {
@@ -197,4 +198,8 @@ explore: +client_counts {
 
 explore: app_store_funnel_table {
   sql_always_where: ${period_filtered_measures} in ("this", "last");;
+}
+
+explore: +events_unnested {
+  persist_with: events_unnested_v1_last_updated
 }
