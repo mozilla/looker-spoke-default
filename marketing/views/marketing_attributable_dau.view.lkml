@@ -142,7 +142,9 @@ view: marketing_attributable_dau{
     description: "Calculates the end of the previous period"
     type: date
     sql:
-        DATE_SUB(${filter_end_date}, INTERVAL 1 {% parameter compare_to %});;
+        CASE WHEN DATE_SUB(${filter_end_date}, INTERVAL 1 {% parameter compare_to %}) != LAST_DAY(DATE_SUB(${filter_end_date}, INTERVAL 1 {% parameter compare_to %}), MONTH)
+            THEN LAST_DAY(DATE_SUB(${filter_end_date}, INTERVAL 1 {% parameter compare_to %}), MONTH)
+            ELSE DATE_SUB(${filter_end_date}, INTERVAL 1 {% parameter compare_to %}) END;;
     convert_tz: no
   }
 
