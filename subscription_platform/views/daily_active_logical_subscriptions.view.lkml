@@ -66,6 +66,21 @@ view: +daily_active_logical_subscriptions {
   dimension: subscription__plan_amount {
     value_format_name: decimal_2
   }
+  dimension: subscription__plan_vat_rate {
+    group_label: "Subscription"
+    group_item_label: "Plan VAT Rate"
+    type: number
+    # Stripe Tax doesn't charge inclusive taxes on plans where the currency is USD or CAD.
+    # We started using Stripe Tax on 2022-12-01 (FXA-5457).
+    sql:
+      CASE
+        WHEN ${date_date} >= '2022-12-01'
+          AND ${subscription__provider} = 'Stripe'
+          AND ${subscription__plan_currency} IN ('USD', 'CAD')
+          THEN 0
+        ELSE COALESCE(${vat_rates.vat}, 0)
+      END ;;
+  }
 
   dimension_group: subscription_active {
     type: duration
@@ -153,7 +168,7 @@ view: +daily_active_logical_subscriptions {
                   * IF(${subscription__auto_renew}, 365, LEAST((${days_until_current_period_ends} + 1), 365))
                 )
           END
-          / (1 + COALESCE(${vat_rates.vat}, 0))
+          / (1 + ${subscription__plan_vat_rate})
           * IF(${subscription__plan_currency} = 'USD', 1, COALESCE(${exchange_rates_table.price}, 0))
         )
       ) ;;
@@ -187,7 +202,7 @@ view: +daily_active_logical_subscriptions {
                   * IF(${subscription__auto_renew}, (365 / 12), LEAST((${days_until_current_period_ends} + 1), (365 / 12)))
                 )
           END
-          / (1 + COALESCE(${vat_rates.vat}, 0))
+          / (1 + ${subscription__plan_vat_rate})
           * IF(${subscription__plan_currency} = 'USD', 1, COALESCE(${exchange_rates_table.price}, 0))
         )
       ) ;;

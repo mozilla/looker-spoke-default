@@ -33,9 +33,12 @@ view: mobile_subscriptions {
   dimension: pricing_plan {
     hidden:  no
   }
-
   dimension: plan_id {
     hidden: no
+  }
+  # The `mobile_subscriptions` explore doesn't do a proper join to `vat_rates`.
+  dimension: plan_vat_rate {
+    sql: NULL ;;
   }
 
   measure: non_trial_sub_count{
