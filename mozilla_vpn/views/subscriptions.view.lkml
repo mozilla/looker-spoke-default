@@ -79,21 +79,6 @@ view: +subscriptions {
     sql: CONCAT(IF(${product_name} LIKE "%Relay%", CONCAT("bundle", "_"), ""), ${plan_interval_count}, "_", ${plan_interval});;
   }
 
-  dimension: plan_vat_rate {
-    hidden: yes
-    type: number
-    # Stripe Tax doesn't charge inclusive taxes on plans where the currency is USD or CAD.
-    # We started using Stripe Tax on 2022-12-01 (FXA-5457).
-    sql:
-      CASE
-        WHEN ${subscriptions__active.active_date} >= "2022-12-01"
-          AND ${provider} IN ("Stripe", "Paypal")
-          AND ${plan_currency} IN ("usd", "cad")
-          THEN 0
-        ELSE IFNULL(${vat_rates.vat}, 0)
-      END;;
-  }
-
   dimension: forecast_region {
     description: "Indicates region used in financial forecasting.  This is to primarily support finance forecasting work."
     type: string
@@ -264,7 +249,7 @@ view: +subscriptions {
       ${plan_interval} = "month"
     THEN
       12 / ${plan_interval_count}
-    END * (${plan_amount} - IFNULL(${promotion_discounts_amount}, 0)) / (1 + ${plan_vat_rate}) * IFNULL(${exchange_rates_table.price}, 1) / 100;;
+    END * (${plan_amount} - IFNULL(${promotion_discounts_amount}, 0)) / (1 + IFNULL(${vat_rates.vat}, 0)) * IFNULL(${exchange_rates_table.price}, 1) / 100;;
     value_format: "$#,##0.00"
   }
 }
