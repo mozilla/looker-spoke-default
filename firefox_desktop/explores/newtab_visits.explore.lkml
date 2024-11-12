@@ -26,6 +26,14 @@ explore: newtab_visits {
     sql: LEFT JOIN UNNEST(${newtab_visits.topsite_tile_interactions}) AS newtab_visits_table__topsite_tile_interactions ;;
   }
 
+  join: key_tentpole_dates{
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${newtab_visits.submission_date} >= ${key_tentpole_dates.start_date}
+            AND
+            ${newtab_visits.submission_date} <= ${key_tentpole_dates.end_date};;
+  }
+
   aggregate_table: rollup__newtab_visits_sponsored_tiles_per_day {
     query: {
       dimensions: [
