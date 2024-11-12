@@ -1,6 +1,7 @@
 include: "../views/newtab_visits.view.lkml"
 include: "../../shared/views/countries.view.lkml"
 include: "//looker-hub/firefox_desktop/datagroups/newtab_visits_v1_last_updated.datagroup"
+include: "/ads_backend/views/key_tentpole_dates.view.lkml"
 
 explore: newtab_visits {
   persist_with: newtab_visits_v1_last_updated
