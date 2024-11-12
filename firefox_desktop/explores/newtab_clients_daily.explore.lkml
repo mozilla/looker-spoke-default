@@ -22,9 +22,9 @@ explore: newtab_clients_daily {
   join: key_tentpole_dates {
   type: left_outer
   relationship: many_to_one
-  sql_on:${newtab_interactions.submission_date} >= ${key_tentpole_dates.start_date}
+  sql_on:${newtab_clients_daily.submission_date} >= ${key_tentpole_dates.start_date}
           AND
-          ${newtab_interactions.submission_date} <= ${key_tentpole_dates.end_date};;
+          ${newtab_clients_daily.submission_date} <= ${key_tentpole_dates.end_date};;
   }
 
 }
