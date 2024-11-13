@@ -191,7 +191,7 @@ view: kpi_dau {
     type: string
     hidden: no
     sql: CASE WHEN ${app_name} = "Firefox Desktop" THEN "Desktop"
-              WHEN  ${app_name} IN ("Fenix", "Firefox iOS") THEN "Mobile"
+              WHEN  ${app_name} IN ("Fenix", "Firefox iOS", "Focus iOS", "Focus Android", "Klar iOS") THEN "Mobile"
               ELSE "Other" END ;;
   }
 

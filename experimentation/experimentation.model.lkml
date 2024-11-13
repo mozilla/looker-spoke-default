@@ -1,8 +1,26 @@
 connection: "telemetry"
 label: "Experimentation"
-include: "//looker-hub/experimentation/views/*"
+include: "//looker-hub/experimentation/views/experiment_cumulative_ad_clicks.view.lkml"
+include: "//looker-hub/experimentation/views/experiment_cumulative_search_count.view.lkml"
+include: "//looker-hub/experimentation/views/experiment_cumulative_search_with_ads_count.view.lkml"
+include: "//looker-hub/experimentation/views/experiment_enrollment_cumulative_population_estimate.view.lkml"
+include: "//looker-hub/experimentation/views/experiment_enrollment_daily_active_population.view.lkml"
+include: "//looker-hub/experimentation/views/experiment_enrollment_other_events_overall.view.lkml"
+include: "//looker-hub/experimentation/views/experiment_enrollment_overall.view.lkml"
+include: "//looker-hub/experimentation/views/experiment_search_aggregates_live.view.lkml"
+include: "//looker-hub/experimentation/views/experiment_unenrollment_overall.view.lkml"
+include: "//looker-hub/experimentation/views/experimenter_experiments.view.lkml"
+include: "//looker-hub/experimentation/views/logs.view.lkml"
+include: "//looker-hub/experimentation/views/query_cost.view.lkml"
+include: "//looker-hub/experimentation/views/task_monitoring_logs.view.lkml"
 include: "//looker-hub/firefox_desktop/views/events.view.lkml"
-include: "views/*"
+include: "views/analysis_aggregates.view.lkml"
+include: "views/analysis_enrollments.view.lkml"
+include: "views/analysis_statistics.view.lkml"
+include: "views/enrollment_status.view.lkml"
+include: "views/preview.view.lkml"
+include: "views/preview_logs.view.lkml"
+include: "views/sample_ratio_mismatch.view.lkml"
 include: "explores/*"
 include: "dashboards/*"
 
@@ -339,15 +357,7 @@ explore: unenrollment_reasons {
     hidden: yes
   }
 
-  explore: task_profiling_logs {
-    hidden: yes
-  }
-
   explore: experimenter_experiments {}
-
-  explore: mr_2022_weekly_statistics_desktop_existing_users {}
-
-  explore: mr_2022_weekly_statistic_desktop_new_users {}
 
   explore: +preview {
     join: experimenter_experiments {

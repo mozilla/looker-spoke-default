@@ -1,5 +1,4 @@
 connection: "telemetry"
 label: "Firefox Relay"
-include: "views/*"
 include: "explores/*"
 include: "dashboards/*"

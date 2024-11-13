@@ -1,7 +1,11 @@
 connection: "telemetry"
 label: "Firefox for Android"
 include: "//looker-hub/fenix/explores/*"
-include: "explores/*.explore.lkml"
+include: "explores/*"
+include: "datagroups/*"
+
+include: "//looker-hub/fenix/views/metrics.view.lkml"
+include: "/fenix/views/android_store_performance.view.lkml"
 
 
 explore: +topsites_impression {
@@ -11,7 +15,7 @@ explore: +topsites_impression {
 # temporary workaround until fields are accessible
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1764332
 
-include: "//looker-hub/fenix/views/metrics.view.lkml"
+
 
 view: +metrics {
   dimension: metrics__labeled_counter__recent_synced_tabs_recent_synced_tab_opened {
@@ -46,4 +50,13 @@ view: +metrics {
     sql:  SAFE.PARSE_TIMESTAMP('%FT%H:%M:%S%Ez', ${TABLE}.client_info.build_date) ;;
     type: date_time
   }
+}
+
+explore: android_store_performance {
+  sql_always_where: ${period_filtered_measures} in ("this", "last");;
+}
+
+# temporary datagroup until this gets generated
+explore: +events_unnested {
+  persist_with: events_unnested_v1_last_updated
 }

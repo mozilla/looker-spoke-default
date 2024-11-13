@@ -1,4 +1,5 @@
-include: "../views/*.view.lkml"
+include: "../views/desktop_new_profile.view.lkml"
+include: "../views/country_buckets.view.lkml"
 
 # view used to ensure duplicate entries are only counted once.
 view: distinct_new_profiles {

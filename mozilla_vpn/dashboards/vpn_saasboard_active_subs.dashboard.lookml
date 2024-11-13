@@ -48,6 +48,7 @@
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
       Product Name: active_subscriptions.product_name
+      Plan ID: active_subscriptions.plan_id
     row: 9
     col: 8
     width: 16
@@ -109,6 +110,7 @@
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
       Product Name: active_subscriptions.product_name
+      Plan ID: active_subscriptions.plan_id
     row: 9
     col: 0
     width: 8
@@ -203,6 +205,7 @@
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
       Product Name: active_subscriptions.product_name
+      Plan ID: active_subscriptions.plan_id
     row: 2
     col: 19
     width: 5
@@ -290,6 +293,7 @@
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
       Product Name: active_subscriptions.product_name
+      Plan ID: active_subscriptions.plan_id
     row: 53
     col: 13
     width: 11
@@ -375,6 +379,7 @@
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
       Product Name: active_subscriptions.product_name
+      Plan ID: active_subscriptions.plan_id
     row: 16
     col: 0
     width: 4
@@ -460,6 +465,7 @@
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
       Product Name: active_subscriptions.product_name
+      Plan ID: active_subscriptions.plan_id
     row: 16
     col: 4
     width: 4
@@ -568,6 +574,7 @@
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
       Product Name: active_subscriptions.product_name
+      Plan ID: active_subscriptions.plan_id
     row: 23
     col: 0
     width: 13
@@ -650,6 +657,7 @@
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
       Product Name: active_subscriptions.product_name
+      Plan ID: active_subscriptions.plan_id
     row: 45
     col: 13
     width: 11
@@ -783,6 +791,7 @@
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
       Product Name: active_subscriptions.product_name
+      Plan ID: active_subscriptions.plan_id
     row: 30
     col: 13
     width: 11
@@ -892,6 +901,7 @@
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
       Product Name: active_subscriptions.product_name
+      Plan ID: active_subscriptions.plan_id
     row: 23
     col: 13
     width: 11
@@ -981,6 +991,7 @@
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
       Product Name: active_subscriptions.product_name
+      Plan ID: active_subscriptions.plan_id
     row: 30
     col: 0
     width: 13
@@ -994,7 +1005,7 @@
     filters:
       active_subscriptions.is_max_active_date: 'Yes'
     sorts: [active_subscriptions.count_sum desc]
-    limit: 1000
+    limit: 50
     column_limit: 50
     value_labels: labels
     label_type: labPer
@@ -1096,6 +1107,7 @@
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
       Product Name: active_subscriptions.product_name
+      Plan ID: active_subscriptions.plan_id
     row: 45
     col: 0
     width: 13
@@ -1188,6 +1200,7 @@
       Active Date: active_subscriptions.active_date
       Plan Interval Type: active_subscriptions.plan_interval_type
       Product Name: active_subscriptions.product_name
+      Plan ID: active_subscriptions.plan_id
     row: 53
     col: 0
     width: 13
@@ -1196,13 +1209,12 @@
   - name: Provider
     title: Provider
     type: field_filter
-    default_value: ''
+    default_value: "-NULL"
     allow_multiple_values: true
     required: false
     ui_config:
-      type: checkboxes
+      type: advanced
       display: popover
-      options: []
     model: mozilla_vpn
     explore: active_subscriptions
     listens_to_filters: [Plan Interval Type, Active Date, Country, Pricing Plan]
@@ -1276,3 +1288,16 @@
     explore: active_subscriptions
     listens_to_filters: []
     field: active_subscriptions.product_name
+  - name: Plan ID
+    title: Plan ID
+    type: field_filter
+    default_value: -"price_1MzNRCJNcmPzuWtRMCwUWADu"
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: advanced
+      display: overflow
+    model: mozilla_vpn
+    explore: active_subscriptions
+    listens_to_filters: []
+    field: active_subscriptions.plan_id

@@ -255,6 +255,13 @@ view: +mobile_search_clients_engines_sources_daily {
     sql: ${ad_click_organic} ;;
     description: "Total organic ad clicks."
   }
+  
+  measure: total_organic_search_with_ads {
+    label: "Organic Search With Ads"
+    type: sum
+    sql: ${search_with_ads_organic} ;;
+    description: "Total organic search with ads."
+  }
 
 ## hide numeric search dimensions ##
 
@@ -263,6 +270,10 @@ view: +mobile_search_clients_engines_sources_daily {
   }
 
   dimension: ad_click_organic {
+    hidden: yes
+  }
+  
+  dimension: search_with_ads_organic {
     hidden: yes
   }
 
