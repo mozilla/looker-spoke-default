@@ -1,6 +1,6 @@
 include: "//looker-hub/search/explores/mobile_search_counts.explore.lkml"
 include: "/shared/views/countries.view.lkml"
-include: "//looker-hub/search/datagroups/mobile_search_clients_daily_v1_last_updated.datagroup.lkml"
+#include: "//looker-hub/search/datagroups/mobile_search_clients_daily_v1_last_updated.datagroup.lkml"
 
 explore: +mobile_search_counts {
   description: "Mobile search counts and ad clicks.
@@ -15,6 +15,6 @@ explore: +mobile_search_counts {
     sql_on: ${mobile_search_clients_engines_sources_daily.country} = ${countries.code} ;;
   }
 
-  persist_with: mobile_search_clients_daily_v1_last_updated
+  #persist_with: mobile_search_clients_daily_v1_last_updated
 
 }
