@@ -1,8 +1,18 @@
 connection: "telemetry"
 
 include: "//looker-hub/user_journey/views/events_daily.view.lkml"
-include: "/user_journey/views/*/*.view.lkml"                # include all views in the views/ folder in this project
-include: "/user_journey/views/*.view.lkml"
+include: "views/cohort_analysis/cohort_analysis.view.lkml"
+include: "views/cohort_analysis/cohort_event_types.view.lkml"
+include: "views/cohort_analysis/days_since_message.view.lkml"
+include: "views/cohort_analysis/search_clients_last_seen.view.lkml"
+include: "views/event_counts/onboarding_v1.view.lkml"
+include: "views/funnel_analysis/browser_properties.view.lkml"
+include: "views/funnel_analysis/days_of_use.view.lkml"
+include: "views/funnel_analysis/event_types.view.lkml"
+include: "views/funnel_analysis/funnel_analysis.view.lkml"
+include: "views/event_type.view.lkml"
+include: "views/raw_event_types.view.lkml"
+include: "//looker-hub/firefox_desktop/datagroups/onboarding_v2_last_updated.datagroup.lkml"
 
 explore: funnel_analysis {
   view_label: " User-Day Funnels"
@@ -180,6 +190,7 @@ explore: cohort_analysis {
 
 explore: event_counts {
   from: onboarding_v1
+  persist_with: onboarding_v2_last_updated
 
   join: onboarding_v1__experiments {
     type: cross

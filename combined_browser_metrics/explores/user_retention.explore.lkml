@@ -1,5 +1,5 @@
 include: "../views//cohort_daily_statistics.view.lkml"
-include: "/shared/views/*"
+include: "/shared/views/countries.view.lkml"
 
 explore: user_retention {
   view_name: cohort_daily_statistics

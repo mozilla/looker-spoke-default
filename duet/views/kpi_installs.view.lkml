@@ -1,7 +1,8 @@
-include: "//looker-hub/duet/views/firefox_mobile_installs.view.lkml"
+include: "//looker-hub/duet/views/firefox_mobile_installs_adjust_deliverables.view.lkml"
 view: kpi_installs {
 
-  extends: [firefox_mobile_installs]
+  extends: [firefox_mobile_installs_adjust_deliverables]
+
 
   filter: current_date {
     type: date
@@ -157,14 +158,14 @@ view: kpi_installs {
   measure: installs_goal {
     view_label: "KPI filtered metrics"
     type: sum
-    sql: CASE WHEN ${country} = "CA" THEN ${installs}  * 1.105
-              WHEN ${country} = "DE" THEN ${installs} * 1.103
-              WHEN ${country} = "FR" THEN ${installs} * 1.105
-              WHEN ${country} = "PL" THEN ${installs} * 1.077
-              WHEN ${country} = "IT" THEN ${installs} * 1.111
-              WHEN ${country} = "ES" THEN ${installs} * 1.118
-              WHEN ${country} = "GB" THEN ${installs} * 1.103
-              WHEN ${country} = "US" THEN ${installs} * 1.099
+    sql: CASE WHEN UPPER(${country}) = "CA" THEN ${installs}  * 1.105
+              WHEN UPPER(${country}) = "DE" THEN ${installs} * 1.103
+              WHEN UPPER(${country}) = "FR" THEN ${installs} * 1.105
+              WHEN UPPER(${country}) = "PL" THEN ${installs} * 1.077
+              WHEN UPPER(${country}) = "IT" THEN ${installs} * 1.111
+              WHEN UPPER(${country}) = "ES" THEN ${installs} * 1.118
+              WHEN UPPER(${country}) = "GB" THEN ${installs} * 1.103
+              WHEN UPPER(${country}) = "US" THEN ${installs} * 1.099
               ELSE ${installs} * 1.112 END;;
     filters: [period_filtered_measures: "last"]
   }
@@ -173,7 +174,7 @@ view: kpi_installs {
     description: "Normalizing country name to the names we want"
     type: string
     hidden: no
-    sql: CASE WHEN ${country} IN ("US","DE", "FR","PL", "IT", "ES", "GB", "CA") THEN ${country}
+    sql: CASE WHEN UPPER(${country}) IN ("US","DE", "FR","PL", "IT", "ES", "GB", "CA") THEN UPPER(${country})
               ELSE "Other" END ;;
   }
 

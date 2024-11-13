@@ -44,24 +44,62 @@
     sorts: [kpi_dau.day_month desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${kpi_dau.current_period_dau}/${kpi_dau.unique_days}",
-        label: 'Average DAU ', value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: average_dau, _type_hint: number, is_disabled: true},
-      {category: table_calculation, expression: "${kpi_dau.daily_active_users}/${kpi_dau.unique_days}",
-        label: Average DAU YTD, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: average_dau_ytd, _type_hint: number,
-        is_disabled: true}, {category: table_calculation, label: YoY change, value_format: !!null '',
-        value_format_name: percent_0, calculation_type: percent_difference_from_previous,
-        table_calculation: yoy_change, args: [average_dau_ytd], _kind_hint: measure,
-        _type_hint: number, is_disabled: true}, {category: table_calculation, expression: 'mean(offset_list(${kpi_dau.current_period_dau},
-          0, 28))', label: 28-day MA Current period DAU, value_format: !!null '',
-        value_format_name: decimal_0, _kind_hint: measure, table_calculation: 28_day_ma_current_period_dau,
-        _type_hint: number, is_disabled: false}, {category: table_calculation, expression: 'mean(offset_list(${kpi_dau.previous_period_dau},
-          0, 28))', label: 28-day MA Previous period DAU, value_format: !!null '',
-        value_format_name: decimal_0, _kind_hint: measure, table_calculation: 28_day_ma_previous_period_dau,
-        _type_hint: number}, {category: table_calculation, expression: "(${28_day_ma_current_period_dau}/${28_day_ma_previous_period_dau})\
-          \ - 1", label: percentage change, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: percentage_change, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${kpi_dau.current_period_dau}/${kpi_dau.unique_days}"
+      label: 'Average DAU '
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: average_dau
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: "${kpi_dau.daily_active_users}/${kpi_dau.unique_days}"
+      label: Average DAU YTD
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: average_dau_ytd
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      label: YoY change
+      value_format:
+      value_format_name: percent_0
+      calculation_type: percent_difference_from_previous
+      table_calculation: yoy_change
+      args:
+      - average_dau_ytd
+      _kind_hint: measure
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: mean(offset_list(${kpi_dau.current_period_dau}, 0, 28))
+      label: 28-day MA Current period DAU
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: 28_day_ma_current_period_dau
+      _type_hint: number
+      is_disabled: false
+    - category: table_calculation
+      expression: mean(offset_list(${kpi_dau.previous_period_dau}, 0, 28))
+      label: 28-day MA Previous period DAU
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: 28_day_ma_previous_period_dau
+      _type_hint: number
+    - category: table_calculation
+      expression: "(${28_day_ma_current_period_dau}/${28_day_ma_previous_period_dau})\
+        \ - 1"
+      label: percentage change
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: percentage_change
+      _type_hint: number
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -105,7 +143,7 @@
     defaults_version: 1
     hidden_fields: [kpi_dau.current_period_dau, kpi_dau.previous_period_dau, 28_day_ma_previous_period_dau]
     hidden_pivots: {}
-    series_types: {}
+    y_axes: []
     listen:
       Platform: kpi_dau.Platform
       Country_Filter: kpi_dau.country_filter
@@ -126,27 +164,71 @@
     sorts: [kpi_dau.day_month desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${kpi_dau.current_period_dau}/${kpi_dau.unique_days}",
-        label: 'Average DAU ', value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: average_dau, _type_hint: number, is_disabled: true},
-      {category: table_calculation, expression: "${kpi_dau.daily_active_users}/${kpi_dau.unique_days}",
-        label: Average DAU YTD, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: average_dau_ytd, _type_hint: number,
-        is_disabled: true}, {category: table_calculation, label: YoY change, value_format: !!null '',
-        value_format_name: percent_0, calculation_type: percent_difference_from_previous,
-        table_calculation: yoy_change, args: [average_dau_ytd], _kind_hint: measure,
-        _type_hint: number, is_disabled: true}, {category: table_calculation, expression: 'mean(offset_list(${kpi_dau.current_period_dau},
-          0, 28))', label: 28-day MA Current period DAU, value_format: !!null '',
-        value_format_name: decimal_0, _kind_hint: measure, table_calculation: 28_day_ma_current_period_dau,
-        _type_hint: number, is_disabled: false}, {category: table_calculation, expression: 'mean(offset_list(${kpi_dau.previous_period_dau},
-          0, 28))', label: 28-day MA Previous period DAU, value_format: !!null '',
-        value_format_name: decimal_0, _kind_hint: measure, table_calculation: 28_day_ma_previous_period_dau,
-        _type_hint: number}, {category: table_calculation, expression: "(${28_day_ma_current_period_dau}/${28_day_ma_previous_period_dau})\
-          \ - 1", label: percentage change, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: percentage_change, _type_hint: number},
-      {category: table_calculation, expression: "(${kpi_dau.current_period_dau}/${kpi_dau.previous_period_dau})-\
-          \ 1", label: current day DAU, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: current_day_dau, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${kpi_dau.current_period_dau}/${kpi_dau.unique_days}"
+      label: 'Average DAU '
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: average_dau
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: "${kpi_dau.daily_active_users}/${kpi_dau.unique_days}"
+      label: Average DAU YTD
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: average_dau_ytd
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      label: YoY change
+      value_format:
+      value_format_name: percent_0
+      calculation_type: percent_difference_from_previous
+      table_calculation: yoy_change
+      args:
+      - average_dau_ytd
+      _kind_hint: measure
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: mean(offset_list(${kpi_dau.current_period_dau}, 0, 28))
+      label: 28-day MA Current period DAU
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: 28_day_ma_current_period_dau
+      _type_hint: number
+      is_disabled: false
+    - category: table_calculation
+      expression: mean(offset_list(${kpi_dau.previous_period_dau}, 0, 28))
+      label: 28-day MA Previous period DAU
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: 28_day_ma_previous_period_dau
+      _type_hint: number
+    - category: table_calculation
+      expression: "(${28_day_ma_current_period_dau}/${28_day_ma_previous_period_dau})\
+        \ - 1"
+      label: percentage change
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: percentage_change
+      _type_hint: number
+    - category: table_calculation
+      expression: "(${kpi_dau.current_period_dau}/${kpi_dau.previous_period_dau})-\
+        \ 1"
+      label: current day DAU
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: current_day_dau
+      _type_hint: number
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -191,7 +273,7 @@
     hidden_fields: [kpi_dau.previous_period_dau, 28_day_ma_previous_period_dau, 28_day_ma_current_period_dau,
       percentage_change]
     hidden_pivots: {}
-    series_types: {}
+    y_axes: []
     listen:
       Platform: kpi_dau.Platform
       Country_Filter: kpi_dau.country_filter
@@ -213,15 +295,34 @@
     sorts: [kpi_dau.submission_year desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${kpi_dau.current_period_dau}/${kpi_dau.unique_days}",
-        label: 'Average DAU ', value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: average_dau, _type_hint: number, is_disabled: true},
-      {category: table_calculation, expression: "${kpi_dau.daily_active_users}/${kpi_dau.unique_days}",
-        label: Average DAU YTD, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: average_dau_ytd, _type_hint: number},
-      {category: table_calculation, label: YoY change, value_format: !!null '', value_format_name: percent_0,
-        calculation_type: percent_difference_from_previous, table_calculation: yoy_change,
-        args: [average_dau_ytd], _kind_hint: measure, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${kpi_dau.current_period_dau}/${kpi_dau.unique_days}"
+      label: 'Average DAU '
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: average_dau
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: "${kpi_dau.daily_active_users}/${kpi_dau.unique_days}"
+      label: Average DAU YTD
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: average_dau_ytd
+      _type_hint: number
+    - category: table_calculation
+      label: YoY change
+      value_format:
+      value_format_name: percent_0
+      calculation_type: percent_difference_from_previous
+      table_calculation: yoy_change
+      args:
+      - average_dau_ytd
+      _kind_hint: measure
+      _type_hint: number
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -265,7 +366,7 @@
     defaults_version: 1
     hidden_fields: [kpi_dau.unique_days, kpi_dau.daily_active_users]
     hidden_pivots: {}
-    series_types: {}
+    y_axes: []
     listen:
       Platform: kpi_dau.Platform
       Country_Filter: kpi_dau.country_filter
@@ -287,21 +388,49 @@
     sorts: [kpi_dau.day_month desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${kpi_dau.current_period_dau}/${kpi_dau.unique_days}",
-        label: Avg QTR DAU current period, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: avg_qtr_dau_current_period, _type_hint: number,
-        is_disabled: true}, {category: table_calculation, expression: "${kpi_dau.previous_period_dau}/${kpi_dau.unique_days}",
-        label: Avg QTR DAU previous period, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: avg_qtr_dau_previous_period, _type_hint: number,
-        is_disabled: true}, {category: table_calculation, expression: 'mean(offset_list(${kpi_dau.dau_goal},
-          0, 28))', label: DAU goal, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: dau_goal, _type_hint: number}, {category: table_calculation,
-        expression: 'mean(offset_list(${kpi_dau.current_period_dau}, 0, 28))', label: 28-Day
-          MA current period, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: 28_day_ma_current_period, _type_hint: number},
-      {category: table_calculation, expression: 'mean(offset_list(${kpi_dau.previous_period_dau},
-          0, 28))', label: 28-Day MA previous period, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: 28_day_ma_previous_period, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${kpi_dau.current_period_dau}/${kpi_dau.unique_days}"
+      label: Avg QTR DAU current period
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: avg_qtr_dau_current_period
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: "${kpi_dau.previous_period_dau}/${kpi_dau.unique_days}"
+      label: Avg QTR DAU previous period
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: avg_qtr_dau_previous_period
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: mean(offset_list(${kpi_dau.dau_goal}, 0, 28))
+      label: DAU goal
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: dau_goal
+      _type_hint: number
+    - category: table_calculation
+      expression: mean(offset_list(${kpi_dau.current_period_dau}, 0, 28))
+      label: 28-Day MA current period
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: 28_day_ma_current_period
+      _type_hint: number
+    - category: table_calculation
+      expression: mean(offset_list(${kpi_dau.previous_period_dau}, 0, 28))
+      label: 28-Day MA previous period
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: 28_day_ma_previous_period
+      _type_hint: number
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -328,7 +457,6 @@
     interpolation: linear
     x_axis_zoom: true
     y_axis_zoom: true
-    series_types: {}
     hidden_fields: [kpi_dau.current_period_dau, kpi_dau.previous_period_dau, kpi_dau.dau_goal]
     ordering: none
     show_null_labels: false
@@ -337,6 +465,7 @@
     totals_color: "#808080"
     defaults_version: 1
     hidden_pivots: {}
+    y_axes: []
     listen:
       Platform: kpi_dau.Platform
       Country_Filter: kpi_dau.country_filter
@@ -358,9 +487,15 @@
     sorts: [kpi_dau.month, kpi_dau.os_filter]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${kpi_dau.current_period_dau}/${kpi_dau.unique_days}",
-        label: 'Average DAU ', value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: average_dau, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${kpi_dau.current_period_dau}/${kpi_dau.unique_days}"
+      label: 'Average DAU '
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: average_dau
+      _type_hint: number
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -393,6 +528,7 @@
     defaults_version: 1
     hidden_fields: [kpi_dau.current_period_dau, kpi_dau.unique_days]
     hidden_pivots: {}
+    y_axes: []
     listen:
       Platform: kpi_dau.Platform
       Country_Filter: kpi_dau.country_filter
@@ -413,9 +549,15 @@
     sorts: [kpi_dau.segment, kpi_dau.month]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${kpi_dau.current_period_dau}/${kpi_dau.unique_days}",
-        label: 'Average DAU ', value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: average_dau, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${kpi_dau.current_period_dau}/${kpi_dau.unique_days}"
+      label: 'Average DAU '
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: average_dau
+      _type_hint: number
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -448,6 +590,7 @@
     defaults_version: 1
     hidden_fields: [kpi_dau.current_period_dau, kpi_dau.unique_days]
     hidden_pivots: {}
+    y_axes: []
     listen:
       Platform: kpi_dau.Platform
       Country_Filter: kpi_dau.country_filter
@@ -501,7 +644,7 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
-    series_types: {}
+    y_axes: []
     listen:
       Platform: kpi_dau.Platform
       Country_Filter: kpi_dau.country_filter
@@ -521,18 +664,42 @@
       kpi_dau.compare_to: Month
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "(${kpi_dau.current_period_dau}/${kpi_dau.previous_period_dau})\
-          \ - 1", label: MoM change, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: measure, table_calculation: mom_change, _type_hint: number, is_disabled: true},
-      {category: table_calculation, expression: "${kpi_dau.current_period_dau}/${kpi_dau.unique_days_prefiltered}",
-        label: Average for current  period, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: average_for_current_period, _type_hint: number},
-      {category: table_calculation, expression: "${kpi_dau.previous_period_dau}/${kpi_dau.unique_days_prefiltered}",
-        label: Average for previous period, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: average_for_previous_period, _type_hint: number},
-      {category: table_calculation, expression: "(${average_for_current_period}/${average_for_previous_period})\
-          \ - 1", label: percentage change, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: percentage_change, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "(${kpi_dau.current_period_dau}/${kpi_dau.previous_period_dau})\
+        \ - 1"
+      label: MoM change
+      value_format:
+      value_format_name:
+      _kind_hint: measure
+      table_calculation: mom_change
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: "${kpi_dau.current_period_dau}/${kpi_dau.unique_days_prefiltered}"
+      label: Average for current  period
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: average_for_current_period
+      _type_hint: number
+    - category: table_calculation
+      expression: "${kpi_dau.previous_period_dau}/${kpi_dau.unique_days_prefiltered}"
+      label: Average for previous period
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: average_for_previous_period
+      _type_hint: number
+    - category: table_calculation
+      expression: "(${average_for_current_period}/${average_for_previous_period})\
+        \ - 1"
+      label: percentage change
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: percentage_change
+      _type_hint: number
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -575,7 +742,7 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    series_types: {}
+    y_axes: []
     listen:
       Platform: kpi_dau.Platform
       Country_Filter: kpi_dau.country_filter
@@ -597,12 +764,23 @@
     sorts: [kpi_dau.month]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${kpi_dau.current_period_dau}/${kpi_dau.unique_days_prefiltered}",
-        label: Average DAU current period, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: average_dau_current_period, _type_hint: number},
-      {category: table_calculation, expression: "${kpi_dau.previous_period_dau}/${kpi_dau.unique_days_prev_prefiltered}",
-        label: Average DAU previous period, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: average_dau_previous_period, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${kpi_dau.current_period_dau}/${kpi_dau.unique_days_prefiltered}"
+      label: Average DAU current period
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: average_dau_current_period
+      _type_hint: number
+    - category: table_calculation
+      expression: "${kpi_dau.previous_period_dau}/${kpi_dau.unique_days_prev_prefiltered}"
+      label: Average DAU previous period
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: average_dau_previous_period
+      _type_hint: number
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -637,9 +815,9 @@
     conditional_formatting_include_nulls: false
     defaults_version: 1
     hidden_pivots: {}
-    series_types: {}
     hidden_fields: [kpi_dau.current_period_dau, kpi_dau.previous_period_dau, kpi_dau.dau_goal,
       kpi_dau.unique_days_prefiltered, kpi_dau.unique_days_prev_prefiltered]
+    y_axes: []
     listen:
       Platform: kpi_dau.Platform
       Country_Filter: kpi_dau.country_filter
@@ -661,12 +839,23 @@
     sorts: [kpi_dau.current_period_dau desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${kpi_dau.current_period_dau}/${kpi_dau.unique_days_prefiltered}",
-        label: Average DAU current period, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: average_dau_current_period, _type_hint: number},
-      {category: table_calculation, expression: "${kpi_dau.previous_period_dau}/${kpi_dau.unique_days_prev_prefiltered}",
-        label: Average DAU previous period, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: average_dau_previous_period, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${kpi_dau.current_period_dau}/${kpi_dau.unique_days_prefiltered}"
+      label: Average DAU current period
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: average_dau_current_period
+      _type_hint: number
+    - category: table_calculation
+      expression: "${kpi_dau.previous_period_dau}/${kpi_dau.unique_days_prev_prefiltered}"
+      label: Average DAU previous period
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: average_dau_previous_period
+      _type_hint: number
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -698,7 +887,6 @@
         tickDensityCustom: 5, type: linear}]
     x_axis_zoom: true
     y_axis_zoom: true
-    series_types: {}
     show_row_numbers: true
     truncate_column_names: false
     hide_totals: false
@@ -763,7 +951,7 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    series_types: {}
+    y_axes: []
     listen:
       Platform: kpi_dau.Platform
       Country_Filter: kpi_dau.country_filter
@@ -815,7 +1003,7 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    series_types: {}
+    y_axes: []
     listen:
       Platform: kpi_dau.Platform
       Country_Filter: kpi_dau.country_filter
@@ -868,18 +1056,42 @@
       kpi_dau.compare_to: Week
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "(${kpi_dau.current_period_dau}/${kpi_dau.previous_period_dau})\
-          \ - 1", label: MoM change, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: measure, table_calculation: mom_change, _type_hint: number, is_disabled: true},
-      {category: table_calculation, expression: "${kpi_dau.current_period_dau}/${kpi_dau.unique_days_prefiltered}",
-        label: Average for current  period, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: average_for_current_period, _type_hint: number},
-      {category: table_calculation, expression: "${kpi_dau.previous_period_dau}/${kpi_dau.unique_days_prefiltered}",
-        label: Average for previous period, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: average_for_previous_period, _type_hint: number},
-      {category: table_calculation, expression: "(${average_for_current_period}/${average_for_previous_period})\
-          \ - 1", label: percentage change, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: percentage_change, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "(${kpi_dau.current_period_dau}/${kpi_dau.previous_period_dau})\
+        \ - 1"
+      label: MoM change
+      value_format:
+      value_format_name:
+      _kind_hint: measure
+      table_calculation: mom_change
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: "${kpi_dau.current_period_dau}/${kpi_dau.unique_days_prefiltered}"
+      label: Average for current  period
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: average_for_current_period
+      _type_hint: number
+    - category: table_calculation
+      expression: "${kpi_dau.previous_period_dau}/${kpi_dau.unique_days_prefiltered}"
+      label: Average for previous period
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: average_for_previous_period
+      _type_hint: number
+    - category: table_calculation
+      expression: "(${average_for_current_period}/${average_for_previous_period})\
+        \ - 1"
+      label: percentage change
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: percentage_change
+      _type_hint: number
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -922,7 +1134,7 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    series_types: {}
+    y_axes: []
     listen:
       Platform: kpi_dau.Platform
       Country_Filter: kpi_dau.country_filter
@@ -958,7 +1170,8 @@
     type: single_value
     fields: [kpi_dau.submission_date]
     fill_fields: [kpi_dau.submission_date]
-    filters: {}
+    filters:
+      kpi_dau.current_date: before 2023/12/31
     sorts: [kpi_dau.submission_date desc]
     limit: 500
     column_limit: 50
@@ -1005,12 +1218,11 @@
     defaults_version: 1
     hidden_fields: [28_day_ma_previous_period_dau, 28_day_ma_current_period_dau, percentage_change]
     hidden_pivots: {}
-    series_types: {}
+    y_axes: []
     listen:
       OS_Filter: kpi_dau.os_filter
       Country_Filter: kpi_dau.country_filter
       Platform: kpi_dau.Platform
-      Current_Date: kpi_dau.current_date
     row: 0
     col: 17
     width: 6

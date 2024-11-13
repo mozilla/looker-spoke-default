@@ -9,10 +9,6 @@ view: +subscriptions {
     hidden: yes
   }
 
-  dimension: plan_id {
-    hidden: yes
-  }
-
   dimension: product_id {
     hidden: yes
   }

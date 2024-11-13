@@ -1,5 +1,5 @@
 view: desktop_session {
-  sql_table_name: `moz-fx-data-marketing-prod.ga_derived.www_site_metrics_summary_v1`
+  sql_table_name: `moz-fx-data-shared-prod.mozilla_org.www_site_metrics_summary`
     ;;
 
   dimension: browser {

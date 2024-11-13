@@ -1,4 +1,5 @@
-include: "../views/*.view.lkml"
+include: "../views/desktop_session.view.lkml"
+include: "../views/country_buckets.view.lkml"
 
 explore: desktop_session {
   description: "Individual user visits to mozilla.org. By default, if a user is inactive for 30 minutes or more, any future activity is attributed to a new visit. Users that leave mozilla.org and return within 30 minutes are counted as part of the original visit."

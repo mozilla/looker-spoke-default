@@ -1,4 +1,5 @@
-include: "../views/*.view.lkml"
+include: "../views/mobile_ios_country.view.lkml"
+include: "../views/country_buckets.view.lkml"
 
 explore: mobile_ios_country {
   label: "Mobile iOS Funnel"

@@ -1,4 +1,4 @@
-include: "//looker-hub/activity_stream/explores/*"
+include: "//looker-hub/activity_stream/explores/session_counts.explore.lkml"
 include: "../views/sessions.view.lkml"
 
 

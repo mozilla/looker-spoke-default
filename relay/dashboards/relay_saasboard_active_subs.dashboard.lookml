@@ -38,9 +38,9 @@
     interpolation: linear
     x_axis_label: Date
     label_value_format: ''
-    series_types: {}
     x_axis_datetime_label: "%d-%b-'%y"
     defaults_version: 1
+    y_axes: []
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
@@ -48,7 +48,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 7
+    row: 8
     col: 8
     width: 16
     height: 11
@@ -75,7 +75,6 @@
     conditional_formatting: [{type: greater than, value: 0, background_color: "#bcb8ff",
         font_color: !!null '', color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
         bold: false, italic: false, strikethrough: false, fields: !!null ''}]
-    series_types: {}
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -103,6 +102,7 @@
     defaults_version: 1
     hidden_fields: [active_subscriptions.is_max_active_date]
     hidden_points_if_no: [active_subscriptions.is_max_active_date]
+    y_axes: []
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
@@ -110,7 +110,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 7
+    row: 8
     col: 0
     width: 8
     height: 7
@@ -123,9 +123,15 @@
     fill_fields: [metadata.last_modified_date]
     sorts: [metadata.last_modified_date desc]
     limit: 1
-    dynamic_fields: [{category: table_calculation, expression: 'add_days(-1, ${metadata.last_modified_date})',
-        label: New Calculation, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: dimension, table_calculation: new_calculation, _type_hint: date}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: add_days(-1, ${metadata.last_modified_date})
+      label: New Calculation
+      value_format:
+      value_format_name:
+      _kind_hint: dimension
+      table_calculation: new_calculation
+      _type_hint: date
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -139,7 +145,6 @@
     conditional_formatting: [{type: not equal to, value: 0, background_color: "#cdbfff",
         font_color: !!null '', color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
         bold: false, italic: false, strikethrough: false, fields: !!null ''}]
-    series_types: {}
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -168,10 +173,11 @@
     note_state: collapsed
     note_display: below
     hidden_fields: [metadata.last_modified_date]
+    y_axes: []
     listen: {}
-    row: 0
-    col: 19
-    width: 5
+    row: 1
+    col: 17
+    width: 7
     height: 4
   - name: ''
     type: text
@@ -182,7 +188,7 @@
       <div style="border-top: solid 2px #e0e0e0;">
 
       <h3><b>Current Active Subscriptions</b></h3>
-    row: 4
+    row: 5
     col: 0
     width: 24
     height: 3
@@ -193,7 +199,7 @@
       <div style="border-top: solid 2px #e0e0e0;">
 
       <h3><b>Active Subscriptions by Country</b></h3>
-    row: 39
+    row: 40
     col: 0
     width: 13
     height: 4
@@ -242,7 +248,6 @@
       options:
         steps: 5
     x_axis_label: Month
-    series_types: {}
     series_colors: {}
     defaults_version: 1
     note_state: collapsed
@@ -250,6 +255,7 @@
     note_text: 'Subscription counts on month end dates except for most current month
       which may not have reached month end. '
     hidden_fields: [active_subscriptions.is_max_active_date]
+    y_axes: []
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
@@ -257,7 +263,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 51
+    row: 52
     col: 13
     width: 11
     height: 11
@@ -270,9 +276,16 @@
     sorts: [active_subscriptions.active_date desc]
     limit: 3
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "(${active_subscriptions.count_sum}-offset(${active_subscriptions.count_sum},\
-          \ 1))", label: delta_1_day, value_format: !!null '', value_format_name: '',
-        _kind_hint: measure, table_calculation: delta_1_day, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "(${active_subscriptions.count_sum}-offset(${active_subscriptions.count_sum},\
+        \ 1))"
+      label: delta_1_day
+      value_format:
+      value_format_name: ''
+      _kind_hint: measure
+      table_calculation: delta_1_day
+      _type_hint: number
     custom_color_enabled: true
     show_single_value_title: false
     show_comparison: true
@@ -291,7 +304,6 @@
           than, value: 0, background_color: '', font_color: "#008000", color_application: {
           collection_id: mozilla, palette_id: mozilla-sequential-0}, bold: false,
         italic: false, strikethrough: false, fields: !!null ''}]
-    series_types: {}
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -329,6 +341,7 @@
     rows_font_size: 12
     hidden_fields: [active_subscriptions.count_sum, active_subscriptions.is_max_active_date]
     hidden_points_if_no: [active_subscriptions.is_max_active_date]
+    y_axes: []
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
@@ -336,7 +349,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 14
+    row: 15
     col: 0
     width: 4
     height: 4
@@ -349,9 +362,16 @@
     sorts: [active_subscriptions.active_date desc]
     limit: 10
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "(${active_subscriptions.count_sum}-offset(${active_subscriptions.count_sum},\
-          \ 7))", label: delta_7_days, value_format: !!null '', value_format_name: '',
-        _kind_hint: measure, table_calculation: delta_7_days, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "(${active_subscriptions.count_sum}-offset(${active_subscriptions.count_sum},\
+        \ 7))"
+      label: delta_7_days
+      value_format:
+      value_format_name: ''
+      _kind_hint: measure
+      table_calculation: delta_7_days
+      _type_hint: number
     custom_color_enabled: true
     show_single_value_title: false
     show_comparison: true
@@ -370,7 +390,6 @@
           than, value: 0, background_color: '', font_color: "#008000", color_application: {
           collection_id: mozilla, palette_id: mozilla-sequential-0}, bold: false,
         italic: false, strikethrough: false, fields: !!null ''}]
-    series_types: {}
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -408,6 +427,7 @@
     rows_font_size: 12
     hidden_fields: [active_subscriptions.count_sum, active_subscriptions.is_max_active_date]
     hidden_points_if_no: [active_subscriptions.is_max_active_date]
+    y_axes: []
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
@@ -415,7 +435,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 14
+    row: 15
     col: 4
     width: 4
     height: 4
@@ -484,7 +504,6 @@
     stacking: ''
     limit_displayed_rows: false
     legend_position: center
-    series_types: {}
     point_style: none
     label_density: 25
     x_axis_scale: auto
@@ -517,6 +536,7 @@
     comparison_reverse_colors: false
     show_comparison_label: true
     hidden_fields: [active_subscriptions.is_max_active_date]
+    y_axes: []
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
@@ -524,7 +544,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 21
+    row: 22
     col: 0
     width: 13
     height: 7
@@ -567,7 +587,6 @@
     stacking: ''
     limit_displayed_rows: false
     legend_position: center
-    series_types: {}
     point_style: none
     label_density: 25
     x_axis_scale: auto
@@ -600,6 +619,7 @@
     comparison_reverse_colors: false
     show_comparison_label: true
     hidden_fields: [active_subscriptions.is_max_active_date]
+    y_axes: []
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
@@ -607,7 +627,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 43
+    row: 44
     col: 13
     width: 11
     height: 8
@@ -618,7 +638,7 @@
       <div style="border-top: solid 2px #e0e0e0;">
 
       <h3><b>Active Subscriptions by Plan</b></h3>
-    row: 18
+    row: 19
     col: 0
     width: 13
     height: 3
@@ -629,7 +649,7 @@
       <div style="border-top: solid 2px #e0e0e0;">
 
       <h3><b>Active Subscriptions by Provider</b></h3>
-    row: 39
+    row: 40
     col: 13
     width: 11
     height: 4
@@ -640,7 +660,7 @@
       <div style="border-top: solid 2px #e0e0e0;">
 
       <h3><b>Active Subscriptions by Plan Type</b></h3>
-    row: 18
+    row: 19
     col: 13
     width: 11
     height: 3
@@ -689,7 +709,6 @@
       options:
         steps: 5
     x_axis_label: Month
-    series_types: {}
     series_colors:
       1-month-usd-4.99 - active_subscriptions.count_sum: "#7363A9"
       6-month-chf-47.94 - active_subscriptions.count_sum: "#82a6a8"
@@ -701,6 +720,7 @@
     note_text: 'Subscription counts on month end dates except for most current month
       which may not have reached month end. '
     hidden_fields: [active_subscriptions.is_max_active_date]
+    y_axes: []
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
@@ -708,7 +728,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 28
+    row: 29
     col: 13
     width: 11
     height: 11
@@ -777,7 +797,6 @@
     stacking: ''
     limit_displayed_rows: false
     legend_position: center
-    series_types: {}
     point_style: none
     label_density: 25
     x_axis_scale: auto
@@ -810,6 +829,7 @@
     comparison_reverse_colors: false
     show_comparison_label: true
     hidden_fields: [active_subscriptions.is_max_active_date]
+    y_axes: []
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
@@ -817,7 +837,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 21
+    row: 22
     col: 13
     width: 11
     height: 7
@@ -866,7 +886,6 @@
       options:
         steps: 5
     x_axis_label: Month
-    series_types: {}
     series_colors:
       1-month-usd-4.99 - active_subscriptions.count_sum: "#7363A9"
       1-month-apple - active_subscriptions.count_sum: "#4276BE"
@@ -900,6 +919,7 @@
     note_text: 'Subscription counts on month end dates except for most current month
       which may not have reached month end. '
     hidden_fields: [active_subscriptions.is_end_of_month]
+    y_axes: []
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
@@ -907,7 +927,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 28
+    row: 29
     col: 0
     width: 13
     height: 11
@@ -920,7 +940,7 @@
     filters:
       active_subscriptions.is_max_active_date: 'Yes'
     sorts: [active_subscriptions.count_sum desc]
-    limit: 1000
+    limit: 50
     column_limit: 50
     value_labels: labels
     label_type: labPer
@@ -980,7 +1000,6 @@
     stacking: ''
     limit_displayed_rows: false
     legend_position: center
-    series_types: {}
     point_style: none
     label_density: 25
     x_axis_scale: auto
@@ -1016,6 +1035,7 @@
     note_state: collapsed
     note_display: hover
     note_text: Country is based on customer billing address.
+    y_axes: []
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
@@ -1023,7 +1043,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 43
+    row: 44
     col: 0
     width: 13
     height: 8
@@ -1073,7 +1093,6 @@
       options:
         steps: 5
     x_axis_label: Month
-    series_types: {}
     series_colors:
       USA - active_subscriptions.count_sum: "#347be3"
       United Kingdom - active_subscriptions.count_sum: "#a9c574"
@@ -1109,6 +1128,7 @@
     note_display: hover
     note_text: Country is based on customer billing address.
     hidden_fields: [active_subscriptions.is_max_active_date]
+    y_axes: []
     listen:
       Provider: active_subscriptions.provider
       Pricing Plan: active_subscriptions.pricing_plan
@@ -1116,7 +1136,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 51
+    row: 52
     col: 0
     width: 13
     height: 11
@@ -1129,10 +1149,27 @@
       submit any questions to "},{"text":"@yeonjoo","bold":true},{"text":" in "},{"text":"#fx-private-relay
       ","bold":true},{"text":"channel on Slack. \n\n"}]}]'
     rich_content_json: '{"format":"slate"}'
+    row: 1
+    col: 0
+    width: 17
+    height: 4
+  - type: button
+    name: button_13653
+    rich_content_json: '{"text":"Relay SaaSBoard Documentation","description":"User
+      guide/ definition of metrics/ event logs that may affected Relay data. ","newTab":true,"alignment":"center","size":"medium","style":"FILLED","color":"#1A73E8","href":"https://docs.google.com/document/d/1attwr_1afDim9v-h4eDbA5XL09yKZez-RddSO-A0P8U/edit?usp=sharing"}'
     row: 0
     col: 0
-    width: 19
-    height: 4
+    width: 12
+    height: 1
+  - type: button
+    name: button_13654
+    rich_content_json: '{"text":"SaaSboard Explained ","description":"This deck explains
+      how the subscription data is recorded in databases and how metrics are counted
+      to load in the SaaSBoard.","newTab":true,"alignment":"center","size":"medium","style":"FILLED","color":"#1A73E8","href":"https://docs.google.com/presentation/d/1Y3lDe1IktTbF-Xaw8dmlcNgWMhRosyH3p9G6ITQBPhc/edit?usp=sharing"}'
+    row: 0
+    col: 12
+    width: 11
+    height: 1
   filters:
   - name: Provider
     title: Provider

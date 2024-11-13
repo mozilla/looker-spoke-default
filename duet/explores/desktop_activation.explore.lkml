@@ -1,4 +1,5 @@
-include: "../views/*.view.lkml"
+include: "../views/desktop_activation.view.lkml"
+include: "../views/country_buckets.view.lkml"
 
 explore: desktop_activation {
   description: "Activated new profiles. A new profile is active at least 5 days out of 7 in the week after it’s first run. Note, this number is only available one week after a cohort date."

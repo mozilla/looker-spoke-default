@@ -494,14 +494,21 @@ view: buildhub {
   derived_table: {
     sql:
       SELECT
-          build.target.version,
+          IF(
+            -- Only nightly builds report the full version (with suffixes, e.g. 119.0.1a2)
+            -- Beta & friends just report the major.minor.patch
+            -- (Note: In telemetry)
+            build.target.channel = 'nightly',
+            build.target.version,
+            REGEXP_EXTRACT(build.target.version, r"(^\d+\.\d+(?:\.\d+)?)")
+          ) AS version,
           build.target.channel,
           MIN(build.download.date) AS publish_date,
       FROM
           mozdata.telemetry.buildhub2
       GROUP BY
-          build.target.version,
-          build.target.channel
+          version,
+          channel
     ;;
   }
 

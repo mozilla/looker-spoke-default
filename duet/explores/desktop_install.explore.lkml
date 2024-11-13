@@ -1,4 +1,5 @@
-include: "../views/*.view.lkml"
+include: "../views/desktop_install.view.lkml"
+include: "../views/country_buckets.view.lkml"
 
 explore: desktop_install  {
   description: "New Installs and re-installation of Firefox."

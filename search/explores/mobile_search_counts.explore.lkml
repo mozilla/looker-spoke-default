@@ -1,5 +1,5 @@
-include: "//looker-hub/search/explores/*"
-include: "/shared/views/*"
+include: "//looker-hub/search/explores/mobile_search_counts.explore.lkml"
+include: "/shared/views/countries.view.lkml"
 include: "//looker-hub/search/datagroups/mobile_search_clients_daily_v1_last_updated.datagroup.lkml"
 
 explore: +mobile_search_counts {

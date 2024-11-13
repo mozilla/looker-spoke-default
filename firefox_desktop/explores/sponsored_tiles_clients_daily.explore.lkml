@@ -1,5 +1,4 @@
-include: "//looker-hub/firefox_desktop/views/*"
-include: "/firefox_desktop/views/*"
+include: "/firefox_desktop/views/sponsored_tiles_clients_daily.view.lkml"
 
 explore: sponsored_tiles_clients_daily {
   view_name: sponsored_tiles_clients_daily

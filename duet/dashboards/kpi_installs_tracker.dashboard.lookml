@@ -43,12 +43,18 @@
     filters:
       kpi_installs.compare_to: Year
       kpi_installs.network: ''
-    sorts: [kpi_installs.day_month]
+    sorts: [kpi_installs.day_month desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${kpi_installs.installs_goal}",
-        label: Installs Goal, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: installs_goal, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${kpi_installs.installs_goal}"
+      label: Installs Goal
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: installs_goal
+      _type_hint: number
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -59,7 +65,7 @@
     show_x_axis_label: true
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
-    x_axis_reversed: false
+    x_axis_reversed: true
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
@@ -73,6 +79,9 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
+    y_axes: []
+    x_axis_zoom: true
+    y_axis_zoom: true
     show_row_numbers: true
     truncate_column_names: false
     hide_totals: false
@@ -83,14 +92,13 @@
     conditional_formatting_include_nulls: false
     defaults_version: 1
     hidden_fields: [kpi_installs.installs_goal]
-    series_types: {}
     listen:
       Adgroup: kpi_installs.adgroup
       Campaign: kpi_installs.campaign
       OS: kpi_installs.os
       Creative: kpi_installs.creative
-      Current_Date: kpi_installs.current_date
       Country_Filter: kpi_installs.country_filter
+      Current_Date: kpi_installs.current_date
     row: 8
     col: 0
     width: 8
@@ -105,12 +113,18 @@
     filters:
       kpi_installs.compare_to: Year
       kpi_installs.network: ''
-    sorts: [kpi_installs.month]
+    sorts: [kpi_installs.month desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${kpi_installs.installs_goal}",
-        label: Installs Goal, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: installs_goal, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${kpi_installs.installs_goal}"
+      label: Installs Goal
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: installs_goal
+      _type_hint: number
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -121,7 +135,7 @@
     show_x_axis_label: true
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
-    x_axis_reversed: false
+    x_axis_reversed: true
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
@@ -135,6 +149,9 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
+    y_axes: []
+    x_axis_zoom: true
+    y_axis_zoom: true
     ordering: none
     show_null_labels: false
     show_totals_labels: false
@@ -142,14 +159,13 @@
     totals_color: "#808080"
     defaults_version: 1
     hidden_fields: [kpi_installs.installs_goal]
-    series_types: {}
     listen:
       Adgroup: kpi_installs.adgroup
       Campaign: kpi_installs.campaign
       OS: kpi_installs.os
       Creative: kpi_installs.creative
-      Current_Date: kpi_installs.current_date
       Country_Filter: kpi_installs.country_filter
+      Current_Date: kpi_installs.current_date
     row: 8
     col: 8
     width: 8
@@ -167,9 +183,15 @@
     sorts: [kpi_installs.current_period_installs desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${kpi_installs.installs_goal}",
-        label: Installs Goal, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: installs_goal, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${kpi_installs.installs_goal}"
+      label: Installs Goal
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: installs_goal
+      _type_hint: number
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -180,7 +202,7 @@
     show_x_axis_label: true
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
-    x_axis_reversed: false
+    x_axis_reversed: true
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
@@ -194,6 +216,9 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
+    y_axes: []
+    x_axis_zoom: true
+    y_axis_zoom: true
     ordering: none
     show_null_labels: false
     show_totals_labels: false
@@ -201,14 +226,13 @@
     totals_color: "#808080"
     defaults_version: 1
     hidden_fields: [kpi_installs.installs_goal]
-    series_types: {}
     listen:
       Adgroup: kpi_installs.adgroup
       Campaign: kpi_installs.campaign
       OS: kpi_installs.os
       Creative: kpi_installs.creative
-      Current_Date: kpi_installs.current_date
       Country_Filter: kpi_installs.country_filter
+      Current_Date: kpi_installs.current_date
     row: 8
     col: 16
     width: 8
@@ -224,10 +248,16 @@
     sorts: [kpi_installs.day_month desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "(${kpi_installs.current_period_installs}\
-          \ - ${kpi_installs.previous_period_installs})/ ${kpi_installs.previous_period_installs}",
-        label: Percentage Change, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: percentage_change, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "(${kpi_installs.current_period_installs} - ${kpi_installs.previous_period_installs})/\
+        \ ${kpi_installs.previous_period_installs}"
+      label: Percentage Change
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: percentage_change
+      _type_hint: number
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -247,15 +277,15 @@
     table_theme: editable
     limit_displayed_rows: false
     defaults_version: 1
-    series_types: {}
     hidden_fields: [kpi_installs.previous_period_installs]
+    y_axes: []
     listen:
       Adgroup: kpi_installs.adgroup
       Campaign: kpi_installs.campaign
       OS: kpi_installs.os
       Creative: kpi_installs.creative
-      Current_Date: kpi_installs.current_date
       Country_Filter: kpi_installs.country_filter
+      Current_Date: kpi_installs.current_date
     row: 4
     col: 0
     width: 4
@@ -271,10 +301,16 @@
     sorts: [kpi_installs.current_period_installs desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "(${kpi_installs.current_period_installs}\
-          \ - ${kpi_installs.previous_period_installs})/ ${kpi_installs.previous_period_installs}",
-        label: Percentage Change, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: percentage_change, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "(${kpi_installs.current_period_installs} - ${kpi_installs.previous_period_installs})/\
+        \ ${kpi_installs.previous_period_installs}"
+      label: Percentage Change
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: percentage_change
+      _type_hint: number
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -294,15 +330,15 @@
     table_theme: editable
     limit_displayed_rows: false
     defaults_version: 1
-    series_types: {}
     hidden_fields: [kpi_installs.previous_period_installs]
+    y_axes: []
     listen:
       Adgroup: kpi_installs.adgroup
       Campaign: kpi_installs.campaign
       OS: kpi_installs.os
       Creative: kpi_installs.creative
-      Current_Date: kpi_installs.current_date
       Country_Filter: kpi_installs.country_filter
+      Current_Date: kpi_installs.current_date
     row: 4
     col: 4
     width: 5
@@ -318,10 +354,16 @@
     sorts: [kpi_installs.current_period_installs desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "(${kpi_installs.current_period_installs}\
-          \ - ${kpi_installs.previous_period_installs})/ ${kpi_installs.previous_period_installs}",
-        label: Percentage Change, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: percentage_change, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "(${kpi_installs.current_period_installs} - ${kpi_installs.previous_period_installs})/\
+        \ ${kpi_installs.previous_period_installs}"
+      label: Percentage Change
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: percentage_change
+      _type_hint: number
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -341,15 +383,15 @@
     table_theme: editable
     limit_displayed_rows: false
     defaults_version: 1
-    series_types: {}
     hidden_fields: [kpi_installs.previous_period_installs]
+    y_axes: []
     listen:
       Adgroup: kpi_installs.adgroup
       Campaign: kpi_installs.campaign
       OS: kpi_installs.os
       Creative: kpi_installs.creative
-      Current_Date: kpi_installs.current_date
       Country_Filter: kpi_installs.country_filter
+      Current_Date: kpi_installs.current_date
     row: 4
     col: 9
     width: 5
@@ -365,10 +407,16 @@
     sorts: [kpi_installs.current_period_installs desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "(${kpi_installs.current_period_installs}\
-          \ - ${kpi_installs.previous_period_installs})/ ${kpi_installs.previous_period_installs}",
-        label: Percentage Change, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: percentage_change, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "(${kpi_installs.current_period_installs} - ${kpi_installs.previous_period_installs})/\
+        \ ${kpi_installs.previous_period_installs}"
+      label: Percentage Change
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: percentage_change
+      _type_hint: number
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -388,15 +436,15 @@
     table_theme: editable
     limit_displayed_rows: false
     defaults_version: 1
-    series_types: {}
     hidden_fields: [kpi_installs.previous_period_installs]
+    y_axes: []
     listen:
       Adgroup: kpi_installs.adgroup
       Campaign: kpi_installs.campaign
       OS: kpi_installs.os
       Creative: kpi_installs.creative
-      Current_Date: kpi_installs.current_date
       Country_Filter: kpi_installs.country_filter
+      Current_Date: kpi_installs.current_date
     row: 4
     col: 14
     width: 5
@@ -412,10 +460,16 @@
     sorts: [kpi_installs.current_period_installs desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "(${kpi_installs.current_period_installs}\
-          \ - ${kpi_installs.previous_period_installs})/ ${kpi_installs.previous_period_installs}",
-        label: Percentage Change, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: percentage_change, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "(${kpi_installs.current_period_installs} - ${kpi_installs.previous_period_installs})/\
+        \ ${kpi_installs.previous_period_installs}"
+      label: Percentage Change
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: percentage_change
+      _type_hint: number
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -435,15 +489,15 @@
     table_theme: editable
     limit_displayed_rows: false
     defaults_version: 1
-    series_types: {}
     hidden_fields: [kpi_installs.previous_period_installs]
+    y_axes: []
     listen:
       Adgroup: kpi_installs.adgroup
       Campaign: kpi_installs.campaign
       OS: kpi_installs.os
       Creative: kpi_installs.creative
-      Current_Date: kpi_installs.current_date
       Country_Filter: kpi_installs.country_filter
+      Current_Date: kpi_installs.current_date
     row: 4
     col: 19
     width: 5
@@ -456,15 +510,22 @@
     fields: [kpi_installs.date_date]
     fill_fields: [kpi_installs.date_date]
     filters:
+      kpi_installs.current_date: before 2023/12/31
       kpi_installs.compare_to: Quarter
     sorts: [kpi_installs.date_date desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "(${kpi_installs.current_period_installs}\
-          \ - ${kpi_installs.previous_period_installs})/ ${kpi_installs.previous_period_installs}",
-        label: Percentage Change, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: percentage_change, _type_hint: number,
-        is_disabled: true}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "(${kpi_installs.current_period_installs} - ${kpi_installs.previous_period_installs})/\
+        \ ${kpi_installs.previous_period_installs}"
+      label: Percentage Change
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: percentage_change
+      _type_hint: number
+      is_disabled: true
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -484,15 +545,14 @@
     table_theme: editable
     limit_displayed_rows: false
     defaults_version: 1
-    series_types: {}
     hidden_fields: []
     hidden_pivots: {}
+    y_axes: []
     listen:
       Campaign: kpi_installs.campaign
       Adgroup: kpi_installs.adgroup
       Creative: kpi_installs.creative
       OS: kpi_installs.os
-      Current_Date: kpi_installs.current_date
       Country_Filter: kpi_installs.country_filter
     row: 0
     col: 18

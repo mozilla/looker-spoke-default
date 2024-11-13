@@ -1,5 +1,4 @@
-include: "//looker-hub/kpi/views/*"
-include: "/kpi/views/*"
+include: "/kpi/views/Automated_KPI_Forecasts.view.lkml"
 
 explore: automated_KPI_forecasts {
   label: "Automated KPI Forecasts: Daily Data"

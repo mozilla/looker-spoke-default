@@ -1,4 +1,4 @@
 connection: "telemetry"
 label: "Activity Stream"
-include: "dashboards/*"
+include: "dashboards/new_tab_overview.dashboard"
 include: "explores/*"

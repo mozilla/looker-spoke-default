@@ -1,4 +1,5 @@
-include: "../views/*.view.lkml"
+include: "../views/desktop_activation_aggregates.view.lkml"
+include: "../views/country_buckets.view.lkml"
 
 explore: desktop_activation_aggregates {
   hidden: yes

@@ -1,5 +1,5 @@
 include: "../views/funnel_android.view.lkml"
-include: "/shared/views/*"
+include: "/shared/views/countries.view.lkml"
 
 explore: funnel_android {
   label: "Firefox Android Funnel"

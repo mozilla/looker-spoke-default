@@ -1,5 +1,5 @@
 include: "../views/new_profile_activation_table.view.lkml"
-include: "/shared/views/*"
+include: "/shared/views/countries.view.lkml"
 
 explore: fenix_new_profile_activation {
   label: "Activation Metric for Firefox for Android (Fenix)"

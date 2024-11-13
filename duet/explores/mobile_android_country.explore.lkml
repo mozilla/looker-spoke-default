@@ -1,4 +1,5 @@
-include: "../views/*.view.lkml"
+include: "../views/mobile_android_country.view.lkml"
+include: "../views/country_buckets.view.lkml"
 
 explore: mobile_android_country {
   label: "Mobile Android Funnel"

@@ -44,18 +44,39 @@
     sorts: [kpi_downloads.quarter_abr desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${kpi_downloads.download_goal}",
-        label: Download Goal, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: download_goal, _type_hint: number,
-        is_disabled: true}, {args: [kpi_downloads.current_period_downloads], calculation_type: percent_difference_from_previous,
-        category: table_calculation, based_on: kpi_downloads.current_period_downloads,
-        label: Percent change from previous - KPI filtered metrics Current Period
-          Downloads, source_field: kpi_downloads.current_period_downloads, table_calculation: percent_change_from_previous_kpi_filtered_metrics_current_period_downloads,
-        value_format: !!null '', value_format_name: percent_0, _kind_hint: measure,
-        _type_hint: number, is_disabled: true}, {category: table_calculation, expression: "(${kpi_downloads.current_period_downloads}/${kpi_downloads.previous_period_downloads})\
-          \ - 1", label: Percentage change, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: percentage_change, _type_hint: number,
-        is_disabled: false}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${kpi_downloads.download_goal}"
+      label: Download Goal
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: download_goal
+      _type_hint: number
+      is_disabled: true
+    - args:
+      - kpi_downloads.current_period_downloads
+      calculation_type: percent_difference_from_previous
+      category: table_calculation
+      based_on: kpi_downloads.current_period_downloads
+      label: Percent change from previous - KPI filtered metrics Current Period Downloads
+      source_field: kpi_downloads.current_period_downloads
+      table_calculation: percent_change_from_previous_kpi_filtered_metrics_current_period_downloads
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: "(${kpi_downloads.current_period_downloads}/${kpi_downloads.previous_period_downloads})\
+        \ - 1"
+      label: Percentage change
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: percentage_change
+      _type_hint: number
+      is_disabled: false
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -98,16 +119,16 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    series_types: {}
     hidden_pivots: {}
+    y_axes: []
     listen:
       Campaign: kpi_downloads.campaign
       Source: kpi_downloads.source
       Medium: kpi_downloads.medium
       OS: kpi_downloads.operating_system
-      Current_Date: kpi_downloads.current_date
       Country_Filter: kpi_downloads.country_filter
       Ad_Content: kpi_downloads.ad_content
+      Current_Date: kpi_downloads.current_date
     row: 4
     col: 15
     width: 5
@@ -124,9 +145,15 @@
     sorts: [kpi_downloads.quarter_abr]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${kpi_downloads.download_goal}",
-        label: Download Goal, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: download_goal, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${kpi_downloads.download_goal}"
+      label: Download Goal
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: download_goal
+      _type_hint: number
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -158,15 +185,15 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    series_types: {}
+    y_axes: []
     listen:
       Campaign: kpi_downloads.campaign
       Source: kpi_downloads.source
       Medium: kpi_downloads.medium
       OS: kpi_downloads.operating_system
-      Current_Date: kpi_downloads.current_date
       Country_Filter: kpi_downloads.country_filter
       Ad_Content: kpi_downloads.ad_content
+      Current_Date: kpi_downloads.current_date
     row: 8
     col: 16
     width: 8
@@ -183,9 +210,15 @@
     sorts: [kpi_downloads.month]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${kpi_downloads.download_goal}",
-        label: Download Goal, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: download_goal, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${kpi_downloads.download_goal}"
+      label: Download Goal
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: download_goal
+      _type_hint: number
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -217,15 +250,15 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    series_types: {}
+    y_axes: []
     listen:
       Campaign: kpi_downloads.campaign
       Source: kpi_downloads.source
       Medium: kpi_downloads.medium
       OS: kpi_downloads.operating_system
-      Current_Date: kpi_downloads.current_date
       Country_Filter: kpi_downloads.country_filter
       Ad_Content: kpi_downloads.ad_content
+      Current_Date: kpi_downloads.current_date
     row: 8
     col: 8
     width: 8
@@ -242,9 +275,15 @@
     sorts: [kpi_downloads.day_month]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${kpi_downloads.download_goal}",
-        label: Download Goal, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: download_goal, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${kpi_downloads.download_goal}"
+      label: Download Goal
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: download_goal
+      _type_hint: number
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -276,15 +315,15 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    series_types: {}
+    y_axes: []
     listen:
       Campaign: kpi_downloads.campaign
       Source: kpi_downloads.source
       Medium: kpi_downloads.medium
       OS: kpi_downloads.operating_system
-      Current_Date: kpi_downloads.current_date
       Country_Filter: kpi_downloads.country_filter
       Ad_Content: kpi_downloads.ad_content
+      Current_Date: kpi_downloads.current_date
     row: 8
     col: 0
     width: 8
@@ -299,18 +338,39 @@
       kpi_downloads.compare_to: Year
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${kpi_downloads.download_goal}",
-        label: Download Goal, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: download_goal, _type_hint: number,
-        is_disabled: true}, {args: [kpi_downloads.current_period_downloads], calculation_type: percent_difference_from_previous,
-        category: table_calculation, based_on: kpi_downloads.current_period_downloads,
-        label: Percent change from previous - KPI filtered metrics Current Period
-          Downloads, source_field: kpi_downloads.current_period_downloads, table_calculation: percent_change_from_previous_kpi_filtered_metrics_current_period_downloads,
-        value_format: !!null '', value_format_name: percent_0, _kind_hint: measure,
-        _type_hint: number, is_disabled: true}, {category: table_calculation, expression: "(${kpi_downloads.current_period_downloads}/${kpi_downloads.previous_period_downloads})\
-          \ - 1", label: Percentage change, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: percentage_change, _type_hint: number,
-        is_disabled: false}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${kpi_downloads.download_goal}"
+      label: Download Goal
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: download_goal
+      _type_hint: number
+      is_disabled: true
+    - args:
+      - kpi_downloads.current_period_downloads
+      calculation_type: percent_difference_from_previous
+      category: table_calculation
+      based_on: kpi_downloads.current_period_downloads
+      label: Percent change from previous - KPI filtered metrics Current Period Downloads
+      source_field: kpi_downloads.current_period_downloads
+      table_calculation: percent_change_from_previous_kpi_filtered_metrics_current_period_downloads
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: "(${kpi_downloads.current_period_downloads}/${kpi_downloads.previous_period_downloads})\
+        \ - 1"
+      label: Percentage change
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: percentage_change
+      _type_hint: number
+      is_disabled: false
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -353,16 +413,16 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    series_types: {}
     hidden_pivots: {}
+    y_axes: []
     listen:
       Campaign: kpi_downloads.campaign
       Source: kpi_downloads.source
       Medium: kpi_downloads.medium
       OS: kpi_downloads.operating_system
-      Current_Date: kpi_downloads.current_date
       Country_Filter: kpi_downloads.country_filter
       Ad_Content: kpi_downloads.ad_content
+      Current_Date: kpi_downloads.current_date
     row: 4
     col: 20
     width: 4
@@ -377,18 +437,39 @@
       kpi_downloads.compare_to: Month
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${kpi_downloads.download_goal}",
-        label: Download Goal, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: download_goal, _type_hint: number,
-        is_disabled: true}, {args: [kpi_downloads.current_period_downloads], calculation_type: percent_difference_from_previous,
-        category: table_calculation, based_on: kpi_downloads.current_period_downloads,
-        label: Percent change from previous - KPI filtered metrics Current Period
-          Downloads, source_field: kpi_downloads.current_period_downloads, table_calculation: percent_change_from_previous_kpi_filtered_metrics_current_period_downloads,
-        value_format: !!null '', value_format_name: percent_0, _kind_hint: measure,
-        _type_hint: number, is_disabled: true}, {category: table_calculation, expression: "(${kpi_downloads.current_period_downloads}/${kpi_downloads.previous_period_downloads})\
-          \ - 1", label: Percentage change, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: percentage_change, _type_hint: number,
-        is_disabled: false}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${kpi_downloads.download_goal}"
+      label: Download Goal
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: download_goal
+      _type_hint: number
+      is_disabled: true
+    - args:
+      - kpi_downloads.current_period_downloads
+      calculation_type: percent_difference_from_previous
+      category: table_calculation
+      based_on: kpi_downloads.current_period_downloads
+      label: Percent change from previous - KPI filtered metrics Current Period Downloads
+      source_field: kpi_downloads.current_period_downloads
+      table_calculation: percent_change_from_previous_kpi_filtered_metrics_current_period_downloads
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: "(${kpi_downloads.current_period_downloads}/${kpi_downloads.previous_period_downloads})\
+        \ - 1"
+      label: Percentage change
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: percentage_change
+      _type_hint: number
+      is_disabled: false
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -431,16 +512,16 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    series_types: {}
     hidden_pivots: {}
+    y_axes: []
     listen:
       Campaign: kpi_downloads.campaign
       Source: kpi_downloads.source
       Medium: kpi_downloads.medium
       OS: kpi_downloads.operating_system
-      Current_Date: kpi_downloads.current_date
       Country_Filter: kpi_downloads.country_filter
       Ad_Content: kpi_downloads.ad_content
+      Current_Date: kpi_downloads.current_date
     row: 4
     col: 10
     width: 5
@@ -455,18 +536,39 @@
       kpi_downloads.compare_to: Week
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${kpi_downloads.download_goal}",
-        label: Download Goal, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: download_goal, _type_hint: number,
-        is_disabled: true}, {args: [kpi_downloads.current_period_downloads], calculation_type: percent_difference_from_previous,
-        category: table_calculation, based_on: kpi_downloads.current_period_downloads,
-        label: Percent change from previous - KPI filtered metrics Current Period
-          Downloads, source_field: kpi_downloads.current_period_downloads, table_calculation: percent_change_from_previous_kpi_filtered_metrics_current_period_downloads,
-        value_format: !!null '', value_format_name: percent_0, _kind_hint: measure,
-        _type_hint: number, is_disabled: true}, {category: table_calculation, expression: "(${kpi_downloads.current_period_downloads}/${kpi_downloads.previous_period_downloads})\
-          \ - 1", label: Percentage change, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: percentage_change, _type_hint: number,
-        is_disabled: false}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${kpi_downloads.download_goal}"
+      label: Download Goal
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: download_goal
+      _type_hint: number
+      is_disabled: true
+    - args:
+      - kpi_downloads.current_period_downloads
+      calculation_type: percent_difference_from_previous
+      category: table_calculation
+      based_on: kpi_downloads.current_period_downloads
+      label: Percent change from previous - KPI filtered metrics Current Period Downloads
+      source_field: kpi_downloads.current_period_downloads
+      table_calculation: percent_change_from_previous_kpi_filtered_metrics_current_period_downloads
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: "(${kpi_downloads.current_period_downloads}/${kpi_downloads.previous_period_downloads})\
+        \ - 1"
+      label: Percentage change
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: percentage_change
+      _type_hint: number
+      is_disabled: false
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -509,16 +611,16 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    series_types: {}
     hidden_pivots: {}
+    y_axes: []
     listen:
       Campaign: kpi_downloads.campaign
       Source: kpi_downloads.source
       Medium: kpi_downloads.medium
       OS: kpi_downloads.operating_system
-      Current_Date: kpi_downloads.current_date
       Country_Filter: kpi_downloads.country_filter
       Ad_Content: kpi_downloads.ad_content
+      Current_Date: kpi_downloads.current_date
     row: 4
     col: 5
     width: 5
@@ -535,18 +637,39 @@
     sorts: [kpi_downloads.day_month desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${kpi_downloads.download_goal}",
-        label: Download Goal, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: download_goal, _type_hint: number,
-        is_disabled: true}, {args: [kpi_downloads.current_period_downloads], calculation_type: percent_difference_from_previous,
-        category: table_calculation, based_on: kpi_downloads.current_period_downloads,
-        label: Percent change from previous - KPI filtered metrics Current Period
-          Downloads, source_field: kpi_downloads.current_period_downloads, table_calculation: percent_change_from_previous_kpi_filtered_metrics_current_period_downloads,
-        value_format: !!null '', value_format_name: percent_0, _kind_hint: measure,
-        _type_hint: number, is_disabled: true}, {category: table_calculation, expression: "(${kpi_downloads.current_period_downloads}/${kpi_downloads.previous_period_downloads})\
-          \ - 1", label: Percentage change, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: percentage_change, _type_hint: number,
-        is_disabled: false}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${kpi_downloads.download_goal}"
+      label: Download Goal
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: download_goal
+      _type_hint: number
+      is_disabled: true
+    - args:
+      - kpi_downloads.current_period_downloads
+      calculation_type: percent_difference_from_previous
+      category: table_calculation
+      based_on: kpi_downloads.current_period_downloads
+      label: Percent change from previous - KPI filtered metrics Current Period Downloads
+      source_field: kpi_downloads.current_period_downloads
+      table_calculation: percent_change_from_previous_kpi_filtered_metrics_current_period_downloads
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: "(${kpi_downloads.current_period_downloads}/${kpi_downloads.previous_period_downloads})\
+        \ - 1"
+      label: Percentage change
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: percentage_change
+      _type_hint: number
+      is_disabled: false
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: true
@@ -589,16 +712,16 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    series_types: {}
     hidden_pivots: {}
+    y_axes: []
     listen:
       Campaign: kpi_downloads.campaign
       Source: kpi_downloads.source
       Medium: kpi_downloads.medium
       OS: kpi_downloads.operating_system
-      Current_Date: kpi_downloads.current_date
       Country_Filter: kpi_downloads.country_filter
       Ad_Content: kpi_downloads.ad_content
+      Current_Date: kpi_downloads.current_date
     row: 4
     col: 0
     width: 5
@@ -611,22 +734,44 @@
     fields: [kpi_downloads.date_date]
     fill_fields: [kpi_downloads.date_date]
     filters:
+      kpi_downloads.current_date: before 2023/12/31
       kpi_downloads.compare_to: Year
     sorts: [kpi_downloads.date_date desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "${kpi_downloads.download_goal}",
-        label: Download Goal, value_format: !!null '', value_format_name: decimal_0,
-        _kind_hint: measure, table_calculation: download_goal, _type_hint: number,
-        is_disabled: true}, {args: [kpi_downloads.current_period_downloads], calculation_type: percent_difference_from_previous,
-        category: table_calculation, based_on: kpi_downloads.current_period_downloads,
-        label: Percent change from previous - KPI filtered metrics Current Period
-          Downloads, source_field: kpi_downloads.current_period_downloads, table_calculation: percent_change_from_previous_kpi_filtered_metrics_current_period_downloads,
-        value_format: !!null '', value_format_name: percent_0, _kind_hint: measure,
-        _type_hint: number, is_disabled: true}, {category: table_calculation, expression: "(${kpi_downloads.current_period_downloads}/${kpi_downloads.previous_period_downloads})\
-          \ - 1", label: Percentage change, value_format: !!null '', value_format_name: percent_0,
-        _kind_hint: measure, table_calculation: percentage_change, _type_hint: number,
-        is_disabled: true}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${kpi_downloads.download_goal}"
+      label: Download Goal
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: measure
+      table_calculation: download_goal
+      _type_hint: number
+      is_disabled: true
+    - args:
+      - kpi_downloads.current_period_downloads
+      calculation_type: percent_difference_from_previous
+      category: table_calculation
+      based_on: kpi_downloads.current_period_downloads
+      label: Percent change from previous - KPI filtered metrics Current Period Downloads
+      source_field: kpi_downloads.current_period_downloads
+      table_calculation: percent_change_from_previous_kpi_filtered_metrics_current_period_downloads
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: "(${kpi_downloads.current_period_downloads}/${kpi_downloads.previous_period_downloads})\
+        \ - 1"
+      label: Percentage change
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      table_calculation: percentage_change
+      _type_hint: number
+      is_disabled: true
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -669,14 +814,13 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    series_types: {}
     hidden_pivots: {}
+    y_axes: []
     listen:
       Source: kpi_downloads.source
       Campaign: kpi_downloads.campaign
       Medium: kpi_downloads.medium
       OS: kpi_downloads.operating_system
-      Current_Date: kpi_downloads.current_date
       Country_Filter: kpi_downloads.country_filter
       Ad_Content: kpi_downloads.ad_content
     row: 0

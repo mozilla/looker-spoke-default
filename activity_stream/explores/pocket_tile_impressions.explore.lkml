@@ -1,4 +1,4 @@
-include: "//looker-hub/activity_stream/explores/*"
+include: "//looker-hub/activity_stream/explores/pocket_tile_impressions.explore.lkml"
 include: "../views/impression_stats_flat.view.lkml"
 
 explore: +pocket_tile_impressions {

@@ -1,4 +1,4 @@
-include: "//looker-hub/duet/views/*.view.lkml"
+include: "//looker-hub/duet/views/install.view.lkml"
 
 view: desktop_install {
   extends: [install]
