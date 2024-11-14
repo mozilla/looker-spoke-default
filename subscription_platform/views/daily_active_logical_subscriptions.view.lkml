@@ -312,6 +312,7 @@ view: +daily_active_logical_subscriptions {
     hidden: yes
   }
   dimension: annual_recurring_revenue_usd {
+    group_label: "Subscription"
     label: "Annual Recurring Revenue (USD)"
     type: number
     sql:
@@ -358,6 +359,7 @@ view: +daily_active_logical_subscriptions {
     hidden: yes
   }
   dimension: monthly_recurring_revenue_usd {
+    group_label: "Subscription"
     label: "Monthly Recurring Revenue (USD)"
     type: number
     sql:
