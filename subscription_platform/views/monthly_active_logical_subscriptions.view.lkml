@@ -155,6 +155,7 @@ view: +monthly_active_logical_subscriptions {
     sql:
       CASE
         WHEN ${subscription__is_active} IS NOT TRUE
+          OR ${subscription__is_trial} IS TRUE
           THEN 0
         WHEN ${subscription__plan_interval_type} IN ('year', 'month')
           THEN (
@@ -346,6 +347,7 @@ view: +monthly_active_logical_subscriptions {
     sql:
       CASE
         WHEN ${subscription__is_active} IS NOT TRUE
+          OR ${subscription__is_trial} IS TRUE
           THEN 0
         WHEN ${subscription__plan_interval_type} IN ('year', 'month')
           THEN (${current_period_discounted_plan_amount} / ${subscription__plan_interval_months})
