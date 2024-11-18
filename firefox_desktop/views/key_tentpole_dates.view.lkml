@@ -1,6 +1,8 @@
 # The name of this view in Looker is "Key Tentpole Dates"
 view: key_tentpole_dates {
 
+  sql_table_name: `mozdata.static.key_tentpole_dates`;;
+
   dimension_group: end {
     type: time
     description: "The end of the time period."
