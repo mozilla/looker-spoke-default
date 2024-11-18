@@ -1,6 +1,6 @@
 include: "../views/newtab_clients_daily.view.lkml"
 include: "../../shared/views/countries.view.lkml"
-include: "/ads_backend/views/key_tentpole_dates.view.lkml"
+include: "/firefox_desktop/views/key_tentpole_dates.view.lkml"
 
 explore: newtab_clients_daily {
   sql_always_where: ${newtab_clients_daily.submission_date} >= '2022-07-01' ;;
