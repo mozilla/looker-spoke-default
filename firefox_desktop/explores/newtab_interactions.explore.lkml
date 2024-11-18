@@ -1,7 +1,6 @@
 include: "../views/newtab_interactions.view.lkml"
 include: "../../shared/views/countries.view.lkml"
 include: "//looker-hub/firefox_desktop/datagroups/newtab_interactions_v1_last_updated.datagroup"
-include: "/ads_backend/views/key_tentpole_dates.view.lkml"
 
 explore: newtab_interactions {
   persist_with: newtab_interactions_v1_last_updated
@@ -19,14 +18,6 @@ explore: newtab_interactions {
     type: left_outer
     relationship: one_to_one
     sql_on: ${newtab_interactions.country_code} = ${countries.code} ;;
-  }
-
-  join: key_tentpole_dates {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${newtab_interactions.submission_date} >= ${key_tentpole_dates.start_date}
-            AND
-            ${newtab_interactions.submission_date} <= ${key_tentpole_dates.end_date};;
   }
 
   ## Additive Rollups

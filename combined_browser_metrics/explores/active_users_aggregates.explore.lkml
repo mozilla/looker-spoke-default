@@ -1,6 +1,5 @@
 include: "../views//active_users_aggregates.view.lkml"
 include: "/shared/views/countries.view.lkml"
-include: "/ads_backend/views/key_tentpole_dates.view.lkml"
 
 explore: active_users_aggregates {
   # persist_with: active_users_aggregates_v1_last_updated
@@ -14,14 +13,6 @@ explore: active_users_aggregates {
     type: left_outer
     relationship: one_to_one
     sql_on: ${active_users_aggregates.country} = ${countries.code} ;;
-  }
-
- join: key_tentpole_dates {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${active_users_aggregates.submission_date} >= ${key_tentpole_dates.start_date}
-            AND
-            ${active_users_aggregates.submission_date} <= ${key_tentpole_dates.end_date};;
   }
 
   sql_always_where: NOT (${active_users_aggregates.is_leap_year} AND EXTRACT(DAYOFYEAR FROM ${submission_date}) = 60) ;;
