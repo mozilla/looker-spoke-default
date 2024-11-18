@@ -16,14 +16,6 @@ explore: active_users_aggregates {
     sql_on: ${active_users_aggregates.country} = ${countries.code} ;;
   }
 
- join: key_tentpole_dates {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${active_users_aggregates.submission_date} >= ${key_tentpole_dates.start_date}
-            AND
-            ${active_users_aggregates.submission_date} <= ${key_tentpole_dates.end_date};;
-  }
-
   sql_always_where: NOT (${active_users_aggregates.is_leap_year} AND EXTRACT(DAYOFYEAR FROM ${submission_date}) = 60) ;;
 
   aggregate_table: rollup__period_over_period {
