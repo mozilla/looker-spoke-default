@@ -21,14 +21,6 @@ explore: newtab_interactions {
     sql_on: ${newtab_interactions.country_code} = ${countries.code} ;;
   }
 
-  join: key_tentpole_dates {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${newtab_interactions.submission_date} >= ${key_tentpole_dates.start_date}
-            AND
-            ${newtab_interactions.submission_date} <= ${key_tentpole_dates.end_date};;
-  }
-
   ## Additive Rollups
 
   aggregate_table: rollup__newtab_interactions_pocket_per_day {
