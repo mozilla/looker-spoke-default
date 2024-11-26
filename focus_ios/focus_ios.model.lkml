@@ -6,6 +6,8 @@ include: "views/usage.view.lkml"
 # include: "explores/*"
 # include: "dashboards/*"
 
+persist_for: "4 hours"
+
 explore: usage {
   always_filter: {
     filters: [
