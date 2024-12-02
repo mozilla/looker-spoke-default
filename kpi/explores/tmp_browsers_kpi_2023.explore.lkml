@@ -1,4 +1,4 @@
-include: "/kpi/views/*"
+include: "/kpi/views/tmp_browsers_kpi_2023.view.lkml"
 
 explore: tmp_browser_kpis_2023 {
   group_label: "Official Browser KPIs"

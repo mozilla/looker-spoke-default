@@ -3,7 +3,6 @@ include: "//looker-hub/monitoring/views/bigquery_usage.view.lkml"
 view: +bigquery_usage {
 
   dimension: job_id {
-    primary_key: yes
     sql: job_id ;;
     type: string
   }
@@ -46,5 +45,12 @@ view: +bigquery_usage {
     description: "count distinct number of job ids"
     type: count_distinct
     sql: ${job_id};;
+  }
+
+  measure: sum_total_cost_usd{
+    type: sum_distinct
+    sql_distinct_key: ${job_id} ;;
+    sql: ${cost} ;;
+    value_format: "$#.00;($#.00)"
   }
 }

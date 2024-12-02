@@ -1,7 +1,4 @@
 connection: "telemetry"
 label: "Firefox Accounts Frontend"
 include: "//looker-hub/accounts_frontend/explores/*"
-# include: "//looker-hub/accounts_frontend/dashboards/*"
-# include: "views/*"
-# include: "explores/*"
-# include: "dashboards/*"
+include: "explores/*"

@@ -87,7 +87,7 @@
       connector_costs.spent_rate: line
     reference_lines: [{reference_type: line, range_start: max, range_end: min, margin_top: deviation,
         margin_value: mean, margin_bottom: deviation, label_position: left, color: "#FF2A8A",
-        line_value: '14000', label: Spending Limit}]
+        line_value: '5000', label: Spending Limit}]
     show_null_points: true
     interpolation: linear
     defaults_version: 1

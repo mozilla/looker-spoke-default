@@ -1,10 +1,9 @@
 connection: "telemetry"
 label: "Review Checker Desktop"
 # Include files from looker-hub or spoke-default below. For example:
-# include: "//looker-hub/review_checker_desktop/explores/*"
-# include: "//looker-hub/review_checker_desktop/dashboards/*"
-include: "//looker-hub/review_checker_desktop/views/*"
-include: "views/*"
+include: "views/review_checker_clients.view.lkml"
+include: "views/review_checker_events.view.lkml"
+include: "views/review_checker_microsurvey.view.lkml"
 # include: "explores/*"
 # include: "dashboards/*"
 

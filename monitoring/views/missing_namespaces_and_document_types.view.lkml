@@ -48,6 +48,8 @@ view: missing_namespaces_and_document_types {
     HAVING
       SUM(error_count) > 20
       AND NOT REGEXP_CONTAINS(document_namespace, '^org-mozilla-firefo.$')
+      -- see https://bugzilla.mozilla.org/show_bug.cgi?id=1864571
+      AND document_namespace != 'accounts-frontend-dev'
     ORDER BY
       total_errors DESC
     ;;

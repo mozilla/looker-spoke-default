@@ -2,6 +2,7 @@
 version: 2.1
 orbs:
   python: circleci/python@1.4.0
+  docker: circleci/docker@2.6.0
 
 jobs:
   deploy-prod:
@@ -30,10 +31,39 @@ jobs:
           command: |
             python ./src/sync_dashboards/main.py sync --config lookml_dashboards.yaml
           no_output_timeout: 15m
+  validate-lookml:
+    docker:
+      - image: cimg/node:22.7.0
+    steps:
+      - checkout
+      - run:
+          name: Execute linting
+          command: |
+            npm install -g @looker/look-at-me-sideways@3
+            if lams --reporting=no
+              then echo "No linting errors found."
+              else echo "Linting errors found."; exit 1
+            fi
+  push-lookml-for-validation:
+    executor: docker/machine
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:rVrow/3DEpsY1OTWFfA4PymfidEtdpLN37b8zb6lDQU"
+      - run:
+          name: Push lookml to main-validation branch
+          command: |
+            ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+            git config --global user.name "CircleCI main-validation job"
+            git config --global user.email "dataops+main-validation@mozilla.com"
+            git clone git@github.com:mozilla/looker-spoke-default /tmp/looker-spoke-default
+            cd /tmp/looker-spoke-default
+            git push origin main:main-validation
 workflows:
   version: 2
   build:
     jobs:
+      - validate-lookml
       - deploy-prod:
           filters:
             branches:
@@ -61,3 +91,8 @@ workflows:
               only: main
             tags:
               only: /.*/
+      - push-lookml-for-validation:
+          filters:
+            branches:
+              only:
+                - main

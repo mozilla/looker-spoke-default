@@ -1,4 +1,4 @@
-include: "/kpi/views/*"
+include: "/kpi/views/tmp_kpi_forecasts.view.lkml"
 
 explore: tmp_kpi_forecasts {
   label: "WIP Browser KPI Forecasts"

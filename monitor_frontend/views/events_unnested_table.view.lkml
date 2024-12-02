@@ -129,6 +129,47 @@ view: +events_unnested_table {
     group_item_label: "Broker Count"
   }
 
+  dimension: event_extra__response_id {
+    description: "Rating given by user for CSAT survey"
+    type: string
+    sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'response_id') ;;
+    group_label: "Event Extra"
+    group_item_label: "Response ID"
+  }
+
+  dimension: event_extra__survey_id {
+    description: "CSAT survey ID"
+    type: string
+    sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'survey_id') ;;
+    group_label: "Event Extra"
+    group_item_label: "Survey ID"
+  }
+
+  dimension: event_extra__plan_tier {
+    description: "Plan tier of user"
+    type: string
+    sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'plan_tier') ;;
+    group_label: "Event Extra"
+    group_item_label: "Plan Tier"
+  }
+
+  dimension: event_extra__experiment_branch {
+    description: "Experiment branch"
+    type: string
+    sql: `mozfun.map.get_key`(${TABLE}.event_extra, 'experiment_branch') ;;
+    group_label: "Event Extra"
+    group_item_label: "Experiment Branch"
+  }
+
+  dimension: event_extra__last_scan_date {
+    description: "Last scan date"
+    type: date
+    convert_tz: no
+    sql:  SAFE.PARSE_DATE('%Y%m%d', `mozfun.map.get_key`(${TABLE}.event_extra, 'last_scan_date')) ;;
+    group_label: "Event Extra"
+    group_item_label: "Last Scan Date"
+  }
+
   measure: user_count {
     description: "Use this for counting lifetime orders across many users"
     type: count_distinct

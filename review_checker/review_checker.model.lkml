@@ -3,8 +3,10 @@ label: "Review Checker"
 # Include files from looker-hub or spoke-default below. For example:
  include: "//looker-hub/review_checker/explores/*"
 # include: "//looker-hub/review_checker/dashboards/*"
-  include: "//looker-hub/review_checker/views/*"
- include: "views/*"
+include: "views/android_clients.view.lkml"
+include: "views/android_events.view.lkml"
+include: "views/ios_clients.view.lkml"
+include: "views/ios_events.view.lkml"
 # include: "explores/*"
 # include: "dashboards/*"
 

@@ -3,6 +3,23 @@ include: "//looker-hub/firefox_desktop/views/newtab_visits_table.view.lkml"
 view: newtab_visits {
   extends: [newtab_visits_table]
 
+  dimension_group: submission {
+    sql: ${TABLE}.submission_date ;;
+    type: time
+    timeframes: [
+      raw,
+      date,
+      day_of_week,
+      week,
+      month,
+      month_name,
+      quarter,
+      year,
+    ]
+    convert_tz: no
+    datatype: date
+  }
+
   dimension: newtab_visit_id {
     hidden: yes
     primary_key: yes
@@ -13,6 +30,10 @@ view: newtab_visits {
   }
 
   dimension: legacy_telemetry_id {
+    hidden: yes
+  }
+
+  dimension: topsites_sponsored_enabled {
     hidden: yes
   }
 
@@ -42,7 +63,7 @@ view: newtab_visits {
   }
 
   dimension: sponsored_topsites_enabled {
-    sql: ${TABLE}.sponsored_enabled ;;
+    sql: ${TABLE}.topsites_sponsored_enabled ;;
     type: yesno
   }
 
@@ -104,6 +125,15 @@ view: +newtab_visits_table__topsite_tile_interactions {
     type: sum
   }
 
+  dimension: organic_topsite_tile_dismissals {
+    hidden: yes
+  }
+
+  measure: sum_organic_topsite_tile_dismissals {
+    sql: ${TABLE}.organic_topsite_tile_dismissals ;;
+    type: sum
+  }
+
   dimension: sponsored_topsite_tile_clicks {
     hidden: yes
   }
@@ -122,6 +152,15 @@ view: +newtab_visits_table__topsite_tile_interactions {
     type: sum
   }
 
+  dimension: sponsored_topsite_tile_dismissals {
+    hidden: yes
+  }
+
+  measure: sum_sponsored_topsite_tile_dismissals {
+    sql: ${TABLE}.sponsored_topsite_tile_dismissals ;;
+    type: sum
+  }
+
   dimension: topsite_tile_clicks {
     hidden: yes
   }
@@ -137,6 +176,15 @@ view: +newtab_visits_table__topsite_tile_interactions {
 
   measure: sum_topsite_tile_impressions {
     sql: ${TABLE}.topsite_tile_impressions ;;
+    type: sum
+  }
+
+  dimension: topsite_tile_dismissals {
+    hidden: yes
+  }
+
+  measure: sum_topsite_tile_dismissals {
+    sql: ${TABLE}.topsite_tile_dismissals ;;
     type: sum
   }
 }

@@ -3,15 +3,19 @@ label: "Firefox Accounts"
 include: "//looker-hub/firefox_accounts/views/fxa_first_seen_table.view.lkml"
 include: "//looker-hub/firefox_accounts/views/login_funnels.view.lkml"
 include: "//looker-hub/firefox_accounts/explores/*"
-include: "views/*.view.lkml"
-include: "explores/*.explore.lkml"
+include: "views/all_events.view.lkml"
+include: "views/auth_events.view.lkml"
+include: "views/events.view.lkml"
+include: "views/growth_accounting.view.lkml"
+include: "explores/*"
+
 
 explore: +growth_accounting {
   description: "Weekly growth numbers for Firefox Accounts."
   join: fxa_first_seen_table {
     fields: []
     relationship: many_to_one
-    sql_on: ${growth_accounting.user_id} = ${fxa_first_seen_table.user_id} ;;
+    sql_on: ${growth_accounting.user_id_sha256} = ${fxa_first_seen_table.user_id} ;;
   }
   always_filter: {
     filters: [growth_accounting.submission_date: "14 days"]

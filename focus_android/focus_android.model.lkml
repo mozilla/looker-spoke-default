@@ -1,7 +1,8 @@
 connection: "telemetry"
 label: "Firefox Focus for Android"
 include: "//looker-hub/focus_android/explores/*"
-include: "views/*"
+include: "views/focus_launch_new_profile_forecasts.view.lkml"
+include: "views/usage.view.lkml"
 
 explore: usage {
   always_filter: {

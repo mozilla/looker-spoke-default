@@ -11,6 +11,11 @@ view: mobile_search_aggregates {
     type: number
     sql: ${TABLE}.ad_click_organic ;;
   }
+  
+  dimension: search_with_ads_organic {
+    type: number
+    sql: ${TABLE}.search_with_ads_organic ;;
+  }
 
   dimension: app_name {
     type: string
