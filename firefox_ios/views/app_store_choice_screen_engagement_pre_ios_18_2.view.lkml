@@ -1,4 +1,4 @@
-view: app_store_choice_screen_engagement {
+view: app_store_choice_screen_engagement_pre_ios_18_2 {
 
   dimension_group: date {
     sql: ${TABLE}.date ;;
