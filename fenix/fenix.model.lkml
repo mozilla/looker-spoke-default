@@ -7,6 +7,7 @@ include: "datagroups/*"
 include: "//looker-hub/fenix/views/metrics.view.lkml"
 include: "/fenix/views/android_store_performance.view.lkml"
 
+persist_for: "4 hours"
 
 explore: +topsites_impression {
   hidden: yes
