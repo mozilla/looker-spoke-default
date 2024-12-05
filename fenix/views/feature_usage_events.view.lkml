@@ -1,7 +1,7 @@
 include: "//looker-hub/fenix/views/feature_usage_events.view.lkml"
 
 view: +feature_usage_events {
-  label: "Firefox Android Feature Usage with Dimensions"
+  label: "Firefox Android Feature Usage"
   fields_hidden_by_default: yes
 
   dimension_group: ping {
