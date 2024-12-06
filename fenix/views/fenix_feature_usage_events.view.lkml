@@ -1,522 +1,213 @@
 include: "//looker-hub/fenix/views/feature_usage_events.view.lkml"
 
-view: +feature_usage_events {
-  dimension: app_icon_private_tab_tapped {
-    hidden: yes
-  }
-  dimension: app_icon_private_tab_tapped_users {
-    hidden: yes
-  }
-  dimension: app_menu_customize_homepage {
-    hidden: yes
-  }
-  dimension: app_menu_customize_homepage_users {
-    hidden: yes
-  }
-  dimension: autofill_password_detected_logins {
-    hidden: yes
-  }
-  dimension: autofill_password_detected_users_logins {
-    hidden: yes
-  }
-  dimension: autofill_prompt_dismissed_sum_address {
-    hidden: yes
-  }
-  dimension: autofill_prompt_dismissed_sum_cc {
-    hidden: yes
-  }
-  dimension: autofill_prompt_dismissed_sum_logins {
-    hidden: yes
-  }
-  dimension: autofill_prompt_dismissed_users_address {
-    hidden: yes
-  }
-  dimension: autofill_prompt_dismissed_users_cc {
-    hidden: yes
-  }
-  dimension: autofill_prompt_dismissed_users_logins {
-    hidden: yes
-  }
-  dimension: autofill_prompt_expanded_sum_address {
-    hidden: yes
-  }
-  dimension: autofill_prompt_expanded_sum_cc {
-    hidden: yes
-  }
-  dimension: autofill_prompt_expanded_users_address {
-    hidden: yes
-  }
-  dimension: autofill_prompt_expanded_users_cc {
-    hidden: yes
-  }
-  dimension: autofill_prompt_shown_sum_address {
-    hidden: yes
-  }
-  dimension: autofill_prompt_shown_sum_cc {
-    hidden: yes
-  }
-  dimension: autofill_prompt_shown_sum_logins {
-    hidden: yes
-  }
-  dimension: autofill_prompt_shown_users_address {
-    hidden: yes
-  }
-  dimension: autofill_prompt_shown_users_cc {
-    hidden: yes
-  }
-  dimension: autofill_prompt_shown_users_logins {
-    hidden: yes
-  }
-  dimension: autofilled_sum_address {
-    hidden: yes
-  }
-  dimension: autofilled_sum_cc {
-    hidden: yes
-  }
-  dimension: autofilled_sum_logins {
-    hidden: yes
-  }
-  dimension: autofilled_users_address {
-    hidden: yes
-  }
-  dimension: autofilled_users_cc {
-    hidden: yes
-  }
-  dimension: autofilled_users_logins {
-    hidden: yes
-  }
-  dimension: bookmark_copied {
-    hidden: yes
-  }
-  dimension: bookmark_copied_users {
-    hidden: yes
-  }
-  dimension: bookmark_edited {
-    hidden: yes
-  }
-  dimension: bookmark_edited_users {
-    hidden: yes
-  }
-  dimension: bookmark_folder_add {
-    hidden: yes
-  }
-  dimension: bookmark_folder_add_users {
-    hidden: yes
-  }
-  dimension: bookmark_open {
-    hidden: yes
-  }
-  dimension: bookmark_open_all_in_new_tabs {
-    hidden: yes
-  }
-  dimension: bookmark_open_all_in_new_tabs_users {
-    hidden: yes
-  }
-  dimension: bookmark_open_all_in_private_tabs {
-    hidden: yes
-  }
-  dimension: bookmark_open_all_in_private_tabs_users {
-    hidden: yes
-  }
-  dimension: bookmark_open_in_new_tab {
-    hidden: yes
-  }
-  dimension: bookmark_open_in_new_tab_users {
-    hidden: yes
-  }
-  dimension: bookmark_open_in_new_tabs {
-    hidden: yes
-  }
-  dimension: bookmark_open_in_new_tabs_users {
-    hidden: yes
-  }
-  dimension: bookmark_open_in_private_tab {
-    hidden: yes
-  }
-  dimension: bookmark_open_in_private_tab_users {
-    hidden: yes
-  }
-  dimension: bookmark_open_in_private_tabs {
-    hidden: yes
-  }
-  dimension: bookmark_open_in_private_tabs_users {
-    hidden: yes
-  }
-  dimension: bookmark_open_users {
-    hidden: yes
-  }
-  dimension: bookmark_removed {
-    hidden: yes
-  }
-  dimension: bookmark_removed_users {
-    hidden: yes
-  }
-  dimension: bookmark_search_icon_tapped {
-    hidden: yes
-  }
-  dimension: bookmark_search_icon_tapped_users {
-    hidden: yes
-  }
-  dimension: bookmark_search_result_tapped {
-    hidden: yes
-  }
-  dimension: bookmark_search_result_tapped_users {
-    hidden: yes
-  }
-  dimension: bookmark_shared {
-    hidden: yes
-  }
-  dimension: bookmark_shared_users {
-    hidden: yes
-  }
-  dimension: default_browser_changed {
-    hidden: yes
-  }
-  dimension: default_browser_changed_users {
-    hidden: yes
-  }
-  dimension: etp_setting_changed {
-    hidden: yes
-  }
-  dimension: etp_setting_changed_users {
-    hidden: yes
-  }
-  dimension: etp_settings {
-    hidden: yes
-  }
-  dimension: etp_settings_users {
-    hidden: yes
-  }
-  dimension: etp_shield {
-    hidden: yes
-  }
-  dimension: etp_shield_users {
-    hidden: yes
-  }
-  dimension: etp_tracker_list {
-    hidden: yes
-  }
-  dimension: etp_tracker_list_users {
-    hidden: yes
-  }
-  dimension: form_detected_sum_address {
-    hidden: yes
-  }
-  dimension: form_detected_sum_cc {
-    hidden: yes
-  }
-  dimension: form_detected_users_address {
-    hidden: yes
-  }
-  dimension: form_detected_users_cc {
-    hidden: yes
-  }
-  dimension: history_opened {
-    hidden: yes
-  }
-  dimension: history_opened_item {
-    hidden: yes
-  }
-  dimension: history_opened_item_users {
-    hidden: yes
-  }
-  dimension: history_opened_items_in_new_tabs {
-    hidden: yes
-  }
-  dimension: history_opened_items_in_new_tabs_users {
-    hidden: yes
-  }
-  dimension: history_opened_items_in_private_tabs {
-    hidden: yes
-  }
-  dimension: history_opened_items_in_private_tabs_users {
-    hidden: yes
-  }
-  dimension: history_opened_users {
-    hidden: yes
-  }
-  dimension: history_recent_searches_tapped {
-    hidden: yes
-  }
-  dimension: history_recent_searches_tapped_users {
-    hidden: yes
-  }
-  dimension: history_remove_prompt_cancelled {
-    hidden: yes
-  }
-  dimension: history_remove_prompt_cancelled_users {
-    hidden: yes
-  }
-  dimension: history_remove_prompt_opened {
-    hidden: yes
-  }
-  dimension: history_remove_prompt_opened_users {
-    hidden: yes
-  }
-  dimension: history_removed {
-    hidden: yes
-  }
-  dimension: history_removed_all {
-    hidden: yes
-  }
-  dimension: history_removed_all_users {
-    hidden: yes
-  }
-  dimension: history_removed_last_hour {
-    hidden: yes
-  }
-  dimension: history_removed_last_hour_users {
-    hidden: yes
-  }
-  dimension: history_removed_today_and_yesterday {
-    hidden: yes
-  }
-  dimension: history_removed_today_and_yesterday_users {
-    hidden: yes
-  }
-  dimension: history_removed_users {
-    hidden: yes
-  }
-  dimension: history_search_icon_tapped {
-    hidden: yes
-  }
-  dimension: history_search_icon_tapped_users {
-    hidden: yes
-  }
-  dimension: history_search_term_group_open_tab {
-    hidden: yes
-  }
-  dimension: history_search_term_group_open_tab_users {
-    hidden: yes
-  }
-  dimension: history_search_term_group_remove_all {
-    hidden: yes
-  }
-  dimension: history_search_term_group_remove_all_users {
-    hidden: yes
-  }
-  dimension: history_search_term_group_remove_tab {
-    hidden: yes
-  }
-  dimension: history_search_term_group_remove_tab_users {
-    hidden: yes
-  }
-  dimension: history_search_term_group_tapped {
-    hidden: yes
-  }
-  dimension: history_search_term_group_tapped_users {
-    hidden: yes
-  }
-  dimension: history_shared {
-    hidden: yes
-  }
-  dimension: history_shared_users {
-    hidden: yes
-  }
-  dimension: home_page_customize_home_clicked {
-    hidden: yes
-  }
-  dimension: home_page_customize_home_clicked_users {
-    hidden: yes
-  }
-  dimension: hp_private_mode_tapped {
-    hidden: yes
-  }
-  dimension: hp_private_mode_tapped_users {
-    hidden: yes
-  }
-  dimension: management_add_tapped_sum_address {
-    hidden: yes
-  }
-  dimension: management_add_tapped_sum_cc {
-    hidden: yes
-  }
-  dimension: management_add_tapped_sum_logins {
-    hidden: yes
-  }
-  dimension: management_add_tapped_users_address {
-    hidden: yes
-  }
-  dimension: management_add_tapped_users_cc {
-    hidden: yes
-  }
-  dimension: management_add_tapped_users_logins {
-    hidden: yes
-  }
-  dimension: management_tapped_sum_address {
-    hidden: yes
-  }
-  dimension: management_tapped_sum_cc {
-    hidden: yes
-  }
-  dimension: management_tapped_sum_logins {
-    hidden: yes
-  }
-  dimension: management_tapped_users_address {
-    hidden: yes
-  }
-  dimension: management_tapped_users_cc {
-    hidden: yes
-  }
-  dimension: management_tapped_users_logins {
-    hidden: yes
-  }
-  dimension: modified_sum_cc {
-    hidden: yes
-  }
-  dimension: modified_users_cc {
-    hidden: yes
-  }
-  dimension: re_engagement_notif_shown {
-    hidden: yes
-  }
-  dimension: re_engagement_notif_shown_users {
-    hidden: yes
-  }
-  dimension: re_engagement_notif_tapped {
-    hidden: yes
-  }
-  dimension: re_engagement_notif_tapped_users {
-    hidden: yes
-  }
-  dimension: save_prompt_create_sum_cc {
-    hidden: yes
-  }
-  dimension: save_prompt_create_users_cc {
-    hidden: yes
-  }
-  dimension: save_prompt_shown_sum_cc {
-    hidden: yes
-  }
-  dimension: save_prompt_shown_users_cc {
-    hidden: yes
-  }
-  dimension: save_prompt_update_sum_cc {
-    hidden: yes
-  }
-  dimension: save_prompt_update_users_cc {
-    hidden: yes
-  }
-  dimension: sync_account_opened {
-    hidden: yes
-  }
-  dimension: sync_account_opened_users {
-    hidden: yes
-  }
-  dimension: sync_account_send_tab {
-    hidden: yes
-  }
-  dimension: sync_account_send_tab_users {
-    hidden: yes
-  }
-  dimension: sync_account_sign_in_to_send_tab {
-    hidden: yes
-  }
-  dimension: sync_account_sign_in_to_send_tab_users {
-    hidden: yes
-  }
-  dimension: sync_account_sync_now {
-    hidden: yes
-  }
-  dimension: sync_account_sync_now_users {
-    hidden: yes
-  }
-  dimension: sync_auth_closed {
-    hidden: yes
-  }
-  dimension: sync_auth_closed_users {
-    hidden: yes
-  }
-  dimension: sync_auth_opened {
-    hidden: yes
-  }
-  dimension: sync_auth_opened_users {
-    hidden: yes
-  }
-  dimension: sync_auth_other_external {
-    hidden: yes
-  }
-  dimension: sync_auth_other_external_users {
-    hidden: yes
-  }
-  dimension: sync_auth_paired {
-    hidden: yes
-  }
-  dimension: sync_auth_paired_users {
-    hidden: yes
-  }
-  dimension: sync_auth_recovered {
-    hidden: yes
-  }
-  dimension: sync_auth_recovered_users {
-    hidden: yes
-  }
-  dimension: sync_auth_scan_pairing {
-    hidden: yes
-  }
-  dimension: sync_auth_scan_pairing_users {
-    hidden: yes
-  }
-  dimension: sync_auth_sign_in {
-    hidden: yes
-  }
-  dimension: sync_auth_sign_in_users {
-    hidden: yes
-  }
-  dimension: sync_auth_sign_out {
-    hidden: yes
-  }
-  dimension: sync_auth_sign_out_users {
-    hidden: yes
-  }
-  dimension: sync_auth_sign_up {
-    hidden: yes
-  }
-  dimension: sync_auth_sign_up_users {
-    hidden: yes
-  }
-  dimension: sync_auth_use_email {
-    hidden: yes
-  }
-  dimension: sync_auth_use_email_problem {
-    hidden: yes
-  }
-  dimension: sync_auth_use_email_problem_users {
-    hidden: yes
-  }
-  dimension: sync_auth_use_email_users {
-    hidden: yes
-  }
-  dimension: sync_failed {
-    hidden: yes
-  }
-  dimension: sync_failed_users {
-    hidden: yes
-  }
-  dimension: tab_tray_private_mode_switched {
-    hidden: yes
-  }
-  dimension: tab_tray_private_mode_switched_users {
-    hidden: yes
-  }
-  dimension: tab_tray_private_mode_tapped {
-    hidden: yes
-  }
-  dimension: tab_tray_private_mode_tapped_users {
-    hidden: yes
-  }
-  dimension: top_sites_contile_click {
-    hidden: yes
-  }
-  dimension: top_sites_contile_click_users {
-    hidden: yes
-  }
-  dimension: top_sites_contile_impression {
-    hidden: yes
-  }
-  dimension: top_sites_contile_impression_users {
-    hidden: yes
-  }
+view: fenix_feature_usage_events {
+  derived_table: {
+    sql:
+      SELECT
+        submission_date,
+        ping_date,
+        SUM(app_icon_private_tab_tapped) AS app_icon_private_tab_tapped,
+        SUM(app_icon_private_tab_tapped_users) AS app_icon_private_tab_tapped_users,
+        SUM(app_menu_customize_homepage) AS app_menu_customize_homepage,
+        SUM(app_menu_customize_homepage_users) AS app_menu_customize_homepage_users,
+        SUM(autofill_password_detected_logins) AS autofill_password_detected_logins,
+        SUM(autofill_password_detected_users_logins) AS autofill_password_detected_users_logins,
+        SUM(autofill_prompt_dismissed_sum_address) AS autofill_prompt_dismissed_sum_address,
+        SUM(autofill_prompt_dismissed_sum_cc) AS autofill_prompt_dismissed_sum_cc,
+        SUM(autofill_prompt_dismissed_sum_logins) AS autofill_prompt_dismissed_sum_logins,
+        SUM(autofill_prompt_dismissed_users_address) AS autofill_prompt_dismissed_users_address,
+        SUM(autofill_prompt_dismissed_users_cc) AS autofill_prompt_dismissed_users_cc,
+        SUM(autofill_prompt_dismissed_users_logins) AS autofill_prompt_dismissed_users_logins,
+        SUM(autofill_prompt_expanded_sum_address) AS autofill_prompt_expanded_sum_address,
+        SUM(autofill_prompt_expanded_sum_cc) AS autofill_prompt_expanded_sum_cc,
+        SUM(autofill_prompt_expanded_users_address) AS autofill_prompt_expanded_users_address,
+        SUM(autofill_prompt_expanded_users_cc) AS autofill_prompt_expanded_users_cc,
+        SUM(autofill_prompt_shown_sum_address) AS autofill_prompt_shown_sum_address,
+        SUM(autofill_prompt_shown_sum_cc) AS autofill_prompt_shown_sum_cc,
+        SUM(autofill_prompt_shown_sum_logins) AS autofill_prompt_shown_sum_logins,
+        SUM(autofill_prompt_shown_users_address) AS autofill_prompt_shown_users_address,
+        SUM(autofill_prompt_shown_users_cc) AS autofill_prompt_shown_users_cc,
+        SUM(autofill_prompt_shown_users_logins) AS autofill_prompt_shown_users_logins,
+        SUM(autofilled_sum_address) AS autofilled_sum_address,
+        SUM(autofilled_sum_cc) AS autofilled_sum_cc,
+        SUM(autofilled_sum_logins) AS autofilled_sum_logins,
+        SUM(autofilled_users_address) AS autofilled_users_address,
+        SUM(autofilled_users_cc) AS autofilled_users_cc,
+        SUM(autofilled_users_logins) AS autofilled_users_logins,
+        SUM(bookmark_copied) AS bookmark_copied,
+        SUM(bookmark_copied_users) AS bookmark_copied_users,
+        SUM(bookmark_edited) AS bookmark_edited,
+        SUM(bookmark_edited_users) AS bookmark_edited_users,
+        SUM(bookmark_folder_add) AS bookmark_folder_add,
+        SUM(bookmark_folder_add_users) AS bookmark_folder_add_users,
+        SUM(bookmark_open) AS bookmark_open,
+        SUM(bookmark_open_all_in_new_tabs) AS bookmark_open_all_in_new_tabs,
+        SUM(bookmark_open_all_in_new_tabs_users) AS bookmark_open_all_in_new_tabs_users,
+        SUM(bookmark_open_all_in_private_tabs) AS bookmark_open_all_in_private_tabs,
+        SUM(bookmark_open_all_in_private_tabs_users) AS bookmark_open_all_in_private_tabs_users,
+        SUM(bookmark_open_in_new_tab) AS bookmark_open_in_new_tab,
+        SUM(bookmark_open_in_new_tab_users) AS bookmark_open_in_new_tab_users,
+        SUM(bookmark_open_in_new_tabs) AS bookmark_open_in_new_tabs,
+        SUM(bookmark_open_in_new_tabs_users) AS bookmark_open_in_new_tabs_users,
+        SUM(bookmark_open_in_private_tab) AS bookmark_open_in_private_tab,
+        SUM(bookmark_open_in_private_tab_users) AS bookmark_open_in_private_tab_users,
+        SUM(bookmark_open_in_private_tabs) AS bookmark_open_in_private_tabs,
+        SUM(bookmark_open_in_private_tabs_users) AS bookmark_open_in_private_tabs_users,
+        SUM(bookmark_open_users) AS bookmark_open_users,
+        SUM(bookmark_removed) AS bookmark_removed,
+        SUM(bookmark_removed_users) AS bookmark_removed_users,
+        SUM(bookmark_search_icon_tapped) AS bookmark_search_icon_tapped,
+        SUM(bookmark_search_icon_tapped_users) AS bookmark_search_icon_tapped_users,
+        SUM(bookmark_search_result_tapped) AS bookmark_search_result_tapped,
+        SUM(bookmark_search_result_tapped_users) AS bookmark_search_result_tapped_users,
+        SUM(bookmark_shared) AS bookmark_shared,
+        SUM(bookmark_shared_users) AS bookmark_shared_users,
+        SUM(default_browser_changed) AS default_browser_changed,
+        SUM(default_browser_changed_users) AS default_browser_changed_users,
+        SUM(etp_setting_changed) AS etp_setting_changed,
+        SUM(etp_setting_changed_users) AS etp_setting_changed_users,
+        SUM(etp_settings) AS etp_settings,
+        SUM(etp_settings_users) AS etp_settings_users,
+        SUM(etp_shield) AS etp_shield,
+        SUM(etp_shield_users) AS etp_shield_users,
+        SUM(etp_tracker_list) AS etp_tracker_list,
+        SUM(etp_tracker_list_users) AS etp_tracker_list_users,
+        SUM(form_detected_sum_address) AS form_detected_sum_address,
+        SUM(form_detected_sum_cc) AS form_detected_sum_cc,
+        SUM(form_detected_users_address) AS form_detected_users_address,
+        SUM(form_detected_users_cc) AS form_detected_users_cc,
+        SUM(history_opened) AS history_opened,
+        SUM(history_opened_item) AS history_opened_item,
+        SUM(history_opened_item_users) AS history_opened_item_users,
+        SUM(history_opened_items_in_new_tabs) AS history_opened_items_in_new_tabs,
+        SUM(history_opened_items_in_new_tabs_users) AS history_opened_items_in_new_tabs_users,
+        SUM(history_opened_items_in_private_tabs) AS history_opened_items_in_private_tabs,
+        SUM(history_opened_items_in_private_tabs_users) AS history_opened_items_in_private_tabs_users,
+        SUM(history_opened_users) AS history_opened_users,
+        SUM(history_recent_searches_tapped) AS history_recent_searches_tapped,
+        SUM(history_recent_searches_tapped_users) AS history_recent_searches_tapped_users,
+        SUM(history_remove_prompt_cancelled) AS history_remove_prompt_cancelled,
+        SUM(history_remove_prompt_cancelled_users) AS history_remove_prompt_cancelled_users,
+        SUM(history_remove_prompt_opened) AS history_remove_prompt_opened,
+        SUM(history_remove_prompt_opened_users) AS history_remove_prompt_opened_users,
+        SUM(history_removed) AS history_removed,
+        SUM(history_removed_all) AS history_removed_all,
+        SUM(history_removed_all_users) AS history_removed_all_users,
+        SUM(history_removed_last_hour) AS history_removed_last_hour,
+        SUM(history_removed_last_hour_users) AS history_removed_last_hour_users,
+        SUM(history_removed_today_and_yesterday) AS history_removed_today_and_yesterday,
+        SUM(history_removed_today_and_yesterday_users) AS history_removed_today_and_yesterday_users,
+        SUM(history_removed_users) AS history_removed_users,
+        SUM(history_search_icon_tapped) AS history_search_icon_tapped,
+        SUM(history_search_icon_tapped_users) AS history_search_icon_tapped_users,
+        SUM(history_search_term_group_open_tab) AS history_search_term_group_open_tab,
+        SUM(history_search_term_group_open_tab_users) AS history_search_term_group_open_tab_users,
+        SUM(history_search_term_group_remove_all) AS history_search_term_group_remove_all,
+        SUM(history_search_term_group_remove_all_users) AS history_search_term_group_remove_all_users,
+        SUM(history_search_term_group_remove_tab) AS history_search_term_group_remove_tab,
+        SUM(history_search_term_group_remove_tab_users) AS history_search_term_group_remove_tab_users,
+        SUM(history_search_term_group_tapped) AS history_search_term_group_tapped,
+        SUM(history_search_term_group_tapped_users) AS history_search_term_group_tapped_users,
+        SUM(history_shared) AS history_shared,
+        SUM(history_shared_users) AS history_shared_users,
+        SUM(home_page_customize_home_clicked) AS home_page_customize_home_clicked,
+        SUM(home_page_customize_home_clicked_users) AS home_page_customize_home_clicked_users,
+        SUM(hp_private_mode_tapped) AS hp_private_mode_tapped,
+        SUM(hp_private_mode_tapped_users) AS hp_private_mode_tapped_users,
+        SUM(management_add_tapped_sum_address) AS management_add_tapped_sum_address,
+        SUM(management_add_tapped_sum_cc) AS management_add_tapped_sum_cc,
+        SUM(management_add_tapped_sum_logins) AS management_add_tapped_sum_logins,
+        SUM(management_add_tapped_users_address) AS management_add_tapped_users_address,
+        SUM(management_add_tapped_users_cc) AS management_add_tapped_users_cc,
+        SUM(management_add_tapped_users_logins) AS management_add_tapped_users_logins,
+        SUM(management_tapped_sum_address) AS management_tapped_sum_address,
+        SUM(management_tapped_sum_cc) AS management_tapped_sum_cc,
+        SUM(management_tapped_sum_logins) AS management_tapped_sum_logins,
+        SUM(management_tapped_users_address) AS management_tapped_users_address,
+        SUM(management_tapped_users_cc) AS management_tapped_users_cc,
+        SUM(management_tapped_users_logins) AS management_tapped_users_logins,
+        SUM(modified_sum_cc) AS modified_sum_cc,
+        SUM(modified_users_cc) AS modified_users_cc,
+        SUM(re_engagement_notif_shown) AS re_engagement_notif_shown,
+        SUM(re_engagement_notif_shown_users) AS re_engagement_notif_shown_users,
+        SUM(re_engagement_notif_tapped) AS re_engagement_notif_tapped,
+        SUM(re_engagement_notif_tapped_users) AS re_engagement_notif_tapped_users,
+        SUM(save_prompt_create_sum_cc) AS save_prompt_create_sum_cc,
+        SUM(save_prompt_create_users_cc) AS save_prompt_create_users_cc,
+        SUM(save_prompt_shown_sum_cc) AS save_prompt_shown_sum_cc,
+        SUM(save_prompt_shown_users_cc) AS save_prompt_shown_users_cc,
+        SUM(save_prompt_update_sum_cc) AS save_prompt_update_sum_cc,
+        SUM(save_prompt_update_users_cc) AS save_prompt_update_users_cc,
+        SUM(sync_account_opened) AS sync_account_opened,
+        SUM(sync_account_opened_users) AS sync_account_opened_users,
+        SUM(sync_account_send_tab) AS sync_account_send_tab,
+        SUM(sync_account_send_tab_users) AS sync_account_send_tab_users,
+        SUM(sync_account_sign_in_to_send_tab) AS sync_account_sign_in_to_send_tab,
+        SUM(sync_account_sign_in_to_send_tab_users) AS sync_account_sign_in_to_send_tab_users,
+        SUM(sync_account_sync_now) AS sync_account_sync_now,
+        SUM(sync_account_sync_now_users) AS sync_account_sync_now_users,
+        SUM(sync_auth_closed) AS sync_auth_closed,
+        SUM(sync_auth_closed_users) AS sync_auth_closed_users,
+        SUM(sync_auth_opened) AS sync_auth_opened,
+        SUM(sync_auth_opened_users) AS sync_auth_opened_users,
+        SUM(sync_auth_other_external) AS sync_auth_other_external,
+        SUM(sync_auth_other_external_users) AS sync_auth_other_external_users,
+        SUM(sync_auth_paired) AS sync_auth_paired,
+        SUM(sync_auth_paired_users) AS sync_auth_paired_users,
+        SUM(sync_auth_recovered) AS sync_auth_recovered,
+        SUM(sync_auth_recovered_users) AS sync_auth_recovered_users,
+        SUM(sync_auth_scan_pairing) AS sync_auth_scan_pairing,
+        SUM(sync_auth_scan_pairing_users) AS sync_auth_scan_pairing_users,
+        SUM(sync_auth_sign_in) AS sync_auth_sign_in,
+        SUM(sync_auth_sign_in_users) AS sync_auth_sign_in_users,
+        SUM(sync_auth_sign_out) AS sync_auth_sign_out,
+        SUM(sync_auth_sign_out_users) AS sync_auth_sign_out_users,
+        SUM(sync_auth_sign_up) AS sync_auth_sign_up,
+        SUM(sync_auth_sign_up_users) AS sync_auth_sign_up_users,
+        SUM(sync_auth_use_email) AS sync_auth_use_email,
+        SUM(sync_auth_use_email_problem) AS sync_auth_use_email_problem,
+        SUM(sync_auth_use_email_problem_users) AS sync_auth_use_email_problem_users,
+        SUM(sync_auth_use_email_users) AS sync_auth_use_email_users,
+        SUM(sync_failed) AS sync_failed,
+        SUM(sync_failed_users) AS sync_failed_users,
+        SUM(tab_tray_private_mode_switched) AS tab_tray_private_mode_switched,
+        SUM(tab_tray_private_mode_switched_users) AS tab_tray_private_mode_switched_users,
+        SUM(tab_tray_private_mode_tapped) AS tab_tray_private_mode_tapped,
+        SUM(tab_tray_private_mode_tapped_users) AS tab_tray_private_mode_tapped_users
+      FROM `moz-fx-data-shared-prod.fenix.feature_usage_events`
+      WHERE submission_date >= '2021-01-01'
+      GROUP BY 1,2 ;;}
+
+  dimension_group: ping {
+    sql: ${TABLE}.ping_date ;;
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year,
+    ]
+    convert_tz: no
+    datatype: date
+  }
+
+  dimension_group: submission {
+    sql: ${TABLE}.submission_date ;;
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year,
+    ]
+    convert_tz: no
+    datatype: date
+  }
+
 
   measure: sum_app_icon_private_tab_tapped {
     sql: ${TABLE}.app_icon_private_tab_tapped ;;
@@ -1356,25 +1047,6 @@ view: +feature_usage_events {
 
   measure: sum_tab_tray_private_mode_tapped_users {
     sql: ${TABLE}.tab_tray_private_mode_tapped_users ;;
-    type: sum
-  }
-  measure: sum_top_sites_contile_click_users {
-    sql: ${TABLE}.top_sites_contile_click ;;
-    type: sum
-  }
-
-  measure: sum_top_sites_contile_click_users {
-    sql: ${TABLE}.top_sites_contile_click_users ;;
-    type: sum
-  }
-
-  measure: sum_top_sites_contile_impression {
-    sql: ${TABLE}.top_sites_contile_impression ;;
-    type: sum
-  }
-
-  measure: sum_top_sites_contile_impression_users {
-    sql: ${TABLE}.top_sites_contile_impression_users ;;
     type: sum
   }
 }
