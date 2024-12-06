@@ -5,7 +5,8 @@ view: fenix_dau {
         submission_date,
         SUM(dau),
       FROM `moz-fx-data-shared-prod.fenix.active_users_aggregates`
-      WHERE submission_date >= "2022-01-01" ;;
+      WHERE submission_date >= "2022-01-01"
+      GROUP BY submission_date ;;
   }
 
   dimension_group: submission {
