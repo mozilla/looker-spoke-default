@@ -1,14 +1,12 @@
-include: "//looker-hub/combined_browser_metrics/views/active_users_aggregates.view.lkml"
-
 view: fenix_dau {
   derived_table: {
     sql:
       SELECT
         submission_date,
-        SUM(dau) AS dau
-      FROM `moz-fx-data-shared-prod.telemetry.active_users_aggregates`
-      WHERE app_name = 'Fenix'
-      GROUP BY 1 ;;
+        SUM(dau),
+      FROM `moz-fx-data-shared-prod.fenix.active_users_aggregates`
+      WHERE submission_date >= "2022-01-01"
+      GROUP BY submission_date ;;
   }
 
   dimension_group: submission {
