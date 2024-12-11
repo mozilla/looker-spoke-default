@@ -11,7 +11,7 @@ view: mobile_search_aggregates {
     type: number
     sql: ${TABLE}.ad_click_organic ;;
   }
-  
+
   dimension: search_with_ads_organic {
     type: number
     sql: ${TABLE}.search_with_ads_organic ;;
@@ -66,6 +66,11 @@ view: mobile_search_aggregates {
   dimension: normalized_app_name {
     type: string
     sql: ${TABLE}.normalized_app_name ;;
+  }
+
+  dimension: normalized_app_name_os {
+    type: string
+    sql: ${TABLE}.normalized_app_name_os ;;
   }
 
   dimension: normalized_engine {
