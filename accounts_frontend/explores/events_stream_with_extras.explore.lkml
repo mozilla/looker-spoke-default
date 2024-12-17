@@ -1,7 +1,7 @@
 include: "../views/events_stream_with_extras.view.lkml"
 
 explore: events_stream_with_extras {
-  hidden: yes
+  hidden: no
 
   description: "Events stream with event_extras as dimensions"
 
