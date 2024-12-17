@@ -52,11 +52,14 @@ view: events_stream_with_extras {
     group_item_label: "title"
   }
 
-  dimension: extra__url_normalized {
-    sql: REGEXP_REPLACE(LAX_STRING(${TABLE}.event_extra.url), r'https?://[^/]+|\?.*$|#.*$', '') ;;
+  dimension: extra__url_relative {
+    sql: CASE
+        WHEN REGEXP_CONTAINS(LAX_STRING(${TABLE}.event_extra.url), r'^(file://|/[A-Za-z]:/|content:/)') THEN ''
+        ELSE REGEXP_REPLACE(LAX_STRING(${TABLE}.event_extra.url), r'https?://[^/]+|\?.*$|#.*$', '')
+    END ;;
     type:  string
     group_label: "Event extra"
-    group_item_label: "url (normalized)"
+    group_item_label: "url (relative)"
   }
 
   measure: event_count {
