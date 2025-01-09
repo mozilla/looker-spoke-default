@@ -52,8 +52,8 @@
     note_display: above
     note_text: Updated daily
     listen:
-      Time Range [UTC]: experiment_enrollment_daily_active_population.time_time
       Experiment: experiment_enrollment_daily_active_population.experiment
+      Time Range [UTC]: experiment_enrollment_daily_active_population.time_time
     row: 10
     col: 12
     width: 12
@@ -99,8 +99,8 @@
     note_display: above
     note_text: Updated daily
     listen:
-      Time Range [UTC]: experiment_enrollment_daily_active_population.time_time
       Experiment: experiment_enrollment_daily_active_population.experiment
+      Time Range [UTC]: experiment_enrollment_daily_active_population.time_time
     row: 10
     col: 0
     width: 12
@@ -146,8 +146,8 @@
     note_display: above
     note_text: Updated every 10 minutes
     listen:
-      Time Range [UTC]: experiment_enrollment_cumulative_population_estimate.timeframe
       Experiment: experiment_enrollment_cumulative_population_estimate.experiment
+      Time Range [UTC]: experiment_enrollment_cumulative_population_estimate.timeframe
     row: 18
     col: 0
     width: 12
@@ -200,8 +200,8 @@
     note_display: above
     note_text: Updated every 10 minutes
     listen:
-      Time Range [UTC]: experiment_enrollment_cumulative_population_estimate.timeframe
       Experiment: experiment_enrollment_cumulative_population_estimate.experiment
+      Time Range [UTC]: experiment_enrollment_cumulative_population_estimate.timeframe
     row: 18
     col: 12
     width: 12
@@ -252,8 +252,8 @@
     note_display: above
     note_text: Updated every 10 minutes
     listen:
-      Time Range [UTC]: experiment_unenrollment_overall.timeframe
       Experiment: experiment_unenrollment_overall.experiment
+      Time Range [UTC]: experiment_unenrollment_overall.timeframe
     row: 39
     col: 0
     width: 12
@@ -314,8 +314,8 @@
     note_display: above
     note_text: Updated every 10 minutes
     listen:
-      Time Range [UTC]: experiment_unenrollment_overall.timeframe
       Experiment: experiment_unenrollment_overall.experiment
+      Time Range [UTC]: experiment_unenrollment_overall.timeframe
     row: 39
     col: 12
     width: 12
@@ -367,8 +367,8 @@
     note_display: above
     note_text: Updated every 10 minutes
     listen:
-      Time Range [UTC]: experiment_enrollment_overall.timeframe
       Experiment: experiment_enrollment_overall.experiment
+      Time Range [UTC]: experiment_enrollment_overall.timeframe
     row: 32
     col: 0
     width: 12
@@ -425,8 +425,8 @@
     note_display: above
     note_text: Updated every 10 minutes
     listen:
-      Time Range [UTC]: experiment_enrollment_overall.timeframe
       Experiment: experiment_enrollment_overall.experiment
+      Time Range [UTC]: experiment_enrollment_overall.timeframe
     row: 32
     col: 12
     width: 12
@@ -477,8 +477,8 @@
     note_display: above
     note_text: Updated every 10 minutes
     listen:
-      Time Range [UTC]: experiment_enrollment_other_events_overall.timeframe
       Experiment: experiment_enrollment_other_events_overall.experiment
+      Time Range [UTC]: experiment_enrollment_other_events_overall.timeframe
     row: 46
     col: 0
     width: 12
@@ -539,8 +539,8 @@
     note_display: above
     note_text: Updated every 10 minutes
     listen:
-      Time Range [UTC]: experiment_enrollment_other_events_overall.timeframe
       Experiment: experiment_enrollment_other_events_overall.experiment
+      Time Range [UTC]: experiment_enrollment_other_events_overall.timeframe
     row: 46
     col: 12
     width: 12
@@ -599,8 +599,8 @@
     defaults_version: 1
     y_axes: []
     listen:
-      Time Range [UTC]: events.submission_date
       Experiment: events.event_string_value
+      Time Range [UTC]: events.submission_date
     row: 53
     col: 0
     width: 24
@@ -936,6 +936,212 @@
     listen:
       Experiment: experiment_enrollment_overall.experiment
     row: 25
+    col: 0
+    width: 12
+    height: 7
+  - title: Crash Counts by Branch
+    name: Crash Counts by Branch
+    model: experimentation
+    explore: experiment_crash_rates
+    type: looker_column
+    fields: [sum_of_crash_count, experiment_crash_rates.branch, experiment_crash_rates.window_start_time]
+    pivots: [experiment_crash_rates.branch]
+    filters: {}
+    sorts: [experiment_crash_rates.branch, experiment_crash_rates.window_start_time
+        desc]
+    limit: 500
+    column_limit: 50
+    dynamic_fields:
+    - _kind_hint: measure
+      _type_hint: number
+      based_on: experiment_crash_rates.crash_count
+      expression: ''
+      label: Sum of Crash Count
+      measure: sum_of_crash_count
+      type: sum
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    y_axes: [{label: Total, orientation: left, series: [{axisId: sum_of_crash_count,
+            id: change-non-user - sum_of_crash_count, name: change-non-user}, {axisId: sum_of_crash_count,
+            id: no-change-non-user - sum_of_crash_count, name: no-change-non-user}],
+        showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
+        tickDensityCustom: 5, type: linear}]
+    x_axis_label: Time [UTC]
+    x_axis_zoom: true
+    y_axis_zoom: true
+    hidden_pivots: {}
+    show_null_points: true
+    interpolation: linear
+    defaults_version: 1
+    listen:
+      Experiment: experiment_crash_rates.experiment
+      Time Range [UTC]: experiment_crash_rates.window_start_date
+    row: 61
+    col: 12
+    width: 12
+    height: 7
+  - title: Crash Counts By Process Type
+    name: Crash Counts By Process Type
+    model: experimentation
+    explore: experiment_crash_rates
+    type: looker_line
+    fields: [sum_of_crash_count, experiment_crash_rates.crash_process_type, experiment_crash_rates.window_start_time]
+    pivots: [experiment_crash_rates.crash_process_type]
+    filters: {}
+    sorts: [experiment_crash_rates.crash_process_type, experiment_crash_rates.window_start_time
+        desc]
+    limit: 500
+    column_limit: 50
+    dynamic_fields:
+    - _kind_hint: measure
+      _type_hint: number
+      based_on: experiment_crash_rates.crash_count
+      expression: ''
+      label: Sum of Crash Count
+      measure: sum_of_crash_count
+      type: sum
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    y_axes: [{label: Total, orientation: left, series: [{axisId: sum_of_crash_count,
+            id: content - sum_of_crash_count, name: content}, {axisId: sum_of_crash_count,
+            id: gpu - sum_of_crash_count, name: gpu}, {axisId: sum_of_crash_count,
+            id: main - sum_of_crash_count, name: main}, {axisId: sum_of_crash_count,
+            id: rdd - sum_of_crash_count, name: rdd}], showLabels: true, showValues: true,
+        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
+    x_axis_label: Time [UTC]
+    x_axis_zoom: true
+    y_axis_zoom: true
+    hidden_pivots: {}
+    defaults_version: 1
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    listen:
+      Experiment: experiment_crash_rates.experiment
+      Time Range [UTC]: experiment_crash_rates.window_start_date
+    row: 68
+    col: 0
+    width: 12
+    height: 7
+  - name: " (2)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: '[{"type":"h1","children":[{"text":"Crash Counts"}],"align":"center"}]'
+    rich_content_json: '{"format":"slate"}'
+    row: 59
+    col: 0
+    width: 24
+    height: 2
+  - title: Crash Counts
+    name: Crash Counts
+    model: experimentation
+    explore: experiment_crash_rates
+    type: looker_column
+    fields: [sum_of_crash_count, experiment_crash_rates.window_start_time]
+    filters: {}
+    sorts: [experiment_crash_rates.window_start_time desc]
+    limit: 500
+    column_limit: 50
+    dynamic_fields:
+    - _kind_hint: measure
+      _type_hint: number
+      based_on: experiment_crash_rates.crash_count
+      expression: ''
+      label: Sum of Crash Count
+      measure: sum_of_crash_count
+      type: sum
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    y_axes: [{label: Total, orientation: left, series: [{axisId: sum_of_crash_count,
+            id: sum_of_crash_count, name: Sum of Crash Count}], showLabels: true,
+        showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
+        type: linear}]
+    x_axis_label: Time [UTC]
+    x_axis_zoom: true
+    y_axis_zoom: true
+    hidden_pivots: {}
+    show_null_points: true
+    interpolation: linear
+    defaults_version: 1
+    listen:
+      Experiment: experiment_crash_rates.experiment
+      Time Range [UTC]: experiment_crash_rates.window_start_date
+    row: 61
     col: 0
     width: 12
     height: 7
