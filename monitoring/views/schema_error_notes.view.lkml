@@ -18,10 +18,7 @@ view: +schema_errors_notes {
       ;;
     link: {
       label: "{% if value != '' %} view on Bugzilla {% endif %}"
-      url: "
-      {% if value != '' %}
-      {{ bug }}
-      {% endif %}"
+      url: "{{ bug }}"
       icon_url: "https://bugzilla.mozilla.org/favicon.ico"
     }
   }
