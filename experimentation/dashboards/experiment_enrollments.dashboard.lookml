@@ -949,7 +949,7 @@
     filters: {}
     sorts: [experiment_crash_rates.branch, experiment_crash_rates.window_start_time
         desc]
-    limit: 500
+    limit: 5000
     column_limit: 50
     dynamic_fields:
     - _kind_hint: measure
@@ -1015,7 +1015,7 @@
     filters: {}
     sorts: [experiment_crash_rates.crash_process_type, experiment_crash_rates.window_start_time
         desc]
-    limit: 500
+    limit: 5000
     column_limit: 50
     dynamic_fields:
     - _kind_hint: measure
@@ -1090,7 +1090,7 @@
     fields: [sum_of_crash_count, experiment_crash_rates.window_start_time]
     filters: {}
     sorts: [experiment_crash_rates.window_start_time desc]
-    limit: 500
+    limit: 5000
     column_limit: 50
     dynamic_fields:
     - _kind_hint: measure
