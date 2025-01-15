@@ -49,6 +49,7 @@ view: browser_kpi_forecasts_2025 {
           ON d.submission_date = aua_ma.submission_date
         LEFT JOIN `mozdata.analysis.browser_kpi_forecasts_2025` AS forecast
           ON d.submission_date = forecast.submission_date
+         AND forecast.product = COALESCE(aua_ma.product, forecast.product)
       )
 
       SELECT * FROM joined_data
