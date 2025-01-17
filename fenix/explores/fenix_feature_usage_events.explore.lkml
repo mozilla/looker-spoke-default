@@ -12,4 +12,10 @@ explore: fenix_feature_usage_events {
     relationship: one_to_one
     sql_on: ${fenix_feature_usage_events.ping_date} = ${fenix_dau.submission_date} ;;
   }
+
+  always_filter: {
+    filters: [
+      submission_date: "28 days",
+    ]
+  }
 }

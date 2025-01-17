@@ -13,6 +13,20 @@ view: search_aggregates {
     sql: ${TABLE}.app_version ;;
   }
 
+  dimension: major_version {
+    type: number
+    sql: mozfun.norm.browser_version_info(${TABLE}.app_version).major_version ;;
+    description: "The major version of the application, as a number."
+    group_label: "Browser Version"
+  }
+
+  dimension: minor_version {
+    type: number
+    sql: mozfun.norm.browser_version_info(${TABLE}.app_version).minor_version ;;
+    description: "The minor version of the application, as a number."
+    group_label: "Browser Version"
+  }
+
   dimension: channel {
     type: string
     sql: ${TABLE}.channel ;;

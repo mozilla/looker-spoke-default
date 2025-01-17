@@ -17,4 +17,5 @@ explore: newtab_clients_daily {
     relationship: one_to_one
     sql_on: ${newtab_clients_daily.country_code} = ${countries.code} ;;
   }
+
 }
