@@ -243,6 +243,10 @@ view: +active_users_aggregates {
     }
   }
 
+  dimension: partnership {
+    suggestions: ["vivo"]
+  }
+
 # Group dimensions in Explore
   dimension: os {
     sql: ${TABLE}.os ;;
