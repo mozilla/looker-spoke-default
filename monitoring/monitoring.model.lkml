@@ -59,7 +59,7 @@ include: "views/stable_table_column_counts.view.lkml"
 include: "views/structured_missing_columns.view.lkml"
 include: "views/telemetry_missing_columns.view.lkml"
 include: "explores/*"
-# include: "dashboards/*"
+include: "dashboards/*"
 
 # todo: hide explores once dashboard has been implemented
 view: +payload_bytes_error_all {
