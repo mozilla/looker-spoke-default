@@ -1,7 +1,7 @@
-include: "//looker-hub/fxci/views/task_run_costs.view.lkml"
+include: "//looker-hub/fxci/views/task_run_costs_base.view.lkml"
 
-view: task_run_costs_ex {
-  extends: [task_run_costs]
+view: task_run_costs {
+  extends: [task_run_costs_base]
 
   dimension: key {
     primary_key:  yes

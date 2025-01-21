@@ -1,7 +1,7 @@
-include: "//looker-hub/fxci/views/task_runs.view.lkml"
+include: "//looker-hub/fxci/views/task_runs_base.view.lkml"
 
-view: task_runs_ex {
-  extends: [task_runs]
+view: task_runs {
+  extends: [task_runs_base]
 
   dimension: key {
     primary_key:  yes
