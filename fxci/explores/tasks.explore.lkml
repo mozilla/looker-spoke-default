@@ -2,7 +2,7 @@ include: "../views/tasks.view.lkml"
 include: "../views/task_runs.view.lkml"
 include: "../views/task_run_costs.view.lkml"
 
-explore:  fxci_tasks {
+explore:  tasks {
   label: "Firefox-CI Tasks"
   description: "Task metadata for the Firefox-CI Taskcluster instance."
   view_name: task_runs
