@@ -1,6 +1,6 @@
 ---
-- dashboard: num_tasks
-  title: Num Tasks
+- dashboard: fxci_num_tasks
+  title: Firefox-CI Number of Tasks
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
