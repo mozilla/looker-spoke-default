@@ -1,6 +1,47 @@
-include: "//looker-hub/combined_browser_metrics/views/active_users_aggregates.view.lkml"
 
-view: +active_users_aggregates {
+view: active_users_aggregates {
+  derived_table: {
+    sql:
+      SELECT
+        segment,
+        attribution_medium,
+        attribution_source,
+        attributed,
+        adjust_network,
+        install_source,
+        city,
+        country,
+        distribution_id,
+        first_seen_year,
+        is_default_browser,
+        channel,
+        os,
+        os_version,
+        os_version_major,
+        os_version_minor,
+        submission_date,
+        locale,
+        dau,
+        wau,
+        mau,
+        daily_users,
+        weekly_users,
+        monthly_users,
+        app_name,
+        app_version,
+        app_version_major,
+        app_version_minor,
+        app_version_patch_revision,
+        app_version_is_major_release,
+        os_grouped,
+      FROM `moz-fx-data-shared-prod.telemetry.active_users_aggregates`
+      WHERE
+        1 = 1
+         {% if distribution._parameter_value != "any" %}
+          AND distribution_id LIKE '%{% parameter distribution._parameter_value %}%'
+        {% endif %}
+      ;;
+  }
 
   parameter: choose_breakdown {
     label: "Choose Grouping (Rows)"
@@ -24,6 +65,21 @@ view: +active_users_aggregates {
     allowed_value: {value: "Year" }
     allowed_value: {value: "Month"}
     allowed_value: {value: "Week"}
+  }
+
+  parameter: distribution {
+    label: "Firefox Distribution"
+    view_label: "Firefox Distribution"
+    type: unquoted
+    default_value: "any"
+    allowed_value: {
+      label: "Vivo"
+      value: "vivo"
+    }
+    allowed_value: {
+      label: "Any"
+      value: "any"
+    }
   }
 
   dimension_group: submission {
@@ -119,6 +175,92 @@ view: +active_users_aggregates {
     type:  string
     group_label: "Attribution"
     sql: ${TABLE}.attribution_source ;;
+  }
+
+  dimension: adjust_network {
+    sql: ${TABLE}.adjust_network ;;
+    type: string
+  }
+
+  dimension: app_version_is_major_release {
+    sql: ${TABLE}.app_version_is_major_release ;;
+    type: yesno
+  }
+
+  dimension: app_version_major {
+    sql: ${TABLE}.app_version_major ;;
+    type: number
+  }
+
+  dimension: app_version_minor {
+    sql: ${TABLE}.app_version_minor ;;
+    type: number
+  }
+
+  dimension: app_version_patch_revision {
+    sql: ${TABLE}.app_version_patch_revision ;;
+    type: number
+  }
+
+  dimension: attributed {
+    sql: ${TABLE}.attributed ;;
+    type: yesno
+  }
+
+  dimension: channel {
+    sql: ${TABLE}.channel ;;
+    type: string
+  }
+
+  dimension: city {
+    sql: ${TABLE}.city ;;
+    type: string
+  }
+
+  dimension: country {
+    sql: ${TABLE}.country ;;
+    type: string
+    map_layer_name: countries
+  }
+
+  dimension: daily_users {
+    sql: ${TABLE}.daily_users ;;
+    type: number
+  }
+
+  dimension: distribution_id {
+    sql: ${TABLE}.distribution_id ;;
+    type: string
+  }
+
+  dimension: first_seen_year {
+    sql: ${TABLE}.first_seen_year ;;
+    type: number
+  }
+
+  dimension: install_source {
+    sql: ${TABLE}.install_source ;;
+    type: string
+  }
+
+  dimension: locale {
+    sql: ${TABLE}.locale ;;
+    type: string
+  }
+
+  dimension: monthly_users {
+    sql: ${TABLE}.monthly_users ;;
+    type: number
+  }
+
+  dimension: segment {
+    sql: ${TABLE}.segment ;;
+    type: string
+  }
+
+  dimension: weekly_users {
+    sql: ${TABLE}.weekly_users ;;
+    type: number
   }
 
   dimension: is_leap_year {
