@@ -5,7 +5,7 @@ view: firefox_ios_feature_usage_metrics {
     sql:
       SELECT
         submission_date,
-        ping_date,
+        metric_date AS ping_date,
         SUM(logins_deleted_users) AS logins_deleted_users,
         SUM(logins_deleted) AS logins_deleted,
         -- logins_modified
@@ -127,7 +127,7 @@ view: firefox_ios_feature_usage_metrics {
         SUM(addresses_saved_all) AS addresses_saved_all
 
       FROM `moz-fx-data-shared-prod.firefox_ios.feature_usage_metrics`
-      WHERE submission_date >= '2018-01-01'
+      WHERE submission_date >= '2021-01-01'
       GROUP BY 1,2 ;;}
 
   dimension_group: ping {
