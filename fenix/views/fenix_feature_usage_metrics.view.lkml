@@ -5,7 +5,7 @@ view: fenix_feature_usage_metrics {
     sql:
       SELECT
         submission_date,
-        ping_date,
+        metric_date AS ping_date,
         SUM(logins_deleted_users) AS logins_deleted_users,
         SUM(logins_deleted) AS logins_deleted,
         --logins modified
