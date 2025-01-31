@@ -3,9 +3,10 @@ view: fenix_dau {
     sql:
       SELECT
         submission_date,
-        SUM(dau),
+        SUM(dau) as dau,
       FROM `moz-fx-data-shared-prod.fenix.active_users_aggregates`
       WHERE submission_date >= "2022-01-01"
+      AND app_name = 'Fenix'
       GROUP BY submission_date ;;
   }
 

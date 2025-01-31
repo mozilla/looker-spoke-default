@@ -6,7 +6,7 @@ view: firefox_ios_dau {
       SELECT
         submission_date,
         SUM(dau) AS dau
-      FROM `moz-fx-data-shared-prod.telemetry.active_users_aggregates`
+      FROM `moz-fx-data-shared-prod.firefox_ios.active_users_aggregates`
       WHERE app_name = 'Firefox iOS'
       GROUP BY 1 ;;}
 
