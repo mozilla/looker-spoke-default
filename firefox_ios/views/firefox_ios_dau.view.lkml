@@ -8,7 +8,7 @@ view: firefox_ios_dau {
         SUM(dau) AS dau
       FROM `moz-fx-data-shared-prod.firefox_ios.active_users_aggregates`
       WHERE app_name = 'Firefox iOS'
-      GROUP BY 1 ;;}
+      GROUP BY submission_date ;;}
 
   dimension_group: submission {
     type: time
