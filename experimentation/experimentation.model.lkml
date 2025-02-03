@@ -1,9 +1,13 @@
 connection: "telemetry"
 label: "Experimentation"
+include: "//looker-hub/experimentation/views/experiment_cumulative_ad_clicks.view.lkml"
+include: "//looker-hub/experimentation/views/experiment_cumulative_search_count.view.lkml"
+include: "//looker-hub/experimentation/views/experiment_cumulative_search_with_ads_count.view.lkml"
 include: "//looker-hub/experimentation/views/experiment_enrollment_cumulative_population_estimate.view.lkml"
 include: "//looker-hub/experimentation/views/experiment_enrollment_daily_active_population.view.lkml"
 include: "//looker-hub/experimentation/views/experiment_enrollment_other_events_overall.view.lkml"
 include: "//looker-hub/experimentation/views/experiment_enrollment_overall.view.lkml"
+include: "//looker-hub/experimentation/views/experiment_search_aggregates_live.view.lkml"
 include: "//looker-hub/experimentation/views/experiment_unenrollment_overall.view.lkml"
 include: "//looker-hub/experimentation/views/experimenter_experiments.view.lkml"
 include: "//looker-hub/experimentation/views/logs.view.lkml"
@@ -44,6 +48,54 @@ view: +experiment_enrollment_cumulative_population_estimate {
   measure: Total {
     type: number
     sql: SUM(${value});;
+  }
+
+  filter: timeframe {
+    type: date
+  }
+}
+
+view: +experiment_cumulative_ad_clicks {
+  dimension: experiment {
+    suggest_explore: experimenter_experiments
+    suggest_dimension: experimenter_experiments.normandy_slug
+  }
+
+  measure: Total {
+    type: number
+    sql: SUM(${value}) ;;
+  }
+
+  filter: timeframe {
+    type: date
+  }
+}
+
+view: +experiment_cumulative_search_count {
+  dimension: experiment {
+    suggest_explore: experimenter_experiments
+    suggest_dimension: experimenter_experiments.normandy_slug
+  }
+
+  measure: Total {
+    type: number
+    sql: SUM(${value}) ;;
+  }
+
+  filter: timeframe {
+    type: date
+  }
+}
+
+view: +experiment_cumulative_search_with_ads_count {
+  dimension: experiment {
+    suggest_explore: experimenter_experiments
+    suggest_dimension: experimenter_experiments.normandy_slug
+  }
+
+  measure: Total {
+    type: number
+    sql: SUM(${value}) ;;
   }
 
   filter: timeframe {
@@ -126,9 +178,79 @@ view: +experiment_unenrollment_overall {
   }
 }
 
+view: +experiment_search_aggregates_live {
+  dimension: experiment {
+    suggest_explore: experimenter_experiments
+    suggest_dimension: experimenter_experiments.normandy_slug
+  }
+
+  dimension: timestamp {
+    type: date_time
+    sql: CASE
+        WHEN DATE_DIFF(DATE({% date_end timeframe %}), DATE({% date_start timeframe %}), DAY) BETWEEN 5 AND 30 THEN TIMESTAMP_TRUNC(TIMESTAMP(${window_start_time}), HOUR)
+        WHEN DATE_DIFF(DATE({% date_end timeframe %}), DATE({% date_start timeframe %}), DAY) >= 30 THEN TIMESTAMP_TRUNC(TIMESTAMP(${window_start_time}), DAY)
+        ELSE TIMESTAMP(${window_start_time})
+      END;;
+  }
+
+  measure: total_search_count {
+    type: number
+    sql: SUM(${search_count}) ;;
+  }
+
+  measure: total_ad_clicks {
+    type: number
+    sql: SUM(${ad_clicks_count}) ;;
+  }
+
+  measure: total_searches_with_ads {
+    type: number
+    sql: SUM(${search_with_ads_count}) ;;
+  }
+
+  filter: timeframe {
+    type: date
+  }
+}
 
 
 # Explores
+
+explore: experiment_cumulative_ad_clicks {
+  hidden: yes
+  sql_always_where:
+        ${branch} IS NOT NULL AND
+    {% condition experiment_cumulative_ad_clicks.timeframe %} TIMESTAMP(${time_time}) {% endcondition %} AND
+    ((EXTRACT(MINUTE FROM TIMESTAMP(${time_time})) = 0 AND
+     DATE_DIFF(DATE({% date_end experiment_cumulative_ad_clicks.timeframe %}), DATE({% date_start experiment_cumulative_ad_clicks.timeframe %}), DAY) BETWEEN 5 AND 30) OR
+     (EXTRACT(HOUR FROM TIMESTAMP(${time_time})) = 0 AND EXTRACT(MINUTE FROM TIMESTAMP(${time_time})) = 0 AND
+     DATE_DIFF(DATE({% date_end experiment_cumulative_ad_clicks.timeframe %}), DATE({% date_start experiment_cumulative_ad_clicks.timeframe %}), DAY) >= 30) OR
+     DATE_DIFF(DATE({% date_end experiment_cumulative_ad_clicks.timeframe %}), DATE({% date_start experiment_cumulative_ad_clicks.timeframe %}), DAY) < 5) ;;
+}
+
+explore: experiment_cumulative_search_count {
+  hidden: yes
+  sql_always_where:
+  ${branch} IS NOT NULL AND
+  {% condition experiment_cumulative_search_count.timeframe %} TIMESTAMP(${time_time}) {% endcondition %} AND
+  ((EXTRACT(MINUTE FROM TIMESTAMP(${time_time})) = 0 AND
+  DATE_DIFF(DATE({% date_end experiment_cumulative_search_count.timeframe %}), DATE({% date_start experiment_cumulative_search_count.timeframe %}), DAY) BETWEEN 5 AND 30) OR
+  (EXTRACT(HOUR FROM TIMESTAMP(${time_time})) = 0 AND EXTRACT(MINUTE FROM TIMESTAMP(${time_time})) = 0 AND
+  DATE_DIFF(DATE({% date_end experiment_cumulative_search_count.timeframe %}), DATE({% date_start experiment_cumulative_search_count.timeframe %}), DAY) >= 30) OR
+  DATE_DIFF(DATE({% date_end experiment_cumulative_search_count.timeframe %}), DATE({% date_start experiment_cumulative_search_count.timeframe %}), DAY) < 5) ;;
+}
+
+explore: experiment_cumulative_search_with_ads_count {
+  hidden: yes
+  sql_always_where:
+  ${branch} IS NOT NULL AND
+  {% condition experiment_cumulative_search_with_ads_count.timeframe %} TIMESTAMP(${time_time}) {% endcondition %} AND
+  ((EXTRACT(MINUTE FROM TIMESTAMP(${time_time})) = 0 AND
+  DATE_DIFF(DATE({% date_end experiment_cumulative_search_with_ads_count.timeframe %}), DATE({% date_start experiment_cumulative_search_with_ads_count.timeframe %}), DAY) BETWEEN 5 AND 30) OR
+  (EXTRACT(HOUR FROM TIMESTAMP(${time_time})) = 0 AND EXTRACT(MINUTE FROM TIMESTAMP(${time_time})) = 0 AND
+  DATE_DIFF(DATE({% date_end experiment_cumulative_search_with_ads_count.timeframe %}), DATE({% date_start experiment_cumulative_search_with_ads_count.timeframe %}), DAY) >= 30) OR
+  DATE_DIFF(DATE({% date_end experiment_cumulative_search_with_ads_count.timeframe %}), DATE({% date_start experiment_cumulative_search_with_ads_count.timeframe %}), DAY) < 5) ;;
+}
 
 explore: experiment_enrollment_cumulative_population_estimate {
   hidden: yes
@@ -177,6 +299,13 @@ explore: experiment_unenrollment_overall {
     sql_on: ${experiment_unenrollment_overall.experiment} = ${experimenter_experiments.normandy_slug} ;;
     relationship: many_to_one
   }
+}
+
+explore: experiment_search_aggregates_live {
+  hidden: yes
+  sql_always_where:
+    ${branch} IS NOT NULL AND
+    {% condition experiment_search_aggregates_live.timeframe %} TIMESTAMP(${window_start_time}) {% endcondition %};;
 }
 
 explore: experiment_enrollment_daily_active_population {
