@@ -18,7 +18,6 @@ include: "views/funnel_android_new.view.lkml"
 include: "views/funnel_ios_new.view.lkml"
 include: "views/kpi_dau.view.lkml"
 include: "views/kpi_downloads.view.lkml"
-include: "views/kpi_installs.view.lkml"
 include: "views/mobile_android_country.view.lkml"
 include: "views/mobile_ios_country.view.lkml"
 include: "views/releases.view.lkml"
@@ -57,12 +56,6 @@ explore: kpi_dau {
 
 explore: kpi_downloads {
   sql_always_where: ${submission_date} >= "2022-01-01" AND ${period_filtered_measures} in ("this", "last") AND ${device_category} = "desktop" ;;
-}
-
-explore: kpi_installs{
-  sql_always_where: ${period_filtered_measures} in ("this", "last") AND
-                    ${app} = "Firefox Android and iOS" AND ${os} in ( "ios", "android")
-                    AND ${network} <> "Untrusted Devices";;
 }
 
 explore: app_store_territory_source_type_report {
