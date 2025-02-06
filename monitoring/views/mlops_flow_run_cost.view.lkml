@@ -31,10 +31,4 @@ view: mlops_flow_run_cost {
     sql: ${TABLE}.cost_usd ;;
   }
 
-  dimension: flow_description {
-    description: "The high-level summary of the Flow"
-    type: string
-    sql: ${TABLE}.flow_description ;;
-  }
-
 }
