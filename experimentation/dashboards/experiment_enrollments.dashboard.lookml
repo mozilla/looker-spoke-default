@@ -598,6 +598,9 @@
     totals_color: "#808080"
     defaults_version: 1
     y_axes: []
+    note_state: expanded
+    note_display: above
+    note_text: Event counts represent a 1% sample.
     listen:
       Time Range [UTC]: events.submission_date
       Experiment: events.event_string_value
