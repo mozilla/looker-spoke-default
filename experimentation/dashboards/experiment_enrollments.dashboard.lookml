@@ -554,6 +554,15 @@
     filters:
       events.sample_id: '0'
     sorts: [events.event_count desc]
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${events.event_count} * 100"
+      label: approx count
+      value_format:
+      value_format_name:
+      _kind_hint: measure
+      table_calculation: approx_count
+      _type_hint: number
     limit: 500
     column_limit: 50
     show_view_names: false
@@ -600,7 +609,7 @@
     y_axes: []
     note_state: expanded
     note_display: above
-    note_text: Event counts represent a 1% sample.
+    note_text: Event counts are **approximate** due to sampling (1% sample * 100).
     listen:
       Time Range [UTC]: events.submission_date
       Experiment: events.event_string_value
