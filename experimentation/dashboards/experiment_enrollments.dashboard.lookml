@@ -796,7 +796,7 @@
     fields: [error_count]
     filters:
       logs.timestamp_date: 3 days
-      logs.exception_type: "-EndedException,-NoEnrollmentPeriodException,-HighPopulationException,-EnrollmentLongerThanAnalysisException,-ExplicitSkipException,-NoStartDateException"
+      logs.exception_type: "-EndedException,-NoEnrollmentPeriodException,-HighPopulationException,-EnrollmentLongerThanAnalysisException,-ExplicitSkipException,-NoStartDateException,-EnrollmentNotCompleteException"
       logs.log_level: ERROR
       logs.message: "-%Error while computing statistic%"
     limit: 500
