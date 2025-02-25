@@ -244,7 +244,10 @@ view: +active_users_aggregates {
   }
 
   dimension: partnership {
-    suggestions: ["vivo"]
+    suggestions: [
+      "vivo",
+      "dt"
+    ]
   }
 
 # Group dimensions in Explore
