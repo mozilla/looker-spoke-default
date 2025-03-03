@@ -14,7 +14,7 @@ view: +cohort_weekly_statistics {
 
   measure: percent_retained {
     type: number
-    sql: SAFE_DIVIDE(SUM(${nbr_active_clients}), SUM(${clients_in_cohort})) ;;
+    sql: SAFE_DIVIDE(total_nbr_active_clients, total_clients_in_cohort) ;;
     value_format: "0.00%"
   }
 }
