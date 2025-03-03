@@ -11,6 +11,7 @@ view: +cohort_weekly_statistics {
   measure: total_clients_in_cohort {
     type: number
     sql: SUM(${nbr_clients_in_cohort}) ;;
+    label: "Total Clients in Cohort"
   }
 
   measure: percent_retained {
