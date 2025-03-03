@@ -5,6 +5,7 @@ view: +cohort_weekly_statistics {
   measure: total_nbr_active_clients {
     type: number
     sql: SUM(${nbr_active_clients}) ;;
+    label: "Total Active Clients"
   }
 
   measure: total_clients_in_cohort {
