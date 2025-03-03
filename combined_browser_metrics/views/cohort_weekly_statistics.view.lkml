@@ -9,7 +9,7 @@ view: +cohort_weekly_statistics {
 
   measure: total_clients_in_cohort {
     type: number
-    sql: SUM(${clients_in_cohort}) ;;
+    sql: SUM(${nbr_clients_in_cohort}) ;;
   }
 
   measure: percent_retained {
