@@ -120,9 +120,8 @@
     model: fxci
     explore: tasks
     type: looker_grid
-    fields: [num_tasks, tasks__tags.value]
+    fields: [num_tasks, tasks.tags__trust_domain]
     filters:
-      tasks__tags.key: trust-domain
       tasks.submission_date: 6 months
     sorts: [num_tasks desc 0]
     limit: 500
@@ -193,10 +192,9 @@
     model: fxci
     explore: tasks
     type: looker_grid
-    fields: [num_tasks, tasks__tags.value]
+    fields: [num_tasks, tasks.tags__trust_domain, tasks.tags__kind]
     filters:
       tasks.submission_date: 6 months
-      tasks__tags.key: kind
     sorts: [num_tasks desc 0]
     limit: 500
     column_limit: 50
@@ -348,10 +346,9 @@
     model: fxci
     explore: tasks
     type: looker_grid
-    fields: [tasks__tags.value, sum_of_run_cost]
+    fields: [tasks.tags__trust_domain, tasks.tags__kind, sum_of_run_cost]
     filters:
       tasks.submission_date: 6 months
-      tasks__tags.key: kind
       task_run_costs.submission_date: 6 months
     limit: 500
     column_limit: 50
@@ -419,9 +416,8 @@
     model: fxci
     explore: tasks
     type: looker_grid
-    fields: [tasks__tags.value, sum_of_run_cost]
+    fields: [sum_of_run_cost, tasks.tags__trust_domain]
     filters:
-      tasks__tags.key: trust-domain
       tasks.submission_date: 6 months
       task_run_costs.submission_date: 6 months
     sorts: [sum_of_run_cost desc 0]
