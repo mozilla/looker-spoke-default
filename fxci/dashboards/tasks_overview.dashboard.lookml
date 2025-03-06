@@ -1,6 +1,6 @@
 ---
-- dashboard: tasks_overview
-  title: Tasks Overview
+- dashboard: fxci_tasks_overview
+  title: Firefox-CI Tasks Overview
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
