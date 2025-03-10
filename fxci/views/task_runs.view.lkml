@@ -6,4 +6,46 @@ view: task_runs {
   dimension: key {
     primary_key:  yes
     sql: CONCAT(${TABLE}.task_id, '-', ${TABLE}.run_id) ;;  }
+
+  parameter: date_bucket {
+    type: string
+    label: "Date Bucket"
+    allowed_value: { label: "Day" value: "day" }
+    allowed_value: { label: "Week" value: "week" }
+    allowed_value: { label: "Month" value: "month" }
+    allowed_value: { label: "Quarter" value: "quarter" }
+    default_value: "day"
+  }
+
+  dimension: date {
+    type: date
+    sql:
+    CASE
+      WHEN {% parameter date_bucket %}  = 'week' THEN DATE(FORMAT_DATE('%F', DATE_TRUNC(${task_runs.submission_date} , WEEK(SUNDAY))))
+      WHEN {% parameter date_bucket %}  = 'month' THEN DATE(FORMAT_DATE('%Y-%m-%d', DATE_TRUNC(${task_runs.submission_date}, MONTH )))
+      WHEN {% parameter date_bucket %}  = 'quarter' THEN DATE(FORMAT_DATE('%Y-%m-%d', DATE_TRUNC(${task_runs.submission_date} , QUARTER)))
+      ELSE ${task_runs.submission_date}
+    END
+  ;;
+  }
+
+  dimension: duration {
+    type: duration_minute
+    sql_start: ${started_date} ;;
+    sql_end:  ${resolved_date} ;;
+    label: "Duration (minutes)"
+    description: "Task duration in minutes"
+  }
+
+  measure: task_run_count {
+    type: count
+    label: "Run Count"
+  }
+
+  measure: average_duration {
+    type: average
+    sql: ${duration} ;;
+    label: "Average Duration (minutes)"
+    description: "Average duration in minutes"
+  }
 }
