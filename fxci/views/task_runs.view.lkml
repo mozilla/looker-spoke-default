@@ -31,8 +31,8 @@ view: task_runs {
 
   dimension: duration {
     type: duration_minute
-    sql_start: ${started_date} ;;
-    sql_end:  ${resolved_date} ;;
+    sql_start: ${started_raw} ;;
+    sql_end:  ${resolved_raw} ;;
     label: "Duration (minutes)"
     description: "Task duration in minutes"
   }
