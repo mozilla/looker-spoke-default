@@ -3,6 +3,28 @@ include: "//looker-hub/combined_browser_metrics/views/firefox_desktop_baseline_a
 
 view: +firefox_desktop_baseline_active_users_aggregates {
 
+  #Hide is_default browser since always NULL
+  dimension: is_default_browser {
+    hidden: yes
+    sql: ${TABLE}.is_default_browser ;;
+  }
+
+  # Hide metric columns showing as dimensions
+  dimension: mau {
+    hidden: yes
+    sql: ${TABLE}.mau ;;
+  }
+
+  dimension: dau {
+    hidden: yes
+    sql: ${TABLE}.dau ;;
+  }
+
+  dimension: wau {
+    hidden: yes
+    sql: ${TABLE}.wau ;;
+  }
+
   # Group OS dimensions in Explore
   dimension: os {
     sql: ${TABLE}.os ;;
@@ -65,5 +87,23 @@ view: +firefox_desktop_baseline_active_users_aggregates {
     group_label: "Location"
   }
 
+  # Define measures for DAU, MAU, wau
+  measure: daily_active_users {
+    label: "DAU"
+    type:  sum
+    sql: (${TABLE}.dau) ;;
+  }
+
+  measure: weekly_active_users {
+    label: "WAU"
+    type: sum
+    sql:  ${TABLE}.wau ;;
+  }
+
+  measure: monthly_active_users {
+    label: "MAU"
+    type: sum
+    sql:  ${TABLE}.mau ;;
+  }
 
 }
