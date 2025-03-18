@@ -1,4 +1,4 @@
-include: "//looker-hub/combined_browser_metrics/views/firefox_desktop_baseline_active_users_aggregates.view.lkml"
+include: "//looker-hub/firefox_desktop/views/firefox_desktop_baseline_active_users_aggregates.view.lkml"
 
 
 view: +firefox_desktop_baseline_active_users_aggregates {
