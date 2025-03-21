@@ -1,7 +1,6 @@
 include: "//looker-hub/subscription_platform/views/logical_subscription_events.view.lkml"
 
 view: +logical_subscription_events {
-
   dimension: id {
     primary_key: yes
     hidden: yes
@@ -21,10 +20,6 @@ view: +logical_subscription_events {
     hidden: yes
   }
 
-  dimension: subscription__id {
-    group_item_label: "ID"
-  }
-
   dimension: subscription__provider_subscription_id {
     group_label: "Subscription Provider IDs"
     group_item_label: "Subscription ID"
@@ -37,9 +32,6 @@ view: +logical_subscription_events {
     group_item_label: "Customer ID"
   }
 
-  dimension: subscription__mozilla_account_id {
-    group_item_label: "Mozilla Account ID"
-  }
   dimension: subscription__mozilla_account_id_sha256 {
     hidden: yes
   }
@@ -84,38 +76,6 @@ view: +logical_subscription_events {
     intervals: [day, week, month, quarter, year]
   }
 
-  dimension: subscription__first_touch_attribution__utm_campaign {
-    group_item_label: "UTM Campaign"
-  }
-  dimension: subscription__first_touch_attribution__utm_content {
-    group_item_label: "UTM Content"
-  }
-  dimension: subscription__first_touch_attribution__utm_medium {
-    group_item_label: "UTM Medium"
-  }
-  dimension: subscription__first_touch_attribution__utm_source {
-    group_item_label: "UTM Source"
-  }
-  dimension: subscription__first_touch_attribution__utm_term {
-    group_item_label: "UTM Term"
-  }
-
-  dimension: subscription__last_touch_attribution__utm_campaign {
-    group_item_label: "UTM Campaign"
-  }
-  dimension: subscription__last_touch_attribution__utm_content {
-    group_item_label: "UTM Content"
-  }
-  dimension: subscription__last_touch_attribution__utm_medium {
-    group_item_label: "UTM Medium"
-  }
-  dimension: subscription__last_touch_attribution__utm_source {
-    group_item_label: "UTM Source"
-  }
-  dimension: subscription__last_touch_attribution__utm_term {
-    group_item_label: "UTM Term"
-  }
-
   dimension: old_subscription__id {
     hidden: yes
   }
@@ -136,9 +96,6 @@ view: +logical_subscription_events {
   }
   dimension: old_subscription__provider_customer_id {
     hidden: yes
-  }
-  dimension: old_subscription__mozilla_account_id {
-    group_item_label: "Mozilla Account ID"
   }
   dimension: old_subscription__mozilla_account_id_sha256 {
     hidden: yes
@@ -276,5 +233,4 @@ view: +logical_subscription_events {
         ${TABLE}.subscription.provider_subscription_id
       ) ;;
   }
-
 }
