@@ -99,38 +99,6 @@ view: +logical_subscriptions {
     hidden: yes
   }
 
-  dimension: first_touch_attribution__utm_campaign {
-    group_item_label: "UTM Campaign"
-  }
-  dimension: first_touch_attribution__utm_content {
-    group_item_label: "UTM Content"
-  }
-  dimension: first_touch_attribution__utm_medium {
-    group_item_label: "UTM Medium"
-  }
-  dimension: first_touch_attribution__utm_source {
-    group_item_label: "UTM Source"
-  }
-  dimension: first_touch_attribution__utm_term {
-    group_item_label: "UTM Term"
-  }
-
-  dimension: last_touch_attribution__utm_campaign {
-    group_item_label: "UTM Campaign"
-  }
-  dimension: last_touch_attribution__utm_content {
-    group_item_label: "UTM Content"
-  }
-  dimension: last_touch_attribution__utm_medium {
-    group_item_label: "UTM Medium"
-  }
-  dimension: last_touch_attribution__utm_source {
-    group_item_label: "UTM Source"
-  }
-  dimension: last_touch_attribution__utm_term {
-    group_item_label: "UTM Term"
-  }
-
   dimension: current_period_discounted_plan_amount {
     type: number
     sql: GREATEST((${plan_amount} - COALESCE(${current_period_discount_amount}, 0)), 0) ;;
