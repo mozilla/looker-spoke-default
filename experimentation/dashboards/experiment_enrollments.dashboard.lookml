@@ -557,7 +557,7 @@
     dynamic_fields:
     - category: table_calculation
       expression: "${events.event_count} * 100"
-      label: Adjusted Event Count
+      label: Approximate Event Count
       value_format:
       value_format_name:
       _kind_hint: measure
