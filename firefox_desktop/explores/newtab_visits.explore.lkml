@@ -1,10 +1,10 @@
 include: "../views/newtab_visits.view.lkml"
 include: "../../shared/views/countries.view.lkml"
-include: "//looker-hub/firefox_desktop/datagroups/newtab_visits_v1_last_updated.datagroup"
+include: "//looker-hub/firefox_desktop/datagroups/newtab_visits_table_last_updated.datagroup"
 include: "/firefox_desktop/views/key_tentpole_dates.view.lkml"
 
 explore: newtab_visits {
-  persist_with: newtab_visits_v1_last_updated
+  persist_with: newtab_visits_table_last_updated
   sql_always_where: ${newtab_visits.submission_date} >= '2022-07-01' ;;
   label: "New Tab Visits"
   from: newtab_visits

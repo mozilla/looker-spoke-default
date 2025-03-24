@@ -1,7 +1,7 @@
 include: "../views/daily_connector_costs.view.lkml"
 
 explore: connector_costs {
-  persist_with: daily_connector_costs_v1_last_updated
+  persist_with: daily_connector_costs_last_updated
   from:  daily_connector_costs
 
 
@@ -12,7 +12,7 @@ explore: connector_costs {
     }
 
     materialization: {
-      datagroup_trigger: daily_connector_costs_v1_last_updated
+      datagroup_trigger: daily_connector_costs_last_updated
     }
   }
 }
