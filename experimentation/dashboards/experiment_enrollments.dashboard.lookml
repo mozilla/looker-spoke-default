@@ -557,7 +557,7 @@
     dynamic_fields:
     - category: table_calculation
       expression: "${events.event_count} * 100"
-      label: approx count
+      label: Approximate Event Count
       value_format:
       value_format_name:
       _kind_hint: measure
@@ -609,7 +609,7 @@
     y_axes: []
     note_state: expanded
     note_display: above
-    note_text: Event counts are **approximate** due to sampling (1% sample * 100).
+    note_text: Event counts are *approximate* due to sampling (1% sample).
     listen:
       Time Range [UTC]: events.submission_date
       Experiment: events.event_string_value
@@ -844,8 +844,7 @@
       experiment_enrollment_overall.time_date]
     pivots: [experiment_enrollment_overall.branch]
     fill_fields: [experiment_enrollment_overall.time_date]
-    filters:
-      experiment_enrollment_overall.timeframe: 28 days
+    filters: {}
     sorts: [experiment_enrollment_overall.branch, experiment_enrollment_overall.time_date
         desc]
     limit: 5000
@@ -892,6 +891,7 @@
     note_display: above
     note_text: Updated daily
     listen:
+      Time Range [UTC]: experiment_enrollment_overall.timeframe
       Experiment: experiment_enrollment_overall.experiment
     row: 25
     col: 12
@@ -904,8 +904,7 @@
     type: looker_column
     fields: [experiment_enrollment_overall.Total, experiment_enrollment_overall.time_date]
     fill_fields: [experiment_enrollment_overall.time_date]
-    filters:
-      experiment_enrollment_overall.timeframe: 28 days
+    filters: {}
     sorts: [experiment_enrollment_overall.time_date desc]
     limit: 5000
     column_limit: 50
@@ -946,6 +945,7 @@
     note_display: above
     note_text: Updated daily
     listen:
+      Time Range [UTC]: experiment_enrollment_overall.timeframe
       Experiment: experiment_enrollment_overall.experiment
     row: 25
     col: 0
