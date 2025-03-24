@@ -1,7 +1,6 @@
 include: "//looker-hub/subscription_platform/views/monthly_active_logical_subscriptions.view.lkml"
 
 view: +monthly_active_logical_subscriptions {
-
   dimension: id {
     primary_key: yes
     hidden: yes
@@ -18,10 +17,6 @@ view: +monthly_active_logical_subscriptions {
     hidden: yes
   }
 
-  dimension: subscription__id {
-    group_item_label: "ID"
-  }
-
   dimension: subscription__provider_subscription_id {
     group_label: "Subscription Provider IDs"
     group_item_label: "Subscription ID"
@@ -34,9 +29,6 @@ view: +monthly_active_logical_subscriptions {
     group_item_label: "Customer ID"
   }
 
-  dimension: subscription__mozilla_account_id {
-    group_item_label: "Mozilla Account ID"
-  }
   dimension: subscription__mozilla_account_id_sha256 {
     hidden: yes
   }
@@ -106,38 +98,6 @@ view: +monthly_active_logical_subscriptions {
     sql_end: ${TABLE}.subscription.current_period_ends_at ;;
     intervals: [day, week, month]
     hidden: yes
-  }
-
-  dimension: subscription__first_touch_attribution__utm_campaign {
-    group_item_label: "UTM Campaign"
-  }
-  dimension: subscription__first_touch_attribution__utm_content {
-    group_item_label: "UTM Content"
-  }
-  dimension: subscription__first_touch_attribution__utm_medium {
-    group_item_label: "UTM Medium"
-  }
-  dimension: subscription__first_touch_attribution__utm_source {
-    group_item_label: "UTM Source"
-  }
-  dimension: subscription__first_touch_attribution__utm_term {
-    group_item_label: "UTM Term"
-  }
-
-  dimension: subscription__last_touch_attribution__utm_campaign {
-    group_item_label: "UTM Campaign"
-  }
-  dimension: subscription__last_touch_attribution__utm_content {
-    group_item_label: "UTM Content"
-  }
-  dimension: subscription__last_touch_attribution__utm_medium {
-    group_item_label: "UTM Medium"
-  }
-  dimension: subscription__last_touch_attribution__utm_source {
-    group_item_label: "UTM Source"
-  }
-  dimension: subscription__last_touch_attribution__utm_term {
-    group_item_label: "UTM Term"
   }
 
   dimension: current_period_discounted_plan_amount {
