@@ -45,6 +45,7 @@ view: workers {
   }
 
   dimension: key {
+    primary_key: yes
     sql: CONCAT(${TABLE}.project, '-', ${TABLE}.zone, '-', ${TABLE}.instance_id) ;;
   }
 
