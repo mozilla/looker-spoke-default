@@ -22,7 +22,7 @@ explore:  tasks {
 
   join: workers {
     type: left_outer
-    relationship: one_to_one
+    relationship: many_to_one
     sql_on:  ${task_runs.worker_group} = ${workers.zone} AND ${task_runs.worker_id} = ${workers.instance_id};;
   }
 }

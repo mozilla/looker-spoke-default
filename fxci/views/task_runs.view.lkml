@@ -30,11 +30,11 @@ view: task_runs {
   }
 
   dimension: duration {
-    type: duration_minute
+    type: duration_second
     sql_start: ${started_raw} ;;
     sql_end:  ${resolved_raw} ;;
-    label: "Duration (minutes)"
-    description: "Task duration in minutes"
+    label: "Duration"
+    description: "Task duration in seconds"
   }
 
   measure: task_run_count {
@@ -45,7 +45,7 @@ view: task_runs {
   measure: average_duration {
     type: average
     sql: ${duration} ;;
-    label: "Average Duration (minutes)"
-    description: "Average duration in minutes"
+    label: "Average Duration"
+    description: "Average duration in seconds"
   }
 }
