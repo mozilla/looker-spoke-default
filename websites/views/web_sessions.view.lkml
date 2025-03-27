@@ -128,6 +128,10 @@ view: web_sessions {
       label: "Mozilla Accounts"
       value: "accounts_frontend"
     }
+    allowed_value: {
+      label: "GLAM"
+      value: "glam"
+    }
   }
 
   dimension_group: submission {
