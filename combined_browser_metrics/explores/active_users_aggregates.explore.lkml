@@ -1,6 +1,7 @@
 include: "../views//active_users_aggregates.view.lkml"
 include: "/shared/views/countries.view.lkml"
 include: "/firefox_desktop/views/key_tentpole_dates.view.lkml"
+include: "//looker-hub/combined_browser_metrics/datagroups/active_users_aggregates_last_updated.datagroup.lkml"
 
 explore: active_users_aggregates {
   # persist_with: active_users_aggregates_v1_last_updated
@@ -35,5 +36,7 @@ explore: active_users_aggregates {
       increment_offset: 1
     }
   }
+
+  persist_with: active_users_aggregates_last_updated
 
 }
