@@ -1,5 +1,6 @@
 include: "../views/mobile_retention.view.lkml"
 include: "/shared/views/countries.view.lkml"
+include: "//looker-hub/firefox_okrs/datagroups/mobile_retention_last_updated.datagroup.lkml"
 
 explore: mobile_retention {
   label: "Retention for Firefox Mobile"
@@ -17,4 +18,6 @@ explore: mobile_retention {
     relationship: one_to_one
     sql_on: ${mobile_retention.country} = ${countries.code} ;;
   }
+
+  persist_with: mobile_retention_last_updated
 }

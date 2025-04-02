@@ -1,5 +1,6 @@
 include: "//looker-hub/fenix/explores/feature_usage_events.explore.lkml"
 include: "../views/feature_usage_events.view.lkml"
+include: "//looker-hub/fenix/datagroups/feature_usage_events_last_updated.datagroup.lkml"
 
 explore: +feature_usage_events {
   from: feature_usage_events
@@ -13,4 +14,5 @@ explore: +feature_usage_events {
     ]
   }
 
+  persist_with: feature_usage_events_last_updated
 }

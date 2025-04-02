@@ -1,4 +1,5 @@
 include: "../views/events_stream_with_extras.view.lkml"
+include: "//looker-hub/accounts_frontend/datagroups/events_stream_table_last_updated.datagroup.lkml"
 
 explore: events_stream_with_extras {
   hidden: no
@@ -10,4 +11,6 @@ explore: events_stream_with_extras {
       submission_date: "28 days",
     ]
   }
+
+  persist_with: events_stream_table_last_updated
 }
