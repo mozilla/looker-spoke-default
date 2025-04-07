@@ -1,5 +1,6 @@
 include: "../views//cohort_daily_statistics.view.lkml"
 include: "/shared/views/countries.view.lkml"
+include: "//looker-hub/combined_browser_metrics/datagroups/cohort_daily_statistics_last_updated.datagroup.lkml"
 
 explore: user_retention {
   view_name: cohort_daily_statistics
@@ -14,4 +15,5 @@ explore: user_retention {
     sql_on: ${cohort_daily_statistics.country} = ${countries.code} ;;
   }
 
+  persist_with: cohort_daily_statistics_last_updated
 }

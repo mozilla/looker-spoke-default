@@ -1,4 +1,5 @@
 include: "../views/firefox_android_clients.view.lkml"
+include: "//looker-hub/fenix/datagroups/firefox_android_clients_last_updated.datagroup.lkml"
 
 explore: firefox_android_clients {
   sql_always_where: ${firefox_android_clients.first_seen_date} >= '2010-01-01' ;;
@@ -18,4 +19,6 @@ explore: firefox_android_clients {
     filters: [firefox_android_clients.first_seen_month: "6 month ago for 6 month", firefox_android_clients.channel: "release"]
     limit: 100
   }
+
+  persist_with: firefox_android_clients_last_updated
 }

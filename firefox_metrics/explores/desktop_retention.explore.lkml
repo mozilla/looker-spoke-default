@@ -1,5 +1,6 @@
 include: "../views/desktop_retention.view.lkml"
 include: "/shared/views/countries.view.lkml"
+include: "//looker-hub/firefox_okrs/datagroups/desktop_retention_last_updated.datagroup.lkml"
 
 explore: desktop_retention {
   label: "Retention for Firefox Desktop"
@@ -17,4 +18,6 @@ explore: desktop_retention {
     relationship: one_to_one
     sql_on: ${desktop_retention.country} = ${countries.code} ;;
   }
+
+  persist_with: desktop_retention_last_updated
 }

@@ -1,4 +1,5 @@
 include: "/contextual_services/views/sponsored_tiles_ad_request_fill.view.lkml"
+include: "//looker-hub/contextual_services/datagroups/sponsored_tiles_ad_request_fill_last_updated.datagroup.lkml"
 
 explore: sponsored_tiles_ad_request_fill {
 
@@ -12,4 +13,5 @@ explore: sponsored_tiles_ad_request_fill {
   #   ]
   # }
 
+  persist_with: sponsored_tiles_ad_request_fill_last_updated
 }
