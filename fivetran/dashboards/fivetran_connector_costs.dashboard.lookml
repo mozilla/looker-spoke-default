@@ -405,30 +405,6 @@
     show_null_points: true
     interpolation: linear
     y_axes: [{label: '', orientation: left, series: [{axisId: connector_costs.paid_active_rows,
-            id: acoustic_connector_dev - connector_costs.paid_active_rows, name: acoustic_connector_dev},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_connector_dev_2
-              - connector_costs.paid_active_rows, name: acoustic_connector_dev_2},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_contacts_export
-              - connector_costs.paid_active_rows, name: acoustic_contacts_export},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_export_dev_3 - connector_costs.paid_active_rows,
-            name: acoustic_export_dev_3}, {axisId: connector_costs.paid_active_rows,
-            id: acoustic_export_dev_4 - connector_costs.paid_active_rows, name: acoustic_export_dev_4},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_sftp_test.contact_export
-              - connector_costs.paid_active_rows, name: acoustic_sftp_test.contact_export},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_sftp.contact_export
-              - connector_costs.paid_active_rows, name: acoustic_sftp.contact_export},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_sftp.contact_export_2
-              - connector_costs.paid_active_rows, name: acoustic_sftp.contact_export_2},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_sftp.contact_export_v1
-              - connector_costs.paid_active_rows, name: acoustic_sftp.contact_export_v1},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_sftp.raw_recipient_export
-              - connector_costs.paid_active_rows, name: acoustic_sftp.raw_recipient_export},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_sftp.raw_recipient_export_
-              - connector_costs.paid_active_rows, name: acoustic_sftp.raw_recipient_export_},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_sftp.raw_recipient_export_v1
-              - connector_costs.paid_active_rows, name: acoustic_sftp.raw_recipient_export_v1},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_test_schema - connector_costs.paid_active_rows,
-            name: acoustic_test_schema}, {axisId: connector_costs.paid_active_rows,
             id: admarket - connector_costs.paid_active_rows, name: admarket}, {axisId: connector_costs.paid_active_rows,
             id: admarket_place - connector_costs.paid_active_rows, name: admarket_place},
           {axisId: connector_costs.paid_active_rows, id: admarketplace_rpm_sftp -
@@ -634,30 +610,6 @@
     show_null_points: true
     interpolation: linear
     y_axes: [{label: '', orientation: left, series: [{axisId: connector_costs.paid_active_rows,
-            id: acoustic_connector_dev - connector_costs.paid_active_rows, name: acoustic_connector_dev},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_connector_dev_2
-              - connector_costs.paid_active_rows, name: acoustic_connector_dev_2},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_contacts_export
-              - connector_costs.paid_active_rows, name: acoustic_contacts_export},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_export_dev_3 - connector_costs.paid_active_rows,
-            name: acoustic_export_dev_3}, {axisId: connector_costs.paid_active_rows,
-            id: acoustic_export_dev_4 - connector_costs.paid_active_rows, name: acoustic_export_dev_4},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_sftp_test.contact_export
-              - connector_costs.paid_active_rows, name: acoustic_sftp_test.contact_export},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_sftp.contact_export
-              - connector_costs.paid_active_rows, name: acoustic_sftp.contact_export},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_sftp.contact_export_2
-              - connector_costs.paid_active_rows, name: acoustic_sftp.contact_export_2},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_sftp.contact_export_v1
-              - connector_costs.paid_active_rows, name: acoustic_sftp.contact_export_v1},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_sftp.raw_recipient_export
-              - connector_costs.paid_active_rows, name: acoustic_sftp.raw_recipient_export},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_sftp.raw_recipient_export_
-              - connector_costs.paid_active_rows, name: acoustic_sftp.raw_recipient_export_},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_sftp.raw_recipient_export_v1
-              - connector_costs.paid_active_rows, name: acoustic_sftp.raw_recipient_export_v1},
-          {axisId: connector_costs.paid_active_rows, id: acoustic_test_schema - connector_costs.paid_active_rows,
-            name: acoustic_test_schema}, {axisId: connector_costs.paid_active_rows,
             id: admarket - connector_costs.paid_active_rows, name: admarket}, {axisId: connector_costs.paid_active_rows,
             id: admarket_place - connector_costs.paid_active_rows, name: admarket_place},
           {axisId: connector_costs.paid_active_rows, id: admarketplace_rpm_sftp -
