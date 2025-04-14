@@ -555,6 +555,15 @@
       events.sample_id: '0'
     sorts: [events.event_count desc]
     limit: 500
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${events.event_count} * 100"
+      label: Approximate Event Count
+      value_format:
+      value_format_name:
+      _kind_hint: measure
+      table_calculation: approx_count
+      _type_hint: number
     column_limit: 50
     show_view_names: false
     show_row_numbers: true
@@ -598,6 +607,9 @@
     totals_color: "#808080"
     defaults_version: 1
     y_axes: []
+    note_state: expanded
+    note_display: above
+    note_text: Event counts are *approximate* due to sampling (1% sample).
     listen:
       Time Range [UTC]: events.submission_date
       Experiment: events.event_string_value
@@ -793,7 +805,7 @@
     fields: [error_count]
     filters:
       logs.timestamp_date: 3 days
-      logs.exception_type: "-EndedException,-NoEnrollmentPeriodException,-HighPopulationException,-EnrollmentLongerThanAnalysisException,-ExplicitSkipException,-NoStartDateException"
+      logs.exception_type: "-EndedException,-NoEnrollmentPeriodException,-HighPopulationException,-EnrollmentLongerThanAnalysisException,-ExplicitSkipException,-NoStartDateException,-EnrollmentNotCompleteException"
       logs.log_level: ERROR
       logs.message: "-%Error while computing statistic%"
     limit: 500
@@ -832,8 +844,7 @@
       experiment_enrollment_overall.time_date]
     pivots: [experiment_enrollment_overall.branch]
     fill_fields: [experiment_enrollment_overall.time_date]
-    filters:
-      experiment_enrollment_overall.timeframe: 28 days
+    filters: {}
     sorts: [experiment_enrollment_overall.branch, experiment_enrollment_overall.time_date
         desc]
     limit: 5000
@@ -880,6 +891,7 @@
     note_display: above
     note_text: Updated daily
     listen:
+      Time Range [UTC]: experiment_enrollment_overall.timeframe
       Experiment: experiment_enrollment_overall.experiment
     row: 25
     col: 12
@@ -892,8 +904,7 @@
     type: looker_column
     fields: [experiment_enrollment_overall.Total, experiment_enrollment_overall.time_date]
     fill_fields: [experiment_enrollment_overall.time_date]
-    filters:
-      experiment_enrollment_overall.timeframe: 28 days
+    filters: {}
     sorts: [experiment_enrollment_overall.time_date desc]
     limit: 5000
     column_limit: 50
@@ -934,6 +945,7 @@
     note_display: above
     note_text: Updated daily
     listen:
+      Time Range [UTC]: experiment_enrollment_overall.timeframe
       Experiment: experiment_enrollment_overall.experiment
     row: 25
     col: 0
