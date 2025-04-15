@@ -1289,9 +1289,7 @@
     explore: experiment_crash_rates
     type: looker_line
     fields: [sum_of_crash_count, experiment_crash_rates.window_start_time]
-    filters:
-      experiment_crash_rates.experiment: new-users-sidebar-genai
-      experiment_crash_rates.window_start_date: 28 days
+    filters: {}
     sorts: [experiment_crash_rates.window_start_time]
     limit: 5000
     column_limit: 50
@@ -1350,7 +1348,9 @@
     hidden_pivots: {}
     defaults_version: 1
     hidden_fields: [sum_of_crash_count]
-    listen: {}
+    listen:
+      Experiment: experiment_crash_rates.experiment
+      Time Range [UTC]: experiment_crash_rates.window_start_date
     row: 84
     col: 0
     width: 12
@@ -1362,9 +1362,7 @@
     type: looker_line
     fields: [sum_of_crash_count, experiment_crash_rates.branch, experiment_crash_rates.window_start_time]
     pivots: [experiment_crash_rates.branch]
-    filters:
-      experiment_crash_rates.experiment: new-users-sidebar-genai
-      experiment_crash_rates.window_start_date: 28 days
+    filters: {}
     sorts: [experiment_crash_rates.branch, experiment_crash_rates.window_start_time]
     limit: 5000
     column_limit: 50
@@ -1424,7 +1422,9 @@
     hidden_pivots: {}
     defaults_version: 1
     hidden_fields: [sum_of_crash_count]
-    listen: {}
+    listen:
+      Experiment: experiment_crash_rates.experiment
+      Time Range [UTC]: experiment_crash_rates.window_start_date
     row: 84
     col: 12
     width: 12
@@ -1436,9 +1436,7 @@
     type: looker_line
     fields: [sum_of_crash_count, experiment_crash_rates.crash_process_type, experiment_crash_rates.window_start_time]
     pivots: [experiment_crash_rates.crash_process_type]
-    filters:
-      experiment_crash_rates.experiment: bug-1727596-pref-search-experiment-measuring-the-impacts-of-diffe-release-79-96
-      experiment_crash_rates.window_start_date: 28 days
+    filters: {}
     sorts: [experiment_crash_rates.crash_process_type, experiment_crash_rates.window_start_time]
     limit: 5000
     column_limit: 50
@@ -1499,7 +1497,9 @@
     show_silhouette: false
     totals_color: "#808080"
     hidden_fields: [sum_of_crash_count]
-    listen: {}
+    listen:
+      Experiment: experiment_crash_rates.experiment
+      Time Range [UTC]: experiment_crash_rates.window_start_date
     row: 91
     col: 0
     width: 12
