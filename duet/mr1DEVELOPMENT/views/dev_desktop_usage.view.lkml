@@ -17,9 +17,9 @@ view: dev_desktop_usage {
           ELSE TRUE
           END
             AS week4_reported_date,
-          CASE WHEN country_code IN ('US', 'GB', 'DE', 'FR','CA', 'BR','MX',
+          CASE WHEN country IN ('US', 'GB', 'DE', 'FR','CA', 'BR','MX',
                                               'CN', 'IN', 'AU', 'NL', 'ES', 'RU')
-              THEN country_code
+              THEN country
               ELSE 'ROW'
               END
                 AS normalized_country_code_subset,
