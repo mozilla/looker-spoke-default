@@ -1,7 +1,6 @@
 connection: "telemetry"
 label: "Firefox for iOS"
 
-persist_for: "4 hours"
 
 # TODO: remove unnecessary view imports
 include: "//looker-hub/firefox_ios/views/active_users_aggregates_table.view.lkml"
