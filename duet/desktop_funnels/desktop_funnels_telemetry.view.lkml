@@ -4,9 +4,9 @@ view: desktop_funnels_telemetry {
 WITH tbl_agg AS
   (SELECT first_seen_date AS submission_date,
           CASE
-              WHEN country_code IN ('US','GB','DE','FR','CA',
+              WHEN country IN ('US','GB','DE','FR','CA',
                                     'BR','MX','CN','IN','AU',
-                                    'NL','ES','RU') THEN country_code
+                                    'NL','ES','RU') THEN country
               ELSE 'ROW'
           END AS normalized_country_code_subset,
           funnel_derived,
