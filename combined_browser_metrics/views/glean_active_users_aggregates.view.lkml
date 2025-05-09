@@ -1,6 +1,6 @@
 include: "//looker-hub/combined_browser_metrics/views/glean_active_users_aggregates.view.lkml"
 
-view: +active_users_aggregates {
+view: +glean_active_users_aggregates {
 
   parameter: choose_breakdown {
     label: "Choose Grouping (Rows)"
