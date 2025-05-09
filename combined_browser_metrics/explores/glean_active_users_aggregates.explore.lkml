@@ -8,7 +8,7 @@ explore: glean_active_users_aggregates {
   always_filter: {
     filters: [glean_active_users_aggregates.app_name: "Firefox Desktop, Firefox Desktop BrowserStack, Fenix, Fenix BrowserStack, Firefox iOS, Firefox iOS BrowserStack,
       Focus Android,  Focus iOS, Focus iOS BrowserStack",
-      glean_glean_active_users_aggregates.submission_date: "after 4 weeks ago"]
+      glean_active_users_aggregates.submission_date: "after 4 weeks ago"]
   }
 
   join: countries {
