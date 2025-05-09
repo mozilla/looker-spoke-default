@@ -36,6 +36,4 @@ explore: glean_active_users_aggregates {
     }
   }
 
-  persist_with: glean_active_users_aggregates_last_updated
-
 }
