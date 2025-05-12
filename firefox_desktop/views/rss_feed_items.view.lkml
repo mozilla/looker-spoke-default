@@ -1,5 +1,5 @@
 view: rss_feed_items {
-  sql_table_name: `moz-fx-mozsoc-ml-prod.prod_rss_news.rss_feed_items` ;;
+  sql_table_name: `moz-fx-data-shared-prod.mozsoc_ml_prod_rss_news.rss_feed_items` ;;
   drill_fields: [id]
 
   dimension: id {
