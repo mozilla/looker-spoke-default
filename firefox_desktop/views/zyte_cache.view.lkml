@@ -1,5 +1,5 @@
 view: zyte_cache {
-  sql_table_name: `moz-fx-mozsoc-ml-prod.prod_articles.zyte_cache` ;;
+  sql_table_name: `moz-fx-data-shared-prod.mozsoc_ml_prod_articles_zyte_cache.zyte_cache` ;;
 
   dimension: canonical_url {
     type: string
