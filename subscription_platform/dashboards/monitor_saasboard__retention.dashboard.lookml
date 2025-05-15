@@ -67,12 +67,12 @@
   - title: Most Recent Data
     name: Most Recent Data
     model: subscription_platform
-    explore: daily_active_logical_subscriptions
+    explore: daily_active_service_subscriptions
     type: single_value
-    fields: [daily_active_logical_subscriptions.date_date]
+    fields: [daily_active_service_subscriptions.date_date]
     filters:
-      daily_active_logical_subscriptions.date_date: 1 month
-    sorts: [daily_active_logical_subscriptions.date_date desc]
+      daily_active_service_subscriptions.date_date: 1 month
+    sorts: [daily_active_service_subscriptions.date_date desc]
     limit: 1
     column_limit: 50
     custom_color_enabled: true
@@ -130,16 +130,16 @@
   - title: Retention by Subscription Month Number
     name: Retention by Subscription Month Number
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     type: looker_column
     fields: [retention_by_month.subscription_month_number, retention_by_month.retained_subscription_count,
-      logical_subscriptions.logical_subscription_count]
+      service_subscriptions.service_subscription_count]
     sorts: [retention_by_month.subscription_month_number]
     limit: 500
     column_limit: 50
     dynamic_fields:
     - category: table_calculation
-      expression: "${retention_by_month.retained_subscription_count} / ${logical_subscriptions.logical_subscription_count}"
+      expression: "${retention_by_month.retained_subscription_count} / ${service_subscriptions.service_subscription_count}"
       label: Retention Rate
       value_format:
       value_format_name: percent_0
@@ -190,18 +190,18 @@
       retention_by_month.retained_subscription_count: "#0060E0"
       retention_rate: "#080808"
     defaults_version: 1
-    hidden_fields: [logical_subscriptions.logical_subscription_count]
+    hidden_fields: [service_subscriptions.service_subscription_count]
     hidden_pivots: {}
     listen:
-      Subscription Start Date: logical_subscriptions.started_at_date
-      Has Refunds (Yes / No): logical_subscriptions.has_refunds
-      Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
-      Payment Provider: logical_subscriptions.payment_provider
+      Subscription Start Date: service_subscriptions.started_at_date
+      Has Refunds (Yes / No): service_subscriptions.has_refunds
+      Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
+      Payment Provider: service_subscriptions.payment_provider
       Region: countries.region_name
       Country: countries.name
-      Service ID: subscription_services.id
-      Plan Interval: logical_subscriptions.plan_interval
-      Plan: logical_subscriptions.plan_summary
+      Service ID: service_subscriptions.service__id
+      Plan Interval: service_subscriptions.plan_interval
+      Plan: service_subscriptions.plan_summary
     row: 8
     col: 0
     width: 12
@@ -209,16 +209,16 @@
   - title: Retention by Cohort
     name: Retention by Cohort
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     type: looker_column
-    fields: [logical_subscriptions.started_at_month, logical_subscriptions.active_logical_subscription_count,
-      logical_subscriptions.logical_subscription_count]
-    sorts: [logical_subscriptions.started_at_month]
+    fields: [service_subscriptions.started_at_month, service_subscriptions.active_service_subscription_count,
+      service_subscriptions.service_subscription_count]
+    sorts: [service_subscriptions.started_at_month]
     limit: 500
     column_limit: 50
     dynamic_fields:
     - category: table_calculation
-      expression: "${logical_subscriptions.active_logical_subscription_count} / ${logical_subscriptions.logical_subscription_count}"
+      expression: "${service_subscriptions.active_service_subscription_count} / ${service_subscriptions.service_subscription_count}"
       label: Retention Rate
       value_format:
       value_format_name: percent_0
@@ -269,20 +269,20 @@
       retention_by_month.churned_subscription_count: "#FF7139"
       retention_by_month.retained_subscription_count: "#0060E0"
       retention_rate: "#000000"
-      logical_subscriptions.active_logical_subscription_count: "#0060E0"
+      service_subscriptions.active_service_subscription_count: "#0060E0"
     defaults_version: 1
-    hidden_fields: [logical_subscriptions.logical_subscription_count]
+    hidden_fields: [service_subscriptions.service_subscription_count]
     hidden_pivots: {}
     listen:
-      Subscription Start Date: logical_subscriptions.started_at_date
-      Has Refunds (Yes / No): logical_subscriptions.has_refunds
-      Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
-      Payment Provider: logical_subscriptions.payment_provider
+      Subscription Start Date: service_subscriptions.started_at_date
+      Has Refunds (Yes / No): service_subscriptions.has_refunds
+      Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
+      Payment Provider: service_subscriptions.payment_provider
       Region: countries.region_name
       Country: countries.name
-      Service ID: subscription_services.id
-      Plan Interval: logical_subscriptions.plan_interval
-      Plan: logical_subscriptions.plan_summary
+      Service ID: service_subscriptions.service__id
+      Plan Interval: service_subscriptions.plan_interval
+      Plan: service_subscriptions.plan_summary
     row: 8
     col: 12
     width: 12
@@ -303,17 +303,17 @@
   - title: Retention Rate by Plan Interval
     name: Retention Rate by Plan Interval
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     type: looker_line
     fields: [retention_by_month.subscription_month_number, retention_by_month.retained_subscription_count,
-      logical_subscriptions.logical_subscription_count, logical_subscriptions.plan_interval]
-    pivots: [logical_subscriptions.plan_interval]
-    sorts: [retention_by_month.subscription_month_number, logical_subscriptions.plan_interval]
+      service_subscriptions.service_subscription_count, service_subscriptions.plan_interval]
+    pivots: [service_subscriptions.plan_interval]
+    sorts: [retention_by_month.subscription_month_number, service_subscriptions.plan_interval]
     limit: 500
     column_limit: 50
     dynamic_fields:
     - category: table_calculation
-      expression: "${retention_by_month.retained_subscription_count} / ${logical_subscriptions.logical_subscription_count}"
+      expression: "${retention_by_month.retained_subscription_count} / ${service_subscriptions.service_subscription_count}"
       label: Retention Rate
       value_format:
       value_format_name: percent_0
@@ -359,18 +359,18 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    hidden_fields: [logical_subscriptions.logical_subscription_count, retention_by_month.retained_subscription_count]
+    hidden_fields: [service_subscriptions.service_subscription_count, retention_by_month.retained_subscription_count]
     hidden_pivots: {}
     listen:
-      Subscription Start Date: logical_subscriptions.started_at_date
-      Has Refunds (Yes / No): logical_subscriptions.has_refunds
-      Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
-      Payment Provider: logical_subscriptions.payment_provider
+      Subscription Start Date: service_subscriptions.started_at_date
+      Has Refunds (Yes / No): service_subscriptions.has_refunds
+      Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
+      Payment Provider: service_subscriptions.payment_provider
       Region: countries.region_name
       Country: countries.name
-      Service ID: subscription_services.id
-      Plan Interval: logical_subscriptions.plan_interval
-      Plan: logical_subscriptions.plan_summary
+      Service ID: service_subscriptions.service__id
+      Plan Interval: service_subscriptions.plan_interval
+      Plan: service_subscriptions.plan_summary
     row: 19
     col: 0
     width: 24
@@ -378,18 +378,18 @@
   - title: Retention Rate Table by Plan Interval
     name: Retention Rate Table by Plan Interval
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     type: looker_grid
     fields: [retention_by_month.subscription_month_number, retention_by_month.retained_subscription_count,
-      logical_subscriptions.logical_subscription_count, logical_subscriptions.plan_interval,
-      logical_subscriptions.plan_interval_months]
+      service_subscriptions.service_subscription_count, service_subscriptions.plan_interval,
+      service_subscriptions.plan_interval_months]
     pivots: [retention_by_month.subscription_month_number]
-    sorts: [retention_by_month.subscription_month_number, logical_subscriptions.plan_interval_months]
+    sorts: [retention_by_month.subscription_month_number, service_subscriptions.plan_interval_months]
     limit: 500
     column_limit: 50
     dynamic_fields:
     - category: table_calculation
-      expression: "${retention_by_month.retained_subscription_count} / ${logical_subscriptions.logical_subscription_count}"
+      expression: "${retention_by_month.retained_subscription_count} / ${service_subscriptions.service_subscription_count}"
       label: Retention Rate
       value_format:
       value_format_name: percent_1
@@ -470,21 +470,21 @@
       retention_by_month.churned_subscription_count: "#FF7139"
       retention_by_month.retained_subscription_count: "#005E5D"
     defaults_version: 1
-    hidden_fields: [logical_subscriptions.logical_subscription_count, retention_by_month.retained_subscription_count,
-      logical_subscriptions.plan_interval_months]
+    hidden_fields: [service_subscriptions.service_subscription_count, retention_by_month.retained_subscription_count,
+      service_subscriptions.plan_interval_months]
     hidden_pivots: {}
     show_null_points: true
     interpolation: linear
     listen:
-      Subscription Start Date: logical_subscriptions.started_at_date
-      Has Refunds (Yes / No): logical_subscriptions.has_refunds
-      Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
-      Payment Provider: logical_subscriptions.payment_provider
+      Subscription Start Date: service_subscriptions.started_at_date
+      Has Refunds (Yes / No): service_subscriptions.has_refunds
+      Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
+      Payment Provider: service_subscriptions.payment_provider
       Region: countries.region_name
       Country: countries.name
-      Service ID: subscription_services.id
-      Plan Interval: logical_subscriptions.plan_interval
-      Plan: logical_subscriptions.plan_summary
+      Service ID: service_subscriptions.service__id
+      Plan Interval: service_subscriptions.plan_interval
+      Plan: service_subscriptions.plan_summary
     row: 25
     col: 0
     width: 24
@@ -492,17 +492,17 @@
   - title: Retention Counts Table by Plan Interval
     name: Retention Counts Table by Plan Interval
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     type: looker_grid
     fields: [retention_by_month.subscription_month_number, retention_by_month.retained_subscription_count,
-      logical_subscriptions.plan_interval, logical_subscriptions.plan_interval_months]
+      service_subscriptions.plan_interval, service_subscriptions.plan_interval_months]
     pivots: [retention_by_month.subscription_month_number]
-    sorts: [retention_by_month.subscription_month_number, logical_subscriptions.plan_interval_months]
+    sorts: [retention_by_month.subscription_month_number, service_subscriptions.plan_interval_months]
     limit: 500
     column_limit: 50
     dynamic_fields:
     - category: table_calculation
-      expression: "${retention_by_month.retained_subscription_count} / ${logical_subscriptions.logical_subscription_count}"
+      expression: "${retention_by_month.retained_subscription_count} / ${service_subscriptions.service_subscription_count}"
       label: Retention Rate
       value_format:
       value_format_name: percent_2
@@ -586,20 +586,20 @@
       retention_by_month.churned_subscription_count: "#FF7139"
       retention_by_month.retained_subscription_count: "#005E5D"
     defaults_version: 1
-    hidden_fields: [logical_subscriptions.plan_interval_months]
+    hidden_fields: [service_subscriptions.plan_interval_months]
     hidden_pivots: {}
     show_null_points: true
     interpolation: linear
     listen:
-      Subscription Start Date: logical_subscriptions.started_at_date
-      Has Refunds (Yes / No): logical_subscriptions.has_refunds
-      Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
-      Payment Provider: logical_subscriptions.payment_provider
+      Subscription Start Date: service_subscriptions.started_at_date
+      Has Refunds (Yes / No): service_subscriptions.has_refunds
+      Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
+      Payment Provider: service_subscriptions.payment_provider
       Region: countries.region_name
       Country: countries.name
-      Service ID: subscription_services.id
-      Plan Interval: logical_subscriptions.plan_interval
-      Plan: logical_subscriptions.plan_summary
+      Service ID: service_subscriptions.service__id
+      Plan Interval: service_subscriptions.plan_interval
+      Plan: service_subscriptions.plan_summary
     row: 29
     col: 0
     width: 24
@@ -620,17 +620,17 @@
   - title: Subscription Month Number Retention Rate by Cohort
     name: Subscription Month Number Retention Rate by Cohort
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     type: looker_line
-    fields: [logical_subscriptions.started_at_month, retention_by_month.retained_subscription_count,
-      logical_subscriptions.logical_subscription_count, retention_by_month.subscription_month_number]
+    fields: [service_subscriptions.started_at_month, retention_by_month.retained_subscription_count,
+      service_subscriptions.service_subscription_count, retention_by_month.subscription_month_number]
     pivots: [retention_by_month.subscription_month_number]
-    sorts: [logical_subscriptions.started_at_month, retention_by_month.subscription_month_number]
+    sorts: [service_subscriptions.started_at_month, retention_by_month.subscription_month_number]
     limit: 500
     column_limit: 50
     dynamic_fields:
     - category: table_calculation
-      expression: "${retention_by_month.retained_subscription_count} / ${logical_subscriptions.logical_subscription_count}"
+      expression: "${retention_by_month.retained_subscription_count} / ${service_subscriptions.service_subscription_count}"
       label: Retention Rate
       value_format:
       value_format_name: percent_0
@@ -674,18 +674,18 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    hidden_fields: [logical_subscriptions.logical_subscription_count, retention_by_month.retained_subscription_count]
+    hidden_fields: [service_subscriptions.service_subscription_count, retention_by_month.retained_subscription_count]
     hidden_pivots: {}
     listen:
-      Subscription Start Date: logical_subscriptions.started_at_date
-      Has Refunds (Yes / No): logical_subscriptions.has_refunds
-      Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
-      Payment Provider: logical_subscriptions.payment_provider
+      Subscription Start Date: service_subscriptions.started_at_date
+      Has Refunds (Yes / No): service_subscriptions.has_refunds
+      Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
+      Payment Provider: service_subscriptions.payment_provider
       Region: countries.region_name
       Country: countries.name
-      Service ID: subscription_services.id
-      Plan Interval: logical_subscriptions.plan_interval
-      Plan: logical_subscriptions.plan_summary
+      Service ID: service_subscriptions.service__id
+      Plan Interval: service_subscriptions.plan_interval
+      Plan: service_subscriptions.plan_summary
     row: 35
     col: 0
     width: 12
@@ -693,17 +693,17 @@
   - title: Cohort Retention Rate by Subscription Month Number
     name: Cohort Retention Rate by Subscription Month Number
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     type: looker_line
-    fields: [logical_subscriptions.started_at_month, retention_by_month.retained_subscription_count,
-      logical_subscriptions.logical_subscription_count, retention_by_month.subscription_month_number]
-    pivots: [logical_subscriptions.started_at_month]
-    sorts: [logical_subscriptions.started_at_month, retention_by_month.subscription_month_number]
+    fields: [service_subscriptions.started_at_month, retention_by_month.retained_subscription_count,
+      service_subscriptions.service_subscription_count, retention_by_month.subscription_month_number]
+    pivots: [service_subscriptions.started_at_month]
+    sorts: [service_subscriptions.started_at_month, retention_by_month.subscription_month_number]
     limit: 500
     column_limit: 50
     dynamic_fields:
     - category: table_calculation
-      expression: "${retention_by_month.retained_subscription_count} / ${logical_subscriptions.logical_subscription_count}"
+      expression: "${retention_by_month.retained_subscription_count} / ${service_subscriptions.service_subscription_count}"
       label: Retention Rate
       value_format:
       value_format_name: percent_0
@@ -745,18 +745,18 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    hidden_fields: [logical_subscriptions.logical_subscription_count, retention_by_month.retained_subscription_count]
+    hidden_fields: [service_subscriptions.service_subscription_count, retention_by_month.retained_subscription_count]
     hidden_pivots: {}
     listen:
-      Subscription Start Date: logical_subscriptions.started_at_date
-      Has Refunds (Yes / No): logical_subscriptions.has_refunds
-      Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
-      Payment Provider: logical_subscriptions.payment_provider
+      Subscription Start Date: service_subscriptions.started_at_date
+      Has Refunds (Yes / No): service_subscriptions.has_refunds
+      Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
+      Payment Provider: service_subscriptions.payment_provider
       Region: countries.region_name
       Country: countries.name
-      Service ID: subscription_services.id
-      Plan Interval: logical_subscriptions.plan_interval
-      Plan: logical_subscriptions.plan_summary
+      Service ID: service_subscriptions.service__id
+      Plan Interval: service_subscriptions.plan_interval
+      Plan: service_subscriptions.plan_summary
     row: 35
     col: 12
     width: 12
@@ -764,17 +764,17 @@
   - title: Retention Rate Table by Cohort
     name: Retention Rate Table by Cohort
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     type: looker_grid
-    fields: [logical_subscriptions.started_at_month, retention_by_month.retained_subscription_count,
-      logical_subscriptions.logical_subscription_count, retention_by_month.subscription_month_number]
+    fields: [service_subscriptions.started_at_month, retention_by_month.retained_subscription_count,
+      service_subscriptions.service_subscription_count, retention_by_month.subscription_month_number]
     pivots: [retention_by_month.subscription_month_number]
-    sorts: [logical_subscriptions.started_at_month, retention_by_month.subscription_month_number]
+    sorts: [service_subscriptions.started_at_month, retention_by_month.subscription_month_number]
     limit: 500
     column_limit: 50
     dynamic_fields:
     - category: table_calculation
-      expression: "${retention_by_month.retained_subscription_count} / ${logical_subscriptions.logical_subscription_count}"
+      expression: "${retention_by_month.retained_subscription_count} / ${service_subscriptions.service_subscription_count}"
       label: Retention Rate
       value_format:
       value_format_name: percent_1
@@ -857,18 +857,18 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    hidden_fields: [logical_subscriptions.logical_subscription_count, retention_by_month.retained_subscription_count]
+    hidden_fields: [service_subscriptions.service_subscription_count, retention_by_month.retained_subscription_count]
     hidden_pivots: {}
     listen:
-      Subscription Start Date: logical_subscriptions.started_at_date
-      Has Refunds (Yes / No): logical_subscriptions.has_refunds
-      Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
-      Payment Provider: logical_subscriptions.payment_provider
+      Subscription Start Date: service_subscriptions.started_at_date
+      Has Refunds (Yes / No): service_subscriptions.has_refunds
+      Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
+      Payment Provider: service_subscriptions.payment_provider
       Region: countries.region_name
       Country: countries.name
-      Service ID: subscription_services.id
-      Plan Interval: logical_subscriptions.plan_interval
-      Plan: logical_subscriptions.plan_summary
+      Service ID: service_subscriptions.service__id
+      Plan Interval: service_subscriptions.plan_interval
+      Plan: service_subscriptions.plan_summary
     row: 43
     col: 0
     width: 24
@@ -876,17 +876,17 @@
   - title: Retention Counts Table by Cohort
     name: Retention Counts Table by Cohort
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     type: looker_grid
-    fields: [logical_subscriptions.started_at_month, retention_by_month.retained_subscription_count,
-      logical_subscriptions.logical_subscription_count, retention_by_month.subscription_month_number]
+    fields: [service_subscriptions.started_at_month, retention_by_month.retained_subscription_count,
+      service_subscriptions.service_subscription_count, retention_by_month.subscription_month_number]
     pivots: [retention_by_month.subscription_month_number]
-    sorts: [logical_subscriptions.started_at_month, retention_by_month.subscription_month_number]
+    sorts: [service_subscriptions.started_at_month, retention_by_month.subscription_month_number]
     limit: 500
     column_limit: 50
     dynamic_fields:
     - category: table_calculation
-      expression: "${retention_by_month.retained_subscription_count} / ${logical_subscriptions.logical_subscription_count}"
+      expression: "${retention_by_month.retained_subscription_count} / ${service_subscriptions.service_subscription_count}"
       label: Retention Rate
       value_format:
       value_format_name: percent_2
@@ -965,18 +965,18 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    hidden_fields: [logical_subscriptions.logical_subscription_count, retention_rate]
+    hidden_fields: [service_subscriptions.service_subscription_count, retention_rate]
     hidden_pivots: {}
     listen:
-      Subscription Start Date: logical_subscriptions.started_at_date
-      Has Refunds (Yes / No): logical_subscriptions.has_refunds
-      Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
-      Payment Provider: logical_subscriptions.payment_provider
+      Subscription Start Date: service_subscriptions.started_at_date
+      Has Refunds (Yes / No): service_subscriptions.has_refunds
+      Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
+      Payment Provider: service_subscriptions.payment_provider
       Region: countries.region_name
       Country: countries.name
-      Service ID: subscription_services.id
-      Plan Interval: logical_subscriptions.plan_interval
-      Plan: logical_subscriptions.plan_summary
+      Service ID: service_subscriptions.service__id
+      Plan Interval: service_subscriptions.plan_interval
+      Plan: service_subscriptions.plan_summary
     row: 48
     col: 0
     width: 24
@@ -993,9 +993,9 @@
       display: popover
       options: []
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     listens_to_filters: []
-    field: logical_subscriptions.started_at_date
+    field: service_subscriptions.started_at_date
   - name: Payment Provider
     title: Payment Provider
     type: field_filter
@@ -1006,9 +1006,9 @@
       type: checkboxes
       display: popover
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     listens_to_filters: [Subscription Start Date, Service ID]
-    field: logical_subscriptions.payment_provider
+    field: service_subscriptions.payment_provider
   - name: Plan Interval
     title: Plan Interval
     type: field_filter
@@ -1019,9 +1019,9 @@
       type: checkboxes
       display: popover
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     listens_to_filters: [Subscription Start Date, Service ID]
-    field: logical_subscriptions.plan_interval
+    field: service_subscriptions.plan_interval
   - name: Plan
     title: Plan
     type: field_filter
@@ -1032,9 +1032,9 @@
       type: checkboxes
       display: popover
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     listens_to_filters: [Plan Interval, Subscription Start Date, Service ID]
-    field: logical_subscriptions.plan_summary
+    field: service_subscriptions.plan_summary
   - name: Region
     title: Region
     type: field_filter
@@ -1045,7 +1045,7 @@
       type: checkboxes
       display: popover
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     listens_to_filters: [Subscription Start Date, Service ID]
     field: countries.region_name
   - name: Country
@@ -1058,7 +1058,7 @@
       type: checkboxes
       display: popover
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     listens_to_filters: [Region, Subscription Start Date, Service ID]
     field: countries.name
   - name: Has Fraudulent Charges (Yes / No)
@@ -1071,9 +1071,9 @@
       type: dropdown_menu
       display: overflow
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     listens_to_filters: []
-    field: logical_subscriptions.has_fraudulent_charges
+    field: service_subscriptions.has_fraudulent_charges
   - name: Has Refunds (Yes / No)
     title: Has Refunds (Yes / No)
     type: field_filter
@@ -1084,9 +1084,9 @@
       type: dropdown_menu
       display: overflow
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     listens_to_filters: []
-    field: logical_subscriptions.has_refunds
+    field: service_subscriptions.has_refunds
   - name: Service ID
     title: Service ID
     type: field_filter
@@ -1099,6 +1099,6 @@
       options:
       - Monitor
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     listens_to_filters: []
-    field: subscription_services.id
+    field: service_subscriptions.service__id
