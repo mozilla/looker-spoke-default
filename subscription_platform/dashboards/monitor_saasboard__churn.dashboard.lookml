@@ -67,12 +67,12 @@
   - title: Most Recent Data
     name: Most Recent Data
     model: subscription_platform
-    explore: daily_active_logical_subscriptions
+    explore: daily_active_service_subscriptions
     type: single_value
-    fields: [daily_active_logical_subscriptions.date_date]
+    fields: [daily_active_service_subscriptions.date_date]
     filters:
-      daily_active_logical_subscriptions.date_date: 1 month
-    sorts: [daily_active_logical_subscriptions.date_date desc]
+      daily_active_service_subscriptions.date_date: 1 month
+    sorts: [daily_active_service_subscriptions.date_date desc]
     limit: 1
     column_limit: 50
     custom_color_enabled: true
@@ -117,7 +117,7 @@
   - title: Churn by Subscription Month Number
     name: Churn by Subscription Month Number
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     type: looker_column
     fields: [retention_by_month.subscription_month_number, retention_by_month.churned_subscription_count,
       retention_by_month.previously_retained_subscription_count]
@@ -177,15 +177,15 @@
     defaults_version: 1
     hidden_fields: [retention_by_month.previously_retained_subscription_count]
     listen:
-      Subscription Start Date: logical_subscriptions.started_at_date
-      Payment Provider: logical_subscriptions.payment_provider
-      Plan Interval: logical_subscriptions.plan_interval
-      Plan: logical_subscriptions.plan_summary
+      Subscription Start Date: service_subscriptions.started_at_date
+      Payment Provider: service_subscriptions.payment_provider
+      Plan Interval: service_subscriptions.plan_interval
+      Plan: service_subscriptions.plan_summary
       Region: countries.region_name
       Country: countries.name
-      Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
-      Has Refunds (Yes / No): logical_subscriptions.has_refunds
-      Service ID: subscription_services.id
+      Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
+      Has Refunds (Yes / No): service_subscriptions.has_refunds
+      Service ID: service_subscriptions.service__id
     row: 6
     col: 0
     width: 12
@@ -193,11 +193,11 @@
   - title: Total Churn Rate by Cohort
     name: Total Churn Rate by Cohort
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     type: looker_line
     fields: [retention_by_month.churned_subscription_count, retention_by_month.previously_retained_subscription_count,
-      logical_subscriptions.started_at_month]
-    sorts: [logical_subscriptions.started_at_month]
+      service_subscriptions.started_at_month]
+    sorts: [service_subscriptions.started_at_month]
     limit: 500
     column_limit: 50
     dynamic_fields:
@@ -252,15 +252,15 @@
     defaults_version: 1
     hidden_fields: [retention_by_month.previously_retained_subscription_count, retention_by_month.churned_subscription_count]
     listen:
-      Subscription Start Date: logical_subscriptions.started_at_date
-      Payment Provider: logical_subscriptions.payment_provider
-      Plan Interval: logical_subscriptions.plan_interval
-      Plan: logical_subscriptions.plan_summary
+      Subscription Start Date: service_subscriptions.started_at_date
+      Payment Provider: service_subscriptions.payment_provider
+      Plan Interval: service_subscriptions.plan_interval
+      Plan: service_subscriptions.plan_summary
       Region: countries.region_name
       Country: countries.name
-      Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
-      Has Refunds (Yes / No): logical_subscriptions.has_refunds
-      Service ID: subscription_services.id
+      Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
+      Has Refunds (Yes / No): service_subscriptions.has_refunds
+      Service ID: service_subscriptions.service__id
     row: 6
     col: 12
     width: 12
@@ -268,20 +268,20 @@
   - title: Pooled Churn
     name: Pooled Churn
     model: subscription_platform
-    explore: monthly_active_logical_subscriptions
+    explore: monthly_active_service_subscriptions
     type: looker_column
-    fields: [monthly_active_logical_subscriptions.month_month, monthly_active_logical_subscriptions.logical_subscription_count,
-      next_month_still_active_subscriptions.logical_subscription_count]
+    fields: [monthly_active_service_subscriptions.month_month, monthly_active_service_subscriptions.service_subscription_count,
+      next_month_still_active_subscriptions.service_subscription_count]
     filters:
-      monthly_active_logical_subscriptions.was_active_at_month_start: 'Yes'
-      next_month_still_active_subscriptions.logical_subscription_count: ">0"
-    sorts: [monthly_active_logical_subscriptions.month_month]
+      monthly_active_service_subscriptions.was_active_at_month_start: 'Yes'
+      next_month_still_active_subscriptions.service_subscription_count: ">0"
+    sorts: [monthly_active_service_subscriptions.month_month]
     limit: 500
     column_limit: 50
     dynamic_fields:
     - category: table_calculation
-      expression: "${monthly_active_logical_subscriptions.logical_subscription_count}\
-        \ - ${next_month_still_active_subscriptions.logical_subscription_count}"
+      expression: "${monthly_active_service_subscriptions.service_subscription_count}\
+        \ - ${next_month_still_active_subscriptions.service_subscription_count}"
       label: Churned Subscription Count
       value_format:
       value_format_name:
@@ -289,9 +289,9 @@
       table_calculation: churned_subscription_count
       _type_hint: number
     - category: table_calculation
-      expression: "(${monthly_active_logical_subscriptions.logical_subscription_count}\
-        \ - ${next_month_still_active_subscriptions.logical_subscription_count}) /\
-        \ ${monthly_active_logical_subscriptions.logical_subscription_count}"
+      expression: "(${monthly_active_service_subscriptions.service_subscription_count}\
+        \ - ${next_month_still_active_subscriptions.service_subscription_count}) /\
+        \ ${monthly_active_service_subscriptions.service_subscription_count}"
       label: Pooled Churn Rate
       value_format:
       value_format_name: percent_0
@@ -347,18 +347,18 @@
     interpolation: linear
     hidden_pivots: {}
     defaults_version: 1
-    hidden_fields: [monthly_active_logical_subscriptions.logical_subscription_count,
-      next_month_still_active_subscriptions.logical_subscription_count]
+    hidden_fields: [monthly_active_service_subscriptions.service_subscription_count,
+      next_month_still_active_subscriptions.service_subscription_count]
     listen:
-      Subscription Start Date: monthly_active_logical_subscriptions.subscription__started_at_date
-      Payment Provider: monthly_active_logical_subscriptions.subscription__payment_provider
-      Plan Interval: monthly_active_logical_subscriptions.subscription__plan_interval
-      Plan: monthly_active_logical_subscriptions.subscription__plan_summary
+      Subscription Start Date: monthly_active_service_subscriptions.subscription__started_at_date
+      Payment Provider: monthly_active_service_subscriptions.subscription__payment_provider
+      Plan Interval: monthly_active_service_subscriptions.subscription__plan_interval
+      Plan: monthly_active_service_subscriptions.subscription__plan_summary
       Region: countries.region_name
       Country: countries.name
       Has Fraudulent Charges (Yes / No): current_subscription_state.has_fraudulent_charges
       Has Refunds (Yes / No): current_subscription_state.has_refunds
-      Service ID: subscription_services.id
+      Service ID: monthly_active_service_subscriptions.subscription__service__id
     row: 14
     col: 0
     width: 12
@@ -366,11 +366,11 @@
   - title: Daily Churn
     name: Daily Churn
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     type: looker_column
-    fields: [logical_subscriptions.ended_at_date, logical_subscriptions.logical_subscription_count]
+    fields: [service_subscriptions.ended_at_date, service_subscriptions.service_subscription_count]
     filters: {}
-    sorts: [logical_subscriptions.ended_at_date desc]
+    sorts: [service_subscriptions.ended_at_date desc]
     limit: 5000
     column_limit: 50
     x_axis_gridlines: false
@@ -400,29 +400,29 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    y_axes: [{label: '', orientation: left, series: [{axisId: logical_subscriptions.logical_subscription_count,
-            id: logical_subscriptions.logical_subscription_count, name: Logical Subscription
+    y_axes: [{label: '', orientation: left, series: [{axisId: service_subscriptions.service_subscription_count,
+            id: service_subscriptions.service_subscription_count, name: Service Subscription
               Count}], showLabels: false, showValues: true, unpinAxis: false, tickDensity: default,
         tickDensityCustom: 5, type: linear}]
     x_axis_zoom: true
     y_axis_zoom: true
     series_colors:
-      logical_subscriptions.logical_subscription_count: "#FF7139"
+      service_subscriptions.service_subscription_count: "#FF7139"
     series_labels:
-      logical_subscriptions.logical_subscription_count: Churned Subscription Count
+      service_subscriptions.service_subscription_count: Churned Subscription Count
     show_null_points: true
     interpolation: linear
     defaults_version: 1
     listen:
-      Subscription Start Date: logical_subscriptions.started_at_date
-      Payment Provider: logical_subscriptions.payment_provider
-      Plan Interval: logical_subscriptions.plan_interval
-      Plan: logical_subscriptions.plan_summary
+      Subscription Start Date: service_subscriptions.started_at_date
+      Payment Provider: service_subscriptions.payment_provider
+      Plan Interval: service_subscriptions.plan_interval
+      Plan: service_subscriptions.plan_summary
       Region: countries.region_name
       Country: countries.name
-      Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
-      Has Refunds (Yes / No): logical_subscriptions.has_refunds
-      Service ID: subscription_services.id
+      Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
+      Has Refunds (Yes / No): service_subscriptions.has_refunds
+      Service ID: service_subscriptions.service__id
     row: 14
     col: 12
     width: 12
@@ -443,16 +443,16 @@
   - title: Upcoming Cancellations by Plan Interval
     name: Upcoming Cancellations by Plan Interval
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     type: looker_column
-    fields: [logical_subscriptions.logical_subscription_count, logical_subscriptions.current_period_ends_at_month,
-      logical_subscriptions.plan_interval]
-    pivots: [logical_subscriptions.plan_interval]
-    fill_fields: [logical_subscriptions.current_period_ends_at_month]
+    fields: [service_subscriptions.service_subscription_count, service_subscriptions.current_period_ends_at_month,
+      service_subscriptions.plan_interval]
+    pivots: [service_subscriptions.plan_interval]
+    fill_fields: [service_subscriptions.current_period_ends_at_month]
     filters:
-      logical_subscriptions.auto_renew: 'No'
-      logical_subscriptions.current_period_ends_at_date: after 0 days ago
-    sorts: [logical_subscriptions.current_period_ends_at_month, logical_subscriptions.plan_interval]
+      service_subscriptions.auto_renew: 'No'
+      service_subscriptions.current_period_ends_at_date: after 0 days ago
+    sorts: [service_subscriptions.current_period_ends_at_month, service_subscriptions.plan_interval]
     limit: 500
     column_limit: 50
     dynamic_fields:
@@ -495,7 +495,7 @@
     x_axis_zoom: true
     y_axis_zoom: true
     series_colors:
-      logical_subscriptions.logical_subscription_count: "#ffc286"
+      service_subscriptions.service_subscription_count: "#ffc286"
     hidden_pivots: {}
     show_null_points: true
     interpolation: linear
@@ -504,14 +504,14 @@
     note_display: hover
     note_text: The Subscription Start Date filter does not apply to this chart.
     listen:
-      Payment Provider: logical_subscriptions.payment_provider
-      Plan Interval: logical_subscriptions.plan_interval
-      Plan: logical_subscriptions.plan_summary
+      Payment Provider: service_subscriptions.payment_provider
+      Plan Interval: service_subscriptions.plan_interval
+      Plan: service_subscriptions.plan_summary
       Region: countries.region_name
       Country: countries.name
-      Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
-      Has Refunds (Yes / No): logical_subscriptions.has_refunds
-      Service ID: subscription_services.id
+      Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
+      Has Refunds (Yes / No): service_subscriptions.has_refunds
+      Service ID: service_subscriptions.service__id
     row: 24
     col: 0
     width: 12
@@ -519,21 +519,21 @@
   - title: Days to Disable Auto-Renew by Plan Interval
     name: Days to Disable Auto-Renew by Plan Interval
     model: subscription_platform
-    explore: logical_subscription_events
+    explore: service_subscription_events
     type: looker_area
-    fields: [auto_renew_disabled_date_difference_days, logical_subscription_events.subscription__plan_interval,
-      logical_subscription_events.logical_subscription_count]
-    pivots: [logical_subscription_events.subscription__plan_interval]
+    fields: [auto_renew_disabled_date_difference_days, service_subscription_events.subscription__plan_interval,
+      service_subscription_events.service_subscription_count]
+    pivots: [service_subscription_events.subscription__plan_interval]
     filters:
-      logical_subscription_events.reason: Auto-Renew Disabled
-      logical_subscription_events.type: Auto-Renew Change
-    sorts: [logical_subscription_events.subscription__plan_interval, auto_renew_disabled_date_difference_days]
+      service_subscription_events.reason: Auto-Renew Disabled
+      service_subscription_events.type: Auto-Renew Change
+    sorts: [service_subscription_events.subscription__plan_interval, auto_renew_disabled_date_difference_days]
     limit: 500
     column_limit: 50
     dynamic_fields:
     - category: dimension
-      expression: diff_days(${logical_subscription_events.subscription__started_at_date},
-        ${logical_subscription_events.subscription__auto_renew_disabled_at_date})
+      expression: diff_days(${service_subscription_events.subscription__started_at_date},
+        ${service_subscription_events.subscription__auto_renew_disabled_at_date})
       label: Auto-Renew Disabled Date Difference (Days)
       value_format:
       value_format_name:
@@ -541,13 +541,13 @@
       _kind_hint: dimension
       _type_hint: number
     - args:
-      - logical_subscription_events.logical_subscription_count
+      - service_subscription_events.service_subscription_count
       calculation_type: percent_of_column_sum
       category: table_calculation
-      based_on: logical_subscription_events.logical_subscription_count
-      label: Percent of Logical Subscription Events Logical Subscription Count
-      source_field: logical_subscription_events.logical_subscription_count
-      table_calculation: percent_of_logical_subscription_events_logical_subscription_count
+      based_on: service_subscription_events.service_subscription_count
+      label: Percent of Service Subscription Events Service Subscription Count
+      source_field: service_subscription_events.service_subscription_count
+      table_calculation: percent_of_service_subscription_events_service_subscription_count
       value_format:
       value_format_name: percent_0
       _kind_hint: measure
@@ -593,21 +593,21 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
-    hidden_fields: [logical_subscription_events.logical_subscription_count]
+    hidden_fields: [service_subscription_events.service_subscription_count]
     note_state: collapsed
     note_display: hover
     note_text: Time to disabling auto-renew is measured relative to the subscription
       start date.
     listen:
-      Subscription Start Date: logical_subscription_events.subscription__started_at_date
-      Payment Provider: logical_subscription_events.subscription__payment_provider
-      Plan Interval: logical_subscription_events.subscription__plan_interval
-      Plan: logical_subscription_events.subscription__plan_summary
+      Subscription Start Date: service_subscription_events.subscription__started_at_date
+      Payment Provider: service_subscription_events.subscription__payment_provider
+      Plan Interval: service_subscription_events.subscription__plan_interval
+      Plan: service_subscription_events.subscription__plan_summary
       Region: countries.region_name
       Country: countries.name
-      Has Fraudulent Charges (Yes / No): logical_subscription_events.subscription__has_fraudulent_charges
-      Has Refunds (Yes / No): logical_subscription_events.subscription__has_refunds
-      Service ID: subscription_services.id
+      Has Fraudulent Charges (Yes / No): service_subscription_events.subscription__has_fraudulent_charges
+      Has Refunds (Yes / No): service_subscription_events.subscription__has_refunds
+      Service ID: service_subscription_events.subscription__service__id
     row: 24
     col: 12
     width: 12
@@ -615,16 +615,16 @@
   - title: Auto-Renew Disabled Occurrences
     name: Auto-Renew Disabled Occurrences
     model: subscription_platform
-    explore: logical_subscription_events
+    explore: service_subscription_events
     type: looker_column
-    fields: [logical_subscription_events.timestamp_date, logical_subscription_events.subscription__plan_interval,
-      logical_subscription_events.logical_subscription_count]
-    pivots: [logical_subscription_events.subscription__plan_interval]
-    fill_fields: [logical_subscription_events.timestamp_date]
+    fields: [service_subscription_events.timestamp_date, service_subscription_events.subscription__plan_interval,
+      service_subscription_events.service_subscription_count]
+    pivots: [service_subscription_events.subscription__plan_interval]
+    fill_fields: [service_subscription_events.timestamp_date]
     filters:
-      logical_subscription_events.reason: Auto-Renew Disabled
-      logical_subscription_events.type: Auto-Renew Change
-    sorts: [logical_subscription_events.timestamp_date desc, logical_subscription_events.subscription__plan_interval]
+      service_subscription_events.reason: Auto-Renew Disabled
+      service_subscription_events.type: Auto-Renew Change
+    sorts: [service_subscription_events.timestamp_date desc, service_subscription_events.subscription__plan_interval]
     limit: 500
     column_limit: 50
     x_axis_gridlines: false
@@ -661,15 +661,15 @@
     interpolation: linear
     defaults_version: 1
     listen:
-      Subscription Start Date: logical_subscription_events.timestamp_date
-      Payment Provider: logical_subscription_events.subscription__payment_provider
-      Plan Interval: logical_subscription_events.subscription__plan_interval
-      Plan: logical_subscription_events.subscription__plan_summary
+      Subscription Start Date: service_subscription_events.timestamp_date
+      Payment Provider: service_subscription_events.subscription__payment_provider
+      Plan Interval: service_subscription_events.subscription__plan_interval
+      Plan: service_subscription_events.subscription__plan_summary
       Region: countries.region_name
       Country: countries.name
-      Has Fraudulent Charges (Yes / No): logical_subscription_events.subscription__has_fraudulent_charges
-      Has Refunds (Yes / No): logical_subscription_events.subscription__has_refunds
-      Service ID: subscription_services.id
+      Has Fraudulent Charges (Yes / No): service_subscription_events.subscription__has_fraudulent_charges
+      Has Refunds (Yes / No): service_subscription_events.subscription__has_refunds
+      Service ID: service_subscription_events.subscription__service__id
     row: 32
     col: 0
     width: 12
@@ -677,15 +677,15 @@
   - title: Percent of Active Subscriptions with Auto-Renew Disabled
     name: Percent of Active Subscriptions with Auto-Renew Disabled
     model: subscription_platform
-    explore: daily_active_logical_subscriptions
+    explore: daily_active_service_subscriptions
     type: looker_line
-    fields: [auto_renew_disabled_subscription_count, daily_active_logical_subscriptions.date_date,
-      daily_active_logical_subscriptions.subscription__plan_interval, daily_active_logical_subscriptions.logical_subscription_count]
-    pivots: [daily_active_logical_subscriptions.subscription__plan_interval]
-    fill_fields: [daily_active_logical_subscriptions.date_date]
+    fields: [auto_renew_disabled_subscription_count, daily_active_service_subscriptions.date_date,
+      daily_active_service_subscriptions.subscription__plan_interval, daily_active_service_subscriptions.service_subscription_count]
+    pivots: [daily_active_service_subscriptions.subscription__plan_interval]
+    fill_fields: [daily_active_service_subscriptions.date_date]
     filters:
-      daily_active_logical_subscriptions.was_active_at_day_end: 'Yes'
-    sorts: [daily_active_logical_subscriptions.date_date desc, daily_active_logical_subscriptions.subscription__plan_interval]
+      daily_active_service_subscriptions.was_active_at_day_end: 'Yes'
+    sorts: [daily_active_service_subscriptions.date_date desc, daily_active_service_subscriptions.subscription__plan_interval]
     limit: 500
     column_limit: 50
     dynamic_fields:
@@ -694,7 +694,7 @@
       label: Auto-Renew Disabled Subscription Count
       value_format:
       value_format_name:
-      based_on: daily_active_logical_subscriptions.logical_subscription_count
+      based_on: daily_active_service_subscriptions.service_subscription_count
       _kind_hint: measure
       measure: auto_renew_disabled_subscription_count
       type: count_distinct
@@ -702,7 +702,7 @@
       filters:
         current_subscription_state.auto_renew: 'No'
     - category: table_calculation
-      expression: "${auto_renew_disabled_subscription_count} / ${daily_active_logical_subscriptions.logical_subscription_count}"
+      expression: "${auto_renew_disabled_subscription_count} / ${daily_active_service_subscriptions.service_subscription_count}"
       label: Percent Active Subscriptions Disabled Auto-Renew
       value_format:
       value_format_name: percent_1
@@ -735,17 +735,17 @@
     interpolation: linear
     hidden_pivots: {}
     defaults_version: 1
-    hidden_fields: [auto_renew_disabled_subscription_count, daily_active_logical_subscriptions.logical_subscription_count]
+    hidden_fields: [auto_renew_disabled_subscription_count, daily_active_service_subscriptions.service_subscription_count]
     listen:
-      Subscription Start Date: daily_active_logical_subscriptions.date_date
-      Payment Provider: daily_active_logical_subscriptions.subscription__payment_provider
-      Plan Interval: daily_active_logical_subscriptions.subscription__plan_interval
-      Plan: daily_active_logical_subscriptions.subscription__plan_summary
+      Subscription Start Date: daily_active_service_subscriptions.date_date
+      Payment Provider: daily_active_service_subscriptions.subscription__payment_provider
+      Plan Interval: daily_active_service_subscriptions.subscription__plan_interval
+      Plan: daily_active_service_subscriptions.subscription__plan_summary
       Region: countries.region_name
       Country: countries.name
-      Has Fraudulent Charges (Yes / No): daily_active_logical_subscriptions.subscription__has_fraudulent_charges
-      Has Refunds (Yes / No): daily_active_logical_subscriptions.subscription__has_refunds
-      Service ID: subscription_services.id
+      Has Fraudulent Charges (Yes / No): daily_active_service_subscriptions.subscription__has_fraudulent_charges
+      Has Refunds (Yes / No): daily_active_service_subscriptions.subscription__has_refunds
+      Service ID: daily_active_service_subscriptions.subscription__service__id
     row: 32
     col: 12
     width: 12
@@ -766,12 +766,12 @@
   - title: Churn Rate by Plan Interval
     name: Churn Rate by Plan Interval
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     type: looker_line
     fields: [retention_by_month.churned_subscription_count, retention_by_month.previously_retained_subscription_count,
-      retention_by_month.subscription_month_number, logical_subscriptions.plan_interval]
-    pivots: [logical_subscriptions.plan_interval]
-    sorts: [retention_by_month.subscription_month_number, logical_subscriptions.plan_interval]
+      retention_by_month.subscription_month_number, service_subscriptions.plan_interval]
+    pivots: [service_subscriptions.plan_interval]
+    sorts: [retention_by_month.subscription_month_number, service_subscriptions.plan_interval]
     limit: 500
     column_limit: 50
     dynamic_fields:
@@ -821,15 +821,15 @@
     hidden_fields: [retention_by_month.previously_retained_subscription_count, retention_by_month.churned_subscription_count]
     hidden_pivots: {}
     listen:
-      Subscription Start Date: logical_subscriptions.started_at_date
-      Payment Provider: logical_subscriptions.payment_provider
-      Plan Interval: logical_subscriptions.plan_interval
-      Plan: logical_subscriptions.plan_summary
+      Subscription Start Date: service_subscriptions.started_at_date
+      Payment Provider: service_subscriptions.payment_provider
+      Plan Interval: service_subscriptions.plan_interval
+      Plan: service_subscriptions.plan_summary
       Region: countries.region_name
       Country: countries.name
-      Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
-      Has Refunds (Yes / No): logical_subscriptions.has_refunds
-      Service ID: subscription_services.id
+      Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
+      Has Refunds (Yes / No): service_subscriptions.has_refunds
+      Service ID: service_subscriptions.service__id
     row: 42
     col: 0
     width: 24
@@ -837,13 +837,13 @@
   - title: Churn Rate Table by Plan Interval
     name: Churn Rate Table by Plan Interval
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     type: looker_grid
     fields: [retention_by_month.churned_subscription_count, retention_by_month.previously_retained_subscription_count,
-      retention_by_month.subscription_month_number, logical_subscriptions.plan_interval,
-      logical_subscriptions.plan_interval_months]
+      retention_by_month.subscription_month_number, service_subscriptions.plan_interval,
+      service_subscriptions.plan_interval_months]
     pivots: [retention_by_month.subscription_month_number]
-    sorts: [retention_by_month.subscription_month_number, logical_subscriptions.plan_interval_months]
+    sorts: [retention_by_month.subscription_month_number, service_subscriptions.plan_interval_months]
     limit: 500
     column_limit: 50
     dynamic_fields:
@@ -919,20 +919,20 @@
     totals_color: "#808080"
     defaults_version: 1
     hidden_fields: [retention_by_month.previously_retained_subscription_count, retention_by_month.churned_subscription_count,
-      logical_subscriptions.plan_interval_months]
+      service_subscriptions.plan_interval_months]
     hidden_pivots: {}
     show_null_points: true
     interpolation: linear
     listen:
-      Subscription Start Date: logical_subscriptions.started_at_date
-      Payment Provider: logical_subscriptions.payment_provider
-      Plan Interval: logical_subscriptions.plan_interval
-      Plan: logical_subscriptions.plan_summary
+      Subscription Start Date: service_subscriptions.started_at_date
+      Payment Provider: service_subscriptions.payment_provider
+      Plan Interval: service_subscriptions.plan_interval
+      Plan: service_subscriptions.plan_summary
       Region: countries.region_name
       Country: countries.name
-      Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
-      Has Refunds (Yes / No): logical_subscriptions.has_refunds
-      Service ID: subscription_services.id
+      Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
+      Has Refunds (Yes / No): service_subscriptions.has_refunds
+      Service ID: service_subscriptions.service__id
     row: 48
     col: 0
     width: 24
@@ -940,12 +940,12 @@
   - title: Churn Counts Table by Plan Interval
     name: Churn Counts Table by Plan Interval
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     type: looker_grid
     fields: [retention_by_month.churned_subscription_count, retention_by_month.subscription_month_number,
-      logical_subscriptions.plan_interval, logical_subscriptions.plan_interval_months]
+      service_subscriptions.plan_interval, service_subscriptions.plan_interval_months]
     pivots: [retention_by_month.subscription_month_number]
-    sorts: [retention_by_month.subscription_month_number, logical_subscriptions.plan_interval_months]
+    sorts: [retention_by_month.subscription_month_number, service_subscriptions.plan_interval_months]
     limit: 500
     column_limit: 50
     dynamic_fields:
@@ -1024,20 +1024,20 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    hidden_fields: [logical_subscriptions.plan_interval_months]
+    hidden_fields: [service_subscriptions.plan_interval_months]
     hidden_pivots: {}
     show_null_points: true
     interpolation: linear
     listen:
-      Subscription Start Date: logical_subscriptions.started_at_date
-      Payment Provider: logical_subscriptions.payment_provider
-      Plan Interval: logical_subscriptions.plan_interval
-      Plan: logical_subscriptions.plan_summary
+      Subscription Start Date: service_subscriptions.started_at_date
+      Payment Provider: service_subscriptions.payment_provider
+      Plan Interval: service_subscriptions.plan_interval
+      Plan: service_subscriptions.plan_summary
       Region: countries.region_name
       Country: countries.name
-      Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
-      Has Refunds (Yes / No): logical_subscriptions.has_refunds
-      Service ID: subscription_services.id
+      Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
+      Has Refunds (Yes / No): service_subscriptions.has_refunds
+      Service ID: service_subscriptions.service__id
     row: 52
     col: 0
     width: 24
@@ -1058,12 +1058,12 @@
   - title: Cohort Churn Rate by Subscription Month Number
     name: Cohort Churn Rate by Subscription Month Number
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     type: looker_line
-    fields: [logical_subscriptions.started_at_month, retention_by_month.churned_subscription_count,
+    fields: [service_subscriptions.started_at_month, retention_by_month.churned_subscription_count,
       retention_by_month.previously_retained_subscription_count, retention_by_month.subscription_month_number]
     pivots: [retention_by_month.subscription_month_number]
-    sorts: [retention_by_month.subscription_month_number, logical_subscriptions.started_at_month]
+    sorts: [retention_by_month.subscription_month_number, service_subscriptions.started_at_month]
     limit: 500
     column_limit: 50
     dynamic_fields:
@@ -1130,15 +1130,15 @@
     defaults_version: 1
     hidden_fields: [retention_by_month.churned_subscription_count, retention_by_month.previously_retained_subscription_count]
     listen:
-      Subscription Start Date: logical_subscriptions.started_at_date
-      Payment Provider: logical_subscriptions.payment_provider
-      Plan Interval: logical_subscriptions.plan_interval
-      Plan: logical_subscriptions.plan_summary
+      Subscription Start Date: service_subscriptions.started_at_date
+      Payment Provider: service_subscriptions.payment_provider
+      Plan Interval: service_subscriptions.plan_interval
+      Plan: service_subscriptions.plan_summary
       Region: countries.region_name
       Country: countries.name
-      Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
-      Has Refunds (Yes / No): logical_subscriptions.has_refunds
-      Service ID: subscription_services.id
+      Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
+      Has Refunds (Yes / No): service_subscriptions.has_refunds
+      Service ID: service_subscriptions.service__id
     row: 58
     col: 0
     width: 24
@@ -1146,12 +1146,12 @@
   - title: Churn Rate Table by Cohort
     name: Churn Rate Table by Cohort
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     type: looker_grid
-    fields: [logical_subscriptions.started_at_month, retention_by_month.churned_subscription_count,
+    fields: [service_subscriptions.started_at_month, retention_by_month.churned_subscription_count,
       retention_by_month.previously_retained_subscription_count, retention_by_month.subscription_month_number]
     pivots: [retention_by_month.subscription_month_number]
-    sorts: [retention_by_month.subscription_month_number, logical_subscriptions.started_at_month]
+    sorts: [retention_by_month.subscription_month_number, service_subscriptions.started_at_month]
     limit: 500
     column_limit: 50
     dynamic_fields:
@@ -1225,15 +1225,15 @@
     defaults_version: 1
     hidden_fields: [retention_by_month.churned_subscription_count, retention_by_month.previously_retained_subscription_count]
     listen:
-      Subscription Start Date: logical_subscriptions.started_at_date
-      Payment Provider: logical_subscriptions.payment_provider
-      Plan Interval: logical_subscriptions.plan_interval
-      Plan: logical_subscriptions.plan_summary
+      Subscription Start Date: service_subscriptions.started_at_date
+      Payment Provider: service_subscriptions.payment_provider
+      Plan Interval: service_subscriptions.plan_interval
+      Plan: service_subscriptions.plan_summary
       Region: countries.region_name
       Country: countries.name
-      Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
-      Has Refunds (Yes / No): logical_subscriptions.has_refunds
-      Service ID: subscription_services.id
+      Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
+      Has Refunds (Yes / No): service_subscriptions.has_refunds
+      Service ID: service_subscriptions.service__id
     row: 65
     col: 0
     width: 24
@@ -1241,12 +1241,12 @@
   - title: Churn Counts Table by Cohort
     name: Churn Counts Table by Cohort
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     type: looker_grid
-    fields: [logical_subscriptions.started_at_month, retention_by_month.churned_subscription_count,
+    fields: [service_subscriptions.started_at_month, retention_by_month.churned_subscription_count,
       retention_by_month.subscription_month_number]
     pivots: [retention_by_month.subscription_month_number]
-    sorts: [retention_by_month.subscription_month_number, logical_subscriptions.started_at_month]
+    sorts: [retention_by_month.subscription_month_number, service_subscriptions.started_at_month]
     limit: 500
     column_limit: 50
     dynamic_fields:
@@ -1332,15 +1332,15 @@
     show_silhouette: false
     totals_color: "#808080"
     listen:
-      Subscription Start Date: logical_subscriptions.started_at_date
-      Payment Provider: logical_subscriptions.payment_provider
-      Plan Interval: logical_subscriptions.plan_interval
-      Plan: logical_subscriptions.plan_summary
+      Subscription Start Date: service_subscriptions.started_at_date
+      Payment Provider: service_subscriptions.payment_provider
+      Plan Interval: service_subscriptions.plan_interval
+      Plan: service_subscriptions.plan_summary
       Region: countries.region_name
       Country: countries.name
-      Has Fraudulent Charges (Yes / No): logical_subscriptions.has_fraudulent_charges
-      Has Refunds (Yes / No): logical_subscriptions.has_refunds
-      Service ID: subscription_services.id
+      Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
+      Has Refunds (Yes / No): service_subscriptions.has_refunds
+      Service ID: service_subscriptions.service__id
     row: 70
     col: 0
     width: 24
@@ -1357,9 +1357,9 @@
       display: popover
       options: []
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     listens_to_filters: []
-    field: logical_subscriptions.started_at_date
+    field: service_subscriptions.started_at_date
   - name: Payment Provider
     title: Payment Provider
     type: field_filter
@@ -1370,9 +1370,9 @@
       type: checkboxes
       display: popover
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     listens_to_filters: [Subscription Start Date, Service ID]
-    field: logical_subscriptions.payment_provider
+    field: service_subscriptions.payment_provider
   - name: Plan Interval
     title: Plan Interval
     type: field_filter
@@ -1383,9 +1383,9 @@
       type: checkboxes
       display: popover
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     listens_to_filters: [Subscription Start Date, Service ID]
-    field: logical_subscriptions.plan_interval
+    field: service_subscriptions.plan_interval
   - name: Plan
     title: Plan
     type: field_filter
@@ -1396,9 +1396,9 @@
       type: checkboxes
       display: popover
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     listens_to_filters: [Subscription Start Date, Plan Interval, Service ID]
-    field: logical_subscriptions.plan_summary
+    field: service_subscriptions.plan_summary
   - name: Region
     title: Region
     type: field_filter
@@ -1409,7 +1409,7 @@
       type: checkboxes
       display: popover
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     listens_to_filters: [Subscription Start Date, Service ID]
     field: countries.region_name
   - name: Country
@@ -1422,7 +1422,7 @@
       type: checkboxes
       display: popover
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     listens_to_filters: [Region, Subscription Start Date, Service ID]
     field: countries.name
   - name: Has Fraudulent Charges (Yes / No)
@@ -1435,9 +1435,9 @@
       type: dropdown_menu
       display: overflow
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     listens_to_filters: []
-    field: logical_subscriptions.has_fraudulent_charges
+    field: service_subscriptions.has_fraudulent_charges
   - name: Has Refunds (Yes / No)
     title: Has Refunds (Yes / No)
     type: field_filter
@@ -1448,9 +1448,9 @@
       type: dropdown_menu
       display: overflow
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     listens_to_filters: []
-    field: logical_subscriptions.has_refunds
+    field: service_subscriptions.has_refunds
   - name: Service ID
     title: Service ID
     type: field_filter
@@ -1463,6 +1463,6 @@
       options:
       - Monitor
     model: subscription_platform
-    explore: logical_subscriptions
+    explore: service_subscriptions
     listens_to_filters: []
-    field: subscription_services.id
+    field: service_subscriptions.service__id
