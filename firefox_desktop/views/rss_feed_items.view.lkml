@@ -15,6 +15,10 @@ view: rss_feed_items {
     type: string
     sql: ${TABLE}.canonical_url ;;
   }
+  dimension: canonical_url_host {
+    type: string
+    sql: net.host(${canonical_url}) ;;
+  }
   dimension: category {
     type: string
     sql: ${TABLE}.category ;;
