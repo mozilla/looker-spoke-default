@@ -267,8 +267,4 @@ view: +glean_active_users_aggregates {
     sql: ${TABLE}.os_version_major ;;
     group_label: "OS"
   }
-  dimension: os_version_minor {
-    sql: ${TABLE}.os_version_minor ;;
-    group_label: "OS"
-  }
 }
