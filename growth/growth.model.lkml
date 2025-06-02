@@ -23,5 +23,5 @@ explore: iOS_app_campaign_stats {
 explore: fenix_new_profile_activation_clients {
   label: "Clients Activation"
   description: "New profiles table with activation flag"
-  view_name: ios_app_campaign_stats
+  view_name: fenix_new_profile_activation_clients
 }
