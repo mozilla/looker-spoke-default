@@ -3,7 +3,7 @@ include: "/shared/views/countries.view.lkml"
 include: "//looker-hub/firefox_okrs/datagroups/glean_desktop_retention_last_updated.datagroup.lkml"
 
 explore: glean_desktop_retention {
-  label: "Retention for Firefox Desktop (Glean-Based)"
+  label: "Retention for Firefox Desktop (Glean-based)"
   view_name: glean_desktop_retention
 
   always_filter: {
