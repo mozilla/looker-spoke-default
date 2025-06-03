@@ -251,10 +251,7 @@ view: +glean_active_users_aggregates {
   }
 
 # Group dimensions in Explore
-  dimension: os {
-    sql: ${TABLE}.os ;;
-    group_label: "OS"
-  }
+  
   dimension: os_grouped {
     sql: ${TABLE}.os_grouped ;;
     group_label: "OS"
@@ -267,4 +264,31 @@ view: +glean_active_users_aggregates {
     sql: ${TABLE}.os_version_major ;;
     group_label: "OS"
   }
+
+  # Hide less commonly used dimensions to make view easier to use for
+  dimension: os {
+    sql: ${TABLE}.os ;;
+    hidden: yes
+  }
+
+  dimension: os_version_minor {
+    sql: ${TABLE}.os_version_minor ;;
+    hidden: yes
+  }
+
+  dimension: city {
+    sql: ${TABLE}.city ;;
+    hidden: yes
+  }
+
+  dimension: app_version_minor {
+    sql: ${TABLE}.app_version_minor ;;
+    hidden: yes
+  }
+
+  dimension: app_version_patch {
+    sql: ${TABLE}.app_version_patch ;;
+    hidden: yes
+  }
+
 }
