@@ -286,8 +286,8 @@ view: +glean_active_users_aggregates {
     hidden: yes
   }
 
-  dimension: app_version_patch {
-    sql: ${TABLE}.app_version_patch ;;
+  dimension: app_version_patch_revision {
+    sql: ${TABLE}.app_version_patch_revision ;;
     hidden: yes
   }
 
