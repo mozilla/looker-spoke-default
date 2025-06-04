@@ -8,15 +8,15 @@ explore: glean_desktop_retention {
 
   always_filter: {
     filters: [
-      desktop_retention.metric_date: "56 days",
-      desktop_retention.is_desktop: "Yes"
+      glean_desktop_retention.metric_date: "56 days",
+      glean_desktop_retention.is_desktop: "Yes"
     ]
   }
 
   join: countries {
     type: left_outer
     relationship: one_to_one
-    sql_on: ${desktop_retention.country} = ${countries.code} ;;
+    sql_on: ${glean_desktop_retention.country} = ${countries.code} ;;
   }
 
   persist_with: glean_desktop_retention_last_updated
