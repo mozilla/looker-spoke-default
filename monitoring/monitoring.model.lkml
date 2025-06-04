@@ -58,8 +58,10 @@ include: "views/schema_error_notes.view.lkml"
 include: "views/stable_table_column_counts.view.lkml"
 include: "views/structured_missing_columns.view.lkml"
 include: "views/telemetry_missing_columns.view.lkml"
+include: "views/looker_dashboard_load_times.view.lkml"
 include: "explores/*"
 include: "dashboards/*"
+
 
 # todo: hide explores once dashboard has been implemented
 view: +payload_bytes_error_all {
