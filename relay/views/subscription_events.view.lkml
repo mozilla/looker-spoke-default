@@ -12,7 +12,9 @@ view: +subscription_events {
     type: string
     sql:  CONCAT(
             CASE
-              WHEN ${product_name} LIKE "%VPN%" THEN "bundle"
+              WHEN ${product_name} LIKE "%VPN%"
+                OR ${product_name} = "Privacy protection plan"
+                THEN "bundle"
               WHEN (${plan_interval} = "month" AND ${plan_amount} > 400)
                 OR (${plan_interval} = "year" AND ${plan_amount} > 4000)
                 THEN "phone"
