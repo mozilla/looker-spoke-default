@@ -76,7 +76,13 @@ view: +subscriptions {
   dimension: plan_interval_type {
     description: "Indicates the plan interval type (1 year, 6 month, 1 month, etc)"
     type: string
-    sql: CONCAT(IF(${product_name} LIKE "%Relay%", CONCAT("bundle", "_"), ""), ${plan_interval_count}, "_", ${plan_interval});;
+    sql:
+      CONCAT(
+        IF(${product_name} LIKE "%Relay%" OR ${product_name} = "Privacy protection plan", "bundle_", ""),
+        ${plan_interval_count},
+        "_",
+        ${plan_interval}
+      ) ;;
   }
 
   dimension: forecast_region {
