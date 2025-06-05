@@ -10,6 +10,7 @@ view: task_runs {
   parameter: date_bucket {
     type: string
     label: "Date Bucket"
+    allowed_value: { label: "None" value: "none" }
     allowed_value: { label: "Day" value: "day" }
     allowed_value: { label: "Week" value: "week" }
     allowed_value: { label: "Month" value: "month" }
@@ -21,10 +22,11 @@ view: task_runs {
     type: date
     sql:
     CASE
+      WHEN {% parameter date_bucket %}  = 'day' THEN ${task_runs.submission_date}
       WHEN {% parameter date_bucket %}  = 'week' THEN DATE(FORMAT_DATE('%F', DATE_TRUNC(${task_runs.submission_date} , WEEK(SUNDAY))))
       WHEN {% parameter date_bucket %}  = 'month' THEN DATE(FORMAT_DATE('%Y-%m-%d', DATE_TRUNC(${task_runs.submission_date}, MONTH )))
       WHEN {% parameter date_bucket %}  = 'quarter' THEN DATE(FORMAT_DATE('%Y-%m-%d', DATE_TRUNC(${task_runs.submission_date} , QUARTER)))
-      ELSE ${task_runs.submission_date}
+      ELSE DATE "1970-01-01"
     END
   ;;
   }

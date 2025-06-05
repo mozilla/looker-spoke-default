@@ -5,11 +5,12 @@ view: tasks {
 
   parameter: group_by_tag_field {
     type: string
+    allowed_value: { label: "None" value: "none" }
     allowed_value: { label: "Label" value: "label" }
     allowed_value: { label: "Kind" value: "kind" }
     allowed_value: { label: "Project" value: "project" }
     allowed_value: { label: "Trust Domain" value: "trust_domain" }
-    default_value: "label"
+    default_value: "none"
   }
 
   dimension: group_by_tag {
@@ -20,7 +21,7 @@ view: tasks {
       WHEN {% parameter group_by_tag_field %}  = 'kind' THEN ${tags__kind}
       WHEN {% parameter group_by_tag_field %}  = 'project' THEN ${tags__project}
       WHEN {% parameter group_by_tag_field %}  = 'trust_domain' THEN ${tags__trust_domain}
-      ELSE ${tags__label}
+      ELSE "All Tasks"
     END
   ;;
   }
