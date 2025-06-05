@@ -8,7 +8,7 @@ first_session AS (
     SELECT
         normalized_country_code AS country,
         DATE_TRUNC(DATE(submission_timestamp), MONTH) as submission_month,
-        metrics.string.first_session_distribution_id,
+        metrics.string.first_session_distribution_id AS distribution_id,
         COUNT(DISTINCT client_info.client_id) AS partner_app_open_count,
     FROM
         `mozdata.fenix.first_session`  AS first_session
@@ -25,16 +25,17 @@ first_session AS (
 dt_activations AS (
     SELECT
         DATE(CONCAT(date, "-01")) as submission_month,
+        "dt-001" AS distribution_id,
         country_code as country,
-        preloaded as dt_preloaded,
+        --preloaded as dt_preloaded,
         --opened,
-        --SUM(preloaded) AS partner_activated_count,
+        SUM(preloaded) AS partner_activated,
         --SUM(opened) AS partner_opened_count
     FROM
         `mozdata.device_manufacturer_partnerships.preload_and_open_dt`
     WHERE
         DATE(CONCAT(date, "-01")) >= "2025-01-01"
-    --GROUP BY 1
+    GROUP BY 1, 2, 3
 ),
 ####################
 #vivo Device activations
@@ -42,37 +43,37 @@ dt_activations AS (
 vivo_activations AS (
     SELECT
         DATE(CONCAT(date, "-01")) as submission_month,
+        "vivo-001" AS distribution_id,
         country_code AS country,
-        activated AS vivo_activated
+        --activated AS vivo_activated,
+        SUM(activated) as partner_activated
     FROM
         `mozdata.device_manufacturer_partnerships.shipment_and_activation_vivo`
     WHERE
         DATE(CONCAT(date, "-01")) >= "2025-01-01"
-    --GROUP BY
-    --    1
-),
-res AS (
-SELECT
-first_session.country,
-first_session.submission_month,
-first_session.first_session_distribution_id as distribution_id,
-first_session.partner_app_open_count,
-dt_activations.dt_preloaded,
-vivo_activations.vivo_activated
-FROM first_session
-LEFT JOIN dt_activations
-USING(country, submission_month)
-LEFT JOIN vivo_activations
-USING(country, submission_month)
+    GROUP BY
+    1, 2, 3
 )
 SELECT
-country,
-submission_month,
-distribution_id,
-partner_app_open_count,
-IF(distribution_id LIKE 'vivo%', NULL, dt_preloaded) as dt_preloaded,
-IF(distribution_id LIKE 'dt%', NULL, vivo_activated) as vivo_activated
-FROM res
+    country,
+    submission_month,
+    distribution_id,
+    first_session.partner_app_open_count,
+    partner_activated
+FROM first_session
+RIGHT JOIN dt_activations
+USING(country, submission_month, distribution_id)
+UNION ALL
+SELECT
+    country,
+    submission_month,
+    distribution_id,
+    first_session.partner_app_open_count,
+    partner_activated
+FROM first_session
+RIGHT JOIN vivo_activations
+USING(country, submission_month, distribution_id)
+
       ;;
   }
 
@@ -100,34 +101,22 @@ FROM res
     sql: ${TABLE}.partner_app_open_count ;;
   }
 
-  dimension: dt_preloaded {
-    description: "the number of clients with the app preloaded for dt/telephonica"
+  dimension: partner_activated {
+    description: "the number of clients with the app activated"
     type: number
-    sql: ${TABLE}.dt_preloaded ;;
+    sql: ${TABLE}.partner_activated ;;
   }
 
-  dimension: dt_ctr {
-    description: "partner_app_count/preloaded for dt/telephonica"
+  dimension: ctr {
+    description: "partner_app_count/partner_activated"
     type: number
-    sql: ${TABLE}.partner_app_open_count/${TABLE}.dt_preloaded;;
+    sql: ${TABLE}.partner_app_open_count/${TABLE}.partner_activated;;
   }
 
-  dimension: vivo_activated {
-    description: "the number of clients that activated the app for vivo"
-    type: number
-    sql: ${TABLE}.vivo_activated ;;
-  }
-
-  dimension: vivo_ctr {
-    description: "partner_app_count/activated for vivo"
-    type: number
-    sql: ${TABLE}.partner_app_open_count/${TABLE}.vivo_activated ;;
-  }
-
-  measure: total_preloaded {
-    description: "total preloaded clients over time for dt/telephonica"
+  measure: total_partner_activated {
+    description: "total preloaded clients over time"
     type: sum
-    sql: ${TABLE}.dt_preloaded ;;
+    sql: ${TABLE}.partner_activated ;;
   }
 
   measure: total_partner_app_count {
@@ -136,23 +125,12 @@ FROM res
     sql: ${TABLE}.partner_app_open_count ;;
   }
 
-  measure: total_dt_ctr {
-    description: "total dt/telephonica ctr (partner_app_open_count/dt_preloaded) over time"
+  measure: total_ctr {
+    description: "total ctr (partner_app_open_count/partner_activated) over time"
     type: number
-    sql: ${total_partner_app_count}/${total_preloaded} ;;
+    sql: ${total_partner_app_count}/${total_partner_activated} ;;
   }
 
-  measure: total_vivo_activated {
-    description: "total number of clients that activated app over time for vivo"
-    type: sum
-    sql: ${TABLE}.vivo_activated ;;
-  }
-
-  measure: total_vivo_ctr {
-    description: "total vivo ctr (partner_app_open_count/vivo_activated) over time"
-    type: number
-    sql: ${total_partner_app_count}/${total_vivo_activated} ;;
-  }
 
   # # You can specify the table name if it's different from the view name:
   # sql_table_name: my_schema_name.tester ;;
