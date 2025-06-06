@@ -3,10 +3,10 @@ label: "Device Manufacturer Partnerships"
 # Include files from looker-hub or spoke-default below. For example:
 # include: "//looker-hub/device_manufacturer_partnerships/explores/*"
 # include: "//looker-hub/device_manufacturer_partnerships/dashboards/*"
-include: "/device_manufacturer_partnerships/views/dt_ctr.view.lkml"
+include: "/device_manufacturer_partnerships/views/device_partnership_app_opens.view.lkml"
 # include: "explores/*"
 # include: "dashboards/*"
 
-explore: click_through_rates {
-  from: dt_ctr
+explore: device_partnership_app_opens {
+  from: device_partnership_app_opens
 }
