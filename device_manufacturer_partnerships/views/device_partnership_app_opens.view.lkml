@@ -110,7 +110,7 @@ USING(country, submission_month, distribution_id)
   dimension: ctr {
     description: "partner_app_count/partner_activated"
     type: number
-    sql: ${TABLE}.partner_app_open_count/${TABLE}.partner_activated;;
+    sql: SAFE_DIVIDE(${TABLE}.partner_app_open_count, ${TABLE}.partner_activated);;
   }
 
   measure: total_partner_activated {
@@ -128,7 +128,6 @@ USING(country, submission_month, distribution_id)
   measure: total_ctr {
     description: "total ctr (partner_app_open_count/partner_activated) over time"
     type: number
-    sql: ${total_partner_app_count}/${total_partner_activated} ;;
+    sql: SAFE_DIVIDE(${total_partner_app_count}, ${total_partner_activated}) ;;
   }
 }
-
