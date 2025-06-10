@@ -14,6 +14,13 @@ include: "views/website_conv_with_pop.view.lkml"
 include: "views/whats_new_page_events.view.lkml"
 include: "views/www_site_events_metrics.view.lkml"
 
+include: "//looker-hub/websites/views/firefox_com_ga4_www_site_downloads.view.lkml"
+include: "//looker-hub/websites/views/firefox_com_ga4_sessions.view.lkml"
+include: "//looker-hub/websites/views/firefox_com_page_metrics.view.lkml"
+include: "//looker-hub/websites/views/firefox_com_metrics_summary.view.lkml"
+include: "//looker-hub/websites/views/firefox_com_landing_page_metrics.view.lkml"
+include: "//looker-hub/websites/views/firefox_com_www_site_events_metrics.view.lkml"
+include: "//looker-hub/websites/views/firefox_com_firefox_whatsnew_summary.view.lkml"
 
 explore: blogs_daily_summary{}
 explore: blogs_landing_page_summary{}
