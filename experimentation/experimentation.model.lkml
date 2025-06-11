@@ -4,11 +4,16 @@ include: "//looker-hub/experimentation/views/experiment_cumulative_ad_clicks.vie
 include: "//looker-hub/experimentation/views/experiment_cumulative_search_count.view.lkml"
 include: "//looker-hub/experimentation/views/experiment_cumulative_search_with_ads_count.view.lkml"
 include: "//looker-hub/experimentation/views/experiment_enrollment_cumulative_population_estimate.view.lkml"
+include: "//looker-hub/experimentation/views/experiment_enrollment_cumulative_population_estimate_v2.view.lkml"
 include: "//looker-hub/experimentation/views/experiment_enrollment_daily_active_population.view.lkml"
+include: "//looker-hub/experimentation/views/experiment_enrollment_daily_active_population_v2.view.lkml"
 include: "//looker-hub/experimentation/views/experiment_enrollment_other_events_overall.view.lkml"
+include: "//looker-hub/experimentation/views/experiment_enrollment_other_events_overall_v2.view.lkml"
 include: "//looker-hub/experimentation/views/experiment_enrollment_overall.view.lkml"
+include: "//looker-hub/experimentation/views/experiment_enrollment_overall_v2.view.lkml"
 include: "//looker-hub/experimentation/views/experiment_search_aggregates_live.view.lkml"
 include: "//looker-hub/experimentation/views/experiment_unenrollment_overall.view.lkml"
+include: "//looker-hub/experimentation/views/experiment_unenrollment_overall_v2.view.lkml"
 include: "//looker-hub/experimentation/views/experimenter_experiments.view.lkml"
 include: "//looker-hub/experimentation/views/logs.view.lkml"
 include: "//looker-hub/experimentation/views/query_cost.view.lkml"
@@ -39,7 +44,36 @@ view: +experiment_enrollment_daily_active_population {
   }
 }
 
+view: +experiment_enrollment_daily_active_population_v2 {
+  dimension: experiment {
+    suggest_explore: experimenter_experiments
+    suggest_dimension: experimenter_experiments.normandy_slug
+  }
+
+  measure: Total {
+    type: number
+    sql: SUM(${value}) ;;
+  }
+}
+
+
 view: +experiment_enrollment_cumulative_population_estimate {
+  dimension: experiment {
+    suggest_dimension: experimenter_experiments.normandy_slug
+    suggest_explore: experimenter_experiments
+  }
+
+  measure: Total {
+    type: number
+    sql: SUM(${value});;
+  }
+
+  filter: timeframe {
+    type: date
+  }
+}
+
+view: +experiment_enrollment_cumulative_population_estimate_v2 {
   dimension: experiment {
     suggest_dimension: experimenter_experiments.normandy_slug
     suggest_explore: experimenter_experiments
@@ -128,6 +162,31 @@ view: +experiment_enrollment_other_events_overall {
   }
 }
 
+view: +experiment_enrollment_other_events_overall_v2 {
+  dimension: experiment {
+    suggest_explore: experimenter_experiments
+    suggest_dimension: experimenter_experiments.normandy_slug
+  }
+
+  dimension: timestamp {
+    type: date_time
+    sql: CASE
+        WHEN DATE_DIFF(DATE({% date_end timeframe %}), DATE({% date_start timeframe %}), DAY) BETWEEN 5 AND 30 THEN TIMESTAMP_TRUNC(TIMESTAMP(${time_time}), HOUR)
+        WHEN DATE_DIFF(DATE({% date_end timeframe %}), DATE({% date_start timeframe %}), DAY) >= 30 THEN TIMESTAMP_TRUNC(TIMESTAMP(${time_time}), DAY)
+        ELSE TIMESTAMP(${time_time})
+      END;;
+  }
+
+  measure: Total {
+    type: number
+    sql: SUM(${value}) ;;
+  }
+
+  filter: timeframe {
+    type: date
+  }
+}
+
 view: +experiment_enrollment_overall {
   dimension: experiment {
     suggest_explore: experimenter_experiments
@@ -153,7 +212,57 @@ view: +experiment_enrollment_overall {
   }
 }
 
+view: +experiment_enrollment_overall_v2 {
+  dimension: experiment {
+    suggest_explore: experimenter_experiments
+    suggest_dimension: experimenter_experiments.normandy_slug
+  }
+
+  dimension: timestamp {
+    type: date_time
+    sql: CASE
+        WHEN DATE_DIFF(DATE({% date_end timeframe %}), DATE({% date_start timeframe %}), DAY) BETWEEN 5 AND 30 THEN TIMESTAMP_TRUNC(TIMESTAMP(${time_time}), HOUR)
+        WHEN DATE_DIFF(DATE({% date_end timeframe %}), DATE({% date_start timeframe %}), DAY) >= 30 THEN TIMESTAMP_TRUNC(TIMESTAMP(${time_time}), DAY)
+        ELSE TIMESTAMP(${time_time})
+      END;;
+  }
+
+  measure: Total {
+    type: number
+    sql: SUM(${value}) ;;
+  }
+
+  filter: timeframe {
+    type: date
+  }
+}
+
 view: +experiment_unenrollment_overall {
+  dimension: experiment {
+    suggest_explore: experimenter_experiments
+    suggest_dimension: experimenter_experiments.normandy_slug
+  }
+
+  dimension: timestamp {
+    type: date_time
+    sql: CASE
+        WHEN DATE_DIFF(DATE({% date_end timeframe %}), DATE({% date_start timeframe %}), DAY) BETWEEN 5 AND 30 THEN TIMESTAMP_TRUNC(TIMESTAMP(${time_time}), HOUR)
+        WHEN DATE_DIFF(DATE({% date_end timeframe %}), DATE({% date_start timeframe %}), DAY) >= 30 THEN TIMESTAMP_TRUNC(TIMESTAMP(${time_time}), DAY)
+        ELSE TIMESTAMP(${time_time})
+      END;;
+  }
+
+  measure: Total {
+    type: number
+    sql: SUM(${value}) ;;
+  }
+
+  filter: timeframe {
+    type: date
+  }
+}
+
+view: +experiment_unenrollment_overall_v2 {
   dimension: experiment {
     suggest_explore: experimenter_experiments
     suggest_dimension: experimenter_experiments.normandy_slug
@@ -264,6 +373,18 @@ explore: experiment_enrollment_cumulative_population_estimate {
      DATE_DIFF(DATE({% date_end experiment_enrollment_cumulative_population_estimate.timeframe %}), DATE({% date_start experiment_enrollment_cumulative_population_estimate.timeframe %}), DAY) < 5) ;;
 }
 
+explore: experiment_enrollment_cumulative_population_estimate_v2 {
+  hidden: yes
+  sql_always_where:
+    ${branch} IS NOT NULL AND
+    {% condition experiment_enrollment_cumulative_population_estimate_v2.timeframe %} TIMESTAMP(${time_time}) {% endcondition %} AND
+    ((EXTRACT(MINUTE FROM TIMESTAMP(${time_time})) = 0 AND
+     DATE_DIFF(DATE({% date_end experiment_enrollment_cumulative_population_estimate_v2.timeframe %}), DATE({% date_start experiment_enrollment_cumulative_population_estimate_v2.timeframe %}), DAY) BETWEEN 5 AND 30) OR
+     (EXTRACT(HOUR FROM TIMESTAMP(${time_time})) = 0 AND EXTRACT(MINUTE FROM TIMESTAMP(${time_time})) = 0 AND
+     DATE_DIFF(DATE({% date_end experiment_enrollment_cumulative_population_estimate_v2.timeframe %}), DATE({% date_start experiment_enrollment_cumulative_population_estimate_v2.timeframe %}), DAY) >= 30) OR
+     DATE_DIFF(DATE({% date_end experiment_enrollment_cumulative_population_estimate_v2.timeframe %}), DATE({% date_start experiment_enrollment_cumulative_population_estimate_v2.timeframe %}), DAY) < 5) ;;
+}
+
 explore: experiment_enrollment_other_events_overall {
   hidden: yes
   sql_always_where:
@@ -273,6 +394,19 @@ explore: experiment_enrollment_other_events_overall {
   join: experimenter_experiments {
     type: full_outer
     sql_on: ${experiment_enrollment_other_events_overall.experiment} = ${experimenter_experiments.normandy_slug} ;;
+    relationship: many_to_one
+  }
+}
+
+explore: experiment_enrollment_other_events_overall_v2 {
+  hidden: yes
+  sql_always_where:
+  ${branch} IS NOT NULL AND
+  {% condition experiment_enrollment_other_events_overall_v2.timeframe %} TIMESTAMP(${time_time}) {% endcondition %};;
+
+  join: experimenter_experiments {
+    type: full_outer
+    sql_on: ${experiment_enrollment_other_events_overall_v2.experiment} = ${experimenter_experiments.normandy_slug} ;;
     relationship: many_to_one
   }
 }
@@ -289,6 +423,18 @@ explore: experiment_enrollment_overall {
   }
 }
 
+explore: experiment_enrollment_overall_v2 {
+  sql_always_where:
+    ${branch} IS NOT NULL AND
+    {% condition experiment_enrollment_overall_v2.timeframe %} TIMESTAMP(${time_time}) {% endcondition %};;
+
+  join: experimenter_experiments {
+    type: full_outer
+    sql_on: ${experiment_enrollment_overall_v2.experiment} = ${experimenter_experiments.normandy_slug} ;;
+    relationship: many_to_one
+  }
+}
+
 explore: experiment_unenrollment_overall {
   sql_always_where:
     ${branch} IS NOT NULL AND
@@ -297,6 +443,18 @@ explore: experiment_unenrollment_overall {
   join: experimenter_experiments {
     type: full_outer
     sql_on: ${experiment_unenrollment_overall.experiment} = ${experimenter_experiments.normandy_slug} ;;
+    relationship: many_to_one
+  }
+}
+
+explore: experiment_unenrollment_overall_v2 {
+  sql_always_where:
+    ${branch} IS NOT NULL AND
+    {% condition experiment_unenrollment_overall_v2.timeframe %} TIMESTAMP(${time_time}) {% endcondition %};;
+
+  join: experimenter_experiments {
+    type: full_outer
+    sql_on: ${experiment_unenrollment_overall_v2.experiment} = ${experimenter_experiments.normandy_slug} ;;
     relationship: many_to_one
   }
 }
@@ -312,6 +470,14 @@ explore: experiment_enrollment_daily_active_population {
   join: experimenter_experiments {
     type: full_outer
     sql_on: ${experiment_enrollment_daily_active_population.experiment} = ${experimenter_experiments.normandy_slug} ;;
+    relationship: many_to_one
+  }
+}
+
+explore: experiment_enrollment_daily_active_population_v2 {
+  join: experimenter_experiments {
+    type: full_outer
+    sql_on: ${experiment_enrollment_daily_active_population_v2.experiment} = ${experimenter_experiments.normandy_slug} ;;
     relationship: many_to_one
   }
 }
