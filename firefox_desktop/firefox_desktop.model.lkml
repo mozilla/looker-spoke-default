@@ -5,11 +5,8 @@ include: "//looker-hub/firefox_desktop/views/active_users_aggregates_table.view.
 include: "//looker-hub/firefox_desktop/views/adclick_history_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/baseline.view.lkml"
 include: "//looker-hub/firefox_desktop/views/baseline_clients_daily_table.view.lkml"
-include: "//looker-hub/firefox_desktop/views/baseline_clients_first_seen_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/baseline_clients_last_seen_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/baseline_table.view.lkml"
-include: "//looker-hub/firefox_desktop/views/bounce_tracking_protection.view.lkml"
-include: "//looker-hub/firefox_desktop/views/bounce_tracking_protection_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/broken_site_report.view.lkml"
 include: "//looker-hub/firefox_desktop/views/broken_site_report_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/client_counts.view.lkml"
@@ -21,7 +18,6 @@ include: "//looker-hub/firefox_desktop/views/clients_last_seen_joined_table.view
 include: "//looker-hub/firefox_desktop/views/clients_last_seen_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/crash.view.lkml"
 include: "//looker-hub/firefox_desktop/views/crash_table.view.lkml"
-include: "//looker-hub/firefox_desktop/views/default_browser.view.lkml"
 include: "//looker-hub/firefox_desktop/views/deletion_request.view.lkml"
 include: "//looker-hub/firefox_desktop/views/deletion_request_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/desktop_acquisition_funnel_table.view.lkml"
@@ -33,12 +29,9 @@ include: "//looker-hub/firefox_desktop/views/events_daily_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/events_stream_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/events_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/events_unnested_table.view.lkml"
-include: "//looker-hub/firefox_desktop/views/feature_usage_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/firefox_desktop_use_counters_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/first_startup.view.lkml"
 include: "//looker-hub/firefox_desktop/views/first_startup_table.view.lkml"
-include: "//looker-hub/firefox_desktop/views/fog_validation.view.lkml"
-include: "//looker-hub/firefox_desktop/views/fog_validation_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/funnel_analysis.view.lkml"
 include: "//looker-hub/firefox_desktop/views/fx_accounts.view.lkml"
 include: "//looker-hub/firefox_desktop/views/fx_accounts_table.view.lkml"
@@ -73,20 +66,12 @@ include: "//looker-hub/firefox_desktop/views/metrics.view.lkml"
 include: "//looker-hub/firefox_desktop/views/metrics_clients_daily_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/metrics_clients_last_seen_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/metrics_table.view.lkml"
-include: "//looker-hub/firefox_desktop/views/new_metric_capture_emulation.view.lkml"
-include: "//looker-hub/firefox_desktop/views/new_metric_capture_emulation_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/newtab.view.lkml"
 include: "//looker-hub/firefox_desktop/views/newtab_interactions_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/newtab_live_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/newtab_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/newtab_visits_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/onboarding_table.view.lkml"
-include: "//looker-hub/firefox_desktop/views/pageload.view.lkml"
-include: "//looker-hub/firefox_desktop/views/pageload_1pct_table.view.lkml"
-include: "//looker-hub/firefox_desktop/views/pageload_nightly_table.view.lkml"
-include: "//looker-hub/firefox_desktop/views/pageload_table.view.lkml"
-include: "//looker-hub/firefox_desktop/views/pocket_button.view.lkml"
-include: "//looker-hub/firefox_desktop/views/pocket_button_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/prototype_no_code_events.view.lkml"
 include: "//looker-hub/firefox_desktop/views/prototype_no_code_events_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/pseudo_main.view.lkml"
@@ -181,18 +166,6 @@ explore: +baseline {
     filters: [
       baseline.submission_date: "7 days",
       baseline.sample_id: "0"
-    ]
-  }
-}
-
-explore: feature_usage {
-  view_name: feature_usage_table
-  label: "Feature Usage (Legacy Telemetry)"
-  description: "A daily aggregation of specific browser feature usages by 1% of Firefox desktop client."
-
-  always_filter: {
-    filters: [
-      feature_usage_table.submission_date: "7 days"
     ]
   }
 }
