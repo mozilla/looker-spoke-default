@@ -548,16 +548,16 @@
   - title: Unenrollment Reasons
     name: Unenrollment Reasons
     model: experimentation
-    explore: unenrollment_reasons
+    explore: unenrollment_reasons_glean
     type: looker_grid
-    fields: [events.reason, events.event_method, events.event_count]
+    fields: [glean_events.reason, glean_events.event_name, glean_events.event_count]
     filters:
-      events.sample_id: '0'
-    sorts: [events.event_count desc]
+      glean_events.sample_id: '0'
+    sorts: [glean_events.event_count desc]
     limit: 500
     dynamic_fields:
     - category: table_calculation
-      expression: "${events.event_count} * 100"
+      expression: "${glean_events.event_count} * 100"
       label: Approximate Event Count
       value_format:
       value_format_name:
@@ -611,8 +611,8 @@
     note_display: above
     note_text: Event counts are *approximate* due to sampling (1% sample).
     listen:
-      Time Range [UTC]: events.submission_date
-      Experiment: events.event_string_value
+      Time Range [UTC]: glean_events.submission_date
+      Experiment: glean_events.experiment
     row: 53
     col: 0
     width: 24
@@ -903,7 +903,7 @@
     explore: experiment_enrollment_overall_v2
     type: looker_column
     fields: [experiment_enrollment_overall_v2.Total, experiment_enrollment_overall_v2.time_date]
-    fill_fields: [experiment_enrollment_overall.time_date]
+    fill_fields: [experiment_enrollment_overall_v2.time_date]
     filters: {}
     sorts: [experiment_enrollment_overall_v2.time_date desc]
     limit: 5000

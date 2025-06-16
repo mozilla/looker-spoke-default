@@ -19,14 +19,17 @@ include: "//looker-hub/experimentation/views/logs.view.lkml"
 include: "//looker-hub/experimentation/views/query_cost.view.lkml"
 include: "//looker-hub/experimentation/views/task_monitoring_logs.view.lkml"
 include: "//looker-hub/firefox_desktop/views/events.view.lkml"
+include: "//looker-hub/firefox_desktop/views/glean_events.view.lkml"
 include: "//looker-hub/experimentation/explores/experiment_crash_rates.explore.lkml"
 include: "views/analysis_aggregates.view.lkml"
 include: "views/analysis_enrollments.view.lkml"
 include: "views/analysis_statistics.view.lkml"
 include: "views/enrollment_status.view.lkml"
+include: "views/enrollment_status_glean.view.lkml"
 include: "views/preview.view.lkml"
 include: "views/preview_logs.view.lkml"
 include: "views/sample_ratio_mismatch.view.lkml"
+include: "views/sample_ratio_mismatch_glean.view.lkml"
 include: "explores/*"
 include: "dashboards/*"
 
@@ -489,6 +492,18 @@ view: +events {
   }
 }
 
+view: +glean_events {
+  dimension: reason {
+    type:  string
+    sql:  mozfun.map.get_key(event_extra, 'reason') ;;
+  }
+
+  dimension: experiment {
+    type:  string
+    sql:  mozfun.map.get_key(event_extra, "experiment") ;;
+  }
+}
+
 explore: unenrollment_reasons {
   view_name: events
   hidden: yes
@@ -502,63 +517,86 @@ explore: unenrollment_reasons {
         events.submission_date: "7 days"
       ]
     }
-  }
+}
 
-  explore: enrollment_status {
-    hidden: yes
-  }
+explore: unenrollment_reasons_glean {
+  view_name: glean_events
+  hidden: yes
 
-  explore: sample_ratio_mismatch {
-    hidden: yes
-  }
+  sql_always_where:
+    ${glean_events.event_name} LIKE "unenroll%" AND
+    ${glean_events.event_category} = "nimbus_events";;
 
-  explore: logs {
-    hidden: yes
+  always_filter: {
+    filters: [
+      glean_events.submission_date: "7 days"
+    ]
   }
+}
 
-  explore: query_cost {
-    hidden: yes
+explore: enrollment_status {
+  hidden: yes
+}
+
+explore: enrollment_status_glean {
+  hidden: yes
+}
+
+explore: sample_ratio_mismatch {
+  hidden: yes
+}
+
+explore: sample_ratio_mismatch_glean {
+  hidden: yes
+}
+
+explore: logs {
+  hidden: yes
+}
+
+explore: query_cost {
+  hidden: yes
+}
+
+explore: task_monitoring_logs {
+  hidden: yes
+}
+
+explore: experimenter_experiments {}
+
+explore: +preview {
+  join: experimenter_experiments {
+    type: full_outer
+    relationship: many_to_one
+    sql_on: ${preview.normalized_slug} LIKE CONCAT("%", REPLACE(${experimenter_experiments.normandy_slug}, "-", "_"), "%")  ;;
   }
+}
 
-  explore: task_monitoring_logs {
-    hidden: yes
+explore: analysis_statistics {
+  always_filter: {
+    filters: [
+      analysis_statistics.analysis_period: "daily",
+      analysis_statistics.slug: ""
+    ]
   }
+}
 
-  explore: experimenter_experiments {}
-
-  explore: +preview {
-    join: experimenter_experiments {
-      type: full_outer
-      relationship: many_to_one
-      sql_on: ${preview.normalized_slug} LIKE CONCAT("%", REPLACE(${experimenter_experiments.normandy_slug}, "-", "_"), "%")  ;;
-    }
+explore: analysis_aggregates {
+  always_filter: {
+    filters: [
+      analysis_aggregates.slug: "",
+      analysis_aggregates.analysis_basis: "enrollments",
+      analysis_aggregates.window_index: "1",
+      analysis_aggregates.analysis_period: "day",
+      analysis_aggregates.metric: ""
+    ]
   }
+}
 
-  explore: analysis_statistics {
-    always_filter: {
-      filters: [
-        analysis_statistics.analysis_period: "daily",
-        analysis_statistics.slug: ""
-      ]
-    }
+explore: analysis_enrollments {
+  always_filter: {
+    filters: [
+      analysis_enrollments.slug: ""
+    ]
   }
-
-  explore: analysis_aggregates {
-    always_filter: {
-      filters: [
-        analysis_aggregates.slug: "",
-        analysis_aggregates.analysis_basis: "enrollments",
-        analysis_aggregates.window_index: "1",
-        analysis_aggregates.analysis_period: "day",
-        analysis_aggregates.metric: ""
-      ]
-    }
-  }
-
-  explore: analysis_enrollments {
-    always_filter: {
-      filters: [
-        analysis_enrollments.slug: ""
-      ]
-    }
-  }
+}
