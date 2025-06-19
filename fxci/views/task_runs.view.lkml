@@ -36,12 +36,21 @@ view: task_runs {
     sql_start: ${started_raw} ;;
     sql_end:  ${resolved_raw} ;;
     label: "Duration"
-    description: "Task duration in seconds"
+    description: "Time in seconds from when the task started, to when it was resolved."
+  }
+
+  dimension: pending_duration {
+    type: duration_second
+    sql_start: ${scheduled_raw} ;;
+    sql_end:  ${started_raw} ;;
+    label: "Pending Duration"
+    description: "Time in seconds from when the task was scheduled, to when it started."
   }
 
   measure: task_run_count {
     type: count
     label: "Run Count"
+    description: "Number of task runs."
   }
 
   measure: average_duration {
