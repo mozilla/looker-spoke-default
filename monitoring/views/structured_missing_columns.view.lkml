@@ -62,4 +62,11 @@ view: +structured_missing_columns {
     sql: (${path_count_last_week} - ${path_count_prev_week}) / nullif(${path_count_prev_week}, 0)  ;;
     value_format_name: percent_2
   }
+
+  measure: total_ping_count {
+    label: "Total Ping Count (last 7 days)"
+    type: sum
+    sql: ${stable_and_derived_table_sizes.row_count} ;;
+    filters: [submission_date: "7 days ago for 7 days"]
+  }
 }
