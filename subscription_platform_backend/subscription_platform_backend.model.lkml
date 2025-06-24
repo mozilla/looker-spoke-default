@@ -1,5 +1,5 @@
 connection: "telemetry"
-label: "Subscription Platform"
+label: "Subscription Platform Backend"
 # Include files from looker-hub or spoke-default below. For example:
 include: "//looker-hub/subscription_platform_backend/explores/*"
 # include: "//looker-hub/subscription_platform_backend/dashboards/*"
