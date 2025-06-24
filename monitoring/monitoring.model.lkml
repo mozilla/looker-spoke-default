@@ -33,7 +33,6 @@ include: "//looker-hub/monitoring/views/mlops_job_cost_per_job_run.view.lkml"
 include: "//looker-hub/monitoring/views/payload_bytes_error_all.view.lkml"
 include: "//looker-hub/monitoring/views/schema_error_counts.view.lkml"
 include: "//looker-hub/monitoring/views/schema_errors_notes.view.lkml"
-include: "//looker-hub/monitoring/views/stable_and_derived_table_sizes.view.lkml"
 include: "//looker-hub/monitoring/views/stable_table_column_counts.view.lkml"
 include: "//looker-hub/monitoring/views/structured_missing_columns.view.lkml"
 include: "//looker-hub/monitoring/views/telemetry_missing_columns.view.lkml"
@@ -54,6 +53,7 @@ include: "views/missing_namespaces_and_document_types.view.lkml"
 include: "views/mlops_flow_cost.view.lkml"
 include: "views/mlops_flow_run_cost.view.lkml"
 include: "views/schema_error_notes.view.lkml"
+include: "views/stable_and_derived_table_sizes.view.lkml"
 include: "views/stable_table_column_counts.view.lkml"
 include: "views/structured_missing_columns.view.lkml"
 include: "views/telemetry_missing_columns.view.lkml"
@@ -99,6 +99,13 @@ explore: +structured_missing_columns {
       AND (${missing_columns_notes.path} IS NULL OR ${structured_missing_columns.path} LIKE ${missing_columns_notes.path})
       AND (${missing_columns_notes.bug} IS NOT NULL OR ${missing_columns_notes.notes} IS NOT NULL);;
   }
+
+  join: stable_and_derived_table_sizes {
+    relationship: many_to_one
+    sql_on: CONCAT(${structured_missing_columns.document_namespace}, "_stable") = ${stable_and_derived_table_sizes.dataset_id}
+      AND CONCAT(${structured_missing_columns.document_type}, "_v", ${structured_missing_columns.document_version}) = ${stable_and_derived_table_sizes.table_id}
+      AND ${structured_missing_columns.submission_date} = ${stable_and_derived_table_sizes.submission_date};;
+  }
 }
 
 explore: +schema_error_counts {
@@ -110,6 +117,13 @@ explore: +schema_error_counts {
       AND (${schema_errors_notes.document_type} IS NULL OR ${schema_error_counts.document_type} LIKE ${schema_errors_notes.document_type})
       AND (${schema_errors_notes.path} IS NULL OR ${schema_error_counts.path} LIKE ${schema_errors_notes.path})
       AND (${schema_errors_notes.bug} IS NOT NULL OR ${schema_errors_notes.notes} IS NOT NULL);;
+  }
+
+  join: stable_and_derived_table_sizes {
+    relationship: many_to_one
+    sql_on: CONCAT(${schema_error_counts.document_namespace}, "_stable") = ${stable_and_derived_table_sizes.dataset_id}
+      AND ${stable_and_derived_table_sizes.table_id} LIKE REGEXP_REPLACE(${schema_error_counts.document_type}, "_v([0-9]+)$", CONCAT("_v", COALESCE(schema_error_counts.document_version, "%")))
+      AND ${schema_error_counts.submission_date} = ${stable_and_derived_table_sizes.submission_date};;
   }
 }
 
@@ -123,6 +137,13 @@ explore: +telemetry_missing_columns {
       AND (${missing_columns_notes.document_version} IS NULL OR ${telemetry_missing_columns.document_version} LIKE ${missing_columns_notes.document_version})
       AND (${missing_columns_notes.path} IS NULL OR ${telemetry_missing_columns.path} LIKE ${missing_columns_notes.path})
       AND (${missing_columns_notes.bug} IS NOT NULL OR ${missing_columns_notes.notes} IS NOT NULL);;
+  }
+
+  join: stable_and_derived_table_sizes {
+    relationship: many_to_one
+    sql_on: CONCAT(${telemetry_missing_columns.document_namespace}, "_stable") = ${stable_and_derived_table_sizes.dataset_id}
+      AND CONCAT(${telemetry_missing_columns.document_type}, "_v", ${telemetry_missing_columns.document_version}) = ${stable_and_derived_table_sizes.table_id}
+      AND ${telemetry_missing_columns.submission_date} = ${stable_and_derived_table_sizes.submission_date};;
   }
 }
 
