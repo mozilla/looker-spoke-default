@@ -1,7 +1,6 @@
 connection: "telemetry"
 label: "Search"
 include: "//looker-hub/search/explores/*"
-include: "//looker-hub/search/views/desktop_search_alert_latest_daily.view.lkml"
 include: "views/bizdev_search_core_users.view.lkml"
 include: "views/mobile_search_aggregates.view.lkml"
 include: "views/mobile_search_clients_engines_sources_daily.view.lkml"
@@ -45,8 +44,6 @@ explore: +desktop_search_counts {
 
   persist_with: search_clients_engines_sources_daily_last_updated
 }
-
-explore: desktop_search_alert_latest_daily {}
 
 explore: business_development_core_search_users_monthly {
   view_name: bizdev_search_core_users
