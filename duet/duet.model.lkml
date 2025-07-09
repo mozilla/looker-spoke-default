@@ -13,9 +13,6 @@ include: "views/desktop_install.view.lkml"
 include: "views/desktop_new_profile.view.lkml"
 include: "views/desktop_session.view.lkml"
 include: "views/fenix_marketing_attributable_metrics.view.lkml"
-include: "views/funnel_android.view.lkml"
-include: "views/funnel_android_new.view.lkml"
-include: "views/funnel_ios_new.view.lkml"
 include: "views/kpi_dau.view.lkml"
 include: "views/kpi_downloads.view.lkml"
 include: "views/mobile_android_country.view.lkml"
@@ -60,14 +57,6 @@ explore: kpi_downloads {
 
 explore: app_store_territory_source_type_report {
   label: "App Store Data Report"
-}
-
-explore: funnel_android_new {
-  sql_always_where: ${period_filtered_measures} in ("this", "last");;
-}
-
-explore: funnel_ios_new {
-  sql_always_where: ${period_filtered_measures} in ("this", "last");;
 }
 
 explore: ctd_uac {}
