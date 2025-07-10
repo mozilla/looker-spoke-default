@@ -53,4 +53,10 @@ view: +bigquery_usage {
     sql: ${cost} ;;
     value_format: "$#.00;($#.00)"
   }
+
+  measure: sum_slot_hours{
+    type: sum_distinct
+    sql_distinct_key: ${job_id} ;;
+    sql: ${total_slot_hours} ;;
+  }
 }
