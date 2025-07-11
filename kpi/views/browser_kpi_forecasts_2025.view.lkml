@@ -11,7 +11,7 @@ view: browser_kpi_forecasts_2025 {
           submission_date,
           CASE
             WHEN app_name = "Firefox Desktop" THEN "desktop"
-            WHEN app_name IN ("Fenix", "Firefox iOS", "Focus Android", "Focus iOS") THEN "mobile"
+            WHEN app_name IN ("Fenix", "Firefox iOS", "Focus Android", "Focus iOS", "focus_android", "focus_ios") THEN "mobile"
             ELSE "other"
           END AS product,
           SUM(dau) AS dau
