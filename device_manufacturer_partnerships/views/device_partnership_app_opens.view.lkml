@@ -32,7 +32,7 @@ dt_activations AS (
         SUM(preloaded) AS partner_activated,
         --SUM(opened) AS partner_opened_count
     FROM
-        `mozdata.device_manufacturer_partnerships.preload_and_open_dt`
+        `mozdata.device_manufacturer_partnerships.preload_and_open_telefonica_dt`
     WHERE
         DATE(CONCAT(date, "-01")) >= "2025-01-01"
     GROUP BY 1, 2, 3
