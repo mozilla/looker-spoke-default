@@ -41,6 +41,13 @@ view: +bigquery_usage {
     value_format: "#,##0.00"
   }
 
+  measure: sum_total_terabytes_billed{
+    type: sum_distinct
+    sql_distinct_key: ${job_id} ;;
+    sql: ${total_terabytes_billed} ;;
+    value_format: "#,##0.00"
+  }
+
   measure: number_of_unique_job_ids{
     description: "count distinct number of job ids"
     type: count_distinct
@@ -58,5 +65,6 @@ view: +bigquery_usage {
     type: sum_distinct
     sql_distinct_key: ${job_id} ;;
     sql: ${total_slot_hours} ;;
+    value_format: "#,##0.0"
   }
 }
