@@ -1,4 +1,4 @@
-include: "../views//cohort_churn.view.lkml"
+include: "../views/cohort_churn.view.lkml"
 include: "/shared/views/countries.view.lkml"
 
 explore: cohort_churn {
