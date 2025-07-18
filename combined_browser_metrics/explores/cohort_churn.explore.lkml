@@ -5,7 +5,7 @@ explore: cohort_churn {
   view_name: cohort_churn
 
   always_filter: {
-    filters: [cohort_churn.activity_date: "this year"]
+    filters: [cohort_churn.cohort_date: "this year"]
   }
 
   join: countries {
