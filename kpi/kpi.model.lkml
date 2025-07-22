@@ -21,7 +21,6 @@ include: "views/mobile_usage_forecast.view.lkml"
 include: "views/original_desktop_forecast.view.lkml"
 include: "views/original_mobile_forecast.view.lkml"
 include: "views/recent_desktop_forecast.view.lkml"
-include: "views/recent_mobile_forecast.view.lkml"
 include: "views/tmp_browsers_kpi_2023.view.lkml"
 include: "views/tmp_kpi_forecasts.view.lkml"
 include: "views/unified_metrics.view.lkml"
@@ -102,27 +101,6 @@ explore: recent_desktop_forecast {
     view_label: "Desktop Days of Use Actuals (Work in Progress)"
     type: left_outer
     sql_on: ${recent_desktop_forecast.date} = ${desktop_dau_actuals.date};;
-    relationship: one_to_many
-  }
-}
-
-explore: recent_mobile_forecast {
-  label: "Mobile Days of Use KRs (Work In Progress)"
-  view_label: "Recent Mobile Forecast (Work in Progress)"
-  group_label: "KPIs"
-  hidden: yes
-  from: recent_mobile_forecast
-  always_filter: {filters: [recent_mobile_forecast.forecast_recency: "1"]}
-  join: original_mobile_forecast {
-    view_label: "Mobile KR/KPI Targets (Work in Progress)"
-    type: left_outer
-    sql_on: ${recent_mobile_forecast.primary_key} = ${original_mobile_forecast.primary_key};;
-    relationship: one_to_one
-  }
-  join: mobile_dau_actuals {
-    view_label: "Mobile Days of Use Actuals (Work in Progress)"
-    type: left_outer
-    sql_on: ${recent_mobile_forecast.primary_key} = ${mobile_dau_actuals.primary_key};;
     relationship: one_to_many
   }
 }
