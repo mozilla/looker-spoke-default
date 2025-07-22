@@ -13,14 +13,12 @@ include: "views/desktop_dau_actuals.view.lkml"
 include: "views/firefox_desktop_usage_2021.view.lkml"
 include: "views/firefox_desktop_usage_fields.view.lkml"
 include: "views/firefox_desktop_usage_forecast.view.lkml"
-include: "views/loines_browser_2022_forecasts.view.lkml"
 include: "views/mobile_dau_actuals.view.lkml"
 include: "views/mobile_usage_2021.view.lkml"
 include: "views/mobile_usage_fields.view.lkml"
 include: "views/mobile_usage_forecast.view.lkml"
 include: "views/original_desktop_forecast.view.lkml"
 include: "views/original_mobile_forecast.view.lkml"
-include: "views/recent_desktop_forecast.view.lkml"
 include: "views/tmp_browsers_kpi_2023.view.lkml"
 include: "views/tmp_kpi_forecasts.view.lkml"
 include: "views/unified_metrics.view.lkml"
@@ -84,38 +82,6 @@ explore: mobile_usage_fields {
   hidden: yes
 }
 
-explore: recent_desktop_forecast {
-  label: "Desktop Days of Use KRs (Work In Progress)"
-  view_label: "Recent Desktop Forecast (Work in Progress)"
-  group_label: "KPIs"
-  hidden: yes
-  from: recent_desktop_forecast
-  always_filter: {filters: [recent_desktop_forecast.forecast_recency: "1"]}
-  join: original_desktop_forecast {
-    view_label: "Desktop KPI Targets (Work in Progress)"
-    type: left_outer
-    sql_on: ${recent_desktop_forecast.date} = ${original_desktop_forecast.date};;
-    relationship: one_to_one
-  }
-  join: desktop_dau_actuals {
-    view_label: "Desktop Days of Use Actuals (Work in Progress)"
-    type: left_outer
-    sql_on: ${recent_desktop_forecast.date} = ${desktop_dau_actuals.date};;
-    relationship: one_to_many
-  }
-}
-
-explore: browser_kpis {
-  label: "2022 Browser KPIs"
-  group_label: "Official Browser KPIs"
-  description: "For Official Accounting. To drill down into other dimensions (e.g. Country) please use the 'Browsers Daily Active Users' Explore."
-  join: loines_browser_2022_forecasts {
-    type: left_outer
-    sql_on: ${browser_kpis.submission_date} = ${loines_browser_2022_forecasts.date_date} AND ${browser_kpis.platform} = ${loines_browser_2022_forecasts.platform};;
-    relationship: one_to_one
-  }
-}
-
 explore: +unified_metrics {
   group_label: "Core Browser Metrics"
   label: "Unified Browser Metrics"
@@ -142,9 +108,4 @@ explore: browser_dau {
       browser_dau.active_today: "yes"
     ]
   }
-}
-
-explore: loines_browser_2022_forecasts {
-  group_label: "Official Browser KPIs"
-  label: "Official Browser KPI Forecasts and Targets"
 }
