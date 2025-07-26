@@ -19,6 +19,28 @@ SELECT first_seen_date AS submission_date,
                                  'RU') THEN country
            ELSE 'ROW'
        END AS normalized_country_code_subset,
+CASE
+           WHEN os IN ('Windows',
+                       'Windows_NT')
+                AND os_version = 10 THEN 'Win10/11'
+           WHEN os IN ('Windows',
+                       'Windows_NT')
+                AND os_version = 6.1 THEN 'Win7'
+           WHEN os IN ('Windows',
+                       'Windows_NT')
+                AND os_version IN (6.2,
+                                   6.3) THEN 'Win8/8.1'
+           WHEN os IN ('Windows',
+                       'Windows_NT')
+                AND os_version NOT IN (10,
+                                       6.1,
+                                       6.2,
+                                       6.3) THEN 'Win Other'
+           WHEN os IN ('Linux') THEN 'Linux'
+           WHEN os IN ('Mac',
+                       'Darwin') THEN 'MacOS'
+           ELSE 'Other'
+       END AS os_group,
       funnel_derived,
       partner_org,
       distribution_model,
