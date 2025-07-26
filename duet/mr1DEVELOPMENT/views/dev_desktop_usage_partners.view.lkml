@@ -22,20 +22,20 @@ SELECT first_seen_date AS submission_date,
 CASE
            WHEN os IN ('Windows',
                        'Windows_NT')
-                AND os_version = 10 THEN 'Win10/11'
+                AND os_version = '10' THEN 'Win10/11'
            WHEN os IN ('Windows',
                        'Windows_NT')
-                AND os_version = 6.1 THEN 'Win7'
+                AND os_version = '6.1' THEN 'Win7'
            WHEN os IN ('Windows',
                        'Windows_NT')
-                AND os_version IN (6.2,
-                                   6.3) THEN 'Win8/8.1'
+                AND os_version IN ('6.2',
+                                   '6.3') THEN 'Win8/8.1'
            WHEN os IN ('Windows',
                        'Windows_NT')
-                AND os_version NOT IN (10,
-                                       6.1,
-                                       6.2,
-                                       6.3) THEN 'Win Other'
+                AND os_version NOT IN ('10',
+                                       '6.1',
+                                       '6.2',
+                                       '6.3') THEN 'Win Other'
            WHEN os IN ('Linux') THEN 'Linux'
            WHEN os IN ('Mac',
                        'Darwin') THEN 'MacOS'
