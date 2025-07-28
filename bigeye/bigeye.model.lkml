@@ -1,3 +1,3 @@
 connection: "bigquery-oauth"
-label: "BigEye Derived API Metadata"
+label: "BigEye API Metadata"
 include: "explores/*"
