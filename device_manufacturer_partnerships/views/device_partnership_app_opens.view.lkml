@@ -20,19 +20,51 @@ first_session AS (
     1, 2, 3
 ),
 ####################
-#DT Device activations
+#DT 001 Device activations
 ####################
-dt_activations AS (
+dt_001_activations AS (
     SELECT
         DATE(CONCAT(date, "-01")) as submission_month,
         "dt-001" AS distribution_id,
+        CASE
+          WHEN country = 'Germany' THEN 'DE'
+          WHEN country = 'United Kingdom' THEN 'GB'
+          WHEN country = 'Spain' THEN 'ES'
+        END as country,
+        SUM(preloaded) AS partner_activated
+    FROM
+        `mozdata.device_manufacturer_partnerships.preload_and_open_telefonica_dt`
+    WHERE
+        DATE(CONCAT(date, "-01")) >= "2025-01-01"
+    GROUP BY 1, 2, 3
+),
+####################
+#DT 002 Device activations
+####################
+dt_002_activations AS (
+    SELECT
+        DATE(CONCAT(date, "-01")) as submission_month,
+        "dt-002" AS distribution_id,
         country_code as country,
-        --preloaded as dt_preloaded,
-        --opened,
         SUM(preloaded) AS partner_activated,
         --SUM(opened) AS partner_opened_count
     FROM
-        `mozdata.device_manufacturer_partnerships.preload_and_open_telefonica_dt`
+        `mozdata.device_manufacturer_partnerships.preload_and_open_dt`
+    WHERE
+        DATE(CONCAT(date, "-01")) >= "2025-01-01"
+    GROUP BY 1, 2, 3
+),
+######
+#dt 003 device activations
+######
+dt_003_activations AS (
+    SELECT
+        DATE(CONCAT(date, "-01")) as submission_month,
+        "dt-003" AS distribution_id,
+        country_code as country,
+        SUM(preloaded) AS partner_activated
+    FROM
+        `mozdata.device_manufacturer_partnerships.preload_and_open_dt`
     WHERE
         DATE(CONCAT(date, "-01")) >= "2025-01-01"
     GROUP BY 1, 2, 3
@@ -45,7 +77,6 @@ vivo_activations AS (
         DATE(CONCAT(date, "-01")) as submission_month,
         "vivo-001" AS distribution_id,
         country_code AS country,
-        --activated AS vivo_activated,
         SUM(activated) as partner_activated
     FROM
         `mozdata.device_manufacturer_partnerships.shipment_and_activation_vivo`
@@ -61,7 +92,27 @@ SELECT
     first_session.partner_app_open_count,
     partner_activated
 FROM first_session
-RIGHT JOIN dt_activations
+RIGHT JOIN dt_002_activations
+USING(country, submission_month, distribution_id)
+UNION ALL
+SELECT
+    country,
+    submission_month,
+    distribution_id,
+    first_session.partner_app_open_count,
+    partner_activated
+FROM first_session
+RIGHT JOIN dt_003_activations
+USING(country, submission_month, distribution_id)
+UNION ALL
+SELECT
+    country,
+    submission_month,
+    distribution_id,
+    first_session.partner_app_open_count,
+    partner_activated
+FROM first_session
+RIGHT JOIN dt_001_activations
 USING(country, submission_month, distribution_id)
 UNION ALL
 SELECT
@@ -73,7 +124,6 @@ SELECT
 FROM first_session
 RIGHT JOIN vivo_activations
 USING(country, submission_month, distribution_id)
-
       ;;
   }
 
