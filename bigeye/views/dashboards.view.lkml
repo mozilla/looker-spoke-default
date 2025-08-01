@@ -1,4 +1,4 @@
-include: "//looker-hub/bigeye_derived/views/dashboards.view.lkml"
+include: "//looker-hub/bigeye/views/dashboards.view.lkml"
 
 view: +dashboards {
 
