@@ -1,4 +1,4 @@
-include: "//looker-hub/bigeye_derived/views/workspaces.view.lkml"
+include: "//looker-hub/bigeye/views/workspaces.view.lkml"
 
 view: +workspaces {
 
