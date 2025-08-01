@@ -1,4 +1,4 @@
-include: "//looker-hub/bigeye_derived/views/users.view.lkml"
+include: "//looker-hub/bigeye/views/users.view.lkml"
 
 view: +users {
 
