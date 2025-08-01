@@ -1,4 +1,4 @@
-include: "//looker-hub/bigeye_derived/views/groups.view.lkml"
+include: "//looker-hub/bigeye/views/groups.view.lkml"
 
 view: +groups {
 

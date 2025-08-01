@@ -1,4 +1,4 @@
-include: "//looker-hub/bigeye_derived/views/metrics.view.lkml"
+include: "//looker-hub/bigeye/views/metrics.view.lkml"
 
 view: +metrics {
   dimension: latest_metric_runs {
