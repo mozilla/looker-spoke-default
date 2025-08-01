@@ -1,4 +1,4 @@
-include: "//looker-hub/bigeye_derived/views/issues.view.lkml"
+include: "//looker-hub/bigeye/views/issues.view.lkml"
 
 view: +issues {
   dimension: events {
