@@ -1,6 +1,6 @@
 include: "../views/dashboards.view.lkml"
 
-explore: +dashboards {
+explore: dashboards {
   view_name: dashboards
 
 }
