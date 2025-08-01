@@ -1,6 +1,6 @@
 include: "../views/collections.view.lkml"
 
-explore: +collections {
+explore: collections {
   view_name: collections
 
 }
