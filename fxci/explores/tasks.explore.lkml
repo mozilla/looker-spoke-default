@@ -1,29 +1,28 @@
-include: "//looker-hub/fxci/views/tasks.view.lkml"
-include: "//looker-hub/fxci/views/task_runs.view.lkml"
+include: "../views/tasks.view.lkml"
+include: "../views/task_runs.view.lkml"
 include: "../views/task_run_costs.view.lkml"
+include: "../views/workers.view.lkml"
 
 explore:  tasks {
   label: "Firefox-CI Tasks"
   description: "Task metadata for the Firefox-CI Taskcluster instance."
   view_name: task_runs
+
   join: tasks {
     type: inner
     relationship: many_to_one
     sql_on: ${task_runs.task_id} = ${tasks.task_id};;
   }
-  join: tasks__tags {
-    relationship: many_to_many
-    sql: LEFT JOIN UNNEST(${tasks.tags}) AS tasks__tags ;;
-  }
+
   join: task_run_costs {
-    type: inner
+    type: left_outer
     relationship: one_to_one
-    sql_on: ${task_runs.task_id} = ${task_run_costs.task_id} AND ${task_runs.run_id} = ${task_run_costs.run_id} ;;
+    sql_on: ${task_runs.key} = ${task_run_costs.key};;
   }
-  always_filter: {
-    filters: [
-      task_runs.submission_date: "28 days",
-      task_run_costs.submission_date: "28 days",
-      tasks.submission_date: "28 days"    ]
+
+  join: workers {
+    type: left_outer
+    relationship: many_to_one
+    sql_on:  ${task_runs.worker_group} = ${workers.zone} AND ${task_runs.worker_id} = ${workers.instance_id};;
   }
 }

@@ -1,11 +1,11 @@
 include: "../views/crash_usage.view.lkml"
 include: "/shared/views/countries.view.lkml"
-include: "//looker-hub/firefox_desktop/datagroups/clients_daily_joined_v1_last_updated.datagroup.lkml"
+include: "//looker-hub/firefox_desktop/datagroups/clients_daily_joined_table_last_updated.datagroup.lkml"
 
 explore: crash_usage {
   label: "Crashes Daily"
   description: "Crash counts for Desktop Firefox, derived from the crash ping."
-  persist_with: clients_daily_joined_v1_last_updated
+  persist_with: clients_daily_joined_table_last_updated
 
   join: buildhub {
     sql_on: ${crash_usage.version} = ${buildhub.version} AND ${crash_usage.channel} = ${buildhub.channel} ;;
@@ -71,7 +71,7 @@ explore: crash_usage {
       ]
     }
     materialization: {
-      datagroup_trigger: clients_daily_joined_v1_last_updated
+      datagroup_trigger: clients_daily_joined_table_last_updated
       increment_key: "submission_date"
     }
   }
@@ -153,7 +153,7 @@ explore: crash_usage {
       ]
     }
     materialization: {
-      datagroup_trigger: clients_daily_joined_v1_last_updated
+      datagroup_trigger: clients_daily_joined_table_last_updated
       increment_key: "submission_date"
     }
   }
@@ -186,7 +186,7 @@ explore: crash_usage {
     }
 
     materialization: {
-      datagroup_trigger: clients_daily_joined_v1_last_updated
+      datagroup_trigger: clients_daily_joined_table_last_updated
     }
   }
 
@@ -234,7 +234,7 @@ explore: crash_usage {
       ]
     }
     materialization: {
-      datagroup_trigger: clients_daily_joined_v1_last_updated
+      datagroup_trigger: clients_daily_joined_table_last_updated
       increment_key: "submission_date"
     }
   }
@@ -267,7 +267,7 @@ explore: crash_usage {
     }
 
     materialization: {
-      datagroup_trigger: clients_daily_joined_v1_last_updated
+      datagroup_trigger: clients_daily_joined_table_last_updated
     }
   }
 }

@@ -17,9 +17,9 @@ view: dev_desktop_usage {
           ELSE TRUE
           END
             AS week4_reported_date,
-          CASE WHEN country_code IN ('US', 'GB', 'DE', 'FR','CA', 'BR','MX',
+          CASE WHEN country IN ('US', 'GB', 'DE', 'FR','CA', 'BR','MX',
                                               'CN', 'IN', 'AU', 'NL', 'ES', 'RU')
-              THEN country_code
+              THEN country
               ELSE 'ROW'
               END
                 AS normalized_country_code_subset,
@@ -27,7 +27,7 @@ view: dev_desktop_usage {
             WHEN LOWER(os) like '%windows%'
             AND DATE_DIFF(  -- Only use builds from the last month
                   DATE(first_seen_date),
-                  SAFE.PARSE_DATE('%Y%m%d', SUBSTR(build_id, 0, 8)),
+                  SAFE.PARSE_DATE('%Y%m%d', SUBSTR(app_build_id, 0, 8)),
                   WEEK
                   ) <= 6
             AND attribution_source IS NOT NULL

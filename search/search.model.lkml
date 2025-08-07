@@ -1,7 +1,6 @@
 connection: "telemetry"
 label: "Search"
 include: "//looker-hub/search/explores/*"
-include: "//looker-hub/search/views/desktop_search_alert_latest_daily.view.lkml"
 include: "views/bizdev_search_core_users.view.lkml"
 include: "views/mobile_search_aggregates.view.lkml"
 include: "views/mobile_search_clients_engines_sources_daily.view.lkml"
@@ -9,7 +8,7 @@ include: "views/search_aggregates.view.lkml"
 include: "views/search_clients_engine_sources_daily.view.lkml"
 include: "explores/*"
 include: "/shared/views/countries.view.lkml"
-include: "//looker-hub/search/datagroups/search_clients_daily_v8_last_updated.datagroup.lkml"
+include: "//looker-hub/search/datagroups/search_clients_engines_sources_daily_last_updated.datagroup.lkml"
 
 explore: search_aggregates {
   description: " Includes aggregated search metrics per day "
@@ -43,10 +42,8 @@ explore: +desktop_search_counts {
   like the URL bar and newtab page. Follow-on searches are those that are after entry from a
   SAP, and organic searches are those that occur directly on a search webpage (e.g. www.google.com)."
 
-  persist_with: search_clients_daily_v8_last_updated
+  persist_with: search_clients_engines_sources_daily_last_updated
 }
-
-explore: desktop_search_alert_latest_daily {}
 
 explore: business_development_core_search_users_monthly {
   view_name: bizdev_search_core_users

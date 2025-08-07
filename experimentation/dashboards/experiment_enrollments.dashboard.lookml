@@ -52,8 +52,8 @@
     note_display: above
     note_text: Updated daily
     listen:
-      Experiment: experiment_enrollment_daily_active_population.experiment
       Time Range [UTC]: experiment_enrollment_daily_active_population.time_time
+      Experiment: experiment_enrollment_daily_active_population.experiment
     row: 10
     col: 12
     width: 12
@@ -99,8 +99,8 @@
     note_display: above
     note_text: Updated daily
     listen:
-      Experiment: experiment_enrollment_daily_active_population.experiment
       Time Range [UTC]: experiment_enrollment_daily_active_population.time_time
+      Experiment: experiment_enrollment_daily_active_population.experiment
     row: 10
     col: 0
     width: 12
@@ -146,8 +146,8 @@
     note_display: above
     note_text: Updated every 10 minutes
     listen:
-      Experiment: experiment_enrollment_cumulative_population_estimate.experiment
       Time Range [UTC]: experiment_enrollment_cumulative_population_estimate.timeframe
+      Experiment: experiment_enrollment_cumulative_population_estimate.experiment
     row: 18
     col: 0
     width: 12
@@ -200,8 +200,8 @@
     note_display: above
     note_text: Updated every 10 minutes
     listen:
-      Experiment: experiment_enrollment_cumulative_population_estimate.experiment
       Time Range [UTC]: experiment_enrollment_cumulative_population_estimate.timeframe
+      Experiment: experiment_enrollment_cumulative_population_estimate.experiment
     row: 18
     col: 12
     width: 12
@@ -252,8 +252,8 @@
     note_display: above
     note_text: Updated every 10 minutes
     listen:
-      Experiment: experiment_unenrollment_overall.experiment
       Time Range [UTC]: experiment_unenrollment_overall.timeframe
+      Experiment: experiment_unenrollment_overall.experiment
     row: 39
     col: 0
     width: 12
@@ -314,8 +314,8 @@
     note_display: above
     note_text: Updated every 10 minutes
     listen:
-      Experiment: experiment_unenrollment_overall.experiment
       Time Range [UTC]: experiment_unenrollment_overall.timeframe
+      Experiment: experiment_unenrollment_overall.experiment
     row: 39
     col: 12
     width: 12
@@ -367,8 +367,8 @@
     note_display: above
     note_text: Updated every 10 minutes
     listen:
-      Experiment: experiment_enrollment_overall.experiment
       Time Range [UTC]: experiment_enrollment_overall.timeframe
+      Experiment: experiment_enrollment_overall.experiment
     row: 32
     col: 0
     width: 12
@@ -425,8 +425,8 @@
     note_display: above
     note_text: Updated every 10 minutes
     listen:
-      Experiment: experiment_enrollment_overall.experiment
       Time Range [UTC]: experiment_enrollment_overall.timeframe
+      Experiment: experiment_enrollment_overall.experiment
     row: 32
     col: 12
     width: 12
@@ -477,8 +477,8 @@
     note_display: above
     note_text: Updated every 10 minutes
     listen:
-      Experiment: experiment_enrollment_other_events_overall.experiment
       Time Range [UTC]: experiment_enrollment_other_events_overall.timeframe
+      Experiment: experiment_enrollment_other_events_overall.experiment
     row: 46
     col: 0
     width: 12
@@ -539,8 +539,8 @@
     note_display: above
     note_text: Updated every 10 minutes
     listen:
-      Experiment: experiment_enrollment_other_events_overall.experiment
       Time Range [UTC]: experiment_enrollment_other_events_overall.timeframe
+      Experiment: experiment_enrollment_other_events_overall.experiment
     row: 46
     col: 12
     width: 12
@@ -555,6 +555,15 @@
       events.sample_id: '0'
     sorts: [events.event_count desc]
     limit: 500
+    dynamic_fields:
+    - category: table_calculation
+      expression: "${events.event_count} * 100"
+      label: Approximate Event Count
+      value_format:
+      value_format_name:
+      _kind_hint: measure
+      table_calculation: approx_count
+      _type_hint: number
     column_limit: 50
     show_view_names: false
     show_row_numbers: true
@@ -598,9 +607,12 @@
     totals_color: "#808080"
     defaults_version: 1
     y_axes: []
+    note_state: expanded
+    note_display: above
+    note_text: Event counts are *approximate* due to sampling (1% sample).
     listen:
-      Experiment: events.event_string_value
       Time Range [UTC]: events.submission_date
+      Experiment: events.event_string_value
     row: 53
     col: 0
     width: 24
@@ -793,7 +805,7 @@
     fields: [error_count]
     filters:
       logs.timestamp_date: 3 days
-      logs.exception_type: "-EndedException,-NoEnrollmentPeriodException,-HighPopulationException,-EnrollmentLongerThanAnalysisException,-ExplicitSkipException,-NoStartDateException"
+      logs.exception_type: "-EndedException,-NoEnrollmentPeriodException,-HighPopulationException,-EnrollmentLongerThanAnalysisException,-ExplicitSkipException,-NoStartDateException,-EnrollmentNotCompleteException"
       logs.log_level: ERROR
       logs.message: "-%Error while computing statistic%"
     limit: 500
@@ -832,8 +844,7 @@
       experiment_enrollment_overall.time_date]
     pivots: [experiment_enrollment_overall.branch]
     fill_fields: [experiment_enrollment_overall.time_date]
-    filters:
-      experiment_enrollment_overall.timeframe: 28 days
+    filters: {}
     sorts: [experiment_enrollment_overall.branch, experiment_enrollment_overall.time_date
         desc]
     limit: 5000
@@ -880,6 +891,7 @@
     note_display: above
     note_text: Updated daily
     listen:
+      Time Range [UTC]: experiment_enrollment_overall.timeframe
       Experiment: experiment_enrollment_overall.experiment
     row: 25
     col: 12
@@ -892,8 +904,7 @@
     type: looker_column
     fields: [experiment_enrollment_overall.Total, experiment_enrollment_overall.time_date]
     fill_fields: [experiment_enrollment_overall.time_date]
-    filters:
-      experiment_enrollment_overall.timeframe: 28 days
+    filters: {}
     sorts: [experiment_enrollment_overall.time_date desc]
     limit: 5000
     column_limit: 50
@@ -934,31 +945,44 @@
     note_display: above
     note_text: Updated daily
     listen:
+      Time Range [UTC]: experiment_enrollment_overall.timeframe
       Experiment: experiment_enrollment_overall.experiment
     row: 25
     col: 0
     width: 12
     height: 7
-  - title: Crash Counts by Branch
-    name: Crash Counts by Branch
+  - name: " (2)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: '[{"type":"h1","children":[{"text":"Crash Counts"}],"align":"center"}]'
+    rich_content_json: '{"format":"slate"}'
+    row: 82
+    col: 0
+    width: 24
+    height: 2
+  - name: " (3)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: '[{"type":"h1","children":[{"text":"Search Metrics"}],"align":"center"}]'
+    rich_content_json: '{"format":"slate"}'
+    row: 59
+    col: 0
+    width: 24
+    height: 2
+  - title: Search Count by Branch
+    name: Search Count by Branch
     model: experimentation
-    explore: experiment_crash_rates
-    type: looker_column
-    fields: [sum_of_crash_count, experiment_crash_rates.branch, experiment_crash_rates.window_start_time]
-    pivots: [experiment_crash_rates.branch]
+    explore: experiment_search_aggregates_live
+    type: looker_line
+    fields: [experiment_search_aggregates_live.timestamp, experiment_search_aggregates_live.total_search_count,
+      experiment_search_aggregates_live.branch]
+    pivots: [experiment_search_aggregates_live.branch]
     filters: {}
-    sorts: [experiment_crash_rates.branch, experiment_crash_rates.window_start_time
-        desc]
-    limit: 5000
+    sorts: [experiment_search_aggregates_live.timestamp desc, experiment_search_aggregates_live.branch]
+    limit: 500
     column_limit: 50
-    dynamic_fields:
-    - _kind_hint: measure
-      _type_hint: number
-      based_on: experiment_crash_rates.crash_count
-      expression: ''
-      label: Sum of Crash Count
-      measure: sum_of_crash_count
-      type: sum
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -981,6 +1005,407 @@
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
+    show_null_points: true
+    interpolation: step
+    y_axes: [{label: Total, orientation: left, series: [{axisId: experiment_search_aggregates_live.total_search_count,
+            id: experiment_search_aggregates_live.total_search_count, name: Total
+              Search Count}], showLabels: true, showValues: true, unpinAxis: false,
+        tickDensity: default, tickDensityCustom: 5, type: linear}]
+    x_axis_label: Time [UTC]
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    listen:
+      Time Range [UTC]: experiment_search_aggregates_live.timeframe
+      Experiment: experiment_search_aggregates_live.experiment
+    row: 61
+    col: 0
+    width: 12
+    height: 7
+  - title: Ad Clicks by Branch
+    name: Ad Clicks by Branch
+    model: experimentation
+    explore: experiment_search_aggregates_live
+    type: looker_line
+    fields: [experiment_search_aggregates_live.timestamp, experiment_search_aggregates_live.branch,
+      experiment_search_aggregates_live.total_ad_clicks]
+    pivots: [experiment_search_aggregates_live.branch]
+    filters: {}
+    sorts: [experiment_search_aggregates_live.timestamp desc, experiment_search_aggregates_live.branch]
+    limit: 500
+    column_limit: 50
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: step
+    y_axes: [{label: Total, orientation: left, series: [{axisId: experiment_search_aggregates_live.total_search_count,
+            id: experiment_search_aggregates_live.total_search_count, name: Total
+              Search Count}], showLabels: true, showValues: true, unpinAxis: false,
+        tickDensity: default, tickDensityCustom: 5, type: linear}]
+    x_axis_label: Time [UTC]
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    listen:
+      Time Range [UTC]: experiment_search_aggregates_live.timeframe
+      Experiment: experiment_search_aggregates_live.experiment
+    row: 68
+    col: 0
+    width: 12
+    height: 7
+  - title: Search Count with Ads by Branch
+    name: Search Count with Ads by Branch
+    model: experimentation
+    explore: experiment_search_aggregates_live
+    type: looker_line
+    fields: [experiment_search_aggregates_live.timestamp, experiment_search_aggregates_live.branch,
+      experiment_search_aggregates_live.total_searches_with_ads]
+    pivots: [experiment_search_aggregates_live.branch]
+    filters: {}
+    sorts: [experiment_search_aggregates_live.branch, experiment_search_aggregates_live.timestamp
+        desc]
+    limit: 500
+    column_limit: 50
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: step
+    y_axes: [{label: Total, orientation: left, series: [{axisId: experiment_search_aggregates_live.total_search_count,
+            id: experiment_search_aggregates_live.total_search_count, name: Total
+              Search Count}], showLabels: true, showValues: true, unpinAxis: false,
+        tickDensity: default, tickDensityCustom: 5, type: linear}]
+    x_axis_label: Time [UTC]
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    listen:
+      Time Range [UTC]: experiment_search_aggregates_live.timeframe
+      Experiment: experiment_search_aggregates_live.experiment
+    row: 75
+    col: 0
+    width: 12
+    height: 7
+  - title: Cumulative Search Count by Branch
+    name: Cumulative Search Count by Branch
+    model: experimentation
+    explore: experiment_cumulative_search_count
+    type: looker_line
+    fields: [experiment_cumulative_search_count.Total, experiment_cumulative_search_count.branch,
+      experiment_cumulative_search_count.time_time]
+    pivots: [experiment_cumulative_search_count.branch]
+    filters: {}
+    sorts: [experiment_cumulative_search_count.time_time desc, experiment_cumulative_search_count.branch]
+    limit: 500
+    column_limit: 50
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: false
+    interpolation: linear
+    y_axes: [{label: Total, orientation: left, series: [{axisId: experiment_cumulative_search_count.Total,
+            id: debugging-disabled - experiment_cumulative_search_count.Total, name: debugging-disabled},
+          {axisId: experiment_cumulative_search_count.Total, id: debugging-enabled
+              - experiment_cumulative_search_count.Total, name: debugging-enabled}],
+        showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
+        tickDensityCustom: 5, type: linear}]
+    x_axis_label: Time [UTC]
+    defaults_version: 1
+    listen:
+      Time Range [UTC]: experiment_cumulative_search_count.timeframe
+      Experiment: experiment_cumulative_search_count.experiment
+    row: 61
+    col: 12
+    width: 12
+    height: 7
+  - title: Cumulative Ad Clicks by Branch
+    name: Cumulative Ad Clicks by Branch
+    model: experimentation
+    explore: experiment_cumulative_ad_clicks
+    type: looker_line
+    fields: [experiment_cumulative_ad_clicks.Total, experiment_cumulative_ad_clicks.time_time,
+      experiment_cumulative_ad_clicks.branch]
+    pivots: [experiment_cumulative_ad_clicks.branch]
+    filters: {}
+    sorts: [experiment_cumulative_ad_clicks.time_time desc, experiment_cumulative_ad_clicks.branch]
+    limit: 500
+    column_limit: 50
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: false
+    interpolation: linear
+    y_axes: [{label: Total, orientation: left, series: [{axisId: experiment_cumulative_ad_clicks.Total,
+            id: variant - experiment_cumulative_ad_clicks.Total, name: variant}],
+        showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
+        tickDensityCustom: 5, type: linear}]
+    x_axis_label: Time [UTC]
+    defaults_version: 1
+    listen:
+      Time Range [UTC]: experiment_cumulative_ad_clicks.timeframe
+      Experiment: experiment_cumulative_ad_clicks.experiment
+    row: 68
+    col: 12
+    width: 12
+    height: 7
+  - title: Cumulative Seach Count with Ads by Branch
+    name: Cumulative Seach Count with Ads by Branch
+    model: experimentation
+    explore: experiment_cumulative_search_with_ads_count
+    type: looker_line
+    fields: [experiment_cumulative_search_with_ads_count.Total, experiment_cumulative_search_with_ads_count.branch,
+      experiment_cumulative_search_with_ads_count.time_time]
+    pivots: [experiment_cumulative_search_with_ads_count.branch]
+    filters: {}
+    sorts: [experiment_cumulative_search_with_ads_count.time_time desc, experiment_cumulative_search_with_ads_count.branch]
+    limit: 500
+    column_limit: 50
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: false
+    interpolation: linear
+    y_axes: [{label: Total, orientation: left, series: [{axisId: experiment_cumulative_search_with_ads_count.Total,
+            id: only-branch - experiment_cumulative_search_with_ads_count.Total, name: only-branch}],
+        showLabels: true, showValues: true, unpinAxis: false, tickDensity: default,
+        tickDensityCustom: 5, type: linear}]
+    x_axis_label: Time [UTC]
+    defaults_version: 1
+    listen:
+      Time Range [UTC]: experiment_cumulative_search_with_ads_count.timeframe
+      Experiment: experiment_cumulative_search_with_ads_count.experiment
+    row: 75
+    col: 12
+    width: 12
+    height: 7
+  - title: Cumulative Crash Counts
+    name: Cumulative Crash Counts
+    model: experimentation
+    explore: experiment_crash_rates
+    type: looker_line
+    fields: [sum_of_crash_count, experiment_crash_rates.window_start_time]
+    filters: {}
+    sorts: [experiment_crash_rates.window_start_time]
+    limit: 5000
+    column_limit: 50
+    dynamic_fields:
+    - _kind_hint: measure
+      _type_hint: number
+      based_on: experiment_crash_rates.crash_count
+      expression: ''
+      label: Sum of Crash Count
+      measure: sum_of_crash_count
+      type: sum
+    - category: table_calculation
+      expression: running_total(${sum_of_crash_count})
+      label: Cumulative Crash Count
+      value_format:
+      value_format_name:
+      _kind_hint: measure
+      table_calculation: cumulative_crash_count
+      _type_hint: number
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    y_axes: [{label: Total, orientation: left, series: [{axisId: sum_of_crash_count,
+            id: sum_of_crash_count, name: Sum of Crash Count}], showLabels: true,
+        showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
+        type: linear}]
+    x_axis_label: Time [UTC]
+    x_axis_zoom: true
+    y_axis_zoom: true
+    hidden_pivots: {}
+    defaults_version: 1
+    hidden_fields: [sum_of_crash_count]
+    listen:
+      Experiment: experiment_crash_rates.experiment
+      Time Range [UTC]: experiment_crash_rates.window_start_date
+    row: 84
+    col: 0
+    width: 12
+    height: 7
+  - title: Cumulative Crash Counts by Branch
+    name: Cumulative Crash Counts by Branch
+    model: experimentation
+    explore: experiment_crash_rates
+    type: looker_line
+    fields: [sum_of_crash_count, experiment_crash_rates.branch, experiment_crash_rates.window_start_time]
+    pivots: [experiment_crash_rates.branch]
+    filters: {}
+    sorts: [experiment_crash_rates.branch, experiment_crash_rates.window_start_time]
+    limit: 5000
+    column_limit: 50
+    dynamic_fields:
+    - _kind_hint: measure
+      _type_hint: number
+      based_on: experiment_crash_rates.crash_count
+      expression: ''
+      label: Sum of Crash Count
+      measure: sum_of_crash_count
+      type: sum
+    - category: table_calculation
+      expression: running_total(${sum_of_crash_count})
+      label: Cumulative Crash Counts
+      value_format:
+      value_format_name:
+      _kind_hint: measure
+      table_calculation: cumulative_crash_counts
+      _type_hint: number
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
     ordering: none
     show_null_labels: false
     show_totals_labels: false
@@ -995,26 +1420,24 @@
     x_axis_zoom: true
     y_axis_zoom: true
     hidden_pivots: {}
-    show_null_points: true
-    interpolation: linear
     defaults_version: 1
+    hidden_fields: [sum_of_crash_count]
     listen:
       Experiment: experiment_crash_rates.experiment
       Time Range [UTC]: experiment_crash_rates.window_start_date
-    row: 61
+    row: 84
     col: 12
     width: 12
     height: 7
-  - title: Crash Counts By Process Type
-    name: Crash Counts By Process Type
+  - title: Cumulative Crash Counts by Process
+    name: Cumulative Crash Counts by Process
     model: experimentation
     explore: experiment_crash_rates
     type: looker_line
     fields: [sum_of_crash_count, experiment_crash_rates.crash_process_type, experiment_crash_rates.window_start_time]
     pivots: [experiment_crash_rates.crash_process_type]
     filters: {}
-    sorts: [experiment_crash_rates.crash_process_type, experiment_crash_rates.window_start_time
-        desc]
+    sorts: [experiment_crash_rates.crash_process_type, experiment_crash_rates.window_start_time]
     limit: 5000
     column_limit: 50
     dynamic_fields:
@@ -1025,6 +1448,14 @@
       label: Sum of Crash Count
       measure: sum_of_crash_count
       type: sum
+    - category: table_calculation
+      expression: running_total(${sum_of_crash_count})
+      label: Cumulative Crash Counts
+      value_format:
+      value_format_name:
+      _kind_hint: measure
+      table_calculation: cumulative_crash_counts
+      _type_hint: number
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -1065,83 +1496,11 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
+    hidden_fields: [sum_of_crash_count]
     listen:
       Experiment: experiment_crash_rates.experiment
       Time Range [UTC]: experiment_crash_rates.window_start_date
-    row: 68
-    col: 0
-    width: 12
-    height: 7
-  - name: " (2)"
-    type: text
-    title_text: ''
-    subtitle_text: ''
-    body_text: '[{"type":"h1","children":[{"text":"Crash Counts"}],"align":"center"}]'
-    rich_content_json: '{"format":"slate"}'
-    row: 59
-    col: 0
-    width: 24
-    height: 2
-  - title: Crash Counts
-    name: Crash Counts
-    model: experimentation
-    explore: experiment_crash_rates
-    type: looker_column
-    fields: [sum_of_crash_count, experiment_crash_rates.window_start_time]
-    filters: {}
-    sorts: [experiment_crash_rates.window_start_time desc]
-    limit: 5000
-    column_limit: 50
-    dynamic_fields:
-    - _kind_hint: measure
-      _type_hint: number
-      based_on: experiment_crash_rates.crash_count
-      expression: ''
-      label: Sum of Crash Count
-      measure: sum_of_crash_count
-      type: sum
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    y_axes: [{label: Total, orientation: left, series: [{axisId: sum_of_crash_count,
-            id: sum_of_crash_count, name: Sum of Crash Count}], showLabels: true,
-        showValues: true, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
-        type: linear}]
-    x_axis_label: Time [UTC]
-    x_axis_zoom: true
-    y_axis_zoom: true
-    hidden_pivots: {}
-    show_null_points: true
-    interpolation: linear
-    defaults_version: 1
-    listen:
-      Experiment: experiment_crash_rates.experiment
-      Time Range [UTC]: experiment_crash_rates.window_start_date
-    row: 61
+    row: 91
     col: 0
     width: 12
     height: 7

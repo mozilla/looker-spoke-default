@@ -68,6 +68,11 @@ view: search_aggregates {
     sql: ${TABLE}.is_default_browser ;;
   }
 
+  dimension: is_enterprise {
+    type: yesno
+    sql: ${TABLE}.policies_is_enterprise ;;
+  }
+
   dimension: locale {
     type: string
     sql: ${TABLE}.locale ;;
@@ -87,7 +92,6 @@ view: search_aggregates {
     type: string
     sql: ${TABLE}.os_version ;;
   }
-
 
   dimension: search_cohort {
     type: string

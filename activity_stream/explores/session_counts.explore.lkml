@@ -1,6 +1,6 @@
 include: "//looker-hub/activity_stream/explores/session_counts.explore.lkml"
 include: "../views/sessions.view.lkml"
-
+include: "//looker-hub/activity_stream/datagroups/sessions_last_updated.datagroup.lkml"
 
 explore: +session_counts {
 
@@ -17,4 +17,6 @@ explore: +session_counts {
       increment_offset: 1
     }
   }
+
+  persist_with: sessions_last_updated
 }

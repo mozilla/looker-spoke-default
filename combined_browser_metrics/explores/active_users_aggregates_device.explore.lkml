@@ -1,5 +1,6 @@
 include: "../views//active_users_aggregates_device.view.lkml"
 include: "/shared/views/countries.view.lkml"
+include: "//looker-hub/combined_browser_metrics/datagroups/active_users_aggregates_device_last_updated.datagroup.lkml"
 
 explore: active_users_aggregates_device {
   always_filter: {
@@ -14,4 +15,5 @@ explore: active_users_aggregates_device {
     sql_on: ${active_users_aggregates_device.country} = ${countries.code} ;;
   }
 
+  persist_with: active_users_aggregates_device_last_updated
 }

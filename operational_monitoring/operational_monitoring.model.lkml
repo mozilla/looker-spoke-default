@@ -1,6 +1,6 @@
 connection: "telemetry"
 label: "Operational Monitoring"
-include: "//looker-hub/operational_monitoring/explores/*"
-include: "//looker-hub/operational_monitoring/dashboards/*"
+include: "//looker-hub/operational_monitoring/explores/[!0-9]*"
+include: "//looker-hub/operational_monitoring/dashboards/[!0-9]*"
 include: "explores/preview.explore"
 include: "dashboards/opmon-preview.dashboard"
