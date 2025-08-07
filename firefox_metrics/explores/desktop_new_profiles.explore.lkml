@@ -20,4 +20,21 @@ explore: desktop_new_profiles {
   }
 
   persist_with: desktop_new_profiles_last_updated
+
+  aggregate_table: rollup__date_yoy__days_avg__first_seen_year {
+    query: {
+      dimensions: [date_yoy, days_avg, first_seen_year]
+      measures: [total_new_profiles]
+      filters: [
+        desktop_new_profiles.average_window: "28",
+        desktop_new_profiles.first_seen_date: "2 years",
+        desktop_new_profiles.is_desktop: "Yes",
+        desktop_new_profiles.ytd_filter: "Yes"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: desktop_new_profiles_last_updated
+    }
+  }
 }
