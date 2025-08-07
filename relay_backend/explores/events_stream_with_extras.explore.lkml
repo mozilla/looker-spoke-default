@@ -1,5 +1,5 @@
 include: "../views/events_stream_with_extras.view.lkml"
-
+include: "//looker-hub/relay_backend/datagroups/events_stream_table_last_updated.datagroup.lkml"
 
 explore: events_stream_with_extras {
   hidden: no
@@ -8,7 +8,7 @@ explore: events_stream_with_extras {
 
   always_filter: {
     filters: [
-      submission_date: "This year to second",
+      submission_date: "28 days",
     ]
   }
 
