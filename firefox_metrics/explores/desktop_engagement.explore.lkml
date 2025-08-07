@@ -20,4 +20,22 @@ explore: desktop_engagement {
   }
 
   persist_with: desktop_engagement_last_updated
+
+  aggregate_table: rollup__date_yoy__days_avg__submission_year {
+    query: {
+      dimensions: [date_yoy, days_avg, submission_year]
+      measures: [engagement_rate]
+      filters: [
+        desktop_engagement.average_window: "28",
+        desktop_engagement.is_desktop: "Yes",
+        desktop_engagement.lifecycle_stage: "\"existing_user\"",
+        desktop_engagement.submission_date: "2 years",
+        desktop_engagement.ytd_filter: "Yes"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: desktop_engagement_last_updated
+    }
+  }
 }

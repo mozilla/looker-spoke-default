@@ -20,4 +20,21 @@ explore: mobile_new_profiles {
   }
 
   persist_with: mobile_new_profiles_last_updated
+
+  aggregate_table: rollup__app_name__days_avg__first_seen_date {
+    query: {
+      dimensions: [app_name, days_avg, first_seen_date]
+      measures: [total_new_profiles]
+      filters: [
+        mobile_new_profiles.app_name: "Fenix,Firefox iOS",
+        mobile_new_profiles.average_window: "28",
+        mobile_new_profiles.first_seen_date: "140 days",
+        mobile_new_profiles.is_mobile: "Yes"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: mobile_new_profiles_last_updated
+    }
+  }
 }
