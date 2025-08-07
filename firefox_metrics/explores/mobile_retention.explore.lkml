@@ -20,4 +20,58 @@ explore: mobile_retention {
   }
 
   persist_with: mobile_retention_last_updated
+
+  aggregate_table: rollup__date_yoy__days_avg__metric_year {
+    query: {
+      dimensions: [date_yoy, days_avg, metric_year]
+      measures: [retention_rate]
+      filters: [
+        mobile_retention.app_name: "Fenix,Firefox iOS",
+        mobile_retention.average_window: "28",
+        mobile_retention.is_mobile: "Yes",
+        mobile_retention.lifecycle_stage: "\"existing_user\"",
+        mobile_retention.metric_date: "2 years",
+        mobile_retention.ytd_filter: "Yes"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: mobile_retention_last_updated
+    }
+  }
+
+  aggregate_table: rollup__app_name__days_avg__metric_date {
+    query: {
+      dimensions: [app_name, days_avg, metric_date]
+      measures: [new_profile_retention]
+      filters: [
+        mobile_retention.app_name: "Fenix,Firefox iOS",
+        mobile_retention.average_window: "28",
+        mobile_retention.is_mobile: "Yes",
+        mobile_retention.metric_date: "140 days"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: mobile_retention_last_updated
+    }
+  }
+
+  aggregate_table: rollup__app_name__days_avg__metric_date__retention_rate {
+    query: {
+      dimensions: [app_name, days_avg, metric_date]
+      measures: [retention_rate]
+      filters: [
+        mobile_retention.app_name: "Fenix,Firefox iOS",
+        mobile_retention.average_window: "28",
+        mobile_retention.is_mobile: "Yes",
+        mobile_retention.lifecycle_stage: "\"existing_user\"",
+        mobile_retention.metric_date: "140 days"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: mobile_retention_last_updated
+    }
+  }
 }
