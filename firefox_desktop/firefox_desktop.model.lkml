@@ -18,7 +18,6 @@ include: "//looker-hub/firefox_desktop/views/clients_last_seen_joined_table.view
 include: "//looker-hub/firefox_desktop/views/clients_last_seen_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/crash.view.lkml"
 include: "//looker-hub/firefox_desktop/views/crash_table.view.lkml"
-include: "//looker-hub/firefox_desktop/views/deletion_request.view.lkml"
 include: "//looker-hub/firefox_desktop/views/deletion_request_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/desktop_acquisition_funnel_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/desktop_cohort_daily_retention.view.lkml"
