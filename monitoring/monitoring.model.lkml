@@ -76,9 +76,6 @@ view: +payload_bytes_error_all {
 
 # hiding explores to declutter available explores suggestions
 
-explore: +column_size {
-  hidden: yes
-}
 
 explore: +payload_bytes_error_all {
   hidden: yes
@@ -160,21 +157,6 @@ explore: +missing_namespaces_and_document_types {
 
 explore: +stable_table_column_counts {
   hidden: yes
-}
-
-explore: missing_columns_notes {
-  hidden: yes
-  sql_always_where: ${bug} IS NOT NULL OR ${notes} IS NOT NULL ;;
-}
-
-explore: schema_errors_notes {
-  hidden: yes
-  sql_always_where: ${bug} IS NOT NULL OR ${notes} IS NOT NULL ;;
-}
-
-explore: missing_document_namespaces_notes {
-  hidden: yes
-  sql_always_where: ${bug} IS NOT NULL OR ${notes} IS NOT NULL ;;
 }
 
 explore: event_monitoring_live {
