@@ -53,7 +53,6 @@ include: "//looker-hub/firefox_desktop/views/metric_definitions_desktop_retentio
 include: "//looker-hub/firefox_desktop/views/metric_definitions_events.view.lkml"
 include: "//looker-hub/firefox_desktop/views/metric_definitions_events_memory.view.lkml"
 include: "//looker-hub/firefox_desktop/views/metric_definitions_firefox_desktop_active_users_aggregates_view.view.lkml"
-include: "//looker-hub/firefox_desktop/views/metric_definitions_firefox_desktop_active_users_view.view.lkml"
 include: "//looker-hub/firefox_desktop/views/metric_definitions_newtab_clients_daily.view.lkml"
 include: "//looker-hub/firefox_desktop/views/metric_definitions_newtab_visits_topsite_tile_interactions.view.lkml"
 include: "//looker-hub/firefox_desktop/views/metric_definitions_search_clients_engines_sources_daily.view.lkml"
