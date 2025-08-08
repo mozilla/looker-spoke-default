@@ -102,7 +102,6 @@ include: "//looker-hub/firefox_desktop/views/urlbar_potential_exposure.view.lkml
 include: "//looker-hub/firefox_desktop/views/urlbar_potential_exposure_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/use_counters.view.lkml"
 include: "//looker-hub/firefox_desktop/views/use_counters_table.view.lkml"
-include: "//looker-hub/firefox_desktop/views/user_characteristics.view.lkml"
 include: "//looker-hub/firefox_desktop/views/user_characteristics_table.view.lkml"
 include: "//looker-hub/firefox_desktop/explores/*.explore.lkml"
 include: "explores/*"
