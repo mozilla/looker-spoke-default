@@ -128,6 +128,13 @@ view: newtab_visits {
     value_format_name: "percent_1"
     sql: ${non_impression_engagment_clients} / (${non_impression_engagment_clients} + ${impression_engagment_clients}) ;;
   }
+
+  measure: organic_tile_ctr {
+    type: number
+    label: "Organic Tile CTR"
+    sql: ${newtab_visits_table__topsite_tile_interactions.sum_organic_topsite_tile_clicks}/${newtab_visits_table__topsite_tile_interactions.sum_organic_topsite_tile_impressions} ;;
+    value_format_name: "percent_2"
+  }
 }
 
 view: +newtab_visits_table__topsite_tile_interactions {
