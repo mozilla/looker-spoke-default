@@ -145,6 +145,25 @@ view: newtab_interactions {
     type: number
   }
 
+  dimension: is_default_ui_visit {
+    type: yesno
+    sql: CASE
+  WHEN (newtab_interactions.newtab_open_source = 'about:home') AND (newtab_interactions.newtab_homepage_category = 'enabled') THEN TRUE
+  WHEN (newtab_interactions.newtab_open_source = 'about:newtab') AND (newtab_interactions.newtab_newtab_category = 'enabled') THEN TRUE
+  ELSE FALSE
+  END;;
+  }
+
+  dimension: is_non_default_homepage {
+    type: yesno
+    sql: CASE WHEN ((newtab_interactions.newtab_homepage_category) = 'enabled') THEN FALSE ELSE TRUE END ;;
+  }
+
+  dimension: is_non_default_new_tab {
+    type: yesno
+    sql: CASE WHEN ((newtab_interactions.newtab_newtab_category) = 'enabled') THEN FALSE ELSE TRUE END ;;
+  }
+
   measure: visits {
     type: count_distinct
     sql: ${newtab_visit_id} ;;
@@ -206,6 +225,57 @@ view: newtab_interactions {
     label: "Total Tagged Ad Impressions"
     type: sum
     sql: ${tagged_search_ad_impressions} ;;
+  }
+
+  measure: newtab_visits_default_ui {
+    type: count_distinct
+    sql: IF(${is_default_ui_visit}, ${newtab_visit_id}, NULL) ;;
+  }
+
+  measure: percent_of_newtab_visits_default_ui {
+    type: number
+    sql: ${newtab_visits_default_ui} / ${visits} ;;
+    value_format_name: "percent_1"
+  }
+
+  measure: clients_with_non_default_homepage {
+    type: count_distinct
+    sql: IF(${is_non_default_homepage}, ${client_id}, NULL) ;;
+  }
+
+  measure: percent_of_clients_with_non_default_homepage {
+    type: number
+    sql: ${clients_with_non_default_homepage} / ${clients} ;;
+    value_format_name: "percent_1"
+  }
+
+  measure: clients_with_non_default_new_tab {
+    type: count_distinct
+    sql: IF(${is_non_default_new_tab}, ${client_id}, NULL) ;;
+  }
+
+  measure: percent_of_client_with_non_default_new_tab {
+    type: number
+    sql: ${clients_with_non_default_new_tab} / ${clients} ;;
+    value_format_name: "percent_1"
+  }
+
+  measure: percent_of_visits_with_search {
+    type: number
+    sql: ${visits_with_search} / ${visits} ;;
+    value_format_name: "percent_1"
+  }
+
+  measure: percent_of_clients_with_search {
+    type: number
+    sql: ${clients_with_search} / ${clients} ;;
+    value_format_name: "percent_1"
+  }
+
+  measure: percent_of_searches_with_ads {
+    type: number
+    sql: ${sum_all_search_ad_impressions} / ${sum_searches} ;;
+    value_format_name: "percent_1"
   }
 
   measure: visits_with_search {
@@ -434,6 +504,14 @@ view: newtab_interactions {
     approximate: yes
   }
 
+  measure: sponsored_tiles_ctr {
+    label: "Sponsored Tiles CTR"
+    type: number
+    sql: ${sum_sponsored_topsite_clicks} / ${sum_sponsored_topsite_impressions} ;;
+    value_format_name: "percent_2"
+    group_label: "Topsites"
+  }
+
   ### Pocket
 
   measure: sum_pocket_impressions {
@@ -625,4 +703,41 @@ view: newtab_interactions {
     approximate: yes
   }
 
+  measure: pocket_sponsored_ctr {
+    type: number
+    label: "Pocket Sponsored CTR"
+    sql: ${sum_sponsored_pocket_clicks} / ${sum_sponsored_pocket_impressions} ;;
+    value_format_name: "percent_2"
+  }
+
+  measure: organic_pocket_ctr {
+    type: number
+    label: "Organic Pocket CTR"
+    sql: ${sum_organic_pocket_clicks}/ ${sum_organic_pocket_impressions} ;;
+    value_format_name: "percent_1"
+  }
+
+  measure: clients_pocket_sponsored_stories_disabled {
+    hidden: yes
+    type: count_distinct
+    sql: IF(${pocket_sponsored_stories_enabled}, NULL, ${client_id}) ;;
+  }
+
+  measure: percent_of_newtab_interactions_clients_sponsored_stories_disabled {
+    type: number
+    sql: ${clients_pocket_sponsored_stories_disabled} / ${clients} ;;
+    value_format_name: "percent_1"
+  }
+
+  measure: client_pocket_disabled {
+    type: count_distinct
+    hidden: yes
+    sql: IF(${pocket_enabled}, NULL, ${client_id}) ;;
+  }
+
+  measure: percent_of_newtab_interactions_clients_pocket_disabled {
+    type: number
+    sql: ${client_pocket_disabled} / ${clients} ;;
+    value_format_name: "percent_1"
+  }
 }

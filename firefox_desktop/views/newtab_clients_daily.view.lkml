@@ -467,4 +467,32 @@ view: newtab_clients_daily {
     group_label: "Topic Selection Interactions"
   }
 
+  measure: non_search_engagement_per_client {
+    sql:  (${newtab_clients_daily.non_search_engagement}+${newtab_clients_daily.topsite_tile_dismissals}+${newtab_clients_daily.topic_selection_dismissals}+${newtab_clients_daily.organic_content_recommendations_dismissals}+${newtab_clients_daily.sponsored_content_recommendations_dismissals}) / ${newtab_clients_daily.client_count};;
+    type: number
+    group_label: "KPI Metrics"
+    value_format_name: "decimal_2"
+  }
+
+  measure: new_tab_dismissal_rate {
+    sql: (${newtab_clients_daily.topsite_tile_dismissals}+${newtab_clients_daily.topic_selection_dismissals}+${newtab_clients_daily.organic_content_recommendations_dismissals}+${newtab_clients_daily.sponsored_content_recommendations_dismissals}) / ${newtab_clients_daily.visits_with_default_ui} ;;
+    type: number
+    group_label: "KPI Metrics"
+    value_format_name: "percent_1"
+  }
+
+  measure: non_search_engagement_rate {
+    sql: (${newtab_clients_daily.non_search_engagement}+${newtab_clients_daily.topsite_tile_dismissals}+${newtab_clients_daily.topic_selection_dismissals}+${newtab_clients_daily.organic_content_recommendations_dismissals}+${newtab_clients_daily.sponsored_content_recommendations_dismissals}) / ${newtab_clients_daily.visits_with_default_ui};;
+    type: number
+    group_label: "KPI Metrics"
+    value_format_name: "percent_1"
+    label: "Non-Search Engagment Rate (deprecated)"
+  }
+
+  measure: new_tab_visits_with_default_ui {
+    type: sum
+    sql: IF(${newtab_newtab_category} = "enabled" AND ${newtab_homepage_category} = "enabled", ${TABLE}.newtab_visit_count, NULL) ;;
+    group_label: "KPI Metrics"
+  }
+
 }
