@@ -1,5 +1,5 @@
 include: "../views/subscriptions.view"
-include: "/mozilla_vpn/views/vat_rates.view"
+include: "/subscription_platform/views/vat_rates.view.lkml"
 include: "//looker-hub/subscription_platform/views/exchange_rates.view.lkml"
 include: "../views/table_metadata.view"
 

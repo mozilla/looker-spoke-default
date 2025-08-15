@@ -2,7 +2,7 @@ include: "../views/monthly_active_service_subscriptions.view.lkml"
 include: "../views/service_subscriptions.view.lkml"
 include: "../views/table_metadata.view.lkml"
 include: "/shared/views/countries.view.lkml"
-include: "/mozilla_vpn/views/vat_rates.view.lkml"
+include: "../views/vat_rates.view.lkml"
 include: "//looker-hub/subscription_platform/views/exchange_rates.view.lkml"
 
 explore: monthly_active_service_subscriptions {
