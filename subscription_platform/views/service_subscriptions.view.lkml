@@ -305,7 +305,7 @@ view: +service_subscriptions {
     type: number
     sql:
       ${annual_recurring_net_revenue}
-      * IF(${plan_currency} = 'USD', 1, COALESCE(${exchange_rates_table.price}, 0)) ;;
+      * IF(${plan_currency} = 'USD', 1, COALESCE(${exchange_rates.price}, 0)) ;;
     value_format_name: usd
   }
 
@@ -351,7 +351,7 @@ view: +service_subscriptions {
     type: number
     sql:
       ${monthly_recurring_net_revenue}
-      * IF(${plan_currency} = 'USD', 1, COALESCE(${exchange_rates_table.price}, 0)) ;;
+      * IF(${plan_currency} = 'USD', 1, COALESCE(${exchange_rates.price}, 0)) ;;
     value_format_name: usd
   }
 

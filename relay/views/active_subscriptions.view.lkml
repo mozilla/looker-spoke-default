@@ -109,7 +109,7 @@ view: +active_subscriptions {
           ${plan_interval} = "month"
         THEN
           1 / ${plan_interval_count}
-        END * ${count} * (${plan_amount} - IFNULL(${promotion_discounts_amount}, 0)) / (1 + IFNULL(${vat_rates.vat}, 0)) * IFNULL(${exchange_rates_table.price}, 1) / 100;;
+        END * ${count} * (${plan_amount} - IFNULL(${promotion_discounts_amount}, 0)) / (1 + IFNULL(${vat_rates.vat}, 0)) * IFNULL(${exchange_rates.price}, 1) / 100;;
     hidden: yes
   }
 
