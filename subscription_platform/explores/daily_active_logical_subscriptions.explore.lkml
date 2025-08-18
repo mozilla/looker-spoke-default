@@ -2,8 +2,8 @@ include: "../views/daily_active_logical_subscriptions.view.lkml"
 include: "../views/logical_subscriptions.view.lkml"
 include: "../views/table_metadata.view.lkml"
 include: "/shared/views/countries.view.lkml"
-include: "/mozilla_vpn/views/vat_rates.view.lkml"
-include: "//looker-hub/mozilla_vpn/views/exchange_rates_table.view.lkml"
+include: "../views/vat_rates.view.lkml"
+include: "//looker-hub/subscription_platform/views/exchange_rates.view.lkml"
 
 explore: daily_active_logical_subscriptions {
 
@@ -56,12 +56,11 @@ explore: daily_active_logical_subscriptions {
     ]
   }
 
-  join: exchange_rates_table {
-    view_label: "Exchange Rates"
+  join: exchange_rates {
     sql_on:
-      ${daily_active_logical_subscriptions.subscription__plan_currency} = ${exchange_rates_table.base_currency}
-      AND ${exchange_rates_table.quote_currency} = 'USD'
-      AND ${daily_active_logical_subscriptions.date_raw} = ${exchange_rates_table.date_raw} ;;
+      ${daily_active_logical_subscriptions.subscription__plan_currency} = ${exchange_rates.base_currency}
+      AND ${exchange_rates.quote_currency} = 'USD'
+      AND ${daily_active_logical_subscriptions.date_raw} = ${exchange_rates.date_raw} ;;
     type: left_outer
     relationship: many_to_one
     fields: [

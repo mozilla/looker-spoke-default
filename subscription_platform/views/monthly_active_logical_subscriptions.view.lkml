@@ -299,7 +299,7 @@ view: +monthly_active_logical_subscriptions {
     type: number
     sql:
       ${annual_recurring_net_revenue}
-      * IF(${subscription__plan_currency} = 'USD', 1, COALESCE(${exchange_rates_table.price}, 0)) ;;
+      * IF(${subscription__plan_currency} = 'USD', 1, COALESCE(${exchange_rates.price}, 0)) ;;
     value_format_name: usd
   }
 
@@ -346,7 +346,7 @@ view: +monthly_active_logical_subscriptions {
     type: number
     sql:
       ${monthly_recurring_net_revenue}
-      * IF(${subscription__plan_currency} = 'USD', 1, COALESCE(${exchange_rates_table.price}, 0)) ;;
+      * IF(${subscription__plan_currency} = 'USD', 1, COALESCE(${exchange_rates.price}, 0)) ;;
     value_format_name: usd
   }
 
