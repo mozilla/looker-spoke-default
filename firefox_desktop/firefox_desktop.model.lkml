@@ -87,7 +87,6 @@ include: "//looker-hub/firefox_desktop/views/sponsored_tiles_clients_daily.view.
 include: "//looker-hub/firefox_desktop/views/sponsored_tiles_clients_daily_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/suggest_clients_daily.view.lkml"
 include: "//looker-hub/firefox_desktop/views/suggest_clients_daily_table.view.lkml"
-include: "//looker-hub/firefox_desktop/views/top_sites.view.lkml"
 include: "//looker-hub/firefox_desktop/views/top_sites_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/urlbar_events.view.lkml"
 include: "//looker-hub/firefox_desktop/views/urlbar_events_daily_engagement_by_position_table.view.lkml"
