@@ -79,7 +79,6 @@ include: "//looker-hub/firefox_desktop/views/review_checker_events_table.view.lk
 include: "//looker-hub/firefox_desktop/views/review_checker_microsurvey_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/search_with.view.lkml"
 include: "//looker-hub/firefox_desktop/views/search_with_table.view.lkml"
-include: "//looker-hub/firefox_desktop/views/serp_categorization.view.lkml"
 include: "//looker-hub/firefox_desktop/views/serp_categorization_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/serp_events_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/snippets_table.view.lkml"
