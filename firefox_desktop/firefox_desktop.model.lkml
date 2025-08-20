@@ -129,25 +129,6 @@ explore: +event_counts {
   }
 }
 
-explore: +funnel_analysis {
-  label: "Funnel Analysis (Legacy Telemetry)"
-  always_filter: {
-    filters: [
-      funnel_analysis.submission_date: "7 days",
-      funnel_analysis.sample_id: "0"
-    ]
-  }
-}
-
-explore: +growth_accounting {
-  label: "Growth Accounting (Legacy Telemetry)"
-  always_filter: {
-    filters: [
-      growth_accounting.submission_date: "7 days",
-      growth_accounting.sample_id: "0"
-    ]
-  }
-}
 
 explore: +baseline {
   label: "Baseline (Glean)"
