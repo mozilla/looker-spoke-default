@@ -103,7 +103,6 @@ include: "views/urlbar_events_daily_table.view.lkml"
 include: "views/newtab_clients_daily_aggregates.view.lkml"
 
 
-
 explore: newtab_clients_daily_aggregates {
   label: "Newtab Clients Daily Aggregates"
   always_filter: {
