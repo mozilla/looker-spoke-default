@@ -100,7 +100,18 @@ include: "views/acquisition_funnel.view.lkml"
 include: "views/client_counts.view.lkml"
 include: "views/desktop_daily_retention.view.lkml"
 include: "views/urlbar_events_daily_table.view.lkml"
+include: "views/newtab_clients_daily_aggregates.view.lkml"
 
+
+explore: newtab_clients_daily_aggregates {
+  label: "Newtab Clients Daily Aggregates"
+  always_filter: {
+    filters: [
+      newtab_clients_daily_aggregates.submission_date_range: "7 days"
+    ]
+  }
+  fields: [ALL_FIELDS*]
+}
 
 explore: firefox_desktop_last_seen {
   label: "Firefox Dekstop Clients Last Seen"

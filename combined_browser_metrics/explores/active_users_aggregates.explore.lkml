@@ -52,6 +52,186 @@ explore: active_users_aggregates {
     }
   }
 
+  aggregate_table: rollup__submission_date__60_weeks {
+    query: {
+      dimensions: [submission_date]
+      measures: [daily_active_users, monthly_active_users, weekly_active_users]
+      filters: [
+        active_users_aggregates.app_name: "Firefox Desktop",
+        active_users_aggregates.submission_date: "after 60 weeks ago"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: active_users_aggregates_last_updated
+    }
+  }
+
+  aggregate_table: rollup__submission_date__115_weeks {
+    query: {
+      dimensions: [submission_date]
+      measures: [daily_active_users]
+      filters: [
+        active_users_aggregates.app_name: "Firefox Desktop",
+        active_users_aggregates.submission_date: "after 115 weeks ago"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: active_users_aggregates_last_updated
+    }
+  }
+
+  aggregate_table: rollup__submission_date__mobile__60_weeks{
+    query: {
+      dimensions: [submission_date]
+      measures: [daily_active_users, monthly_active_users, weekly_active_users]
+      filters: [
+        active_users_aggregates.app_name: "Fenix,Firefox iOS,Focus Android,Focus iOS",
+        active_users_aggregates.submission_date: "after 60 weeks ago"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: active_users_aggregates_last_updated
+    }
+  }
+
+  aggregate_table: rollup__submission_date__mobile__115_weeks {
+    query: {
+      dimensions: [submission_date]
+      measures: [daily_active_users]
+      filters: [
+        active_users_aggregates.app_name: "Fenix,Firefox iOS,Focus Android,Focus iOS",
+        active_users_aggregates.submission_date: "after 115 weeks ago"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: active_users_aggregates_last_updated
+    }
+  }
+
+  aggregate_table: rollup__submission_date__fenix__60_weeks {
+    query: {
+      dimensions: [submission_date]
+      measures: [daily_active_users, monthly_active_users, weekly_active_users]
+      filters: [
+        active_users_aggregates.app_name: "Fenix",
+        active_users_aggregates.submission_date: "after 60 weeks ago"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: active_users_aggregates_last_updated
+    }
+  }
+
+  aggregate_table: rollup__submission_date__fenix__115_weeks {
+    query: {
+      dimensions: [submission_date]
+      measures: [daily_active_users]
+      filters: [
+        active_users_aggregates.app_name: "Fenix",
+        active_users_aggregates.submission_date: "after 115 weeks ago"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: active_users_aggregates_last_updated
+    }
+  }
+
+  aggregate_table: rollup__submission_date__firefox_ios__60_weeks {
+    query: {
+      dimensions: [submission_date]
+      measures: [daily_active_users, monthly_active_users, weekly_active_users]
+      filters: [
+        active_users_aggregates.app_name: "Firefox iOS",
+        active_users_aggregates.submission_date: "after 60 weeks ago"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: active_users_aggregates_last_updated
+    }
+  }
+
+  aggregate_table: rollup__submission_date__firefox_ios__115_weeks {
+    query: {
+      dimensions: [submission_date]
+      measures: [daily_active_users]
+      filters: [
+        active_users_aggregates.app_name: "Firefox iOS",
+        active_users_aggregates.submission_date: "after 115 weeks ago"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: active_users_aggregates_last_updated
+    }
+  }
+
+  aggregate_table: rollup__submission_date__focus_android__60_weeks {
+    query: {
+      dimensions: [submission_date]
+      measures: [daily_active_users, monthly_active_users, weekly_active_users]
+      filters: [
+        active_users_aggregates.app_name: "Focus Android",
+        active_users_aggregates.submission_date: "after 60 weeks ago"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: active_users_aggregates_last_updated
+    }
+  }
+
+  aggregate_table: rollup__submission_date__focus_ios__60_weeks {
+    query: {
+      dimensions: [submission_date]
+      measures: [daily_active_users]
+      filters: [
+        active_users_aggregates.app_name: "Focus iOS,\"focus_ios\"",
+        active_users_aggregates.submission_date: "after 60 weeks ago"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: active_users_aggregates_last_updated
+    }
+  }
+
+  aggregate_table: rollup__submission_date__combined__60_weeks {
+    query: {
+      dimensions: [submission_date]
+      measures: [daily_active_users, monthly_active_users, weekly_active_users]
+      filters: [
+        active_users_aggregates.app_name: "Fenix,Firefox iOS,Focus Android,Focus iOS,Firefox Desktop,\"focus_android\",\"focus_ios\"",
+        active_users_aggregates.submission_date: "after 60 weeks ago"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: active_users_aggregates_last_updated
+    }
+  }
+
+  aggregate_table: rollup__submission_date__combined__115_weeks {
+    query: {
+      dimensions: [submission_date]
+      measures: [daily_active_users]
+      filters: [
+        active_users_aggregates.app_name: "Fenix,Firefox iOS,Focus Android,Focus iOS,Firefox Desktop,\"focus_android\",\"focus_ios\"",
+        active_users_aggregates.submission_date: "after 115 weeks ago"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: active_users_aggregates_last_updated
+    }
+  }
+
   aggregate_table: rollup__kpi_reporting_group__submission_date__110_weeks {
     query: {
       dimensions: [kpi_reporting_group, submission_date]
