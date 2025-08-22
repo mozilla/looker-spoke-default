@@ -246,7 +246,8 @@ view: +active_users_aggregates {
   dimension: partnership {
     suggestions: [
       "vivo",
-      "dt"
+      "dt",
+      "aura"
     ]
   }
 
