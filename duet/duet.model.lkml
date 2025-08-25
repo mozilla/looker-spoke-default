@@ -7,7 +7,6 @@ include: "views/ctd_cohort_analysis_desktop.view.lkml"
 include: "views/ctd_cohort_analysis_mobile.view.lkml"
 include: "views/ctd_uac.view.lkml"
 include: "views/kpi_dau.view.lkml"
-include: "views/kpi_downloads.view.lkml"
 include: "views/mobile_android_country.view.lkml"
 include: "views/mobile_ios_country.view.lkml"
 include: "views/releases.view.lkml"
@@ -42,10 +41,6 @@ explore: ctd_cohort_analysis_desktop {}
 
 explore: kpi_dau {
   sql_always_where: ${submission_date} >= "2022-01-01" AND ${period_filtered_measures} in ("this", "last");;
-}
-
-explore: kpi_downloads {
-  sql_always_where: ${submission_date} >= "2022-01-01" AND ${period_filtered_measures} in ("this", "last") AND ${device_category} = "desktop" ;;
 }
 
 explore: app_store_territory_source_type_report {
