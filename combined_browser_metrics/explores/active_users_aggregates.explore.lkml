@@ -263,6 +263,22 @@ explore: active_users_aggregates {
     }
   }
 
+  aggregate_table: rollup__countries_continent__submission_date__desktop__110_weeks {
+    query: {
+      dimensions: [countries.continent, submission_date]
+      measures: [daily_active_users]
+      filters: [
+        active_users_aggregates.app_name: "Firefox Desktop",
+        active_users_aggregates.submission_date: "after 110 weeks ago",
+        countries.region_name: "Europe,North America,South America,Asia,Africa,Oceania"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: active_users_aggregates_last_updated
+    }
+  }
+
   aggregate_table: rollup__continent__submission_date__mobile {
     query: {
       dimensions: [countries.continent, submission_date]
