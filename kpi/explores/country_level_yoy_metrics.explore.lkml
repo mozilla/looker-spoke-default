@@ -37,7 +37,7 @@ explore: country_level_yoy_metrics {
         countries.region_name: "-Unknown,-Rest of World,-Antarctica",
         country_level_yoy_metrics.app_name: "Firefox Desktop",
         country_level_yoy_metrics.metric: "MAU,WAU,DAU 28-day Moving Average",
-        country_level_yoy_metrics.user_input_date: "3 day ago"
+        country_level_yoy_metrics.user_input_date: "2 days ago"
       ]
     }
 
@@ -63,6 +63,23 @@ explore: country_level_yoy_metrics {
     }
   }
 
+  aggregate_table: rollup__countries_continent__metric__submission_date__mobile {
+    query: {
+      dimensions: [countries.continent, metric, submission_date]
+      measures: [previous_value, value, yoy_difference]
+      filters: [
+        countries.region_name: "-Unknown,-Rest of World,-Antarctica",
+        country_level_yoy_metrics.app_name: "Fenix,Firefox iOS,Focus Android,Focus iOS,\"focus_android\",\"focus_ios\"",
+        country_level_yoy_metrics.metric: "MAU,WAU,DAU 28-day Moving Average",
+        country_level_yoy_metrics.user_input_date: "2024/05/15"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: active_users_aggregates_last_updated
+    }
+  }
+
   aggregate_table: rollup__continent__countries_name__metric__submission_date__desktop {
     query: {
       dimensions: [countries.continent, countries.name, metric, submission_date]
@@ -71,7 +88,7 @@ explore: country_level_yoy_metrics {
         countries.region_name: "-Unknown,-Rest of World",
         country_level_yoy_metrics.app_name: "Firefox Desktop",
         country_level_yoy_metrics.metric: "MAU,WAU,DAU 28-day Moving Average",
-        country_level_yoy_metrics.user_input_date: "3 day ago"
+        country_level_yoy_metrics.user_input_date: "2 days ago"
       ]
     }
 
@@ -105,7 +122,7 @@ explore: country_level_yoy_metrics {
         countries.region_name: "-Unknown,-Rest of World",
         country_level_yoy_metrics.app_name: "Fenix",
         country_level_yoy_metrics.metric: "MAU,WAU,DAU 28-day Moving Average",
-        country_level_yoy_metrics.user_input_date: "3 day ago"
+        country_level_yoy_metrics.user_input_date: "2024/05/15"
       ]
     }
 
@@ -122,7 +139,7 @@ explore: country_level_yoy_metrics {
         countries.region_name: "-Rest of World,-Unknown",
         country_level_yoy_metrics.app_name: "Firefox iOS",
         country_level_yoy_metrics.metric: "MAU,WAU,DAU 28-day Moving Average",
-        country_level_yoy_metrics.user_input_date: "3 day ago"
+        country_level_yoy_metrics.user_input_date: "2024/05/15"
       ]
     }
 
@@ -139,7 +156,7 @@ explore: country_level_yoy_metrics {
         countries.region_name: "-Unknown,-Rest of World",
         country_level_yoy_metrics.app_name: "Focus Android",
         country_level_yoy_metrics.metric: "MAU,WAU,DAU 28-day Moving Average",
-        country_level_yoy_metrics.user_input_date: "3 day ago"
+        country_level_yoy_metrics.user_input_date: "2 days ago"
       ]
     }
 
@@ -156,7 +173,7 @@ explore: country_level_yoy_metrics {
         countries.region_name: "-Unknown,-Rest of World",
         country_level_yoy_metrics.app_name: "Focus iOS",
         country_level_yoy_metrics.metric: "MAU,WAU,DAU 28-day Moving Average",
-        country_level_yoy_metrics.user_input_date: "3 day ago"
+        country_level_yoy_metrics.user_input_date: "2024/05/15"
       ]
     }
 
