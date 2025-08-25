@@ -94,6 +94,11 @@ view: +active_users_aggregates {
           {% else %}NULL{% endif %} ;;
   }
 
+  dimension: kpi_reporting_group {
+    label: "KPI Reporting Group"
+    type: string
+    sql: CASE WHEN ${TABLE}.app_name = 'Firefox Desktop' THEN 'Desktop' ELSE 'Mobile' END ;;
+  }
 
   dimension: app_name {
     label: "Browser Name"

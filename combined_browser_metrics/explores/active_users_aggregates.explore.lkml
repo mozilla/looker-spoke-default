@@ -37,6 +37,21 @@ explore: active_users_aggregates {
     }
   }
 
+  aggregate_table: rollup__kpi_reporting_group__submission_date__56_weeks {
+    query: {
+      dimensions: [kpi_reporting_group, submission_date]
+      measures: [daily_active_users]
+      filters: [
+        active_users_aggregates.app_name: "Firefox Desktop,Fenix,Firefox iOS,Focus Android,Focus iOS,\"focus_android\",\"focus_ios\"",
+        active_users_aggregates.submission_date: "after 56 weeks ago"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: active_users_aggregates_last_updated
+    }
+  }
+
   aggregate_table: rollup__submission_date__60_weeks {
     query: {
       dimensions: [submission_date]
@@ -217,7 +232,68 @@ explore: active_users_aggregates {
     }
   }
 
+  aggregate_table: rollup__kpi_reporting_group__submission_date__110_weeks {
+    query: {
+      dimensions: [kpi_reporting_group, submission_date]
+      measures: [daily_active_users]
+      filters: [
+        active_users_aggregates.app_name: "Firefox Desktop,Fenix,Firefox iOS,Focus Android,Focus iOS,\"focus_android\",\"focus_ios\"",
+        active_users_aggregates.submission_date: "after 110 weeks ago"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: active_users_aggregates_last_updated
+    }
+  }
+
+  aggregate_table: rollup__continent__submission_date__desktop {
+    query: {
+      dimensions: [countries.continent, submission_date]
+      measures: [daily_active_users]
+      filters: [
+        active_users_aggregates.app_name: "Firefox Desktop",
+        active_users_aggregates.submission_date: "after 56 weeks ago",
+        countries.region_name: "Europe,North America,South America,Asia,Africa,Oceania"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: active_users_aggregates_last_updated
+    }
+  }
+
+  aggregate_table: rollup__continent__submission_date__mobile {
+    query: {
+      dimensions: [countries.continent, submission_date]
+      measures: [daily_active_users]
+      filters: [
+        active_users_aggregates.app_name: "Fenix,Firefox iOS,Focus Android,Focus iOS",
+        active_users_aggregates.submission_date: "after 56 weeks ago",
+        countries.region_name: "Europe,North America,South America,Asia,Africa,Oceania"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: active_users_aggregates_last_updated
+    }
+  }
+
+  aggregate_table: rollup__continent__submission_date__110_weeks {
+    query: {
+      dimensions: [countries.continent, submission_date]
+      measures: [daily_active_users]
+      filters: [
+        active_users_aggregates.app_name: "Fenix,Firefox iOS,Focus Android,Focus iOS",
+        active_users_aggregates.submission_date: "after 110 weeks ago",
+        countries.region_name: "Europe,North America,South America,Asia,Africa,Oceania"
+      ]
+    }
+
+    materialization: {
+      datagroup_trigger: active_users_aggregates_last_updated
+    }
+  }
 
   persist_with: active_users_aggregates_last_updated
-
 }

@@ -21,7 +21,7 @@ view: +countries {
     suggest_explore: countries_suggest_explore
     suggest_dimension: countries_suggest_explore._suggest_tier
   }
-  
+
   dimension: _suggest_tier {
     hidden: yes
     sql: ${tier} ;;
@@ -36,7 +36,7 @@ view: +countries {
     suggest_explore: countries_suggest_explore
     suggest_dimension: countries_suggest_explore._suggest_name
   }
-  
+
   dimension: _suggest_name {
     hidden: yes
     sql: ${name} ;;
@@ -51,10 +51,15 @@ view: +countries {
     suggest_explore: countries_suggest_explore
     suggest_dimension: countries_suggest_explore._suggest_code
   }
-  
+
   dimension: _suggest_code {
     hidden: yes
     sql: ${code} ;;
+  }
+
+  dimension: continent {
+    type: string
+    sql: IF(STRPOS(${TABLE}.region_name, 'America') > 0, "Americas", ${TABLE}.region_name) ;;
   }
 }
 

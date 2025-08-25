@@ -69,6 +69,19 @@ view: country_level_yoy_metrics {
     sql: ${TABLE}.country ;;
   }
 
+  dimension: kpi_product_group {
+    label: "KPI Product Group"
+    type: string
+    sql: if(
+      (${country_level_yoy_metrics.app_name} = "Fenix") OR
+      (${country_level_yoy_metrics.app_name} = "Firefox iOS") OR
+      (${country_level_yoy_metrics.app_name} = "Focus Android") OR
+      (${country_level_yoy_metrics.app_name} = "Focus iOS"),
+      "Mobile",
+      if((${country_level_yoy_metrics.app_name} = "Firefox Desktop"), "Desktop", ${country_level_yoy_metrics.app_name}
+      )) ;;
+  }
+
   measure: value {
     type: sum
     label: "Target Date's Value"
