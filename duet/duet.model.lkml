@@ -1,7 +1,6 @@
 connection: "telemetry"
 label: "DUET"
 include: "views/ad_activation_performance_table.view.lkml"
-include: "views/ad_cost_breakdowns.view.lkml"
 include: "views/app_store_territory_source_type_report.view.lkml"
 include: "views/country_buckets.view.lkml"
 include: "views/ctd_cohort_analysis_desktop.view.lkml"
