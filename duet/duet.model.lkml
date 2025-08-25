@@ -1,7 +1,6 @@
 connection: "telemetry"
 label: "DUET"
 include: "views/ad_activation_performance_table.view.lkml"
-include: "views/app_store_territory_source_type_report.view.lkml"
 include: "views/country_buckets.view.lkml"
 include: "views/ctd_uac.view.lkml"
 include: "views/kpi_dau.view.lkml"
@@ -36,10 +35,6 @@ explore: releases {
 
 explore: kpi_dau {
   sql_always_where: ${submission_date} >= "2022-01-01" AND ${period_filtered_measures} in ("this", "last");;
-}
-
-explore: app_store_territory_source_type_report {
-  label: "App Store Data Report"
 }
 
 explore: ctd_uac {}
