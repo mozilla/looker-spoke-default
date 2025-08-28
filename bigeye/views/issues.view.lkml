@@ -115,7 +115,7 @@ view: +issues {
   dimension: metric_metadata_field_name {
     hidden: yes
   }
-  dimension: opened_time_seconds {
+  dimension: opened_time {
     type: date
     sql:
       CASE
@@ -123,28 +123,12 @@ view: +issues {
         THEN DATE(TIMESTAMP_SECONDS(CAST(${TABLE}.opened_time_seconds AS INT64)))
       END ;;
   }
-  dimension: closed_time_second {
+  dimension: closed_time {
     type: date
     sql:
       CASE
-        WHEN ${TABLE}.closed_time_second IS NOT NULL
-        THEN DATE(TIMESTAMP_SECONDS(CAST(${TABLE}.closed_time_second AS INT64)))
-      END ;;
-  }
-  dimension: time_to_ack_seconds {
-    type: date
-    sql:
-      CASE
-        WHEN ${TABLE}.time_to_ack_seconds IS NOT NULL
-        THEN DATE(TIMESTAMP_SECONDS(CAST(${TABLE}.time_to_ack_seconds AS INT64)))
-      END ;;
-  }
-  dimension: time_to_resolve_seconds {
-    type: date
-    sql:
-      CASE
-        WHEN ${TABLE}.time_to_resolve_seconds IS NOT NULL
-        THEN DATE(TIMESTAMP_SECONDS(CAST(${TABLE}.time_to_resolve_seconds AS INT64)))
+        WHEN ${TABLE}.closed_time_seconds IS NOT NULL
+        THEN DATE(TIMESTAMP_SECONDS(CAST(${TABLE}.closed_time_seconds AS INT64)))
       END ;;
   }
   measure: count {
