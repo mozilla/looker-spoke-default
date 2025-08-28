@@ -147,4 +147,7 @@ view: +issues {
         THEN DATE(TIMESTAMP_SECONDS(CAST(${TABLE}.time_to_resolve_seconds AS INT64)))
       END ;;
   }
+  measure: count {
+    type: count
+  }
 }
