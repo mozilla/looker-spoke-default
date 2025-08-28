@@ -154,4 +154,15 @@ view: +metrics {
   dimension: refreshed_at {
     hidden: yes
   }
+  dimension: metric_metadata_created_at {
+    type: date
+    sql:
+      CASE
+        WHEN ${TABLE}.metric_metadata_created_at IS NOT NULL
+        THEN DATE(TIMESTAMP_SECONDS(CAST(${TABLE}.metric_metadata_created_at AS INT64)))
+      END ;;
+  }
+  measure: count {
+    type: count
+  }
 }
