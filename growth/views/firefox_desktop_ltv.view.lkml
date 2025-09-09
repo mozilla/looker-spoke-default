@@ -1,25 +1,6 @@
 view: firefox_desktop_ltv {
   label: "Firefox Desktop Lifetime Value (LTV)"
-  derived_table: {
-    sql: with first_country AS
-(SELECT client_id, sample_id, country as first_reported_country
-FROM `mozdata.telemetry.clients_first_seen`
-)
-
-SELECT client_id,
-  sample_id,
-  first_reported_country,
-  total_historic_ad_clicks,
-  total_future_ad_clicks,
-  total_predicted_ad_clicks,
-  revenue_per_click,
-  historic_value,
-  future_value,
-  lifetime_value
-FROM `mozdata.ltv.firefox_desktop_client_ltv`
-LEFT JOIN first_country USING(client_id, sample_id)
-      ;;
-  }
+  sql_table_name: mozdata.ltv.firefox_desktop_client_ltv;;
 
   dimension: client_id {
     sql: ${TABLE}.client_id ;;
