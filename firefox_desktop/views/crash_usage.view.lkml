@@ -81,7 +81,7 @@ view: crash_usage {
 
   dimension: build_id_as_int {
     type: number
-    sql: CAST(${TABLE}.app_build_id AS INTEGER) ;;
+    sql: SAFE_CAST(${TABLE}.app_build_id AS INTEGER) ;;
     description: "Build ID, as an int. Useful for sorting."
   }
 
