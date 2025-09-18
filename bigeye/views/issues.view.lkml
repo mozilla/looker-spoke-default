@@ -115,4 +115,23 @@ view: +issues {
   dimension: metric_metadata_field_name {
     hidden: yes
   }
+  dimension: opened_time {
+    type: date
+    sql:
+      CASE
+        WHEN ${TABLE}.opened_time_seconds IS NOT NULL
+        THEN DATE(TIMESTAMP_SECONDS(CAST(${TABLE}.opened_time_seconds AS INT64)))
+      END ;;
+  }
+  dimension: closed_time {
+    type: date
+    sql:
+      CASE
+        WHEN ${TABLE}.closed_time_seconds IS NOT NULL
+        THEN DATE(TIMESTAMP_SECONDS(CAST(${TABLE}.closed_time_seconds AS INT64)))
+      END ;;
+  }
+  measure: count {
+    type: count
+  }
 }

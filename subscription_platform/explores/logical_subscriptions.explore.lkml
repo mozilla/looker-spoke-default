@@ -1,8 +1,6 @@
 include: "../views/logical_subscriptions.view.lkml"
 include: "../views/table_metadata.view.lkml"
 include: "/shared/views/countries.view.lkml"
-include: "../views/vat_rates.view.lkml"
-include: "//looker-hub/subscription_platform/views/exchange_rates.view.lkml"
 
 explore: logical_subscriptions {
   join: countries {
@@ -33,32 +31,5 @@ explore: logical_subscriptions {
     sql_on: ${table_metadata.table_name} = 'logical_subscriptions_history_v1' ;;
     type: left_outer
     relationship: many_to_one
-  }
-
-  join: vat_rates {
-    view_label: "VAT Rates"
-    sql_on:
-      ${logical_subscriptions.country_code} = ${vat_rates.country_code}
-      AND (
-        ${logical_subscriptions.effective_date} BETWEEN ${vat_rates.effective_date} AND ${vat_rates.next_effective_date} - 1
-        OR (${logical_subscriptions.effective_date} >= ${vat_rates.effective_date} AND ${vat_rates.next_effective_date} IS NULL)
-      ) ;;
-    type: left_outer
-    relationship: many_to_one
-    fields: [
-      vat
-    ]
-  }
-
-  join: exchange_rates {
-    sql_on:
-      ${logical_subscriptions.plan_currency} = ${exchange_rates.base_currency}
-      AND ${exchange_rates.quote_currency} = 'USD'
-      AND ${logical_subscriptions.effective_date} = ${exchange_rates.date_raw} ;;
-    type: left_outer
-    relationship: many_to_one
-    fields: [
-      price
-    ]
   }
 }

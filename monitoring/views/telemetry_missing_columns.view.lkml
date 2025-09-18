@@ -8,25 +8,21 @@ view: +telemetry_missing_columns {
     sql: "create Bug" ;;
     link: {
       label: "create new Bug"
-      url: "{{
-          'https://bugzilla.mozilla.org/enter_bug.cgi?'
-          }}{{
-            'product=Data+Platform+and+Tools'
-          }}{{
-            '&component=General'
-          }}{{
-            '&bug_type=defect'
-          }}{{
-            '&status_whiteboard=%5Bdataquality%5D'
-          }}{{
-            '&short_desc=telemetry+missing+columns+in+%60'
-          }}{{
-            document_namespace }}.{{ document_type }}_v{{ document_version
-          }}{{
-            '%60+for+'
-          }}{{
-            path | encode_uri
-          }}"
+      url: "
+https://bugzilla.mozilla.org/enter_bug.cgi?
+product=Data+Platform+and+Tools
+&component=General
+&bug_type=defect
+&status_whiteboard=%5Bdataquality%5D
+&short_desc=telemetry+missing+columns+in+%60
+{{ document_namespace }}.{{ document_type }}_v{{ document_version }}
+%60+for+{{path | encode_uri}}
+&comment=Missing column {{ path | url_encode }} in `{{ document_namespace }}.{{ document_type }}_v{{ document_version }}`.
+%0D%0A%0D%0A
+Found in {{ path_count_last_week }} pings in the past week which is a change of {{ percent_change._rendered_value }} from the previous week. This is affecting {{ percent_affected_pings._rendered_value }} of valid pings.
+%0D%0A%0D%0A
+See runbook for resolution: {{ 'https://mozilla-hub.atlassian.net/wiki/spaces/DATA/pages/590446607/Missing+Column+Error' | url_encode }}
+"
       icon_url: "https://bugzilla.mozilla.org/favicon.ico"
     }
   }
@@ -68,5 +64,12 @@ view: +telemetry_missing_columns {
     type: sum
     sql: ${stable_and_derived_table_sizes.row_count} ;;
     filters: [submission_date: "7 days ago for 7 days"]
+  }
+
+  measure: percent_affected_pings {
+    label: "% affected pings"
+    type: number
+    sql: ${path_count_last_week} / ${total_ping_count} ;;
+    value_format_name: percent_2
   }
 }
