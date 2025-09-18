@@ -110,6 +110,13 @@ explore: newtab_clients_daily_aggregates {
       newtab_clients_daily_aggregates.submission_date_range: "7 days"
     ]
   }
+
+  join: countries {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${newtab_clients_daily_aggregates.country} = ${countries.code} ;;
+  }
+
   fields: [ALL_FIELDS*]
 }
 
