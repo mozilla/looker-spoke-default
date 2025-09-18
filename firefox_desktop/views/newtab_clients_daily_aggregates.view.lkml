@@ -1,201 +1,30 @@
 
 
 view: newtab_clients_daily_aggregates {
+
   derived_table: {
     sql: SELECT
-                SUM(nonsearch_engagement_visits) AS nonsearch_engagement_visits,
-SUM(default_ui_visits) AS default_ui_visits,
-SUM(nonsearch_engagement_clients) AS nonsearch_engagement_clients,
-SUM(default_ui_clients) AS default_ui_clients,
-SUM(any_content_engagement_visits) AS any_content_engagement_visits,
-SUM(organic_content_engagement_visits) AS organic_content_engagement_visits,
-SUM(sponsored_content_engagement_visits) AS sponsored_content_engagement_visits,
-SUM(any_content_engagement_clients) AS any_content_engagement_clients,
-SUM(organic_content_engagement_clients) AS organic_content_engagement_clients,
-SUM(sponsored_content_engagement_clients) AS sponsored_content_engagement_clients,
-SUM(any_content_impression_count) AS any_content_impression_count,
-SUM(organic_content_impression_count) AS organic_content_impression_count,
-SUM(sponsored_content_impression_count) AS sponsored_content_impression_count,
-SUM(any_content_click_count) AS any_content_click_count,
-SUM(organic_content_click_count) AS organic_content_click_count,
-SUM(sponsored_content_click_count) AS sponsored_content_click_count,
-SUM(any_topsite_engagement_visits) AS any_topsite_engagement_visits,
-SUM(organic_topsite_engagement_visits) AS organic_topsite_engagement_visits,
-SUM(sponsored_topsite_engagement_visits) AS sponsored_topsite_engagement_visits,
-SUM(any_topsite_engagement_clients) AS any_topsite_engagement_clients,
-SUM(organic_topsite_engagement_clients) AS organic_topsite_engagement_clients,
-SUM(sponsored_topsite_engagement_clients) AS sponsored_topsite_engagement_clients,
-SUM(any_topsite_impression_count) AS any_topsite_impression_count,
-SUM(organic_topsite_impression_count) AS organic_topsite_impression_count,
-SUM(sponsored_topsite_impression_count) AS sponsored_topsite_impression_count,
-SUM(any_topsite_click_count) AS any_topsite_click_count,
-SUM(organic_topsite_click_count) AS organic_topsite_click_count,
-SUM(sponsored_topsite_click_count) AS sponsored_topsite_click_count,
-SUM(widget_engagement_visits) AS widget_engagement_visits,
-SUM(widget_engagement_clients) AS widget_engagement_clients,
-SUM(others_engagement_visits) AS others_engagement_visits,
-SUM(others_engagement_clients) AS others_engagement_clients,
-
-      newtab_clients_daily_aggregates_base_fields_app_version,
-      newtab_clients_daily_aggregates_base_fields_channel,
-      newtab_clients_daily_aggregates_base_fields_country,
-      newtab_clients_daily_aggregates_base_fields_homepage_category,
-      newtab_clients_daily_aggregates_base_fields_locale,
-      newtab_clients_daily_aggregates_base_fields_newtab_category,
-      newtab_clients_daily_aggregates_base_fields_newtab_search_enabled,
-      newtab_clients_daily_aggregates_base_fields_organic_content_enabled,
-      newtab_clients_daily_aggregates_base_fields_organic_topsites_enabled,
-      newtab_clients_daily_aggregates_base_fields_os,
-      newtab_clients_daily_aggregates_base_fields_sponsored_content_enabled,
-      newtab_clients_daily_aggregates_base_fields_sponsored_topsites_enabled,
-
-      NULL AS client_id,
-      {% if aggregate_metrics_by._parameter_value == 'day' %}
-      submission_date AS analysis_basis
-      {% elsif aggregate_metrics_by._parameter_value == 'week'  %}
-      (FORMAT_DATE(
-      '%F',
-      DATE_TRUNC(submission_date,
-      WEEK(MONDAY)))
-      ) AS analysis_basis
-      {% elsif aggregate_metrics_by._parameter_value == 'month'  %}
-      (FORMAT_DATE(
-      '%Y-%m',
-      submission_date)
-      ) AS analysis_basis
-      {% elsif aggregate_metrics_by._parameter_value == 'quarter'  %}
-      (FORMAT_DATE(
-      '%Y-%m',
-      DATE_TRUNC(submission_date,
-      QUARTER))
-      ) AS analysis_basis
-      {% elsif aggregate_metrics_by._parameter_value == 'year'  %}
-      (EXTRACT(
-      YEAR FROM submission_date)
-      ) AS analysis_basis
-      {% else %}
-      NULL as analysis_basis
-      {% endif %}
-      FROM
-      (
-      SELECT
-      newtab_clients_daily_aggregates.*,
-      newtab_clients_daily_aggregates_base_fields.app_version AS newtab_clients_daily_aggregates_base_fields_app_version,
-      newtab_clients_daily_aggregates_base_fields.channel AS newtab_clients_daily_aggregates_base_fields_channel,
-      newtab_clients_daily_aggregates_base_fields.country AS newtab_clients_daily_aggregates_base_fields_country,
-      newtab_clients_daily_aggregates_base_fields.homepage_category AS newtab_clients_daily_aggregates_base_fields_homepage_category,
-      newtab_clients_daily_aggregates_base_fields.locale AS newtab_clients_daily_aggregates_base_fields_locale,
-      newtab_clients_daily_aggregates_base_fields.newtab_category AS newtab_clients_daily_aggregates_base_fields_newtab_category,
-      newtab_clients_daily_aggregates_base_fields.newtab_search_enabled AS newtab_clients_daily_aggregates_base_fields_newtab_search_enabled,
-      newtab_clients_daily_aggregates_base_fields.organic_content_enabled AS newtab_clients_daily_aggregates_base_fields_organic_content_enabled,
-      newtab_clients_daily_aggregates_base_fields.organic_topsites_enabled AS newtab_clients_daily_aggregates_base_fields_organic_topsites_enabled,
-      newtab_clients_daily_aggregates_base_fields.os AS newtab_clients_daily_aggregates_base_fields_os,
-      newtab_clients_daily_aggregates_base_fields.sponsored_content_enabled AS newtab_clients_daily_aggregates_base_fields_sponsored_content_enabled,
-      newtab_clients_daily_aggregates_base_fields.sponsored_topsites_enabled AS newtab_clients_daily_aggregates_base_fields_sponsored_topsites_enabled,
-
-      FROM
-      (
-      SELECT
-      *
-      FROM
-      moz-fx-data-shared-prod.firefox_desktop_derived.newtab_clients_daily_aggregates_v2
-      ) AS newtab_clients_daily_aggregates
-      INNER JOIN
-      (
-      SELECT
-      *
-      FROM
-      (SELECT
-      submission_date, app_version, os, channel, locale, country, homepage_category, newtab_category,
-      organic_content_enabled, sponsored_content_enabled, sponsored_topsites_enabled, organic_topsites_enabled, newtab_search_enabled
-      FROM moz-fx-data-shared-prod.firefox_desktop_derived.newtab_clients_daily_aggregates_v2)
-      ) AS newtab_clients_daily_aggregates_base_fields
-
-      ON
-      (newtab_clients_daily_aggregates.submission_date = newtab_clients_daily_aggregates_base_fields.submission_date OR (newtab_clients_daily_aggregates.submission_date IS NULL AND newtab_clients_daily_aggregates_base_fields.submission_date IS NULL ))
-      AND (newtab_clients_daily_aggregates.app_version = newtab_clients_daily_aggregates_base_fields.app_version OR (newtab_clients_daily_aggregates.app_version IS NULL AND newtab_clients_daily_aggregates_base_fields.app_version IS NULL ))
-      AND (newtab_clients_daily_aggregates.os = newtab_clients_daily_aggregates_base_fields.os OR (newtab_clients_daily_aggregates.os IS NULL AND newtab_clients_daily_aggregates_base_fields.os IS NULL ))
-      AND (newtab_clients_daily_aggregates.channel = newtab_clients_daily_aggregates_base_fields.channel OR (newtab_clients_daily_aggregates.channel IS NULL AND newtab_clients_daily_aggregates_base_fields.channel IS NULL ))
-      AND (newtab_clients_daily_aggregates.locale = newtab_clients_daily_aggregates_base_fields.locale OR (newtab_clients_daily_aggregates.locale IS NULL AND newtab_clients_daily_aggregates_base_fields.locale IS NULL ))
-      AND (newtab_clients_daily_aggregates.country = newtab_clients_daily_aggregates_base_fields.country OR (newtab_clients_daily_aggregates.country IS NULL AND newtab_clients_daily_aggregates_base_fields.country IS NULL ))
-      AND (newtab_clients_daily_aggregates.homepage_category = newtab_clients_daily_aggregates_base_fields.homepage_category OR (newtab_clients_daily_aggregates.homepage_category IS NULL AND newtab_clients_daily_aggregates_base_fields.homepage_category IS NULL ))
-      AND (newtab_clients_daily_aggregates.newtab_category = newtab_clients_daily_aggregates_base_fields.newtab_category OR (newtab_clients_daily_aggregates.newtab_category IS NULL AND newtab_clients_daily_aggregates_base_fields.newtab_category IS NULL ))
-      AND (newtab_clients_daily_aggregates.organic_content_enabled = newtab_clients_daily_aggregates_base_fields.organic_content_enabled OR (newtab_clients_daily_aggregates.organic_content_enabled IS NULL AND newtab_clients_daily_aggregates_base_fields.organic_content_enabled IS NULL ))
-      AND (newtab_clients_daily_aggregates.sponsored_content_enabled = newtab_clients_daily_aggregates_base_fields.sponsored_content_enabled OR (newtab_clients_daily_aggregates.sponsored_content_enabled IS NULL AND newtab_clients_daily_aggregates_base_fields.sponsored_content_enabled IS NULL ))
-      AND (newtab_clients_daily_aggregates.sponsored_topsites_enabled = newtab_clients_daily_aggregates_base_fields.sponsored_topsites_enabled OR (newtab_clients_daily_aggregates.sponsored_topsites_enabled IS NULL AND newtab_clients_daily_aggregates_base_fields.sponsored_topsites_enabled IS NULL ))
-      AND (newtab_clients_daily_aggregates.organic_topsites_enabled = newtab_clients_daily_aggregates_base_fields.organic_topsites_enabled OR (newtab_clients_daily_aggregates.organic_topsites_enabled IS NULL AND newtab_clients_daily_aggregates_base_fields.organic_topsites_enabled IS NULL ))
-      AND (newtab_clients_daily_aggregates.newtab_search_enabled = newtab_clients_daily_aggregates_base_fields.newtab_search_enabled OR (newtab_clients_daily_aggregates.newtab_search_enabled IS NULL AND newtab_clients_daily_aggregates_base_fields.newtab_search_enabled IS NULL ))
-
-
-      WHERE
-      newtab_clients_daily_aggregates.submission_date
-      BETWEEN
-      {% if submission_date_extension._parameter_value == "year_1" %}
-      DATE_SUB(COALESCE(SAFE_CAST({% date_start submission_date_range %} AS DATE), CURRENT_DATE()), INTERVAL 393 DAY)
-      {% elsif submission_date_extension._parameter_value == "days_28" %}
-      DATE_SUB(COALESCE(SAFE_CAST({% date_start submission_date_range %} AS DATE), CURRENT_DATE()), INTERVAL 28 DAY)
-      {% elsif submission_date_extension._parameter_value == "days_7" %}
-      DATE_SUB(COALESCE(SAFE_CAST({% date_start submission_date_range %} AS DATE), CURRENT_DATE()), INTERVAL 7 DAY)
-      {% else %}
-      COALESCE(SAFE_CAST({% date_start submission_date_range %} AS DATE), CURRENT_DATE())
-      {% endif %}
-      AND
-      COALESCE(
-      SAFE_CAST(
-      {% date_end submission_date_range %} AS DATE
-      ), CURRENT_DATE())
-      AND
-      newtab_clients_daily_aggregates_base_fields.submission_date
-      BETWEEN
-      {% if submission_date_extension._parameter_value == 'year_1' %}
-      DATE_SUB(COALESCE(SAFE_CAST({% date_start submission_date_range %} AS DATE), CURRENT_DATE()), INTERVAL 393 DAY)
-      {% elsif submission_date_extension._parameter_value == 'days_28' %}
-      DATE_SUB(COALESCE(SAFE_CAST({% date_start submission_date_range %} AS DATE), CURRENT_DATE()), INTERVAL 28 DAY)
-      {% elsif submission_date_extension._parameter_value == 'days_7' %}
-      DATE_SUB(COALESCE(SAFE_CAST({% date_start submission_date_range %} AS DATE), CURRENT_DATE()), INTERVAL 7 DAY)
-      {% else %}
-      COALESCE(SAFE_CAST({% date_start submission_date_range %} AS DATE), CURRENT_DATE())
-      {% endif %}
-      AND
-      COALESCE(
-      SAFE_CAST(
-      {% date_end submission_date_range %} AS DATE
-      ), CURRENT_DATE())
-
-      )
-      GROUP BY
-      newtab_clients_daily_aggregates_base_fields_app_version,
-      newtab_clients_daily_aggregates_base_fields_channel,
-      newtab_clients_daily_aggregates_base_fields_country,
-      newtab_clients_daily_aggregates_base_fields_homepage_category,
-      newtab_clients_daily_aggregates_base_fields_locale,
-      newtab_clients_daily_aggregates_base_fields_newtab_category,
-      newtab_clients_daily_aggregates_base_fields_newtab_search_enabled,
-      newtab_clients_daily_aggregates_base_fields_organic_content_enabled,
-      newtab_clients_daily_aggregates_base_fields_organic_topsites_enabled,
-      newtab_clients_daily_aggregates_base_fields_os,
-      newtab_clients_daily_aggregates_base_fields_sponsored_content_enabled,
-      newtab_clients_daily_aggregates_base_fields_sponsored_topsites_enabled,
-
-      client_id,
-      analysis_basis ;;
-  }
-
-  dimension: client_id {
-    type: string
-    sql: SAFE_CAST(${TABLE}.client_id AS STRING) ;;
-    label: "Client ID"
-    primary_key: yes
-    group_label: "Base Fields"
-    description: "Unique client identifier"
-  }
-
-  dimension: nonsearch_engagement_visits {
-    group_label: "Metrics"
-    label: "Nonsearch Engagement Visits"
-    description: "Count of visits with nonsearch engagement"
-    type: number
-    sql: ${TABLE}.nonsearch_engagement_visits ;;
+          *
+        FROM
+          `moz-fx-data-shared-prod.firefox_desktop_derived.newtab_clients_daily_aggregates_v2`
+        WHERE
+          submission_date
+          BETWEEN
+          {% if submission_date_extension._parameter_value == "year_1" %}
+          DATE_SUB(COALESCE(SAFE_CAST({% date_start submission_date_range %} AS DATE), CURRENT_DATE()), INTERVAL 394 DAY)
+          {% elsif submission_date_extension._parameter_value == "days_28" %}
+          DATE_SUB(COALESCE(SAFE_CAST({% date_start submission_date_range %} AS DATE), CURRENT_DATE()), INTERVAL 28 DAY)
+          {% elsif submission_date_extension._parameter_value == "days_7" %}
+          DATE_SUB(COALESCE(SAFE_CAST({% date_start submission_date_range %} AS DATE), CURRENT_DATE()), INTERVAL 7 DAY)
+          {% else %}
+          COALESCE(SAFE_CAST({% date_start submission_date_range %} AS DATE), CURRENT_DATE())
+          {% endif %}
+          AND
+          COALESCE(
+          SAFE_CAST(
+          {% date_end submission_date_range %} AS DATE
+          ), CURRENT_DATE())
+    ;;
   }
 
   dimension: default_ui_visits {
@@ -204,6 +33,30 @@ SUM(others_engagement_clients) AS others_engagement_clients,
     description: "Count of visits with default UI"
     type: number
     sql: ${TABLE}.default_ui_visits ;;
+  }
+
+  dimension: any_engagement_visits {
+    group_label: "Metrics"
+    label: "Any Engagement Visits"
+    description: "Count of visits with any engagement"
+    type: number
+    sql: ${TABLE}.any_engagement_visits ;;
+  }
+
+  dimension: any_engagement_clients {
+    group_label: "Metrics"
+    label: "Any Engagement Clients"
+    description: "Count clients with any engagement"
+    type: number
+    sql: ${TABLE}.any_engagement_clients ;;
+  }
+
+  dimension: nonsearch_engagement_visits {
+    group_label: "Metrics"
+    label: "Nonsearch Engagement Visits"
+    description: "Count of visits with nonsearch engagement"
+    type: number
+    sql: ${TABLE}.nonsearch_engagement_visits ;;
   }
 
   dimension: nonsearch_engagement_clients {
@@ -430,6 +283,23 @@ SUM(others_engagement_clients) AS others_engagement_clients,
     sql: ${TABLE}.widget_engagement_clients ;;
   }
 
+  dimension: widget_interaction_count {
+    group_label: "Metrics"
+    label: "Widget Interaction Count"
+    description: "Count of clients with widget interaction"
+    type: number
+    sql: ${TABLE}.widget_interaction_count ;;
+  }
+
+  dimension: widget_impression_count {
+    group_label: "Metrics"
+    label: "Widget Impressions Count"
+    description: "Count of widget impressions"
+    type: number
+    sql: ${TABLE}.widget_impression_count ;;
+  }
+
+
   dimension: others_engagement_visits {
     group_label: "Metrics"
     label: "Others Engagement Visits"
@@ -446,22 +316,39 @@ SUM(others_engagement_clients) AS others_engagement_clients,
     sql: ${TABLE}.others_engagement_clients ;;
   }
 
+  dimension: others_interaction_count {
+    group_label: "Metrics"
+    label: "Other Interaction Count"
+    description: "Count of clients with Other interaction"
+    type: number
+    sql: ${TABLE}.other_interaction_count ;;
+  }
+
+  dimension: others_impression_count {
+    group_label: "Metrics"
+    label: "Other Impressions Count"
+    description: "Count of other impressions"
+    type: number
+    sql: ${TABLE}.other_impression_count ;;
+  }
+
   dimension: app_version {
-    sql: ${TABLE}.newtab_clients_daily_aggregates_base_fields_app_version ;;
+    sql: ${TABLE}.app_version ;;
     type: number
     suggest_persist_for: "24 hours"
     group_label: "Base Fields"
   }
 
   dimension: channel {
-    sql: ${TABLE}.newtab_clients_daily_aggregates_base_fields_channel ;;
+    sql: COALESCE(${TABLE}.channel, "Unknown") ;;
     type: string
     suggest_persist_for: "24 hours"
     group_label: "Base Fields"
+    suggestions: ["release", "esr", "beta", "Other", "nightly", "aurora", "Unknown"]
   }
 
   dimension: country {
-    sql: ${TABLE}.newtab_clients_daily_aggregates_base_fields_country ;;
+    sql: ${TABLE}.country ;;
     type: string
     suggest_persist_for: "24 hours"
     map_layer_name: countries
@@ -469,63 +356,64 @@ SUM(others_engagement_clients) AS others_engagement_clients,
   }
 
   dimension: homepage_category {
-    sql: ${TABLE}.newtab_clients_daily_aggregates_base_fields_homepage_category ;;
+    sql: ${TABLE}.homepage_category ;;
     type: string
     suggest_persist_for: "24 hours"
     group_label: "Base Fields"
   }
 
   dimension: locale {
-    sql: ${TABLE}.newtab_clients_daily_aggregates_base_fields_locale ;;
+    sql: ${TABLE}.locale ;;
     type: string
     suggest_persist_for: "24 hours"
     group_label: "Base Fields"
   }
 
   dimension: newtab_category {
-    sql: ${TABLE}.newtab_clients_daily_aggregates_base_fields_newtab_category ;;
+    sql: ${TABLE}.newtab_category ;;
     type: string
     suggest_persist_for: "24 hours"
     group_label: "Base Fields"
   }
 
   dimension: newtab_search_enabled {
-    sql: ${TABLE}.newtab_clients_daily_aggregates_base_fields_newtab_search_enabled ;;
+    sql: ${TABLE}.newtab_search_enabled ;;
     type: yesno
     suggest_persist_for: "24 hours"
     group_label: "Base Fields"
   }
 
   dimension: organic_content_enabled {
-    sql: ${TABLE}.newtab_clients_daily_aggregates_base_fields_organic_content_enabled ;;
+    sql: ${TABLE}.organic_content_enabled ;;
     type: yesno
     suggest_persist_for: "24 hours"
     group_label: "Base Fields"
   }
 
   dimension: organic_topsites_enabled {
-    sql: ${TABLE}.newtab_clients_daily_aggregates_base_fields_organic_topsites_enabled ;;
+    sql: ${TABLE}.organic_topsites_enabled ;;
     type: yesno
     suggest_persist_for: "24 hours"
     group_label: "Base Fields"
   }
 
   dimension: os {
-    sql: ${TABLE}.newtab_clients_daily_aggregates_base_fields_os ;;
+    sql: ${TABLE}.os ;;
     type: string
     suggest_persist_for: "24 hours"
     group_label: "Base Fields"
+    suggestions: ["Windows", "Mac", "Linux", "Other"]
   }
 
   dimension: sponsored_content_enabled {
-    sql: ${TABLE}.newtab_clients_daily_aggregates_base_fields_sponsored_content_enabled ;;
+    sql: ${TABLE}.sponsored_content_enabled ;;
     type: yesno
     suggest_persist_for: "24 hours"
     group_label: "Base Fields"
   }
 
   dimension: sponsored_topsites_enabled {
-    sql: ${TABLE}.newtab_clients_daily_aggregates_base_fields_sponsored_topsites_enabled ;;
+    sql: ${TABLE}.sponsored_topsites_enabled ;;
     type: yesno
     suggest_persist_for: "24 hours"
     group_label: "Base Fields"
@@ -534,7 +422,7 @@ SUM(others_engagement_clients) AS others_engagement_clients,
   dimension_group: submission {
     type: time
     group_label: "Base Fields"
-    sql: CAST(${TABLE}.analysis_basis AS TIMESTAMP) ;;
+    sql: ${TABLE}.submission_date ;;
     label: "Submission"
     timeframes: [
       raw,
@@ -544,6 +432,24 @@ SUM(others_engagement_clients) AS others_engagement_clients,
       quarter,
       year,
     ]
+  }
+
+  measure: any_engagement_visits_sum {
+    type: sum
+    sql: ${TABLE}.any_engagement_visits*1 ;;
+    label: "Any Engagement Visits Sum"
+    group_label: "Statistics"
+    description: "Sum of Any Engagement Visits"
+  }
+
+  measure: any_engagement_visits_ratio {
+    type: number
+    label: "Any Engagement Visits Ratio"
+    sql: SAFE_DIVIDE(${any_engagement_visits_sum}, ${default_ui_visits_sum}) ;;
+    group_label: "Statistics"
+    description: "\"
+    Ratio between any_engagement_visits.sum and
+    default_ui_visits.sum"
   }
 
   measure: nonsearch_engagement_visits_sum {
@@ -570,6 +476,24 @@ SUM(others_engagement_clients) AS others_engagement_clients,
     label: "Default UI Visits Sum"
     group_label: "Statistics"
     description: "Sum of Default UI Visits"
+  }
+
+  measure: any_engagement_clients_sum {
+    type: sum
+    sql: ${TABLE}.any_engagement_clients*1 ;;
+    label: "Any Engagement Clients Sum"
+    group_label: "Statistics"
+    description: "Sum of Any Engagement Clients"
+  }
+
+  measure: any_engagement_clients_ratio {
+    type: number
+    label: "Any Engagement Clients Ratio"
+    sql: SAFE_DIVIDE(${any_engagement_clients_sum}, ${default_ui_clients_sum}) ;;
+    group_label: "Statistics"
+    description: "\"
+    Ratio between any_engagement_clients.sum and
+    default_ui_clients.sum"
   }
 
   measure: nonsearch_engagement_clients_sum {
@@ -994,8 +918,70 @@ SUM(others_engagement_clients) AS others_engagement_clients,
     description: "Sum of Others Engagement Visits"
   }
 
+  measure: others_engagement_clients_sum {
+    type: sum
+    sql: ${TABLE}.others_engagement_clients*1 ;;
+    label: "Others Engagement Clients Sum"
+    group_label: "Statistics"
+    description: "Sum of Others Engagement Clients"
+  }
+
+  measure: widget_impression_count_sum {
+    type: sum
+    sql: ${TABLE}.widget_impression_count*1 ;;
+    label: "Sum of Widget Impressions  Sum"
+    group_label: "Statistics"
+    description: "Sum of Sum of Widget Impressions "
+  }
+
+  measure: widget_interaction_count_sum {
+    type: sum
+    sql: ${TABLE}.widget_interaction_count*1 ;;
+    label: "Sum of all Widget interaction  Sum"
+    group_label: "Statistics"
+    description: "Sum of Sum of all Widget interactions "
+  }
+
+  measure: widget_interaction_count_ratio {
+    type: number
+    label: "Sum of all Widget interactions  Ratio"
+    sql: SAFE_DIVIDE(${widget_interaction_count_sum}, ${widget_impression_count_sum}) ;;
+    group_label: "Statistics"
+    description: "\"
+    Ratio between widget_interaction_count.sum and
+    widget_impression_count.sum"
+  }
+
+  measure: others_impression_count_sum {
+    type: sum
+    sql: ${TABLE}.other_impression_count*1 ;;
+    label: "Sum of Others Impressions  Sum"
+    group_label: "Statistics"
+    description: "Sum of Sum of Others Impressions "
+  }
+
+  measure: others_interaction_count_sum {
+    type: sum
+    sql: ${TABLE}.other_interaction_count*1 ;;
+    label: "Sum of all Others interaction  Sum"
+    group_label: "Statistics"
+    description: "Sum of Sum of all Others interactions "
+  }
+
+  measure: others_interaction_count_ratio {
+    type: number
+    label: "Sum of all Others interactions  Ratio"
+    sql: SAFE_DIVIDE(${others_interaction_count_sum}, ${others_impression_count_sum}) ;;
+    group_label: "Statistics"
+    description: "\"
+    Ratio between other_interaction_count.sum and
+    other_impression_count.sum"
+  }
+
   set: metrics {
     fields: [
+      any_engagement_visits,
+      any_engagement_clients,
       nonsearch_engagement_visits,
       default_ui_visits,
       nonsearch_engagement_clients,
@@ -1028,9 +1014,13 @@ SUM(others_engagement_clients) AS others_engagement_clients,
       widget_engagement_clients,
       others_engagement_visits,
       others_engagement_clients,
+      any_engagement_visits_sum,
+      any_engagement_visits_ratio,
       nonsearch_engagement_visits_sum,
       nonsearch_engagement_visits_ratio,
       default_ui_visits_sum,
+      any_engagement_clients_sum,
+      any_engagement_clients_ratio,
       nonsearch_engagement_clients_sum,
       nonsearch_engagement_clients_ratio,
       default_ui_clients_sum,
@@ -1079,6 +1069,13 @@ SUM(others_engagement_clients) AS others_engagement_clients,
       widget_engagement_visits_sum,
       widget_engagement_clients_sum,
       others_engagement_visits_sum,
+      others_engagement_clients_sum,
+      widget_impression_count_sum,
+      widget_interaction_count_sum,
+      widget_interaction_count_ratio,
+      others_impression_count_sum,
+      others_interaction_count_sum,
+      others_interaction_count_ratio,
     ]
   }
 
