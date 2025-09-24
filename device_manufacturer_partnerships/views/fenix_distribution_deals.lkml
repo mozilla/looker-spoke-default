@@ -1,72 +1,72 @@
-include: "//looker-hub/device_manufacturer_partnerships/views/fenix_distribution_deals"
+include: "//looker-hub/device_manufacturer_partnerships/views/fenix_distribution_deals.view.lkml"
 
 view: +fenix_distribution_deals {
     # defining measures
-    measure: dau {
+    measure: sum_dau {
         type: sum
         sql: ${TABLE}.dau ;;
     }
-    measure: wau {
+    measure: sum_wau {
         type: sum
         sql: ${TABLE}.wau ;;
     }
-    measure: mau {
+    measure: sum_mau {
         type: sum
         sql: ${TABLE}.mau ;;
     }
-    measure: client_count {
+    measure: sum_client_count {
         type: sum
         sql: ${TABLE}.client_count ;;
     }
-    measure: default_browser_count {
+    measure: sum_default_browser_count {
         type: sum
         sql: ${TABLE}.default_browser_count ;;
     }
-    measure: dma_count {
+    measure: sum_dma_count {
         type: sum
         sql: ${TABLE}.dma_count ;;
     }
-    measure: retained_week_4 {
+    measure: sum_retained_week_4 {
         type: sum
         sql: ${TABLE}.retained_week_4 ;;
     }
-    measure: retained_week_4_new_profile {
+    measure: sum_retained_week_4_new_profile {
         type: sum
         sql: ${TABLE}.retained_week_4_new_profile ;;
     }
-    measure: repeat_profile {
+    measure: sum_repeat_profile {
         type: sum
         sql: ${TABLE}.repeat_profile ;;
     }
-    measure: organic {
+    measure: sum_organic {
         type: sum
         sql: ${TABLE}.organic ;;
     }
-    measure: ad_click {
+    measure: sum_ad_click {
         type: sum
         sql: ${TABLE}.ad_click ;;
     }
-    measure: search_count {
+    measure: sum_search_count {
         type: sum
         sql: ${TABLE}.search_count ;;
     }
-    measure: search_with_ads {
+    measure: sum_search_with_ads {
         type: sum
         sql: ${TABLE}.search_with_ads ;;
     }
-    measure: tagged_follow_on {
+    measure: sum_tagged_follow_on {
         type: sum
         sql: ${TABLE}.tagged_follow_on ;;
     }
-    measure: tagged_sap {
+    measure: sum_tagged_sap {
         type: sum
         sql: ${TABLE}.tagged_sap ;;
     }
-    measure: total_ltv {
+    measure: sum_total_ltv {
         type: sum
         sql: ${TABLE}.total_ltv ;;
     }
-    measure: average_ltv {
+    measure: avg_average_ltv {
         type: average
         sql: ${TABLE}.average_ltv ;;
     }
