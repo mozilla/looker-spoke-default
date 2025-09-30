@@ -1,136 +1,33 @@
 view: device_partnership_app_opens {
   derived_table: {
-    sql: WITH
-####################
-#Clients with first session ping
-####################
-first_session AS (
-    SELECT
-        normalized_country_code AS country,
-        DATE_TRUNC(DATE(submission_timestamp), MONTH) as submission_month,
-        metrics.string.first_session_distribution_id AS distribution_id,
-        COUNT(DISTINCT client_info.client_id) AS partner_app_open_count,
-    FROM
-        `mozdata.fenix.first_session`  AS first_session
-    WHERE
-        metrics.string.first_session_distribution_id IS NOT NULL
-        AND metrics.string.first_session_distribution_id NOT IN ('Mozilla', 'MozillaOnline')
-        AND DATE(submission_timestamp) >= "2025-01-01"
-    GROUP BY
-    1, 2, 3
-),
-####################
-#DT 001 Device activations
-####################
-dt_001_activations AS (
-    SELECT
-        DATE(CONCAT(date, "-01")) as submission_month,
-        "dt-001" AS distribution_id,
-        CASE
-          WHEN country = 'Germany' THEN 'DE'
-          WHEN country = 'United Kingdom' THEN 'GB'
-          WHEN country = 'Spain' THEN 'ES'
-        END as country,
-        SUM(preloaded) AS partner_activated
-    FROM
-        `mozdata.device_manufacturer_partnerships.preload_and_open_telefonica_dt`
-    WHERE
-        DATE(CONCAT(date, "-01")) >= "2025-01-01"
-    GROUP BY 1, 2, 3
-),
-####################
-#DT 002 Device activations
-####################
-dt_002_activations AS (
-    SELECT
-        DATE(CONCAT(date, "-01")) as submission_month,
-        "dt-002" AS distribution_id,
-        country_code as country,
-        SUM(preloaded) AS partner_activated,
-        --SUM(opened) AS partner_opened_count
-    FROM
-        `mozdata.device_manufacturer_partnerships.preload_and_open_dt`
-    WHERE
-        DATE(CONCAT(date, "-01")) >= "2025-01-01"
-    GROUP BY 1, 2, 3
-),
-######
-#dt 003 device activations
-######
-dt_003_activations AS (
-    SELECT
-        DATE(CONCAT(date, "-01")) as submission_month,
-        "dt-003" AS distribution_id,
-        country_code as country,
-        SUM(preloaded) AS partner_activated
-    FROM
-        `mozdata.device_manufacturer_partnerships.preload_and_open_dt`
-    WHERE
-        DATE(CONCAT(date, "-01")) >= "2025-01-01"
-    GROUP BY 1, 2, 3
-),
-####################
-#vivo Device activations
-####################
-vivo_activations AS (
-    SELECT
-        DATE(CONCAT(date, "-01")) as submission_month,
-        "vivo-001" AS distribution_id,
-        country_code AS country,
-        SUM(activated) as partner_activated
-    FROM
-        `mozdata.device_manufacturer_partnerships.shipment_and_activation_vivo`
-    WHERE
-        DATE(CONCAT(date, "-01")) >= "2025-01-01"
-    GROUP BY
-    1, 2, 3
-)
-SELECT
-    country,
-    submission_month,
-    distribution_id,
-    first_session.partner_app_open_count,
-    partner_activated
-FROM first_session
-RIGHT JOIN dt_002_activations
-USING(country, submission_month, distribution_id)
-UNION ALL
-SELECT
-    country,
-    submission_month,
-    distribution_id,
-    first_session.partner_app_open_count,
-    partner_activated
-FROM first_session
-RIGHT JOIN dt_003_activations
-USING(country, submission_month, distribution_id)
-UNION ALL
-SELECT
-    country,
-    submission_month,
-    distribution_id,
-    first_session.partner_app_open_count,
-    partner_activated
-FROM first_session
-RIGHT JOIN dt_001_activations
-USING(country, submission_month, distribution_id)
-UNION ALL
-SELECT
-    country,
-    submission_month,
-    distribution_id,
-    first_session.partner_app_open_count,
-    partner_activated
-FROM first_session
-RIGHT JOIN vivo_activations
-USING(country, submission_month, distribution_id)
-      ;;
-  }
+    sql: WITH new_profiles AS (
+        SELECT DATE_TRUNC(submission_date, MONTH) as date,
+        country_code,
+        distribution_id,
+        COUNTIF(is_new_profile) as monthly_new_profiles
+      FROM
+        `moz-fx-data-shared-prod.device_manufacturer_partnerships.fenix_distribution_deal_clients`
+      WHERE
+        submission_date >= '2025-03-01'
+      GROUP BY
+        ALL
+      ),
+      preloads AS (SELECT * FROM
+      `moz-fx-data-shared-prod.device_manufacturer_partnerships.fenix_preload_and_open`
+      WHERE date >= '2025-03-01')
 
-  dimension: country {
-    description: "two letter country code"
-    type: string
-    sql: ${TABLE}.country ;;
+      SELECT preloads.date AS submission_month,
+      preloads.distribution_id,
+      preloads.country,
+      preloads.country_code,
+      preloads.region_name,
+      preloads.subregion_name,
+      preloads.preloaded,
+      new_profiles.monthly_new_profiles
+      FROM preloads
+      JOIN new_profiles
+      USING(date, distribution_id, country_code)
+      ;;
   }
 
   dimension: submission_month {
@@ -145,39 +42,60 @@ USING(country, submission_month, distribution_id)
     sql: ${TABLE}.distribution_id ;;
   }
 
-  dimension: partner_app_open_count {
-    description: "the distinct number of clients that opened app"
-    type: number
-    sql: ${TABLE}.partner_app_open_count ;;
+  dimension: country {
+    description: "country name"
+    type: string
+    sql: ${TABLE}.country ;;
   }
 
-  dimension: partner_activated {
-    description: "the number of clients with the app activated"
-    type: number
-    sql: ${TABLE}.partner_activated ;;
+  dimension: country_code {
+    description: "two letter country code"
+    type: string
+    sql: ${TABLE}.country_code ;;
   }
 
-  dimension: ctr {
-    description: "partner_app_count/partner_activated"
-    type: number
-    sql: SAFE_DIVIDE(${TABLE}.partner_app_open_count, ${TABLE}.partner_activated);;
+  dimension: region_name {
+    description: "region name "
+    type: string
+    sql: ${TABLE}.region_name ;;
   }
 
-  measure: total_partner_activated {
-    description: "total preloaded clients over time"
+  dimension: subregion_name {
+    description: "subregion_name"
+    type: string
+    sql: ${TABLE}.subregion_name ;;
+  }
+
+  dimension: preloaded {
+    description: "the number of devices with Fx preloaded"
+    type: number
+    sql: ${TABLE}.preloaded ;;
+    hidden: yes
+  }
+
+  dimension: monthly_new_profiles {
+    description: "the number of new profiles that opened the app"
+    type: number
+    sql: ${TABLE}.monthly_new_profiles ;;
+    hidden: yes
+  }
+
+  measure: preloads {
+    description: "sum of preloaded devices over time"
     type: sum
-    sql: ${TABLE}.partner_activated ;;
+    sql: ${TABLE}.preloaded ;;
   }
 
-  measure: total_partner_app_count {
-    description: "total number of clients that opened app over time"
+  measure: new_profiles {
+    description: "sum of new clients that opened app over time"
     type: sum
-    sql: ${TABLE}.partner_app_open_count ;;
+    sql: ${TABLE}.monthly_new_profiles ;;
   }
 
-  measure: total_ctr {
-    description: "total ctr (partner_app_open_count/partner_activated) over time"
+  measure: app_open_rate {
+    description: "app_open_rate (new_profiles/preloads) over time"
     type: number
-    sql: SAFE_DIVIDE(${total_partner_app_count}, ${total_partner_activated}) ;;
+    sql: SAFE_DIVIDE(${new_profiles}, ${preloads}) ;;
+    value_format_name: percent_2
   }
 }
