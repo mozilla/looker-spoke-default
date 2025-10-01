@@ -55,7 +55,7 @@ view: device_partnership_app_opens {
   }
 
   dimension: region_name {
-    description: "region name "
+    description: "region name"
     type: string
     sql: ${TABLE}.region_name ;;
   }
