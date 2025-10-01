@@ -14,7 +14,7 @@ view: device_partnership_app_opens {
       ),
       preloads AS (SELECT * FROM
       `moz-fx-data-shared-prod.device_manufacturer_partnerships.fenix_preload_and_open`
-      WHERE date >= '2025-03-01')
+      WHERE date >= '2025-01-01')
 
       SELECT preloads.date AS submission_month,
       preloads.distribution_id,
@@ -25,7 +25,7 @@ view: device_partnership_app_opens {
       preloads.preloaded,
       new_profiles.monthly_new_profiles
       FROM preloads
-      JOIN new_profiles
+      LEFT JOIN new_profiles
       USING(date, distribution_id, country_code)
       ;;
   }
