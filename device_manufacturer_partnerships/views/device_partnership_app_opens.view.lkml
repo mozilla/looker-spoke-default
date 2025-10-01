@@ -30,10 +30,10 @@ view: device_partnership_app_opens {
       ;;
   }
 
-  dimension: submission_month {
-    description: "submission month in 'YYYY-MM' format"
-    type: date_month
-    sql: ${TABLE}.submission_month ;;
+  dimension_group: submission_date {
+    type: time
+    sql: TIMESTAMP(${TABLE}.submission_month) ;;  # Replace with your actual column name
+    timeframes: [raw, date, month, quarter, year]
   }
 
   dimension: distribution_id {
