@@ -3,7 +3,7 @@ label: "Websites"
 
 include: "dashboards/*"
 include: "explores/*"
-include: "views/blog_performance.view.lkml"
+include: "views/ga4_blog_performance.view.lkml"
 include: "views/blogs_daily_summary.view.lkml"
 include: "views/blogs_landing_page_summary.view.lkml"
 include: "views/firefox_whats_new_page_summary.view.lkml"
@@ -23,7 +23,7 @@ include: "//looker-hub/websites/views/firefox_com_landing_page_metrics.view.lkml
 include: "//looker-hub/websites/views/firefox_com_www_site_events_metrics.view.lkml"
 include: "//looker-hub/websites/views/firefox_com_firefox_whatsnew_summary.view.lkml"
 
-explore: blog_performance{}
+explore: ga4_blog_performance{}
 explore: blogs_daily_summary{}
 explore: blogs_landing_page_summary{}
 explore: moz_org_landing_page_metrics{}
