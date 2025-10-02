@@ -30,5 +30,19 @@ view: +ga4_blog_performance {
     type: sum
     sql: ${nbr_key_events} ;;
   }
+  
+  measure: page_views_per_session {
+    label: "Avg Page Views per Session"
+    type: number
+    value_format_name: percent_2
+    sql: ${pageviews_sum}/ ${sessions_sum} ;;
+  }
+
+  measure: engagement_rate {
+    label: "Engagement Rate"
+    type: number
+    value_format_name: percent_2
+    sql: ${engaged_sessions_sum}/ ${sessions_sum} ;;
+  }
 
 }
