@@ -34,7 +34,7 @@ view: +ga4_blog_performance {
   measure: page_views_per_session {
     label: "Avg Page Views per Session"
     type: number
-    value_format: "#,##0.0"
+    value_format: "#,##0.00"
     sql: ${pageviews_sum}/ ${sessions_sum} ;;
   }
 
