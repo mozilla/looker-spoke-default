@@ -9,7 +9,7 @@ view: +fenix_distribution_deals {
 
     measure: avg_dau {
       type: average
-      sql: $(${TABLE}.dau ;;
+      sql: ${TABLE}.dau ;;
     }
 
     measure: sum_wau {
