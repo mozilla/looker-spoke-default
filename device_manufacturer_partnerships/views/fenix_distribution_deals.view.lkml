@@ -6,6 +6,12 @@ view: +fenix_distribution_deals {
         type: sum
         sql: ${TABLE}.dau ;;
     }
+
+    measure: avg_dau {
+      type: average
+      sql: $(${TABLE}.dau ;;
+    }
+
     measure: sum_wau {
         type: sum
         sql: ${TABLE}.wau ;;
@@ -22,6 +28,13 @@ view: +fenix_distribution_deals {
         type: sum
         sql: ${TABLE}.default_browser_count ;;
     }
+
+    measure: pct_dau_default_browser {
+        type: number
+        sql: SAFE_DIVIDE(${sum_default_browser_count}, ${sum_dau}) ;;
+        value_format_name: percent_2
+    }
+
     measure: sum_dma_count {
         type: sum
         sql: ${TABLE}.dma_count ;;
@@ -34,6 +47,19 @@ view: +fenix_distribution_deals {
         type: sum
         sql: ${TABLE}.retained_week_4_new_profile ;;
     }
+
+    measure: new_profile_retention_rate {
+        type: number
+        sql: SAFE_DIVIDE(${sum_retained_week_4_new_profile}, ${count_new_profiles}) ;;
+        value_format_name: percent_2
+    }
+
+    measure: existing_user_retention_rate {
+        type: number
+        sql: SAFE_DIVIDE(${sum_retained_week_4}, ${count_existing_profiles}) ;;
+        value_format_name: percent_2
+    }
+
     measure: sum_repeat_profile {
         type: sum
         sql: ${TABLE}.repeat_profile ;;
@@ -66,10 +92,14 @@ view: +fenix_distribution_deals {
         type: sum
         sql: ${TABLE}.total_ltv ;;
     }
-    measure: avg_average_ltv {
-        type: average
-        sql: ${TABLE}.average_ltv ;;
+
+
+    measure: ltv {
+        type: number
+        sql: SAFE_DIVIDE(${sum_total_ltv}, ${sum_client_count})  ;;
+        value_format: "$0.000"
     }
+
     measure: count_new_profiles {
         type: count
         filters: [is_new_profile: "true"]
@@ -85,6 +115,22 @@ view: +fenix_distribution_deals {
     measure: count_dau_with_ad_clicks {
         type: count
         filters: [ad_click: ">0"]
+    }
+
+    measure: avg_searches_per_search_dau {
+        type: number
+        sql: SAFE_DIVIDE(${sum_search_count}, ${count_dau_with_search}) ;;
+    }
+
+    measure: ad_clicks_per_search_dau {
+        type: number
+        sql: SAFE_DIVIDE(${sum_ad_click}, ${count_dau_with_search}) ;;
+    }
+
+    measure: pct_dau_with_ad_clicks {
+        type: number
+        sql: SAFE_DIVIDE(${count_dau_with_ad_clicks}, ${sum_dau}) ;;
+        value_format_name: percent_2
     }
 
     # hiding dimensions
