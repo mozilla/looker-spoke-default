@@ -102,11 +102,11 @@ view: +fenix_distribution_deals {
 
     measure: count_new_profiles {
         type: count
-        filters: [is_new_profile: "true"]
+        filters: [is_new_profile: true]
     }
     measure: count_existing_profiles {
         type: count
-        filters: [is_new_profile: "false"]
+        filters: [is_new_profile: false]
     }
     measure: count_dau_with_search {
         type: count
