@@ -78,6 +78,14 @@ view: +fenix_distribution_deals {
         type: count
         filters: [is_new_profile: "false"]
     }
+    measure: count_dau_with_search {
+        type: count
+        filters: [search_count: ">0"]
+    }
+    measure: count_dau_with_ad_clicks {
+        type: count
+        filters: [ad_click: ">0"]
+    }
 
     # hiding dimensions
     dimension: dau {
