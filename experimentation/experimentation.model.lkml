@@ -490,12 +490,22 @@ view: +events {
     type: string
     sql: mozfun.map.get_key(event_map_values, 'reason') ;;
   }
+
+  dimension: changed_pref {
+    type: string
+    sql: mozfun.map.get_key(event_map_values, 'changedPref') ;;
+  }
 }
 
 view: +glean_events {
   dimension: reason {
     type:  string
     sql:  mozfun.map.get_key(event_extra, 'reason') ;;
+  }
+
+  dimension: changed_pref {
+    type: string
+    sql: mozfun.map.get_key(event_extra, 'changed_pref') ;;
   }
 
   dimension: experiment {
