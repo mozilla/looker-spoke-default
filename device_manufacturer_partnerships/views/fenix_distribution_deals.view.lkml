@@ -102,11 +102,11 @@ view: +fenix_distribution_deals {
 
     measure: count_new_profiles {
         type: count
-        filters: [is_new_profile: true]
+        sql: CASE WHEN ${is_new_profile} = true THEN 1 ELSE NULL END ;;
     }
     measure: count_existing_profiles {
         type: count
-        filters: [is_new_profile: false]
+        sql: CASE WHEN ${is_new_profile} = false THEN 1 ELSE NULL END ;;
     }
     measure: count_dau_with_search {
         type: count
