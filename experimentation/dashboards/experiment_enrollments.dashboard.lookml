@@ -550,7 +550,7 @@
     model: experimentation
     explore: unenrollment_reasons
     type: looker_grid
-    fields: [events.reason, events.event_method, events.event_count]
+    fields: [events.reason, events.event_method, events.changed_pref, events.event_count]
     filters:
       events.sample_id: '0'
     sorts: [events.event_count desc]
