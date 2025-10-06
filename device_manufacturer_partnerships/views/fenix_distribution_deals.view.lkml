@@ -70,6 +70,14 @@ view: +fenix_distribution_deals {
         type: average
         sql: ${TABLE}.average_ltv ;;
     }
+    measure: count_new_profiles {
+        type: count
+        filters: [is_new_profile: "true"]
+    }
+    measure: count_existing_profiles {
+        type: count
+        filters: [is_new_profile: "false"]
+    }
 
     # hiding dimensions
     dimension: dau {
