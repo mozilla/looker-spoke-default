@@ -23,6 +23,16 @@ view: android_app_campaign_stats {
     description: "The region,"
   }
 
+  dimension: campaign_region {
+    sql: case when ${TABLE}.country_code = "US" then "Tier 1- NA"
+               when ${TABLE}.country_code in ("DE","FR") then "Tier 1- EU"
+               when ${TABLE}.country_code in ("IN","KR","VN","TH","ID","TW","SG") then "APAC"
+               when ${TABLE}.country_code in ("BR", "SV", "GT", "PA","AR","CL","CO", "EC") then  "LATAM"
+               else "Expansion" end ;;
+    type: string
+    description: "The region,"
+  }
+
   dimension: activated_profiles_dim {
     sql: COALESCE(${TABLE}.activated_profiles, 0) ;;
     type: number
