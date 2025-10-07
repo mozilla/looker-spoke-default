@@ -100,21 +100,21 @@ view: +fenix_distribution_deals {
         value_format: "$0.000"
     }
 
-    measure: count_new_profiles {
+    measure: sum_new_profile_count {
         type: sum
-        sql: CASE WHEN ${is_new_profile} = TRUE THEN 1 ELSE 0 END ;;
+        sql: ${TABLE}.new_profile_count ;;
     }
-    measure: count_existing_profiles {
+    measure: sum_existing_profile_count {
         type: sum
-        sql: CASE WHEN ${is_new_profile} = FALSE THEN 1 ELSE 0 END ;;
+        sql: ${TABLE}.existing_profile_count ;;
     }
-    measure: count_dau_with_search {
-        type: count
-        filters: [search_count: ">0"]
+    measure: sum_dau_with_search_count {
+        type: sum
+        sql: ${TABLE}.dau_with_search_count ;;
     }
-    measure: count_dau_with_ad_clicks {
-        type: count
-        filters: [ad_click: ">0"]
+    measure: sum_dau_with_ad_clicks_count {
+        type: sum
+        sql: ${TABLE}.dau_with_ad_clicks_count ;;
     }
 
     measure: avg_searches_per_search_dau {
