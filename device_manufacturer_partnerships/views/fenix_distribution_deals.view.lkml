@@ -100,14 +100,22 @@ view: +fenix_distribution_deals {
         value_format: "$0.000"
     }
 
-    measure: count_new_profiles {
-        type: count
-        sql: CASE WHEN ${is_new_profile} = true THEN 1 ELSE NULL END ;;
-    }
-    measure: count_existing_profiles {
-        type: count
-        sql: CASE WHEN ${is_new_profile} = false THEN 1 ELSE NULL END ;;
-    }
+  measure: count_new_profiles {
+    type: sum
+    sql:
+    CASE 
+      WHEN ${is_new_profile} = TRUE THEN 1 
+      ELSE 0 
+    END ;;
+  }
+  measure: count_existing_profiles {
+    type: sum
+    sql:
+    CASE 
+      WHEN ${is_new_profile} = FALSE THEN 1 
+      ELSE 0 
+    END ;;
+  }
     measure: count_dau_with_search {
         type: count
         filters: [search_count: ">0"]
