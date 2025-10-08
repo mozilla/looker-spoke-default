@@ -50,13 +50,13 @@ view: +fenix_distribution_deals {
 
     measure: new_profile_retention_rate {
         type: number
-        sql: SAFE_DIVIDE(${sum_retained_week_4_new_profile}, ${count_new_profiles}) ;;
+        sql: SAFE_DIVIDE(${sum_new_profile_count}, ${sum_retained_week_4_new_profile}) ;;
         value_format_name: percent_2
     }
 
     measure: existing_user_retention_rate {
         type: number
-        sql: SAFE_DIVIDE(${sum_retained_week_4}, ${count_existing_profiles}) ;;
+        sql: SAFE_DIVIDE(${sum_existing_profile_count}, ${sum_retained_week_4}) ;;
         value_format_name: percent_2
     }
 
@@ -119,17 +119,17 @@ view: +fenix_distribution_deals {
 
     measure: avg_searches_per_search_dau {
         type: number
-        sql: SAFE_DIVIDE(${sum_search_count}, ${count_dau_with_search}) ;;
+        sql: SAFE_DIVIDE(${sum_search_count}, ${sum_dau_with_search_count}) ;;
     }
 
     measure: ad_clicks_per_search_dau {
         type: number
-        sql: SAFE_DIVIDE(${sum_ad_click}, ${count_dau_with_search}) ;;
+        sql: SAFE_DIVIDE(${sum_ad_click}, ${sum_dau_with_search_count}) ;;
     }
 
     measure: pct_dau_with_ad_clicks {
         type: number
-        sql: SAFE_DIVIDE(${count_dau_with_ad_clicks}, ${sum_dau}) ;;
+        sql: SAFE_DIVIDE(${sum_dau_with_ad_clicks_count}, ${sum_dau}) ;;
         value_format_name: percent_2
     }
 
