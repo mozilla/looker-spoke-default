@@ -50,13 +50,13 @@ view: +fenix_distribution_deals {
 
     measure: new_profile_retention_rate {
         type: number
-        sql: SAFE_DIVIDE(${sum_retained_week_4_new_profile}, ${sum_new_profile_count}) ;;
+        sql: SAFE_DIVIDE(${sum_new_profile_count}, ${sum_retained_week_4_new_profile}) ;;
         value_format_name: percent_2
     }
 
     measure: existing_user_retention_rate {
         type: number
-        sql: SAFE_DIVIDE(${sum_retained_week_4}, ${sum_existing_profile_count}) ;;
+        sql: SAFE_DIVIDE(${sum_existing_profile_count}, ${sum_retained_week_4}) ;;
         value_format_name: percent_2
     }
 
