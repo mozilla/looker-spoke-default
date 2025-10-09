@@ -9,7 +9,7 @@ view: +fenix_distribution_deals {
 
     measure: day_in_query {
       type: number
-      sql: DATEDIFF(MAX(${TABLE}.submission_date), MIN(${TABLE}.submission_date)) ;;
+      sql: date_diff(MAX(${TABLE}.submission_date), MIN(${TABLE}.submission_date)) ;;
 
     }
 
