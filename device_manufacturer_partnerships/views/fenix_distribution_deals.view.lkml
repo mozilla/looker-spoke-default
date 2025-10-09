@@ -7,9 +7,15 @@ view: +fenix_distribution_deals {
         sql: ${TABLE}.dau ;;
     }
 
+    measure: day_in_query {
+      type: number
+      sql: DATEDIFF(MAX(${TABLE}.submission_date), MIN(${TABLE}.submission_date)) ;;
+
+    }
+
     measure: avg_dau {
-      type: average
-      sql: ${TABLE}.dau ;;
+      type: number
+      sql: SUM(${TABLE}.dau) / ${day_in_query} ;;
     }
 
     measure: sum_wau {
