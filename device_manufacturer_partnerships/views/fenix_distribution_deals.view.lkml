@@ -7,7 +7,7 @@ view: +fenix_distribution_deals {
         sql: ${TABLE}.dau ;;
     }
 
-    measure: day_in_query {
+    measure: days_in_query {
       type: number
       sql: DATE_DIFF(MAX(${TABLE}.submission_date), MIN(${TABLE}.submission_date), DAY) ;;
 
@@ -15,7 +15,7 @@ view: +fenix_distribution_deals {
 
     measure: avg_dau {
       type: number
-      sql: SUM(${TABLE}.dau) / ${day_in_query} ;;
+      sql: SAFE_DIVIDE(SUM(${TABLE}.dau), ${days_in_query}) ;;
     }
 
     measure: sum_wau {
