@@ -66,9 +66,29 @@ view: +fenix_distribution_deals {
         value_format_name: percent_2
     }
 
+    measure: retention_rate {
+        type: number
+        sql: SAFE_DIVIDE(${sum_retained_week_4}, ${sum_active_metric_date});;
+        value_format_name: percent_2
+    }
+
+    measure: new_profile_retention_rate {
+        type: number
+        sql: SAFE_DIVIDE(${sum_retained_week_4_new_profiles}, ${sum_new_profiles_metric_date}) ;;
+        value_format_name: percent_2
+    }
+
     measure: sum_repeat_profile {
         type: sum
         sql: ${TABLE}.repeat_profile ;;
+    }
+    measure: sum_new_profile_metric_date {
+        type: sum
+        sql: ${TABLE}.new_profile_metric_date ;;
+    }
+    measure: sum_active_metric_date {
+        type: sum
+        sql: ${TABLE}.active_metric_date ;;
     }
     measure: sum_organic {
         type: sum
@@ -189,6 +209,12 @@ view: +fenix_distribution_deals {
         hidden: yes
     }
     dimension: average_ltv {
+        hidden: yes
+    }
+    dimension: new_profile_metric_date {
+        hidden: yes
+    }
+    dimension: active_metric_date {
         hidden: yes
     }
 }
