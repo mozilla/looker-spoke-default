@@ -147,6 +147,11 @@ view: +fenix_distribution_deals {
         value_format_name: percent_2
     }
 
+    measure: avg_daily_searches_per_search_dau {
+      type: number
+      sql: SAFE_DIVIDE(${sum_search_count}, ${sum_dau_with_search_count})/${days_in_query} ;;
+    }
+
     # hiding dimensions
     dimension: dau {
         hidden: yes
