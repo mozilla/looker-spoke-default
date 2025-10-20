@@ -101,6 +101,7 @@ include: "views/client_counts.view.lkml"
 include: "views/desktop_daily_retention.view.lkml"
 include: "views/urlbar_events_daily_table.view.lkml"
 include: "views/newtab_clients_daily_aggregates.view.lkml"
+include: "views/newtab_items_daily.view.lkml"
 
 
 explore: newtab_clients_daily_aggregates {
@@ -134,6 +135,10 @@ explore: +client_counts {
       client_counts.sample_id: "0"
     ]
   }
+}
+
+explore: +newtab_items_daily {
+  label: "Newtab Items Daily (Editorial)"
 }
 
 explore: +event_counts {
