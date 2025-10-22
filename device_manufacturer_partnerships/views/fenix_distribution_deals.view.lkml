@@ -108,27 +108,10 @@ view: +fenix_distribution_deals {
     }
 
 
-    measure: sum_total_ltv_at_max_lrd {
-      type: sum
-      sql: IF(
-        ${TABLE}.last_reported_date = MAX(${TABLE}.last_report_date) OVER (),
-        ${TABLE}.total_ltv,
-        0
-      ) ;;
-    }
-    measure: sum_client_count_at_max_lrd {
-      type: sum
-      sql: IF(
-        ${TABLE}.last_reported_date = MAX(${TABLE}.last_report_date) OVER (),
-        ${TABLE}.client_count,
-        0
-      ) ;;
-    }
-
     measure: ltv {
-      type: number
-      sql: SAFE_DIVIDE(${sum_total_ltv_at_max_lrd}, ${sum_client_count_at_max_lrd}) ;;
-      value_format: "$0.000"
+        type: number
+        sql: SAFE_DIVIDE(${sum_total_ltv}, ${sum_client_count})  ;;
+        value_format: "$0.000"
     }
 
     measure: sum_new_profile_count {
@@ -226,10 +209,5 @@ view: +fenix_distribution_deals {
     }
     dimension: active_metric_date {
         hidden: yes
-    }
-
-    dimension: last_report_date {
-      hidden: yes
-      sql: ${TABLE}.last_reported_date ;;
     }
 }
