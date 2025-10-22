@@ -15,6 +15,8 @@ include: "views/raw_event_types.view.lkml"
 include: "//looker-hub/firefox_desktop/datagroups/onboarding_table_last_updated.datagroup.lkml"
 
 explore: funnel_analysis {
+  # This explore is unmaintained and will be deprecated in the future. See https://mozilla-hub.atlassian.net/browse/DENG-9951
+  hidden: yes
   view_label: " User-Day Funnels"
   join: experiments {
     relationship: one_to_one
