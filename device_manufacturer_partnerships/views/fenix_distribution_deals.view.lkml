@@ -111,7 +111,7 @@ view: +fenix_distribution_deals {
     measure: sum_total_ltv_at_max_lrd {
       type: sum
       sql: IF(
-        ${TABLE}.last_reported_date = MAX(${TABLE}.last_report_date) OVER (),
+        ${TABLE}.last_reported_date = MAX(${TABLE}.last_reported_date) OVER (),
         ${TABLE}.total_ltv,
         0
       ) ;;
@@ -119,7 +119,7 @@ view: +fenix_distribution_deals {
     measure: sum_client_count_at_max_lrd {
       type: sum
       sql: IF(
-        ${TABLE}.last_reported_date = MAX(${TABLE}.last_report_date) OVER (),
+        ${TABLE}.last_reported_date = MAX(${TABLE}.last_reported_date) OVER (),
         ${TABLE}.client_count,
         0
       ) ;;
@@ -228,8 +228,5 @@ view: +fenix_distribution_deals {
         hidden: yes
     }
 
-    dimension: last_report_date {
-      hidden: yes
-      sql: ${TABLE}.last_reported_date ;;
-    }
+
 }
