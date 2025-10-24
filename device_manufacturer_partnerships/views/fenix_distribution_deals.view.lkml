@@ -72,7 +72,7 @@ view: +fenix_distribution_deals {
     }
     measure: sum_new_profile_metric_date {
         type: sum
-        sql: ${TABLE}.new_profile_metric_date ;;
+        sql: ${TABLE}.new_profiles_metric_date ;;
     }
     measure: sum_active_metric_date {
         type: sum
