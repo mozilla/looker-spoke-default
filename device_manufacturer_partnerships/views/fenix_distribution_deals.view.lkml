@@ -51,7 +51,7 @@ view: +fenix_distribution_deals {
     }
     measure: sum_retained_week_4_new_profile {
         type: sum
-        sql: ${TABLE}.retained_week_4_new_profile ;;
+        sql: ${TABLE}.retained_week_4_new_profiles ;;
     }
 
     measure: retention_rate {
@@ -68,7 +68,7 @@ view: +fenix_distribution_deals {
 
     measure: sum_repeat_profile {
         type: sum
-        sql: ${TABLE}.repeat_profile ;;
+        sql: ${TABLE}.repeat_profiles ;;
     }
     measure: sum_new_profile_metric_date {
         type: sum
@@ -139,6 +139,10 @@ view: +fenix_distribution_deals {
         type: sum
         sql: ${TABLE}.dau_with_ad_clicks_count ;;
     }
+    measure: sum_new_profiles_metric_date {
+        type: sum
+        sql: ${TABLE}.new_profiles_metric_date ;;
+    }
 
     measure: avg_searches_per_search_dau {
         type: number
@@ -183,10 +187,10 @@ view: +fenix_distribution_deals {
     dimension: retained_week_4 {
         hidden: yes
     }
-    dimension: retained_week_4_new_profile {
+    dimension: retained_week_4_new_profiles {
         hidden: yes
     }
-    dimension: repeat_profile {
+    dimension: repeat_profiles {
         hidden: yes
     }
     dimension: organic {
@@ -210,16 +214,31 @@ view: +fenix_distribution_deals {
     dimension: average_ltv {
         hidden: yes
     }
+    dimension: existing_profile_count {
+        hidden: yes
+    }
+    dimension: repeat_profiles {
+        hidden: yes
+    }
     dimension: new_profile_metric_date {
         hidden: yes
     }
     dimension: active_metric_date {
         hidden: yes
     }
+    dimension: new_profiles_metric_date {
+        hidden: yes
+    }
     dimension: total_ltv_on_last_reported_date {
         hidden: yes
     }
     dimension: client_count_on_last_reported_date {
+        hidden: yes
+    }
+    dimension: dau_with_ad_clicks_count {
+        hidden: yes
+    }
+    dimension: dau_with_search_count {
         hidden: yes
     }
 }
