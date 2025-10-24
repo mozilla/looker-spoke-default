@@ -107,24 +107,20 @@ view: +fenix_distribution_deals {
         sql: ${TABLE}.total_ltv ;;
     }
 
-  measure: sum_total_ltv_at_max_lrd {
-    type: number
-    sql: SUM(IF(${TABLE}.last_reported_date = LAST_DAY(${TABLE}.last_reported_date),
-              ${TABLE}.total_ltv,
-              NULL)) ;;
-  }
+    measure: sum_total_ltv_at_max_lrd {
+        type: sum
+        sql: ${TABLE}.total_ltv_on_last_reported_date ;;
+    }
 
-  measure: sum_client_count_at_max_lrd {
-    type: number
-    sql: SUM(IF(${TABLE}.last_reported_date = LAST_DAY(${TABLE}.last_reported_date),
-              ${TABLE}.client_count,
-              NULL))  ;;
-  }
+    measure: sum_client_count_at_max_lrd {
+        type: sum
+        sql: ${TABLE}.client_count_on_last_reported_date ;;
+    }
 
     measure: avg_ltv {
-      type: number
-      sql: SAFE_DIVIDE(${sum_total_ltv_at_max_lrd}, ${sum_client_count_at_max_lrd}) ;;
-      value_format: "$0.000"
+        type: number
+        sql: SAFE_DIVIDE(${sum_total_ltv_at_max_lrd}, ${sum_client_count_at_max_lrd}) ;;
+        value_format: "$0.000"
     }
 
     measure: sum_new_profile_count {
@@ -211,9 +207,6 @@ view: +fenix_distribution_deals {
     dimension: tagged_sap {
         hidden: yes
     }
-    dimension: total_ltv {
-        hidden: yes
-    }
     dimension: average_ltv {
         hidden: yes
     }
@@ -221,6 +214,12 @@ view: +fenix_distribution_deals {
         hidden: yes
     }
     dimension: active_metric_date {
+        hidden: yes
+    }
+    dimension: total_ltv_on_last_reported_date {
+        hidden: yes
+    }
+    dimension: client_count_on_last_reported_date {
         hidden: yes
     }
 }
