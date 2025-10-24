@@ -51,7 +51,7 @@ view: +fenix_distribution_deals {
     }
     measure: sum_retained_week_4_new_profile {
         type: sum
-        sql: ${TABLE}.retained_week_4_new_profile ;;
+        sql: ${TABLE}.retained_week_4_new_profiles ;;
     }
 
     measure: retention_rate {
@@ -183,7 +183,7 @@ view: +fenix_distribution_deals {
     dimension: retained_week_4 {
         hidden: yes
     }
-    dimension: retained_week_4_new_profile {
+    dimension: retained_week_4_new_profiles {
         hidden: yes
     }
     dimension: repeat_profile {
@@ -208,6 +208,9 @@ view: +fenix_distribution_deals {
         hidden: yes
     }
     dimension: average_ltv {
+        hidden: yes
+    }
+    dimension: repeat_profile {
         hidden: yes
     }
     dimension: new_profile_metric_date {
