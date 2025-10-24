@@ -24,7 +24,6 @@ include: "//looker-hub/firefox_desktop/views/desktop_cohort_daily_retention.view
 include: "//looker-hub/firefox_desktop/views/desktop_events_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/desktop_installs_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/events.view.lkml"
-include: "//looker-hub/firefox_desktop/views/events_daily_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/events_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/events_unnested_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/firefox_desktop_use_counters_table.view.lkml"
