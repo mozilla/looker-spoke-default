@@ -220,7 +220,7 @@ view: +fenix_distribution_deals {
     dimension: repeat_profiles {
         hidden: yes
     }
-    dimension: new_profile_metric_date {
+    dimension: new_profiles_metric_date {
         hidden: yes
     }
     dimension: active_metric_date {
