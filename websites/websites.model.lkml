@@ -21,7 +21,6 @@ include: "//looker-hub/websites/views/firefox_com_page_metrics.view.lkml"
 include: "//looker-hub/websites/views/firefox_com_metrics_summary.view.lkml"
 include: "//looker-hub/websites/views/firefox_com_landing_page_metrics.view.lkml"
 include: "//looker-hub/websites/views/firefox_com_www_site_events_metrics.view.lkml"
-include: "//looker-hub/websites/views/firefox_com_firefox_whatsnew_summary.view.lkml"
 
 explore: ga4_blog_performance{}
 explore: blogs_daily_summary{}
@@ -41,4 +40,3 @@ explore: firefox_com_page_metrics {}
 explore: firefox_com_metrics_summary {}
 explore: firefox_com_landing_page_metrics {}
 explore: firefox_com_www_site_events_metrics {}
-explore: firefox_com_firefox_whatsnew_summary {}
