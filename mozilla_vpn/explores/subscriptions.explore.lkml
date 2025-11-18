@@ -74,437 +74,437 @@ explore: subscriptions {
 
 # Add aggregate tables lookML from VPN SaaSboard
 
-explore: +subscriptions {
-  aggregate_table: rollup__subscription_start_month__subscriptions__retention_months_since_subscription_start__0 {
-    query: {
-      dimensions: [subscription_start_month, subscriptions__retention.months_since_subscription_start]
-      measures: [count, subscriptions__retention.retained]
-      filters: [
-        # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "6 month",
-        subscriptions__retention.is_cohort_complete: "Yes"
-      ]
-    }
+# explore: +subscriptions {
+#   aggregate_table: rollup__subscription_start_month__subscriptions__retention_months_since_subscription_start__0 {
+#     query: {
+#       dimensions: [subscription_start_month, subscriptions__retention.months_since_subscription_start]
+#       measures: [count, subscriptions__retention.retained]
+#       filters: [
+#         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.subscription_start_month: "6 month",
+#         subscriptions__retention.is_cohort_complete: "Yes"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "all_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "all_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__subscription_start_month__subscriptions__retention_months_since_subscription_start__1 {
-    query: {
-      dimensions: [subscription_start_month, subscriptions__retention.months_since_subscription_start]
-      measures: [count, subscriptions__retention.retained]
-      filters: [
-        # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "6 month",
-        subscriptions__retention.is_cohort_complete: "Yes"
-      ]
-    }
+#   aggregate_table: rollup__subscription_start_month__subscriptions__retention_months_since_subscription_start__1 {
+#     query: {
+#       dimensions: [subscription_start_month, subscriptions__retention.months_since_subscription_start]
+#       measures: [count, subscriptions__retention.retained]
+#       filters: [
+#         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.subscription_start_month: "6 month",
+#         subscriptions__retention.is_cohort_complete: "Yes"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "all_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "all_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__subscription_start_month__subscriptions__retention_months_since_subscription_start__2 {
-    query: {
-      dimensions: [subscription_start_month, subscriptions__retention.months_since_subscription_start]
-      measures: [count, subscriptions__retention.retained]
-      filters: [
-        # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "6 month",
-        subscriptions__retention.is_cohort_complete: "Yes"
-      ]
-    }
+#   aggregate_table: rollup__subscription_start_month__subscriptions__retention_months_since_subscription_start__2 {
+#     query: {
+#       dimensions: [subscription_start_month, subscriptions__retention.months_since_subscription_start]
+#       measures: [count, subscriptions__retention.retained]
+#       filters: [
+#         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.subscription_start_month: "6 month",
+#         subscriptions__retention.is_cohort_complete: "Yes"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "all_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "all_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__subscriptions__retention_months_since_subscription_start__3 {
-    query: {
-      dimensions: [subscriptions__retention.months_since_subscription_start]
-      measures: [count, subscriptions__retention.retained]
-      filters: [
-        # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "6 month",
-        subscriptions__retention.is_cohort_complete: "Yes"
-      ]
-    }
+#   aggregate_table: rollup__subscriptions__retention_months_since_subscription_start__3 {
+#     query: {
+#       dimensions: [subscriptions__retention.months_since_subscription_start]
+#       measures: [count, subscriptions__retention.retained]
+#       filters: [
+#         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.subscription_start_month: "6 month",
+#         subscriptions__retention.is_cohort_complete: "Yes"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "all_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "all_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__country_name__metadata_last_modified_date__plan_interval_type__pricing_plan__provider__subscription_start_month__4 {
-    query: {
-      dimensions: [
-        country_name,
-        metadata.last_modified_date,
-        plan_interval_type,
-        pricing_plan,
-        provider,
-        subscription_start_month
-      ]
-    }
+#   aggregate_table: rollup__country_name__metadata_last_modified_date__plan_interval_type__pricing_plan__provider__subscription_start_month__4 {
+#     query: {
+#       dimensions: [
+#         country_name,
+#         metadata.last_modified_date,
+#         plan_interval_type,
+#         pricing_plan,
+#         provider,
+#         subscription_start_month
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "all_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "all_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__plan_interval_type__subscriptions__retention_months_since_subscription_start__5 {
-    query: {
-      dimensions: [plan_interval_type, subscriptions__retention.months_since_subscription_start]
-      measures: [count, subscriptions__retention.retained]
-      filters: [
-        # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "6 month",
-        subscriptions__retention.is_cohort_complete: "Yes"
-      ]
-    }
+#   aggregate_table: rollup__plan_interval_type__subscriptions__retention_months_since_subscription_start__5 {
+#     query: {
+#       dimensions: [plan_interval_type, subscriptions__retention.months_since_subscription_start]
+#       measures: [count, subscriptions__retention.retained]
+#       filters: [
+#         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.subscription_start_month: "6 month",
+#         subscriptions__retention.is_cohort_complete: "Yes"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "all_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "all_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__plan_interval_type__subscriptions__retention_months_since_subscription_start__6 {
-    query: {
-      dimensions: [plan_interval_type, subscriptions__retention.months_since_subscription_start]
-      measures: [count, subscriptions__retention.retained]
-      filters: [
-        # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "6 month",
-        subscriptions__retention.is_cohort_complete: "Yes"
-      ]
-    }
+#   aggregate_table: rollup__plan_interval_type__subscriptions__retention_months_since_subscription_start__6 {
+#     query: {
+#       dimensions: [plan_interval_type, subscriptions__retention.months_since_subscription_start]
+#       measures: [count, subscriptions__retention.retained]
+#       filters: [
+#         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.subscription_start_month: "6 month",
+#         subscriptions__retention.is_cohort_complete: "Yes"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "all_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "all_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__plan_interval_type__subscriptions__retention_months_since_subscription_start__7 {
-    query: {
-      dimensions: [plan_interval_type, subscriptions__retention.months_since_subscription_start]
-      measures: [count, subscriptions__retention.retained]
-      filters: [
-        # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "6 month",
-        subscriptions__retention.is_cohort_complete: "Yes"
-      ]
-    }
+#   aggregate_table: rollup__plan_interval_type__subscriptions__retention_months_since_subscription_start__7 {
+#     query: {
+#       dimensions: [plan_interval_type, subscriptions__retention.months_since_subscription_start]
+#       measures: [count, subscriptions__retention.retained]
+#       filters: [
+#         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.subscription_start_month: "6 month",
+#         subscriptions__retention.is_cohort_complete: "Yes"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "all_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "all_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__forecast_region__subscriptions__retention_months_since_subscription_start__8 {
-    query: {
-      dimensions: [forecast_region, subscriptions__retention.months_since_subscription_start]
-      measures: [count, subscriptions__retention.retained]
-      filters: [
-        # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "6 month",
-        subscriptions__retention.is_cohort_complete: "Yes"
-      ]
-    }
+#   aggregate_table: rollup__forecast_region__subscriptions__retention_months_since_subscription_start__8 {
+#     query: {
+#       dimensions: [forecast_region, subscriptions__retention.months_since_subscription_start]
+#       measures: [count, subscriptions__retention.retained]
+#       filters: [
+#         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.subscription_start_month: "6 month",
+#         subscriptions__retention.is_cohort_complete: "Yes"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "all_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "all_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__subscription_start_month__subscriptions__retention_months_since_subscription_start__9 {
-    query: {
-      dimensions: [subscription_start_month, subscriptions__retention.months_since_subscription_start]
-      measures: [count, subscriptions__retention.retained]
-      filters: [
-        # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "6 month",
-        subscriptions__retention.is_cohort_complete: "Yes"
-      ]
-    }
+#   aggregate_table: rollup__subscription_start_month__subscriptions__retention_months_since_subscription_start__9 {
+#     query: {
+#       dimensions: [subscription_start_month, subscriptions__retention.months_since_subscription_start]
+#       measures: [count, subscriptions__retention.retained]
+#       filters: [
+#         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.subscription_start_month: "6 month",
+#         subscriptions__retention.is_cohort_complete: "Yes"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "all_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "all_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__country_name__plan_interval_type__pricing_plan__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__0 {
-    query: {
-      dimensions: [
-        country_name,
-        plan_interval_type,
-        pricing_plan,
-        provider,
-        subscription_start_date,
-        subscriptions__retention.months_since_subscription_start
-      ]
-      measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
-      filters: [
-        subscriptions__retention.is_cohort_complete: "Yes",
-        subscriptions__retention.months_since_subscription_start: ">0"
-      ]
-    }
+#   aggregate_table: rollup__country_name__plan_interval_type__pricing_plan__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__0 {
+#     query: {
+#       dimensions: [
+#         country_name,
+#         plan_interval_type,
+#         pricing_plan,
+#         provider,
+#         subscription_start_date,
+#         subscriptions__retention.months_since_subscription_start
+#       ]
+#       measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
+#       filters: [
+#         subscriptions__retention.is_cohort_complete: "Yes",
+#         subscriptions__retention.months_since_subscription_start: ">0"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "all_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "all_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__country_name__plan_interval_type__pricing_plan__provider__subscription_start_date__1 {
-    query: {
-      dimensions: [country_name, plan_interval_type, pricing_plan, provider, subscription_start_date]
-      measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
-      filters: [
-        subscriptions__retention.is_cohort_complete: "Yes",
-        subscriptions__retention.months_since_subscription_start: ">0"
-      ]
-    }
+#   aggregate_table: rollup__country_name__plan_interval_type__pricing_plan__provider__subscription_start_date__1 {
+#     query: {
+#       dimensions: [country_name, plan_interval_type, pricing_plan, provider, subscription_start_date]
+#       measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
+#       filters: [
+#         subscriptions__retention.is_cohort_complete: "Yes",
+#         subscriptions__retention.months_since_subscription_start: ">0"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "all_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "all_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__country_name__plan_interval_type__pricing_plan__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__2 {
-    query: {
-      dimensions: [
-        country_name,
-        plan_interval_type,
-        pricing_plan,
-        provider,
-        subscription_start_date,
-        subscriptions__retention.months_since_subscription_start
-      ]
-      measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
-      filters: [subscriptions__retention.is_cohort_complete: "Yes"]
-    }
+#   aggregate_table: rollup__country_name__plan_interval_type__pricing_plan__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__2 {
+#     query: {
+#       dimensions: [
+#         country_name,
+#         plan_interval_type,
+#         pricing_plan,
+#         provider,
+#         subscription_start_date,
+#         subscriptions__retention.months_since_subscription_start
+#       ]
+#       measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
+#       filters: [subscriptions__retention.is_cohort_complete: "Yes"]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "all_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "all_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__country_name__plan_interval_type__pricing_plan__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__3 {
-    query: {
-      dimensions: [
-        country_name,
-        plan_interval_type,
-        pricing_plan,
-        provider,
-        subscription_start_date,
-        subscriptions__retention.months_since_subscription_start
-      ]
-      measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
-      filters: [
-        subscriptions__retention.is_cohort_complete: "Yes",
-        subscriptions__retention.months_since_subscription_start: ">0"
-      ]
-    }
+#   aggregate_table: rollup__country_name__plan_interval_type__pricing_plan__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__3 {
+#     query: {
+#       dimensions: [
+#         country_name,
+#         plan_interval_type,
+#         pricing_plan,
+#         provider,
+#         subscription_start_date,
+#         subscriptions__retention.months_since_subscription_start
+#       ]
+#       measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
+#       filters: [
+#         subscriptions__retention.is_cohort_complete: "Yes",
+#         subscriptions__retention.months_since_subscription_start: ">0"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "all_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "all_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__country_name__plan_interval_type__pricing_plan__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__4 {
-    query: {
-      dimensions: [
-        country_name,
-        plan_interval_type,
-        pricing_plan,
-        provider,
-        subscription_start_date,
-        subscriptions__retention.months_since_subscription_start
-      ]
-      measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
-      filters: [
-        subscriptions__retention.is_cohort_complete: "Yes",
-        subscriptions__retention.months_since_subscription_start: ">0"
-      ]
-    }
+#   aggregate_table: rollup__country_name__plan_interval_type__pricing_plan__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__4 {
+#     query: {
+#       dimensions: [
+#         country_name,
+#         plan_interval_type,
+#         pricing_plan,
+#         provider,
+#         subscription_start_date,
+#         subscriptions__retention.months_since_subscription_start
+#       ]
+#       measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
+#       filters: [
+#         subscriptions__retention.is_cohort_complete: "Yes",
+#         subscriptions__retention.months_since_subscription_start: ">0"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "all_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "all_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__metadata_last_modified_date__plan_interval_type__subscription_start_date__5 {
-    query: {
-      dimensions: [metadata.last_modified_date, plan_interval_type, subscription_start_date]
-      filters: [subscriptions__active.is_max_active_date: "Yes"]
-    }
+#   aggregate_table: rollup__metadata_last_modified_date__plan_interval_type__subscription_start_date__5 {
+#     query: {
+#       dimensions: [metadata.last_modified_date, plan_interval_type, subscription_start_date]
+#       filters: [subscriptions__active.is_max_active_date: "Yes"]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "all_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "all_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__country_name__plan_interval_type__pricing_plan__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__6 {
-    query: {
-      dimensions: [
-        country_name,
-        plan_interval_type,
-        pricing_plan,
-        provider,
-        subscription_start_date,
-        subscriptions__retention.months_since_subscription_start
-      ]
-      measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
-      filters: [
-        subscriptions__retention.is_cohort_complete: "Yes",
-        subscriptions__retention.months_since_subscription_start: ">0"
-      ]
-    }
+#   aggregate_table: rollup__country_name__plan_interval_type__pricing_plan__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__6 {
+#     query: {
+#       dimensions: [
+#         country_name,
+#         plan_interval_type,
+#         pricing_plan,
+#         provider,
+#         subscription_start_date,
+#         subscriptions__retention.months_since_subscription_start
+#       ]
+#       measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
+#       filters: [
+#         subscriptions__retention.is_cohort_complete: "Yes",
+#         subscriptions__retention.months_since_subscription_start: ">0"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "all_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "all_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__country_name__plan_interval_type__pricing_plan__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__7 {
-    query: {
-      dimensions: [
-        country_name,
-        plan_interval_type,
-        pricing_plan,
-        provider,
-        subscription_start_date,
-        subscriptions__retention.months_since_subscription_start
-      ]
-      measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
-      filters: [
-        subscriptions__retention.is_cohort_complete: "Yes",
-        subscriptions__retention.months_since_subscription_start: ">0"
-      ]
-    }
+#   aggregate_table: rollup__country_name__plan_interval_type__pricing_plan__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__7 {
+#     query: {
+#       dimensions: [
+#         country_name,
+#         plan_interval_type,
+#         pricing_plan,
+#         provider,
+#         subscription_start_date,
+#         subscriptions__retention.months_since_subscription_start
+#       ]
+#       measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
+#       filters: [
+#         subscriptions__retention.is_cohort_complete: "Yes",
+#         subscriptions__retention.months_since_subscription_start: ">0"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "all_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "all_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__country_name__plan_interval_type__pricing_plan__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__8 {
-    query: {
-      dimensions: [
-        country_name,
-        plan_interval_type,
-        pricing_plan,
-        provider,
-        subscription_start_date,
-        subscriptions__retention.months_since_subscription_start
-      ]
-      measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
-      filters: [
-        subscriptions__retention.is_cohort_complete: "Yes",
-        subscriptions__retention.months_since_subscription_start: ">0"
-      ]
-    }
+#   aggregate_table: rollup__country_name__plan_interval_type__pricing_plan__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__8 {
+#     query: {
+#       dimensions: [
+#         country_name,
+#         plan_interval_type,
+#         pricing_plan,
+#         provider,
+#         subscription_start_date,
+#         subscriptions__retention.months_since_subscription_start
+#       ]
+#       measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
+#       filters: [
+#         subscriptions__retention.is_cohort_complete: "Yes",
+#         subscriptions__retention.months_since_subscription_start: ">0"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "all_subscriptions_v1";;
-    }
-  }
-}
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.mozilla_vpn_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "all_subscriptions_v1";;
+#     }
+#   }
+# }
