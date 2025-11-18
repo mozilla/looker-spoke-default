@@ -73,457 +73,457 @@ explore: subscriptions {
 
 # Add aggregate tables lookML from Relay SaaSboard
 
-explore: +subscriptions {
-  aggregate_table: rollup__original_subscription_start_month__original_subscriptions__retention_months_since_original_subscription_start__0 {
-    query: {
-      dimensions: [original_subscription_start_month, original_subscriptions__retention.months_since_original_subscription_start]
-      measures: [original_subscriptions__retention.retained, original_subscriptions__retention.subscription_count]
-      filters: [
-        original_subscriptions__retention.is_cohort_complete: "Yes",
-        # "subscriptions.original_subscription_start_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.original_subscription_start_date: "6 month",
-        # "subscriptions.product_name" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.product_name: "Mozilla VPN & Firefox Relay,Relay Premium"
-      ]
-    }
+# explore: +subscriptions {
+#   aggregate_table: rollup__original_subscription_start_month__original_subscriptions__retention_months_since_original_subscription_start__0 {
+#     query: {
+#       dimensions: [original_subscription_start_month, original_subscriptions__retention.months_since_original_subscription_start]
+#       measures: [original_subscriptions__retention.retained, original_subscriptions__retention.subscription_count]
+#       filters: [
+#         original_subscriptions__retention.is_cohort_complete: "Yes",
+#         # "subscriptions.original_subscription_start_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.original_subscription_start_date: "6 month",
+#         # "subscriptions.product_name" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.product_name: "Mozilla VPN & Firefox Relay,Relay Premium"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__original_subscriptions__retention_months_since_original_subscription_start__1 {
-    query: {
-      dimensions: [original_subscriptions__retention.months_since_original_subscription_start]
-      measures: [original_subscriptions__retention.retained, original_subscriptions__retention.subscription_count]
-      filters: [
-        original_subscriptions__retention.is_cohort_complete: "Yes",
-        # "subscriptions.original_subscription_start_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.original_subscription_start_date: "6 month",
-        # "subscriptions.product_name" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.product_name: "Mozilla VPN & Firefox Relay,Relay Premium"
-      ]
-    }
+#   aggregate_table: rollup__original_subscriptions__retention_months_since_original_subscription_start__1 {
+#     query: {
+#       dimensions: [original_subscriptions__retention.months_since_original_subscription_start]
+#       measures: [original_subscriptions__retention.retained, original_subscriptions__retention.subscription_count]
+#       filters: [
+#         original_subscriptions__retention.is_cohort_complete: "Yes",
+#         # "subscriptions.original_subscription_start_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.original_subscription_start_date: "6 month",
+#         # "subscriptions.product_name" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.product_name: "Mozilla VPN & Firefox Relay,Relay Premium"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__metadata_last_modified_date__product_name__provider__2 {
-    query: {
-      dimensions: [metadata.last_modified_date, product_name, provider]
-    }
+#   aggregate_table: rollup__metadata_last_modified_date__product_name__provider__2 {
+#     query: {
+#       dimensions: [metadata.last_modified_date, product_name, provider]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__original_subscription_start_month__original_subscriptions__retention_months_since_original_subscription_start__3 {
-    query: {
-      dimensions: [original_subscription_start_month, original_subscriptions__retention.months_since_original_subscription_start]
-      measures: [original_subscriptions__retention.retained, original_subscriptions__retention.subscription_count]
-      filters: [
-        original_subscriptions__retention.is_cohort_complete: "Yes",
-        # "subscriptions.original_subscription_start_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.original_subscription_start_date: "6 month",
-        # "subscriptions.product_name" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.product_name: "Mozilla VPN & Firefox Relay,Relay Premium"
-      ]
-    }
+#   aggregate_table: rollup__original_subscription_start_month__original_subscriptions__retention_months_since_original_subscription_start__3 {
+#     query: {
+#       dimensions: [original_subscription_start_month, original_subscriptions__retention.months_since_original_subscription_start]
+#       measures: [original_subscriptions__retention.retained, original_subscriptions__retention.subscription_count]
+#       filters: [
+#         original_subscriptions__retention.is_cohort_complete: "Yes",
+#         # "subscriptions.original_subscription_start_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.original_subscription_start_date: "6 month",
+#         # "subscriptions.product_name" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.product_name: "Mozilla VPN & Firefox Relay,Relay Premium"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__plan_type__subscriptions__retention_months_since_subscription_start__4 {
-    query: {
-      dimensions: [plan_type, subscriptions__retention.months_since_subscription_start]
-      measures: [count, subscriptions__retention.retained]
-      filters: [
-        # "subscriptions.product_name" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.product_name: "Mozilla VPN & Firefox Relay,Relay Premium",
-        # "subscriptions.subscription_start_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_date: "6 month",
-        subscriptions__retention.is_cohort_complete: "Yes"
-      ]
-    }
+#   aggregate_table: rollup__plan_type__subscriptions__retention_months_since_subscription_start__4 {
+#     query: {
+#       dimensions: [plan_type, subscriptions__retention.months_since_subscription_start]
+#       measures: [count, subscriptions__retention.retained]
+#       filters: [
+#         # "subscriptions.product_name" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.product_name: "Mozilla VPN & Firefox Relay,Relay Premium",
+#         # "subscriptions.subscription_start_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.subscription_start_date: "6 month",
+#         subscriptions__retention.is_cohort_complete: "Yes"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__plan_type__subscriptions__retention_months_since_subscription_start__5 {
-    query: {
-      dimensions: [plan_type, subscriptions__retention.months_since_subscription_start]
-      measures: [count, subscriptions__retention.retained]
-      filters: [
-        # "subscriptions.product_name" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.product_name: "Mozilla VPN & Firefox Relay,Relay Premium",
-        # "subscriptions.subscription_start_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_date: "6 month",
-        subscriptions__retention.is_cohort_complete: "Yes"
-      ]
-    }
+#   aggregate_table: rollup__plan_type__subscriptions__retention_months_since_subscription_start__5 {
+#     query: {
+#       dimensions: [plan_type, subscriptions__retention.months_since_subscription_start]
+#       measures: [count, subscriptions__retention.retained]
+#       filters: [
+#         # "subscriptions.product_name" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.product_name: "Mozilla VPN & Firefox Relay,Relay Premium",
+#         # "subscriptions.subscription_start_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.subscription_start_date: "6 month",
+#         subscriptions__retention.is_cohort_complete: "Yes"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "subscriptions_v1";;
+#     }
+#   }
 
- aggregate_table: rollup__plan_type__subscriptions__retention_months_since_subscription_start__6 {
-  query: {
-    dimensions: [plan_type, subscriptions__retention.months_since_subscription_start]
-    measures: [count, subscriptions__retention.retained]
-    filters: [
-      # "subscriptions.product_name" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-      subscriptions.product_name: "Mozilla VPN & Firefox Relay,Relay Premium",
-      # "subscriptions.subscription_start_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-      subscriptions.subscription_start_date: "6 month",
-      subscriptions__retention.is_cohort_complete: "Yes"
-    ]
-  }
+# aggregate_table: rollup__plan_type__subscriptions__retention_months_since_subscription_start__6 {
+#   query: {
+#     dimensions: [plan_type, subscriptions__retention.months_since_subscription_start]
+#     measures: [count, subscriptions__retention.retained]
+#     filters: [
+#       # "subscriptions.product_name" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#       subscriptions.product_name: "Mozilla VPN & Firefox Relay,Relay Premium",
+#       # "subscriptions.subscription_start_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#       subscriptions.subscription_start_date: "6 month",
+#       subscriptions__retention.is_cohort_complete: "Yes"
+#     ]
+#   }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "subscriptions_v1";;
+#     }
+#   }
 
- aggregate_table: rollup__original_subscription_start_month__original_subscriptions__retention_months_since_original_subscription_start__7 {
-  query: {
-    dimensions: [original_subscription_start_month, original_subscriptions__retention.months_since_original_subscription_start]
-    measures: [original_subscriptions__retention.retained, original_subscriptions__retention.subscription_count]
-    filters: [
-      original_subscriptions__retention.is_cohort_complete: "Yes",
-      # "subscriptions.original_subscription_start_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-      subscriptions.original_subscription_start_date: "6 month",
-      # "subscriptions.product_name" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-      subscriptions.product_name: "Mozilla VPN & Firefox Relay,Relay Premium"
-    ]
-  }
+# aggregate_table: rollup__original_subscription_start_month__original_subscriptions__retention_months_since_original_subscription_start__7 {
+#   query: {
+#     dimensions: [original_subscription_start_month, original_subscriptions__retention.months_since_original_subscription_start]
+#     measures: [original_subscriptions__retention.retained, original_subscriptions__retention.subscription_count]
+#     filters: [
+#       original_subscriptions__retention.is_cohort_complete: "Yes",
+#       # "subscriptions.original_subscription_start_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#       subscriptions.original_subscription_start_date: "6 month",
+#       # "subscriptions.product_name" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#       subscriptions.product_name: "Mozilla VPN & Firefox Relay,Relay Premium"
+#     ]
+#   }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__original_subscription_start_month__original_subscriptions__retention_months_since_original_subscription_start__8 {
-    query: {
-      dimensions: [original_subscription_start_month, original_subscriptions__retention.months_since_original_subscription_start]
-      measures: [original_subscriptions__retention.retained, original_subscriptions__retention.subscription_count]
-      filters: [
-        original_subscriptions__retention.is_cohort_complete: "Yes",
-        # "subscriptions.original_subscription_start_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.original_subscription_start_date: "6 month",
-        # "subscriptions.product_name" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.product_name: "Mozilla VPN & Firefox Relay,Relay Premium"
-      ]
-    }
+#   aggregate_table: rollup__original_subscription_start_month__original_subscriptions__retention_months_since_original_subscription_start__8 {
+#     query: {
+#       dimensions: [original_subscription_start_month, original_subscriptions__retention.months_since_original_subscription_start]
+#       measures: [original_subscriptions__retention.retained, original_subscriptions__retention.subscription_count]
+#       filters: [
+#         original_subscriptions__retention.is_cohort_complete: "Yes",
+#         # "subscriptions.original_subscription_start_date" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.original_subscription_start_date: "6 month",
+#         # "subscriptions.product_name" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.product_name: "Mozilla VPN & Firefox Relay,Relay Premium"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__subscription_start_month__subscriptions__retention_months_since_subscription_start__9 {
-    query: {
-      dimensions: [subscription_start_month, subscriptions__retention.months_since_subscription_start]
-      measures: [count, subscriptions__retention.retained]
-      filters: [
-        # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
-        subscriptions.subscription_start_month: "6 month",
-        subscriptions__retention.is_cohort_complete: "Yes"
-      ]
-    }
+#   aggregate_table: rollup__subscription_start_month__subscriptions__retention_months_since_subscription_start__9 {
+#     query: {
+#       dimensions: [subscription_start_month, subscriptions__retention.months_since_subscription_start]
+#       measures: [count, subscriptions__retention.retained]
+#       filters: [
+#         # "subscriptions.subscription_start_month" was filtered by dashboard. The aggregate table will only optimize against exact match queries.
+#         subscriptions.subscription_start_month: "6 month",
+#         subscriptions__retention.is_cohort_complete: "Yes"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__country_name__original_subscription_start_date__original_subscriptions__retention_months_since_original_subscription_start__plan_type__pricing_plan__product_name__provider__0 {
-    query: {
-      dimensions: [
-        country_name,
-        original_subscription_start_date,
-        original_subscriptions__retention.months_since_original_subscription_start,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider
-      ]
-      measures: [original_subscriptions__retention.churned, original_subscriptions__retention.previously_retained]
-      filters: [
-        original_subscriptions__retention.is_cohort_complete: "Yes",
-        original_subscriptions__retention.months_since_original_subscription_start: ">0"
-      ]
-    }
+#   aggregate_table: rollup__country_name__original_subscription_start_date__original_subscriptions__retention_months_since_original_subscription_start__plan_type__pricing_plan__product_name__provider__0 {
+#     query: {
+#       dimensions: [
+#         country_name,
+#         original_subscription_start_date,
+#         original_subscriptions__retention.months_since_original_subscription_start,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider
+#       ]
+#       measures: [original_subscriptions__retention.churned, original_subscriptions__retention.previously_retained]
+#       filters: [
+#         original_subscriptions__retention.is_cohort_complete: "Yes",
+#         original_subscriptions__retention.months_since_original_subscription_start: ">0"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__country_name__original_subscription_start_date__plan_type__pricing_plan__product_name__provider__1 {
-    query: {
-      dimensions: [
-        country_name,
-        original_subscription_start_date,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider
-      ]
-      measures: [original_subscriptions__retention.churned, original_subscriptions__retention.previously_retained]
-      filters: [original_subscriptions__retention.is_cohort_complete: "Yes"]
-    }
+#   aggregate_table: rollup__country_name__original_subscription_start_date__plan_type__pricing_plan__product_name__provider__1 {
+#     query: {
+#       dimensions: [
+#         country_name,
+#         original_subscription_start_date,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider
+#       ]
+#       measures: [original_subscriptions__retention.churned, original_subscriptions__retention.previously_retained]
+#       filters: [original_subscriptions__retention.is_cohort_complete: "Yes"]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__country_name__original_subscription_start_date__original_subscriptions__retention_months_since_original_subscription_start__plan_type__pricing_plan__product_name__provider__2 {
-    query: {
-      dimensions: [
-        country_name,
-        original_subscription_start_date,
-        original_subscriptions__retention.months_since_original_subscription_start,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider
-      ]
-      measures: [original_subscriptions__retention.churned, original_subscriptions__retention.previously_retained]
-      filters: [original_subscriptions__retention.is_cohort_complete: "Yes"]
-    }
+#   aggregate_table: rollup__country_name__original_subscription_start_date__original_subscriptions__retention_months_since_original_subscription_start__plan_type__pricing_plan__product_name__provider__2 {
+#     query: {
+#       dimensions: [
+#         country_name,
+#         original_subscription_start_date,
+#         original_subscriptions__retention.months_since_original_subscription_start,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider
+#       ]
+#       measures: [original_subscriptions__retention.churned, original_subscriptions__retention.previously_retained]
+#       filters: [original_subscriptions__retention.is_cohort_complete: "Yes"]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__country_name__original_subscription_start_date__original_subscriptions__retention_months_since_original_subscription_start__plan_type__pricing_plan__product_name__provider__3 {
-    query: {
-      dimensions: [
-        country_name,
-        original_subscription_start_date,
-        original_subscriptions__retention.months_since_original_subscription_start,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider
-      ]
-      measures: [original_subscriptions__retention.churned, original_subscriptions__retention.previously_retained]
-      filters: [
-        original_subscriptions__retention.is_cohort_complete: "Yes",
-        original_subscriptions__retention.months_since_original_subscription_start: ">0"
-      ]
-    }
+#   aggregate_table: rollup__country_name__original_subscription_start_date__original_subscriptions__retention_months_since_original_subscription_start__plan_type__pricing_plan__product_name__provider__3 {
+#     query: {
+#       dimensions: [
+#         country_name,
+#         original_subscription_start_date,
+#         original_subscriptions__retention.months_since_original_subscription_start,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider
+#       ]
+#       measures: [original_subscriptions__retention.churned, original_subscriptions__retention.previously_retained]
+#       filters: [
+#         original_subscriptions__retention.is_cohort_complete: "Yes",
+#         original_subscriptions__retention.months_since_original_subscription_start: ">0"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__country_name__original_subscription_start_date__original_subscriptions__retention_months_since_original_subscription_start__plan_type__pricing_plan__product_name__provider__4 {
-    query: {
-      dimensions: [
-        country_name,
-        original_subscription_start_date,
-        original_subscriptions__retention.months_since_original_subscription_start,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider
-      ]
-      measures: [original_subscriptions__retention.churned, original_subscriptions__retention.previously_retained]
-      filters: [
-        original_subscriptions__retention.is_cohort_complete: "Yes",
-        original_subscriptions__retention.months_since_original_subscription_start: ">0"
-      ]
-    }
+#   aggregate_table: rollup__country_name__original_subscription_start_date__original_subscriptions__retention_months_since_original_subscription_start__plan_type__pricing_plan__product_name__provider__4 {
+#     query: {
+#       dimensions: [
+#         country_name,
+#         original_subscription_start_date,
+#         original_subscriptions__retention.months_since_original_subscription_start,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider
+#       ]
+#       measures: [original_subscriptions__retention.churned, original_subscriptions__retention.previously_retained]
+#       filters: [
+#         original_subscriptions__retention.is_cohort_complete: "Yes",
+#         original_subscriptions__retention.months_since_original_subscription_start: ">0"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__metadata_last_modified_date__5 {
-    query: {
-      dimensions: [metadata.last_modified_date]
-      filters: [subscriptions__active.is_max_active_date: "Yes"]
-    }
+#   aggregate_table: rollup__metadata_last_modified_date__5 {
+#     query: {
+#       dimensions: [metadata.last_modified_date]
+#       filters: [subscriptions__active.is_max_active_date: "Yes"]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__country_name__plan_type__pricing_plan__product_name__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__6 {
-    query: {
-      dimensions: [
-        country_name,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider,
-        subscription_start_date,
-        subscriptions__retention.months_since_subscription_start
-      ]
-      measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
-      filters: [
-        subscriptions__retention.is_cohort_complete: "Yes",
-        subscriptions__retention.months_since_subscription_start: ">0"
-      ]
-    }
+#   aggregate_table: rollup__country_name__plan_type__pricing_plan__product_name__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__6 {
+#     query: {
+#       dimensions: [
+#         country_name,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider,
+#         subscription_start_date,
+#         subscriptions__retention.months_since_subscription_start
+#       ]
+#       measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
+#       filters: [
+#         subscriptions__retention.is_cohort_complete: "Yes",
+#         subscriptions__retention.months_since_subscription_start: ">0"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__country_name__plan_type__pricing_plan__product_name__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__7 {
-    query: {
-      dimensions: [
-        country_name,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider,
-        subscription_start_date,
-        subscriptions__retention.months_since_subscription_start
-      ]
-      measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
-      filters: [
-        subscriptions__retention.is_cohort_complete: "Yes",
-        subscriptions__retention.months_since_subscription_start: ">0"
-      ]
-    }
+#   aggregate_table: rollup__country_name__plan_type__pricing_plan__product_name__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__7 {
+#     query: {
+#       dimensions: [
+#         country_name,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider,
+#         subscription_start_date,
+#         subscriptions__retention.months_since_subscription_start
+#       ]
+#       measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
+#       filters: [
+#         subscriptions__retention.is_cohort_complete: "Yes",
+#         subscriptions__retention.months_since_subscription_start: ">0"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__country_name__plan_type__pricing_plan__product_name__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__8 {
-    query: {
-      dimensions: [
-        country_name,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider,
-        subscription_start_date,
-        subscriptions__retention.months_since_subscription_start
-      ]
-      measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
-      filters: [
-        subscriptions__retention.is_cohort_complete: "Yes",
-        subscriptions__retention.months_since_subscription_start: ">0"
-      ]
-    }
+#   aggregate_table: rollup__country_name__plan_type__pricing_plan__product_name__provider__subscription_start_date__subscriptions__retention_months_since_subscription_start__8 {
+#     query: {
+#       dimensions: [
+#         country_name,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider,
+#         subscription_start_date,
+#         subscriptions__retention.months_since_subscription_start
+#       ]
+#       measures: [subscriptions__retention.churned, subscriptions__retention.previously_retained]
+#       filters: [
+#         subscriptions__retention.is_cohort_complete: "Yes",
+#         subscriptions__retention.months_since_subscription_start: ">0"
+#       ]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "subscriptions_v1";;
-    }
-  }
-}
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "subscriptions_v1";;
+#     }
+#   }
+# }

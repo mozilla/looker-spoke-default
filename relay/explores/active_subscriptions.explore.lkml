@@ -40,412 +40,412 @@ explore: active_subscriptions {
 
 # Add aggregate tables lookML from Relay SaaSboard - Active Subscriptions
 
-explore: +active_subscriptions {
-  aggregate_table: rollup__active_date__country_name__plan_type__pricing_plan__product_name__provider__0 {
-    query: {
-      dimensions: [
-        active_date,
-        country_name,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider
-      ]
-      measures: [count_sum]
-    }
+# explore: +active_subscriptions {
+#   aggregate_table: rollup__active_date__country_name__plan_type__pricing_plan__product_name__provider__0 {
+#     query: {
+#       dimensions: [
+#         active_date,
+#         country_name,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider
+#       ]
+#       measures: [count_sum]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "active_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "active_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__active_date__country_name__is_max_active_date__plan_type__pricing_plan__product_name__provider__1 {
-    query: {
-      dimensions: [
-        active_date,
-        country_name,
-        is_max_active_date,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider
-      ]
-      measures: [count_sum]
-      filters: [active_subscriptions.is_max_active_date: "Yes"]
-    }
+#   aggregate_table: rollup__active_date__country_name__is_max_active_date__plan_type__pricing_plan__product_name__provider__1 {
+#     query: {
+#       dimensions: [
+#         active_date,
+#         country_name,
+#         is_max_active_date,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider
+#       ]
+#       measures: [count_sum]
+#       filters: [active_subscriptions.is_max_active_date: "Yes"]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "active_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "active_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__active_date__country_name__is_max_active_date__plan_type__pricing_plan__product_name__provider__2 {
-    query: {
-      dimensions: [
-        active_date,
-        country_name,
-        is_max_active_date,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider
-      ]
-      measures: [count_sum]
-      filters: [active_subscriptions.is_end_of_month: "Yes"]
-    }
+#   aggregate_table: rollup__active_date__country_name__is_max_active_date__plan_type__pricing_plan__product_name__provider__2 {
+#     query: {
+#       dimensions: [
+#         active_date,
+#         country_name,
+#         is_max_active_date,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider
+#       ]
+#       measures: [count_sum]
+#       filters: [active_subscriptions.is_end_of_month: "Yes"]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "active_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "active_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__active_date__country_name__is_max_active_date__plan_type__pricing_plan__product_name__provider__3 {
-    query: {
-      dimensions: [
-        active_date,
-        country_name,
-        is_max_active_date,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider
-      ]
-      measures: [count_sum]
-    }
+#   aggregate_table: rollup__active_date__country_name__is_max_active_date__plan_type__pricing_plan__product_name__provider__3 {
+#     query: {
+#       dimensions: [
+#         active_date,
+#         country_name,
+#         is_max_active_date,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider
+#       ]
+#       measures: [count_sum]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "active_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "active_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__active_date__country_name__is_max_active_date__plan_type__pricing_plan__product_name__provider__4 {
-    query: {
-      dimensions: [
-        active_date,
-        country_name,
-        is_max_active_date,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider
-      ]
-      measures: [count_sum]
-      filters: [active_subscriptions.is_max_active_date: "Yes"]
-    }
+#   aggregate_table: rollup__active_date__country_name__is_max_active_date__plan_type__pricing_plan__product_name__provider__4 {
+#     query: {
+#       dimensions: [
+#         active_date,
+#         country_name,
+#         is_max_active_date,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider
+#       ]
+#       measures: [count_sum]
+#       filters: [active_subscriptions.is_max_active_date: "Yes"]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "active_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "active_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__active_date__country_name__is_max_active_date__plan_type__pricing_plan__product_name__provider__5 {
-    query: {
-      dimensions: [
-        active_date,
-        country_name,
-        is_max_active_date,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider
-      ]
-      measures: [count_sum]
-      filters: [active_subscriptions.is_max_active_date: "Yes"]
-    }
+#   aggregate_table: rollup__active_date__country_name__is_max_active_date__plan_type__pricing_plan__product_name__provider__5 {
+#     query: {
+#       dimensions: [
+#         active_date,
+#         country_name,
+#         is_max_active_date,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider
+#       ]
+#       measures: [count_sum]
+#       filters: [active_subscriptions.is_max_active_date: "Yes"]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "active_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "active_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__active_date__country_name__is_max_active_date__plan_type__pricing_plan__product_name__provider__6 {
-    query: {
-      dimensions: [
-        active_date,
-        country_name,
-        is_max_active_date,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider
-      ]
-      measures: [count_sum]
-      filters: [active_subscriptions.is_end_of_month: "Yes"]
-    }
+#   aggregate_table: rollup__active_date__country_name__is_max_active_date__plan_type__pricing_plan__product_name__provider__6 {
+#     query: {
+#       dimensions: [
+#         active_date,
+#         country_name,
+#         is_max_active_date,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider
+#       ]
+#       measures: [count_sum]
+#       filters: [active_subscriptions.is_end_of_month: "Yes"]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "active_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "active_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__active_date__country_name__is_max_active_date__plan_type__pricing_plan__product_name__provider__7 {
-    query: {
-      dimensions: [
-        active_date,
-        country_name,
-        is_max_active_date,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider
-      ]
-      measures: [count_sum]
-      filters: [active_subscriptions.is_max_active_date: "Yes"]
-    }
+#   aggregate_table: rollup__active_date__country_name__is_max_active_date__plan_type__pricing_plan__product_name__provider__7 {
+#     query: {
+#       dimensions: [
+#         active_date,
+#         country_name,
+#         is_max_active_date,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider
+#       ]
+#       measures: [count_sum]
+#       filters: [active_subscriptions.is_max_active_date: "Yes"]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "active_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "active_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__active_date__country_name__is_end_of_month__plan_type__pricing_plan__product_name__provider__8 {
-    query: {
-      dimensions: [
-        active_date,
-        country_name,
-        is_end_of_month,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider
-      ]
-      measures: [count_sum]
-      filters: [active_subscriptions.is_end_of_month: "Yes"]
-    }
+#   aggregate_table: rollup__active_date__country_name__is_end_of_month__plan_type__pricing_plan__product_name__provider__8 {
+#     query: {
+#       dimensions: [
+#         active_date,
+#         country_name,
+#         is_end_of_month,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider
+#       ]
+#       measures: [count_sum]
+#       filters: [active_subscriptions.is_end_of_month: "Yes"]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "active_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "active_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__active_date__country_name__is_end_of_month__plan_type__pricing_plan__provider__9 {
-    query: {
-      dimensions: [
-        active_date,
-        country_name,
-        is_end_of_month,
-        plan_type,
-        pricing_plan,
-        provider
-      ]
-      measures: [count_sum]
-      filters: [active_subscriptions.is_end_of_month: "Yes"]
-    }
+#   aggregate_table: rollup__active_date__country_name__is_end_of_month__plan_type__pricing_plan__provider__9 {
+#     query: {
+#       dimensions: [
+#         active_date,
+#         country_name,
+#         is_end_of_month,
+#         plan_type,
+#         pricing_plan,
+#         provider
+#       ]
+#       measures: [count_sum]
+#       filters: [active_subscriptions.is_end_of_month: "Yes"]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "active_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "active_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__active_date__country_name__is_max_active_date__plan_type__pricing_plan__product_name__provider__10 {
-    query: {
-      dimensions: [
-        active_date,
-        country_name,
-        is_max_active_date,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider
-      ]
-      measures: [count_sum]
-      filters: [active_subscriptions.is_end_of_month: "Yes"]
-    }
+#   aggregate_table: rollup__active_date__country_name__is_max_active_date__plan_type__pricing_plan__product_name__provider__10 {
+#     query: {
+#       dimensions: [
+#         active_date,
+#         country_name,
+#         is_max_active_date,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider
+#       ]
+#       measures: [count_sum]
+#       filters: [active_subscriptions.is_end_of_month: "Yes"]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "active_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "active_subscriptions_v1";;
+#     }
+#   }
 
-# Add aggregate tables lookML from Relay SaaSboard - Revenue
+# # Add aggregate tables lookML from Relay SaaSboard - Revenue
 
-  aggregate_table: rollup__active_date__country_name__plan_type__pricing_plan__product_name__provider__0 {
-    query: {
-      dimensions: [
-        active_date,
-        country_name,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider
-      ]
-      measures: [annual_recurring_revenue, count_sum, monthly_recurring_revenue]
-      filters: [active_subscriptions.is_end_of_month: "Yes"]
-    }
+#   aggregate_table: rollup__active_date__country_name__plan_type__pricing_plan__product_name__provider__0 {
+#     query: {
+#       dimensions: [
+#         active_date,
+#         country_name,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider
+#       ]
+#       measures: [annual_recurring_revenue, count_sum, monthly_recurring_revenue]
+#       filters: [active_subscriptions.is_end_of_month: "Yes"]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "active_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "active_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__active_date__country_name__plan_type__pricing_plan__product_name__provider__1 {
-    query: {
-      dimensions: [
-        active_date,
-        country_name,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider
-      ]
-      measures: [annual_recurring_revenue]
-      filters: [active_subscriptions.is_end_of_month: "Yes"]
-    }
+#   aggregate_table: rollup__active_date__country_name__plan_type__pricing_plan__product_name__provider__1 {
+#     query: {
+#       dimensions: [
+#         active_date,
+#         country_name,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider
+#       ]
+#       measures: [annual_recurring_revenue]
+#       filters: [active_subscriptions.is_end_of_month: "Yes"]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "active_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "active_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__active_date__country_name__plan_type__pricing_plan__product_name__provider__2 {
-    query: {
-      dimensions: [
-        active_date,
-        country_name,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider
-      ]
-      measures: [annual_recurring_revenue]
-      filters: [active_subscriptions.is_end_of_month: "Yes"]
-    }
+#   aggregate_table: rollup__active_date__country_name__plan_type__pricing_plan__product_name__provider__2 {
+#     query: {
+#       dimensions: [
+#         active_date,
+#         country_name,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider
+#       ]
+#       measures: [annual_recurring_revenue]
+#       filters: [active_subscriptions.is_end_of_month: "Yes"]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "active_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "active_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__metadata_last_modified_date__3 {
-    query: {
-      dimensions: [metadata.last_modified_date]
-    }
+#   aggregate_table: rollup__metadata_last_modified_date__3 {
+#     query: {
+#       dimensions: [metadata.last_modified_date]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "active_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "active_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__active_date__country_name__plan_type__pricing_plan__product_name__provider__4 {
-    query: {
-      dimensions: [
-        active_date,
-        country_name,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider
-      ]
-      measures: [monthly_recurring_revenue]
-      filters: [active_subscriptions.is_end_of_month: "Yes"]
-    }
+#   aggregate_table: rollup__active_date__country_name__plan_type__pricing_plan__product_name__provider__4 {
+#     query: {
+#       dimensions: [
+#         active_date,
+#         country_name,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider
+#       ]
+#       measures: [monthly_recurring_revenue]
+#       filters: [active_subscriptions.is_end_of_month: "Yes"]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "active_subscriptions_v1";;
-    }
-  }
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "active_subscriptions_v1";;
+#     }
+#   }
 
-  aggregate_table: rollup__active_date__country_name__plan_type__pricing_plan__product_name__provider__5 {
-    query: {
-      dimensions: [
-        active_date,
-        country_name,
-        plan_type,
-        pricing_plan,
-        product_name,
-        provider
-      ]
-      measures: [monthly_recurring_revenue]
-      filters: [active_subscriptions.is_end_of_month: "Yes"]
-    }
+#   aggregate_table: rollup__active_date__country_name__plan_type__pricing_plan__product_name__provider__5 {
+#     query: {
+#       dimensions: [
+#         active_date,
+#         country_name,
+#         plan_type,
+#         pricing_plan,
+#         product_name,
+#         provider
+#       ]
+#       measures: [monthly_recurring_revenue]
+#       filters: [active_subscriptions.is_end_of_month: "Yes"]
+#     }
 
-    materialization: {
-      sql_trigger_value: SELECT
-        MAX(last_modified_time)
-      FROM
-        moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
-      WHERE
-        table_name = "active_subscriptions_v1";;
-    }
-  }
-}
+#     materialization: {
+#       sql_trigger_value: SELECT
+#         MAX(last_modified_time)
+#       FROM
+#         moz-fx-data-shared-prod.relay_derived.INFORMATION_SCHEMA.PARTITIONS
+#       WHERE
+#         table_name = "active_subscriptions_v1";;
+#     }
+#   }
+# }
