@@ -7,17 +7,8 @@ include: "views/releases.view.lkml"
 include: "explores/*"
 include: "dashboards/*"
 
-
-
 # looker-hub explores included here
 include: "//looker-hub/duet/explores/*"
-
-##########################################################################################
-# below are views saved into the mr1DEVELOPMENT directory specifically for the MR1 dashboard
-# do not use those views for other projects, as they are specific to the MR1 dashboard and
-# haven't been developed for general consumption
-include: "mr1DEVELOPMENT/explores/*explore.lkml"
-include: "mr1DEVELOPMENT/dashboards/*"
 
 explore: releases {
   hidden: yes
