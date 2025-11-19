@@ -8,7 +8,7 @@
       options:
       - VPN
   elements:
-  - name: nav
+  - name: ''
     type: text
     title_text: ''
     body_text: |

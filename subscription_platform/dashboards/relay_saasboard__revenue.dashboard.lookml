@@ -8,7 +8,7 @@
       options:
       - Relay
   elements:
-  - name: nav
+  - name: ''
     type: text
     title_text: ''
     subtitle_text: ''
@@ -33,7 +33,7 @@
           Churn
         </a>
 
-        <a href="https://mozilla.cloud.looker.com/dashboards/subscription_platform::relay_saasboard__revenue" style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; border: 1px solid white; font-weight: bold; text-decoration: underline;">
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; border: 1px solid white; font-weight: bold; text-decoration: underline;">
           Revenue
         </a>
 
