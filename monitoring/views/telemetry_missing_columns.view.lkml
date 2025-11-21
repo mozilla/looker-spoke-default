@@ -22,6 +22,8 @@ product=Data+Platform+and+Tools
 Found in {{ path_count_last_week }} pings in the past week which is a change of {{ percent_change._rendered_value }} from the previous week. This is affecting {{ percent_affected_pings._rendered_value }} of valid pings.
 %0D%0A%0D%0A
 See runbook for resolution: {{ 'https://mozilla-hub.atlassian.net/wiki/spaces/DATA/pages/590446607/Missing+Column+Error' | url_encode }}
+%0D%0A%0D%0A
+[Link to Looker explore](https://mozilla.cloud.looker.com/x/Fkx1kRudQQ5neF9B9YGTlw)
 "
       icon_url: "https://bugzilla.mozilla.org/favicon.ico"
     }
@@ -69,7 +71,7 @@ See runbook for resolution: {{ 'https://mozilla-hub.atlassian.net/wiki/spaces/DA
   measure: percent_affected_pings {
     label: "% affected pings"
     type: number
-    sql: ${path_count_last_week} / ${total_ping_count} ;;
+    sql: ${path_count_last_week} / GREATEST(${total_ping_count}, 1) ;;
     value_format_name: percent_2
   }
 }
