@@ -1,6 +1,5 @@
 include: "../views/new_retention_view_for_acquisition_funnel.view.lkml"
 include: "/shared/views/countries.view.lkml"
-include: "//looker-hub/fenix/datagroups/funnel_retention_week_4_table_last_updated.datagroup.lkml"
 
 
 explore: funnel_retention_week_4 {
@@ -19,5 +18,4 @@ explore: funnel_retention_week_4 {
     sql_on: ${new_retention_view_for_acquisition_funnel.country} = ${countries.code} ;;
   }
 
-  persist_with: funnel_retention_week_4_table_last_updated
 }
