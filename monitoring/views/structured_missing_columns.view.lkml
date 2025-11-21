@@ -22,6 +22,8 @@ product=Data+Platform+and+Tools
 Found in {{ path_count_last_week }} pings in the past week which is a change of {{ percent_change._rendered_value }} from the previous week. This is affecting {{ percent_affected_pings._rendered_value }} of valid pings.
 %0D%0A%0D%0A
 See runbook for resolution: {{ 'https://mozilla-hub.atlassian.net/wiki/spaces/DATA/pages/590446607/Missing+Column+Error' | url_encode }}
+%0D%0A%0D%0A
+[Link to Looker explore](https://mozilla.cloud.looker.com/x/UdTSjppu9LefBJvlnSnwjo).  In the filters, change `document namespace` to `{{ document_namespace }}`, `document type` to `{{ document_type }}`, and `clean path` to `{{ clean_path }}`.
 "
       icon_url: "https://bugzilla.mozilla.org/favicon.ico"
     }
@@ -30,6 +32,11 @@ See runbook for resolution: {{ 'https://mozilla-hub.atlassian.net/wiki/spaces/DA
   dimension: path_count {
     hidden: yes
   }
+
+  dimension: clean_path {
+    sql: REPLACE(${structured_missing_columns.path}, '`', '') ;;
+  }
+
 
   # Measures
   measure: sum_path_count {
@@ -69,7 +76,7 @@ See runbook for resolution: {{ 'https://mozilla-hub.atlassian.net/wiki/spaces/DA
   measure: percent_affected_pings {
     label: "% affected pings"
     type: number
-    sql: ${path_count_last_week} / ${total_ping_count} ;;
+    sql: ${path_count_last_week} / GREATEST(${total_ping_count}, 1) ;;
     value_format_name: percent_2
   }
 }
