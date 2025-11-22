@@ -7,6 +7,45 @@
   - name: ''
     type: text
     title_text: ''
+    body_text: |
+      <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px;">
+
+      <nav style="font-size: 20px;">
+
+        <a href="https://mozilla.cloud.looker.com/dashboards/subscription_platform::saasboard__active_subscriptions" style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;">
+          Active Subscriptions
+        </a>
+
+        <a style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px; border: 1px solid white; font-weight: bold; text-decoration: underline;">
+          Subscriptions Growth
+        </a>
+
+        <a href="https://mozilla.cloud.looker.com/dashboards/subscription_platform::saasboard__retention" style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;">
+          Retention
+        </a>
+
+        <a href="https://mozilla.cloud.looker.com/dashboards/subscription_platform::saasboard__churn" style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;">
+          Churn
+        </a>
+
+        <a href="https://mozilla.cloud.looker.com/dashboards/subscription_platform::saasboard__revenue" style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;">
+          Revenue
+        </a>
+
+        <!--<a href="" style="color: #efefef; padding: 5px 25px; float: left; line-height: 40px;">
+          Docs
+        </a>-->
+
+      </nav>
+
+      </div>
+    row: 0
+    col: 0
+    width: 24
+    height: 2
+  - name: " (2)"
+    type: text
+    title_text: ''
     body_text: |-
       <div style='background-color: #ffffdd; padding: 5px 10px; border: solid 3px #ededed; border-radius: 5px; height:160px'>
 
@@ -73,7 +112,7 @@
     col: 16
     width: 8
     height: 4
-  - name: " (2)"
+  - name: " (3)"
     type: text
     title_text: ''
     body_text: |-
@@ -676,7 +715,7 @@
     col: 12
     width: 12
     height: 10
-  - name: " (3)"
+  - name: " (4)"
     type: text
     title_text: ''
     body_text: |-
