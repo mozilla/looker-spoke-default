@@ -32,6 +32,7 @@ include: "//looker-hub/firefox_desktop/views/first_startup_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/fx_accounts.view.lkml"
 include: "//looker-hub/firefox_desktop/views/fx_accounts_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/glean_events.view.lkml"
+include: "//looker-hub/firefox_desktop/views/health.view.lkml"
 include: "//looker-hub/firefox_desktop/views/ltv_states_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/messaging_system.view.lkml"
 include: "//looker-hub/firefox_desktop/views/messaging_system_table.view.lkml"
@@ -212,6 +213,16 @@ view: +metrics {
   }
 }
 
+view: +health {
+  dimension: client_info__build_date_datetime {
+    label: "Build Date (Datetime)"
+    description: "The date & time the application was built as a timestamp"
+    group_label: "Client Info"
+    group_item_label: "Build Date (Datetime)"
+    sql: PARSE_TIMESTAMP("%Y%m%d%H%M%S", ${TABLE}.client_info.app_build) ;;
+    type: date_time
+  }
+}
 
 view: +clients_daily_table__contextual_services_quicksuggest_click_sum {
   dimension: value {
