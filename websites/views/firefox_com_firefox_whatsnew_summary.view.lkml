@@ -24,17 +24,17 @@ view: +firefox_com_firefox_whatsnew_summary {
     type: count
     filters: [event_name: "session_start"]
   }
-  # measure: engaged_sessions_counts {
-  #   description: "Total count of distinct engaged sessions"
-  #   type: count_distinct
-  #   sql: ${visit_identifier} ;;
-  #   filters: [engaged_session: "1"]
-  # }
+  measure: engaged_sessions_counts {
+    description: "Total count of distinct engaged sessions"
+    type: count_distinct
+    sql: ${visit_identifier} ;;
+    filters: [engaged_session: "1"]
+  }
 
-  # measure: engagement_rate {
-  #   type: number
-  #   sql: SAFE_DIVIDE(${engaged_sessions_counts}, ${session_start_count}) ;;
-  #   value_format_name: percent_2
-  # }
+  measure: engagement_rate {
+    type: number
+    sql: SAFE_DIVIDE(${engaged_sessions_counts}, ${session_start_count}) ;;
+    value_format_name: percent_2
+  }
 
 }
