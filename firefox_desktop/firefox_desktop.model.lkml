@@ -56,7 +56,6 @@ include: "//looker-hub/firefox_desktop/views/metric_definitions_newtab_clients_d
 include: "//looker-hub/firefox_desktop/views/metric_definitions_normandy_events.view.lkml"
 include: "//looker-hub/firefox_desktop/views/metric_definitions_search_clients_engines_sources_daily.view.lkml"
 include: "//looker-hub/firefox_desktop/views/metric_definitions_serp_events.view.lkml"
-include: "//looker-hub/firefox_desktop/views/metric_definitions_sponsored_tiles_clients_daily.view.lkml"
 include: "//looker-hub/firefox_desktop/views/metrics.view.lkml"
 include: "//looker-hub/firefox_desktop/views/metrics_clients_daily_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/metrics_clients_last_seen_table.view.lkml"
