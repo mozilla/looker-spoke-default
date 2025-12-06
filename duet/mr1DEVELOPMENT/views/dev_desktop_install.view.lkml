@@ -19,39 +19,12 @@ view: dev_desktop_install {
               END
                 AS week4_reported_date,
             CASE
-              WHEN normalized_country_code IN ('US', 'GB', 'DE', 'FR','CA', 'BR',
-                                               'MX', 'CN', 'IN', 'AU', 'NL', 'ES', 'RU')
+              WHEN normalized_country_code IN ('US','CA','BR','MX','CN','IN','AU','RU')
               THEN normalized_country_code
               ELSE 'ROW'
               END
                 AS normalized_country_code_subset,
-            CASE
-              WHEN (silent = FALSE OR silent IS NULL)
-              AND DATE_DIFF(  -- Only use builds from the last month
-                    DATE(submission_timestamp),
-                    SAFE.PARSE_DATE('%Y%m%d', SUBSTR(build_id, 0, 8)),
-                    WEEK
-                    ) <= 6
-              AND IF((attribution IS NULL OR attribution = '' OR attribution = '0'),
-                 NULL,
-                 SPLIT(
-                    SPLIT(
-                        attribution,
-                        '26ua%3D')[SAFE_OFFSET(1)],
-                        '%')[SAFE_OFFSET(0)]
-                        ) != 'firefox'
-              AND IF((attribution IS NULL OR attribution = '' OR attribution = '0'),
-                 NULL,
-                 SPLIT(
-                    SPLIT(
-                        attribution,
-                        '26ua%3D')[SAFE_OFFSET(1)],
-                        '%')[SAFE_OFFSET(0)]
-                        ) IS NOT NULL
-              THEN 'mozorg windows funnel'
-              ELSE 'other'
-              END
-                AS funnel_derived,
+            funnel_derived,
             SUM(
               CASE WHEN succeeded = TRUE
                    AND had_old_install IS NOT TRUE
@@ -74,6 +47,9 @@ view: dev_desktop_install {
               AS installs
           FROM `mozdata.firefox_installer.install`
           WHERE date(submission_timestamp) >= '2021-01-01'
+          AND coalesce(normalized_country_code, '') NOT in
+              ('AT','DE','GB','NL','PL','ES','IT','CH','CZ','SE','BG','BE','SK',
+               'LV','EE','LT','FR','HR','PT','SI','DK','FI','HU','IS','IE','NO','RO')
           AND DATE_DIFF(current_date(), date(submission_timestamp), DAY) > 1
           GROUP BY 1, 2, 3, 4
         )
