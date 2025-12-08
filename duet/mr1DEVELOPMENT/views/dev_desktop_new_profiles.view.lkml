@@ -24,7 +24,7 @@ view: dev_desktop_new_profiles {
                 AS normalized_country_code_subset,
           funnel_derived,
           count(*) AS new_profiles
-        FROM `moz-fx-data-shared-prod.telemetry_derived.clients_first_seen_v2`
+        FROM `mozdata.telemetry.clients_first_seen`
         WHERE first_seen_date >= '2021-01-01'
               AND coalesce(country, '') NOT in
               ('AT','DE','GB','NL','PL','ES','IT','CH','CZ','SE','BG','BE','SK',
