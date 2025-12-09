@@ -1,0 +1,2 @@
+- dashboard: placeholder
+  title: Placeholder
