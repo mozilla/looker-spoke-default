@@ -1,5 +1,5 @@
 view: report_content {
-  sql_table_name: `moz-fx-data-shared-prod.firefox_desktop_derived.report_content_v1` ;;
+  sql_table_name: `moz-fx-data-shared-prod.firefox_desktop_derived.newtab_content_reported_content_v1` ;;
 
   dimension: card_type {
     type: string
