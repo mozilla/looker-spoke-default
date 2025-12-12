@@ -17,13 +17,10 @@ view: +crash_aggregates {
     sql: ${TABLE}.crash_background_task_name ;;
     view_label: "Exclusions"
   }
-
   dimension: memory_oom_allocation_size {
     sql: ${TABLE}.memory_oom_allocation_size;;
     view_label: "Exclusions"
   }
-
-
   dimension: crash_shutdown_metrics {
     type: yesno
     sql: (
