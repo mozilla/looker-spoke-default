@@ -53,7 +53,6 @@ view: +crash_aggregates {
     group_label: "Exclusions"
   }
 
-
   dimension: crashing_users {
     sql: ${TABLE}.crashing_users ;;
     hidden: yes
