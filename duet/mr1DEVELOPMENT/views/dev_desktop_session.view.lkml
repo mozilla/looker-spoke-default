@@ -10,40 +10,27 @@ WITH tbl AS (
          END AS week4_reported_date,
          CASE
              WHEN standardized_country_name = 'USA' THEN 'US'
-             WHEN standardized_country_name = 'United Kingdom' THEN 'GB'
-             WHEN standardized_country_name = 'Germany' THEN 'DE'
-             WHEN standardized_country_name = 'France' THEN 'FR'
              WHEN standardized_country_name = 'Canada' THEN 'CA'
              WHEN standardized_country_name = 'Brazil' THEN 'BR'
              WHEN standardized_country_name = 'Mexico' THEN 'MX'
              WHEN standardized_country_name = 'China' THEN 'CN'
              WHEN standardized_country_name = 'India' THEN 'IN'
              WHEN standardized_country_name = 'Australia' THEN 'AU'
-             WHEN standardized_country_name = 'Netherlands' THEN 'NL'
-             WHEN standardized_country_name = 'Spain' THEN 'ES'
              WHEN standardized_country_name = 'Russia' THEN 'RU'
              ELSE 'ROW'
          END AS normalized_country_code_subset,
-         CASE
-             WHEN browser IN ('Mozilla',
-                              'Firefox') THEN 'existing user' -- note, the sessions and downloads should always be zero due to
-   -- the measures being *_non_fx_*
-   -- but useful if we change the structure
-
-             WHEN browser NOT IN ('Mozilla',
-                                  'Firefox')
-                  AND operating_system = 'Windows' THEN 'mozorg windows funnel'
-             WHEN browser NOT IN ('Mozilla',
-                                  'Firefox')
-                  AND operating_system = 'Macintosh' THEN 'mozorg mac funnel'
-             ELSE 'other'
-         END AS funnel_derived,
+         funnel_derived,
          sum(non_fx_sessions) AS non_fx_sessions,
          sum(non_fx_downloads) AS non_fx_downloads
   FROM `moz-fx-data-shared-prod.mozilla_org.www_site_metrics_summary`
   WHERE date >= '2021-01-01'
     AND DATE_DIFF(current_date(), date, DAY) > 1
     AND device_category = 'desktop'
+    AND COALESCE(standardized_country_name, '') NOT IN
+              ('Austria','Germany','United Kingdom','Netherlands','Poland','Spain','Italy','Switzerland',
+               'Czechia','Sweden','Bulgaria','Belgium','Slovakia','Latvia','Estonia','Lithuania','France',
+               'Croatia','Portugal','Slovenia','Denmark','Finland','Hungary','Iceland','Ireland','Norway',
+              'Romania')
   GROUP BY 1,
            2,
            3,

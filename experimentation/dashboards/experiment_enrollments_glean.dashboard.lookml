@@ -550,7 +550,7 @@
     model: experimentation
     explore: unenrollment_reasons_glean
     type: looker_grid
-    fields: [glean_events.reason, glean_events.event_name, glean_events.event_count]
+    fields: [glean_events.reason, glean_events.event_name, glean_events.changed_pref, glean_events.event_count]
     filters:
       glean_events.sample_id: '0'
     sorts: [glean_events.event_count desc]

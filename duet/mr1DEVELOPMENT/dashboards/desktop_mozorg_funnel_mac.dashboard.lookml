@@ -626,7 +626,7 @@
   - name: Countries
     title: Countries
     type: field_filter
-    default_value: US,GB,DE,FR,CA,BR,MX,CN,IN,AU,NL,ES,RU,ROW
+    default_value: US,CA,BR,MX,CN,IN,AU,RU,ROW
     allow_multiple_values: true
     required: false
     ui_config:
@@ -634,17 +634,12 @@
       display: popover
       options:
       - US
-      - GB
-      - DE
-      - FR
       - CA
       - BR
       - MX
       - CN
       - IN
       - AU
-      - NL
-      - ES
       - RU
       - ROW
     model: duet

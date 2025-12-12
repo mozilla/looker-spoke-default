@@ -88,23 +88,16 @@ view: missing_namespaces_and_document_types {
     sql: "create Bug" ;;
     link: {
       label: "create new Bug"
-      url: "{{
-        'https://bugzilla.mozilla.org/enter_bug.cgi?'
-      }}{{
-        'product=Data+Platform+and+Tools'
-      }}{{
-        '&component=General'
-      }}{{
-        '&bug_type=defect'
-      }}{{
-        '&status_whiteboard=%5Bdataquality%5D'
-      }}{{
-        '&short_desc=missing+namespaces+and+document+types+in+%60'
-      }}{{
-        document_namespace
-      }}{{
-        '%60+ADD+LIST+OF+DOCUMENT+TYPES+HERE'
-      }}"
+      url: "
+https://bugzilla.mozilla.org/enter_bug.cgi?
+product=Data+Platform+and+Tools
+&component=General
+&bug_type=defect
+&status_whiteboard=%5Bdataquality%5D
+&short_desc=missing+namespaces+and+document+types+in+%60{{ document_namespace }}%60%3A%20 {{ list_of_document_types._rendered_value }}
+&comment=`{{ document_namespace }}` had {{ total_errors }} pings with missing schemas in the past week. Document types: {{ list_of_document_types._rendered_value }}%0D%0A%0D%0A
+See runbook for resolution details: {{ 'https://mozilla-hub.atlassian.net/wiki/spaces/IP/pages/284721153/Missing+Document+Namespace+Bugs' | url_encode }}
+"
       icon_url: "https://bugzilla.mozilla.org/favicon.ico"
     }
   }
@@ -115,20 +108,17 @@ view: missing_namespaces_and_document_types {
     sql: "create Bug" ;;
     link: {
       label: "create new Bug"
-      url: "{{
-        'https://bugzilla.mozilla.org/enter_bug.cgi?'
-      }}{{
-        'product=Data+Platform+and+Tools'
-      }}{{
-        '&component=General'
-      }}{{
-        '&bug_type=defect'
-      }}{{
-        '&status_whiteboard=%5Bdataquality%5D'
-      }}{{
-        '&short_desc=missing+namespace+and+document+types+in+%60'
-      }}{{
-        document_namespace }}.{{ document_type }}%60"
+      url: "
+https://bugzilla.mozilla.org/enter_bug.cgi?
+product=Data+Platform+and+Tools
+&component=General
+&bug_type=defect
+&status_whiteboard=%5Bdataquality%5D
+&short_desc=missing+namespace+and+document+types+in+
+{{ document_namespace }}.{{ document_type }}
+&comment=`{{ document_namespace }}.{{ document_type }}` had {{ total_errors }} pings with missing schemas in the past week.%0D%0A%0D%0A
+See runbook for resolution details: {{ 'https://mozilla-hub.atlassian.net/wiki/spaces/IP/pages/284721153/Missing+Document+Namespace+Bugs' | url_encode }}
+"
       icon_url: "https://bugzilla.mozilla.org/favicon.ico"
     }
   }
@@ -141,5 +131,9 @@ view: missing_namespaces_and_document_types {
   measure: total_errors {
     type: sum
     sql: ${TABLE}.total_errors ;;
+  }
+  measure: list_of_document_types {
+    type: list
+    list_field: document_type
   }
 }

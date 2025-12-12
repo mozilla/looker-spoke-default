@@ -97,6 +97,44 @@ view: newtab_visits {
     approximate: yes
   }
 
+  measure: non_impression_engagement_visits {
+    type: sum
+    sql: IF(${had_non_impression_engagement}, 1, NULL) ;;
+    hidden: yes
+  }
+
+  measure: percent_of_non_impressions_engagement_visits {
+    type: number
+    value_format_name: "percent_1"
+    sql: ${non_impression_engagement_visits} / ${visits} ;;
+  }
+
+  measure: non_impression_engagment_clients {
+    type: count_distinct
+    allow_approximate_optimization: yes
+    sql: IF(${had_non_impression_engagement}, ${client_id}, NULL) ;;
+    hidden: yes
+  }
+
+  measure: impression_engagment_clients {
+    type: count_distinct
+    allow_approximate_optimization: yes
+    sql: IF(${had_non_impression_engagement}, NULL, ${client_id}) ;;
+    hidden: yes
+  }
+
+  measure: percent_of_non_impression_engagment_clients {
+    type: number
+    value_format_name: "percent_1"
+    sql: ${non_impression_engagment_clients} / (${non_impression_engagment_clients} + ${impression_engagment_clients}) ;;
+  }
+
+  measure: organic_tile_ctr {
+    type: number
+    label: "Organic Tile CTR"
+    sql: ${newtab_visits_table__topsite_tile_interactions.sum_organic_topsite_tile_clicks}/${newtab_visits_table__topsite_tile_interactions.sum_organic_topsite_tile_impressions} ;;
+    value_format_name: "percent_2"
+  }
 }
 
 view: +newtab_visits_table__topsite_tile_interactions {

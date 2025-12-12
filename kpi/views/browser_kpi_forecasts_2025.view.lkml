@@ -4,20 +4,16 @@ view: browser_kpi_forecasts_2025 {
       WITH date_range AS (
         SELECT DATE_ADD("2024-01-01", INTERVAL n DAY) AS submission_date
         FROM UNNEST(GENERATE_ARRAY(0, DATE_DIFF("2025-12-31", "2024-01-01", DAY))) AS n
+        WHERE DATE_ADD("2024-01-01", INTERVAL n DAY) <> DATE(2024, 2, 29)
       ),
 
       aua AS (
         SELECT
           submission_date,
-          CASE
-            WHEN app_name = "Firefox Desktop" THEN "desktop"
-            WHEN app_name IN ("Fenix", "Firefox iOS", "Focus Android", "Focus iOS", "focus_android", "focus_ios") THEN "mobile"
-            ELSE "other"
-          END AS product,
-          SUM(dau) AS dau
-        FROM `moz-fx-data-shared-prod.telemetry.active_users_aggregates`
+          product_category AS product,
+          dau
+        FROM `moz-fx-data-shared-prod.telemetry.daily_active_users_by_product_category`
         WHERE submission_date >= "2023-12-01"
-        GROUP BY submission_date, product
       ),
 
       aua_ma AS (

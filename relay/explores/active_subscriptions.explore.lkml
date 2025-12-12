@@ -1,7 +1,7 @@
 include: "../views/active_subscriptions.view"
 include: "../views/table_metadata.view"
-include: "/mozilla_vpn/views/vat_rates.view"
-include: "//looker-hub/mozilla_vpn/views/exchange_rates_table.view"
+include: "/subscription_platform/views/vat_rates.view.lkml"
+include: "//looker-hub/subscription_platform/views/exchange_rates.view.lkml"
 
 explore: active_subscriptions {
   # from: active_subscriptions
@@ -30,11 +30,10 @@ explore: active_subscriptions {
     relationship: one_to_one
   }
 
-  join: exchange_rates_table {
-    view_label: "Exchange Rates"
+  join: exchange_rates {
     fields: [price]
-    sql_on: UPPER(${active_subscriptions.plan_currency}) = UPPER(${exchange_rates_table.base_currency})
-      AND ${active_subscriptions.active_raw} = ${exchange_rates_table.date_raw};;
+    sql_on: UPPER(${active_subscriptions.plan_currency}) = UPPER(${exchange_rates.base_currency})
+      AND ${active_subscriptions.active_raw} = ${exchange_rates.date_raw};;
     relationship: one_to_one
   }
 }

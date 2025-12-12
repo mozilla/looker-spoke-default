@@ -15,6 +15,8 @@ include: "views/raw_event_types.view.lkml"
 include: "//looker-hub/firefox_desktop/datagroups/onboarding_table_last_updated.datagroup.lkml"
 
 explore: funnel_analysis {
+  # This explore is unmaintained and will be deprecated in the future. See https://mozilla-hub.atlassian.net/browse/DENG-9951
+  hidden: yes
   view_label: " User-Day Funnels"
   join: experiments {
     relationship: one_to_one
@@ -119,74 +121,6 @@ explore: funnel_analysis {
   sql_always_where: funnel_analysis.submission_date > "2010-01-01" ;;
 }
 
-explore: cohort_analysis {
-  view_label: " User Properties"
-  from: cohort
-  join: cohort_event_type_1 {
-    view_label: "Cohort 1"
-    relationship: one_to_one
-    type: cross
-  }
-  join: cohort_event_type_2 {
-    view_label: "Cohort 2"
-    relationship: one_to_one
-    type: cross
-  }
-  join: cohort_event_type_3 {
-    view_label: "Cohort 3"
-    relationship: one_to_one
-    type: cross
-  }
-  join: cohort_event_type_4 {
-    view_label: "Cohort 4"
-    relationship: one_to_one
-    type: cross
-  }
-  join: days_since_message {
-    relationship: many_to_one
-    type: cross
-  }
-  join: search_clients_last_seen {
-    fields: []
-    relationship: one_to_one
-    type: left_outer
-    sql_on: ${cohort_analysis.sample_id} = ${search_clients_last_seen.sample_id}
-        AND ${cohort_analysis.client_id} = ${search_clients_last_seen.client_id}
-        AND (${cohort_analysis.submission_date} = DATE_SUB(${search_clients_last_seen.submission_date}, INTERVAL 56 DAY)
-              OR (${search_clients_last_seen.submission_date} = DATE_SUB(current_date, INTERVAL 2 DAY)
-                  AND DATE_ADD(${cohort_analysis.submission_date}, INTERVAL 56 DAY) >  DATE_SUB(current_date, INTERVAL 2 DAY)));;
-  }
-  sql_always_where: cohort_analysis.submission_date > "2010-01-01" ;;
-  always_filter: {
-    filters: [
-      date: "14 days",
-      days_since_message.time_period: "7",
-      cohort_event_type_1.event_type: "IMPRESSION",
-      cohort_event_type_1.message_id: "ABOUT^_WELCOME",
-    ]
-  }
-  query: about_welcome_cohorts {
-    dimensions: [days_since_message.days_since_message]
-    measures: [
-      cohort_event_type_1.average_days_of_use,
-      cohort_event_type_2.average_days_of_use,
-      cohort_event_type_3.average_days_of_use,
-    ]
-    label: "About Welcome - Cohorts"
-    description: "Average days of use for two weeks"
-    filters: [
-      date: "21 days",
-      days_since_message.time_period: "14",
-      cohort_event_type_1.event_type: "IMPRESSION",
-      cohort_event_type_1.message_id: "ABOUT^_WELCOME",
-      cohort_event_type_2.event_type: "CLICK^_BUTTON",
-      cohort_event_type_2.message_id: "ABOUT^_WELCOME",
-      cohort_event_type_3.event_type: "SESSION^_END",
-      cohort_event_type_3.message_id: "ABOUT^_WELCOME",
-    ]
-    limit: 100
-  }
-}
 
 explore: event_counts {
   from: onboarding_v1
@@ -224,54 +158,4 @@ explore: event_counts {
   }
   sql_always_where: DATE(submission_timestamp) > '2020-01-01'
     ;;
-}
-
-
-# The following are used just for suggestions
-
-explore: event_names {
-  hidden: yes
-  from: raw_event_types
-}
-
-explore: events_daily_sample {
-  hidden: yes
-  from: events_daily
-  sql_always_where:
-    events_daily_sample.submission_date >= DATE_SUB(current_date, INTERVAL 7 DAY)
-    AND events_daily_sample.sample_id = 42;;
-}
-
-explore: event_property_page {
-  from: raw_event_types
-  hidden: yes
-  sql_always_where: property_name = 'page';;
-}
-
-explore: event_property_source {
-  hidden: yes
-  from: raw_event_types
-  sql_always_where: property_name = 'source';;
-}
-
-explore: event_property_domState {
-  hidden: yes
-  from: raw_event_types
-  sql_always_where: property_name = 'domState';;
-}
-
-explore: event_property_reason {
-  hidden: yes
-  from: raw_event_types
-  sql_always_where: property_name = 'reason';;
-}
-
-explore: event_property_display {
-  hidden: yes
-  from: raw_event_types
-  sql_always_where: property_name = 'display';;
-}
-
-explore: experiment_names {
-  hidden: yes
 }

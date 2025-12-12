@@ -27,6 +27,10 @@ view: +logical_subscriptions {
   dimension: country_name {
     map_layer_name: countries
   }
+  dimension: country_vat_rate {
+    label: "Country VAT Rate"
+    value_format_name: percent_2
+  }
 
   dimension: services_quantity {
     type: number
@@ -51,11 +55,22 @@ view: +logical_subscriptions {
   dimension: plan_amount {
     value_format_name: decimal_2
   }
+  dimension: plan_amount_usd {
+    label: "Plan Amount (USD)"
+    value_format_name: usd
+  }
+  dimension: plan_currency_usd_exchange_rate {
+    label: "Plan Currency USD Exchange Rate"
+    value_format_name: percent_4
+  }
 
-  dimension: effective_date {
-    type: date_raw
-    sql: COALESCE(DATE(${TABLE}.ended_at), ${table_metadata.last_modified_date} - 1) ;;
-    hidden: yes
+  dimension: current_period_discount_amount_usd {
+    label: "Current Period Discount Amount (USD)"
+    value_format_name: usd
+  }
+  dimension: ongoing_discount_amount_usd {
+    label: "Ongoing Discount Amount (USD)"
+    value_format_name: usd
   }
 
   dimension_group: active {
@@ -70,14 +85,6 @@ view: +logical_subscriptions {
     sql_start: ${TABLE}.started_at ;;
     sql_end: TIMESTAMP(CURRENT_DATE()) ;;
     intervals: [day, week, month, quarter, year]
-  }
-
-  dimension_group: until_current_period_ends {
-    type: duration
-    sql_start: LEAST(TIMESTAMP(CURRENT_DATE()), ${TABLE}.current_period_ends_at) ;;
-    sql_end: ${TABLE}.current_period_ends_at ;;
-    intervals: [day, week, month]
-    hidden: yes
   }
 
   dimension: month_numbers {
@@ -99,251 +106,13 @@ view: +logical_subscriptions {
     hidden: yes
   }
 
-  dimension: current_period_discounted_plan_amount {
-    type: number
-    sql: GREATEST((${plan_amount} - COALESCE(${current_period_discount_amount}, 0)), 0) ;;
-    hidden: yes
-  }
-  dimension: current_period_annual_recurring_revenue_months {
-    type: number
-    sql: LEAST((${months_until_current_period_ends} + 1), 12) ;;
-    hidden: yes
-  }
-  dimension: current_period_annual_recurring_gross_revenue {
-    type: number
-    sql:
-      CASE
-        WHEN ${is_active} IS NOT TRUE
-          OR ${is_trial} IS TRUE
-          THEN 0
-        WHEN ${plan_interval_type} IN ('year', 'month')
-          THEN (
-              ${current_period_discounted_plan_amount}
-              / ${plan_interval_months}
-              * ${current_period_annual_recurring_revenue_months}
-            )
-        WHEN ${plan_interval_type} IN ('week', 'day')
-          THEN ${current_period_discounted_plan_amount}
-      END ;;
-    hidden: yes
-  }
-
-  dimension: ongoing_discounted_plan_amount {
-    type: number
-    sql: GREATEST((${plan_amount} - COALESCE(${ongoing_discount_amount}, 0)), 0) ;;
-    hidden: yes
-  }
-  dimension_group: after_current_period_before_ongoing_discount_ends {
-    type: duration
-    sql_start: ${current_period_ends_at_raw} ;;
-    sql_end: TIMESTAMP_SUB(${ongoing_discount_ends_at_raw}, INTERVAL 1 MICROSECOND) ;;
-    intervals: [day, week, month]
-    hidden: yes
-  }
-  dimension: ongoing_discounted_annual_recurring_revenue_months {
-    type: number
-    sql:
-      CASE
-        WHEN COALESCE(${ongoing_discount_amount}, 0) = 0
-          THEN 0
-        WHEN ${ongoing_discount_ends_at_raw} IS NULL
-          THEN (12 - ${current_period_annual_recurring_revenue_months})
-        ELSE
-          LEAST(
-            (
-              (DIV(${months_after_current_period_before_ongoing_discount_ends}, ${plan_interval_months}) + 1)
-              * ${plan_interval_months}
-            ),
-            (12 - ${current_period_annual_recurring_revenue_months})
-          )
-      END ;;
-    hidden: yes
-  }
-  dimension: ongoing_discounted_annual_recurring_revenue_weeks {
-    type: number
-    sql:
-      CASE
-        WHEN COALESCE(${ongoing_discount_amount}, 0) = 0
-          THEN 0
-        WHEN ${ongoing_discount_ends_at_raw} IS NULL
-          THEN (52 - ${plan_interval_count})
-        ELSE
-          LEAST(
-            (
-              (DIV(CAST(${weeks_after_current_period_before_ongoing_discount_ends} AS INTEGER), ${plan_interval_count}) + 1)
-              * ${plan_interval_count}
-            ),
-            (52 - ${plan_interval_count})
-          )
-      END ;;
-    hidden: yes
-  }
-  dimension: ongoing_discounted_annual_recurring_revenue_days {
-    type: number
-    sql:
-      CASE
-        WHEN COALESCE(${ongoing_discount_amount}, 0) = 0
-          THEN 0
-        WHEN ${ongoing_discount_ends_at_raw} IS NULL
-          THEN (365 - ${plan_interval_count})
-        ELSE
-          LEAST(
-            (
-              (DIV(${days_after_current_period_before_ongoing_discount_ends}, ${plan_interval_count}) + 1)
-              * ${plan_interval_count}
-            ),
-            (365 - ${plan_interval_count})
-          )
-      END ;;
-    hidden: yes
-  }
-  dimension: ongoing_discounted_annual_recurring_gross_revenue {
-    type: number
-    sql:
-      CASE
-        WHEN ${is_active} IS NOT TRUE
-          OR ${auto_renew} IS NOT TRUE
-          OR COALESCE(${ongoing_discount_amount}, 0) = 0
-          THEN 0
-        WHEN ${plan_interval_type} IN ('year', 'month')
-          THEN (
-              ${ongoing_discounted_plan_amount}
-              / ${plan_interval_months}
-              * ${ongoing_discounted_annual_recurring_revenue_months}
-            )
-        WHEN ${plan_interval_type} = 'week'
-          THEN (
-              ${ongoing_discounted_plan_amount}
-              / ${plan_interval_count}
-              * ${ongoing_discounted_annual_recurring_revenue_weeks}
-            )
-        WHEN ${plan_interval_type} = 'day'
-          THEN (
-              ${ongoing_discounted_plan_amount}
-              / ${plan_interval_count}
-              * ${ongoing_discounted_annual_recurring_revenue_days}
-            )
-      END ;;
-    hidden: yes
-  }
-
-  dimension: ongoing_undiscounted_annual_recurring_gross_revenue {
-    type: number
-    sql:
-      CASE
-        WHEN ${is_active} IS NOT TRUE
-          OR ${auto_renew} IS NOT TRUE
-          THEN 0
-        WHEN ${plan_interval_type} IN ('year', 'month')
-          THEN (
-              ${plan_amount}
-              / ${plan_interval_months}
-              * GREATEST(
-                (
-                  12
-                  - ${current_period_annual_recurring_revenue_months}
-                  - ${ongoing_discounted_annual_recurring_revenue_months}
-                ),
-                0
-              )
-            )
-        WHEN ${plan_interval_type} = 'week'
-          THEN (
-              ${plan_amount}
-              / ${plan_interval_count}
-              * GREATEST(
-                (
-                  52
-                  - ${plan_interval_count}
-                  - ${ongoing_discounted_annual_recurring_revenue_weeks}
-                ),
-                0
-              )
-            )
-        WHEN ${plan_interval_type} = 'day'
-          THEN (
-              ${plan_amount}
-              / ${plan_interval_count}
-              * GREATEST(
-                (
-                  365
-                  - ${plan_interval_count}
-                  - ${ongoing_discounted_annual_recurring_revenue_days}
-                ),
-                0
-              )
-            )
-      END ;;
-    hidden: yes
-  }
-
-  dimension: annual_recurring_gross_revenue {
-    type: number
-    sql:
-      ${current_period_annual_recurring_gross_revenue}
-      + ${ongoing_discounted_annual_recurring_gross_revenue}
-      + ${ongoing_undiscounted_annual_recurring_gross_revenue} ;;
-    hidden: yes
-  }
-  dimension: annual_recurring_net_revenue {
-    type: number
-    sql:
-      ${annual_recurring_gross_revenue}
-      / (1 + COALESCE(${vat_rates.vat}, 0)) ;;
-    hidden: yes
-  }
   dimension: annual_recurring_revenue_usd {
     label: "Annual Recurring Revenue (USD)"
-    type: number
-    sql:
-      ${annual_recurring_net_revenue}
-      * IF(${plan_currency} = 'USD', 1, COALESCE(${exchange_rates_table.price}, 0)) ;;
     value_format_name: usd
   }
 
-  dimension: monthly_recurring_gross_revenue {
-    type: number
-    sql:
-      CASE
-        WHEN ${is_active} IS NOT TRUE
-          OR ${is_trial} IS TRUE
-          THEN 0
-        WHEN ${plan_interval_type} IN ('year', 'month')
-          THEN (${current_period_discounted_plan_amount} / ${plan_interval_months})
-        WHEN ${plan_interval_type} = 'week'
-          THEN (
-              ${current_period_discounted_plan_amount}
-              + (
-                ${ongoing_discounted_plan_amount}
-                / ${plan_interval_count}
-                * IF(${auto_renew}, GREATEST((4 - ${plan_interval_count}), 0), 0)
-              )
-            )
-        WHEN ${plan_interval_type} = 'day'
-          THEN (
-              ${current_period_discounted_plan_amount}
-              + (
-                ${ongoing_discounted_plan_amount}
-                / ${plan_interval_count}
-                * IF(${auto_renew}, GREATEST((30 - ${plan_interval_count}), 0), 0)
-              )
-            )
-      END ;;
-    hidden: yes
-  }
-  dimension: monthly_recurring_net_revenue {
-    type: number
-    sql:
-      ${monthly_recurring_gross_revenue}
-      / (1 + COALESCE(${vat_rates.vat}, 0)) ;;
-    hidden: yes
-  }
   dimension: monthly_recurring_revenue_usd {
     label: "Monthly Recurring Revenue (USD)"
-    type: number
-    sql:
-      ${monthly_recurring_net_revenue}
-      * IF(${plan_currency} = 'USD', 1, COALESCE(${exchange_rates_table.price}, 0)) ;;
     value_format_name: usd
   }
 

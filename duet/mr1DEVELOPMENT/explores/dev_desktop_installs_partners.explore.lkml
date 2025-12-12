@@ -38,5 +38,5 @@ explore: dev_desktop_install_partners  {
       dev_desktop_install_partners.join_field: "yes",
     ]
     label: "Total new Firefox installs in the last 90 days"
-    }
   }
+}

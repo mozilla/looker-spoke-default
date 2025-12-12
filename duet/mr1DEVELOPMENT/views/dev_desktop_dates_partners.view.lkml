@@ -1,4 +1,3 @@
-
 view: dev_desktop_dates_partners {
   derived_table: {
     sql:

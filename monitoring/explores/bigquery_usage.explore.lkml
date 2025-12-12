@@ -13,4 +13,9 @@ explore: bigquery_usage {
           ;;
     relationship: one_to_one
   }
+
+  join: bigquery_usage__bi_engine_reasons {
+    relationship: one_to_many
+    sql: LEFT JOIN UNNEST(${bigquery_usage.bi_engine_reasons}) AS bigquery_usage__bi_engine_reasons ;;
+  }
 }

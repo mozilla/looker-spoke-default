@@ -44,7 +44,7 @@ view: dev_desktop_install_partners {
       4,
       5,
       6, 7),
-    tbl2 AS
+      tbl2 AS
       (SELECT *,
       AVG(new_installs) OVER (PARTITION BY funnel_derived,
       normalized_country_code_subset,
@@ -66,16 +66,16 @@ view: dev_desktop_install_partners {
       ORDER BY submission_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS installs_smoothed
       FROM tbl)
 
-    SELECT
+      SELECT
       *
-    FROM
+      FROM
       tbl2
-    WHERE
+      WHERE
       submission_date IN (SELECT distinct first_seen_date
-                          FROM `mozdata.telemetry.clients_first_seen_28_days_later`
-                          WHERE first_seen_date >= '2021-01-01'
-                          AND DATE_DIFF(current_date(), first_seen_date, DAY) > 1
-                          )
+      FROM `mozdata.telemetry.clients_first_seen_28_days_later`
+      WHERE first_seen_date >= '2021-01-01'
+      AND DATE_DIFF(current_date(), first_seen_date, DAY) > 1
+      )
       ;;
   }
 

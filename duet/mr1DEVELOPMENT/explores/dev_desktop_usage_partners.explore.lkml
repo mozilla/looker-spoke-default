@@ -29,12 +29,12 @@ explore: dev_desktop_usage_partners  {
       dev_desktop_usage_partners.os_group,
       dev_desktop_usage_partners.partner_org,
       dev_desktop_usage_partners.distribution_model
-      ]
+    ]
     measures: [
       dev_desktop_usage_partners.new_profiles,
       dev_desktop_usage_partners.returned_second_day,
       dev_desktop_usage_partners.retained_week4
-      ]
+    ]
     filters: [
       dev_desktop_usage_partners.analysis_period: "last 90 days",
       dev_desktop_usage_partners.year_over_year: "No",
