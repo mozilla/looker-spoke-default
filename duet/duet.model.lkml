@@ -41,6 +41,7 @@ explore: ctd_uac {}
 ##############################################################
 
 include: "/duet/desktop_funnels/desktop_funnels_web.view.lkml"
+include: "/duet/desktop_funnels/desktop_funnels_installs.view.lkml"
 include: "/duet/desktop_funnels/desktop_funnels_telemetry.view.lkml"
 include: "/duet/desktop_funnels/desktop_funnels_dates.view.lkml"
 
@@ -57,6 +58,17 @@ explore: desktop_funnels_web {
                                 ;;
 }
 
+explore: desktop_funnels_installs {
+  view_name:  desktop_funnels_installs
+  description: "install counts from the Firefox installer ping"
+  sql_always_where:
+      ${submission_date} > DATE({% date_start desktop_funnels_installs.analysis_period %})
+      AND
+      ${submission_date} <= DATE({% date_end desktop_funnels_installs.analysis_period %})
+                                ;;
+}
+
+
 
 explore: desktop_funnels_telemetry {
   view_name:  desktop_funnels_telemetry
@@ -68,6 +80,7 @@ explore: desktop_funnels_telemetry {
       ${submission_date} <= DATE({% date_end desktop_funnels_telemetry.analysis_period %})
                                 ;;
 }
+
 
 
 explore: desktop_funnels_dates {
