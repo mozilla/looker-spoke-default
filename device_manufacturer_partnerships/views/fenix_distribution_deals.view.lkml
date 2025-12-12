@@ -9,8 +9,7 @@ view: +fenix_distribution_deals {
 
     measure: days_in_query {
       type: number
-      sql: DATE_DIFF(MAX(${TABLE}.submission_date), MIN(${TABLE}.submission_date), DAY) ;;
-
+      sql: NULLIF(DATE_DIFF(MAX(${TABLE}.submission_date), MIN(${TABLE}.submission_date), DAY), 0) ;;
     }
 
     measure: avg_dau {
