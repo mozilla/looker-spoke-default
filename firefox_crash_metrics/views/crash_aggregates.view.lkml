@@ -10,7 +10,7 @@ view: +crash_aggregates {
       "shutdown hangs",
       "NONE"
     ]
-    view_label: "Exclusion"
+    view_label: "Exclusions"
   }
 
   parameter: partition {
@@ -32,7 +32,7 @@ view: +crash_aggregates {
           END
         ) ;;
     hidden:  no
-    view_label: "Exclusion"
+    view_label: "Exclusions"
     }
   dimension: include_oom {
     type: yesno
@@ -43,7 +43,7 @@ view: +crash_aggregates {
           END
         ) ;;
     hidden:  no
-    view_label: "Exclusion"
+    view_label: "Exclusions"
   }
   dimension: include_shutdown_hangs {
     type: yesno
@@ -57,7 +57,7 @@ view: +crash_aggregates {
           END
         ) ;;
     hidden:  no
-    view_label: "Exclusion"
+    view_label: "Exclusions"
   }
 
   dimension: include_official_esr_versions_only {
@@ -65,28 +65,28 @@ view: +crash_aggregates {
     sql: ({% parameter partition %} = 'channel')
         OR (${TABLE}.channel != 'esr')
         OR (${TABLE}.major_version IN (115, 128, 140, 153));;
-    view_label: "Exclusion"
+    view_label: "Exclusions"
   }
 
   dimension: crash_background_task_name {
     sql: ${TABLE}.crash_background_task_name ;;
     hidden: no
-    view_label: "Exclusion"
+    view_label: "Exclusions"
   }
   dimension: crash_quota_manager_shutdown_timeout {
     sql: ${TABLE}.crash_quota_manager_shutdown_timeout ;;
     hidden: no
-    view_label: "Exclusion"
+    view_label: "Exclusions"
   }
   dimension: crash_async_shutdown_timeout{
     sql: ${TABLE}.crash_async_shutdown_timeout ;;
     hidden: no
-    view_label: "Exclusion"
+    view_label: "Exclusions"
   }
   dimension: memory_oom_allocation_size {
     sql: ${TABLE}.memory_oom_allocation_size;;
     hidden: no
-    view_label: "Exclusion"
+    view_label: "Exclusions"
   }
 
   # Label major_version as Version
