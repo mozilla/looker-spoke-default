@@ -13,42 +13,72 @@ view: +crash_aggregates {
     view_label: "Exclusions"
   }
 
-  dimension: crash_background_task_name {
-    sql: ${TABLE}.crash_background_task_name ;;
-    view_label: "Exclusions"
-  }
-  dimension: memory_oom_allocation_size {
-    sql: ${TABLE}.memory_oom_allocation_size;;
-    view_label: "Exclusions"
-  }
-  dimension: crash_shutdown_metrics {
+  dimension: include_background_tasks {
     type: yesno
     sql: (
-          ${TABLE}.crash_async_shutdown_timeout IS NULL
-          OR ${TABLE}.crash_quota_manager_shutdown_timeout IS NULL
+          CASE WHEN ({% parameter exclude %} = 'background tasks')
+          THEN (${TABLE}.crash_background_task_name IS NULL)
+          ELSE TRUE
+        ) ;;
+    view_label: "Exclusions"
+    }
+  dimension: include_oom {
+    type: yesno
+    sql: (
+          CASE WHEN ({% parameter exclude %} = 'oom')
+          THEN (${TABLE}.memory_oom_allocation_size IS NULL)
+          ELSE TRUE
+        ) ;;
+    view_label: "Exclusions"
+  }
+  dimension: include_shutdown_hangs {
+    type: yesno
+    sql: (
+          CASE WHEN ({% parameter exclude %} = 'shutdown hangs')
+          THEN (
+            ${TABLE}.crash_async_shutdown_timeout IS NULL
+            AND ${TABLE}.crash_quota_manager_shutdown_timeout IS NULL
+          )
+          ELSE TRUE
+          END
         ) ;;
     view_label: "Exclusions"
   }
 
-  dimension: crashing_users {
-    sql: ${TABLE}.crashing_users ;;
-    hidden: yes
+  dimension: crash_background_task_name {
+    sql: ${TABLE}.crash_background_task_name ;;
+    view_label: "Exclusions"
   }
   dimension: crash_quota_manager_shutdown_timeout {
     sql: ${TABLE}.crash_quota_manager_shutdown_timeout ;;
     hidden: yes
+    view_label: "Exclusions"
   }
   dimension: crash_async_shutdown_timeout{
     sql: ${TABLE}.crash_async_shutdown_timeout ;;
     hidden: yes
+    view_label: "Exclusions"
   }
+  dimension: memory_oom_allocation_size {
+    sql: ${TABLE}.memory_oom_allocation_size;;
+    hidden: yes
+    view_label: "Exclusions"
+  }
+
+  # Label major_version as Version
   dimension: major_version {
     label: "Version"
     sql: ${TABLE}.major_version ;;
   }
 
+  # We use this column below in the measurement of the Number of Crashing Users
+  dimension: crashing_users {
+    sql: ${TABLE}.crashing_users ;;
+    hidden: yes
+  }
+
   # Define measures
-  measure: num_crashing_users {
+  measure: sum_crashing_users {
     label: "Crashing Users"
     type:  sum
     sql: (${TABLE}.crashing_users) ;;
@@ -56,7 +86,7 @@ view: +crash_aggregates {
 
   measure: crashing_users_p25_approx {
     type: number
-    sql: APPROX_QUANTILES(${num_crashing_users}, 100)[OFFSET(25)] ;;
+    sql: APPROX_QUANTILES(${sum_crashing_users}, 100)[OFFSET(25)] ;;
     label: "Approximate 25th Percentile Crashing Users"
     # Optional: Format the value
     value_format_name: decimal_2
@@ -64,7 +94,7 @@ view: +crash_aggregates {
 
   measure: crashing_users_p75_approx {
     type: number
-    sql: APPROX_QUANTILES(${num_crashing_users}, 100)[OFFSET(75)] ;;
+    sql: APPROX_QUANTILES(${sum_crashing_users}, 100)[OFFSET(75)] ;;
     label: "Approximate 75th Percentile Crashing Users"
     # Optional: Format the value
     value_format_name: decimal_2
