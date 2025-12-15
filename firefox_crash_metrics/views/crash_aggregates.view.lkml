@@ -10,7 +10,15 @@ view: +crash_aggregates {
       "shutdown hangs",
       "NONE"
     ]
-    view_label: "Exclusions"
+    view_label: "Exclusion"
+  }
+
+  parameter: partition {
+    suggestions: [
+      "os",
+      "channel",
+      "process"
+    ]
   }
 
   dimension: include_background_tasks {
@@ -19,8 +27,10 @@ view: +crash_aggregates {
           CASE WHEN ({% parameter exclude %} = 'background tasks')
           THEN (${TABLE}.crash_background_task_name IS NULL)
           ELSE TRUE
+          END
         ) ;;
-    view_label: "Exclusions"
+    hidden:  yes
+    view_label: "Exclusion"
     }
   dimension: include_oom {
     type: yesno
@@ -28,8 +38,10 @@ view: +crash_aggregates {
           CASE WHEN ({% parameter exclude %} = 'oom')
           THEN (${TABLE}.memory_oom_allocation_size IS NULL)
           ELSE TRUE
+          END
         ) ;;
-    view_label: "Exclusions"
+    hidden:  yes
+    view_label: "Exclusion"
   }
   dimension: include_shutdown_hangs {
     type: yesno
@@ -42,34 +54,90 @@ view: +crash_aggregates {
           ELSE TRUE
           END
         ) ;;
-    view_label: "Exclusions"
+    hidden:  yes
+    view_label: "Exclusion"
+  }
+
+  dimension: include_official_esr_versions_only {
+    type:  yesno
+    sql: ({% parameter partition %} = 'channel')
+        OR (${TABLE}.channel != 'esr')
+        OR (${TABLE}.major_version IN (115, 128, 140, 153));;
+    view_label: "Exclusion"
   }
 
   dimension: crash_background_task_name {
     sql: ${TABLE}.crash_background_task_name ;;
-    hidden: yes
-    view_label: "Exclusions"
+    hidden: no
+    view_label: "Exclusion"
   }
   dimension: crash_quota_manager_shutdown_timeout {
     sql: ${TABLE}.crash_quota_manager_shutdown_timeout ;;
-    hidden: yes
-    view_label: "Exclusions"
+    hidden: no
+    view_label: "Exclusion"
   }
   dimension: crash_async_shutdown_timeout{
     sql: ${TABLE}.crash_async_shutdown_timeout ;;
-    hidden: yes
-    view_label: "Exclusions"
+    hidden: no
+    view_label: "Exclusion"
   }
   dimension: memory_oom_allocation_size {
     sql: ${TABLE}.memory_oom_allocation_size;;
-    hidden: yes
-    view_label: "Exclusions"
+    hidden: no
+    view_label: "Exclusion"
   }
 
   # Label major_version as Version
   dimension: major_version {
     label: "Version"
     sql: ${TABLE}.major_version ;;
+  }
+
+  dimension: channel {
+    type: string
+    sql:
+      CASE WHEN
+        ${TABLE}.channel in (
+          "release",
+          "beta",
+          "nightly",
+          "esr"
+        )
+      THEN ${TABLE}.channel
+      ELSE
+        NULL
+      END
+  ;;
+  }
+
+  dimension: os {
+    type: string
+    sql:
+      CASE WHEN ${TABLE}.os NOT IN ('Other', 'iOS')
+        THEN ${TABLE}.os
+      ELSE
+        NULL
+      END
+      ;;
+  }
+
+  dimension: process_type {
+    type: string
+    sql:
+      CASE WHEN
+        ${TABLE}.process_type in (
+          "main",
+          "content",
+          "rdd",
+          "gmplugin",
+          "utility",
+          "gpu",
+          "socket"
+          )
+        THEN ${TABLE}.process_type
+        ELSE NULL
+        END
+  ;;
   }
 
   # We use this column below in the measurement of the Number of Crashing Users
