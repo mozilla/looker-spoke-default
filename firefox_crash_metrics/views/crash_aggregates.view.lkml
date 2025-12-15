@@ -13,31 +13,55 @@ view: +crash_aggregates {
     view_label: "Exclusions"
   }
 
-  dimension: crash_background_task_name {
-    sql: ${TABLE}.crash_background_task_name ;;
-    view_label: "Exclusions"
-  }
-  dimension: memory_oom_allocation_size {
-    sql: ${TABLE}.memory_oom_allocation_size;;
-    view_label: "Exclusions"
-  }
-  dimension: crash_async_and_quota_manager_shutdown_timeout {
+  dimension: include_background_tasks {
     type: yesno
     sql: (
-          ${TABLE}.crash_async_shutdown_timeout IS NULL
-          AND ${TABLE}.crash_quota_manager_shutdown_timeout IS NULL
+          CASE WHEN ({% parameter exclude %} = 'background tasks')
+          THEN (${TABLE}.crash_background_task_name IS NULL)
+          ELSE TRUE
+        ) ;;
+    view_label: "Exclusions"
+    }
+  dimension: include_oom {
+    type: yesno
+    sql: (
+          CASE WHEN ({% parameter exclude %} = 'oom')
+          THEN (${TABLE}.memory_oom_allocation_size IS NULL)
+          ELSE TRUE
+        ) ;;
+    view_label: "Exclusions"
+  }
+  dimension: include_shutdown_hangs {
+    type: yesno
+    sql: (
+          CASE WHEN ({% parameter exclude %} = 'shutdown hangs')
+          THEN (
+            ${TABLE}.crash_async_shutdown_timeout IS NULL
+            AND ${TABLE}.crash_quota_manager_shutdown_timeout IS NULL
+          )
+          ELSE TRUE
+          END
         ) ;;
     view_label: "Exclusions"
   }
 
+  dimension: crash_background_task_name {
+    sql: ${TABLE}.crash_background_task_name ;;
+    view_label: "Exclusions"
+  }
   dimension: crash_quota_manager_shutdown_timeout {
     sql: ${TABLE}.crash_quota_manager_shutdown_timeout ;;
-    hidden: no
+    hidden: yes
     view_label: "Exclusions"
   }
   dimension: crash_async_shutdown_timeout{
     sql: ${TABLE}.crash_async_shutdown_timeout ;;
-    hidden: no
+    hidden: yes
+    view_label: "Exclusions"
+  }
+  dimension: memory_oom_allocation_size {
+    sql: ${TABLE}.memory_oom_allocation_size;;
+    hidden: yes
     view_label: "Exclusions"
   }
 
