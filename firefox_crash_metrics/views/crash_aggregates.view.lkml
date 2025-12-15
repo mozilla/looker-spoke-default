@@ -47,6 +47,7 @@ view: +crash_aggregates {
 
   dimension: crash_background_task_name {
     sql: ${TABLE}.crash_background_task_name ;;
+    hidden: yes
     view_label: "Exclusions"
   }
   dimension: crash_quota_manager_shutdown_timeout {
