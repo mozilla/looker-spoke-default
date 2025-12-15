@@ -13,6 +13,11 @@ view: +schema_error_counts {
     sql: concat(replace(${TABLE}.document_type, "-", "_"), "_v", coalesce(${TABLE}.document_version, if(${TABLE}.document_namespace="telemetry", "4", "1"))) ;;
   }
 
+  dimension: normalized_channel {
+    type: string
+    sql: ${TABLE}.channel;;
+  }
+
   dimension: new_bug {
     type: string
     sql: "create Bug" ;;
@@ -26,8 +31,8 @@ product=Data+Platform+and+Tools
 &status_whiteboard=%5Bdataquality%5D
 &short_desc=schema+error+in+%60
 {{document_namespace }}.{{ document_type }}
-%60+for+{{ path | url_encode }}
-&comment=Schema error for {{ path | url_encode }} in `{{ document_namespace }}.{{ document_type }}`.
+%60+for+{{ path | url_encode }}+on+{{ normalized_channel }}
+&comment=Schema error for {{ path | url_encode }} in `{{ document_namespace }}.{{ document_type }}` {{ normalized_channel }}.
 %0D%0A%0D%0A
 Encountered {{ error_count_last_week }} errors in the past week which is a change of {{ percent_change._rendered_value }} from the previous week. The error count is {{ percent_affected_pings._rendered_value }} of {{ stable_and_derived_table_sizes.row_count_last_week }} valid pings.
 %0D%0A%0D%0A
