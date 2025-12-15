@@ -83,6 +83,16 @@ view: +crash_aggregates {
     hidden: no
     view_label: "Exclusions"
   }
+
+  dimension: crash_async_and_quota_manager_shutdown_timeout {
+    type:  yesno
+    sql: ${TABLE}.crash_async_shutdown_timeout IS NULL
+    AND ${TABLE}.crash_quota_manager_shutdown_timeout IS NULL
+      ;;
+    hidden: no
+    view_label: "Exclusions"
+  }
+
   dimension: memory_oom_allocation_size {
     sql: ${TABLE}.memory_oom_allocation_size;;
     hidden: no
