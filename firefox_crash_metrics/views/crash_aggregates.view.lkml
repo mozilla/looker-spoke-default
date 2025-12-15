@@ -5,7 +5,7 @@ view: +crash_aggregates {
   # Group Exclusions together
   parameter: exclude {
     suggestions: [
-      "os",
+      "oom",
       "background tasks",
       "shutdown hangs",
       "NONE"
@@ -21,6 +21,8 @@ view: +crash_aggregates {
     ]
   }
 
+  # Originally,these next three were all in a where clause, using NOT - exclusion rather than inclusion
+  # It was very difficult to follow. These are simplified case when statements
   dimension: include_background_tasks {
     type: yesno
     sql: (
@@ -29,7 +31,7 @@ view: +crash_aggregates {
           ELSE TRUE
           END
         ) ;;
-    hidden:  yes
+    hidden:  no
     view_label: "Exclusion"
     }
   dimension: include_oom {
@@ -40,7 +42,7 @@ view: +crash_aggregates {
           ELSE TRUE
           END
         ) ;;
-    hidden:  yes
+    hidden:  no
     view_label: "Exclusion"
   }
   dimension: include_shutdown_hangs {
@@ -54,7 +56,7 @@ view: +crash_aggregates {
           ELSE TRUE
           END
         ) ;;
-    hidden:  yes
+    hidden:  no
     view_label: "Exclusion"
   }
 
