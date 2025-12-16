@@ -5,7 +5,7 @@ view: +crash_aggregates {
   # Group Exclusions together
   parameter: exclude {
     suggestions: [
-      "os",
+      "oom",
       "background tasks",
       "shutdown hangs",
       "NONE"
@@ -13,13 +13,25 @@ view: +crash_aggregates {
     view_label: "Exclusions"
   }
 
+  parameter: partition {
+    suggestions: [
+      "os",
+      "channel",
+      "process"
+    ]
+  }
+
+  # Originally,these next three were all in a where clause, using NOT - exclusion rather than inclusion
+  # It was very difficult to follow. These are simplified case when statements
   dimension: include_background_tasks {
     type: yesno
     sql: (
           CASE WHEN ({% parameter exclude %} = 'background tasks')
           THEN (${TABLE}.crash_background_task_name IS NULL)
           ELSE TRUE
+          END
         ) ;;
+    hidden:  no
     view_label: "Exclusions"
     }
   dimension: include_oom {
@@ -28,7 +40,9 @@ view: +crash_aggregates {
           CASE WHEN ({% parameter exclude %} = 'oom')
           THEN (${TABLE}.memory_oom_allocation_size IS NULL)
           ELSE TRUE
+          END
         ) ;;
+    hidden:  no
     view_label: "Exclusions"
   }
   dimension: include_shutdown_hangs {
@@ -42,26 +56,46 @@ view: +crash_aggregates {
           ELSE TRUE
           END
         ) ;;
+    hidden:  no
+    view_label: "Exclusions"
+  }
+
+  dimension: include_official_esr_versions_only {
+    type:  yesno
+    sql: ({% parameter partition %} = 'channel')
+        OR (${TABLE}.channel != 'esr')
+        OR (${TABLE}.major_version IN (115, 128, 140, 153));;
     view_label: "Exclusions"
   }
 
   dimension: crash_background_task_name {
     sql: ${TABLE}.crash_background_task_name ;;
+    hidden: no
     view_label: "Exclusions"
   }
   dimension: crash_quota_manager_shutdown_timeout {
     sql: ${TABLE}.crash_quota_manager_shutdown_timeout ;;
-    hidden: yes
+    hidden: no
     view_label: "Exclusions"
   }
   dimension: crash_async_shutdown_timeout{
     sql: ${TABLE}.crash_async_shutdown_timeout ;;
-    hidden: yes
+    hidden: no
     view_label: "Exclusions"
   }
+
+  dimension: crash_async_and_quota_manager_shutdown_timeout {
+    type:  yesno
+    sql: ${TABLE}.crash_async_shutdown_timeout IS NULL
+    AND ${TABLE}.crash_quota_manager_shutdown_timeout IS NULL
+      ;;
+    hidden: no
+    view_label: "Exclusions"
+  }
+
   dimension: memory_oom_allocation_size {
     sql: ${TABLE}.memory_oom_allocation_size;;
-    hidden: yes
+    hidden: no
     view_label: "Exclusions"
   }
 
@@ -69,6 +103,53 @@ view: +crash_aggregates {
   dimension: major_version {
     label: "Version"
     sql: ${TABLE}.major_version ;;
+  }
+
+  dimension: channel {
+    type: string
+    sql:
+      CASE WHEN
+        ${TABLE}.channel in (
+          "release",
+          "beta",
+          "nightly",
+          "esr"
+        )
+      THEN ${TABLE}.channel
+      ELSE
+        NULL
+      END
+  ;;
+  }
+
+  dimension: os {
+    type: string
+    sql:
+      CASE WHEN ${TABLE}.os NOT IN ('Other', 'iOS')
+        THEN ${TABLE}.os
+      ELSE
+        NULL
+      END
+      ;;
+  }
+
+  dimension: process_type {
+    type: string
+    sql:
+      CASE WHEN
+        ${TABLE}.process_type in (
+          "main",
+          "content",
+          "rdd",
+          "gmplugin",
+          "utility",
+          "gpu",
+          "socket"
+          )
+        THEN ${TABLE}.process_type
+        ELSE NULL
+        END
+  ;;
   }
 
   # We use this column below in the measurement of the Number of Crashing Users
