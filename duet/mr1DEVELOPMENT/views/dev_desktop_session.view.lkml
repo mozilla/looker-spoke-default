@@ -43,7 +43,7 @@ SELECT session_date AS submission_date,
 FROM `mozdata.telemetry.ga4_sessions_firefoxcom_mozillaorg_combined`
 WHERE session_date >= '2021-01-01'
   AND device_category = 'desktop'
-  AND coalesce(browser) NOT IN ('Firefox',
+  AND coalesce(browser, '') NOT IN ('Firefox',
                                 'Mozilla')
   AND COALESCE(country, '') NOT IN ('Austria',
                                     'Germany',

@@ -36,9 +36,9 @@ view: desktop_funnels_web {
                         AND flag = 'MOZILLA.ORG'))) AS non_fx_sessions,
        countif(firefox_desktop_downloads > 0) AS non_fx_downloads
       FROM `mozdata.telemetry.ga4_sessions_firefoxcom_mozillaorg_combined`
-      WHERE date >= '2021-01-01'
+      WHERE session_date >= '2021-01-01'
       AND device_category = 'desktop'
-      AND coalesce(browser) NOT IN ('Firefox','Mozilla')
+      AND coalesce(browser, '') NOT IN ('Firefox','Mozilla')
       AND COALESCE(country, '') NOT IN ('Austria',
                                     'Germany',
                                     'United Kingdom',
