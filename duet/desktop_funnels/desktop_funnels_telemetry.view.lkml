@@ -4,9 +4,8 @@ view: desktop_funnels_telemetry {
 WITH tbl_agg AS
   (SELECT first_seen_date AS submission_date,
           CASE
-              WHEN country IN ('US','GB','DE','FR','CA',
-                                    'BR','MX','CN','IN','AU',
-                                    'NL','ES','RU') THEN country
+              WHEN country IN ('US','CA','BR','MX','CN','IN','AU','RU')
+              THEN country
               ELSE 'ROW'
           END AS normalized_country_code_subset,
           funnel_derived,
@@ -21,6 +20,9 @@ WITH tbl_agg AS
               END) AS retained_week4
    FROM `mozdata.telemetry.clients_first_seen_28_days_later`
    WHERE first_seen_date >= '2021-01-01'
+    AND COALESCE(, '') NOT in
+              ('AT','DE','GB','NL','PL','ES','IT','CH','CZ','SE','BG','BE','SK',
+               'LV','EE','LT','FR','HR','PT','SI','DK','FI','HU','IS','IE','NO','RO')
    GROUP BY ALL),
      tbl_smoothed AS
   (SELECT *,
