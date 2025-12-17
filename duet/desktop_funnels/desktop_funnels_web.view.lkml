@@ -2,29 +2,70 @@ view: desktop_funnels_web {
   derived_table: {
     sql:
     WITH tbl_agg AS (
-      SELECT date AS submission_date,
-             CASE
-                 WHEN standardized_country_name = 'USA' THEN 'US'
-                 WHEN standardized_country_name = 'United Kingdom' THEN 'GB'
-                 WHEN standardized_country_name = 'Germany' THEN 'DE'
-                 WHEN standardized_country_name = 'France' THEN 'FR'
-                 WHEN standardized_country_name = 'Canada' THEN 'CA'
-                 WHEN standardized_country_name = 'Brazil' THEN 'BR'
-                 WHEN standardized_country_name = 'Mexico' THEN 'MX'
-                 WHEN standardized_country_name = 'China' THEN 'CN'
-                 WHEN standardized_country_name = 'India' THEN 'IN'
-                 WHEN standardized_country_name = 'Australia' THEN 'AU'
-                 WHEN standardized_country_name = 'Netherlands' THEN 'NL'
-                 WHEN standardized_country_name = 'Spain' THEN 'ES'
-                 WHEN standardized_country_name = 'Russia' THEN 'RU'
-                 ELSE 'ROW'
-             END AS normalized_country_code_subset,
-            funnel_derived,
-      sum(non_fx_sessions) AS non_fx_sessions,
-      sum(non_fx_downloads) AS non_fx_downloads
-      FROM `moz-fx-data-shared-prod.mozilla_org.www_site_metrics_summary`
-      WHERE date >= '2021-01-01'
+      SELECT session_date AS submission_date,
+       CASE
+           WHEN country = 'USA' THEN 'US'
+           WHEN country = 'Canada' THEN 'CA'
+           WHEN country = 'Brazil' THEN 'BR'
+           WHEN country = 'Mexico' THEN 'MX'
+           WHEN country = 'China' THEN 'CN'
+           WHEN country = 'India' THEN 'IN'
+           WHEN country = 'Australia' THEN 'AU'
+           WHEN country = 'Russia' THEN 'RU'
+           ELSE 'ROW'
+       END AS normalized_country_code_subset,
+       CASE
+           WHEN LOWER(device_category) != 'desktop' THEN 'mobile'
+           WHEN LOWER(COALESCE(browser, '')) IN ('mozilla',
+                                                 'firefox') THEN 'existing user'
+           WHEN LOWER(COALESCE(browser, '')) NOT IN ('mozilla',
+                                                     'firefox')
+                AND LOWER(os) = 'windows' THEN 'mozorg windows funnel'
+           WHEN LOWER(COALESCE(browser, '')) NOT IN ('mozilla',
+                                                     'firefox')
+                AND LOWER(os) = 'macintosh' THEN 'mozorg mac funnel'
+           ELSE 'mozorg other'
+       END AS funnel_derived,
+       countif(NOT (((lower(manual_source) LIKE '%www.mozilla.org%'
+                      OR lower(manual_source) = 'mozilla.org'
+                      OR lower(first_source_from_event_params) LIKE '%www.mozilla.org%'
+                      OR lower(first_source_from_event_params) = 'mozilla.org')
+                     AND flag = 'FIREFOX.COM')
+                    OR ((lower(manual_source) IN ('www.firefox.com', 'firefox.com', 'firefox-com')
+                         OR lower(first_source_from_event_params) IN ('www.firefox.com', 'firefox.com', 'firefox-com'))
+                        AND flag = 'MOZILLA.ORG'))) AS non_fx_sessions,
+       countif(firefox_desktop_downloads > 0) AS non_fx_downloads
+      FROM `mozdata.telemetry.ga4_sessions_firefoxcom_mozillaorg_combined`
+      WHERE session_date >= '2021-01-01'
       AND device_category = 'desktop'
+      AND coalesce(browser, '') NOT IN ('Firefox','Mozilla')
+      AND COALESCE(country, '') NOT IN ('Austria',
+                                    'Germany',
+                                    'United Kingdom',
+                                    'Netherlands',
+                                    'Poland',
+                                    'Spain',
+                                    'Italy',
+                                    'Switzerland',
+                                    'Czechia',
+                                    'Sweden',
+                                    'Bulgaria',
+                                    'Belgium',
+                                    'Slovakia',
+                                    'Latvia',
+                                    'Estonia',
+                                    'Lithuania',
+                                    'France',
+                                    'Croatia',
+                                    'Portugal',
+                                    'Slovenia',
+                                    'Denmark',
+                                    'Finland',
+                                    'Hungary',
+                                    'Iceland',
+                                    'Ireland',
+                                    'Norway',
+                                    'Romania')
       GROUP BY ALL
       ),
     tbl_smoothed AS

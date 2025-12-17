@@ -4,10 +4,8 @@ view: desktop_funnels_installs {
     WITH tbl_agg AS
       (SELECT DATE(submission_timestamp) AS submission_date,
               CASE
-                  WHEN normalized_country_code IN
-                        ('US','GB','DE','FR','CA','BR',
-                         'MX','CN','IN','AU','NL','ES',
-                         'RU') THEN normalized_country_code
+                  WHEN normalized_country_code IN ('US','CA','BR','MX','CN','IN','AU','RU')
+                  THEN normalized_country_code
                   ELSE 'ROW'
               END AS normalized_country_code_subset,
               funnel_derived,
@@ -32,6 +30,9 @@ view: desktop_funnels_installs {
        FROM `mozdata.firefox_installer.install`
        WHERE date(submission_timestamp) >= '2021-01-01'
          AND DATE_DIFF(current_date(), date(submission_timestamp), DAY) > 1
+         AND coalesce(normalized_country_code, '') NOT in
+              ('AT','DE','GB','NL','PL','ES','IT','CH','CZ','SE','BG','BE','SK',
+               'LV','EE','LT','FR','HR','PT','SI','DK','FI','HU','IS','IE','NO','RO')
        GROUP BY ALL),
          tbl_smoothed AS
       (SELECT *,
