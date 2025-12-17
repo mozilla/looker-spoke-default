@@ -20,7 +20,7 @@ WITH tbl_agg AS
               END) AS retained_week4
    FROM `mozdata.telemetry.clients_first_seen_28_days_later`
    WHERE first_seen_date >= '2021-01-01'
-    AND COALESCE(, '') NOT in
+    AND COALESCE(country, '') NOT in
               ('AT','DE','GB','NL','PL','ES','IT','CH','CZ','SE','BG','BE','SK',
                'LV','EE','LT','FR','HR','PT','SI','DK','FI','HU','IS','IE','NO','RO')
    GROUP BY ALL),
