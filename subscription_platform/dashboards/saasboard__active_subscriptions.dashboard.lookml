@@ -49,10 +49,10 @@
     body_text: |-
       <div style='background-color: #ffffdd; padding: 5px 10px; border: solid 3px #ededed; border-radius: 5px; height:160px'>
 
-      This dashboard captures the current state and trend of <strong>active subscriptions</strong>.
+      This dashboard shows the current state and trend of <strong>active subscriptions</strong>.
 
       <ul>
-        <li>Active subscriptions are subscriptions that are receiving active service at a moment in time.</li>
+        <li>Subscriptions are counted as active if they were receiving service at the end of the UTC day.</li>
       </ul>
       <br>
 

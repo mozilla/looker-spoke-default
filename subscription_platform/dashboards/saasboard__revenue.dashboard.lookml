@@ -51,11 +51,12 @@
     body_text: |-
       <div style='background-color: #ffffdd; padding: 5px 10px; border: solid 3px #ededed; border-radius: 5px; height:160px'>
 
-      This dashboard captures <strong>projected revenue</strong> for each active subscription.
+      This dashboard shows <strong>projected recognized revenue</strong> for each active subscription.
 
       <ul>
-        <li>Revenue is not counted for subscriptions that have auto-renew turned off.</li>
-        <li>Discounts and coupons are also currently not considered.</li>
+        <li>Discounts and VAT are taken into consideration when calculating projected revenue.</li>
+        <li>Subscription plan amounts in non-US currencies are converted to US dollars using daily exchange rates from <a href="https://fxds-hcc.oanda.com/">OANDA</a> as of the date of the revenue projection.</li>
+        <li>For subscription plans longer than a month, we recognize a proportionate amount of the revenue each month that the customer is expected to receive the service based on their auto-renew setting.</li>
       </ul>
       <br>
 
