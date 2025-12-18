@@ -1,5 +1,5 @@
 - dashboard: vpn_saasboard__revenue
-  title: VPN SaaSboard - Revenue
+  title: VPN SaaSboard - Revenue [DEPRECATED]
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true

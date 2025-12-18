@@ -1,5 +1,5 @@
 - dashboard: relay_saasboard__churn
-  title: Relay Saasboard - Churn
+  title: Relay Saasboard - Churn [DEPRECATED]
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true

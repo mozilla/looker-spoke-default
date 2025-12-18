@@ -1,5 +1,5 @@
 - dashboard: relay_saasboard__retention
-  title: Relay Saasboard - Retention
+  title: Relay Saasboard - Retention [DEPRECATED]
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

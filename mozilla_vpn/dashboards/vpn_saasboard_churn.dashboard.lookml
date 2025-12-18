@@ -1,5 +1,5 @@
 - dashboard: vpn_saasboard__churn
-  title: VPN SaaSboard - Churn
+  title: VPN SaaSboard - Churn [DEPRECATED]
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true

@@ -1,5 +1,5 @@
 - dashboard: vpn_saasboard__active_subscriptions
-  title: VPN SaaSboard - Active Subscriptions
+  title: VPN SaaSboard - Active Subscriptions [DEPRECATED]
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true

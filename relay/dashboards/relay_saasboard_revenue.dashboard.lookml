@@ -1,5 +1,5 @@
 - dashboard: relay_saasboard__revenue
-  title: Relay Saasboard - Revenue
+  title: Relay Saasboard - Revenue [DEPRECATED]
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

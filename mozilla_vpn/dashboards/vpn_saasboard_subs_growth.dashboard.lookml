@@ -1,5 +1,5 @@
 - dashboard: vpn_saasboard__subscriptions_growth
-  title: VPN SaaSboard - Subscriptions Growth
+  title: VPN SaaSboard - Subscriptions Growth [DEPRECATED]
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true

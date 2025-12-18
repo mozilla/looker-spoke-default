@@ -1,5 +1,5 @@
 - dashboard: relay_saasboard__subs_growth
-  title: Relay Saasboard - Subs Growth
+  title: Relay Saasboard - Subs Growth [DEPRECATED]
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''

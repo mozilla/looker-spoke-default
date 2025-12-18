@@ -1,5 +1,5 @@
 - dashboard: vpn_saasboard__retention
-  title: VPN SaaSboard - Retention
+  title: VPN SaaSboard - Retention [DEPRECATED]
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true

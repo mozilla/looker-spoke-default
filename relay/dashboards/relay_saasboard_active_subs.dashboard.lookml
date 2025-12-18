@@ -1,5 +1,5 @@
 - dashboard: relay_saasboard__active_subs
-  title: Relay Saasboard - Active Subs
+  title: Relay Saasboard - Active Subs [DEPRECATED]
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
