@@ -26,14 +26,14 @@ view: desktop_funnels_web {
                 AND LOWER(os) = 'macintosh' THEN 'mozorg mac funnel'
            ELSE 'mozorg other'
        END AS funnel_derived,
-       countif(NOT (((lower(manual_source) LIKE '%www.mozilla.org%'
-                      OR lower(manual_source) = 'mozilla.org'
-                      OR lower(first_source_from_event_params) LIKE '%www.mozilla.org%'
-                      OR lower(first_source_from_event_params) = 'mozilla.org')
-                     AND flag = 'FIREFOX.COM')
-                    OR ((lower(manual_source) IN ('www.firefox.com', 'firefox.com', 'firefox-com')
-                         OR lower(first_source_from_event_params) IN ('www.firefox.com', 'firefox.com', 'firefox-com'))
-                        AND flag = 'MOZILLA.ORG'))) AS non_fx_sessions,
+COUNTIF(COALESCE((((lower(manual_source) LIKE '%www.mozilla.org%'
+                           OR lower(manual_source) = 'mozilla.org'
+                           OR lower(first_source_from_event_params) LIKE '%www.mozilla.org%'
+                           OR lower(first_source_from_event_params) = 'mozilla.org')
+                          AND flag = 'FIREFOX.COM')
+                         OR ((lower(manual_source) IN ('www.firefox.com', 'firefox.com', 'firefox-com')
+                              OR lower(first_source_from_event_params) IN ('www.firefox.com', 'firefox.com', 'firefox-com'))
+                             AND flag = 'MOZILLA.ORG')), FALSE) IS FALSE) AS non_fx_sessions,
        countif(firefox_desktop_downloads > 0) AS non_fx_downloads
       FROM `mozdata.telemetry.ga4_sessions_firefoxcom_mozillaorg_combined`
       WHERE session_date >= '2021-01-01'
