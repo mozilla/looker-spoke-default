@@ -49,11 +49,11 @@
     body_text: |-
       <div style='background-color: #ffffdd; padding: 5px 10px; border: solid 3px #ededed; border-radius: 5px; height:160px'>
 
-      This dashboard captures the current state of <strong>subscription churn</strong>.
+      This dashboard shows the current state of <strong>subscription churn</strong>.
 
       <ul>
-        <li>A cohort refers to a group of subscriptions that started in a particular month. For example, cohort 2024-02 includes all subscriptions that started in the month of February 2024.</li>
         <li>Churn rate is the percentage of not-retained subscriptions out of the number retained from the previous month.</li>
+        <li>A cohort refers to a group of subscriptions that started in a particular month. For example, cohort 2024-02 includes all subscriptions that started in the month of February 2024.</li>
       </ul>
       <br>
 

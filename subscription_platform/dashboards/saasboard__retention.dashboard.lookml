@@ -49,7 +49,7 @@
     body_text: |-
       <div style='background-color: #ffffdd; padding: 5px 10px; border: solid 3px #ededed; border-radius: 5px; height:160px'>
 
-      This dashboard captures the current state and trend of <strong>subscription retention</strong>.
+      This dashboard shows the current state and trend of <strong>subscription retention</strong>.
 
       <ul>
         <li>Retention rate is the percentage of active subscriptions out of all subscriptions.</li>
