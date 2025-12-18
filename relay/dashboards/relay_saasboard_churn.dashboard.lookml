@@ -9,6 +9,18 @@
   - name: ''
     type: text
     title_text: ''
+    body_text: |
+      <div style="padding: 5px 10px; background: pink; height: 60px; font-size: 20px; font-weight: bold; align-content: center; text-align: center;">
+        This dashboard has been deprecated.
+        Please use the <a href="https://mozilla.cloud.looker.com/dashboards/subscription_platform::relay_saasboard__churn">new version of this dashboard</a> instead.
+      </div>
+    row: 0
+    col: 0
+    width: 24
+    height: 2
+  - name: " (2)"
+    type: text
+    title_text: ''
     body_text: |2
 
 
@@ -17,7 +29,7 @@
       <h3><b>Churn Rate</b></h3>
 
       <h4> <b><code>Original Subscription Start Date</code> is used to discard subscription removal due to plan changes(upgrades).</b> </h4>
-    row: 5
+    row: 7
     col: 0
     width: 24
     height: 3
@@ -115,7 +127,7 @@
       Original Subscription Start Date: subscriptions.original_subscription_start_date
       Product Name: subscriptions.product_name
       Provider: subscriptions.provider
-    row: 8
+    row: 10
     col: 0
     width: 13
     height: 9
@@ -209,7 +221,7 @@
       Original Subscription Start Date: subscriptions.original_subscription_start_date
       Product Name: subscriptions.product_name
       Provider: subscriptions.provider
-    row: 8
+    row: 10
     col: 13
     width: 11
     height: 9
@@ -324,7 +336,7 @@
       Original Subscription Start Date: subscriptions.original_subscription_start_date
       Product Name: subscriptions.product_name
       Provider: subscriptions.provider
-    row: 41
+    row: 43
     col: 0
     width: 24
     height: 9
@@ -433,7 +445,7 @@
       Original Subscription Start Date: subscriptions.original_subscription_start_date
       Product Name: subscriptions.product_name
       Provider: subscriptions.provider
-    row: 50
+    row: 52
     col: 0
     width: 24
     height: 7
@@ -552,7 +564,7 @@
       Original Subscription Start Date: subscriptions.original_subscription_start_date
       Product Name: subscriptions.product_name
       Provider: subscriptions.provider
-    row: 57
+    row: 59
     col: 0
     width: 24
     height: 7
@@ -608,11 +620,11 @@
     series_types: {}
     hidden_fields: [metadata.last_modified_date]
     listen: {}
-    row: 0
+    row: 2
     col: 19
     width: 5
     height: 5
-  - name: " (2)"
+  - name: " (3)"
     type: text
     title_text: ''
     body_text: |2-
@@ -623,11 +635,11 @@
       <h3><b>Churn by Cohort</b></h3>
 
       <h4> <b><code>Original Subscription Start Date</code> is used to discard subscription removal due to plan changes(upgrades).</b> </h4>
-    row: 38
+    row: 40
     col: 0
     width: 24
     height: 3
-  - name: " (3)"
+  - name: " (4)"
     type: text
     title_text: ''
     body_text: |2-
@@ -638,7 +650,7 @@
       <h3><b>Churn by Plan</b></h3>
 
       <h4> <b><code>Subscription Start Date</code> is used to track subscription removal due to plan changes(upgrades).</b> </h4>
-    row: 17
+    row: 19
     col: 0
     width: 24
     height: 3
@@ -765,7 +777,7 @@
       Subscription Start Date: subscriptions.subscription_start_date
       Product Name: subscriptions.product_name
       Provider: subscriptions.provider
-    row: 26
+    row: 28
     col: 0
     width: 24
     height: 6
@@ -881,7 +893,7 @@
       Subscription Start Date: subscriptions.subscription_start_date
       Product Name: subscriptions.product_name
       Provider: subscriptions.provider
-    row: 32
+    row: 34
     col: 0
     width: 24
     height: 6
@@ -1006,11 +1018,11 @@
       Subscription Start Date: subscriptions.subscription_start_date
       Product Name: subscriptions.product_name
       Provider: subscriptions.provider
-    row: 20
+    row: 22
     col: 0
     width: 24
     height: 6
-  - name: " (4)"
+  - name: " (5)"
     type: text
     title_text: ''
     body_text: '[{"type":"p","children":[{"text":"This dashboard capture "},{"text":"subscription
@@ -1029,7 +1041,7 @@
       submit any questions to "},{"text":"@yeonjoo","bold":true},{"text":" in "},{"text":"#fx-private-relay
       ","bold":true},{"text":"channel on Slack. \n\n\n"}]}]'
     rich_content_json: '{"format":"slate"}'
-    row: 0
+    row: 2
     col: 0
     width: 19
     height: 5

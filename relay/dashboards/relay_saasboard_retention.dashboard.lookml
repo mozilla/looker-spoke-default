@@ -8,6 +8,18 @@
   - name: ''
     type: text
     title_text: ''
+    body_text: |
+      <div style="padding: 5px 10px; background: pink; height: 60px; font-size: 20px; font-weight: bold; align-content: center; text-align: center;">
+        This dashboard has been deprecated.
+        Please use the <a href="https://mozilla.cloud.looker.com/dashboards/subscription_platform::relay_saasboard__retention">new version of this dashboard</a> instead.
+      </div>
+    row: 0
+    col: 0
+    width: 24
+    height: 2
+  - name: " (2)"
+    type: text
+    title_text: ''
     body_text: |2-
 
 
@@ -16,7 +28,7 @@
       <h3><b>Retention Rate</b></h3>
 
       <h4> <b><code>Original Subscription Start Date</code> is used to discard subscription removal due to plan changes(upgrades).</b> </h4>
-    row: 5
+    row: 7
     col: 0
     width: 24
     height: 3
@@ -153,7 +165,7 @@
       Original Subscription Start Date: subscriptions.original_subscription_start_date
       Plan Type: subscriptions.plan_type
       Product Name: subscriptions.product_name
-    row: 49
+    row: 51
     col: 0
     width: 24
     height: 7
@@ -266,7 +278,7 @@
       Original Subscription Start Date: subscriptions.original_subscription_start_date
       Plan Type: subscriptions.plan_type
       Product Name: subscriptions.product_name
-    row: 8
+    row: 10
     col: 12
     width: 12
     height: 10
@@ -367,7 +379,7 @@
       Original Subscription Start Date: subscriptions.original_subscription_start_date
       Plan Type: subscriptions.plan_type
       Product Name: subscriptions.product_name
-    row: 8
+    row: 10
     col: 0
     width: 12
     height: 10
@@ -399,11 +411,11 @@
     listen:
       Provider: subscriptions.provider
       Product Name: subscriptions.product_name
-    row: 0
+    row: 2
     col: 19
     width: 5
     height: 5
-  - name: " (2)"
+  - name: " (3)"
     type: text
     title_text: ''
     body_text: |2-
@@ -414,11 +426,11 @@
       <h3><b>Retention by Cohort</b></h3>
 
       <h4> <b><code>Original Subscription Start Date</code> is used to discard subscription removal due to plan changes(upgrades).</b> </h4>
-    row: 37
+    row: 39
     col: 0
     width: 24
     height: 3
-  - name: " (3)"
+  - name: " (4)"
     type: text
     title_text: ''
     body_text: |2-
@@ -429,7 +441,7 @@
       <h3><b>Retention by Plan Type</b></h3>
 
       <h4> <b><code>Subscription Start Date</code> is used to track subscription removal due to plan changes(upgrades).</b> </h4>
-    row: 18
+    row: 20
     col: 0
     width: 24
     height: 3
@@ -573,7 +585,7 @@
       Original Subscription Start Date: subscriptions.original_subscription_start_date
       Plan Type: subscriptions.plan_type
       Product Name: subscriptions.product_name
-    row: 40
+    row: 42
     col: 0
     width: 12
     height: 9
@@ -681,7 +693,7 @@
       Subscription Start Date: subscriptions.subscription_start_date
       Plan Type: subscriptions.plan_type
       Product Name: subscriptions.product_name
-    row: 27
+    row: 29
     col: 0
     width: 24
     height: 5
@@ -787,7 +799,7 @@
       Subscription Start Date: subscriptions.subscription_start_date
       Plan Type: subscriptions.plan_type
       Product Name: subscriptions.product_name
-    row: 32
+    row: 34
     col: 0
     width: 24
     height: 5
@@ -898,7 +910,7 @@
       Subscription Start Date: subscriptions.subscription_start_date
       Plan Type: subscriptions.plan_type
       Product Name: subscriptions.product_name
-    row: 21
+    row: 23
     col: 0
     width: 24
     height: 6
@@ -1034,7 +1046,7 @@
       Original Subscription Start Date: subscriptions.original_subscription_start_date
       Plan Type: subscriptions.plan_type
       Product Name: subscriptions.product_name
-    row: 40
+    row: 42
     col: 12
     width: 12
     height: 9
@@ -1171,11 +1183,11 @@
       Original Subscription Start Date: subscriptions.original_subscription_start_date
       Plan Type: subscriptions.plan_type
       Product Name: subscriptions.product_name
-    row: 56
+    row: 58
     col: 0
     width: 24
     height: 7
-  - name: " (4)"
+  - name: " (5)"
     type: text
     title_text: ''
     body_text: '[{"type":"p","children":[{"text":"These visualizations capture "},{"text":"subscription
@@ -1192,7 +1204,7 @@
       submit any questions to "},{"text":"@yeonjoo","bold":true},{"text":" in "},{"text":"#fx-private-relay
       ","bold":true},{"text":"channel on Slack. \n \n"}]}]'
     rich_content_json: '{"format":"slate"}'
-    row: 0
+    row: 2
     col: 0
     width: 19
     height: 5
