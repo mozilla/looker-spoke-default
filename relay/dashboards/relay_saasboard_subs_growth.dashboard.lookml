@@ -1,10 +1,22 @@
 - dashboard: relay_saasboard__subs_growth
-  title: Relay Saasboard - Subs Growth
+  title: Relay Saasboard - Subs Growth [DEPRECATED]
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
   preferred_slug: CBV4tnjQdlLGJswfFcUiE2
   elements:
+  - name: ''
+    type: text
+    title_text: ''
+    body_text: |
+      <div style="padding: 5px 10px; background: pink; height: 60px; font-size: 20px; font-weight: bold; align-content: center; text-align: center;">
+        This dashboard has been deprecated.
+        Please use the <a href="https://mozilla.cloud.looker.com/dashboards/subscription_platform::relay_saasboard__subscriptions_growth">new version of this dashboard</a> instead.
+      </div>
+    row: 0
+    col: 0
+    width: 24
+    height: 2
   - title: Current Active Date
     name: Current Active Date
     model: relay
@@ -60,7 +72,7 @@
     note_display: below
     hidden_fields: [metadata.last_modified_date]
     listen: {}
-    row: 0
+    row: 2
     col: 17
     width: 7
     height: 4
@@ -181,7 +193,7 @@
       Plan Type: subscription_events.plan_type
       Product Name: subscription_events.product_name
       Granular Event Type: subscription_events.granular_event_type
-    row: 6
+    row: 8
     col: 0
     width: 12
     height: 10
@@ -269,7 +281,7 @@
       Plan Type: subscription_events.plan_type
       Product Name: subscription_events.product_name
       Granular Event Type: subscription_events.granular_event_type
-    row: 37
+    row: 39
     col: 0
     width: 12
     height: 9
@@ -384,23 +396,10 @@
       Plan Type: subscription_events.plan_type
       Product Name: subscription_events.product_name
       Granular Event Type: subscription_events.granular_event_type
-    row: 16
+    row: 18
     col: 0
     width: 12
     height: 10
-  - name: ''
-    type: text
-    title_text: ''
-    body_text: |2-
-
-
-      <div style="border-top: solid 2px #e0e0e0;">
-
-      <h3><b>Net New Subscriptions</b></h3>
-    row: 35
-    col: 0
-    width: 24
-    height: 2
   - name: " (2)"
     type: text
     title_text: ''
@@ -409,8 +408,21 @@
 
       <div style="border-top: solid 2px #e0e0e0;">
 
+      <h3><b>Net New Subscriptions</b></h3>
+    row: 37
+    col: 0
+    width: 24
+    height: 2
+  - name: " (3)"
+    type: text
+    title_text: ''
+    body_text: |2-
+
+
+      <div style="border-top: solid 2px #e0e0e0;">
+
       <h3><b>New Subscriptions</b></h3>
-    row: 4
+    row: 6
     col: 0
     width: 24
     height: 2
@@ -488,7 +500,7 @@
       Plan Type: subscription_events.plan_type
       Product Name: subscription_events.product_name
       Granular Event Type: subscription_events.granular_event_type
-    row: 16
+    row: 18
     col: 12
     width: 12
     height: 10
@@ -605,7 +617,7 @@
       Plan Type: subscription_events.plan_type
       Product Name: subscription_events.product_name
       Granular Event Type: subscription_events.granular_event_type
-    row: 26
+    row: 28
     col: 12
     width: 12
     height: 9
@@ -703,7 +715,7 @@
       Plan Type: subscription_events.plan_type
       Product Name: subscription_events.product_name
       Granular Event Type: subscription_events.granular_event_type
-    row: 37
+    row: 39
     col: 12
     width: 12
     height: 9
@@ -825,7 +837,7 @@
       Plan Type: subscription_events.plan_type
       Product Name: subscription_events.product_name
       Granular Event Type: subscription_events.granular_event_type
-    row: 26
+    row: 28
     col: 0
     width: 12
     height: 9
@@ -926,7 +938,7 @@
       Plan Type: subscription_events.plan_type
       Product Name: subscription_events.product_name
       Granular Event Type: subscription_events.granular_event_type
-    row: 6
+    row: 8
     col: 18
     width: 6
     height: 10
@@ -1025,11 +1037,11 @@
       Plan Type: subscription_events.plan_type
       Product Name: subscription_events.product_name
       Granular Event Type: subscription_events.granular_event_type
-    row: 6
+    row: 8
     col: 12
     width: 6
     height: 10
-  - name: " (3)"
+  - name: " (4)"
     type: text
     title_text: ''
     body_text: '[{"type":"p","children":[{"text":"This dashboard captures the current
@@ -1039,7 +1051,7 @@
       submit any questions to "},{"text":"@yeonjoo","bold":true},{"text":" in "},{"text":"#fx-private-relay
       ","bold":true},{"text":"channel on Slack. \n \n\n"}],"id":1672418876006}]'
     rich_content_json: '{"format":"slate"}'
-    row: 0
+    row: 2
     col: 0
     width: 17
     height: 4

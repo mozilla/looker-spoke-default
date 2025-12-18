@@ -1,10 +1,22 @@
 - dashboard: relay_saasboard__revenue
-  title: Relay Saasboard - Revenue
+  title: Relay Saasboard - Revenue [DEPRECATED]
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
   preferred_slug: CQQUBUJlvWy9eF0ASbXwWX
   elements:
+  - name: ''
+    type: text
+    title_text: ''
+    body_text: |
+      <div style="padding: 5px 10px; background: pink; height: 60px; font-size: 20px; font-weight: bold; align-content: center; text-align: center;">
+        This dashboard has been deprecated.
+        Please use the <a href="https://mozilla.cloud.looker.com/dashboards/subscription_platform::relay_saasboard__revenue">new version of this dashboard</a> instead.
+      </div>
+    row: 0
+    col: 0
+    width: 24
+    height: 2
   - title: Month Over Month Growth Rate
     name: Month Over Month Growth Rate
     model: relay
@@ -84,7 +96,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 32
+    row: 34
     col: 0
     width: 12
     height: 9
@@ -160,7 +172,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 23
+    row: 25
     col: 0
     width: 12
     height: 9
@@ -232,7 +244,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 23
+    row: 25
     col: 12
     width: 12
     height: 9
@@ -292,7 +304,7 @@
     note_display: below
     hidden_fields: [metadata.last_modified_date]
     listen: {}
-    row: 1
+    row: 3
     col: 18
     width: 6
     height: 4
@@ -368,7 +380,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 14
+    row: 16
     col: 0
     width: 12
     height: 9
@@ -440,11 +452,11 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 14
+    row: 16
     col: 12
     width: 12
     height: 9
-  - name: ''
+  - name: " (2)"
     type: text
     title_text: ''
     body_text: '[{"type":"ul","children":[{"type":"li","children":[{"type":"lic","children":[{"text":"This
@@ -455,7 +467,7 @@
       submit any questions to "},{"text":"@yeonjoo","bold":true},{"text":" in "},{"text":"#fx-private-relay
       ","bold":true},{"text":"channel on Slack. \n \n\n"}]}]'
     rich_content_json: '{"format":"slate"}'
-    row: 1
+    row: 3
     col: 0
     width: 18
     height: 4
@@ -463,7 +475,7 @@
     name: button_13661
     rich_content_json: '{"text":"Relay SaaSboard Documentation","description":"User
       guide/definitions of metrics/event logs that may have affected Relay data.","newTab":true,"alignment":"center","size":"medium","style":"FILLED","color":"#1A73E8","href":"https://docs.google.com/document/d/1attwr_1afDim9v-h4eDbA5XL09yKZez-RddSO-A0P8U/edit?usp=sharing"}'
-    row: 0
+    row: 2
     col: 0
     width: 13
     height: 1
@@ -472,7 +484,7 @@
     rich_content_json: '{"text":"SaaSboard Explained","description":"This deck explains
       how the subscription data is recorded in databases and how metrics are counted
       to load in the SaaSBoard.","newTab":true,"alignment":"center","size":"medium","style":"FILLED","color":"#1A73E8","href":"https://docs.google.com/presentation/d/1Y3lDe1IktTbF-Xaw8dmlcNgWMhRosyH3p9G6ITQBPhc/edit?usp=sharing"}'
-    row: 0
+    row: 2
     col: 13
     width: 11
     height: 1
@@ -565,7 +577,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 5
+    row: 7
     col: 0
     width: 24
     height: 9
