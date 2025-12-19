@@ -9,23 +9,26 @@
   - name: ''
     type: text
     title_text: ''
-    body_text: '[{"type":"p","id":1702805888235,"children":[{"text":"The Desktop Moz.org
+    body_text: '[{"type":"p","id":1702805888235,"children":[{"text":"The Desktop Moz.org/Firefox.com
       Windows Funnel consists of Windows users who acquired Firefox via our website
-      ("},{"type":"a","url":"https://www.mozilla.org/","children":[{"text":"https://www.mozilla.org/"}],"id":1705472569796},{"text":").
+      ("},{"type":"a","url":"https://www.firefox.com","children":[{"text":"www.firefox.com"}],"id":"0104d"},{"text":",
+      pre 2025 July "},{"type":"a","url":"https://www.mozilla.org","children":[{"text":"www.mozilla.org"}],"id":"g3ml1"},{"text":").
       Documentation is available in the "},{"type":"a","url":"https://docs.google.com/document/d/1W0FwfsaI8mO3ONuSKmoSqvwjEqiyEYTf2MIls-q9zJU/edit","children":[{"text":"Dashboard
       Manual: Desktop Moz.org Funnel (Windows)"}],"id":1705472602325},{"text":". For
-      questions, contact @shong. "}]},{"type":"p","id":1705472953496,"children":[{"bold":true,"text":"Metrics"},{"text":"
-      listed blow: "}]},{"type":"p","id":1702806075533,"children":[{"text":"","bold":true}]},{"type":"p","id":1705472957185,"children":[{"bold":true,"text":"Non
-      Fx Sessions:"},{"text":" Number of visits to our website (counted via GA Sessions)              "},{"text":"Non
-      Fx Downloads: ","bold":true},{"text":"Number of those visits that resulted in
-      a download (counted via GA)"}]},{"type":"p","id":1702806207741,"children":[{"text":"New
+      questions, contact "},{"text":"@shong","bold":true},{"text":"."}]},{"type":"p","id":1705472953496,"children":[{"bold":true,"text":"Metrics"},{"text":"
+      listed blow: "}]},{"type":"ul","children":[{"type":"li","children":[{"type":"lic","id":1705472957185,"children":[{"bold":true,"text":"Non
+      Fx Sessions:"},{"text":" Number of visits to our website on non-FX browsers
+      (counted via GA4 Sessions)"}]}],"id":"51crj"},{"type":"li","children":[{"type":"lic","id":"9se3r","children":[{"text":"Non
+      Fx Downloads: ","bold":true},{"text":"Number of non-FX browser visits that resulted
+      in a download (counted via GA4 event)"}]}],"id":"xvdnr"},{"type":"li","children":[{"type":"lic","id":"crgi3","children":[{"text":"New
       Installs:","bold":true},{"text":" Number of successful, new (no older Firefox
-      install found) installs        "},{"text":" New Profiles: ","bold":true},{"text":"Number
-      of new profiles created as a result of a Firefox firstrun"}]},{"type":"p","id":1702806318450,"children":[{"text":"Repeat
+      install found) installs"}]}],"id":"781wd"},{"type":"li","children":[{"type":"lic","id":"dfqek","children":[{"text":"New
+      Profiles: ","bold":true},{"text":"Number of new profiles created as a result
+      of a Firefox firstrun"}]}],"id":"8wghj"},{"type":"li","children":[{"type":"lic","id":"xngj3","children":[{"text":"Repeat
       Users:","bold":true},{"text":" Number of new profiles that returned for a second
-      session within their first 28 days"}]},{"type":"p","id":1702806435330,"children":[{"text":"Week
+      session within their first 28 days"}]}],"id":"ahb48"},{"type":"li","children":[{"type":"lic","id":"zfjzf","children":[{"text":"Week
       4 Retained: ","bold":true},{"text":"Number of new profiles that were still active
-      21 to 28 days after they first appeared. "}]}]'
+      21 to 28 days after they first appeared. "}]}],"id":"9m2r0"}],"id":"24fjg"}]'
     rich_content_json: '{"format":"slate"}'
     row: 13
     col: 0
@@ -290,7 +293,7 @@
     title: Non Fx Sessions
     note_state: collapsed
     note_display: hover
-    note_text: 'Number of visits to our website (counted via GA Sessions)    '
+    note_text: 'Number of visits to our website on non-FX browsers (counted via GA4 Sessions)'
     merged_queries:
     - model: duet
       explore: dev_desktop_session
@@ -372,7 +375,7 @@
     title: Non Fx Downloads
     note_state: collapsed
     note_display: hover
-    note_text: Number of those visits that resulted in a download (counted via GA)
+    note_text: Number of non-FX browser visits that resulted in a download (counted via GA)
     merged_queries:
     - model: duet
       explore: dev_desktop_session
