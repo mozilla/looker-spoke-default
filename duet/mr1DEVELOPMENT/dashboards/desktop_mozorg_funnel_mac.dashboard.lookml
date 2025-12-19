@@ -539,33 +539,35 @@
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: '[{"type":"p","children":[{"text":"The Desktop Moz.org Mac Funnel consists
-      of MacOS users who acquired Firefox via our website ("},{"type":"a","url":"https://www.mozilla.org/","children":[{"text":"https://www.mozilla.org/"}],"id":"r30m4"},{"text":").
-      Documentation is available in the "},{"type":"a","url":"https://docs.google.com/document/d/1W0FwfsaI8mO3ONuSKmoSqvwjEqiyEYTf2MIls-q9zJU/edit#heading=h.tq5vvx6c592z","children":[{"text":"Dashboard
-      Manual: Desktop Moz.org Funnel (Mac)"}],"id":"3fa71"},{"text":". For questions,
-      contact @shong. "}],"id":"053qw"},{"type":"p","children":[{"bold":true,"text":"Metrics"},{"text":"
-      listed blow: "}],"id":"p2oj9"},{"type":"p","children":[{"text":"","bold":true}],"id":"8bmap"},{"type":"p","children":[{"bold":true,"text":"Non
-      Fx Sessions:"},{"text":" Number of visits to our website (counted via GA Sessions)              "},{"text":"Non
-      Fx Downloads: ","bold":true},{"text":"Number of those visits that resulted in
-      a download (counted via GA)"}],"id":"ktk2z"},{"type":"p","children":[{"text":"New
-      Installs","bold":true,"strikethrough":true},{"bold":true,"text":":"},{"text":"
-      "},{"text":"Not available for MacOS","color":"hsl(0, 100%, 50%)"},{"text":"        "},{"text":"                                                                          New
+    body_text: '[{"type":"p","children":[{"text":"The Desktop Firefox Mac Funnel consists
+      of MacOS users who acquired Firefox via our website ("},{"type":"a","url":"https://www.firefox.com","children":[{"text":"www.firefox.com"}],"id":"hzcut"},{"text":",
+      pre 2025 July "},{"type":"a","url":"https://www.mozilla.org","children":[{"text":"www.mozilla.org"}],"id":"dwou7"},{"text":").
+      Documentation is available in the "},{"type":"a","url":"https://docs.google.com/document/d/1W0FwfsaI8mO3ONuSKmoSqvwjEqiyEYTf2MIls-q9zJU/edit","children":[{"text":"Dashboard
+      Manual: Desktop Moz.org Funnel (Windows)"}],"id":"ci3wf"},{"text":". For questions,
+      contact "},{"text":"@shong","bold":true},{"text":"."}],"id":"053qw"},{"type":"p","children":[{"bold":true,"text":"Metrics"},{"text":"
+      listed blow: "}],"id":"p2oj9"},{"type":"ul","children":[{"type":"li","children":[{"type":"lic","children":[{"bold":true,"text":"Non
+      Fx Sessions:"},{"text":" Number of visits to our website on non-FX browsers
+      (counted via GA4 Sessions)"}],"id":"fbskc"}],"id":"ou8kr"},{"type":"li","children":[{"type":"lic","children":[{"text":"Non
+      Fx Downloads: ","bold":true},{"text":"Number of non-FX browser visits that resulted
+      in a download (counted via GA4 event)"}],"id":"a5erd"}],"id":"c6njq"},{"type":"li","children":[{"type":"lic","children":[{"text":"New
+      Installs","bold":true,"strikethrough":true},{"bold":true,"text":": "},{"text":"Not
+      available for MacOS","color":"hsl(0, 100%, 50%)"}],"id":"2nx75"}],"id":"9h0kr"},{"type":"li","children":[{"type":"lic","children":[{"text":"New
       Profiles: ","bold":true},{"text":"Number of new profiles created as a result
-      of a Firefox firstrun"}],"id":"6ldvn"},{"type":"p","children":[{"text":"Repeat
+      of a Firefox firstrun"}],"id":"fsuqe"}],"id":"j7mgb"},{"type":"li","children":[{"type":"lic","children":[{"text":"Repeat
       Users:","bold":true},{"text":" Number of new profiles that returned for a second
-      session within their first 28 days"}],"id":"6e7uu"},{"type":"p","children":[{"text":"Week
+      session within their first 28 days"}],"id":"3yd0a"}],"id":"78zfy"},{"type":"li","children":[{"type":"lic","children":[{"text":"Week
       4 Retained: ","bold":true},{"text":"Number of new profiles that were still active
-      21 to 28 days after they first appeared. "}],"id":"agmup"},{"type":"p","id":"uhjyq","children":[{"text":""}]},{"type":"h3","id":"rgh0y","children":[{"text":"Important
+      21 to 28 days after they first appeared."}],"id":"4199q"}],"id":"8xcko"}],"id":"uizqq"},{"type":"p","id":"3xxiv","children":[{"text":""}]},{"type":"h3","id":"rgh0y","children":[{"text":"Important
       Cavets for this Dashboard: "}]},{"type":"p","children":[{"text":""}],"id":"dwgl2"},{"type":"ol","children":[{"type":"li","children":[{"type":"lic","id":"6tnsb","children":[{"text":"MacOS
       attribution only landed in Q1 of 2024. Therefore, all data in this dashboard
       is restricted to "},{"text":"after","italic":true},{"text":" March 1st 2024.
       "}]}],"id":"chmrk"},{"type":"li","children":[{"type":"lic","children":[{"text":"YOY
-      numbers will not be available until Q2 of 2025. "}],"id":"r622e"}],"id":"p42bl"},{"type":"li","children":[{"type":"lic","children":[{"text":"We
+      numbers not available prior to Q2 of 2025."}],"id":"r622e"}],"id":"p42bl"},{"type":"li","children":[{"type":"lic","children":[{"text":"We
       expect Download "},{"text":"→ New Profile conversion to be worse then Windows,
       and New Profile → Repeat User conversion to be better, because, unlike Windows,
       where Firefox automatically runs for the first time upon installation, Mac users
       need to personally open the newly installed browser in order to become a New
-      Profile. ","fontSize":"10pt","backgroundColor":"transparent","color":"rgb(0,
+      Profile.","fontSize":"10pt","backgroundColor":"transparent","color":"rgb(0,
       0, 0)"}],"id":"4nsde"}],"id":"tpgxi"}],"id":"nlwoa"}]'
     rich_content_json: '{"format":"slate"}'
     row: 23
