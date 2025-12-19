@@ -211,22 +211,31 @@ view: +crash_counts_aggregates {
   measure: sum_total_crashes {
     type: sum
     label: "Total Crashes (All)"
-    sql: ${TABLE}.total_crashes ;;
-    filters: [matches_all_filters: "yes"]
+    sql: CASE
+         WHEN ${matches_all_filters}
+         THEN ${TABLE}.total_crashes
+         ELSE 0
+       END ;;
   }
 
   measure: sum_total_crashes_95percentile {
     type: sum
     label: "Total Crashes (95th Percentile)"
-    sql: ${TABLE}.total_95percentile ;;
-    filters: [matches_all_filters: "yes"]
+    sql: CASE
+         WHEN ${matches_all_filters}
+         THEN ${TABLE}.total_95percentile
+         ELSE 0
+       END ;;
   }
 
   measure: sum_total_crashes_no_outliers {
     type: sum
     label: "Total Crashes (No Outliers)"
-    sql: ${TABLE}.total_no_outliers ;;
-    filters: [matches_all_filters: "yes"]
+    sql: CASE
+         WHEN ${matches_all_filters}
+         THEN ${TABLE}.total_no_outliers
+         ELSE 0
+       END ;;
   }
 
   # Unfiltered measures (hidden)
