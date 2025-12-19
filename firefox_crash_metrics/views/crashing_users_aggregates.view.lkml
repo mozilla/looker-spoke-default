@@ -212,9 +212,9 @@ view: +crashing_users_aggregates {
   measure: crashing_users_filtered {
     type: sum
     label: "Crashing Users (Filtered)"
-    sql: +    sql: CASE
+    sql: CASE
 +         WHEN ${matches_all_filters}
-+        THEN ${TABLE}.crashing_users
++         THEN ${TABLE}.crashing_users
 +        ELSE 0
 +        END;;
   }
