@@ -1,0 +1,94 @@
+name: Build and Deploy
+on:
+  push:
+    branches:
+    tags:
+  pull_request:
+
+jobs:
+  validate-lookml:
+    name: Validate LookML
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Execute linting
+        run: |
+          npm install -g @looker/look-at-me-sideways@3
+          if lams --reporting=no
+            then echo "No linting errors found."
+            else echo "Linting errors found."; exit 1
+          fi
+
+  deploy-prod:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: Trigger Production Deploy Webhook
+        run: curl https://mozilla.cloud.looker.com/webhooks/projects/spoke-default/deploy
+
+  deploy-stage:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main-stage' || startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: Trigger Staging Deploy Webhook
+        run: curl https://mozillastaging.cloud.looker.com/webhooks/projects/spoke-default/deploy
+
+  deploy-dev:
+    name: Deploy to Development
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main-nonprod' || startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: Trigger Development Deploy Webhook
+        run: curl https://mozilladev.cloud.looker.com/webhooks/projects/spoke-default/deploy
+
+  sync-dashboards-prod:
+    name: Sync Dashboards to Production
+    runs-on: ubuntu-latest
+    needs: deploy-prod
+    if: success() && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/'))
+    permissions:
+      id-token: write
+      contents: read
+    environment: GH Actions
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r src/sync_dashboards/requirements.txt
+      - name: Run dashboard sync
+        timeout-minutes: 15
+        env:
+          LOOKER_API_CLIENT_ID: ${{ secrets.LOOKER_API_CLIENT_ID }}
+          LOOKER_API_CLIENT_SECRET: ${{ secrets.LOOKER_API_CLIENT_SECRET }}
+          LOOKER_INSTANCE_URI: ${{ secrets.LOOKER_INSTANCE_URI }}
+        run: python ./src/sync_dashboards/main.py sync --config lookml_dashboards.yaml
+
+  push-lookml-for-validation:
+    name: Push LookML for Validation
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push lookml to main-validation branch
+        run: |
+          git config user.name "CircleCI main-validation job"
+          git config user.email "dataops+main-validation@mozilla.com"
+          git push origin main:main-validation
