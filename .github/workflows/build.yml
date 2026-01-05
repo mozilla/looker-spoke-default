@@ -74,21 +74,3 @@ jobs:
           LOOKER_API_CLIENT_SECRET: ${{ secrets.LOOKER_API_CLIENT_SECRET }}
           LOOKER_INSTANCE_URI: ${{ secrets.LOOKER_INSTANCE_URI }}
         run: python ./src/sync_dashboards/main.py sync --config lookml_dashboards.yaml
-
-  push-lookml-for-validation:
-    name: Push LookML for Validation
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Push lookml to main-validation branch
-        run: |
-          git config user.name "CircleCI main-validation job"
-          git config user.email "dataops+main-validation@mozilla.com"
-          git push origin main:main-validation
