@@ -12,7 +12,7 @@ view: browser_kpi_forecasts_2026 {
           product_category AS product,
           dau
         FROM `moz-fx-data-shared-prod.telemetry.daily_active_users_by_product_category`
-        WHERE submission_date >= "2023-12-01"
+        WHERE submission_date >= "2024-12-01"
       ),
 
       aua_ma AS (
