@@ -332,6 +332,54 @@ view: newtab_clients_daily_aggregates {
     sql: ${TABLE}.other_impression_count ;;
   }
 
+  dimension: organic_content_impression_clients {
+    group_label: "Metrics"
+    label: "Organic Content Impression Clients"
+    description: "Count of clients with Organic Content Impressions"
+    type: number
+    sql: ${TABLE}.organic_content_impression_clients ;;
+  }
+
+  dimension: sponsored_content_impression_clients {
+    group_label: "Metrics"
+    label: "Sponsored Content Impression Clients"
+    description: "Count of clients with Sponsored Content Impressions"
+    type: number
+    sql: ${TABLE}.sponsored_content_impression_clients ;;
+  }
+
+  dimension: any_content_impression_clients {
+    group_label: "Metrics"
+    label: "Any Content Impression Clients"
+    description: "Count of clients with any content Impressions"
+    type: number
+    sql: ${TABLE}.any_content_impression_clients ;;
+  }
+
+  dimension: organic_content_click_clients {
+    group_label: "Metrics"
+    label: "Organic Content Click Clients"
+    description: "Count of clients with Organic Content Clicks"
+    type: number
+    sql: ${TABLE}.organic_content_click_clients ;;
+  }
+
+  dimension: sponsored_content_click_clients {
+    group_label: "Metrics"
+    label: "Sponsored Content Click Clients"
+    description: "Count of clients with Sponsored Content Clicks"
+    type: number
+    sql: ${TABLE}.sponsored_content_click_clients ;;
+  }
+
+  dimension: any_content_click_clients {
+    group_label: "Metrics"
+    label: "Any Content Click Clients"
+    description: "Count of clients with any content clicks"
+    type: number
+    sql: ${TABLE}.any_content_click_clients ;;
+  }
+
   dimension: app_version {
     sql: ${TABLE}.app_version ;;
     type: number
@@ -978,6 +1026,54 @@ view: newtab_clients_daily_aggregates {
     other_impression_count.sum"
   }
 
+  measure: organic_content_impression_clients_sum {
+    type: sum
+    sql: ${TABLE}.organic_content_impression_clients*1 ;;
+    label: "Organic Content Impression Clients Sum"
+    group_label: "Statistics"
+    description: "Sum of Organic Content Impression Clients"
+  }
+
+  measure: sponsored_content_impression_clients_sum {
+    type: sum
+    sql: ${TABLE}.sponsored_content_impression_clients*1 ;;
+    label: "Sponsored Content Impression Clients Sum"
+    group_label: "Statistics"
+    description: "Sum of Sponsored Content Impression Clients"
+  }
+
+  measure: any_content_impression_clients_sum {
+    type: sum
+    sql: ${TABLE}.any_content_impression_clients*1 ;;
+    label: "Any Content Impression Clients Sum"
+    group_label: "Statistics"
+    description: "Sum of Any Content Impression Clients"
+  }
+
+  measure: organic_content_click_clients_sum {
+    type: sum
+    sql: ${TABLE}.organic_content_click_clients*1 ;;
+    label: "Organic Content Click Clients Sum"
+    group_label: "Statistics"
+    description: "Sum of Organic Content Click Clients"
+  }
+
+  measure: sponsored_content_click_clients_sum {
+    type: sum
+    sql: ${TABLE}.sponsored_content_click_clients*1 ;;
+    label: "Sponsored Content Click Clients Sum"
+    group_label: "Statistics"
+    description: "Sum of Sponsored Content Click Clients"
+  }
+
+  measure: any_content_click_clients_sum {
+    type: sum
+    sql: ${TABLE}.any_content_click_clients*1 ;;
+    label: "Any Content Click Clients Sum"
+    group_label: "Statistics"
+    description: "Sum of Any Content Click Clients"
+  }
+
   set: metrics {
     fields: [
       any_engagement_visits,
@@ -1076,6 +1172,12 @@ view: newtab_clients_daily_aggregates {
       others_impression_count_sum,
       others_interaction_count_sum,
       others_interaction_count_ratio,
+      organic_content_impression_clients_sum,
+      sponsored_content_impression_clients_sum,
+      any_content_impression_clients_sum,
+      organic_content_click_clients_sum,
+      sponsored_content_click_clients_sum,
+      any_content_click_clients_sum,
     ]
   }
 
