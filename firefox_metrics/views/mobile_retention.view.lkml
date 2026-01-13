@@ -31,20 +31,11 @@ view: +mobile_retention {
     sql: ${TABLE}.is_mobile ;;
   }
 
-  # dimension: date_yoy {
-  #   label: "Date (YoY)"
-  #   view_label: "Year over Year"
-  #   description: "Date offset to current year for YoY charts"
-  #   type: date
-  #   sql: DATE_ADD(${TABLE}.metric_date, INTERVAL DATE_DIFF(CURRENT_DATE(), ${TABLE}.metric_date, YEAR) YEAR) ;;
-  # }
-
   dimension: date_yoy {
     label: "Date (YoY)"
     view_label: "Year over Year"
     description: "Date offset to current year for YoY charts"
     type: date
-    # sql: DATE_ADD(${TABLE}.metric_date, INTERVAL DATE_DIFF(CURRENT_DATE(), ${TABLE}.metric_date, YEAR) YEAR) ;;
     sql: DATE_ADD(
     ${metric_date},
     INTERVAL DATE_DIFF(CURRENT_DATE(), ${metric_date}, YEAR) YEAR
