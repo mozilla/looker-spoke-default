@@ -31,13 +31,26 @@ view: +mobile_retention {
     sql: ${TABLE}.is_mobile ;;
   }
 
+  # dimension: date_yoy {
+  #   label: "Date (YoY)"
+  #   view_label: "Year over Year"
+  #   description: "Date offset to current year for YoY charts"
+  #   type: date
+  #   sql: DATE_ADD(${TABLE}.metric_date, INTERVAL DATE_DIFF(CURRENT_DATE(), ${TABLE}.metric_date, YEAR) YEAR) ;;
+  # }
+
   dimension: date_yoy {
     label: "Date (YoY)"
     view_label: "Year over Year"
     description: "Date offset to current year for YoY charts"
     type: date
-    sql: DATE_ADD(${TABLE}.metric_date, INTERVAL DATE_DIFF(CURRENT_DATE(), ${TABLE}.metric_date, YEAR) YEAR) ;;
+    # sql: DATE_ADD(${TABLE}.metric_date, INTERVAL DATE_DIFF(CURRENT_DATE(), ${TABLE}.metric_date, YEAR) YEAR) ;;
+    sql: DATE_ADD(
+    ${metric_date},
+    INTERVAL DATE_DIFF(CURRENT_DATE(), ${metric_date}, YEAR) YEAR
+    ) ;;
   }
+
   dimension: ytd_filter {
     label: "YTD Filter"
     view_label: "Year over Year"
@@ -45,6 +58,44 @@ view: +mobile_retention {
     type: yesno
     sql: ${date_yoy} <= DATE_SUB(CURRENT_DATE(), INTERVAL 28 DAY) ;;
   }
+
+  dimension: rolling_28d_prior_year {
+    label: "Last 28 Days of Prior Year"
+    view_label: "Year over Year"
+    description: "temporarily includes last 28 days of prior year during 28 days lag for the retention rates in the begining of the year"
+    type: yesno
+    sql:
+    (
+      ${metric_date} >= DATE_SUB(DATE_TRUNC(CURRENT_DATE(), YEAR), INTERVAL 28 DAY)
+      AND ${metric_date} < DATE_SUB(CURRENT_DATE(), INTERVAL 28 DAY)
+    )
+    OR
+    (
+      ${metric_date} >= DATE_SUB(DATE_TRUNC(DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR), YEAR), INTERVAL 28 DAY)
+      AND ${metric_date} <DATE_SUB(DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR), INTERVAL 28 DAY)
+    ) ;;
+  }
+
+
+  dimension: yoy_window_prior_year {
+    label: "YoY Window of Prior Year"
+    view_label: "Year over Year"
+    description:  "temporarily includes last 28 days of prior year during 28 days lag for the retention rates in the begining of the year"
+    type: number
+    sql:
+    CASE
+      WHEN   ${metric_date} >= DATE_SUB(DATE_TRUNC(CURRENT_DATE(), YEAR), INTERVAL 28 DAY)
+      AND ${metric_date} < DATE_SUB(CURRENT_DATE(), INTERVAL 28 DAY)
+      THEN EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR))
+
+      WHEN ${metric_date} >= DATE_SUB(DATE_TRUNC(DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR), YEAR), INTERVAL 28 DAY)
+      AND ${metric_date} <DATE_SUB(DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR), INTERVAL 28 DAY)
+      THEN EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 2 YEAR))
+
+      ELSE NULL
+      END ;;
+  }
+
 
   dimension: ping_sent_metric_date {
     hidden: yes
