@@ -43,6 +43,17 @@ view: +firefox_android_clients {
     group_item_label: "Play Store Install Referrer"
   }
 
+  dimension: play_store_is_uac {
+    group_label: "Play Store Attribution"
+    group_item_label: "Play Store UAC"
+    description: "Filter for profiles acquired through Google UAC Paid campaigns"
+    label: "UAC_Paid"
+    type: yesno
+    sql: COALESCE(
+      `moz-fx-data-shared-prod.udf.organic_vs_paid_mobile_gclid_attribution`({$TABLE}.play_store_attribution_install_referrer_response),
+       FALSE);;
+  }
+
   dimension: play_store_attribution_medium {
     group_label: "Play Store Attribution"
     group_item_label: "Play Store Medium"
