@@ -460,8 +460,22 @@ view: newtab_clients_daily_aggregates {
     group_label: "Base Fields"
   }
 
+  dimension: sponsored_content_viewable {
+    sql: ${TABLE}.sponsored_content_enabled AND ${TABLE}.organic_content_enabled ;;
+    type: yesno
+    suggest_persist_for: "24 hours"
+    group_label: "Base Fields"
+  }
+
   dimension: sponsored_topsites_enabled {
     sql: ${TABLE}.sponsored_topsites_enabled ;;
+    type: yesno
+    suggest_persist_for: "24 hours"
+    group_label: "Base Fields"
+  }
+
+  dimension: sponsored_topsites_viewable {
+    sql: ${TABLE}.sponsored_topsites_enabled AND ${TABLE}.organic_topsites_enabled ;;
     type: yesno
     suggest_persist_for: "24 hours"
     group_label: "Base Fields"
