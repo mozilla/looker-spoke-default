@@ -49,9 +49,7 @@ view: +firefox_android_clients {
     description: "Filter for profiles acquired through Google UAC Paid campaigns"
     label: "UAC_Paid"
     type: yesno
-    sql: COALESCE(
-      `moz-fx-data-shared-prod.udf.organic_vs_paid_mobile_gclid_attribution`({$TABLE}.play_store_attribution_install_referrer_response),
-       FALSE);;
+    sql: IF(${TABLE}.paid_vs_organic_gclid = "Paid", TRUE, FALSE) ;;
   }
 
   dimension: play_store_attribution_medium {
