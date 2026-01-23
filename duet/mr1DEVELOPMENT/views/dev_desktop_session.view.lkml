@@ -2,40 +2,78 @@ view: dev_desktop_session {
   derived_table: {
     sql:
 WITH tbl AS (
-  SELECT date AS submission_date,
-         CASE
-             WHEN (DATE_DIFF(current_date(), date, DAY) BETWEEN 0 AND 28
-                   OR DATE_DIFF(current_date(), date, DAY) BETWEEN 0+365 AND 28+365) THEN FALSE
-             ELSE TRUE
-         END AS week4_reported_date,
-         CASE
-             WHEN standardized_country_name = 'USA' THEN 'US'
-             WHEN standardized_country_name = 'Canada' THEN 'CA'
-             WHEN standardized_country_name = 'Brazil' THEN 'BR'
-             WHEN standardized_country_name = 'Mexico' THEN 'MX'
-             WHEN standardized_country_name = 'China' THEN 'CN'
-             WHEN standardized_country_name = 'India' THEN 'IN'
-             WHEN standardized_country_name = 'Australia' THEN 'AU'
-             WHEN standardized_country_name = 'Russia' THEN 'RU'
-             ELSE 'ROW'
-         END AS normalized_country_code_subset,
-         funnel_derived,
-         sum(non_fx_sessions) AS non_fx_sessions,
-         sum(non_fx_downloads) AS non_fx_downloads
-  FROM `moz-fx-data-shared-prod.mozilla_org.www_site_metrics_summary`
-  WHERE date >= '2021-01-01'
-    AND DATE_DIFF(current_date(), date, DAY) > 1
-    AND device_category = 'desktop'
-    AND COALESCE(standardized_country_name, '') NOT IN
-              ('Austria','Germany','United Kingdom','Netherlands','Poland','Spain','Italy','Switzerland',
-               'Czechia','Sweden','Bulgaria','Belgium','Slovakia','Latvia','Estonia','Lithuania','France',
-               'Croatia','Portugal','Slovenia','Denmark','Finland','Hungary','Iceland','Ireland','Norway',
-              'Romania')
-  GROUP BY 1,
-           2,
-           3,
-           4
-      )
+SELECT session_date AS submission_date,
+       CASE
+           WHEN (DATE_DIFF(current_date(), session_date, DAY) BETWEEN 0 AND 28
+                 OR DATE_DIFF(current_date(), session_date, DAY) BETWEEN 0+365 AND 28+365) THEN FALSE
+           ELSE TRUE
+       END AS week4_reported_date,
+       CASE
+           WHEN country = 'USA' THEN 'US'
+           WHEN country = 'Canada' THEN 'CA'
+           WHEN country = 'Brazil' THEN 'BR'
+           WHEN country = 'Mexico' THEN 'MX'
+           WHEN country = 'China' THEN 'CN'
+           WHEN country = 'India' THEN 'IN'
+           WHEN country = 'Australia' THEN 'AU'
+           WHEN country = 'Russia' THEN 'RU'
+           ELSE 'ROW'
+       END AS normalized_country_code_subset,
+       CASE
+           WHEN LOWER(device_category) != 'desktop' THEN 'mobile'
+           WHEN LOWER(COALESCE(browser, '')) IN ('mozilla',
+                                                 'firefox') THEN 'existing user'
+           WHEN LOWER(COALESCE(browser, '')) NOT IN ('mozilla',
+                                                     'firefox')
+                AND LOWER(os) = 'windows' THEN 'mozorg windows funnel'
+           WHEN LOWER(COALESCE(browser, '')) NOT IN ('mozilla',
+                                                     'firefox')
+                AND LOWER(os) = 'macintosh' THEN 'mozorg mac funnel'
+           ELSE 'mozorg other'
+       END AS funnel_derived,
+COUNTIF(COALESCE((((lower(manual_source) LIKE '%www.mozilla.org%'
+                           OR lower(manual_source) = 'mozilla.org'
+                           OR lower(first_source_from_event_params) LIKE '%www.mozilla.org%'
+                           OR lower(first_source_from_event_params) = 'mozilla.org')
+                          AND flag = 'FIREFOX.COM')
+                         OR ((lower(manual_source) IN ('www.firefox.com', 'firefox.com', 'firefox-com')
+                              OR lower(first_source_from_event_params) IN ('www.firefox.com', 'firefox.com', 'firefox-com'))
+                             AND flag = 'MOZILLA.ORG')), FALSE) IS FALSE) AS non_fx_sessions,
+       countif(firefox_desktop_downloads > 0) AS non_fx_downloads
+FROM `mozdata.telemetry.ga4_sessions_firefoxcom_mozillaorg_combined`
+WHERE session_date >= '2021-01-01'
+  AND device_category = 'desktop'
+  AND coalesce(browser, '') NOT IN ('Firefox',
+                                'Mozilla')
+  AND COALESCE(country, '') NOT IN ('Austria',
+                                    'Germany',
+                                    'United Kingdom',
+                                    'Netherlands',
+                                    'Poland',
+                                    'Spain',
+                                    'Italy',
+                                    'Switzerland',
+                                    'Czechia',
+                                    'Sweden',
+                                    'Bulgaria',
+                                    'Belgium',
+                                    'Slovakia',
+                                    'Latvia',
+                                    'Estonia',
+                                    'Lithuania',
+                                    'France',
+                                    'Croatia',
+                                    'Portugal',
+                                    'Slovenia',
+                                    'Denmark',
+                                    'Finland',
+                                    'Hungary',
+                                    'Iceland',
+                                    'Ireland',
+                                    'Norway',
+                                    'Romania')
+GROUP BY ALL
+)
     SELECT
       *,
       AVG(non_fx_sessions) OVER

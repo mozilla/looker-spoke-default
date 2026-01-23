@@ -1,5 +1,5 @@
 - dashboard: vpn_saasboard__retention
-  title: VPN SaaSboard - Retention
+  title: VPN SaaSboard - Retention [DEPRECATED]
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
@@ -684,6 +684,12 @@
     type: text
     title_text: ''
     body_text: |
+      <div style="padding: 5px 10px; background: pink; height: 60px; font-size: 20px; font-weight: bold; align-content: center; text-align: center;">
+        This dashboard has been deprecated.
+        Please use the <a href="https://mozilla.cloud.looker.com/dashboards/subscription_platform::vpn_saasboard__retention">new version of this dashboard</a> instead.
+      </div>
+
+      <!--
       <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px; color: red;">
 
       <nav style="font-size: 20px;">
@@ -709,6 +715,7 @@
       </nav>
 
       </div>
+      -->
     row: 0
     col: 0
     width: 24

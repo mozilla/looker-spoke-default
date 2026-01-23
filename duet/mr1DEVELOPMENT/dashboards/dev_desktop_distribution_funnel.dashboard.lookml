@@ -1129,7 +1129,9 @@
       very recently"}],"id":"bot9j"},{"text":", so we expect there to be some lag
       before it “catches up” to the telemetry data. Furthermore: "}]},{"type":"ul","children":[{"type":"li","children":[{"type":"lic","id":"ayrql","children":[{"text":"install
       pings are only sent from Windows users (so not reported for Linux or Mac)"}]}],"id":"ms81o"},{"type":"li","children":[{"type":"lic","children":[{"text":"for
-      older versions of the installer/Firefox, install data won''t be available"}],"id":"7knwa"}],"id":"ksngu"}],"id":"ysaq4"}]'
+      older versions of the installer/Firefox, install data won''t be available"}],"id":"7knwa"}],"id":"ksngu"}],"id":"ysaq4"},{"type":"p","children":[{"text":""}],"id":"kcrp6"},{"type":"p","children":[{"text":"To
+      further filter to specific distributions, please use the Explore feature on
+      the desired chart."}],"id":"sl48g"}]'
     rich_content_json: '{"format":"slate"}'
     row: 51
     col: 12
@@ -1805,7 +1807,9 @@
       onboarding"}],"id":"dt4oq"}],"id":"ldv94"}],"id":"eneqc"},{"type":"p","children":[{"text":""}],"id":"hug1e"},{"type":"p","id":"243jg","children":[{"text":"Some
       of these distribution models include an installation step, some do not. For
       details, refer to the "},{"type":"a","url":"https://docs.google.com/document/d/1pppJC6q_1_QF0EaNyf_3dTHFnf_LHmaIwxVd29Jh-l8/edit","children":[{"text":"Desktop
-      Distribution Builds - Taxonomy"}],"id":"0yknx"},{"text":" document. "}]}]'
+      Distribution Builds - Taxonomy"}],"id":"0yknx"},{"text":" document. To further
+      filter to specific distributions, please use the Explore feature on the desired
+      chart."}]}]'
     rich_content_json: '{"format":"slate"}'
     row: 86
     col: 12

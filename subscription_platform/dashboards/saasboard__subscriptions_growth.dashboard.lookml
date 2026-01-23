@@ -49,10 +49,10 @@
     body_text: |-
       <div style='background-color: #ffffdd; padding: 5px 10px; border: solid 3px #ededed; border-radius: 5px; height:160px'>
 
-      This dashboard captures the current state and trend of <strong>new subscriptions</strong>.
+      This dashboard shows the current state and trend of <strong>new subscriptions</strong>.
 
       <ul>
-        <li>New subscriptions are subscriptions that started on a particular date.</li>
+        <li>New subscriptions are subscriptions that started on a particular UTC date.</li>
         <li>New subscriptions do include trial subscriptions.</li>
       </ul>
       <br>

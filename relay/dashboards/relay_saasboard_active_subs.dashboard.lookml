@@ -1,10 +1,22 @@
 - dashboard: relay_saasboard__active_subs
-  title: Relay Saasboard - Active Subs
+  title: Relay Saasboard - Active Subs [DEPRECATED]
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
   preferred_slug: kVc8W2Z0lAMTYBMw222pfR
   elements:
+  - name: ''
+    type: text
+    title_text: ''
+    body_text: |
+      <div style="padding: 5px 10px; background: pink; height: 60px; font-size: 20px; font-weight: bold; align-content: center; text-align: center;">
+        This dashboard has been deprecated.
+        Please use the <a href="https://mozilla.cloud.looker.com/dashboards/subscription_platform::relay_saasboard__active_subscriptions">new version of this dashboard</a> instead.
+      </div>
+    row: 0
+    col: 0
+    width: 24
+    height: 2
   - title: Active Subscriptions (Daily)
     name: Active Subscriptions (Daily)
     model: relay
@@ -48,7 +60,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 8
+    row: 10
     col: 8
     width: 16
     height: 11
@@ -110,7 +122,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 8
+    row: 10
     col: 0
     width: 8
     height: 7
@@ -175,11 +187,11 @@
     hidden_fields: [metadata.last_modified_date]
     y_axes: []
     listen: {}
-    row: 1
+    row: 3
     col: 17
     width: 7
     height: 4
-  - name: ''
+  - name: " (2)"
     type: text
     title_text: ''
     body_text: |2-
@@ -188,18 +200,18 @@
       <div style="border-top: solid 2px #e0e0e0;">
 
       <h3><b>Current Active Subscriptions</b></h3>
-    row: 5
+    row: 7
     col: 0
     width: 24
     height: 3
-  - name: " "
+  - name: " (3)"
     type: text
     title_text: " "
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
       <h3><b>Active Subscriptions by Country</b></h3>
-    row: 40
+    row: 42
     col: 0
     width: 13
     height: 4
@@ -263,7 +275,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 52
+    row: 54
     col: 13
     width: 11
     height: 11
@@ -349,7 +361,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 15
+    row: 17
     col: 0
     width: 4
     height: 4
@@ -435,7 +447,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 15
+    row: 17
     col: 4
     width: 4
     height: 4
@@ -544,7 +556,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 22
+    row: 24
     col: 0
     width: 13
     height: 7
@@ -627,40 +639,40 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 44
+    row: 46
     col: 13
     width: 11
     height: 8
-  - name: "  "
+  - name: " (4)"
     type: text
     title_text: "  "
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
       <h3><b>Active Subscriptions by Plan</b></h3>
-    row: 19
+    row: 21
     col: 0
     width: 13
     height: 3
-  - name: " (2)"
+  - name: " (5)"
     type: text
     title_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
       <h3><b>Active Subscriptions by Provider</b></h3>
-    row: 40
+    row: 42
     col: 13
     width: 11
     height: 4
-  - name: " (3)"
+  - name: " (6)"
     type: text
     title_text: ''
     body_text: |-
       <div style="border-top: solid 2px #e0e0e0;">
 
       <h3><b>Active Subscriptions by Plan Type</b></h3>
-    row: 19
+    row: 21
     col: 13
     width: 11
     height: 3
@@ -728,7 +740,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 29
+    row: 31
     col: 13
     width: 11
     height: 11
@@ -837,7 +849,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 22
+    row: 24
     col: 13
     width: 11
     height: 7
@@ -927,7 +939,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 29
+    row: 31
     col: 0
     width: 13
     height: 11
@@ -1043,7 +1055,7 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 44
+    row: 46
     col: 0
     width: 13
     height: 8
@@ -1136,11 +1148,11 @@
       Active Date: active_subscriptions.active_date
       Plan Type: active_subscriptions.plan_type
       Product Name: active_subscriptions.product_name
-    row: 52
+    row: 54
     col: 0
     width: 13
     height: 11
-  - name: " (4)"
+  - name: " (7)"
     type: text
     title_text: ''
     body_text: '[{"type":"p","children":[{"text":"This dashboard captures the current
@@ -1149,7 +1161,7 @@
       submit any questions to "},{"text":"@yeonjoo","bold":true},{"text":" in "},{"text":"#fx-private-relay
       ","bold":true},{"text":"channel on Slack. \n\n"}]}]'
     rich_content_json: '{"format":"slate"}'
-    row: 1
+    row: 3
     col: 0
     width: 17
     height: 4
@@ -1157,7 +1169,7 @@
     name: button_13653
     rich_content_json: '{"text":"Relay SaaSBoard Documentation","description":"User
       guide/ definition of metrics/ event logs that may affected Relay data. ","newTab":true,"alignment":"center","size":"medium","style":"FILLED","color":"#1A73E8","href":"https://docs.google.com/document/d/1attwr_1afDim9v-h4eDbA5XL09yKZez-RddSO-A0P8U/edit?usp=sharing"}'
-    row: 0
+    row: 2
     col: 0
     width: 12
     height: 1
@@ -1166,7 +1178,7 @@
     rich_content_json: '{"text":"SaaSboard Explained ","description":"This deck explains
       how the subscription data is recorded in databases and how metrics are counted
       to load in the SaaSBoard.","newTab":true,"alignment":"center","size":"medium","style":"FILLED","color":"#1A73E8","href":"https://docs.google.com/presentation/d/1Y3lDe1IktTbF-Xaw8dmlcNgWMhRosyH3p9G6ITQBPhc/edit?usp=sharing"}'
-    row: 0
+    row: 2
     col: 12
     width: 11
     height: 1
