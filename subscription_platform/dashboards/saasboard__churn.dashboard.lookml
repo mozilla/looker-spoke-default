@@ -367,7 +367,8 @@
     explore: service_subscriptions
     type: looker_column
     fields: [service_subscriptions.ended_at_date, service_subscriptions.service_subscription_count]
-    filters: {}
+    filters:
+      service_subscriptions.ended_at_date: NOT NULL
     sorts: [service_subscriptions.ended_at_date desc]
     limit: 5000
     column_limit: 50
