@@ -1,8 +1,10 @@
+---
 - dashboard: saasboard__churn
   title: SaaSboard - Churn
-  layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
+  preferred_slug: P6wYRdiMOGxKOpjPjlidUc
+  layout: newspaper
   elements:
   - name: ''
     type: text
@@ -425,6 +427,144 @@
     col: 12
     width: 12
     height: 8
+  - title: Monthly Churn Counts by Reason
+    name: Monthly Churn Counts by Reason
+    model: subscription_platform
+    explore: service_subscriptions
+    type: looker_column
+    fields: [service_subscriptions.service_subscription_count, service_subscriptions.ended_at_month,
+      service_subscriptions.ended_reason]
+    pivots: [service_subscriptions.ended_reason]
+    filters:
+      service_subscriptions.ended_at_date: NOT NULL
+    sorts: [service_subscriptions.ended_reason, service_subscriptions.ended_at_month
+        desc]
+    limit: 5000
+    column_limit: 50
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: false
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: normal
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: desc
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    y_axes: [{label: '', orientation: left, series: [{axisId: service_subscriptions.service_subscription_count,
+            id: service_subscriptions.service_subscription_count, name: Service Subscription
+              Count}], showLabels: false, showValues: true, unpinAxis: false, tickDensity: default,
+        tickDensityCustom: 5, type: linear}]
+    x_axis_zoom: true
+    y_axis_zoom: true
+    series_colors:
+      service_subscriptions.service_subscription_count: "#FF7139"
+    series_labels:
+      service_subscriptions.service_subscription_count: Churned Subscription Count
+    show_null_points: true
+    interpolation: linear
+    defaults_version: 1
+    hidden_pivots: {}
+    listen:
+      Subscription Start Date: service_subscriptions.started_at_date
+      Payment Provider: service_subscriptions.payment_provider
+      Plan Interval: service_subscriptions.plan_interval
+      Plan: service_subscriptions.plan_summary
+      Region: countries.region_name
+      Country: countries.name
+      Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
+      Has Refunds (Yes / No): service_subscriptions.has_refunds
+      Service ID: service_subscriptions.service__id
+    row: 22
+    col: 0
+    width: 12
+    height: 8
+  - title: Monthly Churn Proportions by Reason
+    name: Monthly Churn Proportions by Reason
+    model: subscription_platform
+    explore: service_subscriptions
+    type: looker_area
+    fields: [service_subscriptions.service_subscription_count, service_subscriptions.ended_at_month,
+      service_subscriptions.ended_reason]
+    pivots: [service_subscriptions.ended_reason]
+    filters:
+      service_subscriptions.ended_at_date: NOT NULL
+    sorts: [service_subscriptions.ended_reason, service_subscriptions.ended_at_month
+        desc]
+    limit: 5000
+    column_limit: 50
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: false
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: percent
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: true
+    interpolation: linear
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    y_axes: [{label: '', orientation: left, series: [{axisId: service_subscriptions.service_subscription_count,
+            id: service_subscriptions.service_subscription_count, name: Service Subscription
+              Count}], showLabels: false, showValues: true, unpinAxis: false, tickDensity: default,
+        tickDensityCustom: 5, type: linear}]
+    x_axis_zoom: true
+    y_axis_zoom: true
+    series_colors:
+      service_subscriptions.service_subscription_count: "#FF7139"
+    series_labels:
+      service_subscriptions.service_subscription_count: Churned Subscription Count
+    ordering: desc
+    show_null_labels: false
+    defaults_version: 1
+    hidden_pivots: {}
+    listen:
+      Subscription Start Date: service_subscriptions.started_at_date
+      Payment Provider: service_subscriptions.payment_provider
+      Plan Interval: service_subscriptions.plan_interval
+      Plan: service_subscriptions.plan_summary
+      Region: countries.region_name
+      Country: countries.name
+      Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
+      Has Refunds (Yes / No): service_subscriptions.has_refunds
+      Service ID: service_subscriptions.service__id
+    row: 22
+    col: 12
+    width: 12
+    height: 8
   - name: " (3)"
     type: text
     title_text: ''
@@ -434,7 +574,7 @@
       <h3><b>Upcoming Cancellations and Auto-Renew Disabling</b></h3>
 
       </div>
-    row: 22
+    row: 30
     col: 0
     width: 24
     height: 2
@@ -510,7 +650,7 @@
       Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
       Has Refunds (Yes / No): service_subscriptions.has_refunds
       Service ID: service_subscriptions.service__id
-    row: 24
+    row: 32
     col: 0
     width: 12
     height: 8
@@ -606,7 +746,7 @@
       Has Fraudulent Charges (Yes / No): service_subscription_events.subscription__has_fraudulent_charges
       Has Refunds (Yes / No): service_subscription_events.subscription__has_refunds
       Service ID: service_subscription_events.subscription__service__id
-    row: 24
+    row: 32
     col: 12
     width: 12
     height: 8
@@ -668,7 +808,7 @@
       Has Fraudulent Charges (Yes / No): service_subscription_events.subscription__has_fraudulent_charges
       Has Refunds (Yes / No): service_subscription_events.subscription__has_refunds
       Service ID: service_subscription_events.subscription__service__id
-    row: 32
+    row: 40
     col: 0
     width: 12
     height: 8
@@ -744,7 +884,7 @@
       Has Fraudulent Charges (Yes / No): daily_active_service_subscriptions.subscription__has_fraudulent_charges
       Has Refunds (Yes / No): daily_active_service_subscriptions.subscription__has_refunds
       Service ID: daily_active_service_subscriptions.subscription__service__id
-    row: 32
+    row: 40
     col: 12
     width: 12
     height: 8
@@ -757,7 +897,7 @@
       <h3><b>Churn by Plan Interval</b></h3>
 
       </div>
-    row: 40
+    row: 48
     col: 0
     width: 24
     height: 2
@@ -828,7 +968,7 @@
       Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
       Has Refunds (Yes / No): service_subscriptions.has_refunds
       Service ID: service_subscriptions.service__id
-    row: 42
+    row: 50
     col: 0
     width: 24
     height: 6
@@ -931,7 +1071,7 @@
       Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
       Has Refunds (Yes / No): service_subscriptions.has_refunds
       Service ID: service_subscriptions.service__id
-    row: 48
+    row: 56
     col: 0
     width: 24
     height: 4
@@ -1036,7 +1176,7 @@
       Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
       Has Refunds (Yes / No): service_subscriptions.has_refunds
       Service ID: service_subscriptions.service__id
-    row: 52
+    row: 60
     col: 0
     width: 24
     height: 4
@@ -1049,7 +1189,7 @@
       <h3><b>Churn by Cohort</b></h3>
 
       </div>
-    row: 56
+    row: 64
     col: 0
     width: 24
     height: 2
@@ -1137,7 +1277,7 @@
       Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
       Has Refunds (Yes / No): service_subscriptions.has_refunds
       Service ID: service_subscriptions.service__id
-    row: 58
+    row: 66
     col: 0
     width: 24
     height: 7
@@ -1232,7 +1372,7 @@
       Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
       Has Refunds (Yes / No): service_subscriptions.has_refunds
       Service ID: service_subscriptions.service__id
-    row: 65
+    row: 73
     col: 0
     width: 24
     height: 5
@@ -1339,7 +1479,7 @@
       Has Fraudulent Charges (Yes / No): service_subscriptions.has_fraudulent_charges
       Has Refunds (Yes / No): service_subscriptions.has_refunds
       Service ID: service_subscriptions.service__id
-    row: 70
+    row: 78
     col: 0
     width: 24
     height: 5
@@ -1462,77 +1602,3 @@
     explore: service_subscriptions
     listens_to_filters: []
     field: service_subscriptions.service__id
-  - title: Churn by Reason
-    name: Churn by Reason
-    model: subscription_platform
-    explore: service_subscriptions
-    type: looker_column
-    fields: [service_subscriptions.ended_reason, retention_by_month.churned_subscription_count]
-    sorts: [service_subscriptions.ended_reason]
-    limit: 500
-    column_limit: 50
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: false
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: circle_outline
-    show_value_labels: true
-    label_density: 25
-    x_axis_scale: time
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    y_axes: [{label: '', orientation: left, series: [{axisId: churned_subscription_count,
-            id: churned_subscription_count, name: Churned Subscription Count}], showLabels: true,
-        showValues: true, unpinAxis: false, tickDensity: default, type: linear}, {
-        label: !!null '', orientation: right, series: [{axisId: pooled_churn_rate,
-            id: pooled_churn_rate, name: Pooled Churn Rate}], showLabels: true, showValues: true,
-        valueFormat: 0%, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
-        type: linear}]
-    x_axis_zoom: true
-    y_axis_zoom: true
-    hide_legend: true
-    series_types:
-      pooled_churn_rate: line
-    series_colors:
-      pooled_churn_rate: "#0060E0"
-      churned: "#FF7139"
-      churned_subscription_count: "#FF7139"
-    series_labels:
-      churned: Churned Subscription Count
-    show_null_points: false
-    interpolation: linear
-    hidden_pivots: {}
-    defaults_version: 1
-    hidden_fields: [monthly_active_service_subscriptions.service_subscription_count,
-      next_month_still_active_subscriptions.service_subscription_count]
-    listen:
-      Subscription Start Date: monthly_active_service_subscriptions.subscription__started_at_date
-      Payment Provider: monthly_active_service_subscriptions.subscription__payment_provider
-      Plan Interval: monthly_active_service_subscriptions.subscription__plan_interval
-      Plan: monthly_active_service_subscriptions.subscription__plan_summary
-      Region: countries.region_name
-      Country: countries.name
-      Has Fraudulent Charges (Yes / No): current_subscription_state.has_fraudulent_charges
-      Has Refunds (Yes / No): current_subscription_state.has_refunds
-      Service ID: monthly_active_service_subscriptions.subscription__service__id
-    row: 75
-    col: 0
-    width: 24
-    height: 5
