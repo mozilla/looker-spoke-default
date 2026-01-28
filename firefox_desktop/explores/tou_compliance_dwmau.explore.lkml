@@ -12,7 +12,7 @@ explore: tou_complaince_dmwau {
     relationship: many_to_one
   }
 
-  sql_always_where: ${baseline_active_users_table.is_desktop} ;;
+  sql_always_where: ${baseline_active_users_table.is_desktop} AND ${baseline_active_users_table.sample_id} <= 19;;
 
   persist_with: baseline_active_users_table_last_updated
 }
