@@ -36,10 +36,23 @@ view: +mobile_retention {
     view_label: "Year over Year"
     description: "Date offset to current year for YoY charts"
     type: date
-    sql: DATE_ADD(
-    ${metric_date},
-    INTERVAL DATE_DIFF(CURRENT_DATE(), ${metric_date}, YEAR) YEAR
-    ) ;;
+    sql: CASE
+      WHEN DATE(
+        EXTRACT(YEAR FROM CURRENT_DATE()),
+        EXTRACT(MONTH FROM ${metric_date}),
+        EXTRACT(DAY FROM ${metric_date})
+      ) <= CURRENT_DATE()
+      THEN DATE(
+        EXTRACT(YEAR FROM CURRENT_DATE()),
+        EXTRACT(MONTH FROM ${metric_date}),
+        EXTRACT(DAY FROM ${metric_date})
+      )
+      ELSE DATE(
+        EXTRACT(YEAR FROM CURRENT_DATE()) - 1,
+        EXTRACT(MONTH FROM ${metric_date}),
+        EXTRACT(DAY FROM ${metric_date})
+      )
+    END ;;
   }
 
   dimension: ytd_filter {
@@ -77,11 +90,11 @@ view: +mobile_retention {
     CASE
       WHEN   ${metric_date} >= DATE_SUB(DATE_TRUNC(CURRENT_DATE(), YEAR), INTERVAL 28 DAY)
       AND ${metric_date} < DATE_SUB(CURRENT_DATE(), INTERVAL 28 DAY)
-      THEN EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR))
+      THEN EXTRACT(YEAR FROM CURRENT_DATE())
 
       WHEN ${metric_date} >= DATE_SUB(DATE_TRUNC(DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR), YEAR), INTERVAL 28 DAY)
       AND ${metric_date} <DATE_SUB(DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR), INTERVAL 28 DAY)
-      THEN EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 2 YEAR))
+      THEN EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR))
 
       ELSE NULL
       END ;;
