@@ -53,6 +53,7 @@
 
       <ul>
         <li>Subscriptions are counted as active if they were receiving service at the end of the UTC day.</li>
+        <li>Data for the past 7 days may still be in flux due to possible late-arriving data.</li>
       </ul>
       <br>
 

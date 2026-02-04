@@ -56,6 +56,7 @@
       <ul>
         <li>Churn rate is the percentage of not-retained subscriptions out of the number retained from the previous month.</li>
         <li>A cohort refers to a group of subscriptions that started in a particular month. For example, cohort 2024-02 includes all subscriptions that started in the month of February 2024.</li>
+        <li>Data for the past 7 days may still be in flux due to possible late-arriving data.</li>
       </ul>
       <br>
 

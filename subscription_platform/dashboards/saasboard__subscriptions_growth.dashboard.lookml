@@ -54,6 +54,7 @@
       <ul>
         <li>New subscriptions are subscriptions that started on a particular UTC date.</li>
         <li>New subscriptions do include trial subscriptions.</li>
+        <li>Data for the past 7 days may still be in flux due to possible late-arriving data.</li>
       </ul>
       <br>
 

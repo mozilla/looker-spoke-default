@@ -57,13 +57,14 @@
         <li>Discounts and VAT are taken into consideration when calculating projected revenue.</li>
         <li>Subscription plan amounts in non-US currencies are converted to US dollars using daily exchange rates from <a href="https://fxds-hcc.oanda.com/">OANDA</a> as of the date of the revenue projection.</li>
         <li>For subscription plans longer than a month, we recognize a proportionate amount of the revenue each month that the customer is expected to receive the service based on their auto-renew setting.</li>
+        <li>Data for the past 7 days may still be in flux due to possible late-arriving data.</li>
       </ul>
       <br>
 
       </div>
     row: 2
     col: 0
-    width: 15
+    width: 16
     height: 4
   - title: Most Recent Data
     name: Most Recent Data
@@ -112,8 +113,8 @@
     defaults_version: 1
     listen: {}
     row: 2
-    col: 15
-    width: 9
+    col: 16
+    width: 8
     height: 4
   - title: Annual Recurring Revenue
     name: Annual Recurring Revenue
