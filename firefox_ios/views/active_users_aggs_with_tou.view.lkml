@@ -31,7 +31,7 @@ view: active_users_agg_with_tou {
       WHERE b.is_mobile
       AND b.submission_date >= '2025-11-15'
 
-      GROUP BY 1,2,3,4,5
+      GROUP BY 1,2,3,4
       ;;
     datagroup_trigger: baseline_agg_daily_tou
 
