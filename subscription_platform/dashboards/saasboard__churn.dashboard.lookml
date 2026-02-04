@@ -351,6 +351,10 @@
     defaults_version: 1
     hidden_fields: [monthly_active_service_subscriptions.service_subscription_count,
       next_month_still_active_subscriptions.service_subscription_count]
+    note_state: collapsed
+    note_display: hover
+    note_text: Pooled churn looks at subscriptions that were active at the start of
+      the month which are no longer active at the start of the following month.
     listen:
       Subscription Start Date: monthly_active_service_subscriptions.subscription__started_at_date
       Payment Provider: monthly_active_service_subscriptions.subscription__payment_provider
