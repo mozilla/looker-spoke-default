@@ -67,3 +67,9 @@ explore: android_store_performance {
 explore: +events_unnested {
   persist_with: events_unnested_v1_last_updated
 }
+
+datagroup: baseline_agg_daily_tou {
+  # changes once per day → triggers a rebuild once per day
+  sql_trigger: SELECT CURRENT_DATE() ;;
+  max_cache_age: "24 hours"
+}
