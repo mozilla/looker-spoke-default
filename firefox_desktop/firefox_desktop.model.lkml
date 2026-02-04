@@ -255,3 +255,10 @@ view: +clients_daily_table__contextual_services_quicksuggest_impression_sum {
     type: number
   }
 }
+
+
+datagroup: baseline_agg_daily_tou {
+  # changes once per day → triggers a rebuild once per day
+  sql_trigger: SELECT CURRENT_DATE() ;;
+  max_cache_age: "24 hours"
+}
