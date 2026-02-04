@@ -53,6 +53,7 @@
 
       <ul>
         <li>Retention rate is the percentage of active subscriptions out of all subscriptions.</li>
+        <li>Note that only retention for subscriptions matching the Subscription Start Date filter is being shown.</li>
         <li>A cohort refers to a group of subscriptions that started in a particular month. For example, cohort 2024-02 includes all subscriptions that started in the month of February 2024.</li>
         <li>Data for the past 7 days may still be in flux due to possible late-arriving data.</li>
       </ul>
