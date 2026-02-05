@@ -1,4 +1,4 @@
-include: "../views/site_engagement_events.view.lkml"
+include: "../views/firefox_com_site_engagement_events.view.lkml"
 
-explore: site_engagement_events {
+explore: firefox_com_site_engagement_events {
 }
