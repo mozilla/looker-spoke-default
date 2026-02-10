@@ -100,6 +100,8 @@ include: "views/desktop_daily_retention.view.lkml"
 include: "views/urlbar_events_daily_table.view.lkml"
 include: "views/newtab_clients_daily_aggregates.view.lkml"
 include: "views/newtab_items_daily.view.lkml"
+include: "views/event_funnel.view.lkml"
+include: "explores/event_funnel.explore.lkml"
 
 
 explore: newtab_clients_daily_aggregates {
