@@ -54,13 +54,14 @@
       <ul>
         <li>New subscriptions are subscriptions that started on a particular UTC date.</li>
         <li>New subscriptions do include trial subscriptions.</li>
+        <li>Data for the past 7 days may still be in flux due to possible late-arriving data.</li>
       </ul>
       <br>
 
       </div>
     row: 2
     col: 0
-    width: 16
+    width: 18
     height: 4
   - title: Most Recent Data
     name: Most Recent Data
@@ -109,8 +110,8 @@
     defaults_version: 1
     listen: {}
     row: 2
-    col: 16
-    width: 8
+    col: 18
+    width: 6
     height: 4
   - name: " (3)"
     type: text

@@ -55,14 +55,16 @@
 
       <ul>
         <li>Churn rate is the percentage of not-retained subscriptions out of the number retained from the previous month.</li>
+        <li>Note that only churn for subscriptions matching the Subscription Start Date filter is being shown.</li>
         <li>A cohort refers to a group of subscriptions that started in a particular month. For example, cohort 2024-02 includes all subscriptions that started in the month of February 2024.</li>
+        <li>Data for the past 7 days may still be in flux due to possible late-arriving data.</li>
       </ul>
       <br>
 
       </div>
     row: 2
     col: 0
-    width: 16
+    width: 18
     height: 4
   - title: Most Recent Data
     name: Most Recent Data
@@ -111,8 +113,8 @@
     defaults_version: 1
     listen: {}
     row: 2
-    col: 16
-    width: 8
+    col: 18
+    width: 6
     height: 4
   - title: Churn by Subscription Month Number
     name: Churn by Subscription Month Number
@@ -349,6 +351,10 @@
     defaults_version: 1
     hidden_fields: [monthly_active_service_subscriptions.service_subscription_count,
       next_month_still_active_subscriptions.service_subscription_count]
+    note_state: collapsed
+    note_display: hover
+    note_text: Pooled churn looks at subscriptions that were active at the start of
+      the month which are no longer active at the start of the following month.
     listen:
       Subscription Start Date: monthly_active_service_subscriptions.subscription__started_at_date
       Payment Provider: monthly_active_service_subscriptions.subscription__payment_provider
