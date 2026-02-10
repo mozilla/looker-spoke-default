@@ -7,6 +7,7 @@ view: active_users_agg_with_tou {
       SELECT
        b.app_version,
         DATE(b.submission_date) as submission_date,
+        TIMESTAMP(DATE(b.submission_date)) as submission_ts,
         b.country,
         CASE
           WHEN b.country in ('BR','CA','CN','DE','ES','FR','GB','ID','IN','IT','MX','RU', 'US')
@@ -33,9 +34,9 @@ view: active_users_agg_with_tou {
 
       GROUP BY 1,2,3,4
       ;;
-    datagroup_trigger: baseline_agg_daily_tou
 
-    increment_key: "submission_date"
+    datagroup_trigger: baseline_agg_daily_tou
+    increment_key: "submission_ts"
     increment_offset: 2
   }
 
