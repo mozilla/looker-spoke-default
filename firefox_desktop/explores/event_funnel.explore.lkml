@@ -8,4 +8,5 @@ explore: event_funnel {
     filters: [event_funnel.date: "7 days", event_funnel.sample: "1"]
   }
 
+
 }
