@@ -1,5 +1,3 @@
-include: "//looker-hub/firefox_desktop/views/events_stream.view.lkml"
-
 view: event_funnel {
   derived_table: {
     sql:
