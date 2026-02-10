@@ -226,20 +226,25 @@ view: event_funnel {
   # ==========================================
 
   parameter: step_1_event {
-    suggest_explore: events_stream
-    suggest_dimension: events_stream.event_name
+    suggest_explore: fenix_events_info
+    suggest_dimension: fenix_events_info.event_name
+    full_suggestions: no
     group_label: "Step 1"
     group_item_label: "Event Name"
   }
 
   parameter: step_1_category {
-    suggest_explore: events_stream
-    suggest_dimension: events_stream.event_category
+    suggest_explore: fenix_events_info
+    suggest_dimension: fenix_events_info.event_category
+    full_suggestions: no
     group_label: "Step 1"
     group_item_label: "Event Category (optional)"
   }
 
   parameter: step_1_extra_name_filter {
+    suggest_explore: fenix_events_info
+    suggest_dimension: fenix_events_info.extra_name
+    full_suggestions: no
     type: unquoted
     description: "Extra filter SQL. Examples: strings.action OR booleans.checked OR quantities.duration_ms"
     group_label: "Step 1"
@@ -272,20 +277,22 @@ view: event_funnel {
   # ==========================================
 
   parameter: step_2_event {
-    suggest_explore: events_stream
-    suggest_dimension: events_stream.event_name
+    suggest_explore: fenix_events_info
+    suggest_dimension: fenix_events_info.event_name
     group_label: "Step 2"
     group_item_label: "Event Name"
   }
 
   parameter: step_2_category {
-    suggest_explore: events_stream
-    suggest_dimension: events_stream.event_category
+    suggest_explore: fenix_events_info
+    suggest_dimension: fenix_events_info.event_category
     group_label: "Step 2"
     group_item_label: "Event Category (optional)"
   }
 
   parameter: step_2_extra_name_filter {
+    suggest_explore: fenix_events_info
+    suggest_dimension: fenix_events_info.extra_name
     type: unquoted
     description: "Extra filter SQL. Examples: strings.action OR booleans.checked OR quantities.duration_ms"
     group_label: "Step 2"
@@ -318,20 +325,22 @@ view: event_funnel {
   # ==========================================
 
   parameter: step_3_event {
-    suggest_explore: events_stream
-    suggest_dimension: events_stream.event_name
+    suggest_explore: fenix_events_info
+    suggest_dimension: fenix_events_info.event_name
     group_label: "Step 3"
     group_item_label: "Event Name"
   }
 
   parameter: step_3_category {
-    suggest_explore: events_stream
-    suggest_dimension: events_stream.event_category
+    suggest_explore: fenix_events_info
+    suggest_dimension: fenix_events_info.event_category
     group_label: "Step 3"
     group_item_label: "Event Category (optional)"
   }
 
   parameter: step_3_extra_name_filter {
+    suggest_explore: fenix_events_info
+    suggest_dimension: fenix_events_info.extra_name
     type: unquoted
     description: "Extra filter SQL. Examples: strings.action OR booleans.checked OR quantities.duration_ms"
     group_label: "Step 3"
@@ -365,20 +374,22 @@ view: event_funnel {
   # ==========================================
 
   parameter: step_4_event {
-    suggest_explore: events_stream
-    suggest_dimension: events_stream.event_name
+    suggest_explore: fenix_events_info
+    suggest_dimension: fenix_events_info.event_name
     group_label: "Step 4"
     group_item_label: "Event Name"
   }
 
   parameter: step_4_category {
-    suggest_explore: events_stream
-    suggest_dimension: events_stream.event_category
+    suggest_explore: fenix_events_info
+    suggest_dimension: fenix_events_info.event_category
     group_label: "Step 4"
     group_item_label: "Event Category (optional)"
   }
 
   parameter: step_4_extra_name_filter {
+    suggest_explore: fenix_events_info
+    suggest_dimension: fenix_events_info.extra_name
     type: unquoted
     description: "Extra filter SQL. Examples: strings.action OR booleans.checked OR quantities.duration_ms"
     group_label: "Step 4"
@@ -495,4 +506,29 @@ view: event_funnel {
     description: "% of users who didn't complete the funnel"
     group_label: "Drop-off Counts"
   }
+}
+
+view: firefox_desktop_events_info {
+  sql_table_name: `mozdata.analysis.ascholtz_firefox_desktop_event_info_v1` ;;
+
+  dimension: event_category {
+    type: string
+    sql: ${TABLE}.category ;;
+  }
+
+  dimension: event_name {
+    type: string
+    sql: ${TABLE}.name ;;
+  }
+
+  dimension: extra_name {
+    type: string
+    sql: ${TABLE}.extra_key ;;
+    description: "Name of the event extra field"
+  }
+
+}
+
+explore: firefox_desktop_events_info {
+  hidden: yes  # Only used for suggestions
 }
