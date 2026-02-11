@@ -7,6 +7,7 @@ view: active_users_agg_with_tou {
       SELECT
        b.app_version,
         b.submission_date,
+        TIMESTAMP(DATE(b.submission_date)) as submission_ts,
         b.country,
         CASE
           WHEN b.country in ('BR','CA','CN','DE','ES','FR','GB','ID','IN','IT','MX','RU', 'US')
@@ -27,15 +28,15 @@ view: active_users_agg_with_tou {
       FROM ${active_users_table.SQL_TABLE_NAME} AS b
       LEFT JOIN ${terms_of_use_status_table.SQL_TABLE_NAME} AS t
       ON b.client_id = t.client_id
-      AND b.submission_date >= t.submission_date
+      AND DATE(b.submission_date) >= DATE(t.submission_date)
       WHERE b.is_mobile
-      AND b.submission_date >= '2025-11-15'
+      AND DATE(b.submission_date) >= '2025-11-15'
 
       GROUP BY 1,2,3,4
       ;;
 
     datagroup_trigger: baseline_agg_daily_tou
-    increment_key: "submission_date"
+    increment_key: "submission_ts"
     increment_offset: 2
   }
 
