@@ -38,13 +38,13 @@ view: event_funnel {
     channel,
     MIN(timestamp) as step_1_timestamp
     FROM events_sample e
-    {% if step_1_event._parameter_value != "" or step_1_category._parameter_value != "" or step_1_extra_filter._parameter_value != "" %}
+    {% if step_1_event._parameter_value != "''" or step_1_category._parameter_value != "''" or step_1_extra_name_filter._parameter_value != "" %}
     WHERE
     {% endif %}
-    {% if step_1_event._parameter_value and step_1_event._parameter_value != "" %}
+    {% if step_1_event._parameter_value and step_1_event._parameter_value != "''" %}
     e.event_name = {% parameter step_1_event %}
     {% endif %}
-    {% if step_1_category._parameter_value != "" %}
+    {% if step_1_category._parameter_value != "''" %}
     AND event_category = {% parameter step_1_category %}
     {% endif %}
     {% if step_1_extra_name_filter._parameter_value != "" %}
@@ -73,13 +73,13 @@ view: event_funnel {
     ON s1.client_id = e.client_id
     AND e.timestamp > s1.step_1_timestamp
     AND e.date BETWEEN s1.date AND DATE_ADD(s1.date, INTERVAL 7 DAY)
-    {% if step_2_event._parameter_value != "" or step_2_category._parameter_value != "" or step_2_extra_filter._parameter_value != "" %}
+    {% if step_2_event._parameter_value != "''" or step_2_category._parameter_value != "''" or step_2_extra_name_filter._parameter_value != "" %}
     WHERE
     {% endif %}
-    {% if step_2_event._parameter_value and step_2_event._parameter_value != "" %}
+    {% if step_2_event._parameter_value and step_2_event._parameter_value != "''" %}
     e.event_name = {% parameter step_2_event %}
     {% endif %}
-    {% if step_2_category._parameter_value != "" %}
+    {% if step_2_category._parameter_value != "''" %}
     AND e.event_category = {% parameter step_2_category %}
     {% endif %}
     {% if step_2_extra_name_filter._parameter_value != "" %}
@@ -108,13 +108,13 @@ view: event_funnel {
     ON s1.client_id = e.client_id
     AND e.timestamp > s1.step_1_timestamp
     AND e.date BETWEEN s1.date AND DATE_ADD(s1.date, INTERVAL 7 DAY)
-    {% if step_3_event._parameter_value != "" or step_3_category._parameter_value != "" or step_3_extra_filter._parameter_value != "" %}
+    {% if step_3_event._parameter_value != "''" or step_3_category._parameter_value != "''" or step_3_extra_name_filter._parameter_value != "" %}
     WHERE
     {% endif %}
-    {% if step_3_event._parameter_value and step_3_event._parameter_value != "" %}
+    {% if step_3_event._parameter_value and step_3_event._parameter_value != "''" %}
     e.event_name = {% parameter step_3_event %}
     {% endif %}
-    {% if step_3_category._parameter_value != "" %}
+    {% if step_3_category._parameter_value != "''" %}
     AND e.event_category = {% parameter step_3_category %}
     {% endif %}
     {% if step_3_extra_name_filter._parameter_value != "" %}
@@ -143,13 +143,13 @@ view: event_funnel {
     ON s1.client_id = e.client_id
     AND e.timestamp > s1.step_1_timestamp
     AND e.date BETWEEN s1.date AND DATE_ADD(s1.date, INTERVAL 7 DAY)
-    {% if step_4_event._parameter_value != "" or step_4_category._parameter_value != "" or step_4_extra_filter._parameter_value != "" %}
+    {% if step_4_event._parameter_value != "''" or step_4_category._parameter_value != "''" or step_4_extra_name_filter._parameter_value != "" %}
     WHERE
     {% endif %}
-    {% if step_4_event._parameter_value and step_4_event._parameter_value != "" %}
+    {% if step_4_event._parameter_value and step_4_event._parameter_value != "''" %}
     e.event_name = {% parameter step_4_event %}
     {% endif %}
-    {% if step_4_category._parameter_value != "" %}
+    {% if step_4_category._parameter_value != "''" %}
     AND e.event_category = {% parameter step_4_category %}
     {% endif %}
     {% if step_4_extra_name_filter._parameter_value != "" %}
