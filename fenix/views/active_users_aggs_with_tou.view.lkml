@@ -30,7 +30,7 @@ view: active_users_agg_with_tou {
       ON b.client_id = t.client_id
       AND DATE(b.submission_date) >= DATE(t.submission_date)
       WHERE b.is_mobile
-      AND DATE(b.submission_date) >= DATE '2025-11-15'
+      AND DATE(b.submission_date) >= '2025-11-15'
 
       GROUP BY 1,2,3,4
       ;;
