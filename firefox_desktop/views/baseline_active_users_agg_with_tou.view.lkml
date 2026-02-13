@@ -7,7 +7,7 @@ view: baseline_active_users_agg_with_tou {
       SELECT
         b.os_grouped,
         b.app_version,
-        DATE(b.submission_date) as submission_date,
+        TIMESTAMP(b.submission_date) as submission_date,
         b.country,
         CASE
           WHEN b.country in ('US','CA','GB','DE','FR','ES','IT','BR','MX','IN','ID','CN','RU')
@@ -30,7 +30,7 @@ view: baseline_active_users_agg_with_tou {
       ON b.client_id = t.client_id
       AND DATE(b.submission_date) >= DATE(t.submission_date)
       WHERE b.is_desktop AND b.sample_id <= 19
-      AND DATE(b.submission_date) >= '2025-11-15'
+      AND DATE(b.submission_date) >= DATE '2025-11-15'
 
       GROUP BY 1,2,3,4,5
       ;;
