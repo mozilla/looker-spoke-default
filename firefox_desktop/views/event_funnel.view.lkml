@@ -36,14 +36,13 @@ view: event_funnel {
       channel,
       MIN(timestamp) as step_1_timestamp
       FROM events_sample e
-      {% if step_1_event._parameter_value != "''" or step_1_category._parameter_value != "''" or step_1_extra_name_filter._parameter_value != "" %}
       WHERE
+      1 = 1
+      {% if step_1_event._in_query %}
+      AND {% condition step_1_event %} event_name {% endcondition %}
       {% endif %}
-      {% if step_1_event._parameter_value != blank and step_1_event._parameter_value != "''" %}
-      e.event_name = {% parameter step_1_event %}
-      {% endif %}
-      {% if step_1_category._parameter_value != blank and step_1_category._parameter_value != "''" %}
-      AND event_category = {% parameter step_1_category %}
+      {% if step_1_category._in_query %}
+      AND {% condition step_1_category%} event_category {% endcondition %}
       {% endif %}
       {% if step_1_extra_name_filter._parameter_value != "" %}
       {% if step_1_extra_string_filter._in_query %}
@@ -71,14 +70,13 @@ view: event_funnel {
       ON s1.client_id = e.client_id
       AND e.timestamp > s1.step_1_timestamp
       AND e.date BETWEEN s1.date AND DATE_ADD(s1.date, INTERVAL 7 DAY)
-      {% if step_2_event._parameter_value != "''" or step_2_category._parameter_value != "''" or step_2_extra_name_filter._parameter_value != "" %}
       WHERE
+      1 = 1
+      {% if step_2_event._in_query %}
+      AND {% condition step_2_event %} event_name {% endcondition %}
       {% endif %}
-      {% if step_2_event._parameter_value and step_2_event._parameter_value != "''" %}
-      e.event_name = {% parameter step_2_event %}
-      {% endif %}
-      {% if step_2_category._parameter_value != "''" %}
-      AND e.event_category = {% parameter step_2_category %}
+      {% if step_2_category._in_query %}
+      AND {% condition step_2_category%} event_category {% endcondition %}
       {% endif %}
       {% if step_2_extra_name_filter._parameter_value != "" %}
       {% if step_2_extra_string_filter._in_query %}
@@ -106,14 +104,13 @@ view: event_funnel {
       ON s1.client_id = e.client_id
       AND e.timestamp > s1.step_1_timestamp
       AND e.date BETWEEN s1.date AND DATE_ADD(s1.date, INTERVAL 7 DAY)
-      {% if step_3_event._parameter_value != "''" or step_3_category._parameter_value != "''" or step_3_extra_name_filter._parameter_value != "" %}
       WHERE
+      1 = 1
+      {% if step_3_event._in_query %}
+      AND {% condition step_3_event %} event_name {% endcondition %}
       {% endif %}
-      {% if step_3_event._parameter_value and step_3_event._parameter_value != "''" %}
-      e.event_name = {% parameter step_3_event %}
-      {% endif %}
-      {% if step_3_category._parameter_value != "''" %}
-      AND e.event_category = {% parameter step_3_category %}
+      {% if step_3_category._in_query %}
+      AND {% condition step_3_category%} event_category {% endcondition %}
       {% endif %}
       {% if step_3_extra_name_filter._parameter_value != "" %}
       {% if step_3_extra_string_filter._in_query %}
@@ -141,14 +138,13 @@ view: event_funnel {
       ON s1.client_id = e.client_id
       AND e.timestamp > s1.step_1_timestamp
       AND e.date BETWEEN s1.date AND DATE_ADD(s1.date, INTERVAL 7 DAY)
-      {% if step_4_event._parameter_value != "''" or step_4_category._parameter_value != "''" or step_4_extra_name_filter._parameter_value != "" %}
       WHERE
+      1 = 1
+      {% if step_4_event._in_query %}
+      AND {% condition step_4_event %} event_name {% endcondition %}
       {% endif %}
-      {% if step_4_event._parameter_value and step_4_event._parameter_value != "''" %}
-      e.event_name = {% parameter step_4_event %}
-      {% endif %}
-      {% if step_4_category._parameter_value != "''" %}
-      AND e.event_category = {% parameter step_4_category %}
+      {% if step_4_category._in_query %}
+      AND {% condition step_4_category%} event_category {% endcondition %}
       {% endif %}
       {% if step_4_extra_name_filter._parameter_value != "" %}
       {% if step_4_extra_string_filter._in_query %}
@@ -223,7 +219,7 @@ view: event_funnel {
   # STEP 1
   # ==========================================
 
-  parameter: step_1_event {
+  filter: step_1_event {
     type: string
     suggest_explore: firefox_desktop_events_info
     suggest_dimension: firefox_desktop_events_info.event_name
@@ -232,7 +228,7 @@ view: event_funnel {
     group_item_label: "Event Name"
   }
 
-  parameter: step_1_category {
+  filter: step_1_category {
     type: string
     suggest_explore: firefox_desktop_events_info
     suggest_dimension: firefox_desktop_events_info.event_category
@@ -276,14 +272,14 @@ view: event_funnel {
   # STEP 2
   # ==========================================
 
-  parameter: step_2_event {
+  filter: step_2_event {
     suggest_explore: firefox_desktop_events_info
     suggest_dimension: firefox_desktop_events_info.event_name
     group_label: "Step 2"
     group_item_label: "Event Name"
   }
 
-  parameter: step_2_category {
+  filter: step_2_category {
     suggest_explore: firefox_desktop_events_info
     suggest_dimension: firefox_desktop_events_info.event_category
     group_label: "Step 2"
@@ -324,14 +320,14 @@ view: event_funnel {
   # STEP 3
   # ==========================================
 
-  parameter: step_3_event {
+  filter: step_3_event {
     suggest_explore: firefox_desktop_events_info
     suggest_dimension: firefox_desktop_events_info.event_name
     group_label: "Step 3"
     group_item_label: "Event Name"
   }
 
-  parameter: step_3_category {
+  filter: step_3_category {
     suggest_explore: firefox_desktop_events_info
     suggest_dimension: firefox_desktop_events_info.event_category
     group_label: "Step 3"
@@ -373,14 +369,14 @@ view: event_funnel {
   # STEP 4
   # ==========================================
 
-  parameter: step_4_event {
+  filter: step_4_event {
     suggest_explore: firefox_desktop_events_info
     suggest_dimension: firefox_desktop_events_info.event_name
     group_label: "Step 4"
     group_item_label: "Event Name"
   }
 
-  parameter: step_4_category {
+  filter: step_4_category {
     suggest_explore: firefox_desktop_events_info
     suggest_dimension: firefox_desktop_events_info.event_category
     group_label: "Step 4"
