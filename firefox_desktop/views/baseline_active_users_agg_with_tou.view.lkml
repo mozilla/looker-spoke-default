@@ -14,6 +14,7 @@ view: baseline_active_users_agg_with_tou {
             THEN b.country
           ELSE 'ROW'
         END AS country_segmentation,
+-- rebuild_2026_02_17
 
       /* Base DAU/WAU/MAU */
       COUNT(DISTINCT CASE WHEN b.is_dau THEN b.client_id END) AS daily_active_users,
