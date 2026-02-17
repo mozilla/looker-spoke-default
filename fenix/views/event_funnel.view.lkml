@@ -29,25 +29,24 @@ view: event_funnel {
     AND {% condition sample %} sample_id {% endcondition %}
     ),
 
-    step_1 AS (
-    SELECT
-    client_id,
-    date,
-    country,
-    os,
-    channel,
-    MIN(timestamp) as step_1_timestamp
-    FROM events_sample e
-    {% if step_1_event._parameter_value != "''" or step_1_category._parameter_value != "''" or step_1_extra_name_filter._parameter_value != "" %}
-    WHERE
-    {% endif %}
-    {% if step_1_event._parameter_value and step_1_event._parameter_value != "''" %}
-    e.event_name = {% parameter step_1_event %}
-    {% endif %}
-    {% if step_1_category._parameter_value != "''" %}
-    AND event_category = {% parameter step_1_category %}
-    {% endif %}
-    {% if step_1_extra_name_filter._parameter_value != "" %}
+          step_1 AS (
+      SELECT
+      client_id,
+      date,
+      country,
+      os,
+      channel,
+      MIN(timestamp) as step_1_timestamp
+      FROM events_sample e
+      WHERE
+      1 = 1
+      {% if step_1_event._in_query %}
+      AND {% condition step_1_event %} event_name {% endcondition %}
+      {% endif %}
+      {% if step_1_category._in_query %}
+      AND {% condition step_1_category%} event_category {% endcondition %}
+      {% endif %}
+      {% if step_1_extra_name_filter._parameter_value != "" %}
       {% if step_1_extra_string_filter._in_query %}
       AND {% condition step_1_extra_string_filter %} (extras.{% parameter step_1_extra_name_filter %}) {% endcondition %}
       {% elsif step_1_extra_bool_filter._in_query %}
@@ -55,34 +54,33 @@ view: event_funnel {
       {% elsif step_1_extra_number_filter._in_query %}
       AND {% condition step_1_extra_number_filter %} (extras.{% parameter step_1_extra_name_filter %}) {% endcondition %}
       {% endif %}
-    {% endif %}
-    GROUP BY client_id, date, country, os, channel
-    ),
+      {% endif %}
+      GROUP BY client_id, date, country, os, channel
+      ),
 
-    step_2 AS (
-    SELECT
-    s1.client_id,
-    s1.date,
-    s1.country,
-    s1.os,
-    s1.channel,
-    s1.step_1_timestamp,
-    MIN(e.timestamp) as step_2_timestamp
-    FROM step_1 s1
-    INNER JOIN events_sample e
-    ON s1.client_id = e.client_id
-    AND e.timestamp > s1.step_1_timestamp
-    AND e.date BETWEEN s1.date AND DATE_ADD(s1.date, INTERVAL 7 DAY)
-    {% if step_2_event._parameter_value != "''" or step_2_category._parameter_value != "''" or step_2_extra_name_filter._parameter_value != "" %}
-    WHERE
-    {% endif %}
-    {% if step_2_event._parameter_value and step_2_event._parameter_value != "''" %}
-    e.event_name = {% parameter step_2_event %}
-    {% endif %}
-    {% if step_2_category._parameter_value != "''" %}
-    AND e.event_category = {% parameter step_2_category %}
-    {% endif %}
-    {% if step_2_extra_name_filter._parameter_value != "" %}
+      step_2 AS (
+      SELECT
+      s1.client_id,
+      s1.date,
+      s1.country,
+      s1.os,
+      s1.channel,
+      s1.step_1_timestamp,
+      MIN(e.timestamp) as step_2_timestamp
+      FROM step_1 s1
+      INNER JOIN events_sample e
+      ON s1.client_id = e.client_id
+      AND e.timestamp > s1.step_1_timestamp
+      AND e.date BETWEEN s1.date AND DATE_ADD(s1.date, INTERVAL 7 DAY)
+      WHERE
+      1 = 1
+      {% if step_2_event._in_query %}
+      AND {% condition step_2_event %} event_name {% endcondition %}
+      {% endif %}
+      {% if step_2_category._in_query %}
+      AND {% condition step_2_category%} event_category {% endcondition %}
+      {% endif %}
+      {% if step_2_extra_name_filter._parameter_value != "" %}
       {% if step_2_extra_string_filter._in_query %}
       AND {% condition step_2_extra_string_filter %} (extras.{% parameter step_2_extra_name_filter %}) {% endcondition %}
       {% elsif step_2_extra_bool_filter._in_query %}
@@ -90,34 +88,33 @@ view: event_funnel {
       {% elsif step_2_extra_number_filter._in_query %}
       AND {% condition step_2_extra_number_filter %} (extras.{% parameter step_2_extra_name_filter %}) {% endcondition %}
       {% endif %}
-    {% endif %}
-    GROUP BY 1,2,3,4,5,6
-    ),
+      {% endif %}
+      GROUP BY 1,2,3,4,5,6
+      ),
 
-    step_3 AS (
-    SELECT
-    s1.client_id,
-    s1.date,
-    s1.country,
-    s1.os,
-    s1.channel,
-    s1.step_1_timestamp,
-    MIN(e.timestamp) as step_3_timestamp
-    FROM step_1 s1
-    INNER JOIN events_sample e
-    ON s1.client_id = e.client_id
-    AND e.timestamp > s1.step_1_timestamp
-    AND e.date BETWEEN s1.date AND DATE_ADD(s1.date, INTERVAL 7 DAY)
-    {% if step_3_event._parameter_value != "''" or step_3_category._parameter_value != "''" or step_3_extra_name_filter._parameter_value != "" %}
-    WHERE
-    {% endif %}
-    {% if step_3_event._parameter_value and step_3_event._parameter_value != "''" %}
-    e.event_name = {% parameter step_3_event %}
-    {% endif %}
-    {% if step_3_category._parameter_value != "''" %}
-    AND e.event_category = {% parameter step_3_category %}
-    {% endif %}
-    {% if step_3_extra_name_filter._parameter_value != "" %}
+      step_3 AS (
+      SELECT
+      s1.client_id,
+      s1.date,
+      s1.country,
+      s1.os,
+      s1.channel,
+      s1.step_1_timestamp,
+      MIN(e.timestamp) as step_3_timestamp
+      FROM step_1 s1
+      INNER JOIN events_sample e
+      ON s1.client_id = e.client_id
+      AND e.timestamp > s1.step_1_timestamp
+      AND e.date BETWEEN s1.date AND DATE_ADD(s1.date, INTERVAL 7 DAY)
+      WHERE
+      1 = 1
+      {% if step_3_event._in_query %}
+      AND {% condition step_3_event %} event_name {% endcondition %}
+      {% endif %}
+      {% if step_3_category._in_query %}
+      AND {% condition step_3_category%} event_category {% endcondition %}
+      {% endif %}
+      {% if step_3_extra_name_filter._parameter_value != "" %}
       {% if step_3_extra_string_filter._in_query %}
       AND {% condition step_3_extra_string_filter %} (extras.{% parameter step_3_extra_name_filter %}) {% endcondition %}
       {% elsif step_3_extra_bool_filter._in_query %}
@@ -125,34 +122,33 @@ view: event_funnel {
       {% elsif step_3_extra_number_filter._in_query %}
       AND {% condition step_3_extra_number_filter %} (extras.{% parameter step_3_extra_name_filter %}) {% endcondition %}
       {% endif %}
-    {% endif %}
-    GROUP BY 1,2,3,4,5,6
-    ),
+      {% endif %}
+      GROUP BY 1,2,3,4,5,6
+      ),
 
-    step_4 AS (
-    SELECT
-    s1.client_id,
-    s1.date,
-    s1.country,
-    s1.os,
-    s1.channel,
-    s1.step_1_timestamp,
-    MIN(e.timestamp) as step_4_timestamp
-    FROM step_1 s1
-    INNER JOIN events_sample e
-    ON s1.client_id = e.client_id
-    AND e.timestamp > s1.step_1_timestamp
-    AND e.date BETWEEN s1.date AND DATE_ADD(s1.date, INTERVAL 7 DAY)
-    {% if step_4_event._parameter_value != "''" or step_4_category._parameter_value != "''" or step_4_extra_name_filter._parameter_value != "" %}
-    WHERE
-    {% endif %}
-    {% if step_4_event._parameter_value and step_4_event._parameter_value != "''" %}
-    e.event_name = {% parameter step_4_event %}
-    {% endif %}
-    {% if step_4_category._parameter_value != "''" %}
-    AND e.event_category = {% parameter step_4_category %}
-    {% endif %}
-    {% if step_4_extra_name_filter._parameter_value != "" %}
+      step_4 AS (
+      SELECT
+      s1.client_id,
+      s1.date,
+      s1.country,
+      s1.os,
+      s1.channel,
+      s1.step_1_timestamp,
+      MIN(e.timestamp) as step_4_timestamp
+      FROM step_1 s1
+      INNER JOIN events_sample e
+      ON s1.client_id = e.client_id
+      AND e.timestamp > s1.step_1_timestamp
+      AND e.date BETWEEN s1.date AND DATE_ADD(s1.date, INTERVAL 7 DAY)
+      WHERE
+      1 = 1
+      {% if step_4_event._in_query %}
+      AND {% condition step_4_event %} event_name {% endcondition %}
+      {% endif %}
+      {% if step_4_category._in_query %}
+      AND {% condition step_4_category%} event_category {% endcondition %}
+      {% endif %}
+      {% if step_4_extra_name_filter._parameter_value != "" %}
       {% if step_4_extra_string_filter._in_query %}
       AND {% condition step_4_extra_string_filter %} (extras.{% parameter step_4_extra_name_filter %}) {% endcondition %}
       {% elsif step_1_extra_bool_filter._in_query %}
@@ -160,9 +156,9 @@ view: event_funnel {
       {% elsif step_1_extra_number_filter._in_query %}
       AND {% condition step_4_extra_number_filter %} (extras.{% parameter step_4_extra_name_filter %}) {% endcondition %}
       {% endif %}
-    {% endif %}
-    GROUP BY 1,2,3,4,5,6
-    )
+      {% endif %}
+      GROUP BY 1,2,3,4,5,6
+      )
 
     SELECT
     s1.date,
@@ -225,7 +221,7 @@ view: event_funnel {
   # STEP 1
   # ==========================================
 
-  parameter: step_1_event {
+  filter: step_1_event {
     suggest_explore: fenix_events_info
     suggest_dimension: fenix_events_info.event_name
     full_suggestions: no
@@ -233,7 +229,7 @@ view: event_funnel {
     group_item_label: "Event Name"
   }
 
-  parameter: step_1_category {
+  filter: step_1_category {
     suggest_explore: fenix_events_info
     suggest_dimension: fenix_events_info.event_category
     full_suggestions: no
@@ -276,14 +272,14 @@ view: event_funnel {
   # STEP 2
   # ==========================================
 
-  parameter: step_2_event {
+  filter: step_2_event {
     suggest_explore: fenix_events_info
     suggest_dimension: fenix_events_info.event_name
     group_label: "Step 2"
     group_item_label: "Event Name"
   }
 
-  parameter: step_2_category {
+  filter: step_2_category {
     suggest_explore: fenix_events_info
     suggest_dimension: fenix_events_info.event_category
     group_label: "Step 2"
@@ -324,14 +320,14 @@ view: event_funnel {
   # STEP 3
   # ==========================================
 
-  parameter: step_3_event {
+  filter: step_3_event {
     suggest_explore: fenix_events_info
     suggest_dimension: fenix_events_info.event_name
     group_label: "Step 3"
     group_item_label: "Event Name"
   }
 
-  parameter: step_3_category {
+  filter: step_3_category {
     suggest_explore: fenix_events_info
     suggest_dimension: fenix_events_info.event_category
     group_label: "Step 3"
@@ -373,14 +369,14 @@ view: event_funnel {
   # STEP 4
   # ==========================================
 
-  parameter: step_4_event {
+  filter: step_4_event {
     suggest_explore: fenix_events_info
     suggest_dimension: fenix_events_info.event_name
     group_label: "Step 4"
     group_item_label: "Event Name"
   }
 
-  parameter: step_4_category {
+  filter: step_4_category {
     suggest_explore: fenix_events_info
     suggest_dimension: fenix_events_info.event_category
     group_label: "Step 4"
