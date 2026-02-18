@@ -100,6 +100,8 @@ include: "views/desktop_daily_retention.view.lkml"
 include: "views/urlbar_events_daily_table.view.lkml"
 include: "views/newtab_clients_daily_aggregates.view.lkml"
 include: "views/newtab_items_daily.view.lkml"
+include: "views/event_funnel.view.lkml"
+include: "explores/event_funnel.explore.lkml"
 
 
 explore: newtab_clients_daily_aggregates {
@@ -254,4 +256,11 @@ view: +clients_daily_table__contextual_services_quicksuggest_impression_sum {
     sql:  SUM(${TABLE}.value) ;;
     type: number
   }
+}
+
+
+datagroup: baseline_agg_daily_tou {
+  # changes once per day → triggers a rebuild once per day
+  sql_trigger: SELECT CURRENT_DATE() ;;
+  max_cache_age: "24 hours"
 }
