@@ -37,7 +37,7 @@ view: active_users_agg_with_tou {
 
     datagroup_trigger: baseline_agg_daily_tou
     increment_key: "submission_date"
-    increment_offset: 2
+    increment_offset: 1
   }
 
 

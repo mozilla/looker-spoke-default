@@ -70,6 +70,6 @@ explore: +events_unnested {
 
 datagroup: baseline_agg_daily_tou {
   # changes once per day → triggers a rebuild once per day
-  sql_trigger: SELECT CURRENT_DATE() ;;
+  sql_trigger: SELECT MAX(submission_date) WHERE submission_date > DATE_SUB(CURRENT_DATE, INTERVAL 5 DAY) ;;
   max_cache_age: "24 hours"
 }
