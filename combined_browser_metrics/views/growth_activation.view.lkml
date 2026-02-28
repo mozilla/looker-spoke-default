@@ -1,8 +1,8 @@
-include: "../views/desktop_new_profiles.view.lkml"
+include: "../views/cohort_daily_statistics.view.lkml"
 
-view: growth_new_profiles {
+view: growth_activation {
 
-  extends: [desktop_new_profiles]
+  extends: [cohort_daily_statistics]
 
   filter: current_date {
     type: date
@@ -17,7 +17,7 @@ view: growth_new_profiles {
     type:  string
     hidden: no
     view_label: "KPI date axis"
-    sql: FORMAT_DATE("%m-%d", ${first_seen_date});;
+    sql: FORMAT_DATE("%m-%d", ${cohort_date});;
   }
 
   dimension: month {
@@ -25,7 +25,7 @@ view: growth_new_profiles {
     type:  string
     hidden: no
     view_label: "KPI date axis"
-    sql: FORMAT_DATE("%m-%B", ${first_seen_date});;
+    sql: FORMAT_DATE("%m-%B", ${cohort_date});;
   }
 
   dimension: quarter_abr {
@@ -33,9 +33,9 @@ view: growth_new_profiles {
     type:  string
     hidden: no
     view_label: "KPI date axis"
-    sql: CASE WHEN FORMAT_DATE("%m",  DATE_TRUNC(${first_seen_date}, QUARTER)) = "01" then "Q1"
-              WHEN FORMAT_DATE("%m",  DATE_TRUNC(${first_seen_date}, QUARTER)) = "04" then "Q2"
-              WHEN FORMAT_DATE("%m",  DATE_TRUNC(${first_seen_date}, QUARTER)) = "07" then "Q3"
+    sql: CASE WHEN FORMAT_DATE("%m",  DATE_TRUNC(${cohort_date}, QUARTER)) = "01" then "Q1"
+              WHEN FORMAT_DATE("%m",  DATE_TRUNC(${cohort_date}, QUARTER)) = "04" then "Q2"
+              WHEN FORMAT_DATE("%m",  DATE_TRUNC(${cohort_date}, QUARTER)) = "07" then "Q3"
               ELSE "Q4" end;;
   }
 
@@ -109,23 +109,38 @@ view: growth_new_profiles {
     sql:
         {% if current_date._is_filtered %}
             CASE
-            WHEN DATE(${first_seen_date}) BETWEEN DATE(${first_date_in_period}) AND DATE(${filter_end_date}) THEN 'this'
-            WHEN DATE(${first_seen_date}) between ${period_2_start} and ${period_2_end} THEN 'last' END
+            WHEN DATE(${cohort_date}) BETWEEN DATE(${first_date_in_period}) AND DATE(${filter_end_date}) THEN 'this'
+            WHEN DATE(${cohort_date}) between ${period_2_start} and ${period_2_end} THEN 'last' END
         {% else %} NULL {% endif %} ;;
   }
 
 
-  measure: current_period_new_profiles {
+
+  measure: current_period_num_clients_in_cohort {
     view_label: "KPI filtered metrics"
     type: sum
-    sql: ${TABLE}.new_profiles;;
+    sql: ${TABLE}.num_clients_in_cohort;;
     filters: [period_filtered_measures: "this"]
   }
 
-  measure: previous_period_new_profiles {
+  measure: previous_period_num_clients_in_cohort {
     view_label: "KPI filtered metrics"
     type: sum
-    sql: ${TABLE}.new_profiles;;
+    sql: ${TABLE}.num_clients_in_cohort;;
+    filters: [period_filtered_measures: "last"]
+  }
+
+  measure: current_period_clients_active_on_day {
+    view_label: "KPI filtered metrics"
+    type: sum
+    sql: ${TABLE}.clients_active_on_day;;
+    filters: [period_filtered_measures: "this"]
+  }
+
+  measure: previous_period_clients_active_on_day {
+    view_label: "KPI filtered metrics"
+    type: sum
+    sql: ${TABLE}.clients_active_on_day;;
     filters: [period_filtered_measures: "last"]
   }
 
@@ -136,13 +151,22 @@ view: growth_new_profiles {
     sql: CASE WHEN ${country} in ('US','CA','GB','DE','FR','ES','IT','BR','MX','IN','ID','CN','RU') THEN ${country} ELSE "ROW" END ;;
   }
 
+  dimension: cleaned_os {
+    description: "Recategorizing OS to match all tables that will be used in the dashboard"
+    type: string
+    hidden: no
+    sql: CASE WHEN lower(${normalized_os}) like 'windows%' THEN 'Windows'
+          WHEN ${normalized_os} = 'Darwin' THEN 'Mac'
+          WHEN ${normalized_os}  = 'Linux' THEN ${normalized_os}
+          ELSE "Other" END ;;
+  }
 
   dimension: windows_10_flag {
     description: "windows 10 flag"
     type: string
     hidden: no
-    sql: CASE WHEN (${normalized_os} = 'Windows' AND lower(${normalized_os_version}) like '10.%' THEN 'Yes'
-      ELSE "No" END ;;
+    sql: CASE WHEN ${normalized_os} = 'Windows_NT' AND ${os_version_major} = 10 THEN 'Yes'
+          ELSE "No" END ;;
   }
 
 
