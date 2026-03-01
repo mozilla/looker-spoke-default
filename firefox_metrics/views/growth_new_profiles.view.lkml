@@ -141,7 +141,7 @@ view: growth_new_profiles {
     description: "windows 10 flag"
     type: string
     hidden: no
-    sql: CASE WHEN (${normalized_os} = 'Windows' AND lower(${normalized_os_version}) like '10.%' THEN 'Yes'
+    sql: CASE WHEN (${normalized_os} = 'Windows' AND  ${normalized_os_version} like '10.%') THEN 'Yes'
       ELSE "No" END ;;
   }
 
