@@ -6,7 +6,9 @@ explore: growth_activation {
   view_name: growth_activation
 
 
-  sql_always_where: ${cohort_date} >= "2025-01-01" AND ${period_filtered_measures} in ("this", "last");;
+  sql_always_where: ${cohort_date} >= "2025-01-01"
+  AND ${activity_date}>= "2025-01-01"
+  AND ${period_filtered_measures} in ("this", "last");;
 
   join: countries {
     type: left_outer
