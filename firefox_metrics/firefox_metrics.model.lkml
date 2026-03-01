@@ -16,4 +16,10 @@ explore: growth_new_profiles {
   sql_always_where: ${first_seen_date} >= "2025-01-01"
   AND ${period_filtered_measures} in ("this", "last")
   AND ${is_desktop};;
+
+  join: countries {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${growth_new_profiles.country} = ${countries.code} ;;
+  }
 }
