@@ -2,8 +2,8 @@ include: "../views/growth_engagement.view.lkml"
 include: "/shared/views/countries.view.lkml"
 include: "//looker-hub/firefox_okrs/datagroups/desktop_engagement_last_updated.datagroup.lkml"
 
-explore: desktop_engagement {
-  label: "Engagement for Firefox Desktop"
+explore: growth_engagement {
+  label: "Engagement for Firefox Desktop (Growth Team)"
   view_name: growth_engagement
 
   sql_always_where: ${submission_date} >= "2025-01-01"

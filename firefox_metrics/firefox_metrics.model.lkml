@@ -2,6 +2,7 @@ connection: "telemetry"
 label: "Firefox Metrics for OKRs"
 
 include: "explores/desktop_engagement.explore.lkml"
+include: "explores/growth_engagement.explore.lkml"
 include: "views/growth_new_profiles.view.lkml"
 include: "explores/desktop_retention.explore.lkml"
 include: "explores/mobile_engagement.explore.lkml"
