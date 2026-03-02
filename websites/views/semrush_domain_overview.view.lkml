@@ -12,7 +12,7 @@ view: +semrush_domain_overview {
     END ;;
   }
 
-  measure: avgerage_rank {
+  measure: average_rank {
     type: average
     sql: ${rank} ;;
     value_format_name: decimal_0
