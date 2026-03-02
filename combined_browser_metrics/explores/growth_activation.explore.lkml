@@ -8,6 +8,7 @@ explore: growth_activation {
 
   sql_always_where: ${cohort_date} >= "2025-01-01"
   AND ${activity_date}>= "2025-01-01"
+  AND ${normalized_app_name} = "Firefox Desktop"
   AND ${period_filtered_measures} in ("this", "last");;
 
   join: countries {

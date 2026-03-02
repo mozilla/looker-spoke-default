@@ -4,6 +4,46 @@ view: growth_activation {
 
   extends: [cohort_daily_statistics]
 
+  parameter: average_window {
+    label: "Moving average"
+    type: string
+    allowed_value: {
+      label: "Single Day"
+      value: "1"
+    }
+    allowed_value: {
+      label: "7-day"
+      value: "7"
+    }
+    allowed_value: {
+      label: "28-day"
+      value: "28"
+    }
+  }
+
+  dimension: days_avg {
+    label: "# of Days average"
+    description: "Value selected on Moving average filter"
+    type: number
+    sql: {% parameter average_window %} ;;
+  }
+
+  dimension: date_yoy {
+    label: "Date (YoY)"
+    view_label: "Year over Year"
+    description: "Date offset to current year for YoY charts"
+    type: date
+    sql: DATE_ADD(${TABLE}.cohort_date, INTERVAL DATE_DIFF(CURRENT_DATE(), ${TABLE}.cohort_date, YEAR) YEAR) ;;
+  }
+
+  dimension: ytd_filter {
+    label: "YTD Filter"
+    view_label: "Year over Year"
+    description: "Only include dates up until yesterday"
+    type: yesno
+    sql: ${date_yoy} <= CURRENT_DATE() - 1;;
+  }
+
   filter: current_date {
     type: date
     view_label: "KPI date filter"
@@ -133,14 +173,14 @@ view: growth_activation {
   measure: current_period_clients_active_on_day {
     view_label: "KPI filtered metrics"
     type: sum
-    sql: ${TABLE}.clients_active_on_day;;
+    sql: ${TABLE}.num_clients_active_on_day;;
     filters: [period_filtered_measures: "this"]
   }
 
   measure: previous_period_clients_active_on_day {
     view_label: "KPI filtered metrics"
     type: sum
-    sql: ${TABLE}.clients_active_on_day;;
+    sql:  ${TABLE}.num_clients_active_on_day;;
     filters: [period_filtered_measures: "last"]
   }
 
