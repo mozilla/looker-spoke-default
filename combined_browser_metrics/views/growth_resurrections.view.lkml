@@ -31,8 +31,7 @@ view: growth_resurrections {
   FROM
     `moz-fx-data-shared-prod.telemetry.desktop_active_users` AS au
   WHERE
-    au.submission_date BETWEEN "2025-01-01"
-                            AND current_date()
+    au.submission_date >= "2025-01-01"
     and au.sample_id = 0
 )
 , final_with_days AS (
@@ -297,12 +296,6 @@ group by 1, 2, 3, 4, 5, 6;;
     sql: ${TABLE}.country ;;
   }
 
-  dimension: normalized_country {
-    description: "Normalizing country name to focus on major markets"
-    type: string
-    hidden: no
-    sql: CASE WHEN ${TABLE}.country in ('US','CA','GB','DE','FR','ES','IT','BR','MX','IN','ID','CN','RU') THEN ${TABLE}.country ELSE "ROW" END ;;
-  }
 
   dimension: cleaned_os {
     description: "Recategorizing OS to match all tables that will be used in the dashboard"
