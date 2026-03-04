@@ -102,6 +102,22 @@ group by 1, 2, 3, 4, 5, 6;;
     sql: {% parameter average_window %} ;;
   }
 
+  dimension_group: submission {
+    sql: ${TABLE}.submission_date ;;
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year,
+    ]
+    convert_tz: no
+    datatype: date
+    description: "The date when the telemetry ping is received on the server side."
+  }
+
   dimension: date_yoy {
     label: "Date (YoY)"
     view_label: "Year over Year"
@@ -238,7 +254,7 @@ group by 1, 2, 3, 4, 5, 6;;
     sql: ${TABLE}.resurrections_retained_wk2;;
   }
 
-  measure: retention_ate {
+  measure: retention_rate {
     type: number
     sql: SAFE_DIVIDE(${retained_wk2}, ${resurrections}) ;;
     value_format: "0.00%"
@@ -271,6 +287,13 @@ group by 1, 2, 3, 4, 5, 6;;
     type: sum
     sql:  ${TABLE}.resurrections_retained_wk2;;
     filters: [period_filtered_measures: "last"]
+  }
+
+  dimension: country {
+    description: "country name to focus on major markets"
+    type: string
+    hidden: no
+    sql: ${TABLE}.country ;;
   }
 
   dimension: normalized_country {
