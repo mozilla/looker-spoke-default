@@ -65,7 +65,8 @@ select submission_date,
       WHEN num_days_since_last_seen BETWEEN 121 AND 180 THEN '121-180'
       WHEN num_days_since_last_seen BETWEEN 181 AND 365 THEN '181-365'
       WHEN num_days_since_last_seen > 365                THEN '365+'
-      ELSE 'other'END as num_days_since_last_seen,
+      ELSE 'other'
+END as num_days_since_last_seen,
     -- num_days_since_last_seen,
     count(distinct client_id) as dau
      , count(distinct client_id) resurrections
