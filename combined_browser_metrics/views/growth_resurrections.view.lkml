@@ -52,7 +52,7 @@ select submission_date,
     normalized_os_version,
     CASE WHEN lower(os) like 'windows%' THEN 'Windows'
           WHEN os = 'Darwin' THEN 'Mac'
-          WHEN os  = 'Linux' THEN
+          WHEN os  = 'Linux' THEN 'Linux'
           ELSE "Other" END as normalized_os,
     country,
     CASE WHEN lower(os) = 'windows%'  AND normalized_os_version like '10%' THEN 'Yes'
