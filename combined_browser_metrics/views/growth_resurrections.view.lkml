@@ -74,7 +74,7 @@ END as num_days_since_last_seen,
 from final_with_days
 WHERE not is_new_profile
 AND (num_days_since_last_seen >= 29  or num_days_since_last_seen is null)
-group by 1, 2, 3, 4, 5, 6;;
+group by 1, 2, 3, 4, 5, 6, 7;;
 }
 
 
