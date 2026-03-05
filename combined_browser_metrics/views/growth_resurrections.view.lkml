@@ -52,7 +52,7 @@ select submission_date,
     normalized_os_version,
     CASE WHEN lower(os) like 'windows%' THEN 'Windows'
           WHEN os = 'Darwin' THEN 'Mac'
-          WHEN os  = 'Linux' THEN
+          WHEN os  = 'Linux' THEN 'Linux'
           ELSE "Other" END as normalized_os,
     country,
     CASE WHEN lower(os) = 'windows%'  AND normalized_os_version like '10%' THEN 'Yes'
@@ -74,7 +74,7 @@ END as num_days_since_last_seen,
 from final_with_days
 WHERE not is_new_profile
 AND (num_days_since_last_seen >= 29  or num_days_since_last_seen is null)
-group by 1, 2, 3, 4, 5, 6;;
+group by ALL;;
 }
 
 
