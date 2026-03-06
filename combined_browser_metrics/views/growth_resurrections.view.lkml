@@ -123,7 +123,7 @@ group by ALL;;
     view_label: "Year over Year"
     description: "Date offset to current year for YoY charts"
     type: date
-    sql: DATE_ADD(${TABLE}.cohort_date, INTERVAL DATE_DIFF(CURRENT_DATE(), ${TABLE}.cohort_date, YEAR) YEAR) ;;
+    sql: DATE_ADD(${TABLE}.submission_date, INTERVAL DATE_DIFF(CURRENT_DATE(), ${TABLE}.submission_date, YEAR) YEAR) ;;
   }
 
   dimension: ytd_filter {
