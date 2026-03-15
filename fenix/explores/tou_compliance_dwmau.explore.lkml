@@ -1,8 +1,10 @@
-include: "../views/active_users_aggs_with_tou.view.lkml"
-include: "//looker-hub/fenix/views/terms_of_use_status_table.view.lkml"
+include: "/combined_browser_metrics/views/active_users_aggregates_tou.view.lkml"
 
 explore: tou_complaince_dmwau {
   label: "ToU Compliance DMWAU for Firefox Android"
-  view_name: active_users_agg_with_tou
+  view_name: active_users_aggregates_tou
+
+
+  sql_always_where: {app_name} = "Fenix";;
 
 }
