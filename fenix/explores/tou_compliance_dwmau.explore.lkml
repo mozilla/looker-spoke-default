@@ -5,6 +5,6 @@ explore: tou_complaince_dmwau {
   view_name: active_users_aggregates_tou
 
 
-  sql_always_where: {app_name} = "Fenix";;
+  sql_always_where: ${active_users_aggregates_tou.app_name} = "Fenix";;
 
 }
