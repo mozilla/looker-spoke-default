@@ -1,8 +1,8 @@
-include: "//looker-hub/combined_browser_metrics/views/active_users_aggregates_tou_desktop.view.lkml"
+include: "//looker-hub/combined_browser_metrics/views/active_users_aggregates_tou_mobile.view.lkml"
 
-view: baseline_active_users_agg_with_tou {
+view: active_users_aggregates_tou {
 
-  extends: [active_users_aggregates_tou_desktop]
+  extends: [active_users_aggregates_tou_mobile]
 
 
   dimension: country_segmentation {
