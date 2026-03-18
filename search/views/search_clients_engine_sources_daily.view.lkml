@@ -195,6 +195,13 @@ view: +search_clients_engines_sources_daily {
   }
 
 
+  measure: sap_clients {
+    label: "SAP Clients"
+    type: count_distinct
+    sql: ${client_id}
+      filters: [sap: ">0"];;
+  }
+
 
   measure: total_searches {
     label: "SAP Searches"
