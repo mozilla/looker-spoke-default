@@ -19,6 +19,22 @@ view: +channel_group_proportions_table {
     sql: ${TABLE}.promotion_codes[SAFE_ORDINAL(1)] ;;
   }
 
+  dimension: plan_group {
+    description: "Indicates the plan type (1 year, 6 month, 1 month, bundle 1 year)"
+    type: string
+    sql:
+      CONCAT(
+        IF(${product_name} LIKE "%Relay%" OR ${product_name} = "Privacy protection plan", "bundle_", ""),
+        ${plan_interval_count},
+        "_",
+        ${plan_interval}
+      ) ;;
+  }
+
+  dimension: country {
+    hidden: yes
+  }
+
   dimension: new_subscriptions{
     hidden: yes
   }

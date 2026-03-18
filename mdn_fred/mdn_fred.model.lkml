@@ -1,0 +1,7 @@
+connection: "telemetry"
+label: "MDN"
+include: "//looker-hub/mdn_fred/explores/*"
+# include: "//looker-hub/mdn_fred/dashboards/*"
+# include: "views/*"
+# include: "explores/*"
+# include: "dashboards/*"

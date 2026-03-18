@@ -1,19 +1,49 @@
 connection: "telemetry"
 label: "Search"
 include: "//looker-hub/search/explores/*"
-include: "//looker-hub/search/views/desktop_search_alert_latest_daily.view.lkml"
-include: "views/*"
+include: "views/bizdev_search_core_users.view.lkml"
+include: "views/mobile_search_aggregates.view.lkml"
+include: "views/mobile_search_clients_engines_sources_daily.view.lkml"
+include: "views/search_aggregates.view.lkml"
+include: "views/search_clients_engine_sources_daily.view.lkml"
 include: "explores/*"
-include: "/shared/views/*"
+include: "/shared/views/countries.view.lkml"
+include: "//looker-hub/search/datagroups/search_clients_engines_sources_daily_last_updated.datagroup.lkml"
+
+explore: search_aggregates {
+  description: " Includes aggregated search metrics per day "
+ join: countries {
+  type: left_outer
+  relationship: one_to_one
+  sql_on: ${search_aggregates.country} = ${countries.code} ;;
+}
+
+  always_filter: {
+    filters: [submission_date: "3 months"]
+  }
+}
+
+explore: mobile_search_aggregates {
+  description: " Includes aggregated search metrics per day "
+  join: countries {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${mobile_search_aggregates.country} = ${countries.code} ;;
+  }
+
+  always_filter: {
+    filters: [submission_date: "3 months"]
+  }
+}
 
 explore: +desktop_search_counts {
   description: "Desktop search counts and ad clicks.
   Includes searches from ways to search in the browser (called Search Access Points or SAPs),
   like the URL bar and newtab page. Follow-on searches are those that are after entry from a
   SAP, and organic searches are those that occur directly on a search webpage (e.g. www.google.com)."
-}
 
-explore: desktop_search_alert_latest_daily {}
+  persist_with: search_clients_engines_sources_daily_last_updated
+}
 
 explore: business_development_core_search_users_monthly {
   view_name: bizdev_search_core_users
@@ -39,7 +69,8 @@ explore: business_development_core_search_users_monthly {
       measures: [bizdev_search_core_users.approx_clients]
       filters: [
         bizdev_search_core_users.country: "US",
-        bizdev_search_core_users.normalized_engine: "Google"
+        bizdev_search_core_users.normalized_engine: "Google",
+        bizdev_search_core_users.submission_month: "1 months ago for 1 months"
       ]
     }
 
@@ -54,7 +85,8 @@ explore: business_development_core_search_users_monthly {
       measures: [bizdev_search_core_users.approx_clients]
       filters: [
         bizdev_search_core_users.country: "US",
-        bizdev_search_core_users.normalized_engine: "Google"
+        bizdev_search_core_users.normalized_engine: "Google",
+        bizdev_search_core_users.submission_month: "1 months ago for 1 months"
       ]
     }
 

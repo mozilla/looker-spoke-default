@@ -1,6 +1,30 @@
-include: "//looker-hub/firefox_desktop/views/*"
+include: "//looker-hub/firefox_desktop/views/suggest_clients_daily.view.lkml"
 
 view: +suggest_clients_daily {
+
+  dimension: user_pref_data_collection_enabled {
+    type: yesno
+    sql: ${TABLE}.user_pref_data_collection_enabled ;;
+    group_label: "User Preferences"
+    group_item_label: "Data Collection Enabled"
+    description: "Whether or not the checkbox for sharing search terms data is checked in about:preferences"
+  }
+
+  dimension: user_pref_firefox_suggest_enabled {
+    type: yesno
+    sql: ${TABLE}.user_pref_firefox_suggest_enabled ;;
+    group_label: "User Preferences"
+    group_item_label: "Firefox Suggest Enabled"
+    description: "Whether or not the checkbox for showing Firefox Suggestions is checked in about:preferences"
+  }
+
+  dimension: user_pref_sponsored_suggestions_enabled {
+    type: yesno
+    sql: ${TABLE}.user_pref_sponsored_suggestions_enabled ;;
+    group_label: "User Preferences"
+    group_item_label: "Sponsored Suggestions Enabled"
+    description: "Whether or not the checkbox for showing sponsored suggestions is checked in about:preferences"
+  }
 
   measure: distinct_client_count {
     type: number

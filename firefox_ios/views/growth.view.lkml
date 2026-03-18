@@ -1,4 +1,4 @@
-include: "//looker-hub/firefox_ios/views/*.view.lkml"
+include: "//looker-hub/firefox_ios/views/baseline_clients_last_seen.view.lkml"
 
 view: growth {
   extends: [baseline_clients_last_seen]

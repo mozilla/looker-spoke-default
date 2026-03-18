@@ -1,5 +1,4 @@
-include: "../views//bigquery_tables_inventory.view.lkml"
+include: "../views/bigquery_tables_inventory.view.lkml"
 
 explore: bigquery_tables_inventory {
-  from: bigquery_tables_inventory
 }

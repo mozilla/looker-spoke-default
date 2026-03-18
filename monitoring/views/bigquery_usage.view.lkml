@@ -3,7 +3,6 @@ include: "//looker-hub/monitoring/views/bigquery_usage.view.lkml"
 view: +bigquery_usage {
 
   dimension: job_id {
-    primary_key: yes
     sql: job_id ;;
     type: string
   }
@@ -18,18 +17,14 @@ view: +bigquery_usage {
     type: string
   }
 
-  measure: avg_total_job_cost_usd{
-    type: average_distinct
-    sql_distinct_key: ${job_id} ;;
-    sql: ${cost_usd} ;;
-    value_format:"$#,##0.00"
-    }
+  dimension: destination_table_id {
+    sql: split(destination_table_id, '$')[SAFE_OFFSET(0)];;
+    type: string
+  }
 
-  measure: sum_total_job_cost_usd{
-    type: sum_distinct
-    sql_distinct_key: ${job_id};;
-    sql: ${cost_usd} ;;
-    value_format:"$#,##0.00"
+  dimension: partition {
+    sql: split(destination_table_id, '$')[SAFE_OFFSET(1)];;
+    type: string
   }
 
   measure: avg_total_terabytes_processed{
@@ -46,9 +41,30 @@ view: +bigquery_usage {
     value_format: "#,##0.00"
   }
 
+  measure: sum_total_terabytes_billed{
+    type: sum_distinct
+    sql_distinct_key: ${job_id} ;;
+    sql: ${total_terabytes_billed} ;;
+    value_format: "#,##0.00"
+  }
+
   measure: number_of_unique_job_ids{
     description: "count distinct number of job ids"
     type: count_distinct
     sql: ${job_id};;
+  }
+
+  measure: sum_total_cost_usd{
+    type: sum_distinct
+    sql_distinct_key: ${job_id} ;;
+    sql: ${cost} ;;
+    value_format: "$#.00;($#.00)"
+  }
+
+  measure: sum_slot_hours{
+    type: sum_distinct
+    sql_distinct_key: ${job_id} ;;
+    sql: ${total_slot_hours} ;;
+    value_format: "#,##0.0"
   }
 }

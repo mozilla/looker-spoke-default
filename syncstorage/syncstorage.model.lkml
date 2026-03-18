@@ -1,0 +1,7 @@
+connection: "telemetry"
+label: "Sync Storage"
+include: "//looker-hub/syncstorage/explores/*"
+# include: "//looker-hub/syncstorage/dashboards/*"
+# include: "views/*"
+# include: "explores/*"
+# include: "dashboards/*"

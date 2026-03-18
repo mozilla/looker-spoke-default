@@ -1,0 +1,5 @@
+connection: "telemetry"
+label: "Firefox Accounts Frontend"
+include: "//looker-hub/accounts_frontend/explores/*"
+include: "explores/*"
+include: "views/events_stream.view.lkml"

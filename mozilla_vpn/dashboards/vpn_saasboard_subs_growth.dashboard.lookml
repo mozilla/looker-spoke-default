@@ -1,10 +1,10 @@
 - dashboard: vpn_saasboard__subscriptions_growth
-  title: VPN SaaSboard - Subscriptions Growth
+  title: VPN SaaSboard - Subscriptions Growth [DEPRECATED]
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
   description: ''
-  preferred_slug: 3P9vNV1kIjXSFhlkcBPJ3j
+  preferred_slug: bVy0t6fx7wpUAM2STbCo5g
   elements:
   - name: ''
     type: text
@@ -20,7 +20,6 @@
   - name: " (2)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: "<div style='background-color: #ffffdd; padding: 5px 10px; border:\
       \ solid 3px #ededed; border-radius: 5px; height:150px'>\n\nThis dashboard captures\
       \ the current state and monthly trend of <strong>new subscriptions</strong>.\n\
@@ -42,9 +41,15 @@
     fill_fields: [metadata.last_modified_date]
     sorts: [metadata.last_modified_date desc]
     limit: 1
-    dynamic_fields: [{category: table_calculation, expression: 'add_days(-1, ${metadata.last_modified_date})',
-        label: New Calculation, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: dimension, table_calculation: new_calculation, _type_hint: date}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: add_days(-1, ${metadata.last_modified_date})
+      label: New Calculation
+      value_format:
+      value_format_name:
+      _kind_hint: dimension
+      table_calculation: new_calculation
+      _type_hint: date
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -58,7 +63,6 @@
     conditional_formatting: [{type: not equal to, value: 0, background_color: "#cdbfff",
         font_color: !!null '', color_application: {collection_id: mozilla, palette_id: mozilla-sequential-0},
         bold: false, italic: false, strikethrough: false, fields: !!null ''}]
-    series_types: {}
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -93,6 +97,7 @@
       Country: subscription_events.country_name
       Event Date: subscription_events.event_date
       Plan Interval Type: subscription_events.plan_interval_type
+      Plan ID: subscription_events.plan_id
     row: 2
     col: 19
     width: 5
@@ -176,7 +181,6 @@
       first_last: first
       num_rows: 0
     font_size: ''
-    series_types: {}
     series_colors:
       USA - subscription_events.delta: "#347be3"
     x_axis_datetime_label: ''
@@ -212,84 +216,10 @@
       Country: subscription_events.country_name
       Event Date: subscription_events.event_date
       Plan Interval Type: subscription_events.plan_interval_type
+      Granular Event Type: subscription_events.granular_event_type
+      Plan ID: subscription_events.plan_id
     row: 8
     col: 0
-    width: 12
-    height: 10
-  - title: New Subscriptions (By Type)
-    name: New Subscriptions (By Type)
-    model: mozilla_vpn
-    explore: subscription_events
-    type: looker_column
-    fields: [subscription_events.event_month, subscription_events.granular_event_type,
-      subscription_events.delta]
-    pivots: [subscription_events.granular_event_type]
-    fill_fields: [subscription_events.event_month]
-    filters:
-      subscription_events.event_type: New
-    sorts: [subscription_events.event_month desc, subscription_events.granular_event_type]
-    limit: 500
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: normal
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: true
-    show_silhouette: false
-    totals_color: "#808080"
-    color_application:
-      collection_id: mozilla
-      palette_id: mozilla-categorical-0
-      options:
-        steps: 5
-    x_axis_label: Month
-    limit_displayed_rows_values:
-      show_hide: hide
-      first_last: first
-      num_rows: 0
-    hide_legend: false
-    series_types:
-      Row Total - subscription_events.delta: line
-    series_colors:
-      Resurrected - subscription_events.delta: "#47f5bf"
-      New - subscription_events.delta: "#80ab62"
-      Converted Trial - subscription_events.delta: "#005E5D"
-    series_labels:
-      Resurrected - subscription_events.delta: Returning
-    show_null_points: true
-    interpolation: linear
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: Returning subscriptions are new subscriptions from customers that previously
-      held a subscription.
-    listen:
-      Provider: subscription_events.provider
-      Pricing Plan: subscription_events.pricing_plan
-      Country: subscription_events.country_name
-      Event Date: subscription_events.event_date
-      Plan Interval Type: subscription_events.plan_interval_type
-    row: 18
-    col: 12
     width: 12
     height: 10
   - title: Net New Subscriptions
@@ -305,9 +235,15 @@
     sorts: [subscription_events.event_month desc, subscription_events.event_type]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: 'sum(pivot_row(${subscription_events.delta}))',
-        label: Net Subscriptions, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: supermeasure, table_calculation: net_subscriptions, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: sum(pivot_row(${subscription_events.delta}))
+      label: Net Subscriptions
+      value_format:
+      value_format_name:
+      _kind_hint: supermeasure
+      table_calculation: net_subscriptions
+      _type_hint: number
     x_axis_gridlines: true
     y_axis_gridlines: false
     show_view_names: false
@@ -374,6 +310,8 @@
       Country: subscription_events.country_name
       Event Date: subscription_events.event_date
       Plan Interval Type: subscription_events.plan_interval_type
+      Granular Event Type: subscription_events.granular_event_type
+      Plan ID: subscription_events.plan_id
     row: 39
     col: 0
     width: 12
@@ -453,7 +391,6 @@
       first_last: first
       num_rows: 0
     font_size: ''
-    series_types: {}
     series_colors: {}
     x_axis_datetime_label: ''
     show_sql_query_menu_options: false
@@ -487,6 +424,8 @@
       Country: subscription_events.country_name
       Event Date: subscription_events.event_date
       Plan Interval Type: subscription_events.plan_interval_type
+      Granular Event Type: subscription_events.granular_event_type
+      Plan ID: subscription_events.plan_id
     row: 18
     col: 0
     width: 12
@@ -494,8 +433,13 @@
   - name: " (3)"
     type: text
     title_text: ''
-    subtitle_text: ''
     body_text: |
+      <div style="padding: 5px 10px; background: pink; height: 60px; font-size: 20px; font-weight: bold; align-content: center; text-align: center;">
+        This dashboard has been deprecated.
+        Please use the <a href="https://mozilla.cloud.looker.com/dashboards/subscription_platform::vpn_saasboard__subscriptions_growth">new version of this dashboard</a> instead.
+      </div>
+
+      <!--
       <div style="border-radius: 5px; padding: 5px 10px; background: #412399; height: 60px; color: red;">
 
       <nav style="font-size: 20px;">
@@ -521,6 +465,7 @@
       </nav>
 
       </div>
+      -->
     row: 0
     col: 0
     width: 24
@@ -551,15 +496,84 @@
     col: 0
     width: 24
     height: 2
-  - name: Subscription Cancellations
-    type: text
-    title_text: Subscription Cancellations
-    subtitle_text: This view is currently unavailable.
-    body_text: ''
-    row: 48
-    col: 0
+  - title: New Subscriptions (By Type)
+    name: New Subscriptions (By Type)
+    model: mozilla_vpn
+    explore: subscription_events
+    type: looker_column
+    fields: [subscription_events.event_month, subscription_events.granular_event_type,
+      subscription_events.delta]
+    pivots: [subscription_events.granular_event_type]
+    fill_fields: [subscription_events.event_month]
+    filters:
+      subscription_events.event_type: New
+    sorts: [subscription_events.event_month desc, subscription_events.granular_event_type]
+    limit: 500
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: normal
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: true
+    show_silhouette: false
+    totals_color: "#808080"
+    color_application:
+      collection_id: mozilla
+      palette_id: mozilla-categorical-0
+      options:
+        steps: 5
+    x_axis_label: Month
+    limit_displayed_rows_values:
+      show_hide: hide
+      first_last: first
+      num_rows: 0
+    hide_legend: false
+    series_types:
+      Row Total - subscription_events.delta: line
+    series_colors:
+      Resurrected - subscription_events.delta: "#47f5bf"
+      New - subscription_events.delta: "#80ab62"
+      Converted Trial - subscription_events.delta: "#005E5D"
+    series_labels:
+      Resurrected - subscription_events.delta: Returning
+    show_null_points: true
+    interpolation: linear
+    defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: Returning subscriptions are new subscriptions from customers that previously
+      held a subscription.
+    listen:
+      Provider: subscription_events.provider
+      Pricing Plan: subscription_events.pricing_plan
+      Country: subscription_events.country_name
+      Event Date: subscription_events.event_date
+      Plan Interval Type: subscription_events.plan_interval_type
+      Granular Event Type: subscription_events.granular_event_type
+      Plan ID: subscription_events.plan_id
+    row: 18
+    col: 12
     width: 12
-    height: 9
+    height: 10
   - title: 'New Subscriptions (By Plan) '
     name: 'New Subscriptions (By Plan) '
     model: mozilla_vpn
@@ -635,7 +649,6 @@
       first_last: first
       num_rows: 0
     font_size: ''
-    series_types: {}
     series_colors:
       1-month-usd-4.99 - subscription_events.delta: "#7363A9"
       6-month-chf-47.94 - subscription_events.delta: "#82a6a8"
@@ -671,6 +684,8 @@
       Country: subscription_events.country_name
       Event Date: subscription_events.event_date
       Plan Interval Type: subscription_events.plan_interval_type
+      Granular Event Type: subscription_events.granular_event_type
+      Plan ID: subscription_events.plan_id
     row: 28
     col: 12
     width: 12
@@ -688,9 +703,15 @@
     sorts: [subscription_events.event_month desc, subscription_events.event_type]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: 'sum(pivot_row(${subscription_events.delta}))',
-        label: Net Subscriptions, value_format: !!null '', value_format_name: !!null '',
-        _kind_hint: supermeasure, table_calculation: net_subscriptions, _type_hint: number}]
+    dynamic_fields:
+    - category: table_calculation
+      expression: sum(pivot_row(${subscription_events.delta}))
+      label: Net Subscriptions
+      value_format:
+      value_format_name:
+      _kind_hint: supermeasure
+      table_calculation: net_subscriptions
+      _type_hint: number
     x_axis_gridlines: true
     y_axis_gridlines: false
     show_view_names: false
@@ -767,6 +788,8 @@
       Country: subscription_events.country_name
       Event Date: subscription_events.event_date
       Plan Interval Type: subscription_events.plan_interval_type
+      Granular Event Type: subscription_events.granular_event_type
+      Plan ID: subscription_events.plan_id
     row: 39
     col: 12
     width: 12
@@ -850,7 +873,6 @@
       first_last: first
       num_rows: 0
     font_size: ''
-    series_types: {}
     series_colors: {}
     x_axis_datetime_label: ''
     show_sql_query_menu_options: false
@@ -887,6 +909,8 @@
       Country: subscription_events.country_name
       Event Date: subscription_events.event_date
       Plan Interval Type: subscription_events.plan_interval_type
+      Granular Event Type: subscription_events.granular_event_type
+      Plan ID: subscription_events.plan_id
     row: 28
     col: 0
     width: 12
@@ -948,7 +972,6 @@
       first_last: first
       num_rows: 0
     font_size: ''
-    series_types: {}
     series_colors:
       1-month-usd-4.99 - subscription_events.delta: "#7363A9"
       6-month-chf-47.94 - subscription_events.delta: "#82a6a8"
@@ -986,6 +1009,8 @@
       Country: subscription_events.country_name
       Event Date: subscription_events.event_date
       Plan Interval Type: subscription_events.plan_interval_type
+      Granular Event Type: subscription_events.granular_event_type
+      Plan ID: subscription_events.plan_id
     row: 8
     col: 18
     width: 6
@@ -1047,7 +1072,6 @@
       first_last: first
       num_rows: 0
     font_size: ''
-    series_types: {}
     series_colors:
       1-month-usd-4.99 - subscription_events.delta: "#7363A9"
       6-month-chf-47.94 - subscription_events.delta: "#82a6a8"
@@ -1083,21 +1107,31 @@
       Country: subscription_events.country_name
       Event Date: subscription_events.event_date
       Plan Interval Type: subscription_events.plan_interval_type
+      Granular Event Type: subscription_events.granular_event_type
+      Plan ID: subscription_events.plan_id
     row: 8
     col: 12
     width: 6
     height: 10
+  - name: Subscription Cancellations
+    type: text
+    title_text: Subscription Cancellations
+    subtitle_text: This view is currently unavailable.
+    body_text: ''
+    row: 48
+    col: 0
+    width: 12
+    height: 9
   filters:
   - name: Provider
     title: Provider
     type: field_filter
-    default_value: ''
+    default_value: "-NULL"
     allow_multiple_values: true
     required: false
     ui_config:
-      type: checkboxes
+      type: advanced
       display: popover
-      options: []
     model: mozilla_vpn
     explore: subscription_events
     listens_to_filters: [Plan Interval Type, Pricing Plan, Country, Event Date]
@@ -1158,3 +1192,30 @@
     explore: subscription_events
     listens_to_filters: [Provider, Pricing Plan, Country, Event Date]
     field: subscription_events.plan_interval_type
+  - name: Granular Event Type
+    title: Granular Event Type
+    type: field_filter
+    default_value: "-Plan Change"
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: advanced
+      display: popover
+    model: mozilla_vpn
+    explore: subscription_events
+    listens_to_filters: []
+    field: subscription_events.granular_event_type
+  - name: Plan ID
+    title: Plan ID
+    type: field_filter
+    default_value: -"price_1MzNRCJNcmPzuWtRMCwUWADu"
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: advanced
+      display: overflow
+      options: []
+    model: mozilla_vpn
+    explore: subscription_events
+    listens_to_filters: []
+    field: subscription_events.plan_id

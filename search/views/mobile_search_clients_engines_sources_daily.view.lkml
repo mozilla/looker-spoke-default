@@ -193,6 +193,12 @@ view: +mobile_search_clients_engines_sources_daily {
             WHEN ${submission_date} between ${period_2_start} and ${period_2_end} THEN 'last' END
         {% else %} NULL {% endif %} ;;
     }
+
+  measure: clients {
+    type: count_distinct
+    sql: ${client_id} ;;
+  }
+
   measure: total_searches {
     label: "SAP Searches"
     type: sum
@@ -248,5 +254,50 @@ view: +mobile_search_clients_engines_sources_daily {
     type: sum
     sql: ${ad_click_organic} ;;
     description: "Total organic ad clicks."
+  }
+  
+  measure: total_organic_search_with_ads {
+    label: "Organic Search With Ads"
+    type: sum
+    sql: ${search_with_ads_organic} ;;
+    description: "Total organic search with ads."
+  }
+
+## hide numeric search dimensions ##
+
+  dimension: ad_click {
+    hidden:  yes
+  }
+
+  dimension: ad_click_organic {
+    hidden: yes
+  }
+  
+  dimension: search_with_ads_organic {
+    hidden: yes
+  }
+
+  dimension: organic {
+    hidden: yes
+  }
+
+  dimension: sap {
+    hidden: yes
+  }
+
+  dimension: search_count {
+    hidden: yes
+  }
+
+  dimension: search_with_ads {
+    hidden: yes
+  }
+
+  dimension: tagged_sap {
+    hidden:  yes
+  }
+
+  dimension: tagged_follow_on {
+    hidden: yes
   }
 }

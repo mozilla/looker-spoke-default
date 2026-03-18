@@ -1,0 +1,7 @@
+connection: "telemetry"
+label: "GLAM"
+include: "//looker-hub/glam/explores/*"
+# include: "//looker-hub/glam/dashboards/*"
+# include: "views/*"
+# include: "explores/*"
+# include: "dashboards/*"

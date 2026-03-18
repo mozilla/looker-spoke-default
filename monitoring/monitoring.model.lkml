@@ -1,10 +1,66 @@
 connection: "telemetry"
 label: "Monitoring (Data Pipeline)"
+
 include: "//looker-hub/monitoring/explores/*"
-include: "//looker-hub/monitoring/views/*"
-include: "views/*"
+
+# TODO: remove unnecessary view imports
+include: "//looker-hub/monitoring/views/airflow_dag.view.lkml"
+include: "//looker-hub/monitoring/views/airflow_dag_note.view.lkml"
+include: "//looker-hub/monitoring/views/airflow_dag_owner_attributes.view.lkml"
+include: "//looker-hub/monitoring/views/airflow_dag_run.view.lkml"
+include: "//looker-hub/monitoring/views/airflow_dag_tag.view.lkml"
+include: "//looker-hub/monitoring/views/airflow_dag_warning.view.lkml"
+include: "//looker-hub/monitoring/views/airflow_import_error.view.lkml"
+include: "//looker-hub/monitoring/views/airflow_job.view.lkml"
+include: "//looker-hub/monitoring/views/airflow_slot_pool.view.lkml"
+include: "//looker-hub/monitoring/views/airflow_task_fail.view.lkml"
+include: "//looker-hub/monitoring/views/airflow_task_instance.view.lkml"
+include: "//looker-hub/monitoring/views/airflow_task_instance_note.view.lkml"
+include: "//looker-hub/monitoring/views/airflow_task_reschedule.view.lkml"
+include: "//looker-hub/monitoring/views/airflow_trigger.view.lkml"
+include: "//looker-hub/monitoring/views/airflow_user.view.lkml"
+include: "//looker-hub/monitoring/views/bigquery_table_storage.view.lkml"
+include: "//looker-hub/monitoring/views/bigquery_table_storage_timeline_daily.view.lkml"
+include: "//looker-hub/monitoring/views/bigquery_tables_inventory.view.lkml"
+include: "//looker-hub/monitoring/views/bigquery_usage.view.lkml"
+include: "//looker-hub/monitoring/views/column_size.view.lkml"
+include: "//looker-hub/monitoring/views/event_error_monitoring_aggregates.view.lkml"
+include: "//looker-hub/monitoring/views/event_monitoring_live.view.lkml"
+include: "//looker-hub/monitoring/views/missing_columns_notes.view.lkml"
+include: "//looker-hub/monitoring/views/missing_document_namespaces_notes.view.lkml"
+include: "//looker-hub/monitoring/views/mlops_job_cost_per_job.view.lkml"
+include: "//looker-hub/monitoring/views/mlops_job_cost_per_job_run.view.lkml"
+include: "//looker-hub/monitoring/views/payload_bytes_error_all.view.lkml"
+include: "//looker-hub/monitoring/views/schema_error_counts.view.lkml"
+include: "//looker-hub/monitoring/views/schema_errors_notes.view.lkml"
+include: "//looker-hub/monitoring/views/stable_table_column_counts.view.lkml"
+include: "//looker-hub/monitoring/views/structured_missing_columns.view.lkml"
+include: "//looker-hub/monitoring/views/telemetry_missing_columns.view.lkml"
+include: "views/airflow_dag.view.lkml"
+include: "views/airflow_dag_run.view.lkml"
+include: "views/airflow_dag_tag.view.lkml"
+include: "views/airflow_task_fail.view.lkml"
+include: "views/bigquery_table_storage.view.lkml"
+include: "views/bigquery_table_storage_timeline_daily.view.lkml"
+include: "views/bigquery_tables_inventory.view.lkml"
+include: "views/bigquery_usage.view.lkml"
+include: "views/event_flow_monitoring_aggregates.view.lkml"
+include: "views/event_monitoring_live.view.lkml"
+include: "views/grouped_schema_error_counts.view.lkml"
+include: "views/missing_columns_notes.view.lkml"
+include: "views/missing_document_namespaces_notes.view.lkml"
+include: "views/missing_namespaces_and_document_types.view.lkml"
+include: "views/mlops_flow_cost.view.lkml"
+include: "views/mlops_flow_run_cost.view.lkml"
+include: "views/schema_error_notes.view.lkml"
+include: "views/stable_and_derived_table_sizes.view.lkml"
+include: "views/stable_table_column_counts.view.lkml"
+include: "views/structured_missing_columns.view.lkml"
+include: "views/telemetry_missing_columns.view.lkml"
+include: "views/looker_dashboard_load_times.view.lkml"
 include: "explores/*"
 include: "dashboards/*"
+
 
 # todo: hide explores once dashboard has been implemented
 view: +payload_bytes_error_all {
@@ -19,31 +75,13 @@ view: +payload_bytes_error_all {
 }
 
 # hiding explores to declutter available explores suggestions
-explore: +average_ping_sizes {
-  hidden: yes
-}
 
-explore: +column_size {
-  hidden: yes
-}
-
-explore: +payload_bytes_decoded_all {
-  hidden: yes
-}
-
-explore: +payload_bytes_error_all {
-  hidden: yes
-}
 
 explore: +payload_bytes_error_all {
   hidden: yes
 }
 
 explore: +stable_table_column_counts {
-  hidden: yes
-}
-
-explore: +structured_distinct_docids {
   hidden: yes
 }
 
@@ -58,6 +96,13 @@ explore: +structured_missing_columns {
       AND (${missing_columns_notes.path} IS NULL OR ${structured_missing_columns.path} LIKE ${missing_columns_notes.path})
       AND (${missing_columns_notes.bug} IS NOT NULL OR ${missing_columns_notes.notes} IS NOT NULL);;
   }
+
+  join: stable_and_derived_table_sizes {
+    relationship: many_to_one
+    sql_on: CONCAT(${structured_missing_columns.document_namespace}, "_stable") = ${stable_and_derived_table_sizes.dataset_id}
+      AND CONCAT(${structured_missing_columns.document_type}, "_v", ${structured_missing_columns.document_version}) = ${stable_and_derived_table_sizes.table_id}
+      AND ${structured_missing_columns.submission_date} = ${stable_and_derived_table_sizes.submission_date};;
+  }
 }
 
 explore: +schema_error_counts {
@@ -69,6 +114,13 @@ explore: +schema_error_counts {
       AND (${schema_errors_notes.document_type} IS NULL OR ${schema_error_counts.document_type} LIKE ${schema_errors_notes.document_type})
       AND (${schema_errors_notes.path} IS NULL OR ${schema_error_counts.path} LIKE ${schema_errors_notes.path})
       AND (${schema_errors_notes.bug} IS NOT NULL OR ${schema_errors_notes.notes} IS NOT NULL);;
+  }
+
+  join: stable_and_derived_table_sizes {
+    relationship: many_to_one
+    sql_on: CONCAT(${schema_error_counts.document_namespace}, "_stable") = ${stable_and_derived_table_sizes.dataset_id}
+      AND ${stable_and_derived_table_sizes.table_id} LIKE REGEXP_REPLACE(${schema_error_counts.document_type}, "_v([0-9]+)$", CONCAT("_v", COALESCE(schema_error_counts.document_version, "%")))
+      AND ${schema_error_counts.submission_date} = ${stable_and_derived_table_sizes.submission_date};;
   }
 }
 
@@ -83,14 +135,12 @@ explore: +telemetry_missing_columns {
       AND (${missing_columns_notes.path} IS NULL OR ${telemetry_missing_columns.path} LIKE ${missing_columns_notes.path})
       AND (${missing_columns_notes.bug} IS NOT NULL OR ${missing_columns_notes.notes} IS NOT NULL);;
   }
-}
 
-explore: +distinct_docids {
-  join: distinct_docids_notes {
+  join: stable_and_derived_table_sizes {
     relationship: many_to_one
-    sql_on: (${distinct_docids_notes.document_namespace} IS NULL OR ${distinct_docids.namespace} LIKE ${distinct_docids_notes.document_namespace})
-      AND (${distinct_docids_notes.document_type} IS NULL OR ${distinct_docids.doc_type} LIKE ${distinct_docids_notes.document_type})
-      AND (${distinct_docids_notes.notes} IS NOT NULL OR ${distinct_docids_notes.bug} IS NOT NULL);;
+    sql_on: CONCAT(${telemetry_missing_columns.document_namespace}, "_stable") = ${stable_and_derived_table_sizes.dataset_id}
+      AND CONCAT(${telemetry_missing_columns.document_type}, "_v", ${telemetry_missing_columns.document_version}) = ${stable_and_derived_table_sizes.table_id}
+      AND ${telemetry_missing_columns.submission_date} = ${stable_and_derived_table_sizes.submission_date};;
   }
 }
 
@@ -105,34 +155,14 @@ explore: +missing_namespaces_and_document_types {
   }
 }
 
-explore: +telemetry_distinct_docids {
-  hidden: yes
-}
-
 explore: +stable_table_column_counts {
   hidden: yes
 }
 
-explore: +stable_table_sizes {
+explore: event_monitoring_live {
   hidden: yes
 }
 
-explore: missing_columns_notes {
+explore: event_error_monitoring_aggregates {
   hidden: yes
-  sql_always_where: ${bug} IS NOT NULL OR ${notes} IS NOT NULL ;;
-}
-
-explore: distinct_docids_notes {
-  hidden: yes
-  sql_always_where: ${bug} IS NOT NULL OR ${notes} IS NOT NULL ;;
-}
-
-explore: schema_errors_notes {
-  hidden: yes
-  sql_always_where: ${bug} IS NOT NULL OR ${notes} IS NOT NULL ;;
-}
-
-explore: missing_document_namespaces_notes {
-  hidden: yes
-  sql_always_where: ${bug} IS NOT NULL OR ${notes} IS NOT NULL ;;
 }

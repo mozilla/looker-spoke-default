@@ -1,4 +1,4 @@
-include: "//looker-hub/kpi/views/*"
+include: "//looker-hub/kpi/views/automated_kpi_forecasts.view.lkml"
 
 view: +automated_kpi_forecasts {
 

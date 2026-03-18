@@ -1,5 +1,0 @@
-connection: "telemetry"
-label: "Data Integrity Monitoring (dim)"
-# include: "views/*"
-# include: "explores/*"
-# include: "dashboards/*"
