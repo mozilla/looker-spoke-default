@@ -72,7 +72,6 @@ include: "//looker-hub/firefox_desktop/views/quick_suggest.view.lkml"
 include: "//looker-hub/firefox_desktop/views/quick_suggest_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/review_checker_clients_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/review_checker_events_table.view.lkml"
-include: "//looker-hub/firefox_desktop/views/microsurvey_redacted_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/review_checker_microsurvey_table.view.lkml"
 include: "//looker-hub/firefox_desktop/views/search_with.view.lkml"
 include: "//looker-hub/firefox_desktop/views/search_with_table.view.lkml"
@@ -153,29 +152,6 @@ explore: +event_counts {
 }
 
 
-explore: +microsurvey_redacted {
-  label: "Microsurvey Redacted"
-  description: "Microsurvey ping data with write-in responses redacted. Includes all metrics and event dimensions."
-  view_name: microsurvey_redacted_table
-  view_label: "Microsurvey Redacted"
-  sql_always_where: ${microsurvey_redacted_table.submission_date} >= '2010-01-01' ;;
-
-  always_filter: {
-    filters: [
-      microsurvey_redacted_table.submission_date: "28 days",
-    ]
-  }
-
-  join: microsurvey_redacted_table__events {
-    relationship: one_to_many
-    sql: LEFT JOIN UNNEST(${microsurvey_redacted_table.events}) AS microsurvey_redacted_table__events ;;
-  }
-
-  join: microsurvey_redacted_table__events__extra {
-    relationship: one_to_many
-    sql: LEFT JOIN UNNEST(${microsurvey_redacted_table__events.extra}) AS microsurvey_redacted_table__events__extra ;;
-  }
-}
 
 explore: +baseline {
   label: "Baseline (Glean)"
