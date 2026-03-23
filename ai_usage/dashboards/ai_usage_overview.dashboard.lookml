@@ -9,7 +9,7 @@
   - name: Date
     title: Date
     type: date_filter
-    default_value: "30 days ago for 30 days"
+    default_value: ""
     allow_multiple_values: true
     required: false
     ui_config:
