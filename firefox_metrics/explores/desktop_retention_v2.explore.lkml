@@ -7,7 +7,7 @@ explore: desktop_retention_v2 {
 
   always_filter: {
     filters: [
-     desktop_retention_v2.submission_date_range: "90 days",
+     desktop_retention_v2.metric_date_range: "90 days",
      desktop_retention_v2.is_desktop: "Yes"
     ]
   }

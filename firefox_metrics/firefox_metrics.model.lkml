@@ -12,6 +12,7 @@ include: "explores/desktop_new_profiles.explore.lkml"
 include: "explores/glean_desktop_engagement.explore.lkml"
 include: "explores/glean_desktop_retention.explore.lkml"
 include: "explores/glean_desktop_new_profiles.explore.lkml"
+include: "explores/desktop_retention_v2.explore.lkml"
 
 explore: growth_new_profiles {
   sql_always_where: ${first_seen_date} >= "2025-01-01"

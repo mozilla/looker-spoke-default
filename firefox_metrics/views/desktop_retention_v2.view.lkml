@@ -2,26 +2,26 @@ view: desktop_retention_v2 {
 
   derived_table: {
     sql: SELECT *
-           FROM `moz-fx-data-shared-prod.telemetry.desktop_retention`
-           WHERE metric_date < DATE_SUB(CURRENT_DATE(), INTERVAL 28 DAY)
-             AND metric_date
-             BETWEEN
-               {% if submission_date_extension._parameter_value == "year_1" %}
-                 DATE_SUB(COALESCE(SAFE_CAST({% date_start submission_date_range %} AS DATE), CURRENT_DATE()), INTERVAL 394 DAY)
-               {% elsif submission_date_extension._parameter_value == "days_28" %}
-                 DATE_SUB(COALESCE(SAFE_CAST({% date_start submission_date_range %} AS DATE), CURRENT_DATE()), INTERVAL 28 DAY)
-               {% elsif submission_date_extension._parameter_value == "days_7" %}
-                 DATE_SUB(COALESCE(SAFE_CAST({% date_start submission_date_range %} AS DATE), CURRENT_DATE()), INTERVAL 7 DAY)
-               {% else %}
-                 COALESCE(SAFE_CAST({% date_start submission_date_range %} AS DATE), CURRENT_DATE())
-               {% endif %}
-             AND COALESCE(SAFE_CAST({% date_end submission_date_range %} AS DATE), CURRENT_DATE())
-      ;;
+         FROM `moz-fx-data-shared-prod.telemetry.desktop_retention`
+         WHERE metric_date < DATE_SUB(CURRENT_DATE(), INTERVAL 28 DAY)
+           AND metric_date
+           BETWEEN
+             {% if submission_date_extension._parameter_value == "year_1" %}
+               DATE_SUB(COALESCE(SAFE_CAST({% date_start metric_date_range %} AS DATE), CURRENT_DATE()), INTERVAL 394 DAY)
+             {% elsif submission_date_extension._parameter_value == "days_28" %}
+               DATE_SUB(COALESCE(SAFE_CAST({% date_start metric_date_range %} AS DATE), CURRENT_DATE()), INTERVAL 28 DAY)
+             {% elsif submission_date_extension._parameter_value == "days_7" %}
+               DATE_SUB(COALESCE(SAFE_CAST({% date_start metric_date_range %} AS DATE), CURRENT_DATE()), INTERVAL 7 DAY)
+             {% else %}
+               COALESCE(SAFE_CAST({% date_start metric_date_range %} AS DATE), CURRENT_DATE())
+             {% endif %}
+           AND COALESCE(SAFE_CAST({% date_end metric_date_range %} AS DATE), CURRENT_DATE())
+    ;;
   }
 
   # --- Parameters & Filters ---
 
-  filter: submission_date_range {
+  filter: metric_date_range {
     type: date
   }
 
@@ -36,7 +36,8 @@ view: desktop_retention_v2 {
 
   parameter: average_window {
     label: "Moving Average Window"
-    type: string
+    type: unquoted
+    default_value: "28"
     allowed_value: { label: "Single Day" value: "1"  }
     allowed_value: { label: "7-day"      value: "7"  }
     allowed_value: { label: "28-day"     value: "28" }
@@ -85,10 +86,12 @@ view: desktop_retention_v2 {
   dimension: ytd_filter {
     label: "YTD Filter"
     view_label: "Year over Year"
-    description: "Only include dates up until 28 days ago (retention data completeness)"
+    description: "Only include dates within the current year up until 28 days ago"
     type: yesno
-    sql: ${date_yoy} <= DATE_SUB(CURRENT_DATE(), INTERVAL 28 DAY) ;;
+    sql: DATE(${date_yoy}) >= DATE_TRUNC(CURRENT_DATE(), YEAR)
+      AND DATE(${date_yoy}) <= DATE_SUB(CURRENT_DATE(), INTERVAL 28 DAY) ;;
   }
+
 
   # --- Base Dimensions ---
 
