@@ -4,10 +4,4 @@ include: "//looker-hub/firefox_desktop/datagroups/desktop_new_profiles_last_upda
 
 explore: +metric_definitions_desktop_new_profiles {
   persist_with: desktop_new_profiles_last_updated
-
-  join: countries {
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${metric_definitions_desktop_new_profiles.country} = ${countries.code} ;;
-  }
 }
