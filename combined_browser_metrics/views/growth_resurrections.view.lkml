@@ -1,82 +1,8 @@
+include: "//looker-hub/firefox_desktop/views/resurrection_week_2_retention_table.view.lkml"
+
 view: growth_resurrections {
-  derived_table: {
-    sql:
-    WITH dau AS (
-  SELECT
-    client_id,
-    submission_date, os,
-    normalized_os_version, country, case when submission_date = first_seen_date then true else false end as is_new_profile,
-    LAG(submission_date) OVER (
-      PARTITION BY client_id
-      ORDER BY submission_date
-    ) AS prev_submission_date
 
-  FROM
-    `moz-fx-data-shared-prod.telemetry.desktop_active_users`
-  WHERE
-    is_dau = TRUE
-    AND is_desktop = TRUE
-    AND sample_id = 0
-    AND submission_date BETWEEN DATE_SUB("2025-01-01", INTERVAL 365 DAY)
-                            AND current_date()
-)
-, active_users AS (
-  SELECT
-    au.submission_date,
-    au.client_id,
-    mozfun.bits28.retention(
-      au.days_active_bits & au.days_seen_bits,
-      au.submission_date
-    ) AS retention_active,
-  FROM
-    `moz-fx-data-shared-prod.telemetry.desktop_active_users` AS au
-  WHERE
-    au.submission_date >= "2025-01-01"
-    and au.sample_id = 0
-)
-, final_with_days AS (
-  SELECT
-    d.*,
-    date_diff(d.submission_date, prev_submission_date, day) as num_days_since_last_seen,
-    au.retention_active.day_13.active_in_week_1 AS retained_week_2,
-
-  FROM
-    dau d
-  LEFT JOIN active_users au
-         on d.client_id = au.client_id
-         AND d.submission_date = au.retention_active.day_13.metric_date
-    where d.submission_date >= "2025-01-01"
-)
-select submission_date,
-    os,
-    normalized_os_version,
-    CASE WHEN lower(os) like 'windows%' THEN 'Windows'
-          WHEN os = 'Darwin' THEN 'Mac'
-          WHEN os  = 'Linux' THEN 'Linux'
-          ELSE "Other" END as normalized_os,
-    country,
-    CASE WHEN lower(os) = 'windows%'  AND normalized_os_version like '10%' THEN 'Yes'
-          ELSE "No" END AS windows_10_flag,
-    CASE
-      WHEN num_days_since_last_seen BETWEEN  29 AND  34 THEN ' 29-36'
-      WHEN num_days_since_last_seen BETWEEN  37 AND  60 THEN ' 37-60'
-      WHEN num_days_since_last_seen BETWEEN  60 AND 119 THEN ' 61-120'
-      WHEN num_days_since_last_seen BETWEEN 121 AND 180 THEN '121-180'
-      WHEN num_days_since_last_seen BETWEEN 181 AND 365 THEN '181-365'
-      WHEN num_days_since_last_seen > 365                THEN '365+'
-      ELSE 'other'
-END as num_days_since_last_seen,
-    -- num_days_since_last_seen,
-    count(distinct client_id) as dau
-     , count(distinct client_id) resurrections
-     , count(distinct case when retained_week_2 then client_id end) resurrections_retained_wk2
-
-from final_with_days
-WHERE not is_new_profile
-AND (num_days_since_last_seen >= 29  or num_days_since_last_seen is null)
-group by ALL;;
-}
-
+  extends: [resurrection_week_2_retention_table]
 
   parameter: average_window {
     label: "Moving average"
@@ -102,8 +28,8 @@ group by ALL;;
     sql: {% parameter average_window %} ;;
   }
 
-  dimension_group: submission {
-    sql: ${TABLE}.submission_date ;;
+  dimension_group: metric_date {
+    sql: ${TABLE}.metric_date ;;
     type: time
     timeframes: [
       raw,
@@ -123,7 +49,7 @@ group by ALL;;
     view_label: "Year over Year"
     description: "Date offset to current year for YoY charts"
     type: date
-    sql: DATE_ADD(${TABLE}.submission_date, INTERVAL DATE_DIFF(CURRENT_DATE(), ${TABLE}.submission_date, YEAR) YEAR) ;;
+    sql: DATE_ADD(${TABLE}.metric_date, INTERVAL DATE_DIFF(CURRENT_DATE(), ${TABLE}.metric_date, YEAR) YEAR) ;;
   }
 
   dimension: ytd_filter {
@@ -147,7 +73,7 @@ group by ALL;;
     type:  string
     hidden: no
     view_label: "KPI date axis"
-    sql: FORMAT_DATE("%m-%d", DATE(${TABLE}.submission_date));;
+    sql: FORMAT_DATE("%m-%d", DATE(${TABLE}.metric_date));;
   }
 
   dimension: month {
@@ -155,7 +81,7 @@ group by ALL;;
     type:  string
     hidden: no
     view_label: "KPI date axis"
-    sql: FORMAT_DATE("%m-%B", DATE(${TABLE}.submission_date));;
+    sql: FORMAT_DATE("%m-%B", DATE(${TABLE}.metric_date));;
   }
 
   dimension: quarter_abr {
@@ -163,9 +89,9 @@ group by ALL;;
     type:  string
     hidden: no
     view_label: "KPI date axis"
-    sql: CASE WHEN FORMAT_DATE("%m",  DATE_TRUNC(DATE(${TABLE}.submission_date), QUARTER)) = "01" then "Q1"
-              WHEN FORMAT_DATE("%m",  DATE_TRUNC(DATE(${TABLE}.submission_date), QUARTER)) = "04" then "Q2"
-              WHEN FORMAT_DATE("%m",  DATE_TRUNCDATE(${TABLE}.submission_date), QUARTER)) = "07" then "Q3"
+    sql: CASE WHEN FORMAT_DATE("%m",  DATE_TRUNC(DATE(${TABLE}.metric_date), QUARTER)) = "01" then "Q1"
+              WHEN FORMAT_DATE("%m",  DATE_TRUNC(DATE(${TABLE}.metric_date), QUARTER)) = "04" then "Q2"
+              WHEN FORMAT_DATE("%m",  DATE_TRUNCDATE(${TABLE}.metric_date), QUARTER)) = "07" then "Q3"
               ELSE "Q4" end;;
   }
 
@@ -239,14 +165,25 @@ group by ALL;;
     sql:
         {% if current_date._is_filtered %}
             CASE
-            WHEN DATE(${TABLE}.submission_date) BETWEEN DATE(${first_date_in_period}) AND DATE(${filter_end_date}) THEN 'this'
-            WHEN DATE(${TABLE}.submission_date) between ${period_2_start} and ${period_2_end} THEN 'last' END
+            WHEN DATE(${TABLE}.metric_date) BETWEEN DATE(${first_date_in_period}) AND DATE(${filter_end_date}) THEN 'this'
+            WHEN DATE(${TABLE}.metric_date) between ${period_2_start} and ${period_2_end} THEN 'last' END
         {% else %} NULL {% endif %} ;;
   }
 
-  measure: resurrections {
+  dimension: resurrections {
+    hidden:  yes
+    sql: ${TABLE}.resurrections ;;
+  }
+
+  measure: total_resurrections {
     type: sum
     sql: ${TABLE}.resurrections;;
+    description: "Count of resurrected users on the submission_date, defined as returning DAU who had been inactive for 29 or more days."
+  }
+
+  dimension: resurrections_retained_wk2 {
+    hidden:  yes
+    sql: ${TABLE}.resurrections_retained_wk2 ;;
   }
 
   measure:retained_wk2 {
@@ -256,7 +193,7 @@ group by ALL;;
 
   measure: retention_rate {
     type: number
-    sql: SAFE_DIVIDE(${retained_wk2}, ${resurrections}) ;;
+    sql: SAFE_DIVIDE(${retained_wk2}, ${total_resurrections}) ;;
     value_format: "0.00%"
   }
 
@@ -308,8 +245,8 @@ group by ALL;;
     description: "windows 10 flag"
     type: string
     hidden: no
-    sql: ${TABLE}.windows_10_flag ;;
+    sql: CASE WHEN (lower(${os}) like 'windows%'  AND  ${normalized_os_version} like '10%') THEN 'Yes'
+    ELSE "No" END ;;
   }
-
 
 }
