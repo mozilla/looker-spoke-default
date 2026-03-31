@@ -152,6 +152,7 @@ view: growth_engagement{
     type: date
     sql: DATE_ADD(${TABLE}.submission_date, INTERVAL DATE_DIFF(CURRENT_DATE(), ${TABLE}.submission_date, YEAR) YEAR) ;;
   }
+
   dimension: ytd_filter {
     label: "YTD Filter"
     view_label: "Year over Year"
