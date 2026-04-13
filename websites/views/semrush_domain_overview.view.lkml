@@ -18,18 +18,19 @@ view: +semrush_domain_overview {
     value_format_name: decimal_0
   }
 
-dimension: country_code {
-type: string
-sql: UPPER(REPLACE(${database}, 'mobile-', '')) ;;
-description: "Normalized country code with mobile prefix removed, used for joining to countries table"
-}
+  dimension: country_code {
+    type: string
+    sql: UPPER(REPLACE(${database}, 'mobile-', '')) ;;
+    description: "Normalized country code with mobile prefix removed, used for joining to countries table"
+  }
 
   dimension: country_tier {
     type: string
-    sql: CASE
-      WHEN ${marketing_country_tier_mapping.tier} = 'Tier 1' THEN 'Core'
-      WHEN ${marketing_country_tier_mapping.tier} = 'Tier 2' THEN 'Growth'
-      ELSE 'Emerging'
+    sql:
+      CASE
+      WHEN ${marketing_country_tier_mapping.tier} IS NULL THEN 'Other'
+      WHEN ${marketing_country_tier_mapping.tier} = '' THEN 'Other'
+      ELSE ${marketing_country_tier_mapping.tier}
     END ;;
     description: "Country tier: Core (Tier 1), Growth (Tier 2), Emerging (Tier 3 or unmatched)"
   }
