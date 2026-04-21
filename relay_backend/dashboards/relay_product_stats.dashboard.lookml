@@ -422,13 +422,13 @@
       label: Masks with Websites
       _kind_hint: measure
       _type_hint: number
-      filter_expression: "${events_stream.extras__boolean__has_website} = \"Yes\""
+      filter_expression: "${events_stream.extras__boolean__has_website}"
     - measure: masks_without_websites
       based_on: events_stream.event_count
       label: Masks without Websites
       _kind_hint: measure
       _type_hint: number
-      filter_expression: "${events_stream.extras__boolean__has_website} = \"No\""
+      filter_expression: "NOT ${events_stream.extras__boolean__has_website}"
     - category: table_calculation
       expression: "mean(offset_list(${masks_with_websites}/(${masks_with_websites}+${masks_without_websites}),0,7))"
       label: "% of Masks Created with Websites"
@@ -478,7 +478,7 @@
       label: Emails Replied
       _kind_hint: measure
       _type_hint: number
-      filter_expression: "${events_stream.extras__boolean__is_reply} = \"Yes\""
+      filter_expression: "${events_stream.extras__boolean__is_reply}"
     - category: table_calculation
       expression: "${emails_replied}/${events_stream.event_count}"
       label: "% of Emails That Are Replies"
@@ -536,13 +536,13 @@
       label: To Random Masks
       _kind_hint: measure
       _type_hint: number
-      filter_expression: "${events_stream.extras__boolean__is_random_mask} = \"Yes\""
+      filter_expression: "${events_stream.extras__boolean__is_random_mask}"
     - measure: to_custom_masks
       based_on: events_stream.event_count
       label: To Custom Masks
       _kind_hint: measure
       _type_hint: number
-      filter_expression: "${events_stream.extras__boolean__is_random_mask} = \"No\""
+      filter_expression: "NOT ${events_stream.extras__boolean__is_random_mask}"
     - category: table_calculation
       expression: mean(offset_list(${to_custom_masks},0,7))
       label: Emails Forwarded to Custom Masks
@@ -598,7 +598,7 @@
       label: To Custom Masks
       _kind_hint: measure
       _type_hint: number
-      filter_expression: "${events_stream.extras__boolean__is_random_mask} = \"No\""
+      filter_expression: "NOT ${events_stream.extras__boolean__is_random_mask}"
     note_state: collapsed
     note_display: hover
     note_text: "Only Premium users can receive them."
@@ -649,7 +649,7 @@
       label: Emails Replied
       _kind_hint: measure
       _type_hint: number
-      filter_expression: "${events_stream.extras__boolean__is_reply} = \"Yes\""
+      filter_expression: "${events_stream.extras__boolean__is_reply}"
     show_view_names: false
     listen:
       Submission Date: events_stream.submission_date
@@ -917,13 +917,13 @@
       label: Email Forwarded to a Random Mask
       _kind_hint: measure
       _type_hint: number
-      filter_expression: "${events_stream.extras__boolean__is_random_mask} = \"Yes\""
+      filter_expression: "${events_stream.extras__boolean__is_random_mask}"
     - measure: email_forwarded_to_a_non_random_mask
       based_on: events_stream.event_count
       label: Email Forwarded to a Non-Random Mask
       _kind_hint: measure
       _type_hint: number
-      filter_expression: "${events_stream.extras__boolean__is_random_mask} = \"No\""
+      filter_expression: "NOT ${events_stream.extras__boolean__is_random_mask}"
     - category: table_calculation
       expression: "mean(offset_list(${email_forwarded_to_a_non_random_mask}/(${email_forwarded_to_a_random_mask}+${email_forwarded_to_a_non_random_mask}),0,7))"
       label: "% of Emails to Non-Random Masks"
