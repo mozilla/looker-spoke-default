@@ -30,7 +30,12 @@ jobs:
     if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
     steps:
       - name: Trigger Production Deploy Webhook
-        run: curl https://mozilla.cloud.looker.com/webhooks/projects/spoke-default/deploy
+        env:                                                                                                                                                                                                                              
+          LOOKER_DEPLOY_SECRET: ${{ secrets.LOOKER_DEPLOY_SECRET }}
+        run: |                                                                                                                                                                                                                            
+          curl -fsS -X POST \
+          -H "X-Looker-Deploy-Secret: $LOOKER_DEPLOY_SECRET" \                                                                                                                                                                          
+          https://mozilla.cloud.looker.com/webhooks/projects/spoke-default/deploy
 
   deploy-stage:
     name: Deploy to Staging
