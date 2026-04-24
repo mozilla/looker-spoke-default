@@ -89,7 +89,8 @@ def sync_dashboards(
                         f"Dashboard {unlink_dashboard_id} unlink failed with {e}"
                     )
 
-        # link and sync UUDs based on local mappings
+        # link UUDs based on local mappings
+        linked_dashboard_ids = []
         for dashboard_id in dashboard_ids:
             try:
                 sdk.dashboard(dashboard_id)
@@ -118,15 +119,26 @@ def sync_dashboards(
                     str(dashboard_id),
                     models.WriteDashboard(lookml_link_id=lookml_dashboard_id),
                 )
-                sdk.sync_lookml_dashboard(lookml_dashboard_id, models.WriteDashboard())
-                logging.info(
-                    f"Dashboard {dashboard_id} synced with LookML dashboard {lookml_dashboard_id}"
-                )
+                linked_dashboard_ids.append(str(dashboard_id))
             except looker_sdk.error.SDKError as e:
                 failures += 1
                 logging.error(
-                    f"Dashboard {dashboard_id} sync with LookML dashboard "
+                    f"Dashboard {dashboard_id} link to LookML dashboard "
                     f"{lookml_dashboard_id} failed with {e}"
+                )
+
+        # sync all linked UDDs for this LookML dashboard in one call
+        if linked_dashboard_ids:
+            try:
+                sdk.sync_lookml_dashboard(lookml_dashboard_id)
+                for linked_id in linked_dashboard_ids:
+                    logging.info(
+                        f"Dashboard {linked_id} synced with LookML dashboard {lookml_dashboard_id}"
+                    )
+            except looker_sdk.error.SDKError as e:
+                failures += 1
+                logging.error(
+                    f"LookML dashboard {lookml_dashboard_id} sync failed with {e}"
                 )
 
     return failures
