@@ -34,9 +34,7 @@ jobs:
         env:                                                                                                                                                                                                                              
           LOOKER_DEPLOY_SECRET: ${{ secrets.LOOKER_DEPLOY_SECRET }}
         run: |                                                                                                                                                                                                                            
-          curl -fsS -X POST \
-          -H "X-Looker-Deploy-Secret: $LOOKER_DEPLOY_SECRET" \                                                                                                                                                                          
-          https://mozilla.cloud.looker.com/webhooks/projects/spoke-default/deploy
+          curl -fsS -X POST -H "X-Looker-Deploy-Secret: $LOOKER_DEPLOY_SECRET" https://mozilla.cloud.looker.com/webhooks/projects/spoke-default/deploy
 
   deploy-stage:
     name: Deploy to Staging
