@@ -16,6 +16,11 @@ view: report_content {
     description: "The reason selected by the user when reporting the content"
     sql: ${TABLE}.report_reason ;;
   }
+  dimension: newtab_content_surface_id {
+    type: string
+    description: "The surface ID for the newtab content"
+    sql: ${TABLE}.newtab_content_surface_id ;;
+  }
   dimension: section {
     type: string
     description: "If click belongs in a section, the name of the section"
