@@ -481,6 +481,13 @@ view: newtab_clients_daily_aggregates {
     group_label: "Base Fields"
   }
 
+  dimension: newtab_content_surface_id {
+    sql: ${TABLE}.newtab_content_surface_id ;;
+    type: string
+    suggest_persist_for: "24 hours"
+    group_label: "Base Fields"
+  }
+
   dimension_group: submission {
     type: time
     group_label: "Base Fields"
