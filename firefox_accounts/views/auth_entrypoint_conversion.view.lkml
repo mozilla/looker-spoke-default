@@ -10,10 +10,10 @@ view: auth_entrypoint_conversion {
             CAST([] AS ARRAY<STRING>) AS service_filter,
             CAST([] AS ARRAY<STRING>) AS device_type_filter
         ),
-      
+
         /* -------------------------------------------------
            Non-cached flows = Authentication
-      
+
            Logic:
            1. Find the first qualifying frontend view per flow_id
            2. Apply dashboard-style dimension filters to that first view
@@ -37,6 +37,8 @@ view: auth_entrypoint_conversion {
             AND es.event IN (
               'email.first_view',
               'login.view',
+              'login.otp_view',
+              'reg.otp_view',
               'reg.view'
             )
           QUALIFY ROW_NUMBER() OVER (
@@ -44,7 +46,7 @@ view: auth_entrypoint_conversion {
             ORDER BY es.event_timestamp, es.event
           ) = 1
         ),
-      
+
         filtered_first_view_per_flow AS (
           SELECT
             v.*
@@ -55,7 +57,7 @@ view: auth_entrypoint_conversion {
             AND (ARRAY_LENGTH(p.service_filter) = 0 OR v.service IN UNNEST(p.service_filter))
             AND (ARRAY_LENGTH(p.device_type_filter) = 0 OR v.device_type IN UNNEST(p.device_type_filter))
         ),
-      
+
         backend_completes AS (
           SELECT
             es.metrics.string.session_flow_id AS flow_id,
@@ -73,7 +75,7 @@ view: auth_entrypoint_conversion {
               'reg.complete'
             )
         ),
-      
+
         completed_non_cached_flows AS (
           SELECT DISTINCT
             v.flow_id
@@ -85,7 +87,7 @@ view: auth_entrypoint_conversion {
               AND c.complete_ts >= v.first_view_ts
           )
         ),
-      
+
         non_cached_results AS (
           SELECT
             DATE(v.first_view_ts) AS flow_date,
@@ -102,10 +104,10 @@ view: auth_entrypoint_conversion {
             ON c.flow_id = v.flow_id
           GROUP BY 1, 2, 3, 4, 5, 6, 7
         ),
-      
+
         /* -------------------------------------------------
            Cached login = Authorization
-      
+
            Logic:
            1. cached_login.view = started
            2. cached_login.success_view = completed
@@ -131,7 +133,7 @@ view: auth_entrypoint_conversion {
             AND (ARRAY_LENGTH(p.service_filter) = 0 OR es.metrics.string.relying_party_service IN UNNEST(p.service_filter))
             AND (ARRAY_LENGTH(p.device_type_filter) = 0 OR es.metrics.string.session_device_type IN UNNEST(p.device_type_filter))
         ),
-      
+
         cached_login_successes AS (
           SELECT DISTINCT
             es.metrics.string.session_flow_id AS flow_id
@@ -146,7 +148,7 @@ view: auth_entrypoint_conversion {
             AND (ARRAY_LENGTH(p.service_filter) = 0 OR es.metrics.string.relying_party_service IN UNNEST(p.service_filter))
             AND (ARRAY_LENGTH(p.device_type_filter) = 0 OR es.metrics.string.session_device_type IN UNNEST(p.device_type_filter))
         ),
-      
+
         cached_login_results AS (
           SELECT
             v.flow_date,
@@ -163,19 +165,19 @@ view: auth_entrypoint_conversion {
             ON s.flow_id = v.flow_id
           GROUP BY 1, 2, 3, 4, 5, 6, 7
         )
-      
+
         /* Final output:
            - Authentication rows from the non-cached branch
            - Authorization rows from the cached-login branch
         */
         SELECT *
         FROM non_cached_results
-      
+
         UNION ALL
-      
+
         SELECT *
         FROM cached_login_results
-      
+
         ORDER BY
           flow_date DESC,
           started_flows DESC {% endraw %} ;;
@@ -235,14 +237,14 @@ view: auth_entrypoint_conversion {
   set: detail {
     fields: [
         flow_date,
-	first_view_bucket,
-	auth_type,
-	entrypoint,
-	oauth_client_id,
-	service,
-	device_type,
-	started_flows,
-	completed_flows
+  first_view_bucket,
+  auth_type,
+  entrypoint,
+  oauth_client_id,
+  service,
+  device_type,
+  started_flows,
+  completed_flows
     ]
   }
 }
