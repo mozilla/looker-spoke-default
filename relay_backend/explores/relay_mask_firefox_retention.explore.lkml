@@ -8,7 +8,7 @@ explore: relay_mask_firefox_retention {
 
   always_filter: {
     filters: [
-      relay_mask_firefox_retention.submission_date: "56 days ago for 28 days",
+      relay_mask_firefox_retention.submission_date: "28 days",
     ]
   }
 }
