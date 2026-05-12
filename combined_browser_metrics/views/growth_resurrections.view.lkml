@@ -238,7 +238,10 @@ view: growth_resurrections {
     description: "Recategorizing OS to match all tables that will be used in the dashboard"
     type: string
     hidden: no
-    sql: ${TABLE}.normalized_os;;
+    sql: CASE WHEN lower(${os}) like 'windows%' THEN 'Windows'
+          WHEN ${os} = 'Darwin' THEN 'Mac'
+          WHEN ${os}  = 'Linux' THEN ${os}
+          ELSE "Other" END ;;
   }
 
   dimension: windows_10_flag {
