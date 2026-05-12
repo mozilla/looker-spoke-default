@@ -103,6 +103,8 @@ include: "views/newtab_items_daily.view.lkml"
 include: "views/event_funnel.view.lkml"
 include: "explores/event_funnel.explore.lkml"
 
+include: "explores/metric_definitions_desktop_engagement_v1_excl_other_os.explore.lkml"
+
 
 explore: newtab_clients_daily_aggregates {
   label: "Newtab Clients Daily Aggregates"
