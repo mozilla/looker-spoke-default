@@ -1,5 +1,6 @@
 
 view: android_bookmark_events {
+  -- test
   derived_table: {
     sql: WITH dau_segments AS
           (SELECT DATE(submission_timestamp) as submission_date, 100*count(distinct client_info.client_id) as dau
