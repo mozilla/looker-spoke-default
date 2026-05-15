@@ -1,11 +1,11 @@
 
 view: android_bookmark_events {
-  -- test
   derived_table: {
     sql: WITH dau_segments AS
           (SELECT DATE(submission_timestamp) as submission_date, 100*count(distinct client_info.client_id) as dau
           FROM `mozdata.fenix.events_unnested`
           --AND channel = 'release'
+          -- test
           WHERE DATE(submission_timestamp) >= '2019-06-04'
           AND sample_id = 0
           GROUP BY 1),
