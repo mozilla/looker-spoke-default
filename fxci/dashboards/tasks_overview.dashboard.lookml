@@ -326,6 +326,7 @@
       time.
     listen:
       Submission Date: task_runs.submission_date
+      Cloud Provider: task_run_costs.cloud_provider
     row: 0
     col: 16
     width: 8
@@ -385,6 +386,7 @@
     hidden_pivots: {}
     listen:
       Submission Date: task_runs.submission_date
+      Cloud Provider: task_run_costs.cloud_provider
     row: 22
     col: 12
     width: 12
@@ -447,6 +449,7 @@
     hidden_pivots: {}
     listen:
       Submission Date: task_runs.submission_date
+      Cloud Provider: task_run_costs.cloud_provider
     row: 14
     col: 12
     width: 12
@@ -509,6 +512,7 @@
     hidden_pivots: {}
     listen:
       Submission Date: task_runs.submission_date
+      Cloud Provider: task_run_costs.cloud_provider
     row: 6
     col: 12
     width: 12
@@ -528,3 +532,19 @@
     explore: tasks
     listens_to_filters: []
     field: task_runs.submission_date
+  - name: Cloud Provider
+    title: Cloud Provider
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: button_group
+      display: popover
+      options:
+      - azure
+      - gcp
+    model: fxci
+    explore: tasks
+    listens_to_filters: []
+    field: task_run_costs.cloud_provider
