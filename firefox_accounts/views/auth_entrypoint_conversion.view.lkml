@@ -1,186 +1,348 @@
-
 view: auth_entrypoint_conversion {
   derived_table: {
-    sql: {% raw %} WITH params AS (
-          SELECT
-            -- Leave these arrays empty for "no filter".
-            -- Populate them in Looker / SQL Runner to restrict the results.
-            CAST([] AS ARRAY<STRING>) AS entrypoint_filter,
-            CAST([] AS ARRAY<STRING>) AS oauth_client_id_filter,
-            CAST([] AS ARRAY<STRING>) AS service_filter,
-            CAST([] AS ARRAY<STRING>) AS device_type_filter
-        ),
+    sql: {% raw %}
+      WITH params AS (
+        SELECT
+          -- Leave these arrays empty for "no filter".
+          -- Populate them in Looker / SQL Runner to restrict the results.
+          CAST([] AS ARRAY<STRING>) AS entrypoint_filter,
+          CAST([] AS ARRAY<STRING>) AS oauth_client_id_filter,
+          CAST([] AS ARRAY<STRING>) AS service_filter,
+          CAST([] AS ARRAY<STRING>) AS device_type_filter
+      ),
 
-        /* -------------------------------------------------
-           Non-cached flows = Authentication
+      /* -------------------------------------------------
+      Non-cached flows = Authentication
 
-           Logic:
-           1. Find the first qualifying frontend view per flow_id
-           2. Apply dashboard-style dimension filters to that first view
-           3. Find backend completion events
-           4. Count a flow as completed only if completion happened
-              at or after the first view timestamp
-        -------------------------------------------------- */
-        first_view_per_flow AS (
-          SELECT
-            es.metrics.string.session_flow_id AS flow_id,
-            es.event AS first_view_event,
-            es.event_timestamp AS first_view_ts,
-            es.metrics.string.relying_party_oauth_client_id AS oauth_client_id,
-            es.metrics.string.relying_party_service AS service,
-            es.metrics.string.session_entrypoint AS entrypoint,
-            es.metrics.string.session_device_type AS device_type
-          FROM `mozdata.accounts_frontend.events_stream` AS es
-          WHERE es.submission_timestamp >= TIMESTAMP('2026-01-01 00:00:00+00')
-            AND es.submission_timestamp < CURRENT_TIMESTAMP()
-            AND es.metrics.string.session_flow_id IS NOT NULL
-            AND es.event IN (
-              'email.first_view',
-              'login.view',
-              'login.otp_view',
-              'reg.otp_view',
-              'reg.view'
-            )
-          QUALIFY ROW_NUMBER() OVER (
-            PARTITION BY es.metrics.string.session_flow_id
-            ORDER BY es.event_timestamp, es.event
-          ) = 1
-        ),
+      Frontend first-view data is used for:
+      - flow_date
+      - first_view_bucket
+      - entrypoint
+      - oauth_client_id
+      - service
+      - device_type
+      -------------------------------------------------- */
+      first_view_per_flow AS (
+      SELECT
+      es.metrics.string.session_flow_id AS flow_id,
+      es.event AS first_view_event,
+      es.event_timestamp AS first_view_ts,
+      es.metrics.string.relying_party_oauth_client_id AS oauth_client_id,
+      es.metrics.string.relying_party_service AS service,
+      es.metrics.string.session_entrypoint AS entrypoint,
+      es.metrics.string.session_device_type AS device_type
+      FROM `mozdata.accounts_frontend.events_stream` AS es
+      WHERE es.submission_timestamp >= TIMESTAMP('2026-01-01 00:00:00+00')
+      AND es.submission_timestamp < CURRENT_TIMESTAMP()
+      AND es.metrics.string.session_flow_id IS NOT NULL
+      AND es.event IN (
+      'email.first_view',
+      'login.view',
+      'login.otp_view',
+      'reg.otp_view',
+      'reg.view'
+      )
+      QUALIFY ROW_NUMBER() OVER (
+      PARTITION BY es.metrics.string.session_flow_id
+      ORDER BY es.event_timestamp, es.event
+      ) = 1
+      ),
 
-        filtered_first_view_per_flow AS (
-          SELECT
-            v.*
-          FROM first_view_per_flow v
-          CROSS JOIN params p
-          WHERE (ARRAY_LENGTH(p.entrypoint_filter) = 0 OR v.entrypoint IN UNNEST(p.entrypoint_filter))
-            AND (ARRAY_LENGTH(p.oauth_client_id_filter) = 0 OR v.oauth_client_id IN UNNEST(p.oauth_client_id_filter))
-            AND (ARRAY_LENGTH(p.service_filter) = 0 OR v.service IN UNNEST(p.service_filter))
-            AND (ARRAY_LENGTH(p.device_type_filter) = 0 OR v.device_type IN UNNEST(p.device_type_filter))
-        ),
+      filtered_first_view_per_flow AS (
+      SELECT
+      v.*
+      FROM first_view_per_flow v
+      CROSS JOIN params p
+      WHERE (ARRAY_LENGTH(p.entrypoint_filter) = 0 OR v.entrypoint IN UNNEST(p.entrypoint_filter))
+      AND (ARRAY_LENGTH(p.oauth_client_id_filter) = 0 OR v.oauth_client_id IN UNNEST(p.oauth_client_id_filter))
+      AND (ARRAY_LENGTH(p.service_filter) = 0 OR v.service IN UNNEST(p.service_filter))
+      AND (ARRAY_LENGTH(p.device_type_filter) = 0 OR v.device_type IN UNNEST(p.device_type_filter))
+      ),
 
-        backend_completes AS (
-          SELECT
-            es.metrics.string.session_flow_id AS flow_id,
-            es.event_timestamp AS complete_ts
-          FROM `mozdata.accounts_backend.events_stream` AS es
-          WHERE es.submission_timestamp >= TIMESTAMP('2026-01-01 00:00:00+00')
-            AND es.submission_timestamp < CURRENT_TIMESTAMP()
-            AND es.metrics.string.session_flow_id IS NOT NULL
-            AND es.event IN (
-              'login.complete',
-              'third_party_auth.apple_login_complete',
-              'third_party_auth.apple_reg_complete',
-              'third_party_auth.google_login_complete',
-              'third_party_auth.google_reg_complete',
-              'reg.complete'
-            )
-        ),
+      /* -------------------------------------------------
+      Backend completion events
 
-        completed_non_cached_flows AS (
-          SELECT DISTINCT
-            v.flow_id
-          FROM filtered_first_view_per_flow v
-          WHERE EXISTS (
-            SELECT 1
-            FROM backend_completes c
-            WHERE c.flow_id = v.flow_id
-              AND c.complete_ts >= v.first_view_ts
-          )
-        ),
+      Backend data is used only for:
+      - AuthN type
+      - AuthN reason
+      - completion timestamp
+      -------------------------------------------------- */
+      backend_completes AS (
+      SELECT
+      es.metrics.string.session_flow_id AS flow_id,
+      es.event AS completion_event,
+      es.event_timestamp AS complete_ts,
 
-        non_cached_results AS (
-          SELECT
-            DATE(v.first_view_ts) AS flow_date,
-            v.first_view_event AS first_view_bucket,
-            'AuthN' AS auth_type,                           -- AuthN = Authentication
-            v.entrypoint,
-            v.oauth_client_id,
-            v.service,
-            v.device_type,
-            COUNT(DISTINCT v.flow_id) AS started_flows,
-            COUNT(DISTINCT c.flow_id) AS completed_flows
-          FROM filtered_first_view_per_flow v
-          LEFT JOIN completed_non_cached_flows c
-            ON c.flow_id = v.flow_id
-          GROUP BY 1, 2, 3, 4, 5, 6, 7
-        ),
+      -- AuthN Reasons source.
+      es.extras.string.reason AS authn_reason,
 
-        /* -------------------------------------------------
-           Cached login = Authorization
+      -- AuthN Types mapping.
+      CASE
+      WHEN es.event IN (
+      'login.complete',
+      'third_party_auth.apple_login_complete',
+      'third_party_auth.google_login_complete'
+      ) THEN 'login'
 
-           Logic:
-           1. cached_login.view = started
-           2. cached_login.success_view = completed
-           3. Join only by flow_id
-           4. No timestamp ordering requirement for completion
-        -------------------------------------------------- */
-        cached_login_views AS (
-          SELECT
-            DATE(es.submission_timestamp) AS flow_date,
-            es.metrics.string.session_entrypoint AS entrypoint,
-            es.metrics.string.relying_party_oauth_client_id AS oauth_client_id,
-            es.metrics.string.relying_party_service AS service,
-            es.metrics.string.session_device_type AS device_type,
-            es.metrics.string.session_flow_id AS flow_id
-          FROM `mozdata.accounts_frontend.events_stream` AS es
-          CROSS JOIN params p
-          WHERE es.submission_timestamp >= TIMESTAMP('2026-01-01 00:00:00+00')
-            AND es.submission_timestamp < CURRENT_TIMESTAMP()
-            AND es.metrics.string.session_flow_id IS NOT NULL
-            AND es.event = 'cached_login.view'
-            AND (ARRAY_LENGTH(p.entrypoint_filter) = 0 OR es.metrics.string.session_entrypoint IN UNNEST(p.entrypoint_filter))
-            AND (ARRAY_LENGTH(p.oauth_client_id_filter) = 0 OR es.metrics.string.relying_party_oauth_client_id IN UNNEST(p.oauth_client_id_filter))
-            AND (ARRAY_LENGTH(p.service_filter) = 0 OR es.metrics.string.relying_party_service IN UNNEST(p.service_filter))
-            AND (ARRAY_LENGTH(p.device_type_filter) = 0 OR es.metrics.string.session_device_type IN UNNEST(p.device_type_filter))
-        ),
+      WHEN es.event IN (
+      'reg.complete',
+      'third_party_auth.apple_reg_complete',
+      'third_party_auth.google_reg_complete'
+      ) THEN 'registration'
 
-        cached_login_successes AS (
-          SELECT DISTINCT
-            es.metrics.string.session_flow_id AS flow_id
-          FROM `mozdata.accounts_frontend.events_stream` AS es
-          CROSS JOIN params p
-          WHERE es.submission_timestamp >= TIMESTAMP('2026-01-01 00:00:00+00')
-            AND es.submission_timestamp < CURRENT_TIMESTAMP()
-            AND es.metrics.string.session_flow_id IS NOT NULL
-            AND es.event = 'cached_login.success_view'
-            AND (ARRAY_LENGTH(p.entrypoint_filter) = 0 OR es.metrics.string.session_entrypoint IN UNNEST(p.entrypoint_filter))
-            AND (ARRAY_LENGTH(p.oauth_client_id_filter) = 0 OR es.metrics.string.relying_party_oauth_client_id IN UNNEST(p.oauth_client_id_filter))
-            AND (ARRAY_LENGTH(p.service_filter) = 0 OR es.metrics.string.relying_party_service IN UNNEST(p.service_filter))
-            AND (ARRAY_LENGTH(p.device_type_filter) = 0 OR es.metrics.string.session_device_type IN UNNEST(p.device_type_filter))
-        ),
+      ELSE NULL
+      END AS authn_type
+      FROM `mozdata.accounts_backend.events_stream` AS es
+      WHERE es.submission_timestamp >= TIMESTAMP('2026-01-01 00:00:00+00')
+      AND es.submission_timestamp < CURRENT_TIMESTAMP()
+      AND es.metrics.string.session_flow_id IS NOT NULL
+      AND es.event IN (
+      'login.complete',
+      'third_party_auth.apple_login_complete',
+      'third_party_auth.google_login_complete',
+      'reg.complete',
+      'third_party_auth.apple_reg_complete',
+      'third_party_auth.google_reg_complete'
+      )
+      ),
 
-        cached_login_results AS (
-          SELECT
-            v.flow_date,
-            'cached_login.view' AS first_view_bucket,
-            'AuthZ' AS auth_type,                             --AuthZ = Authorization
-            v.entrypoint,
-            v.oauth_client_id,
-            v.service,
-            v.device_type,
-            COUNT(DISTINCT v.flow_id) AS started_flows,
-            COUNT(DISTINCT s.flow_id) AS completed_flows
-          FROM cached_login_views v
-          LEFT JOIN cached_login_successes s
-            ON s.flow_id = v.flow_id
-          GROUP BY 1, 2, 3, 4, 5, 6, 7
-        )
+      completed_non_cached_flows AS (
+      SELECT
+      v.flow_id,
+      c.completion_event,
+      c.complete_ts,
+      c.authn_type,
+      c.authn_reason
+      FROM filtered_first_view_per_flow v
+      JOIN backend_completes c
+      ON c.flow_id = v.flow_id
+      AND c.complete_ts >= v.first_view_ts
 
-        /* Final output:
-           - Authentication rows from the non-cached branch
-           - Authorization rows from the cached-login branch
-        */
-        SELECT *
-        FROM non_cached_results
+      -- If there are multiple backend completion events for the same flow,
+      -- keep the earliest completion so the flow is counted once.
+      QUALIFY ROW_NUMBER() OVER (
+      PARTITION BY v.flow_id
+      ORDER BY c.complete_ts, c.completion_event
+      ) = 1
+      ),
 
-        UNION ALL
+      /* -------------------------------------------------
+      Existing non-cached summary rows
 
-        SELECT *
-        FROM cached_login_results
+      These preserve your existing started_flows and completed_flows logic.
+      AuthN breakout columns are NULL / 0 on these rows.
+      -------------------------------------------------- */
+      non_cached_results AS (
+      SELECT
+      'summary' AS row_type,
+      'AuthN' AS auth_type,
+      COUNT(DISTINCT c.flow_id) AS completed_flows,
+      v.device_type,
+      v.entrypoint,
+      v.first_view_event AS first_view_bucket,
+      DATE(v.first_view_ts) AS flow_date,
+      v.oauth_client_id,
+      v.service,
+      COUNT(DISTINCT v.flow_id) AS started_flows,
 
-        ORDER BY
-          flow_date DESC,
-          started_flows DESC {% endraw %} ;;
+      CAST(NULL AS STRING) AS authn_type,
+      CAST(NULL AS STRING) AS authn_reason,
+      CAST(0 AS INT64) AS authn_count
+      FROM filtered_first_view_per_flow v
+      LEFT JOIN completed_non_cached_flows c
+      ON c.flow_id = v.flow_id
+      GROUP BY
+      v.device_type,
+      v.entrypoint,
+      v.first_view_event,
+      DATE(v.first_view_ts),
+      v.oauth_client_id,
+      v.service
+      ),
+
+      /* -------------------------------------------------
+      AuthN breakout rows
+
+      These rows provide:
+      - AuthN Types
+      - AuthN Reasons
+      - AuthN Count
+
+      Important:
+      - entrypoint, service, oauth_client_id, and device_type come from
+      the frontend first-view flow.
+      - authn_type and authn_reason come from backend completion.
+      - started_flows and completed_flows are set to 0 so existing
+      dashboard totals are not inflated.
+      -------------------------------------------------- */
+      authn_breakout_results AS (
+      SELECT
+      'authn_breakout' AS row_type,
+      'AuthN' AS auth_type,
+      CAST(0 AS INT64) AS completed_flows,
+      v.device_type,
+      v.entrypoint,
+      v.first_view_event AS first_view_bucket,
+      DATE(v.first_view_ts) AS flow_date,
+      v.oauth_client_id,
+      v.service,
+      CAST(0 AS INT64) AS started_flows,
+
+      c.authn_type AS authn_type,
+      c.authn_reason AS authn_reason,
+      COUNT(DISTINCT v.flow_id) AS authn_count
+      FROM filtered_first_view_per_flow v
+      JOIN completed_non_cached_flows c
+      ON c.flow_id = v.flow_id
+      WHERE c.authn_type IS NOT NULL
+      GROUP BY
+      v.device_type,
+      v.entrypoint,
+      v.first_view_event,
+      DATE(v.first_view_ts),
+      v.oauth_client_id,
+      v.service,
+      c.authn_type,
+      c.authn_reason
+      ),
+
+      /* -------------------------------------------------
+      Cached login = Authorization
+
+      Existing AuthZ summary logic.
+      AuthN breakout columns are NULL / 0 on these rows.
+      -------------------------------------------------- */
+      cached_login_views AS (
+      SELECT
+      DATE(es.submission_timestamp) AS flow_date,
+      es.metrics.string.session_entrypoint AS entrypoint,
+      es.metrics.string.relying_party_oauth_client_id AS oauth_client_id,
+      es.metrics.string.relying_party_service AS service,
+      es.metrics.string.session_device_type AS device_type,
+      es.metrics.string.session_flow_id AS flow_id
+      FROM `mozdata.accounts_frontend.events_stream` AS es
+      CROSS JOIN params p
+      WHERE es.submission_timestamp >= TIMESTAMP('2026-01-01 00:00:00+00')
+      AND es.submission_timestamp < CURRENT_TIMESTAMP()
+      AND es.metrics.string.session_flow_id IS NOT NULL
+      AND es.event = 'cached_login.view'
+      AND (ARRAY_LENGTH(p.entrypoint_filter) = 0 OR es.metrics.string.session_entrypoint IN UNNEST(p.entrypoint_filter))
+      AND (ARRAY_LENGTH(p.oauth_client_id_filter) = 0 OR es.metrics.string.relying_party_oauth_client_id IN UNNEST(p.oauth_client_id_filter))
+      AND (ARRAY_LENGTH(p.service_filter) = 0 OR es.metrics.string.relying_party_service IN UNNEST(p.service_filter))
+      AND (ARRAY_LENGTH(p.device_type_filter) = 0 OR es.metrics.string.session_device_type IN UNNEST(p.device_type_filter))
+      ),
+
+      cached_login_successes AS (
+      SELECT DISTINCT
+      es.metrics.string.session_flow_id AS flow_id
+      FROM `mozdata.accounts_frontend.events_stream` AS es
+      CROSS JOIN params p
+      WHERE es.submission_timestamp >= TIMESTAMP('2026-01-01 00:00:00+00')
+      AND es.submission_timestamp < CURRENT_TIMESTAMP()
+      AND es.metrics.string.session_flow_id IS NOT NULL
+      AND es.event = 'cached_login.success_view'
+      AND (ARRAY_LENGTH(p.entrypoint_filter) = 0 OR es.metrics.string.session_entrypoint IN UNNEST(p.entrypoint_filter))
+      AND (ARRAY_LENGTH(p.oauth_client_id_filter) = 0 OR es.metrics.string.relying_party_oauth_client_id IN UNNEST(p.oauth_client_id_filter))
+      AND (ARRAY_LENGTH(p.service_filter) = 0 OR es.metrics.string.relying_party_service IN UNNEST(p.service_filter))
+      AND (ARRAY_LENGTH(p.device_type_filter) = 0 OR es.metrics.string.session_device_type IN UNNEST(p.device_type_filter))
+      ),
+
+      cached_login_results AS (
+      SELECT
+      'summary' AS row_type,
+      'AuthZ' AS auth_type,
+      COUNT(DISTINCT s.flow_id) AS completed_flows,
+      v.device_type,
+      v.entrypoint,
+      'cached_login.view' AS first_view_bucket,
+      v.flow_date,
+      v.oauth_client_id,
+      v.service,
+      COUNT(DISTINCT v.flow_id) AS started_flows,
+
+      CAST(NULL AS STRING) AS authn_type,
+      CAST(NULL AS STRING) AS authn_reason,
+      CAST(0 AS INT64) AS authn_count
+      FROM cached_login_views v
+      LEFT JOIN cached_login_successes s
+      ON s.flow_id = v.flow_id
+      GROUP BY
+      v.device_type,
+      v.entrypoint,
+      v.flow_date,
+      v.oauth_client_id,
+      v.service
+      )
+
+      /* Final output columns:
+
+      Auth Type
+      Completed Flows
+      Device Type
+      Entrypoint
+      First View Bucket
+      Flow Date
+      Oauth Client ID
+      Service
+      Started Flows
+      AuthN Types
+      AuthN Reasons
+      AuthN Count
+      */
+      SELECT
+      auth_type,
+      completed_flows,
+      device_type,
+      entrypoint,
+      first_view_bucket,
+      flow_date,
+      oauth_client_id,
+      service,
+      started_flows,
+      authn_type,
+      authn_reason,
+      authn_count
+      FROM non_cached_results
+
+      UNION ALL
+
+      SELECT
+      auth_type,
+      completed_flows,
+      device_type,
+      entrypoint,
+      first_view_bucket,
+      flow_date,
+      oauth_client_id,
+      service,
+      started_flows,
+      authn_type,
+      authn_reason,
+      authn_count
+      FROM cached_login_results
+
+      UNION ALL
+
+      SELECT
+      auth_type,
+      completed_flows,
+      device_type,
+      entrypoint,
+      first_view_bucket,
+      flow_date,
+      oauth_client_id,
+      service,
+      started_flows,
+      authn_type,
+      authn_reason,
+      authn_count
+      FROM authn_breakout_results
+
+      ORDER BY
+      flow_date DESC,
+      started_flows DESC,
+      authn_count DESC
+      {% endraw %} ;;
   }
 
   measure: count {
@@ -234,17 +396,38 @@ view: auth_entrypoint_conversion {
     sql: ${TABLE}.completed_flows ;;
   }
 
+  dimension: authn_type {
+    label: "AuthN Type"
+    type: string
+    sql: ${TABLE}.authn_type ;;
+  }
+
+  dimension: authn_reason {
+    label: "AuthN Reason"
+    type: string
+    sql: ${TABLE}.authn_reason ;;
+  }
+
+  dimension: authn_count {
+    label: "AuthN Count"
+    type: number
+    sql: ${TABLE}.authn_count ;;
+  }
+
   set: detail {
     fields: [
-        flow_date,
-  first_view_bucket,
-  auth_type,
-  entrypoint,
-  oauth_client_id,
-  service,
-  device_type,
-  started_flows,
-  completed_flows
+      flow_date,
+      first_view_bucket,
+      auth_type,
+      entrypoint,
+      oauth_client_id,
+      service,
+      device_type,
+      started_flows,
+      completed_flows,
+      authn_type,
+      authn_reason,
+      authn_count
     ]
   }
 }
