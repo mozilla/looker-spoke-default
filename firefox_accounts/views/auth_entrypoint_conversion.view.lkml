@@ -60,38 +60,16 @@ view: auth_entrypoint_conversion {
       ),
 
       /* -------------------------------------------------
-      Backend completion events
+      Backend completion events for existing summary totals
 
-      Backend data is used only for:
-      - AuthN type
-      - AuthN reason
-      - completion timestamp
+      This preserves existing completed_flows logic, including
+      third-party auth completion events.
       -------------------------------------------------- */
       backend_completes AS (
       SELECT
       es.metrics.string.session_flow_id AS flow_id,
       es.event AS completion_event,
-      es.event_timestamp AS complete_ts,
-
-      -- AuthN Reasons source.
-      es.extras.string.reason AS authn_reason,
-
-      -- AuthN Types mapping.
-      CASE
-      WHEN es.event IN (
-      'login.complete',
-      'third_party_auth.apple_login_complete',
-      'third_party_auth.google_login_complete'
-      ) THEN 'login'
-
-      WHEN es.event IN (
-      'reg.complete',
-      'third_party_auth.apple_reg_complete',
-      'third_party_auth.google_reg_complete'
-      ) THEN 'registration'
-
-      ELSE NULL
-      END AS authn_type
+      es.event_timestamp AS complete_ts
       FROM `mozdata.accounts_backend.events_stream` AS es
       WHERE es.submission_timestamp >= TIMESTAMP('2026-01-01 00:00:00+00')
       AND es.submission_timestamp < CURRENT_TIMESTAMP()
@@ -110,16 +88,57 @@ view: auth_entrypoint_conversion {
       SELECT
       v.flow_id,
       c.completion_event,
-      c.complete_ts,
-      c.authn_type,
-      c.authn_reason
+      c.complete_ts
       FROM filtered_first_view_per_flow v
       JOIN backend_completes c
       ON c.flow_id = v.flow_id
       AND c.complete_ts >= v.first_view_ts
+      QUALIFY ROW_NUMBER() OVER (
+      PARTITION BY v.flow_id
+      ORDER BY c.complete_ts, c.completion_event
+      ) = 1
+      ),
 
-      -- If there are multiple backend completion events for the same flow,
-      -- keep the earliest completion so the flow is counted once.
+      /* -------------------------------------------------
+      Backend AuthN breakout events
+
+      This is intentionally limited to:
+      - login.complete
+      - reg.complete
+
+      AuthN reason comes only from these backend events.
+      -------------------------------------------------- */
+      authn_backend_completes AS (
+      SELECT
+      es.metrics.string.session_flow_id AS flow_id,
+      es.event AS completion_event,
+      es.event_timestamp AS complete_ts,
+      es.extras.string.reason AS authn_reason,
+      CASE
+      WHEN es.event = 'login.complete' THEN 'login'
+      WHEN es.event = 'reg.complete' THEN 'registration'
+      END AS authn_type
+      FROM `mozdata.accounts_backend.events_stream` AS es
+      WHERE es.submission_timestamp >= TIMESTAMP('2026-01-01 00:00:00+00')
+      AND es.submission_timestamp < CURRENT_TIMESTAMP()
+      AND es.metrics.string.session_flow_id IS NOT NULL
+      AND es.event IN (
+      'login.complete',
+      'reg.complete'
+      )
+      ),
+
+      completed_authn_breakout_flows AS (
+      SELECT
+      v.flow_id,
+      c.completion_event,
+      c.complete_ts,
+      c.authn_type,
+      c.authn_reason
+      FROM filtered_first_view_per_flow v
+      JOIN authn_backend_completes c
+      ON c.flow_id = v.flow_id
+      AND c.complete_ts >= v.first_view_ts
       QUALIFY ROW_NUMBER() OVER (
       PARTITION BY v.flow_id
       ORDER BY c.complete_ts, c.completion_event
@@ -164,15 +183,11 @@ view: auth_entrypoint_conversion {
       AuthN breakout rows
 
       These rows provide:
-      - AuthN Types
-      - AuthN Reasons
+      - AuthN Types: login, registration
+      - AuthN Reasons from backend login.complete / reg.complete
       - AuthN Count
 
-      Important:
-      - entrypoint, service, oauth_client_id, and device_type come from
-      the frontend first-view flow.
-      - authn_type and authn_reason come from backend completion.
-      - started_flows and completed_flows are set to 0 so existing
+      started_flows and completed_flows are set to 0 so existing
       dashboard totals are not inflated.
       -------------------------------------------------- */
       authn_breakout_results AS (
@@ -192,7 +207,7 @@ view: auth_entrypoint_conversion {
       c.authn_reason AS authn_reason,
       COUNT(DISTINCT v.flow_id) AS authn_count
       FROM filtered_first_view_per_flow v
-      JOIN completed_non_cached_flows c
+      JOIN completed_authn_breakout_flows c
       ON c.flow_id = v.flow_id
       WHERE c.authn_type IS NOT NULL
       GROUP BY
@@ -274,21 +289,7 @@ view: auth_entrypoint_conversion {
       v.service
       )
 
-      /* Final output columns:
-
-      Auth Type
-      Completed Flows
-      Device Type
-      Entrypoint
-      First View Bucket
-      Flow Date
-      Oauth Client ID
-      Service
-      Started Flows
-      AuthN Types
-      AuthN Reasons
-      AuthN Count
-      */
+      /* Final output columns */
       SELECT
       auth_type,
       completed_flows,
