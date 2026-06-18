@@ -32,7 +32,7 @@ view: auth_entrypoint_conversion {
       es.metrics.string.session_entrypoint AS entrypoint,
       es.metrics.string.session_device_type AS device_type
       FROM `mozdata.accounts_frontend.events_stream` AS es
-      WHERE es.submission_timestamp >= TIMESTAMP('2026-01-01 00:00:00+00')
+      WHERE es.submission_timestamp >= TIMESTAMP('2025-01-01 00:00:00+00')
       AND es.submission_timestamp < CURRENT_TIMESTAMP()
       AND es.metrics.string.session_flow_id IS NOT NULL
       AND es.event IN (
@@ -40,6 +40,7 @@ view: auth_entrypoint_conversion {
       'login.view',
       'login.otp_view',
       'reg.otp_view',
+      'login.alternative_auth_view',
       'reg.view'
       )
       QUALIFY ROW_NUMBER() OVER (
@@ -71,7 +72,7 @@ view: auth_entrypoint_conversion {
       es.event AS completion_event,
       es.event_timestamp AS complete_ts
       FROM `mozdata.accounts_backend.events_stream` AS es
-      WHERE es.submission_timestamp >= TIMESTAMP('2026-01-01 00:00:00+00')
+      WHERE es.submission_timestamp >= TIMESTAMP('2025-01-01 00:00:00+00')
       AND es.submission_timestamp < CURRENT_TIMESTAMP()
       AND es.metrics.string.session_flow_id IS NOT NULL
       AND es.event IN (
@@ -119,7 +120,7 @@ view: auth_entrypoint_conversion {
       WHEN es.event = 'reg.complete' THEN 'registration'
       END AS authn_type
       FROM `mozdata.accounts_backend.events_stream` AS es
-      WHERE es.submission_timestamp >= TIMESTAMP('2026-01-01 00:00:00+00')
+      WHERE es.submission_timestamp >= TIMESTAMP('2025-01-01 00:00:00+00')
       AND es.submission_timestamp < CURRENT_TIMESTAMP()
       AND es.metrics.string.session_flow_id IS NOT NULL
       AND es.event IN (
@@ -237,7 +238,7 @@ view: auth_entrypoint_conversion {
       es.metrics.string.session_flow_id AS flow_id
       FROM `mozdata.accounts_frontend.events_stream` AS es
       CROSS JOIN params p
-      WHERE es.submission_timestamp >= TIMESTAMP('2026-01-01 00:00:00+00')
+      WHERE es.submission_timestamp >= TIMESTAMP('2025-01-01 00:00:00+00')
       AND es.submission_timestamp < CURRENT_TIMESTAMP()
       AND es.metrics.string.session_flow_id IS NOT NULL
       AND es.event = 'cached_login.view'
@@ -252,7 +253,7 @@ view: auth_entrypoint_conversion {
       es.metrics.string.session_flow_id AS flow_id
       FROM `mozdata.accounts_frontend.events_stream` AS es
       CROSS JOIN params p
-      WHERE es.submission_timestamp >= TIMESTAMP('2026-01-01 00:00:00+00')
+      WHERE es.submission_timestamp >= TIMESTAMP('2025-01-01 00:00:00+00')
       AND es.submission_timestamp < CURRENT_TIMESTAMP()
       AND es.metrics.string.session_flow_id IS NOT NULL
       AND es.event = 'cached_login.success_view'
