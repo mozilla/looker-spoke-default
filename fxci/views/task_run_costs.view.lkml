@@ -8,9 +8,11 @@ view: task_run_costs {
     sql: CONCAT(${TABLE}.task_id, '-', ${TABLE}.run_id) ;;  }
 
   measure: total_cost {
-    type:  sum
+    type:  sum_distinct
     sql:  ${run_cost} ;;
+    sql_distinct_key: ${key} ;;
     value_format: "$#,##0.00"
     label: "Total Run Cost"
+    description: "Total task run cost, deduplicated by task run key."
   }
 }
