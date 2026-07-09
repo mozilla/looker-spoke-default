@@ -26,7 +26,7 @@ view: auth_entrypoint_conversion {
       SELECT
       es.metrics.string.session_flow_id AS flow_id,
       es.event AS first_view_event,
-      es.event_timestamp AS first_view_ts,
+      es.submission_timestamp AS first_view_ts,
       es.metrics.string.relying_party_oauth_client_id AS oauth_client_id,
       es.metrics.string.relying_party_service AS service,
       es.metrics.string.session_entrypoint AS entrypoint,
@@ -45,7 +45,7 @@ view: auth_entrypoint_conversion {
       )
       QUALIFY ROW_NUMBER() OVER (
       PARTITION BY es.metrics.string.session_flow_id
-      ORDER BY es.event_timestamp, es.event
+      ORDER BY es.submission_timestamp, es.event_timestamp, es.event
       ) = 1
       ),
 
@@ -70,7 +70,7 @@ view: auth_entrypoint_conversion {
       SELECT
       es.metrics.string.session_flow_id AS flow_id,
       es.event AS completion_event,
-      es.event_timestamp AS complete_ts
+      es.submission_timestamp AS complete_ts
       FROM `mozdata.accounts_backend.events_stream` AS es
       WHERE es.submission_timestamp >= TIMESTAMP('2025-01-01 00:00:00+00')
       AND es.submission_timestamp < CURRENT_TIMESTAMP()
@@ -113,7 +113,7 @@ view: auth_entrypoint_conversion {
       SELECT
       es.metrics.string.session_flow_id AS flow_id,
       es.event AS completion_event,
-      es.event_timestamp AS complete_ts,
+      es.submission_timestamp AS complete_ts,
       es.extras.string.reason AS authn_reason,
       CASE
       WHEN es.event = 'login.complete' THEN 'login'
