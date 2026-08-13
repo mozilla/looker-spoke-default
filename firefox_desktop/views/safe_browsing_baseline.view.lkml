@@ -63,7 +63,7 @@ view: +metrics__metrics__custom_distribution__urlclassifier_ui_events__values {
 
   dimension: ui_action {
     label: "UI Action"
-    description: "Warning shown, or which button the user pressed on the interstitial."
+    description: "Which button the user pressed. In practice only 'Leave site' and 'Proceed anyway' ever appear -- Firefox does not record 'Warning shown' or 'Why blocked'. Both are kept here because the IDL defines them."
     type: string
     sql: CASE
            WHEN ${event_code} IN (1, 5,  9, 13, 17, 21, 25, 29) THEN 'Warning shown'
@@ -121,7 +121,23 @@ view: +metrics__metrics__custom_distribution__urlclassifier_ui_events__values {
     hidden: yes
   }
 
-  # ---- volume ----
+  # IMPORTANT: only TWO of the 32 codes are ever recorded.
+  #
+  # BlockedSiteParent.sys.mjs:151-170 accumulates on exactly two button presses:
+  # goBackButton -> *_GET_ME_OUT_OF_HERE, and ignore_warning_link ->
+  # *_IGNORE_WARNING. The *_PAGE_TOP ("warning shown") and *_WHY_BLOCKED
+  # constants exist in the IDL but nothing accumulates them.
+  #
+  # Confirmed against 7 days of release data (2026-08-05..11): the only nonzero
+  # codes were 3, 4, 11, 12, 15, 16, 19, 20, 24 -- every one a leave-site or an
+  # override.
+  #
+  # So this probe CANNOT give a true bypass rate. There is no denominator for
+  # warnings displayed. What it gives is the split between the two buttons among
+  # users who pressed one. Users who saw the warning and silently closed the tab
+  # or navigated away are invisible here.
+  #
+  # Measures are named "share" rather than "rate" to keep that distinction.
 
   measure: event_count {
     label: "Event Count"
@@ -130,19 +146,11 @@ view: +metrics__metrics__custom_distribution__urlclassifier_ui_events__values {
     sql: ${value} ;;
   }
 
-  # ---- phishing, top-level page: the numbers MNTOR-5334 needs ----
+  # ---- phishing, top-level page ----
 
-  measure: phishing_warnings_shown {
-    label: "Phishing Warnings Shown"
-    description: "Code 9. Top-level phishing interstitials displayed."
-    type: sum
-    sql: ${value} ;;
-    filters: [event_code: "9"]
-  }
-
-  measure: phishing_warnings_overridden {
-    label: "Phishing Warnings Overridden"
-    description: "Code 12. The user chose to proceed to the site anyway."
+  measure: phishing_overrode {
+    label: "Phishing: Proceeded Anyway"
+    description: "Code 12. User pressed the override link and continued to the site."
     type: sum
     sql: ${value} ;;
     filters: [event_code: "12"]
@@ -150,93 +158,117 @@ view: +metrics__metrics__custom_distribution__urlclassifier_ui_events__values {
 
   measure: phishing_left_site {
     label: "Phishing: Left Site"
-    description: "Code 11. The user pressed 'Get me out of here'."
+    description: "Code 11. User pressed 'Get me out of here'."
     type: sum
     sql: ${value} ;;
     filters: [event_code: "11"]
   }
 
-  measure: phishing_why_blocked {
-    label: "Phishing: Why Blocked"
-    description: "Code 10."
+  measure: phishing_interactions {
+    label: "Phishing: Button Presses"
+    description: "Codes 11 + 12. NOT the number of warnings shown, which is not recorded."
     type: sum
     sql: ${value} ;;
-    filters: [event_code: "10"]
+    filters: [event_code: "11,12"]
   }
 
-  measure: phishing_override_rate {
-    label: "Phishing Override Rate"
-    description: "Overridden / Shown, top-level. A ceiling on how much better detection can buy us."
+  measure: phishing_override_share {
+    label: "Phishing Override Share"
+    description: "Proceeded Anyway / Button Presses. Share of INTERACTING users who overrode. Not a bypass rate -- silent leavers are not counted."
     type: number
-    sql: SAFE_DIVIDE(${phishing_warnings_overridden}, ${phishing_warnings_shown}) ;;
+    sql: SAFE_DIVIDE(${phishing_overrode}, ${phishing_interactions}) ;;
     value_format_name: percent_2
   }
 
-  measure: phishing_heeded_rate {
-    label: "Phishing Heeded Rate"
-    description: "Left Site / Shown, top-level."
-    type: number
-    sql: SAFE_DIVIDE(${phishing_left_site}, ${phishing_warnings_shown}) ;;
-    value_format_name: percent_2
-  }
-
-  measure: clients_shown_phishing_warning {
-    label: "Clients Shown A Phishing Warning"
-    type: count_distinct
-    sql: CASE WHEN ${event_code} = 9 AND ${value} > 0 THEN ${metrics.client_info__client_id} END ;;
-  }
-
-  measure: clients_overrode_phishing_warning {
+  measure: clients_overrode_phishing {
     label: "Clients Who Overrode A Phishing Warning"
     type: count_distinct
     sql: CASE WHEN ${event_code} = 12 AND ${value} > 0 THEN ${metrics.client_info__client_id} END ;;
   }
 
-  # ---- malware, top-level page: comparison for the phishing numbers ----
-
-  measure: malware_warnings_shown {
-    label: "Malware Warnings Shown"
-    description: "Code 1."
-    type: sum
-    sql: ${value} ;;
-    filters: [event_code: "1"]
+  measure: clients_left_phishing {
+    label: "Clients Who Left A Phishing Warning"
+    type: count_distinct
+    sql: CASE WHEN ${event_code} = 11 AND ${value} > 0 THEN ${metrics.client_info__client_id} END ;;
   }
 
-  measure: malware_warnings_overridden {
-    label: "Malware Warnings Overridden"
+  measure: phishing_overrides_per_client {
+    label: "Phishing Overrides Per Overriding Client"
+    description: "Whether overriding is a one-off or a habit."
+    type: number
+    sql: SAFE_DIVIDE(${phishing_overrode}, ${clients_overrode_phishing}) ;;
+    value_format: "0.00"
+  }
+
+  # ---- malware and unwanted, top-level page: comparison ----
+
+  measure: malware_overrode {
+    label: "Malware: Proceeded Anyway"
     description: "Code 4."
     type: sum
     sql: ${value} ;;
     filters: [event_code: "4"]
   }
 
-  measure: malware_override_rate {
-    label: "Malware Override Rate"
+  measure: malware_interactions {
+    label: "Malware: Button Presses"
+    description: "Codes 3 + 4."
+    type: sum
+    sql: ${value} ;;
+    filters: [event_code: "3,4"]
+  }
+
+  measure: malware_override_share {
+    label: "Malware Override Share"
     type: number
-    sql: SAFE_DIVIDE(${malware_warnings_overridden}, ${malware_warnings_shown}) ;;
+    sql: SAFE_DIVIDE(${malware_overrode}, ${malware_interactions}) ;;
+    value_format_name: percent_2
+  }
+
+  measure: unwanted_overrode {
+    label: "Unwanted: Proceeded Anyway"
+    description: "Code 20."
+    type: sum
+    sql: ${value} ;;
+    filters: [event_code: "20"]
+  }
+
+  measure: unwanted_interactions {
+    label: "Unwanted: Button Presses"
+    description: "Codes 19 + 20."
+    type: sum
+    sql: ${value} ;;
+    filters: [event_code: "19,20"]
+  }
+
+  measure: unwanted_override_share {
+    label: "Unwanted Override Share"
+    type: number
+    sql: SAFE_DIVIDE(${unwanted_overrode}, ${unwanted_interactions}) ;;
     value_format_name: percent_2
   }
 
   # ---- every threat type, page and iframe ----
 
-  measure: all_warnings_shown {
-    label: "All Warnings Shown"
-    type: sum
-    sql: ${value} ;;
-    filters: [ui_action: "Warning shown"]
-  }
-
-  measure: all_warnings_overridden {
-    label: "All Warnings Overridden"
+  measure: all_overrode {
+    label: "All: Proceeded Anyway"
     type: sum
     sql: ${value} ;;
     filters: [ui_action: "Proceed anyway"]
   }
 
-  measure: overall_override_rate {
-    label: "Overall Override Rate"
+  measure: all_left_site {
+    label: "All: Left Site"
+    type: sum
+    sql: ${value} ;;
+    filters: [ui_action: "Leave site"]
+  }
+
+  measure: overall_override_share {
+    label: "Overall Override Share"
+    description: "Proceeded Anyway / (Proceeded Anyway + Left Site), all threat types."
     type: number
-    sql: SAFE_DIVIDE(${all_warnings_overridden}, ${all_warnings_shown}) ;;
+    sql: SAFE_DIVIDE(${all_overrode}, ${all_overrode} + ${all_left_site}) ;;
     value_format_name: percent_2
   }
 }
@@ -253,20 +285,20 @@ view: +metrics__metrics__labeled_counter__urlclassifier_lookup_hit {
            WHEN ${label} = 'goog-malware-proto' THEN 'Malware'
            WHEN ${label} = 'goog-unwanted-proto' THEN 'Unwanted'
            WHEN ${label} = 'goog-harmful-proto' THEN 'Harmful'
-           WHEN ${label} IN ('goog-badbinurl-proto', 'goog-downloadwhite-proto') THEN 'Download protection'
+           WHEN ${label} = 'goog-badbinurl-proto' THEN 'Malicious download'
+           WHEN ${label} IN ('goog-downloadwhite-proto', 'google-trackwhite-digest256', 'mozstd-trackwhite-digest256') THEN 'Allowlist (a hit means KNOWN GOOD)'
            WHEN ${label} LIKE 'test-%' THEN 'Test'
            ELSE 'Tracking protection / other'
          END ;;
   }
 
-  dimension: is_safe_browsing {
-    label: "Is Safe Browsing List"
-    description: "Excludes tracking protection, fingerprinting, cryptomining, and test lists."
+  dimension: is_threat_list {
+    label: "Is Threat List"
+    description: "Threat lists only. Excludes ALLOWLISTS (downloadwhite, trackwhite), tracking protection, fingerprinting, cryptomining, and test lists."
     type: yesno
     sql: ${label} IN (
       'goog-phish-proto', 'googpub-phish-proto', 'goog-malware-proto',
-      'goog-unwanted-proto', 'goog-harmful-proto', 'goog-badbinurl-proto',
-      'goog-downloadwhite-proto'
+      'goog-unwanted-proto', 'goog-harmful-proto', 'goog-badbinurl-proto'
     ) ;;
   }
 
@@ -292,19 +324,19 @@ view: +metrics__metrics__labeled_counter__urlclassifier_lookup_miss {
            WHEN ${label} = 'goog-malware-proto' THEN 'Malware'
            WHEN ${label} = 'goog-unwanted-proto' THEN 'Unwanted'
            WHEN ${label} = 'goog-harmful-proto' THEN 'Harmful'
-           WHEN ${label} IN ('goog-badbinurl-proto', 'goog-downloadwhite-proto') THEN 'Download protection'
+           WHEN ${label} = 'goog-badbinurl-proto' THEN 'Malicious download'
+           WHEN ${label} IN ('goog-downloadwhite-proto', 'google-trackwhite-digest256', 'mozstd-trackwhite-digest256') THEN 'Allowlist (a hit means KNOWN GOOD)'
            WHEN ${label} LIKE 'test-%' THEN 'Test'
            ELSE 'Tracking protection / other'
          END ;;
   }
 
-  dimension: is_safe_browsing {
-    label: "Is Safe Browsing List"
+  dimension: is_threat_list {
+    label: "Is Threat List"
     type: yesno
     sql: ${label} IN (
       'goog-phish-proto', 'googpub-phish-proto', 'goog-malware-proto',
-      'goog-unwanted-proto', 'goog-harmful-proto', 'goog-badbinurl-proto',
-      'goog-downloadwhite-proto'
+      'goog-unwanted-proto', 'goog-harmful-proto', 'goog-badbinurl-proto'
     ) ;;
   }
 
