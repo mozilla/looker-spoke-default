@@ -1,4 +1,5 @@
 include: "/firefox_desktop/views/safe_browsing_baseline.view.lkml"
+include: "//looker-hub/firefox_desktop/datagroups/metrics_last_updated.datagroup.lkml"
 
 # Safe Browsing baseline — MNTOR-5334.
 #
@@ -65,6 +66,11 @@ explore: safe_browsing_baseline {
     relationship: one_to_many
     sql: LEFT JOIN UNNEST(${metrics.metrics__custom_distribution__application_reputation_server_verdict__values}) AS metrics__metrics__custom_distribution__application_reputation_server_verdict__values ;;
   }
+
+  # 28 days of this table is a slow scan -- first run measured ~7.5 minutes.
+  # Cache against the same datagroup the generated metrics explore uses, so
+  # repeat views are instant until the next ingestion.
+  persist_with: metrics_last_updated
 
   always_filter: {
     filters: [
