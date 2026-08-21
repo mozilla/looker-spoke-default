@@ -132,6 +132,10 @@ view: web_sessions {
       label: "GLAM"
       value: "glam"
     }
+    allowed_value: {
+      label: "Mozcloud Backstage"
+      value: "moz_backstage"
+    }
   }
 
   dimension_group: submission {
