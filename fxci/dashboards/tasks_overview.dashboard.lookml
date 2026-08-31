@@ -305,22 +305,11 @@
     model: fxci
     explore: tasks
     type: single_value
-    fields: [sum_of_run_cost]
+    fields: [task_run_costs.total_cost]
     filters:
       task_run_costs.submission_date: 6 months
     limit: 500
     column_limit: 50
-    dynamic_fields:
-    - category: measure
-      expression: ''
-      label: Sum of Run Cost
-      value_format:
-      value_format_name: decimal_2
-      based_on: task_run_costs.run_cost
-      _kind_hint: measure
-      measure: sum_of_run_cost
-      type: sum
-      _type_hint: number
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -337,6 +326,7 @@
       time.
     listen:
       Submission Date: task_runs.submission_date
+      Cloud Provider: task_run_costs.cloud_provider
     row: 0
     col: 16
     width: 8
@@ -346,23 +336,12 @@
     model: fxci
     explore: tasks
     type: looker_grid
-    fields: [tasks.tags__trust_domain, tasks.tags__kind, sum_of_run_cost]
+    fields: [tasks.tags__trust_domain, tasks.tags__kind, task_run_costs.total_cost]
     filters:
       tasks.submission_date: 6 months
       task_run_costs.submission_date: 6 months
     limit: 500
     column_limit: 50
-    dynamic_fields:
-    - category: measure
-      expression: ''
-      label: Sum of Run Cost
-      value_format:
-      value_format_name: decimal_0
-      based_on: task_run_costs.run_cost
-      _kind_hint: measure
-      measure: sum_of_run_cost
-      type: sum
-      _type_hint: number
     show_view_names: false
     show_row_numbers: true
     transpose: false
@@ -407,6 +386,7 @@
     hidden_pivots: {}
     listen:
       Submission Date: task_runs.submission_date
+      Cloud Provider: task_run_costs.cloud_provider
     row: 22
     col: 12
     width: 12
@@ -416,24 +396,13 @@
     model: fxci
     explore: tasks
     type: looker_grid
-    fields: [sum_of_run_cost, tasks.tags__trust_domain]
+    fields: [task_run_costs.total_cost, tasks.tags__trust_domain]
     filters:
       tasks.submission_date: 6 months
       task_run_costs.submission_date: 6 months
-    sorts: [sum_of_run_cost desc 0]
+    sorts: [task_run_costs.total_cost desc 0]
     limit: 500
     column_limit: 50
-    dynamic_fields:
-    - category: measure
-      expression: ''
-      label: Sum of Run Cost
-      value_format:
-      value_format_name: decimal_0
-      based_on: task_run_costs.run_cost
-      _kind_hint: measure
-      measure: sum_of_run_cost
-      type: sum
-      _type_hint: number
     show_view_names: false
     show_row_numbers: true
     transpose: false
@@ -480,6 +449,7 @@
     hidden_pivots: {}
     listen:
       Submission Date: task_runs.submission_date
+      Cloud Provider: task_run_costs.cloud_provider
     row: 14
     col: 12
     width: 12
@@ -489,34 +459,13 @@
     model: fxci
     explore: tasks
     type: looker_grid
-    fields: [tasks.task_queue_id, sum_of_run_cost]
+    fields: [tasks.task_queue_id, task_run_costs.total_cost]
     filters:
       tasks.submission_date: 6 months
       task_run_costs.submission_date: 6 months
-    sorts: [sum_of_run_cost desc 0]
+    sorts: [task_run_costs.total_cost desc 0]
     limit: 500
     column_limit: 50
-    dynamic_fields:
-    - category: measure
-      expression:
-      label: Num Task Runs
-      value_format:
-      value_format_name:
-      based_on: task_runs.key
-      _kind_hint: measure
-      measure: num_task_runs
-      type: count_distinct
-      _type_hint: number
-    - category: measure
-      expression: ''
-      label: Sum of Run Cost
-      value_format:
-      value_format_name: decimal_0
-      based_on: task_run_costs.run_cost
-      _kind_hint: measure
-      measure: sum_of_run_cost
-      type: sum
-      _type_hint: number
     show_view_names: false
     show_row_numbers: true
     transpose: false
@@ -563,6 +512,7 @@
     hidden_pivots: {}
     listen:
       Submission Date: task_runs.submission_date
+      Cloud Provider: task_run_costs.cloud_provider
     row: 6
     col: 12
     width: 12
@@ -582,3 +532,19 @@
     explore: tasks
     listens_to_filters: []
     field: task_runs.submission_date
+  - name: Cloud Provider
+    title: Cloud Provider
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: button_group
+      display: popover
+      options:
+      - azure
+      - gcp
+    model: fxci
+    explore: tasks
+    listens_to_filters: []
+    field: task_run_costs.cloud_provider
