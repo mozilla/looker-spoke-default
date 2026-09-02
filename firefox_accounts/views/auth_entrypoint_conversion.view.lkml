@@ -20,6 +20,8 @@ view: auth_entrypoint_conversion {
         FROM `mozdata.accounts_frontend.events_stream` AS es
         WHERE es.submission_timestamp >= TIMESTAMP('2025-01-01 00:00:00+00')
           AND es.submission_timestamp < CURRENT_TIMESTAMP()
+          -- Restrict frontend telemetry to production data.
+          AND es.client_info.app_channel = 'production'
           AND es.metrics.string.session_flow_id IS NOT NULL
           AND es.event IN (
             'email.first_view',
@@ -88,6 +90,8 @@ view: auth_entrypoint_conversion {
       FROM `mozdata.accounts_backend.events_stream` AS es
       WHERE es.submission_timestamp >= TIMESTAMP('2025-01-01 00:00:00+00')
       AND es.submission_timestamp < CURRENT_TIMESTAMP()
+       -- Restrict backend telemetry to production data.
+       AND es.client_info.app_channel = 'production'
       AND es.metrics.string.session_flow_id IS NOT NULL
       AND es.event IN (
       'login.complete',
@@ -223,6 +227,8 @@ view: auth_entrypoint_conversion {
       FROM `mozdata.accounts_frontend.events_stream` AS es
       WHERE es.submission_timestamp >= TIMESTAMP('2025-01-01 00:00:00+00')
       AND es.submission_timestamp < CURRENT_TIMESTAMP()
+      -- Restrict cached-login successes to production data.
+      AND es.client_info.app_channel = 'production'
       AND es.metrics.string.session_flow_id IS NOT NULL
       AND es.event = 'cached_login.success_view'
       ),
