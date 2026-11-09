@@ -17,7 +17,9 @@ explore:  tasks {
   join: task_run_costs {
     type: left_outer
     relationship: one_to_one
-    sql_on: ${task_runs.key} = ${task_run_costs.key};;
+    # Prune cost partitions in the join to keep runs without cost records.
+    sql_on: ${task_runs.key} = ${task_run_costs.key}
+      AND {% condition task_runs.submission_date %} ${task_run_costs.submission_date} {% endcondition %} ;;
   }
 
   join: workers {
