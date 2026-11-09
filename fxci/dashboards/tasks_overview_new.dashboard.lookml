@@ -50,6 +50,7 @@
     defaults_version: 1
     listen:
       Submission Date: task_runs.submission_date
+      Cloud Provider: task_run_costs.cloud_provider
     row: 12
     col: 0
     width: 36
@@ -86,9 +87,10 @@
     defaults_version: 1
     note_state: expanded
     note_display: below
-    note_text: Counts task runs, including retries and runs without cost records. The cloud filter applies only to cost tiles.
+    note_text: Counts task runs, including retries. When Cloud Provider is selected, only runs with a matching task-runtime cost record are included.
     listen:
       Submission Date: task_runs.submission_date
+      Cloud Provider: task_run_costs.cloud_provider
     row: 0
     col: 0
     width: 24
@@ -134,6 +136,7 @@
     defaults_version: 1
     listen:
       Submission Date: task_runs.submission_date
+      Cloud Provider: task_run_costs.cloud_provider
     row: 28
     col: 0
     width: 36
@@ -181,6 +184,7 @@
     defaults_version: 1
     listen:
       Submission Date: task_runs.submission_date
+      Cloud Provider: task_run_costs.cloud_provider
     row: 44
     col: 0
     width: 36
@@ -221,6 +225,7 @@
     defaults_version: 1
     listen:
       Submission Date: task_runs.submission_date
+      Cloud Provider: task_run_costs.cloud_provider
     row: 0
     col: 24
     width: 24
