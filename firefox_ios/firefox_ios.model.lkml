@@ -73,7 +73,6 @@ include: "//looker-hub/firefox_ios/views/temp_baseline_table.view.lkml"
 include: "//looker-hub/firefox_ios/explores/*.explore.lkml"
 include: "views/app_store_funnel_table.view.lkml"
 include: "views/counters.view.lkml"
-include: "views/growth.view.lkml"
 include: "views/metrics_counters.view.lkml"
 include: "views/usage.view.lkml"
 include: "dashboards/*.dashboard"
@@ -81,14 +80,6 @@ include: "explores/*"
 include: "datagroups/*"
 
 explore: usage {
-  always_filter: {
-    filters: [
-      submission_date: "26 weeks",
-    ]
-  }
-  sql_always_where: submission_date >= "2020-01-01" ;;
-}
-explore: growth {
   always_filter: {
     filters: [
       submission_date: "26 weeks",
