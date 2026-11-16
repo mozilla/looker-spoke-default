@@ -1243,6 +1243,12 @@
     filters:
       events_stream.event_category: 'email,email_mask'
     sorts: [events_stream.submission_date desc]
+    note_state: expanded
+    note_display: above
+    note_text: "Inaccurate. The Relay server sends has_extension as false on every
+      event until MPP-3765 adds a reliable extension install date, so every row
+      lands in the false series. This tile also counts email and mask events,
+      not daily active users."
     show_view_names: false
     show_null_points: true
     interpolation: monotone
@@ -1344,3 +1350,317 @@
     col: 0
     width: 15
     height: 12
+
+  # ===== PRODUCT USAGE SECTION (MPP-4805) =====
+
+  - name: product_usage_header
+    type: text
+    title_text: ''
+    body_text: |
+      <div style="border-bottom: solid 1px #4285F4; padding: 8px 0;">
+        <h2 style="color: #4285F4; margin: 0;">Product Usage</h2>
+      </div>
+    row: 96
+    col: 0
+    width: 24
+    height: 2
+
+  - title: Masks Created by Client Platform
+    name: Masks Created by Client Platform
+    model: relay_backend
+    explore: events_stream
+    type: looker_column
+    fields: [events_stream.submission_week, events_stream.extras__string__platform,
+      events_stream.event_count]
+    pivots: [events_stream.extras__string__platform]
+    filters:
+      events_stream.event_category: email_mask
+      events_stream.event_name: created
+    sorts: [events_stream.submission_week desc]
+    note_state: collapsed
+    note_display: hover
+    note_text: "Platform comes from the X-Relay-Client header. Only clients built on
+      the application-services Relay library send it, such as Firefox for Android.
+      Desktop Firefox, the add-on and the website send no header, so their masks
+      have an empty platform."
+    show_view_names: false
+    stacking: normal
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    legend_position: center
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    listen:
+      Submission Date: events_stream.submission_date
+    row: 98
+    col: 0
+    width: 12
+    height: 9
+
+  - title: Masks Created by Source
+    name: Masks Created by Source
+    model: relay_backend
+    explore: events_stream
+    type: looker_column
+    fields: [events_stream.submission_week, api_with_website, api_without_website,
+      incoming_email]
+    filters:
+      events_stream.event_category: email_mask
+      events_stream.event_name: created
+    sorts: [events_stream.submission_week desc]
+    dynamic_fields:
+    - measure: api_with_website
+      based_on: events_stream.event_count
+      label: API, for a Website
+      _kind_hint: measure
+      _type_hint: number
+      filter_expression: "${events_stream.extras__boolean__created_by_api} AND
+        ${events_stream.extras__boolean__has_website}"
+    - measure: api_without_website
+      based_on: events_stream.event_count
+      label: API, No Website
+      _kind_hint: measure
+      _type_hint: number
+      filter_expression: "${events_stream.extras__boolean__created_by_api} AND
+        NOT ${events_stream.extras__boolean__has_website}"
+    - measure: incoming_email
+      based_on: events_stream.event_count
+      label: Incoming Email
+      _kind_hint: measure
+      _type_hint: number
+      filter_expression: "NOT ${events_stream.extras__boolean__created_by_api}"
+    note_state: collapsed
+    note_display: hover
+    note_text: "For a Website: the client sent the site the mask is for. Desktop
+      Firefox always does. The add-on does only when the user turns on server
+      storage. No Website: includes masks made on the Relay dashboard. Incoming
+      Email: domain masks created when the first email arrives."
+    show_view_names: false
+    stacking: normal
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    legend_position: center
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    listen:
+      Submission Date: events_stream.submission_date
+    row: 98
+    col: 12
+    width: 12
+    height: 9
+
+  - title: Free Users at the 50-Mask Limit
+    name: Free Users at the 50-Mask Limit
+    model: relay_backend
+    explore: events_stream
+    type: looker_line
+    fields: [events_stream.submission_week, free_users, free_users_at_limit]
+    filters:
+      events_stream.event_category: 'email,email_mask'
+    sorts: [events_stream.submission_week desc]
+    dynamic_fields:
+    - measure: free_users
+      based_on: events_stream.extras__string__fxa_id
+      type: count_distinct
+      label: Free Users
+      _kind_hint: measure
+      _type_hint: number
+      filter_expression: "${events_stream.extras__string__premium_status} = \"free\""
+    - measure: free_users_at_limit
+      based_on: events_stream.extras__string__fxa_id
+      type: count_distinct
+      label: Free Users at Limit
+      _kind_hint: measure
+      _type_hint: number
+      filter_expression: "${events_stream.extras__string__premium_status} = \"free\"
+        AND (${events_stream.extras__quantity__n_random_masks} >= 50
+        OR (${events_stream.event_name} = \"deleted\"
+        AND ${events_stream.extras__boolean__is_random_mask}
+        AND ${events_stream.extras__quantity__n_random_masks} >= 49))"
+    - category: table_calculation
+      expression: "${free_users_at_limit}/${free_users}"
+      label: "% of Free Users at Limit"
+      value_format:
+      value_format_name: percent_1
+      _kind_hint: measure
+      table_calculation: pct_free_users_at_limit
+      _type_hint: number
+    hidden_fields: [free_users]
+    note_state: collapsed
+    note_display: hover
+    note_text: "Free users with 50 or more random masks on any email or mask event
+      that week. Delete events are logged after the delete, so a delete with 49
+      left also counts. Users at the limit who get no email and touch no mask that
+      week do not appear. Prod sets MAX_NUM_FREE_ALIASES to 50."
+    show_view_names: false
+    show_null_points: true
+    interpolation: monotone
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: false
+    listen:
+      Submission Date: events_stream.submission_date
+    row: 107
+    col: 0
+    width: 12
+    height: 9
+
+  - title: What Free Users at the Limit Did
+    name: What Free Users at the Limit Did
+    model: relay_backend
+    explore: events_stream
+    type: looker_line
+    fields: [events_stream.submission_week, deleted_a_mask, received_email]
+    filters:
+      events_stream.event_category: 'email,email_mask'
+      events_stream.extras__string__premium_status: free
+    sorts: [events_stream.submission_week desc]
+    dynamic_fields:
+    - measure: deleted_a_mask
+      based_on: events_stream.extras__string__fxa_id
+      type: count_distinct
+      label: Deleted a Mask
+      _kind_hint: measure
+      _type_hint: number
+      filter_expression: "${events_stream.event_name} = \"deleted\"
+        AND ${events_stream.extras__boolean__is_random_mask}
+        AND ${events_stream.extras__quantity__n_random_masks} >= 49"
+    - measure: received_email
+      based_on: events_stream.extras__string__fxa_id
+      type: count_distinct
+      label: Kept Receiving Email
+      _kind_hint: measure
+      _type_hint: number
+      filter_expression: "${events_stream.event_category} = \"email\"
+        AND ${events_stream.event_name} = \"forwarded\"
+        AND ${events_stream.extras__quantity__n_random_masks} >= 50"
+    note_state: collapsed
+    note_display: hover
+    note_text: "Distinct free users at the limit, by what they did that week.
+      Upgrades are not visible here. See the Relay SaaSboard for new
+      subscriptions. Firefox logs limit hits and mask reuse in its own
+      relay_integration events."
+    show_view_names: false
+    show_null_points: true
+    interpolation: monotone
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    listen:
+      Submission Date: events_stream.submission_date
+    row: 107
+    col: 12
+    width: 12
+    height: 9
+
+  - title: Weekly Active Phone Users
+    name: Weekly Active Phone Users
+    model: relay_backend
+    explore: events_stream
+    type: looker_line
+    fields: [events_stream.submission_week, phone_users, users_with_calls,
+      users_with_texts]
+    filters:
+      events_stream.event_category: phone
+    sorts: [events_stream.submission_week desc]
+    dynamic_fields:
+    - measure: phone_users
+      based_on: events_stream.extras__string__fxa_id
+      type: count_distinct
+      label: Any Call or Text
+      _kind_hint: measure
+      _type_hint: number
+    - measure: users_with_calls
+      based_on: events_stream.extras__string__fxa_id
+      type: count_distinct
+      label: Received a Call
+      _kind_hint: measure
+      _type_hint: number
+      filter_expression: "${events_stream.event_name} = \"call_received\""
+    - measure: users_with_texts
+      based_on: events_stream.extras__string__fxa_id
+      type: count_distinct
+      label: Received a Text
+      _kind_hint: measure
+      _type_hint: number
+      filter_expression: "${events_stream.event_name} = \"text_received\""
+    note_state: collapsed
+    note_display: hover
+    note_text: "Distinct users who received at least one call or text that week.
+      Phone events carry no purchase date, so this cannot show setup completion
+      or use by weeks since purchase. That needs a derived table joined to
+      subscriptions."
+    show_view_names: false
+    show_null_points: true
+    interpolation: monotone
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    listen:
+      Submission Date: events_stream.submission_date
+    row: 116
+    col: 0
+    width: 12
+    height: 9
+
+  - title: Calls and Texts per Active Phone User
+    name: Calls and Texts per Active Phone User
+    model: relay_backend
+    explore: events_stream
+    type: looker_line
+    fields: [events_stream.submission_week, events_stream.event_count, phone_users]
+    filters:
+      events_stream.event_category: phone
+    sorts: [events_stream.submission_week desc]
+    dynamic_fields:
+    - measure: phone_users
+      based_on: events_stream.extras__string__fxa_id
+      type: count_distinct
+      label: Phone Users
+      _kind_hint: measure
+      _type_hint: number
+    - category: table_calculation
+      expression: "${events_stream.event_count}/${phone_users}"
+      label: Calls and Texts per User
+      value_format:
+      value_format_name: decimal_1
+      _kind_hint: measure
+      table_calculation: phone_events_per_user
+      _type_hint: number
+    hidden_fields: [events_stream.event_count, phone_users]
+    show_view_names: false
+    show_null_points: true
+    interpolation: monotone
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    listen:
+      Submission Date: events_stream.submission_date
+    row: 116
+    col: 12
+    width: 12
+    height: 9
