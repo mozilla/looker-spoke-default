@@ -8,3 +8,4 @@ include: "/device_manufacturer_partnerships/explores/device_partnership_app_open
 include: "/device_manufacturer_partnerships/explores/fenix_distribution_deals.explore.lkml"
 include: "/device_manufacturer_partnerships/explores/fenix_preload_and_open.explore.lkml"
 include: "explores/*"
+include: "dashboards/*"
